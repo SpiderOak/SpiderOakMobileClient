@@ -7,7 +7,7 @@
     "backbone.basicauth": "https://github.com/fiznool/backbone.basicauth.git",
     "yepnope": "~1.5.4",
     "font-awesome": "~3.0.1",
-    "jQTouch": "https://github.com/SpiderOak/jQTouch/archive/master.zip", // use zipball to avoid symlink for compass-recipes
+    "jQTouch": "https://github.com/SpiderOak/jQTouch/archive/master.zip",
     "compass-recipes": "https://github.com/senchalabs/compass-recipes.git"
   }
 }

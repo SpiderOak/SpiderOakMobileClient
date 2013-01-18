@@ -1,6 +1,7 @@
 www/components
 node_modules
-platforms
+platforms/ios
+platforms/android
 www/js/SpiderOakMobile.js
 www/js/SpiderOakMobile.min.js
 _SpecRunner.html

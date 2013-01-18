@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name = "format-detection" content = "telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <title>SpiderOak Mobile</title>
+    <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css" />
+    <script type="text/javascript" src="components/jQTouch/lib/zepto/zepto.js"></script>
+
+    <script type="text/javascript" src="components/yepnope/yepnope.js"></script>
+    <script type="text/javascript">
+      yepnope({
+        test : $.os.android,
+        yep  : [
+          'css/vanilla.css'
+        ],
+        nope : [
+          'css/apple.css'
+        ],
+        complete: function(url, result, key) {
+          $('body').addClass((result)?"android":"ios");
+          // @FIXME: This seems cludgey
+          if (navigator.splashscreen) {
+            navigator.splashscreen.hide();
+          }
+          window.cssLoaded = true;
+        }
+      });
+    </script>
+    <script type="text/javascript" src="components/jQTouch/src/jqtouch.js"></script>
+    <!-- the menusheet extension js needs to be the last script tag in the head. Fragile, much? -->
+    <script type="text/javascript" src="components/jQTouch/extensions/jqt.menusheet.js"></script>
+    <!-- Load the app.css last -->
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+  </head>
+  <body>
+<!-- jQTouch container -->
+    <div id="jqt">
+<!-- Slide drawer menu -->
+      <div id="menusheet" class="menusheet">
+        <!-- Search input must be disabled during slide out animation to prevent ghost click focus -->
+        <form><ul class="edgetoedge search">
+          <li>
+            <i class="icon-search search-icon"></i>
+            <input type="search" name="menu-search" id="menu-search" autocomplete="off" autocorrect="off" placeholder="Search" results=5 autosave=menusearch />
+            <i class="icon-remove-sign clear-icon"></i>
+          </li>
+        </ul></form>
+        <div class="scroll">
+          <div style="padding:0 10px;">Devices</div>
+          <ul class="edgetoedge">
+            <li><a href="#" class="dismiss"><i class="icon-folder-open"></i> SpiderOak folder</a></li>
+            <li><a href="#" class="dismiss"><i class="icon-folder-open"></i> Device 1</a></li>
+            <li><a href="#" class="dismiss"><i class="icon-folder-open"></i> Device 2</a></li>
+            <li><a href="#" class="dismiss"><i class="icon-folder-open"></i> Device 3</a></li>
+          </ul>
+          <div style="padding:0 10px;">Sections</div>
+          <ul class="edgetoedge">
+            <li><a href="#" class="dismiss"><i class="icon-share"></i> Share rooms</a></li>
+            <li><a href="#" class="dismiss"><i class="icon-cog"></i> Settings</a></li>
+            <li><a href="#" class="dismiss"><i class="icon-signout"></i> Log out</a></li>
+          </ul>
+        </div>
+      </div>
+<!-- Device root and SpiderOak folder -->
+      <div id="main" class="current">
+        <div class="toolbar">
+          <a href="#menusheet" class="button leftButton menu"><i class="icon-align-justify icon-large"></i></a>
+          <h1>SpiderOak</h1>
+        </div>
+        <div class="scroll">
+          <!-- // -->
+        </div>
+      </div>
+    </div>
+<!-- JavaScripts -->
+    <!-- Cordova -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <!-- Components -->
+    <script type="text/javascript" src="components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="components/backbone/backbone.js"></script>
+    <script type="text/javascript" src="components/backbone.basicauth/backbone.basicauth.js"></script>
+    <!-- SpiderOakMobile script -->
+    <script type="text/javascript" src="js/SpiderOakMobile.js"></script>
+    <!-- initialization -->
+    <script type="text/javascript">
+      window.jQT = new $.jQTouch({
+        // jQTouch options
+      });
+      window.app && window.app.initialize();
+    </script>
+  </body>
+</html>

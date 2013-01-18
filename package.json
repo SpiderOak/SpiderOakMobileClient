@@ -1,0 +1,33 @@
+{
+  "name": "SpiderOakMobile",
+  "version": "0.1.0",
+  "description": "SpiderOak Mobile app",
+  "main": "index.html",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": "",
+  "author": "SpiderOak (http://www.spideroak.com)",
+  "contributors": [
+    {
+      "name": "Tommy-Carlos Williams",
+      "email": "tommy@devgeeks.org"
+    },
+    {
+      "name": "Ken Manheimer",
+      "email": "ken@spideroak.com"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "Apache2",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-shell": "0.1.x",
+    "grunt-jasmine-runner": "0.6.x",
+    "grunt-compass": "~0.3.7"
+  }
+}

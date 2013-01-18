@@ -1,0 +1,48 @@
+#jqt ul.edgetoedge {
+  margin: 0;
+}
+.ios #menusheet {
+  background-image: none;
+  background-color: #eee;
+}
+.ios #menusheet form ul.edgetoedge.search li {
+  padding: 5px;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.03, #ccc),
+    color-stop(0.52, #ddd),
+    color-stop(0.76, #eee)
+  );
+}
+.ios #menusheet form ul.edgetoedge li input[type=search] {
+  border: 1px solid #eee;
+  background-color: #fff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  border-radius: 15px;
+  padding: 0 0 0 28px;
+  margin: 0;
+  line-height: 26px;
+}
+.ios #menusheet .clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #aaa;
+  display: none;
+}
+.ios #menusheet .search-icon {
+  position: absolute;
+  left: 13px;
+  top: 12px;
+  color: #aaa;
+  font-size: 15px;
+}
+.ios #menusheet form ul li ::-webkit-input-placeholder {
+  color: #bfbfbf;
+  text-shadow: white 0 1px 0;
+  font-size: 15px;
+  padding-top: 2px;
+}
+

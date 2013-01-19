@@ -8,6 +8,7 @@
     "yepnope": "~1.5.4",
     "font-awesome": "~3.0.1",
     "jQTouch": "https://github.com/SpiderOak/jQTouch/archive/master.zip",
-    "compass-recipes": "https://github.com/senchalabs/compass-recipes.git"
+    "compass-recipes": "https://github.com/senchalabs/compass-recipes.git",
+    "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.min.js"
   }
 }

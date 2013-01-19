@@ -22,6 +22,10 @@ describe('spiderOakApp', function() {
       expect(window.Backbone.BasicAuth).toBeDefined();
     });
 
+    it('should have nibbler', function() {
+      expect(window.Nibbler).toBeDefined();
+    });
+
     // Remove if no longer using jQTouch
     it('should have jqtouch', function() {
       expect(window.$.jQTouch).toBeDefined();

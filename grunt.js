@@ -114,7 +114,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'lint concat compass:dev jasmine');
   // Custom tasks
   grunt.registerTask('test', 'lint concat jasmine');
-  grunt.registerTask('debug_ios', 'lint concat  compass:dev shell:debug_ios');
-  grunt.registerTask('debug_android', 'lint concat  compass:dev shell:debug_android');
+  grunt.registerTask('debug_ios', 'lint concat jasmine compass:dev shell:debug_ios');
+  grunt.registerTask('debug_android', 'lint concat jasmine compass:dev shell:debug_android');
 
 };

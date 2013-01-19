@@ -5,8 +5,13 @@
   background-image: none;
   background-color: #eee;
 }
-.ios #menusheet form ul.edgetoedge.search li {
-  padding: 5px;
+.ios #menusheet form ul {
+  box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-transform: translateZ(20px);
+}
+.ios #menusheet form ul.search li {
+  padding: 7px 5px;
   background-image: -webkit-gradient(
     linear,
     left bottom,

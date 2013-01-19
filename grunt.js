@@ -49,7 +49,7 @@ module.exports = function(grunt) {
     compass: {
       dev: {
         src: 'www/components/jQTouch/themes/scss',
-        dest: 'www/css',
+        dest: 'www/css/themes',
         outputstyle: 'expanded',
         linecomments: true,
         require: [
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
       },
       prod: {
         src: 'www/components/jQTouch/themes/scss',
-        dest: 'www/css/*.min.css',
+        dest: 'www/css/themes/min',
         outputstyle: 'compressed',
         linecomments: false,
         forcecompile: true,
@@ -111,7 +111,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
-  grunt.registerTask('default', 'lint concat jasmine compass:dev');
+  grunt.registerTask('default', 'lint concat compass:dev jasmine');
   // Custom tasks
   grunt.registerTask('test', 'lint concat jasmine');
   grunt.registerTask('debug_ios', 'lint concat  compass:dev shell:debug_ios');

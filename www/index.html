@@ -14,10 +14,10 @@
       yepnope({
         test : $.os.android,
         yep  : [
-          'css/vanilla.css'
+          'css/themes/vanilla.css'
         ],
         nope : [
-          'css/apple.css'
+          'css/themes/apple.css'
         ],
         complete: function(url, result, key) {
           $('body').addClass((result)?"android":"ios");

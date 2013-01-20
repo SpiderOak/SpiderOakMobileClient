@@ -5,10 +5,13 @@
   background-image: none;
   background-color: #eee;
 }
-.ios #menusheet form ul {
-  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+.ios .menuopened #menusheet form ul {
+  box-shadow: 0 0 5px rgba(0,0,0,0.6);
   -webkit-transform: translate3d(0, 0, 0);
   -webkit-transform: translateZ(20px);
+}
+.ios .menuopened #menusheet.in form ul {
+  box-shadow: none
 }
 .ios #menusheet form ul.search li {
   padding: 7px 5px;
@@ -49,5 +52,13 @@
   text-shadow: white 0 1px 0;
   font-size: 15px;
   padding-top: 2px;
+}
+.ios #menusheet .tip {
+  padding: 5px 10px;
+  background-color: #eee;
+}
+.ios #menusheet .sep {
+  padding: 0 10px;
+  background-color: #ccc;
 }
 

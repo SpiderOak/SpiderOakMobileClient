@@ -1,6 +1,6 @@
 # Overview
 
-SpiderOak is working on reimplementing its client applications for mobile devices as a central, platform-independent HTML5 / Javascript / CSS core with native extensions to fill in the functionality gaps. This is intended to replace the current, platform-specific native applications. We see many potential benefits to the html5 approach, among them being implementation in a widely used, comprehensible (if we're careful) medium that can be very useful to others.
+[SpiderOak](http://spideroak.com) is working on reimplementing its client applications for mobile devices as a central, platform-independent HTML5 / Javascript / CSS core with native extensions to fill in the functionality gaps. This is intended to replace the current, platform-specific native applications. We see many potential benefits to the html5 approach, among them being implementation in a widely used, comprehensible (if we're careful) medium that can be very useful to others.
 
 There are many ways that access to our code can be useful. It can serve as guidance to people as examples for using our APIs. It can serve as a basis for implementing idiosyncratic functionality that they need. It can provide the opportunity to contribute to and help grow this useful tool, itself. These and other reasons are why we make the code openly available, and the development process reasonably transparent.
 

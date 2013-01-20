@@ -48,7 +48,7 @@ module.exports = function(grunt) {
     },
     compass: {
       dev: {
-        src: 'www/components/jQTouch/themes/scss',
+        src: 'www/css/scss',
         dest: 'www/css/themes',
         outputstyle: 'expanded',
         linecomments: true,
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         ]
       },
       prod: {
-        src: 'www/components/jQTouch/themes/scss',
+        src: 'www/css/scss',
         dest: 'www/css/themes/min',
         outputstyle: 'compressed',
         linecomments: false,

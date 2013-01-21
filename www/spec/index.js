@@ -1,17 +1,23 @@
 describe('spiderOakApp', function() {
   describe('components', function() {
-    it('should have yepnope', function() {
-      expect(window.yepnope).toBeDefined();
+    describe('yepnope', function() {
+      it('should have yepnope', function() {
+        expect(window.yepnope).toBeDefined();
+      });
     });
 
-    it('should have zepto', function() {
-      expect(window.$).toBeDefined();
-      // not only should $ exist, but $ should be Zepto, not jQuery...
-      expect(window.$).toEqual(window.Zepto);
+    describe('zepto', function() {
+      it('should have zepto', function() {
+        expect(window.$).toBeDefined();
+        // not only should $ exist, but $ should be Zepto, not jQuery...
+        expect(window.$).toEqual(window.Zepto);
+      });
     });
 
-    it('should have underscore', function() {
-      expect(window._).toBeDefined();
+    describe('underscore', function() {
+      it('should have underscore', function() {
+        expect(window._).toBeDefined();
+      });
     });
 
     describe('backbone', function() {

@@ -1,17 +1,12 @@
 #jqt ul.edgetoedge {
   margin: 0;
 }
+#jqt > div {
+  background-image: none;
+}
 .ios #menusheet {
   background-image: none;
   background-color: #eee;
-}
-.ios .menuopened #menusheet form ul {
-  box-shadow: 0 0 5px rgba(0,0,0,0.6);
-  -webkit-transform: translate3d(0, 0, 0);
-  -webkit-transform: translateZ(20px);
-}
-.ios .menuopened #menusheet.in form ul {
-  box-shadow: none
 }
 .ios #menusheet form ul.search li {
   padding: 7px 5px;
@@ -36,14 +31,14 @@
 .ios #menusheet .clear-icon {
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 12px;
   color: #aaa;
   display: none;
 }
 .ios #menusheet .search-icon {
   position: absolute;
   left: 13px;
-  top: 12px;
+  top: 14px;
   color: #aaa;
   font-size: 15px;
 }

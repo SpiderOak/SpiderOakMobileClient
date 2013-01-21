@@ -16,9 +16,7 @@
     },
     onDeviceReady: function() {
       // @FIXME: This seems cludgey
-      if (window.cssLoaded && navigator.splashscreen) {
-        navigator.splashscreen.hide();
-      }
+      navigator.splashscreen.hide();
     }
   });
 

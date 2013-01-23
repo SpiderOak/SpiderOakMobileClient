@@ -2,6 +2,12 @@ language: node_js
 node_js:
   - "0.8"
 
+# set path and install components
 before_script:
   - export PATH=$PATH:`npm bin`
   - bower install
+
+# whitelist
+branches:
+  only:
+    - master

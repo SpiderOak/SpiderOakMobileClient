@@ -68,15 +68,17 @@
               <li><a href="#" class="dismiss"><i class="icon-star"></i> Favorites</a></li>
               <li><a href="#" class="dismiss"><i class="icon-time"></i> Recents</a></li>
               <li><a href="#" class="dismiss"><i class="icon-cog"></i> Settings</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-signout"></i> Log out</a></li>
+              <li><a href="#login" class="slideup"><i class="icon-signout"></i> Log out</a></li>
             </ul>
           </div>
         </div>
       </div>
 <!-- Device root and SpiderOak folder -->
-      <div id="main" class="current">
+      <div id="main" class="">
         <div class="toolbar">
-          <a href="#menusheet" class="button leftButton menu"><i class="icon-align-justify icon-large"></i></a>
+          <a href="#menusheet" class="button leftButton menu">
+            <i class="icon-align-justify icon-large"></i>
+          </a>
           <h1>SpiderOak</h1>
         </div>
         <div class="scroll">
@@ -84,6 +86,15 @@
             <!-- // -->
           </div>
         </div>
+      </div>
+<!-- Login screen -->
+      <div id="login" class="current">
+        <h1>SpiderOak</h1>
+        <ul class="rounded">
+          <li><input type="text" name="username" value="" placeholder="Username" /></li>
+          <li><input type="password" name="password" value="" placeholder="Password" /></li>
+        </ul>
+        <a href="#main" style="padding:5px;" class="slidedown blueButton">Login</a>
       </div>
     </div>
 <!-- JavaScripts -->

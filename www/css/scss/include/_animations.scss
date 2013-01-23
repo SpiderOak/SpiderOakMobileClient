@@ -161,14 +161,16 @@
 /* Slide Up */
 
 #jqt .slideup.in {
+    z-index: 10;
     -webkit-animation-name: slideUpIn;
 }
 #jqt .slideup.out {
+    z-index: 0;
     -webkit-animation-name: slideUpOut;
 }
 
 @-webkit-keyframes slideUpIn {
-    20% {
+    1% {
         -webkit-transform: translateY(80%);
     }
     100% {
@@ -178,10 +180,10 @@
 
 @-webkit-keyframes slideUpOut {
     20% {
-        -webkit-transform: translateY(-20%);
+        -webkit-transform: translateY(0);
     } 
     100% {
-        -webkit-transform: translateY(-100%);
+        -webkit-transform: translateY(0);
     }
 }
 
@@ -190,24 +192,26 @@
 /* Slide Down */
 
 #jqt .slidedown.in {
+    z-index: 0;
     -webkit-animation-name: slideDownIn;
 }
 #jqt .slidedown.out {
+    z-index: 10;
     -webkit-animation-name: slideDownOut;
 }
 
 @-webkit-keyframes slideDownIn {
     0% {
-        -webkit-transform: translateY(-80%);
+        -webkit-transform: translateY(0);
     } 
     100% {
-        -webkit-transform: translateY(0%);
+        -webkit-transform: translateY(0);
     }
 }
 
 @-webkit-keyframes slideDownOut {
     0% {
-        -webkit-transform: translateY(20%);
+        -webkit-transform: translateY(0%);
     } 
     100% {
         -webkit-transform: translateY(100%);

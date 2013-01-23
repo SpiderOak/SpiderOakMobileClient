@@ -57,18 +57,18 @@
             </div>
             <div class="sep">Devices</div>
             <ul class="edgetoedge">
-              <li><a href="#" class="dismiss"><i class="icon-folder-close icon-large"></i> SpiderOak folder</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-folder-close icon-large"></i> Device 1</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-folder-close icon-large"></i> Device 2</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-folder-close icon-large"></i> Device 3</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-folder-close"></i> SpiderOak folder</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-folder-close"></i> Device 1</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-folder-close"></i> Device 2</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-folder-close"></i> Device 3</a></li>
             </ul>
             <div class="sep">Sections</div>
             <ul class="edgetoedge">
-              <li><a href="#" class="dismiss"><i class="icon-cloud-upload icon-large"></i> Share rooms</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-star icon-large"></i> Favorites</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-time icon-large"></i> Recents</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-cog icon-large"></i> Settings</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-signout icon-large"></i> Log out</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-cloud-upload"></i> Share rooms</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-star"></i> Favorites</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-time"></i> Recents</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-cog"></i> Settings</a></li>
+              <li><a href="#" class="dismiss"><i class="icon-signout"></i> Log out</a></li>
             </ul>
           </div>
         </div>
@@ -102,6 +102,17 @@
         // jQTouch options
       });
       window.app && window.app.initialize();
+      // Hax fix for container scrolling while menu is open.
+      $('#jqt').on('scroll', function(event) {
+        // Snap back if not after about the half way point...
+        if (this.scrollLeft < ($(window).width() / 4)) {
+          this.scrollLeft = 0;
+        }
+        // Or close if it is...
+        else {
+          $('#menusheet').menusheet('hide');
+        }
+      });
     </script>
   </body>
 </html>

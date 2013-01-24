@@ -30,6 +30,7 @@
     "grunt": "~0.3.17",
     "grunt-shell": "0.1.x",
     "grunt-jasmine-runner": "0.6.x",
+    "sinon": "1.5.x",
     "grunt-compass": "~0.3.7"
   }
 }

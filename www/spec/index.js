@@ -29,6 +29,12 @@ describe('spiderOakApp', function() {
       });
     });
 
+    describe('sinon', function() {
+      it('should have sinon', function() {
+        expect(window.sinon).toBeDefined();
+      });
+    });
+
     describe('nibbler', function() {
       it('should have nibbler', function() {
         expect(window.Nibbler).toBeDefined();

@@ -12,7 +12,6 @@
   _.extend(spiderOakApp, {
     initialize: function() {
       document.addEventListener("deviceready", spiderOakApp.onDeviceReady, false);
-      spiderOakApp.mainView = new spiderOakApp.MainView().render();
     },
     onDeviceReady: function() {
       // @FIXME: This seems cludgey

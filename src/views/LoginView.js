@@ -9,8 +9,8 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.MainView = Backbone.View.extend({
-    el: "#main",
+  spiderOakApp.LoginView = Backbone.View.extend({
+    el: "#login",
     events: {
       // ...
     },
@@ -23,12 +23,13 @@
       return this;
     },
     pageAnimationStart_handler: function(event, data) {
-      // console.log("main.pageAnimationStart - " + data.direction);
+      // ...
     },
     pageAnimationEnd_handler: function(event, data) {
-      // console.log("main.pageAnimationEnd - " + data.direction);
+      // ...
     }
   });
-  spiderOakApp.mainView = new spiderOakApp.MainView().render();
+  spiderOakApp.loginView = new spiderOakApp.LoginView().render();
+
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

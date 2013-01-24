@@ -33,6 +33,15 @@ describe('spiderOakApp', function() {
       it('should have sinon', function() {
         expect(window.sinon).toBeDefined();
       });
+      it('should have sinon spies', function() {
+        expect(window.sinon.spy).toBeDefined();
+      });
+      it('should have sinon mocks', function() {
+        expect(window.sinon.mock).toBeDefined();
+      });
+      it('should have sinon stubs', function() {
+        expect(window.sinon.stub).toBeDefined();
+      });
     });
 
     describe('nibbler', function() {

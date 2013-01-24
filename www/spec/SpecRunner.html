@@ -13,6 +13,7 @@
     <script type="text/javascript" src="/jasmine/lib/jasmine-core/jasmine-html.js"></script>
 -->
 
+    <!-- Bower components -->
     <script type="text/javascript" src="/www/components/jQTouch/lib/zepto/zepto.js"></script>
     <script type="text/javascript" src="/www/components/yepnope/yepnope.js"></script>
     <script type="text/javascript" src="/www/components/underscore/underscore.js"></script>
@@ -21,30 +22,40 @@
     <script type="text/javascript" src="/www/components/Nibbler.min/index.js"></script>
     <script type="text/javascript" src="/www/components/jQTouch/src/jqtouch.js"></script>
     <script type="text/javascript" src="/www/components/jQTouch/extensions/jqt.menusheet.js"></script>
-    
+
+    <!-- Jasmine -->    
     <script type="text/javascript" src="/node_modules/grunt-jasmine-runner/jasmine/lib/jasmine-core/jasmine.js"></script>
-    
     <script type="text/javascript" src="/node_modules/grunt-jasmine-runner/jasmine/lib/jasmine-core/jasmine-html.js"></script>
-        
+
+    <!-- Sinon.JS - might need more individual libs -->
+    <script type="text/javascript" src="/node_modules/sinon/lib/sinon.js"></script>
+    <script type="text/javascript" src="/node_modules/sinon/lib/sinon/spy.js"></script>
+    <script type="text/javascript" src="/node_modules/sinon/lib/sinon/stub.js"></script>
+    <script type="text/javascript" src="/node_modules/sinon/lib/sinon/mock.js"></script>
+
+    <!-- SpiderOak app js -->
     <script type="text/javascript" src="/www/js/SpiderOakMobile.js"></script>
     
+    <!-- Specs -->
     <script type="text/javascript" src="/www/spec/helper.js"></script>
-    
     <script type="text/javascript" src="/www/spec/index.js"></script>
     
+    <!-- Phantom -->
     <script type="text/javascript" src="/node_modules/grunt-jasmine-runner/tasks/jasmine/phantom-helper.js"></script>
-    
     <script type="text/javascript" src="/node_modules/grunt-jasmine-runner/tasks/jasmine/reporters/ConsoleReporter.js"></script>
     
+    <!-- Reporters, etc -->
     <script type="text/javascript" src="/node_modules/grunt-jasmine-runner/tasks/jasmine/reporters/JUnitReporter.js"></script>
-    
     <script type="text/javascript" src="/node_modules/grunt-jasmine-runner/tasks/jasmine/jasmine-helper.js"></script>
     
     
 
 </head>
-    <div id="menu"></div>
-    <div id="main"></div>
+    <!-- some HTML structures in case we need them -->
+    <div id="jqt">
+        <div id="menusheet" class="menusheet">
+        <div id="main" class="current"></div>
+    </div>
 <body>
 </body>
 </html>

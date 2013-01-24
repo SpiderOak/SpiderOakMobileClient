@@ -3,6 +3,7 @@
 }
 #jqt > div {
   background-image: none;
+  background-color: #fff;
 }
 .ios #menusheet {
   background-image: none;

@@ -24,11 +24,11 @@
     },
     pageAnimationStart_handler: function(event, data) {
       // console.log("main.pageAnimationStart - " + data.direction);
-
     },
     pageAnimationEnd_handler: function(event, data) {
       // console.log("main.pageAnimationEnd - " + data.direction);
     }
   });
+  spiderOakApp.mainView = new spiderOakApp.MainView().render();
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

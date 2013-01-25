@@ -12,11 +12,10 @@
   _.extend(spiderOakApp, {
     initialize: function() {
       document.addEventListener("deviceready", spiderOakApp.onDeviceReady, false);
-      spiderOakApp.mainView = new spiderOakApp.MainView().render();
     },
     onDeviceReady: function() {
       // @FIXME: This seems cludgey
-      navigator.splashscreen.hide();
+      if (window.cssLoaded) navigator.splashscreen.hide();
     }
   });
 

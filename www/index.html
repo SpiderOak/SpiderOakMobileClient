@@ -17,7 +17,7 @@
           'css/themes/vanilla.css'
         ],
         nope : [
-          'css/themes/apple.css'
+          'css/themes/spideroak-ios.css'
         ],
         complete: function(url, result, key) {
           $('body').addClass((result)?"android":"ios");
@@ -68,15 +68,17 @@
               <li><a href="#" class="dismiss"><i class="icon-star"></i> Favorites</a></li>
               <li><a href="#" class="dismiss"><i class="icon-time"></i> Recents</a></li>
               <li><a href="#" class="dismiss"><i class="icon-cog"></i> Settings</a></li>
-              <li><a href="#" class="dismiss"><i class="icon-signout"></i> Log out</a></li>
+              <li><a href="#login" class="slideup"><i class="icon-signout"></i> Log out</a></li>
             </ul>
           </div>
         </div>
       </div>
 <!-- Device root and SpiderOak folder -->
-      <div id="main" class="current">
+      <div id="main" class="">
         <div class="toolbar">
-          <a href="#menusheet" class="button leftButton menu"><i class="icon-align-justify icon-large"></i></a>
+          <a href="#menusheet" class="button leftButton menu">
+            <i class="icon-align-justify icon-large"></i>
+          </a>
           <h1>SpiderOak</h1>
         </div>
         <div class="scroll">
@@ -84,6 +86,26 @@
             <!-- // -->
           </div>
         </div>
+      </div>
+<!-- Login screen -->
+      <!-- @FIXME: Inline styles -->
+      <div id="login" class="current">
+        <div class="login-logo straight"></div>
+        <form action="#" id="form-login">
+          <ul class="rounded">
+            <li><input id="username" type="text" name="username" placeholder="Username" /></li>
+            <li><input id="password" type="password" name="password" placeholder="Password" /></li>
+          </ul>
+          <div style="position:relative">
+            <button type="submit" class="whiteButton loginButton">Log In</button>
+            <div class="switch">
+              <span class="thumb"></span>
+              <input type="checkbox" />
+            </div>
+            <div class="switch-label">Remember Me</div>
+          </div>
+        </form>
+        <button class="orangeButton shareRoomsButton">Share Rooms</button>
       </div>
     </div>
 <!-- JavaScripts -->

@@ -2,30 +2,38 @@
   margin: 0;
 }
 #jqt > div {
-  background-image: none;
+  background-image: url(../img/cream_dust_@2X.png);
   background-color: #fff;
 }
 .ios #menusheet {
   background-image: none;
-  background-color: #eee;
+  background-color: #333;
+}
+.ios #menusheet ul li a {
+  background-color: #ccc;
+  border-color: #333;
+  color: #333;
+}
+.ios #menusheet form ul.search {
+  margin-left: -1px;
 }
 .ios #menusheet form ul.search li {
-  padding: 7px 5px;
+  padding: 8px 5px;
   background-image: -webkit-gradient(
     linear,
     left bottom,
     left top,
-    color-stop(0.03, #ccc),
-    color-stop(0.52, #ddd),
-    color-stop(0.76, #eee)
+    color-stop(0.03, #222),
+    color-stop(0.52, #444),
+    color-stop(0.76, #666)
   );
 }
 .ios #menusheet form ul.edgetoedge li input[type=search] {
   border: 1px solid #eee;
   background-color: #fff;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
   border-radius: 15px;
-  padding: 0 0 0 28px;
+  padding: 0 28px 0 28px;
   margin: 0;
   line-height: 26px;
 }
@@ -51,11 +59,13 @@
 }
 .ios #menusheet .tip {
   padding: 5px 10px;
-  background-color: #eee;
+  background-color: #666;
+  color: #ccc;
 }
 .ios #menusheet .sep {
   padding: 0 10px;
-  background-color: #ccc;
+  background-color: #333;
+  color: #ccc;
 }
 .ios #login form {
   -webkit-transform: translateZ(10px);

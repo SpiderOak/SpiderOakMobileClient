@@ -78,7 +78,7 @@ module.exports = function(grunt) {
       files: [
         '<config:lint.files>',
         'www/spec/**/*.js',
-        'www/components/jQTouch/themes/scss/*.scss'
+        'www/css/**/*.scss'
       ],
       tasks: 'lint concat jasmine compass:dev'
     },

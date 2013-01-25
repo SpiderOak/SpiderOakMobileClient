@@ -62,24 +62,41 @@
 }
 .ios #login .login-logo {
   background: url(../img/brand_logo.png) center top no-repeat;
-  -webkit-background-size: 120px 120px;
+  -webkit-background-size: 130px 130px;
   height: 120px;
   width:100%;
 }
 .ios #login .login-logo.rotated {
-  -webkit-transform: rotate(17.5deg) translate(-60px, 75px);
+  -webkit-transform: rotate(17.5deg) translate(-60px, 70px);
 }
-.ios #login button.whiteButton {
-  margin: 0 10px;
-  position: absolute;
-  left: 0;
-  font-size: 14px;
-}
-.ios #login button.blueButton {
+.ios #login .loginButton {
   position: absolute;
   right: 0;
   padding: 10px 60px;
   margin: 0 10px;
   font-size: 14px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ios #login .shareRoomsButton {
+  margin: 0 10px;
+  position: absolute;
+  left: 0;
+  font-size: 14px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ios #login .switch {
+  position: absolute;
+  margin: 0 10px;
+  right: 0;
+  top: 50px;
+}
+.ios #login .switch-label {
+  font-size: 12px;
+  position: absolute;
+  margin: 0 10px;
+  right: 0;
+  top: 83px;
 }
 

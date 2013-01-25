@@ -57,4 +57,29 @@
   padding: 0 10px;
   background-color: #ccc;
 }
+.ios #login form {
+  -webkit-transform: translateZ(10px);
+}
+.ios #login .login-logo {
+  background: url(../img/brand_logo.png) center top no-repeat;
+  -webkit-background-size: 120px 120px;
+  height: 120px;
+  width:100%;
+}
+.ios #login .login-logo.rotated {
+  -webkit-transform: rotate(17.5deg) translate(-60px, 75px);
+}
+.ios #login button.whiteButton {
+  margin: 0 10px;
+  position: absolute;
+  left: 0;
+  font-size: 14px;
+}
+.ios #login button.blueButton {
+  position: absolute;
+  right: 0;
+  padding: 10px 60px;
+  margin: 0 10px;
+  font-size: 14px;
+}
 

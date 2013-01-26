@@ -10,7 +10,7 @@
       $           = window.$;
 
   spiderOakApp.FoldersCollection = Backbone.Collection.extend({
-    // ...
+    model: spiderOakApp.FolderModel,
     parse: function(resp, xhr) {
       // window.console.log(resp);
       var folders = [];

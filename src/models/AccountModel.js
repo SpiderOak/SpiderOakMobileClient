@@ -1,5 +1,5 @@
 /**
- * FilesCollection.js
+ * AccountModel.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -9,12 +9,8 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FilesCollection = Backbone.Collection.extend({
-    model: spiderOakApp.FileModel,
-    parse: function(resp, xhr) {
-      // window.console.log(resp);
-      return resp.files;
-    }
+  spiderOakApp.AccountModel = Backbone.Model.extend({
+    // ...
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

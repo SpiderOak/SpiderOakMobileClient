@@ -50,7 +50,48 @@
     form_submitHandler: function(event) {
       this.$('input').blur();
       // @FIXME: Repace with actual login procedure
-      window.jQT.goTo('#main','slidedown');
+      var username = $('#username').val();
+      var b32username = spiderOakApp.nibbler.encode($('#username').val());
+      var password = $('#password').val();
+
+      // Pop us some kinda blocker/spinner
+      $.ajax({
+        type: "POST",
+        url: "https://spideroak.com/storage/"+b32username+"/login",
+        data: {
+          password: password
+        },
+        success: function(data, status, xhr) {
+          // console.log([data, status, xhr]);
+          if (/^login:/.test(data)) {
+            // Try again at appropriate DC
+            $.ajax({
+              type: "POST",
+              url: data,
+              data: {
+                password: password
+              },
+              success: function(data, status, xhr) {
+                // console.log([data, status, xhr]);
+                // Unblock the spinner
+                window.jQT.goTo("#main","slidedown");
+              },
+              error: function(xhr, errorType, error) {
+                // console.log([xhr, errorType, error]);
+                navigator.notification.alert("Authentication failed. Please check your details and try again.", null, 'Authentication Error');
+              }
+            });
+          }
+          else {
+            // Unblock the spinner
+            window.jQT.goTo("#main","slidedown");
+          }
+        },
+        error: function(xhr, errorType, error) {
+          // console.log([xhr, errorType, error]);
+          navigator.notification.alert("Authentication failed. Please check your details and try again.", null, 'Authentication Error');
+        }
+      });
     },
     loginButton_tapHandler: function(event) {
       this.$('input').blur();

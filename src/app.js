@@ -12,6 +12,12 @@
   _.extend(spiderOakApp, {
     initialize: function() {
       document.addEventListener("deviceready", spiderOakApp.onDeviceReady, false);
+      spiderOakApp.nibbler = new window.Nibbler({
+        dataBits: 8,
+        codeBits: 5,
+        keyString: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567',
+        pad: ''
+      });
     },
     onDeviceReady: function() {
       // @FIXME: This seems cludgey

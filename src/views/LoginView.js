@@ -62,7 +62,6 @@
           password: password
         },
         success: function(data, status, xhr) {
-          // console.log([data, status, xhr]);
           if (/^login:/.test(data)) {
             // Try again at appropriate DC
             $.ajax({
@@ -72,7 +71,11 @@
                 password: password
               },
               success: function(data, status, xhr) {
-                // console.log([data, status, xhr]);
+                // Set the basicauth details
+                Backbone.BasicAuth.set(username,password);
+                // Set the b32username
+                spiderOakApp.b32username = b32username;
+                // Set the keychain credentials
                 // Unblock the spinner
                 window.jQT.goTo("#main","slidedown");
               },
@@ -83,12 +86,16 @@
             });
           }
           else {
+            // Set the basicauth details
+            Backbone.BasicAuth.set(username,password);
+            // Set the b32username
+            spiderOakApp.b32username = b32username;
+            // Set the keychain credentials
             // Unblock the spinner
             window.jQT.goTo("#main","slidedown");
           }
         },
         error: function(xhr, errorType, error) {
-          // console.log([xhr, errorType, error]);
           navigator.notification.alert("Authentication failed. Please check your details and try again.", null, 'Authentication Error');
         }
       });

@@ -6,7 +6,10 @@
   "scripts": {
     "test": "grunt test"
   },
-  "repository": "",
+  "repository": { 
+    "type": "git",
+    "url": "https://github.com/SpiderOak/SpiderOakMobileClient.git"
+  },
   "author": "SpiderOak (http://www.spideroak.com)",
   "contributors": [
     {

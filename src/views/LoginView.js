@@ -32,7 +32,15 @@
       return this;
     },
     pageAnimationStart_handler: function(event, data) {
-      // ...
+      // Assume that if this view is being displayed it is due to logging out or needing reauthentication
+      if (data.direction === "in") {
+        // Clear inputs
+        $('#username').val("");
+        $('#password').val("");
+        spiderOakApp.accountModel.logout(function() {
+          spiderOakApp.accountModel = undefined;
+        });
+      }
     },
     pageAnimationEnd_handler: function(event, data) {
       // ...
@@ -49,8 +57,28 @@
     },
     form_submitHandler: function(event) {
       this.$('input').blur();
-      // @FIXME: Repace with actual login procedure
-      window.jQT.goTo('#main','slidedown');
+      var username = $('#username').val();
+      var password = $('#password').val();
+      var rememberme = $('#rememberme').is(':checked');
+
+      var success = function(apiRoot) {
+        // @TODO: Do something with the apiRoot
+        // Store the "remember me" setting
+        account.set("rememberme",rememberme);
+        // @TODO: Unblock spinner
+        // Navigate away...
+        window.jQT.goTo("#main","slidedown");
+      };
+      var error = function(status, error) {
+        // @TODO: Are there more options than just 403?
+        // Clear it out
+        spiderOakApp.accountModel = account = undefined;
+        // @TODO: Unblock spinner
+        navigator.notification.alert("Authentication failed. Please check your details and try again.", null, "Authentication error", "OK");
+      };
+
+      var account = spiderOakApp.accountModel = new spiderOakApp.AccountModel();
+      account.login(username, password, success, error);
     },
     loginButton_tapHandler: function(event) {
       this.$('input').blur();
@@ -62,7 +90,8 @@
     },
     switch_tapHandler: function(event) {
       var $this = $(event.target).hasClass('switch') ? $(event.target) : $(event.target).closest('.switch');
-      $this.find('input[type=checkbox]').attr('checked',!$this.find('input[type=checkbox]').attr('checked'));
+      var $checkbox = $this.find('input[type=checkbox]');
+      $checkbox.attr('checked',!$checkbox.is(':checked'));
       $this.toggleClass('on');
     }
   });

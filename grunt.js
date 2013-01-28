@@ -29,9 +29,19 @@ module.exports = function(grunt) {
       dist: {
         src: [
           '<banner:meta.banner>',
-          'src/models/*.js',
-          'src/collections/*.js',
-          'src/views/*.js',
+          'src/models/AccountModel.js',
+          'src/models/FileModel.js',
+          'src/models/FolderModel.js',
+          'src/models/DeviceModel.js',
+          'src/models/SpiderOakFolderModel.js',
+          'src/models/MyShareRoomsModel.js',
+          'src/collections/FoldersCollection.js',
+          'src/collections/FilesCollection.js',
+          'src/collections/DevicesCollection.js',
+          'src/views/FolderView.js',
+          'src/views/LoginView.js',
+          'src/views/MainView.js',
+          'src/views/MenuSheetView.js',
           'src/app.js'
         ],
         dest: 'www/js/<%= pkg.name %>.js'

@@ -1,4 +1,4 @@
-describe('spiderOakApp', function() {
+describe('Application setup', function() {
   describe('components', function() {
     describe('yepnope', function() {
       it('should have yepnope', function() {
@@ -88,11 +88,130 @@ describe('spiderOakApp', function() {
       
       waitsFor(function(){
         return (spiderOakApp.onDeviceReady.calls.length > 0);
-      }, "deviceready should be called once", 500);
+      }, "deviceready to be called once", 10);
       
       runs(function(){
         expect(spiderOakApp.onDeviceReady).toHaveBeenCalled();
       });
+    });
+  });
+
+});
+
+describe('AccountModel', function() {
+  beforeEach(function(){
+    this.server = sinon.fakeServer.create();
+    this.username = "testusername";
+    this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
+    this.password = "testpassword";
+    this.accountModel = new spiderOakApp.AccountModel();
+  });
+
+  afterEach(function() {
+    this.accountModel = undefined;
+    this.server.restore();
+  });
+
+  // @FIXME: Add in jasmine-sinon to make sinon behave better
+  describe('successful basic login', function(){
+    beforeEach(function(){
+      this.successSpy = sinon.spy();
+      this.errorSpy = sinon.spy();
+      this.server.respondWith(
+        "POST",
+        "https://spideroak.com/storage/"+this.b32username+"/login",
+        [200, {"Content-Type": "text/html"}, "location:/some/location"]
+      );
+      this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+      this.server.respond();
+    });
+    it('should call the server using POST', function() {
+      expect(this.server.requests[0].method).toEqual("POST");
+    });
+    it('should properly encode the username', function() {
+      expect(this.server.requests[0].url).toEqual("https://spideroak.com/storage/ORSXG5DVONSXE3TBNVSQ/login");
+    });
+    it('should set accountModel rememberme attribute to false by default', function() {
+      expect(this.accountModel.get("rememberme")).toBeFalsy();
+    });
+    it('should be able to set accountModel rememberme attribute to true', function() {
+      this.accountModel.set("rememberme",true);
+      expect(this.accountModel.get("rememberme")).toBeTruthy();
+    });
+    it('should call the default success callback', function() {
+      expect(this.successSpy.calledOnce).toBeTruthy();
+      expect(this.successSpy.calledWith(
+        "https://spideroak.com/"
+      )).toBeTruthy();
+    });
+    it('should set accountModel b32username upon successful login', function() {
+      expect(this.accountModel.get("b32username")).toEqual(this.b32username);
+    });
+  });
+  
+  describe('backbone basic authentication', function() {
+    it('should set Backbone.BasicAuth', function() {
+      runs(function() {
+        spyOn(Backbone.BasicAuth,'set');
+        this.accountModel.login(this.username, this.password, function(){}, function(){});
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/storage/"+this.b32username+"/login",
+          [200, {"Content-Type": "text/plain"}, "location:/some/location"]
+        );
+        this.server.respond();
+      });
+      waitsFor(function() {
+        return (Backbone.BasicAuth.set.calls.length > 0);
+      },"Backbone.BasicAuth.set to be called once",10);
+      runs(function() {
+        expect(Backbone.BasicAuth.set).toHaveBeenCalledWith(this.username, this.password);
+      });
+    });
+  });
+
+  describe('successful alternate login', function() {
+    beforeEach(function(){
+      this.successSpy = sinon.spy();
+      this.errorSpy = sinon.spy();
+      this.server.respondWith(
+        "POST",
+        "https://spideroak.com/storage/"+this.b32username+"/login",
+        [200, {"Content-Type": "text/html"}, "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"]
+      );
+      this.server.respondWith(
+        "POST",
+        "https://alternate-dc.spideroak.com/"+this.b32username+"/login",
+        [200, {"Content-Type": "text/html"}, "location:/some/other/location"]
+      );
+      this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+      this.server.respond();
+    });
+    it('should call the alternate server using POST', function() {
+      expect(this.server.requests[1].method).toEqual("POST");
+    });
+    it('should call the alternate success callback', function() {
+      expect(this.successSpy.calledOnce).toBeTruthy();
+      expect(this.successSpy.calledWith(
+        "https://alternate-dc.spideroak.com/"
+      )).toBeTruthy();
+    });
+    it('should set accountModel b32username upon successful alternate login', function() {
+      expect(this.accountModel.get("b32username")).toEqual(this.b32username);
+    });
+  });
+
+  describe('unsuccessful basic login', function() {
+    beforeEach(function(){
+      this.successSpy = sinon.spy();
+      this.errorSpy = sinon.spy();
+      this.server.respondWith(
+        "POST",
+        "https://spideroak.com/storage/"+this.b32username+"/login",
+        [200, {"Content-Type": "text/html"}, "location:/some/location"]
+      );
+      this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+      this.server.respond();
     });
   });
 

@@ -24,6 +24,17 @@
     render: function() {
       // $('#menusheet').menusheet('init');
       this.$('input[type=search]').attr('disabled',true);
+      // Hax fix for container scrolling while menu is open.
+      $('#jqt').on('scroll', function(event) {
+        // Snap back if not after about the half way point...
+        if (this.scrollLeft < ($(window).width() / 4)) {
+          this.scrollLeft = 0;
+        }
+        // Or close if it is...
+        else {
+          $('#menusheet').menusheet('hide');
+        }
+      });
       return this;
     },
     pageAnimationStart_handler: function(event, data) {

@@ -19,11 +19,4 @@
     }
   });
 
-  // notification.alert polyfill for browser testing
-  navigator.notification = navigator.notification || {
-    alert: function(msg,cb,title,button) {
-      window.alert(msg);
-    }
-  };
-
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

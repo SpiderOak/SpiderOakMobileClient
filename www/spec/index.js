@@ -1,4 +1,4 @@
-describe('spiderOakApp', function() {
+describe('Application setup', function() {
   describe('components', function() {
     describe('yepnope', function() {
       it('should have yepnope', function() {
@@ -88,7 +88,7 @@ describe('spiderOakApp', function() {
       
       waitsFor(function(){
         return (spiderOakApp.onDeviceReady.calls.length > 0);
-      }, "deviceready should be called once", 500);
+      }, "deviceready to be called once", 10);
       
       runs(function(){
         expect(spiderOakApp.onDeviceReady).toHaveBeenCalled();
@@ -97,3 +97,5 @@ describe('spiderOakApp', function() {
   });
 
 });
+
+

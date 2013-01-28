@@ -16,7 +16,7 @@
       var folders = [];
       _.each(resp.dirs, function(folder){
         folders.push({
-          name: folder[0].slice(0,-1),
+          name: (/\/$/.test(folder[0])) ? folder[0].slice(0,-1) : folder[0], //.slice(0,-1),
           url: folder[1]
         });
       });

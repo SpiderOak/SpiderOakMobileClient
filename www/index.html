@@ -125,18 +125,7 @@
       window.jQT = new $.jQTouch({
         // jQTouch options
       });
-      window.spiderOakApp && window.spiderOakApp.initialize();
-      // Hax fix for container scrolling while menu is open.
-      $('#jqt').on('scroll', function(event) {
-        // Snap back if not after about the half way point...
-        if (this.scrollLeft < ($(window).width() / 4)) {
-          this.scrollLeft = 0;
-        }
-        // Or close if it is...
-        else {
-          $('#menusheet').menusheet('hide');
-        }
-      });
+      window.spiderOakApp && window.spiderOakApp.initialize();      
     </script>
   </body>
 </html>

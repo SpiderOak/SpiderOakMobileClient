@@ -11,54 +11,70 @@
 
   spiderOakApp.AccountModel = Backbone.Model.extend({
     defaults: {
-      rememberme: false
+      rememberme: false,
+      data_center_regex: /(https:\/\/[^\/]+)\//m,
+      response_parse_regex: /^(login|location):(.+)$/m,
+      storage_web_url: "",      // Irrelevant to mobile client for now.
+      // @TODO Extract so different brands can have different hosts:
+      // @TODO Further parameterize so the base url can be a user setting:
+      login_url_preface: "https://spideroak.com/storage/",
+      login_url_start: "https://spideroak.com/browse/login"
     },
     initialize: function() {
       _.bindAll(this, "login");
     },
-    login: function(username, password, successCallback, errorCallback) {
+    /** Storage login.
+     *
+     * @param {string} login_url Optional explicit login location for username
+     */
+    login: function(username, password, successCallback, errorCallback,
+                    login_url) {
+      // Per https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api/
       var _self = this;
       var b32username = this.b32encode(username);
-      // POST to "https://spideroak.com/storage/"+b32username+"/login"
-      //   - as per https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api/
+      login_url = login_url || _self.defaults.login_url_start;
       $.ajax({
         type: "POST",
-        url: "https://spideroak.com/storage/"+b32username+"/login",
+        url: login_url,
         data: {
+          username: username,
           password: password
         },
         success: function(data, status, xhr) {
-          if (/^login:/.test(data)) {
-            // Try again at appropriate DC
-            $.ajax({
-              type: "POST",
-              url: data.replace(/^login:/,""), // @FIXME: What is the real format of this response?
-              data: {
-                password: password
-              },
-              success: function(data, status, xhr) {
-                // Set the basicauth details
-                Backbone.BasicAuth.set(username,password);
-                // Set the b32username
-                _self.set("b32username",b32username);
-                // @TODO: Set the keychain credentials
-                // @FIXME: this should be returning the appropriate DC
-                successCallback("https://alternate-dc.spideroak.com/");
-              },
-              error: function(xhr, errorType, error) {
-                // console.log([xhr, errorType, error]);
-                errorCallback(xhr.status, "authentication failed");
-              }
-            });
-          }
-          else {
-            // Set the basicauth details
+          var where = data.match(_self.defaults.response_parse_regex);
+          function do_success(login_url) {
+            // Set the basicauth details:
             Backbone.BasicAuth.set(username,password);
-            // Set the b32username
+            // Record the b32username:
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
-            // Return the default DC
-            successCallback("https://spideroak.com/");
+            // Record the login url:
+            _self.set("login_url", login_url);
+            // Return the data center part of the url:
+            var dc = login_url.match(_self.defaults.data_center_regex)[1];
+            successCallback(dc);
+          }
+          if (where[1] === 'login') {
+            // Try again at indicated data center and/or path:
+            if (where[2].charAt(0) === "/") {
+              // Revise just the path part of the login url:
+              login_url = login_url.match(
+                _self.defaults.data_center_regex)[1] + where[2];
+            }
+            else {
+              // Use the new login url, wholesale:
+              login_url = where[2];
+            }
+            // Recurse, with adjusted login_url:
+            _self.login(username, password, successCallback, errorCallback,
+                        login_url);
+          }
+          else if (where[1] === 'location') {
+            _self.set("storage_web_url", where[2]);
+            do_success(login_url);
+          }
+          else {
+            errorCallback(0, "unexpected server response");
           }
         },
         error: function(xhr, errorType, error) {
@@ -71,6 +87,8 @@
       Backbone.BasicAuth.clear();
       // @TODO: Clear keychain credentials
       // @TODO: Clear any localStorage
+      // Clear internal settings:
+      this.clear();
       successCallback();
     },
     b32encode: function(str) {

@@ -33,26 +33,28 @@ describe('AccountModel', function() {
       });
       it('should use the expected login start url', function() {
         expect(this.server.requests[0].url)
-            .toEqual("https://spideroak.com/browse/login");
+          .toEqual("https://spideroak.com/browse/login");
       });
       // @TODO: There must be a better way to check query parameters?
       it('should pass the username as query data', function() {
         expect(this.server.requests[0].requestBody
-               .match("username=" + this.username)).toBeTruthy();
+          .match("username=" + this.username)).toBeTruthy();
       });
       it('should pass the password as query data', function() {
         expect(this.server.requests[0].requestBody
-               .match("password=" + this.password)).toBeTruthy();
+          .match("password=" + this.password)).toBeTruthy();
       });
       it('should set accountModel rememberme attribute to false by default',
-         function() {
-           expect(this.accountModel.get("rememberme")).toBeFalsy();
-      });
+        function() {
+          expect(this.accountModel.get("rememberme")).toBeFalsy();
+        }
+      );
       it('should be able to set accountModel rememberme attribute to true',
-         function() {
-           this.accountModel.set("rememberme",true);
-           expect(this.accountModel.get("rememberme")).toBeTruthy();
-      });
+        function() {
+          this.accountModel.set("rememberme",true);
+          expect(this.accountModel.get("rememberme")).toBeTruthy();
+        }
+      );
       it('should call the default success callback', function() {
         expect(this.successSpy.calledOnce).toBeTruthy();
         expect(this.successSpy.calledWith(
@@ -60,10 +62,11 @@ describe('AccountModel', function() {
         )).toBeTruthy();
       });
       it('should set accountModel b32username upon successful login',
-         function() {
-           expect(this.accountModel.get("b32username"))
-               .toEqual(this.b32username);
-      });
+        function() {
+          expect(this.accountModel.get("b32username"))
+            .toEqual(this.b32username);
+        }
+      );
     });
 
     describe('backbone basic authentication', function() {
@@ -75,8 +78,11 @@ describe('AccountModel', function() {
           this.server.respondWith(
             "POST",
             "https://spideroak.com/browse/login",
-            [200, {"Content-Type": "text/html"},
-             "location:https://spideroak.com/" + this.b32username + "/storage"]
+            [
+              200,
+              {"Content-Type": "text/html"},
+              "location:https://spideroak.com/" + this.b32username + "/storage"
+            ]
           );
           this.server.respond();
         });
@@ -113,16 +119,22 @@ describe('AccountModel', function() {
         this.server.respondWith(
           "POST",
           "https://spideroak.com/browse/login",
-          [200, {"Content-Type": "text/html"},
-           ("login:https://alternate-dc.spideroak.com/"
-            + this.b32username
-            + "/login")]
+          [
+            200,
+            {"Content-Type": "text/html"},
+            "login:https://alternate-dc.spideroak.com/" +
+              this.b32username +
+              "/login"
+          ]
         );
         this.server.respondWith(
           "POST",
           "https://alternate-dc.spideroak.com/" + this.b32username + "/login",
-          [200, {"Content-Type": "text/html"},
-           "location:/" + this.b32username + "/login"]
+          [
+            200,
+            {"Content-Type": "text/html"},
+            "location:/" + this.b32username + "/login"
+          ]
         );
         this.accountModel.login(this.username, this.password,
                                 this.successSpy, this.errorSpy);
@@ -150,7 +162,11 @@ describe('AccountModel', function() {
         this.server.respondWith(
           "POST",
           "https://spideroak.com/storage/"+this.b32username+"/login",
-          [200, {"Content-Type": "text/html"}, "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"]
+          [
+            200,
+            {"Content-Type": "text/html"},
+            "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"
+          ]
         );
         this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
         this.server.respond();

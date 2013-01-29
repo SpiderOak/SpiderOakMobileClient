@@ -32,7 +32,7 @@
       // Per https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api/
       var _self = this;
       var b32username = this.b32encode(username);
-      login_url = login_url || _self.defaults.login_url_start;
+      login_url = login_url || _self.get("login_url_start");
       $.ajax({
         type: "POST",
         url: login_url,
@@ -41,8 +41,8 @@
           password: password
         },
         success: function(data, status, xhr) {
-          var where = data.match(_self.defaults.response_parse_regex);
-          function do_success(login_url) {
+          var where = data.match(_self.get("response_parse_regex"));
+          function loginSuccess(login_url) {
             // Set the basicauth details:
             Backbone.BasicAuth.set(username,password);
             // Record the b32username:
@@ -51,7 +51,7 @@
             // Record the login url:
             _self.set("login_url", login_url);
             // Return the data center part of the url:
-            var dc = login_url.match(_self.defaults.data_center_regex)[1];
+            var dc = login_url.match(_self.get("data_center_regex"))[1];
             successCallback(dc + "/");
           }
           if (where[1] === 'login') {
@@ -59,7 +59,7 @@
             if (where[2].charAt(0) === "/") {
               // Revise just the path part of the login url:
               login_url = login_url.match(
-                _self.defaults.data_center_regex)[1] + where[2];
+                _self.get("data_center_regex"))[1] + where[2];
             }
             else {
               // Use the new login url, wholesale:
@@ -71,7 +71,7 @@
           }
           else if (where[1] === 'location') {
             _self.set("storage_web_url", where[2]);
-            do_success(login_url);
+            loginSuccess(login_url);
           }
           else {
             errorCallback(0, "unexpected server response");

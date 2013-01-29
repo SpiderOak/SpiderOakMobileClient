@@ -206,6 +206,7 @@ describe('AccountModel', function() {
       });
       // @TODO: Clear keychain credentials test
       // @TODO: Clear any localStorage test
+      // @TODO: Clear out cookie if required
     });
   });
 

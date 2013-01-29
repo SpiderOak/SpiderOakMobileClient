@@ -52,7 +52,7 @@
             _self.set("login_url", login_url);
             // Return the data center part of the url:
             var dc = login_url.match(_self.defaults.data_center_regex)[1];
-            successCallback(dc);
+            successCallback(dc + "/");
           }
           if (where[1] === 'login') {
             // Try again at indicated data center and/or path:

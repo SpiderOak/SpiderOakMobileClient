@@ -91,4 +91,4 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 - runs `lint concat shell:debug_android` to debug Android platform on the emulator (or a plugged in device)
 
-See the [Running, Testing, and Debugging section](SpiderOakMobileClient/wiki/Home#wiki-Running_Testing_and_Debugging) of the wiki home page for more info.
+See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/Home#wiki-Running_Testing_and_Debugging) of the wiki home page for more info.

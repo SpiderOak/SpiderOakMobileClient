@@ -90,3 +90,5 @@ Building and testing the project is normally done via the Grunt tasks below.
 `grunt debug_android`
 
 - runs `lint concat shell:debug_android` to debug Android platform on the emulator (or a plugged in device)
+
+See the [Running, Testing, and Debugging section](wiki/Home#wiki-Running_Testing_and_Debugging) of the wiki home page for more info.

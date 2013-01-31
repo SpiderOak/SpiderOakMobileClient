@@ -217,15 +217,6 @@ describe('AccountModel', function() {
         });
       });
       it("should POST to the account's logout URL", function() {
-        this.server.respondWith(
-          "POST",
-          "https://spideroak.com/storage/" + this.b32username + "/logout",
-          [
-            200,
-            {},
-            "the response page"
-          ]
-        );
         runs(function() {
           this.successSpy = sinon.spy();
           this.accountModel.logout(this.successSpy);

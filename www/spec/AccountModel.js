@@ -191,7 +191,8 @@ describe('AccountModel', function() {
         this.server.respondWith(
           "POST",
           "https://spideroak.com/storage/" + this.b32username + "/logout",
-          "the response page"
+          [200, {"Content-Type": "text/html"},
+           "the response page"]
         );
         runs(function() {
           this.successSpy = sinon.spy();
@@ -220,13 +221,12 @@ describe('AccountModel', function() {
         runs(function() {
           this.successSpy = sinon.spy();
           this.accountModel.logout(this.successSpy);
+          this.server.respond();
         });
         waitsFor(function() {
           return this.successSpy.called;
         }, "successSpy called", 500);
         runs(function() {
-          console.log("logout test request: "
-                      + JSON.stringify(this.server.requests[1])); // XXX
           expect(this.server.requests[1].status).toEqual(200);
         });
       });

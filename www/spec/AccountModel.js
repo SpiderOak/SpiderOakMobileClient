@@ -182,15 +182,27 @@ describe('AccountModel', function() {
 
     describe('logout', function() {
       beforeEach(function(){
-        this.successSpy = sinon.spy();
-        this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/storage/"+this.b32username+"/login",
-          [200, {"Content-Type": "text/html"}, "location:/some/location"]
+          "https://spideroak.com/browse/login",
+          [200, {"Content-Type": "text/html"},
+           "location:https://spideroak.com/" + this.b32username + "/storage"]
         );
-        this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
-        this.server.respond();
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/storage/" + this.b32username + "/logout",
+          "the response page"
+        );
+        runs(function() {
+          this.successSpy = sinon.spy();
+          this.errorSpy = sinon.spy();
+          this.accountModel.login(this.username, this.password,
+                                  this.successSpy, this.errorSpy);
+          this.server.respond();
+        });
+        waitsFor(function() {
+          return (this.accountModel.get("b32username") !== undefined);
+        }, "accountModel b32username to be set", 500);
       });
       it('should clear BackBone.BasicAuth', function() {
         runs(function() {
@@ -202,6 +214,20 @@ describe('AccountModel', function() {
         },"Backbone.BasicAuth.clear to be called once",10);
         runs(function() {
           expect(Backbone.BasicAuth.clear).toHaveBeenCalled();
+        });
+      });
+      it("should POST to the account's logout URL", function() {
+        runs(function() {
+          this.successSpy = sinon.spy();
+          this.accountModel.logout(this.successSpy);
+        });
+        waitsFor(function() {
+          return this.successSpy.called;
+        }, "successSpy called", 500);
+        runs(function() {
+          console.log("logout test request: "
+                      + JSON.stringify(this.server.requests[1])); // XXX
+          expect(this.server.requests[1].status).toEqual(200);
         });
       });
       // @TODO: Clear keychain credentials test

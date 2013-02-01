@@ -9,16 +9,17 @@
       _           = window._,
       $           = window.$;
 
+  // @TODO Arrange so that base_domain can vary by app configuration.
+  var base_domain = "spideroak.com";
   spiderOakApp.AccountModel = Backbone.Model.extend({
     defaults: {
       rememberme: false,
       data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
       storage_web_url: "",      // Irrelevant to mobile client for now.
-      // @TODO Extract so different brands can have different hosts:
-      // @TODO Further parameterize so the base url can be a user setting:
-      login_url_preface: "https://spideroak.com/storage/",
-      login_url_start: "https://spideroak.com/browse/login"
+      login_url_preface: "https://" + base_domain + "/storage/",
+      login_url_start: "https://" + base_domain + "/browse/login",
+      logout_url_preface: "https://" + base_domain + "/storage/"
     },
     initialize: function() {
       _.bindAll(this, "login");
@@ -89,9 +90,20 @@
       });
     },
     logout: function(successCallback) {
-      // Clear basic auth details
+      // Clear basic auth details:
       Backbone.BasicAuth.clear();
       // @TODO: Clear keychain credentials
+      // Post to the logout URL to get the session cookie expired:
+      var logout_url = (this.get('logout_url_preface')
+                        + this.get("b32username")
+                        + "/logout");
+      $.ajax({type: "POST",
+              url: logout_url,
+              error: function(xhr, errorType, error) {
+                console.log("Account logout returned error, status: "
+                            + xhr.status);
+                }
+             });
       // @TODO: Clear any localStorage
       // Clear internal settings:
       this.clear();

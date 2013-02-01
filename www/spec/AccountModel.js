@@ -5,11 +5,10 @@ describe('AccountModel', function() {
       this.username = "testusername";
       this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
       this.password = "testpassword";
-      this.accountModel = new spiderOakApp.AccountModel();
+      this.accountModel = spiderOakApp.accountModel = new spiderOakApp.AccountModel();
     });
 
     afterEach(function() {
-      this.accountModel = undefined;
       this.server.restore();
     });
 
@@ -67,6 +66,28 @@ describe('AccountModel', function() {
             .toEqual(this.b32username);
         }
       );
+    });
+
+    describe('events', function() {
+      beforeEach(function(){
+        this.successSpy = sinon.spy();
+        document.addEventListener("loginSuccess", this.successSpy, false);
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/browse/login",
+          [200, {"Content-Type": "text/html"},
+           "location:https://spideroak.com/" + this.b32username + "/storage"]
+        );
+        this.accountModel.login(this.username, this.password,
+                                function(){}, function(){});
+        this.server.respond();
+      });
+      afterEach(function() {
+        document.removeEventListener("loginSuccess", this.successSpy, false);
+      });
+      it('should trigger `loginSuccess` event on document', function() {
+        expect(this.successSpy.calledOnce).toBeTruthy();
+      });
     });
 
     describe('backbone basic authentication', function() {

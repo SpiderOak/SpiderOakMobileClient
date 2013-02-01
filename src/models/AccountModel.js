@@ -24,12 +24,16 @@
       _.bindAll(this, "login");
     },
     /** Storage login.
+     * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
      *
+     * @param {string} username
+     * @param {string} password
+     * @param {string} successCallback
+     * @param {string} errorCallback
      * @param {string} login_url Optional explicit login location for username
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url) {
-      // Per https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api/
       var _self = this;
       var b32username = this.b32encode(username);
       login_url = login_url || _self.get("login_url_start");
@@ -52,9 +56,11 @@
             _self.set("login_url", login_url);
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
+            // Trigger the login complete event so other views can react
+            $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
-          if (where[1] === 'login') {
+          if (where[1] === "login") {
             // Try again at indicated data center and/or path:
             if (where[2].charAt(0) === "/") {
               // Revise just the path part of the login url:
@@ -69,7 +75,7 @@
             _self.login(username, password, successCallback, errorCallback,
                         login_url);
           }
-          else if (where[1] === 'location') {
+          else if (where[1] === "location") {
             _self.set("storage_web_url", where[2]);
             loginSuccess(login_url);
           }
@@ -95,10 +101,15 @@
       var nibbler = new window.Nibbler({
         dataBits: 8,
         codeBits: 5,
-        keyString: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567',
-        pad: ''
+        keyString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+        pad: ""
       });
       return nibbler.encode(str);
+    },
+    getStorageURL: function() {
+      return this.get("login_url_preface") +
+              this.get("b32username") +
+              "/";
     }
   });
 

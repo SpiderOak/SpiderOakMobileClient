@@ -16,8 +16,8 @@
     },
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind('pageAnimationStart', this.pageAnimationStart_handler);
-      this.$el.bind('pageAnimationEnd', this.pageAnimationEnd_handler);
+      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
+      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
     },
     render: function() {
       return this;

@@ -75,11 +75,26 @@
         // Clear it out
         spiderOakApp.accountModel = account = undefined;
         // @TODO: Unblock spinner
-        navigator.notification.alert(
-          "Authentication failed. Please check your details and try again.",
-          null,
-          "Authentication error",
-          "OK");
+        var msg;
+        if (status === 401) {
+          msg = "Authentication failed - Unauthorized.";
+        }
+        else if (status === 403) {
+          msg = "Authentication failed - Incorrect username or password.";
+        }
+        else if (status === 404) {
+          msg = "Incorrect ShareID or RoomKey.";
+        }
+        else if (status === 418) {
+          msg = ("We apologize, but you must first complete your account setup" +
+            " using the SpiderOak desktop software.  This is necessary" +
+            " so that proper cryptographic keys can be generated to" +
+            " keep your data private.  Please open SpiderOak on your" +
+            " computer to continue.  Thank you. -- The SpiderOak Team");
+        }
+        else {
+          msg = ("Temporary server failure. Please try again later."); }
+        navigator.notification.alert(msg, null, "Authentication error", "OK");
       };
 
       var account = spiderOakApp.accountModel = new spiderOakApp.AccountModel();

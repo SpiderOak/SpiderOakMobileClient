@@ -28,7 +28,7 @@ describe('DevicesView', function() {
       spyOn(this.view,'addAll').andCallThrough();
       this.server.respond();
     });
-    it("should create a list element", function() {
+    it('should create a list element', function() {
       expect(this.view.el.nodeName).toEqual("UL");
     });
     describe('Methods', function() {
@@ -50,7 +50,7 @@ describe('DevicesView', function() {
         var modelName = this.view.collection.at(0).get("name");
         expect(liText).toEqual(modelName);
       });
-      it('should set the url of the model as the data-url attribute', function() {
+      it('should set the url of the model as the data url attribute', function() {
         var dataURL = this.view.$("li a").first().data("url");
         var modelURL = this.view.collection.at(0).get("url");
         expect(dataURL).toEqual(modelURL);

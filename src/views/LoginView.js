@@ -12,31 +12,32 @@
   spiderOakApp.LoginView = Backbone.View.extend({
     el: "#login",
     events: {
-      'focus input': 'input_focusHandler',
-      'blur input': 'input_blurHandler',
-      'submit form': 'form_submitHandler',
-      'tap .shareRoomsButton': 'shareRoomsButton_tapHandler',
-      'tap .loginButton': 'loginButton_tapHandler',
-      'tap .switch': 'switch_tapHandler'
+      "focus input": "input_focusHandler",
+      "blur input": "input_blurHandler",
+      "submit form": "form_submitHandler",
+      "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
+      "tap .loginButton": "loginButton_tapHandler",
+      "tap .switch": "switch_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind('pageAnimationStart', this.pageAnimationStart_handler);
-      this.$el.bind('pageAnimationEnd', this.pageAnimationEnd_handler);
+      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
+      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
     },
     render: function() {
       // @FIXME: This will actually be set by the users choice...
-      if (this.$('.switch').hasClass('on')) {
-        this.$('.switch input[type=checkbox]').attr('checked',true);
+      if (this.$(".switch").hasClass("on")) {
+        this.$(".switch input[type=checkbox]").attr("checked",true);
       }
       return this;
     },
     pageAnimationStart_handler: function(event, data) {
-      // Assume that if this view is being displayed it is due to logging out or needing reauthentication
+      // Assume that if this view is being displayed it is due to
+      //  logging out or needing reauthentication
       if (data.direction === "in") {
         // Clear inputs
-        $('#username').val("");
-        $('#password').val("");
+        $("#username").val("");
+        $("#password").val("");
         spiderOakApp.accountModel.logout(function() {
           spiderOakApp.accountModel = undefined;
         });
@@ -47,19 +48,19 @@
     },
     input_focusHandler: function(event) {
       // window.setTimeout(function(){
-        this.$('.login-logo').addClass('rotated');
+        this.$(".login-logo").addClass("rotated");
       // },50);
     },
     input_blurHandler: function(event) {
       // window.setTimeout(function(){
-        this.$('.login-logo').removeClass('rotated');
+        this.$(".login-logo").removeClass("rotated");
       // },50);
     },
     form_submitHandler: function(event) {
-      this.$('input').blur();
-      var username = $('#username').val();
-      var password = $('#password').val();
-      var rememberme = $('#rememberme').is(':checked');
+      this.$("input").blur();
+      var username = $("#username").val();
+      var password = $("#password").val();
+      var rememberme = $("#rememberme").is(":checked");
 
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
@@ -85,11 +86,11 @@
           msg = "Incorrect ShareID or RoomKey.";
         }
         else if (status === 418) {
-          msg = ("We apologize, but you must first complete your account setup"
-                 + " using the SpiderOak desktop software.  This is necessary"
-                 + " so that proper cryptographic keys can be generated to"
-                 + " keep your data private.  Please open SpiderOak on your"
-                 + " computer to continue.  Thank you. -- The SpiderOak Team");
+          msg = ("We apologize, but you must first complete your account setup" +
+            " using the SpiderOak desktop software.  This is necessary" +
+            " so that proper cryptographic keys can be generated to" +
+            " keep your data private.  Please open SpiderOak on your" +
+            " computer to continue.  Thank you. -- The SpiderOak Team");
         }
         else {
           msg = ("Temporary server failure. Please try again later."); }
@@ -100,18 +101,24 @@
       account.login(username, password, success, error);
     },
     loginButton_tapHandler: function(event) {
-      this.$('input').blur();
+      this.$("input").blur();
       event.preventDefault();
     },
     shareRoomsButton_tapHandler: function(event) {
-      this.$('input').blur();
+      this.$("input").blur();
       event.preventDefault();
     },
     switch_tapHandler: function(event) {
-      var $this = $(event.target).hasClass('switch') ? $(event.target) : $(event.target).closest('.switch');
-      var $checkbox = $this.find('input[type=checkbox]');
-      $checkbox.attr('checked',!$checkbox.is(':checked'));
-      $this.toggleClass('on');
+      var $this = null;
+      if ($(event.target).hasClass("switch")) {
+        $this = $(event.target);
+      }
+      else {
+        $this = $(event.target).closest(".switch");
+      }
+      var $checkbox = $this.find("input[type=checkbox]");
+      $checkbox.attr("checked",!$checkbox.is(":checked"));
+      $this.toggleClass("on");
     }
   });
   spiderOakApp.loginView = new spiderOakApp.LoginView().render();

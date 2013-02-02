@@ -11,11 +11,28 @@
 
   _.extend(spiderOakApp, {
     initialize: function() {
-      document.addEventListener("deviceready", spiderOakApp.onDeviceReady, false);
+      // Start listening for important app-level events
+      document.addEventListener(
+        "deviceready",
+        this.onDeviceReady,
+        false
+      );
+      document.addEventListener(
+        "loginSuccess",
+        this.onLoginSuccess,
+        false
+      );
     },
     onDeviceReady: function() {
       // @FIXME: This seems cludgey
       if (window.cssLoaded) navigator.splashscreen.hide();
+      // @TODO: Instantiate any plugins
+    },
+    onLoginSuccess: function() {
+      // Instantiate the menusheet and bind the spiderOakApp.accountModel
+      spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
+        model: spiderOakApp.accountModel
+      }).render();
     }
   });
 

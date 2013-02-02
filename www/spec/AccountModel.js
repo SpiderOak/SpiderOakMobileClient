@@ -5,7 +5,8 @@ describe('AccountModel', function() {
       this.username = "testusername";
       this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
       this.password = "testpassword";
-      this.accountModel = spiderOakApp.accountModel = new spiderOakApp.AccountModel();
+      this.accountModel =
+        spiderOakApp.accountModel = new spiderOakApp.AccountModel();
     });
 
     afterEach(function() {
@@ -121,7 +122,8 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.successSpy = sinon.spy();
         this.errorSpy = sinon.spy();
-        this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
         this.server.respond();
       });
       it('should call the error callback', function() {
@@ -170,9 +172,10 @@ describe('AccountModel', function() {
           "https://alternate-dc.spideroak.com/"
         )).toBeTruthy();
       });
-      it('should set accountModel b32username upon successful alternate login', function() {
-        expect(this.accountModel.get("b32username")).toEqual(this.b32username);
-      });
+      it('should set accountModel b32username upon successful alternate login',
+        function() {
+          expect(this.accountModel.get("b32username")).toEqual(this.b32username);
+        });
     });
 
     // rare but possible?
@@ -189,7 +192,8 @@ describe('AccountModel', function() {
             "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"
           ]
         );
-        this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
         this.server.respond();
       });
       it('should call the error callback', function() {

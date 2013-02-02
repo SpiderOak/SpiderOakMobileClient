@@ -47,7 +47,11 @@
     },
     render: function() {
       this.$el.html(
-        _.template($("#devicesListItemTemplate").text(), this.model.toJSON())
+        _.template(
+          "<a href='#' data-url='<%= url %>'>" +
+          "<i class='icon-folder-close'></i> <%= name %></a>",
+          this.model.toJSON()
+        )
       );
       return this;
     }

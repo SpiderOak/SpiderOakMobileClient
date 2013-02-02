@@ -248,7 +248,11 @@ describe('AccountModel', function() {
           return this.successSpy.called;
         }, "successSpy called", 500);
         runs(function() {
-          expect(this.server.requests[1].status).toEqual(200);
+          // Be sure to check against the LAST request.
+          //  as there might be other requests involved in logging in
+          var lastIndex = (this.server.requests.length - 1);
+          expect(this.server.requests[lastIndex].status)
+            .toEqual(200);
         });
       });
       // @TODO: Clear keychain credentials test

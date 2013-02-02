@@ -19,13 +19,13 @@
     // ...
   });
 
-  spiderOakApp.FolderListView = Backbone.View.extend({
+  spiderOakApp.FoldersListView = Backbone.View.extend({
     tag: "ul",
     className: "edgetoedge",
-    template: "", // _.template($('#folder-list-template').text()),
     initialize: function() {
       _.bindAll(this, "render", "addOne", "addAll");
-      this.collection.on( "add", this.addOne, this ); // might not be in use in read-only version
+      // "add" might not be in use in read-only version
+      this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
     },
@@ -40,7 +40,7 @@
     }
   });
 
-  spiderOakApp.FolderListItemView = Backbone.View.extend({
+  spiderOakApp.FoldersListItemView = Backbone.View.extend({
     tag: "li",
     className: "arrow",
     template: "",

@@ -5,11 +5,11 @@ describe('AccountModel', function() {
       this.username = "testusername";
       this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
       this.password = "testpassword";
-      this.accountModel = new spiderOakApp.AccountModel();
+      this.accountModel =
+        spiderOakApp.accountModel = new spiderOakApp.AccountModel();
     });
 
     afterEach(function() {
-      this.accountModel = undefined;
       this.server.restore();
     });
 
@@ -69,6 +69,28 @@ describe('AccountModel', function() {
       );
     });
 
+    describe('events', function() {
+      beforeEach(function(){
+        this.successSpy = sinon.spy();
+        document.addEventListener("loginSuccess", this.successSpy, false);
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/browse/login",
+          [200, {"Content-Type": "text/html"},
+           "location:https://spideroak.com/" + this.b32username + "/storage"]
+        );
+        this.accountModel.login(this.username, this.password,
+                                function(){}, function(){});
+        this.server.respond();
+      });
+      afterEach(function() {
+        document.removeEventListener("loginSuccess", this.successSpy, false);
+      });
+      it('should trigger `loginSuccess` event on document', function() {
+        expect(this.successSpy.calledOnce).toBeTruthy();
+      });
+    });
+
     describe('backbone basic authentication', function() {
       it('should set Backbone.BasicAuth', function() {
         runs(function() {
@@ -100,7 +122,8 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.successSpy = sinon.spy();
         this.errorSpy = sinon.spy();
-        this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
         this.server.respond();
       });
       it('should call the error callback', function() {
@@ -149,9 +172,10 @@ describe('AccountModel', function() {
           "https://alternate-dc.spideroak.com/"
         )).toBeTruthy();
       });
-      it('should set accountModel b32username upon successful alternate login', function() {
-        expect(this.accountModel.get("b32username")).toEqual(this.b32username);
-      });
+      it('should set accountModel b32username upon successful alternate login',
+        function() {
+          expect(this.accountModel.get("b32username")).toEqual(this.b32username);
+        });
     });
 
     // rare but possible?
@@ -168,7 +192,8 @@ describe('AccountModel', function() {
             "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"
           ]
         );
-        this.accountModel.login(this.username, this.password, this.successSpy, this.errorSpy);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
         this.server.respond();
       });
       it('should call the error callback', function() {
@@ -227,7 +252,11 @@ describe('AccountModel', function() {
           return this.successSpy.called;
         }, "successSpy called", 500);
         runs(function() {
-          expect(this.server.requests[1].status).toEqual(200);
+          // Be sure to check against the LAST request.
+          //  as there might be other requests involved in logging in
+          var lastIndex = (this.server.requests.length - 1);
+          expect(this.server.requests[lastIndex].status)
+            .toEqual(200);
         });
       });
       // @TODO: Clear keychain credentials test

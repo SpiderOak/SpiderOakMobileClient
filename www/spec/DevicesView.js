@@ -50,10 +50,10 @@ describe('DevicesView', function() {
         var modelName = this.view.collection.at(0).get("name");
         expect(liText).toEqual(modelName);
       });
-      it('should set the url of the model as the data url attribute', function() {
-        var dataURL = this.view.$("li a").first().data("url");
-        var modelURL = this.view.collection.at(0).get("url");
-        expect(dataURL).toEqual(modelURL);
+      it('should set the model in the dataset', function() {
+        var dataModel = this.view.$("li a").first().data("model");
+        var CollectionModel = this.view.collection.at(0);
+        expect(dataModel).toEqual(CollectionModel);
       });
     });
   });

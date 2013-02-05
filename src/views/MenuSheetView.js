@@ -42,6 +42,7 @@
         collection: this.devicesCollection,
         el: this.$(".devices ul")
       }).render();
+
       return this;
     },
     pageAnimationStart_handler: function(event, data) {

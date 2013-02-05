@@ -16,39 +16,59 @@
   //   url: "/path/to/folder"
   // });
   spiderOakApp.FolderView = Backbone.View.extend({
-    // ...
+    initialize: function() {
+      _.bindAll(this);
+      $("#jqt").append(this.el);
+    }
   });
 
   spiderOakApp.FoldersListView = Backbone.View.extend({
-    tag: "ul",
-    className: "edgetoedge",
     initialize: function() {
-      _.bindAll(this, "render", "addOne", "addAll");
+      _.bindAll(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
+
+      this.collection.fetch();
     },
     render: function() {
-      // Add a "loading spinner" row at the top
+      this.addAll();
+      // @TODO: Then when we are done, clear the "loading spinner"
+      return this;
     },
     addOne: function(model) {
-      // ...
+      model.url = this.collection.url + model.get("url");
+      var view = new spiderOakApp.FoldersListItemView({
+        model: model
+      });
+      view.render();
+      this.$el.append(view.el);
     },
     addAll: function() {
-      // ...
+      this.$el.empty();
+      this.collection.each(this.addOne, this);
+      this.$el.trigger("complete");
     }
   });
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
-    tag: "li",
+    tagName: "li",
     className: "arrow",
-    template: "",
     initialize: function() {
-      _.bindAll(this, "render");
+      _.bindAll(this);
     },
     render: function() {
-      // ...
+      this.$el.html(
+        _.template(
+          "<a href='#'>" +
+          "<i class='icon-folder-close'></i> <%= name %>" +
+          "</a>",
+          this.model.toJSON()
+        )
+      );
+      this.$("a").data("model",this.model);
+      return this;
     }
   });
 

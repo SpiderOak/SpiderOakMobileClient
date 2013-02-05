@@ -1,5 +1,5 @@
- /**
- * DevicesView.js
+/**
+ * FileView.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.DevicesListView = Backbone.View.extend({
+  spiderOakApp.FilesListView = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this);
       // "add" might not be in use in read-only version
@@ -20,14 +20,13 @@
       this.collection.fetch();
     },
     render: function() {
-      // @TODO: Add a "loading spinner" row at the top
       this.addAll();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
     addOne: function(model) {
       model.url = this.collection.url + model.get("url");
-      var view = new spiderOakApp.DeviceItemView({
+      var view = new spiderOakApp.FilesListItemView({
         model: model
       });
       view.render();
@@ -36,20 +35,21 @@
     addAll: function() {
       this.$el.empty();
       this.collection.each(this.addOne, this);
+      this.$el.trigger("complete");
     }
   });
 
-  spiderOakApp.DeviceItemView = Backbone.View.extend({
+  spiderOakApp.FilesListItemView = Backbone.View.extend({
     tagName: "li",
-    className: "",
+    className: "forward",
     initialize: function() {
-      _.bindAll(this, "render");
+      _.bindAll(this);
     },
     render: function() {
       this.$el.html(
         _.template(
-          "<a href='#storage' class='fade'>" +
-          "<i class='icon-folder-close'></i> <%= name %>" +
+          "<a href='#'>" +
+          "<i class='icon-file'></i> XXXX" +
           "</a>",
           this.model.toJSON()
         )

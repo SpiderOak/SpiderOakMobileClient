@@ -25,6 +25,7 @@
       return this;
     },
     addOne: function(model) {
+      console.log(this.collection.url);
       model.url = this.collection.url + model.get("url");
       var view = new spiderOakApp.FilesListItemView({
         model: model
@@ -41,7 +42,7 @@
 
   spiderOakApp.FilesListItemView = Backbone.View.extend({
     tagName: "li",
-    className: "forward",
+    className: "arrow",
     initialize: function() {
       _.bindAll(this);
     },
@@ -49,7 +50,7 @@
       this.$el.html(
         _.template(
           "<a href='#'>" +
-          "<i class='icon-file'></i> XXXX" +
+          "<i class='icon-file'></i> <%= name %>" +
           "</a>",
           this.model.toJSON()
         )

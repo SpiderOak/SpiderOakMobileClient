@@ -4,7 +4,8 @@
   "description": "SpiderOak Mobile app",
   "main": "index.html",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "bower install && grunt compass:dev"
   },
   "repository": { 
     "type": "git",

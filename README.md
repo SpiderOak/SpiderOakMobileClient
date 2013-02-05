@@ -31,8 +31,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 
 - clone the project
 - cd into the project folder
-- `npm install` to install any node_modules
-- `bower install` to install any js/css components
+- `npm install` to install node_modules and, via an implicit `bower install`, js/css components.
 - `cordova platform add ios` and/or `cordova platform add android`
 
 ## First test

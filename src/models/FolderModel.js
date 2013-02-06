@@ -10,9 +10,7 @@
       $           = window.$;
 
   spiderOakApp.FolderModel = Backbone.Model.extend({
-    initialize: function() {
-      _.bindAll(this);
-    }
+    // ...
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

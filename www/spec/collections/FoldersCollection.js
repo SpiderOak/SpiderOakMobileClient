@@ -1,4 +1,4 @@
-describe('DevicesCollection', function() {
+describe('FoldersCollection', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
@@ -12,17 +12,20 @@ describe('DevicesCollection', function() {
       this.errorSpy = sinon.spy();
       this.server.respondWith(
         "GET",
-        "https://spideroak.com/storage/" + this.b32username + "/",
+        "https://spideroak.com/storage/" + this.b32username +
+          "/Test%20device/test/",
         [
           200,
           {"Content-Type": "test/html"},
-          '{"devices":[["Test device","Test%20device/"],'+
-            '["Other device","Other%20device/"]],"stats":{}}'
+          '{"dirs": [["test folder/", "test%20folder/"], ["tmp/", "tmp/"] ],'+
+            ' "files": [{"ctime": 1359167989, "etime": 1359167998, '+
+            '"mtime": 1359167946, "name": "filename.pdf", "size": 255434, '+
+            '"url": "filename.pdf", "versions": 2 } ] }'
         ]
       );
-      this.collection = new spiderOakApp.DevicesCollection();
+      this.collection = new spiderOakApp.FoldersCollection();
       this.collection.url = "https://spideroak.com/storage/" +
-                                    this.b32username + "/";
+                                    this.b32username + "/Test%20device/test/";
       this.collection.fetch({
         success: this.successSpy,
         error: this.errorSpy
@@ -34,21 +37,23 @@ describe('DevicesCollection', function() {
     });
     it('should use the expected url', function() {
       expect(this.server.requests[0].url)
-        .toEqual("https://spideroak.com/storage/" + this.b32username + "/");
+        .toEqual("https://spideroak.com/storage/" + this.b32username +
+          "/Test%20device/test/");
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);
       expect(this.successSpy.calledOnce).toBeTruthy();
       expect(this.collection.models.length).toEqual(2);
     });
-    it('should populate with DeviceModel instance(s)', function() {
+    it('should populate with FolderModel instance(s)', function() {
       var model = this.collection.at(0);
-      expect(model instanceof spiderOakApp.DeviceModel).toBeTruthy();
+      expect(model instanceof spiderOakApp.FolderModel).toBeTruthy();
     });
     it('should asign the correct attributes in the model(s)', function() {
       var model = this.collection.at(0);
-      expect(model.get("name")).toEqual("Test device");
-      expect(model.get("url")).toEqual("Test%20device/");
+      // Note: trailing slash on "name" stripped during fetch
+      expect(model.get("name")).toEqual("test folder");
+      expect(model.get("url")).toEqual("test%20folder/");
     });
   });
 });

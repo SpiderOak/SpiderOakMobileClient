@@ -21,11 +21,9 @@
     },
     render: function() {
       this.addAll();
-      // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
     addOne: function(model) {
-      console.log(this.collection.url);
       model.url = this.collection.url + model.get("url");
       var view = new spiderOakApp.FilesListItemView({
         model: model

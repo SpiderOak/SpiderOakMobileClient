@@ -126,9 +126,7 @@
     render: function() {
       this.$el.html(
         _.template(
-          "<a href='#'>" +
-          "<i class='icon-folder-close'></i> <%= name %>" +
-          "</a>",
+          "<a href='#'><i class='icon-folder-close'></i> <%= name %></a>",
           this.model.toJSON()
         )
       );
@@ -138,7 +136,7 @@
     a_tapHandler: function(event) {
       event.preventDefault();
       if ($("#"+this.model.cid).length) {
-        window.jQT.goTo("#"+this.model.cid,"slideleft");
+        window.jQT.goTo("#"+this.model.cid, "slideleft");
       }
       else {
         this.folderView = new spiderOakApp.FolderView({
@@ -146,7 +144,7 @@
           model: this.model
         });
         this.folderView.render();
-        window.jQT.goTo("#"+this.model.cid,"slideleft");
+        window.jQT.goTo("#"+this.model.cid, "slideleft");
       }
     }
   });

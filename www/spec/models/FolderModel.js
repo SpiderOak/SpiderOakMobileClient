@@ -1,7 +1,7 @@
-describe('DeviceModel', function() {
+describe('FolderModel', function() {
   describe('instantiation', function() {
     beforeEach(function() {
-      this.model = new spiderOakApp.DeviceModel({
+      this.model = new spiderOakApp.FolderModel({
         name: "Test device",
         url: "Test%20device/"
       });

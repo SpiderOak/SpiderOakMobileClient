@@ -58,7 +58,7 @@
             <div class="sync">
               <div class="sep">Sync</div>
               <ul class="edgetoedge">
-                <li><a href="#" class="dismiss"><i class="icon-folder-close"></i> SpiderOak folder</a></li>
+                <li><a href="#main" class="fade fast"><i class="icon-folder-close"></i> SpiderOak folder</a></li>
               </ul>
             </div>
             <div class="devices">
@@ -94,6 +94,35 @@
           </div>
         </div>
       </div>
+      <div id="storage" class=""></div>
+      <script type="text/html" id="storageViewTemplate">
+        <div class="toolbar">
+          <a href="#menusheet" class="button leftButton menu">
+            <i class="icon-align-justify icon-large"></i>
+          </a>
+          <h1><%= name %></h1>
+        </div>
+        <div class="scroll">
+          <div>
+            <ul class="edgetoedge folderViewLoading loadingFolders loadingFiles"><li style="text-align:center;">Loading...</li></ul>
+            <ul class="edgetoedge foldersList"></ul>
+            <ul class="edgetoedge filesList" ></ul>
+          </div>
+        </div>
+      </script>
+      <script type="text/html" id="folderViewTemplate">
+        <div class="toolbar">
+          <a href="#" class="back">Back</a>
+          <h1><%= name %></h1>
+        </div>
+        <div class="scroll">
+          <div>
+            <ul class="edgetoedge folderViewLoading loadingFolders loadingFiles"><li style="text-align:center;">Loading...</li></ul>
+            <ul class="edgetoedge foldersList"></ul>
+            <ul class="edgetoedge filesList" ></ul>
+          </div>
+        </div>
+      </script>
 <!-- Login screen -->
       <!-- @FIXME: Inline styles -->
       <div id="login" class="current">
@@ -131,6 +160,7 @@
     <script type="text/javascript">
       window.jQT = new $.jQTouch({
         // jQTouch options
+        // debug: false
       });
       window.spiderOakApp && window.spiderOakApp.initialize();      
     </script>

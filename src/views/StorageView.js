@@ -1,5 +1,5 @@
 /**
- * FolderModel.js
+ * StorageView.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -9,8 +9,11 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FolderModel = Backbone.Model.extend({
-    // ...
+  // A subset of the folder view
+  spiderOakApp.StorageView = spiderOakApp.FolderView.extend({
+    el: "#storage",
+    templateID: "#storageViewTemplate"
   });
+  spiderOakApp.storageView = new spiderOakApp.StorageView().render();
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

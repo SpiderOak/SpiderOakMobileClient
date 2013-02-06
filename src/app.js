@@ -9,6 +9,13 @@
       _           = window._,
       $           = window.$;
 
+  // Considering changing the template settings as the ERB defaults are annoying
+  // _.templateSettings = {
+  //   evaluate:    /\{\{#([\s\S]+?)=\}\}/g,          // {{# console.log("blah") }}
+  //   interpolate: /\{\{[^#\{]([\s\S]+?)[^\}]\}\}/g, // {{ title }}
+  //   escape:      /\{\{\{([\s\S]+?)\}\}\}/g         // {{{ title }}}
+  // };
+
   _.extend(spiderOakApp, {
     initialize: function() {
       // Start listening for important app-level events

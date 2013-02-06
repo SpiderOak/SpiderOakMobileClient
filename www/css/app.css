@@ -112,4 +112,11 @@
   right: 0;
   top: 83px;
 }
+.folderViewLoading {
+  display: none;
+}
+.folderViewLoading.loadingFolders,
+.folderViewLoading.loadingFiles {
+  display: block;
+}
 

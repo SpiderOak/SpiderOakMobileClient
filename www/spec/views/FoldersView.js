@@ -1,5 +1,5 @@
-describe('DevicesView', function() {
-  beforeEach(function() {
+describe('FoldersView', function() {
+	beforeEach(function() {
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
   });
@@ -10,19 +10,23 @@ describe('DevicesView', function() {
     beforeEach(function() {
       this.server.respondWith(
         "GET",
-        "https://spideroak.com/storage/" + this.b32username + "/",
+        "https://spideroak.com/storage/" + this.b32username +
+          "/Test%20device/test/",
         [
           200,
           {"Content-Type": "test/html"},
-          '{"devices":[["Test device","Test%20device/"]],"stats":{}}'
+          '{"dirs": [["test folder/", "test%20folder/"], ["tmp/", "tmp/"] ],'+
+            ' "files": [{"ctime": 1359167989, "etime": 1359167998, '+
+            '"mtime": 1359167946, "name": "filename.pdf", "size": 255434, '+
+            '"url": "filename.pdf", "versions": 2 } ] }'
         ]
       );
-      this.devicesCollection = new spiderOakApp.DevicesCollection();
-      this.devicesCollection.url = "https://spideroak.com/storage/" +
-                                    this.b32username + "/";
-      this.view = new spiderOakApp.DevicesListView({
-        collection: this.devicesCollection,
-        el: $("<ul id='devices' class='edgetoedge'></ul>")
+      this.filesCollection = new spiderOakApp.FoldersCollection();
+      this.filesCollection.url = "https://spideroak.com/storage/" +
+                                    this.b32username + "/Test%20device/test/";
+      this.view = new spiderOakApp.FoldersListView({
+        collection: this.filesCollection,
+        el: $("<ul id='files' class='edgetoedge'></ul>")
       }).render();
       spyOn(this.view,'addOne').andCallThrough();
       spyOn(this.view,'addAll').andCallThrough();

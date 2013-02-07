@@ -4,7 +4,8 @@
   "description": "SpiderOak Mobile app",
   "main": "index.html",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "./node_modules/.bin/bower install"
   },
   "repository": { 
     "type": "git",

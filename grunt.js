@@ -24,14 +24,17 @@ module.exports = function(grunt) {
       // Some different reporters...
       mochaspec: {
         command: './node_modules/.bin/mocha-phantomjs www/tests/index.html',
+        failOnError: true,
         stdout: true
       },
       mochamin: {
         command: './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html',
+        failOnError: true,
         stdout: true
       },
       mochadot: {
         command: './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html',
+        failOnError: true,
         stdout: true
       }
     },

@@ -5,6 +5,13 @@
   background-image: url(../img/cream_dust_@2X.png);
   background-color: #fff;
 }
+.ios #jqt .back {
+  max-width: 55px;
+}
+.ios #jqt .back div {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
 .ios #menusheet {
   background-image: none;
   background-color: #333;

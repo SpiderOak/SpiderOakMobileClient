@@ -7,7 +7,7 @@
     "test": "grunt test",
     "postinstall": "./node_modules/.bin/bower install"
   },
-  "repository": { 
+  "repository": {
     "type": "git",
     "url": "https://github.com/SpiderOak/SpiderOakMobileClient.git"
   },
@@ -34,7 +34,10 @@
     "grunt": "~0.3.17",
     "grunt-shell": "0.1.x",
     "grunt-jasmine-runner": "0.6.x",
+    "grunt-compass": "~0.3.7",
+    "mocha": "~1.8.1",
+    "chai": "~1.5.0",
     "sinon": "1.5.x",
-    "grunt-compass": "~0.3.7"
+    "mocha-phantomjs": "~2.0.0"
   }
 }

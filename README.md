@@ -36,7 +36,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 
 To make sure everything is set up from the above, run your first tests
 
-Run `grunt test` - This will lint the source (`grunt lint`), concat the source into a single js file (`grunt concat`) and finally run the headless Jasmine tests (`grunt jasmine`).
+Run `grunt test` - This will lint the source (`grunt lint`), concat the source into a single js file (`grunt concat`) and finally run the headless Mocha tests (`grunt shell:mochaspec`).
 
 ## Workflow
 
@@ -48,11 +48,12 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 `grunt lint`
 
-- runs JSHint on the src files `src/**/*.js`
+- runs JSHint on the src files `src/**/*.js``
 
 `grunt concat`
 
 - concatenates the src files in `src/models/*.js`, `src/collections/*.js`, `src/views/*.js` and `src/app.js` (in that order) into `www/js/<package-name-from-package.json>.js`
+- concatenates the src files in `tests/models/*.js`, `tests/collections/*.js`, `tests/views/*.js` and `src/index.js` into `www/tests/<package-name-from-package.json>-tests.js`
 
 `grunt min`
 
@@ -62,23 +63,27 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 - compiles the SASS files via Compass and 
 
-`grunt jasmine`
+`grunt shell:mochaspec`
 
-- runs Jasmine tests in `www/spec/**/*.js` based on the template `www/spec/SpecRunner.html`
+- runs Mocha tests in `www/tests/<package-name-from-package.json>-tests.js` based on the template `www/tests/index.html` and outputs via the Mocha "spec" reporter.
+
+`grunt shell:mochadot`
+
+- runs Mocha tests in `www/tests/<package-name-from-package.json>-tests.js` based on the template `www/tests/index.html` and outputs via the more minimalist Mocha "dot" reporter.
 
 `grunt watch`
 
-- starts watching the same files as `grunt lint` as well as the files from `grunt jasmine` and when changes are detected runs `lint concat jasmine`
+- starts watching the same files as `grunt concat:dist` as well as the files from `grunt concat:tests` and when changes are detected runs `lint concat compass:dev shell:mochadot`
 
 #### Custom tasks
 
 `grunt` (default tasks)
 
-- runs `lint concat min jasmine`
+- runs `lint concat min shell:mochadot`
 
 `grunt test`
 
-- runs `lint concat jasmine`
+- runs `lint concat shell:mochaspec`
 
 `grunt debug_ios`
 

@@ -33,7 +33,6 @@
     "bower": "~0.6.8",
     "grunt": "~0.3.17",
     "grunt-shell": "0.1.x",
-    "grunt-jasmine-runner": "0.6.x",
     "grunt-compass": "~0.3.7",
     "mocha": "~1.8.1",
     "chai": "~1.5.0",

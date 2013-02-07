@@ -103,13 +103,6 @@ module.exports = function(grunt) {
         ]
       }
     },
-    jasmine : {
-      specs : 'www/spec/**/*.js',
-      template : 'www/spec/SpecRunner.html'
-    },
-    'jasmine-server' : {
-      browser : true
-    },
     watch: {
       files: [
         '<config:lint.files>',
@@ -144,7 +137,6 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-compass');
-  grunt.loadNpmTasks('grunt-jasmine-runner');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.

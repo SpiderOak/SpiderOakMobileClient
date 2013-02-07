@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../node_modules/mocha/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <!-- Testing apparatus -->
+    <script src="../../node_modules/mocha/mocha.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script>
+    <!-- Sinon.JS - might need more individual libs -->
+    <script src="../../node_modules/sinon/lib/sinon.js"></script>
+    <script src="../../node_modules/sinon/lib/sinon/spy.js"></script>
+    <script src="../../node_modules/sinon/lib/sinon/stub.js"></script>
+    <script src="../../node_modules/sinon/lib/sinon/mock.js"></script>
+    <script src="../../node_modules/sinon/lib/sinon/util/event.js"></script>
+    <script src="../../node_modules/sinon/lib/sinon/util/fake_xml_http_request.js"></script>
+    <script src="../../node_modules/sinon/lib/sinon/util/fake_server.js"></script>
+    <!-- Bower components -->
+    <script src="../components/jQTouch/lib/zepto/zepto.js"></script>
+    <script src="../components/yepnope/yepnope.js"></script>
+    <script src="../components/underscore/underscore.js"></script>
+    <script src="../components/backbone/backbone.js"></script>
+    <script src="../components/backbone.basicauth/backbone.basicauth.js"></script> 
+    <script src="../components/Nibbler.min/index.js"></script>
+    <script src="../components/jQTouch/src/jqtouch.js"></script>
+    <script src="../components/jQTouch/extensions/jqt.menusheet.js"></script>
+    <!-- SpiderOak app js -->
+    <script src="../js/SpiderOakMobile.js"></script>
+    <!-- initialize mocha/chai/etc -->
+    <script>
+      mocha.ui('bdd'); 
+      mocha.reporter('html');
+      mocha.setup({ignoreLeaks: true});
+      expect = chai.expect;
+    </script>
+    <script src="./SpiderOakMobile-tests.js"></script>
+    <script>
+      if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+      else { mocha.run(); }
+    </script>
+  </body>
+</html>

@@ -20,6 +20,19 @@ module.exports = function(grunt) {
       debug_android: {
         command: 'cordova build android && cordova emulate android',
         stdout: true
+      },
+      // Some different reporters...
+      mochaspec: {
+        command: './node_modules/.bin/mocha-phantomjs www/tests/index.html',
+        stdout: true
+      },
+      mochamin: {
+        command: './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html',
+        stdout: true
+      },
+      mochadot: {
+        command: './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html',
+        stdout: true
       }
     },
     lint: {
@@ -48,6 +61,13 @@ module.exports = function(grunt) {
           'src/app.js'
         ],
         dest: 'www/js/<%= pkg.name %>.js'
+      },
+      tests: {
+        src: [
+          '<banner:meta.banner>',
+          'tests/**/*.js'
+        ],
+        dest: 'www/tests/<%= pkg.name %>-tests.js'
       }
     },
     min: {
@@ -91,9 +111,10 @@ module.exports = function(grunt) {
       files: [
         '<config:lint.files>',
         'www/spec/**/*.js',
+        'tests/**/*',
         'www/css/**/*.scss'
       ],
-      tasks: 'lint concat jasmine compass:dev'
+      tasks: 'lint concat shell:mochadot compass:dev'
     },
     jshint: {
       options: {
@@ -124,10 +145,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
-  grunt.registerTask('default', 'lint concat compass:dev jasmine');
+  grunt.registerTask('default', 'lint concat compass:dev shell:mochadot');
   // Custom tasks
-  grunt.registerTask('test', 'lint concat jasmine');
-  grunt.registerTask('debug_ios', 'lint concat jasmine compass:dev shell:debug_ios');
-  grunt.registerTask('debug_android', 'lint concat jasmine compass:dev shell:debug_android');
+  grunt.registerTask('test', 'lint concat shell:mochaspec');
+  grunt.registerTask('debug_ios', 'lint concat compass:dev shell:mochadot shell:debug_ios');
+  grunt.registerTask('debug_android', 'lint concat compass:dev shell:mochadot shell:debug_android');
 
 };

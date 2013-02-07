@@ -6,5 +6,6 @@ platforms/ios
 platforms/android
 www/js/SpiderOakMobile.js
 www/js/SpiderOakMobile.min.js
+www/tests/SpiderOakMobile-tests.js
 _SpecRunner.html
 .sass-cache

@@ -14,8 +14,6 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 
 - Cordova CLI - [https://github.com/apache/cordova-cli/](https://github.com/apache/cordova-cli/)
 	- Cordova / PhoneGap command line interface
-- Bower - [http://twitter.github.com/bower/](http://twitter.github.com/bower/)
-	- Component package manager for js/css libraries
 - Grunt - [http://gruntjs.com/](http://gruntjs.com/)
 	- Build tool for minimising, running and tests
 - Node and npm - [http://nodejs.org/](http://nodejs.org/)
@@ -31,7 +29,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 
 - clone the project
 - cd into the project folder
-- `npm install` to install node_modules and, via an implicit `bower install`, js/css components.
+- `npm install` to install node_modules and js/css components (`npm install` will also run `bower install`).
 - `cordova platform add ios` and/or `cordova platform add android`
 
 ## First test

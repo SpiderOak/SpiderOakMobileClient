@@ -13,29 +13,32 @@ module.exports = function(grunt) {
         ' */'
     },
     shell: {
-      debug_ios: {
-        command: 'cordova build ios && cordova emulate ios',
+      _options: {
+        failOnError: true,
         stdout: true
       },
+      debug_ios: {
+        command: 'cordova build ios && cordova emulate ios'
+      },
       debug_android: {
-        command: 'cordova build android && cordova emulate android',
-        stdout: true
+        command: 'cordova build android && cordova emulate android'
       },
       // Some different reporters...
       mochaspec: {
-        command: './node_modules/.bin/mocha-phantomjs www/tests/index.html',
-        failOnError: true,
-        stdout: true
+        command:
+          './node_modules/.bin/mocha-phantomjs www/tests/index.html'
       },
       mochamin: {
-        command: './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html',
-        failOnError: true,
-        stdout: true
+        command:
+          './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html'
       },
       mochadot: {
-        command: './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html',
-        failOnError: true,
-        stdout: true
+        command:
+          './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html'
+      },
+      mochatap: {
+        command:
+          './node_modules/.bin/mocha-phantomjs -R tap www/tests/index.html'
       }
     },
     lint: {

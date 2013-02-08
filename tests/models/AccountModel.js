@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('AccountModel', function() {
   describe('login/logout', function() {
     beforeEach(function(){

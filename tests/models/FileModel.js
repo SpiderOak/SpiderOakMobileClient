@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('FileModel', function() {
   describe('instantiation', function() {
     beforeEach(function() {

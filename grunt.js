@@ -24,14 +24,17 @@ module.exports = function(grunt) {
       // Some different reporters...
       mochaspec: {
         command: './node_modules/.bin/mocha-phantomjs www/tests/index.html',
+        failOnError: true,
         stdout: true
       },
       mochamin: {
         command: './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html',
+        failOnError: true,
         stdout: true
       },
       mochadot: {
         command: './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html',
+        failOnError: true,
         stdout: true
       }
     },
@@ -100,13 +103,6 @@ module.exports = function(grunt) {
         ]
       }
     },
-    jasmine : {
-      specs : 'www/spec/**/*.js',
-      template : 'www/spec/SpecRunner.html'
-    },
-    'jasmine-server' : {
-      browser : true
-    },
     watch: {
       files: [
         '<config:lint.files>',
@@ -141,7 +137,6 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-compass');
-  grunt.loadNpmTasks('grunt-jasmine-runner');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.

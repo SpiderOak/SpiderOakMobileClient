@@ -114,7 +114,7 @@ describe('AccountModel', function() {
           console.log("yop");
 //          expect(Backbone.BasicAuth.set.calledWith(this.username,this.password))
 //            .to.equal(true);
-          Backbone.BasicAuth.set.should.have.been.calledWith(this.username,
+          expect(Backbone.BasicAuth.set).to.have.been.calledWith(this.username,
                                                              this.password);
           Backbone.BasicAuth.set.restore();
       });

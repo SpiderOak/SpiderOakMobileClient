@@ -3,51 +3,51 @@ describe('Application setup', function() {
   describe('components', function() {
     describe('yepnope', function() {
       it('should have yepnope', function() {
-        expect(window.yepnope).to.be.a('function');
+        window.yepnope.should.be.a('function');
       });
     });
 
     describe('zepto', function() {
       it('should have zepto', function() {
-        expect(window.$).to.be.a('function');
+        window.$.should.be.a('function');
         // not only should $ exist, but $ should be Zepto, not jQuery...
-        expect(window.$).to.equal(window.Zepto);
+        window.$.should.equal(window.Zepto);
       });
     });
 
     describe('underscore', function() {
       it('should have underscore', function() {
-        expect(window._).to.be.a('function');
+        window._.should.be.a('function');
       });
     });
 
     describe('backbone', function() {
       it('should have backbone', function() {
-        expect(window.Backbone).to.be.an('object');
+        window.Backbone.should.be.an('object');
       });
       it('should have backbone.basicauth', function() {
-        expect(window.Backbone.BasicAuth).to.be.an('object');
+        window.Backbone.BasicAuth.should.be.an('object');
       });
     });
 
     describe('sinon', function() {
       it('should have sinon', function() {
-        expect(window.sinon).to.be.an('object');
+        window.sinon.should.be.an('object');
       });
       it('should have sinon spies', function() {
-        expect(window.sinon.spy).to.be.a('function');
+        window.sinon.spy.should.be.a('function');
       });
       it('should have sinon mocks', function() {
-        expect(window.sinon.mock).to.be.a('function');
+        window.sinon.mock.should.be.a('function');
       });
       it('should have sinon stubs', function() {
-        expect(window.sinon.stub).to.be.a('function');
+        window.sinon.stub.should.be.a('function');
       });
     });
 
     describe('nibbler', function() {
       it('should have nibbler', function() {
-        expect(window.Nibbler).to.be.a('function');
+        window.Nibbler.should.be.a('function');
       });
       it('should properly encode a username or share id',function() {
         // "my_share_id" -> "NV4V643IMFZGKX3JMQ"
@@ -61,16 +61,16 @@ describe('Application setup', function() {
           pad: ''
         });
         var encoded_share_id = nibbler.encode(share_id);
-        expect(encoded_share_id).to.equal("NV4V643IMFZGKX3JMQ");
+        encoded_share_id.should.equal("NV4V643IMFZGKX3JMQ");
       });
     });
 
     describe('jQTouch', function() {
       it('should have jqtouch', function() {
-        expect(window.$.jQTouch).to.be.a('function');
+        window.$.jQTouch.should.be.a('function');
       });
       it('should have jqtouch menusheet', function() {
-        expect(window.$.fn.menusheet).to.be.a('function');
+        window.$.fn.menusheet.should.be.a('function');
       });
     });
   });
@@ -83,13 +83,13 @@ describe('Application setup', function() {
       window.spiderOakApp.onDeviceReady.restore();
     });
     it('should have spiderOakApp', function() {
-      expect(window.spiderOakApp).to.be.an('object');
+      window.spiderOakApp.should.be.an('object');
     });
-    
+
     it('should bind deviceready', function() {
       window.spiderOakApp.initialize();
       helper.trigger(window.document,'deviceready');
-      expect(window.spiderOakApp.onDeviceReady.called).to.equal(true);
+      window.spiderOakApp.onDeviceReady.called.should.equal(true);
     });
   });
 

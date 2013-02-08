@@ -31,25 +31,27 @@ describe('DevicesCollection', function() {
       this.server.respond();
     });
     it('should fetch from the server using GET', function() {
-      expect(this.server.requests[0].method).to.equal("GET");
+      this.server.requests[0].method.should.equal("GET");
     });
     it('should use the expected url', function() {
-      expect(this.server.requests[0].url)
-        .to.equal("https://spideroak.com/storage/" + this.b32username + "/");
+      this.server.requests[0].url
+        .should.equal("https://spideroak.com/storage/"
+                      + this.b32username
+                      + "/");
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);
-      expect(this.successSpy.calledOnce).to.equal(true);
-      expect(this.collection.models.length).to.equal(2);
+      this.successSpy.should.have.been.calledOnce;
+      this.collection.models.length.should.equal(2);
     });
     it('should populate with DeviceModel instance(s)', function() {
       var model = this.collection.at(0);
-      expect(model instanceof spiderOakApp.DeviceModel).to.equal(true);
+      model.should.be.instanceOf(spiderOakApp.DeviceModel);
     });
     it('should asign the correct attributes in the model(s)', function() {
       var model = this.collection.at(0);
-      expect(model.get("name")).to.equal("Test device");
-      expect(model.get("url")).to.equal("Test%20device/");
+      model.get("name").should.equal("Test device");
+      model.get("url").should.equal("Test%20device/");
     });
   });
 });

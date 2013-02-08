@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('DevicesView', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();

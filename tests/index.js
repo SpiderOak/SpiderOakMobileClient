@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('Application setup', function() {
   describe('components', function() {
     describe('yepnope', function() {

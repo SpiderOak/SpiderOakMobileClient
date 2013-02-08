@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('DeviceModel', function() {
   describe('instantiation', function() {
     beforeEach(function() {

@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('FolderModel', function() {
   describe('instantiation', function() {
     beforeEach(function() {

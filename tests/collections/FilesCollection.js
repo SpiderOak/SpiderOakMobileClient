@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('FilesCollection', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();

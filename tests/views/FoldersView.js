@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('FoldersView', function() {
 	beforeEach(function() {
     this.server = sinon.fakeServer.create();

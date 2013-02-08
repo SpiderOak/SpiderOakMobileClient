@@ -30,46 +30,43 @@ describe('AccountModel', function() {
         this.server.respond();
       });
       it('should call the server using POST', function() {
-        expect(this.server.requests[0].method).to.equal("POST");
+        this.server.requests[0].method.should.equal("POST");
       });
       it('should use the expected login start url', function() {
-        expect(this.server.requests[0].url)
-          .to.equal("https://spideroak.com/browse/login");
+        this.server.requests[0].url
+            .should.equal("https://spideroak.com/browse/login");
       });
       // @TODO: There must be a better way to check query parameters?
       it('should pass the username as query data', function() {
         var match = this.server.requests[0].requestBody
           .match("username=" + this.username);
-        expect(match).to.be.an("Array");
-        expect(match).to.have.length(1);
+        match.should.be.an("Array");
+        match.should.have.length(1);
       });
       it('should pass the password as query data', function() {
         var match = this.server.requests[0].requestBody
           .match("password=" + this.password);
-        expect(match).to.be.an("Array");
-        expect(match).to.have.length(1);
+        match.should.be.an("Array");
+        match.should.have.length(1);
       });
       it('should set accountModel rememberme attribute to false by default',
         function() {
-          expect(this.accountModel.get("rememberme")).to.equal(false);
+          this.accountModel.get("rememberme").should.equal(false);
         }
       );
       it('should be able to set accountModel rememberme attribute to true',
         function() {
           this.accountModel.set("rememberme",true);
-          expect(this.accountModel.get("rememberme")).to.equal(true);
+          this.accountModel.get("rememberme").should.equal(true);
         }
       );
       it('should call the default success callback', function() {
-        expect(this.successSpy.calledOnce).to.equal(true);
-        expect(this.successSpy.calledWith(
-          "https://spideroak.com/"
-        )).to.equal(true);
+        this.successSpy.calledOnce.should.equal(true);
+        this.successSpy.should.have.been.calledWith("https://spideroak.com/");
       });
       it('should set accountModel b32username upon successful login',
         function() {
-          expect(this.accountModel.get("b32username"))
-            .to.equal(this.b32username);
+          this.accountModel.get("b32username").should.equal(this.b32username);
         }
       );
     });
@@ -92,7 +89,7 @@ describe('AccountModel', function() {
         document.removeEventListener("loginSuccess", this.successSpy, false);
       });
       it('should trigger `loginSuccess` event on document', function() {
-        expect(this.successSpy.calledOnce).to.equal(true);
+        this.successSpy.should.have.been.calledOnce;
       });
     });
 
@@ -111,10 +108,7 @@ describe('AccountModel', function() {
             ]
           );
           this.server.respond();
-          console.log("yop");
-//          expect(Backbone.BasicAuth.set.calledWith(this.username,this.password))
-//            .to.equal(true);
-          expect(Backbone.BasicAuth.set).to.have.been.calledWith(this.username,
+          Backbone.BasicAuth.set.should.have.been.calledWith(this.username,
                                                              this.password);
           Backbone.BasicAuth.set.restore();
       });
@@ -130,10 +124,8 @@ describe('AccountModel', function() {
       });
       it('should call the error callback', function() {
         // default 404 is a decent enough error
-        expect(this.errorSpy.calledOnce).to.equal(true);
-        expect(this.errorSpy.calledWith(
-          404, "authentication failed"
-        )).to.equal(true);
+        this.errorSpy.should.have.been.calledOnce;
+        this.errorSpy.should.have.been.calledWith(404, "authentication failed");
       });
     });
 
@@ -166,17 +158,17 @@ describe('AccountModel', function() {
         this.server.respond();
       });
       it('should call the alternate server using POST', function() {
-        expect(this.server.requests[1].method).to.equal("POST");
+        this.server.requests[1].method.should.equal("POST");
       });
       it('should call the alternate success callback', function() {
-        expect(this.successSpy.calledOnce).to.equal(true);
-        expect(this.successSpy.calledWith(
+        this.successSpy.should.have.been.calledOnce;
+        this.successSpy.should.have.been.calledWith(
           "https://alternate-dc.spideroak.com/"
-        )).to.equal(true);
+        );
       });
       it('should set accountModel b32username upon successful alternate login',
         function() {
-          expect(this.accountModel.get("b32username")).to.equal(this.b32username);
+          this.accountModel.get("b32username").should.equal(this.b32username);
         });
     });
 
@@ -200,10 +192,8 @@ describe('AccountModel', function() {
       });
       it('should call the error callback', function() {
         // default 404 is a decent enough error
-        expect(this.errorSpy.calledOnce).to.equal(true);
-        expect(this.errorSpy.calledWith(
-          404, "authentication failed"
-        )).to.equal(true);
+        this.errorSpy.should.have.been.calledOnce;
+        this.errorSpy.should.have.been.calledWith(404, "authentication failed");
       });
     });
 
@@ -231,7 +221,7 @@ describe('AccountModel', function() {
         sinon.spy(Backbone.BasicAuth,'clear');
         this.accountModel.logout(function(){});
         this.server.respond();
-        expect(Backbone.BasicAuth.clear.called).to.equal(true);
+        Backbone.BasicAuth.clear.should.have.been.called;
         Backbone.BasicAuth.clear.restore();
       });
       it("should POST to the account's logout URL", function() {
@@ -241,8 +231,7 @@ describe('AccountModel', function() {
           // Be sure to check against the LAST request.
           //  as there might be other requests involved in logging in
           var lastIndex = (this.server.requests.length - 1);
-          expect(this.server.requests[lastIndex].status)
-            .to.equal(200);
+          this.server.requests[lastIndex].status.should.equal(200);
       });
       // @TODO: Clear keychain credentials test
       // @TODO: Clear any localStorage test

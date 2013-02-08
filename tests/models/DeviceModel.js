@@ -7,12 +7,12 @@ describe('DeviceModel', function() {
       });
     });
     it('should have a name', function() {
-      expect(this.model.get("name")).toBeDefined();
-      expect(this.model.get("name")).toEqual("Test device");
+      expect(this.model.get("name")).to.be.a("string");
+      expect(this.model.get("name")).to.equal("Test device");
     });
     it('should have a URL', function() {
-      expect(this.model.get("url")).toBeDefined();
-      expect(this.model.get("url")).toEqual("Test%20device/");
+      expect(this.model.get("url")).to.a("string");
+      expect(this.model.get("url")).to.equal("Test%20device/");
     });
   });
 });

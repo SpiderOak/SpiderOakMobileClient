@@ -1,4 +1,4 @@
-describe('FilesCollection', function() {
+describe('FoldersCollection', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
@@ -23,7 +23,7 @@ describe('FilesCollection', function() {
             '"url": "filename.pdf", "versions": 2 } ] }'
         ]
       );
-      this.collection = new spiderOakApp.FilesCollection();
+      this.collection = new spiderOakApp.FoldersCollection();
       this.collection.url = "https://spideroak.com/storage/" +
                                     this.b32username + "/Test%20device/test/";
       this.collection.fetch({
@@ -33,31 +33,27 @@ describe('FilesCollection', function() {
       this.server.respond();
     });
     it('should fetch from the server using GET', function() {
-      expect(this.server.requests[0].method).toEqual("GET");
+      expect(this.server.requests[0].method).to.equal("GET");
     });
     it('should use the expected url', function() {
       expect(this.server.requests[0].url)
-        .toEqual("https://spideroak.com/storage/" + this.b32username +
+        .to.equal("https://spideroak.com/storage/" + this.b32username +
           "/Test%20device/test/");
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);
-      expect(this.successSpy.calledOnce).toBeTruthy();
-      expect(this.collection.models.length).toEqual(1);
+      expect(this.successSpy.calledOnce).to.equal(true);
+      expect(this.collection.models.length).to.equal(2);
     });
-    it('should populate with FileModel instance(s)', function() {
+    it('should populate with FolderModel instance(s)', function() {
       var model = this.collection.at(0);
-      expect(model instanceof spiderOakApp.FileModel).toBeTruthy();
+      expect(model instanceof spiderOakApp.FolderModel).to.equal(true);
     });
     it('should asign the correct attributes in the model(s)', function() {
       var model = this.collection.at(0);
-      expect(model.get("name")).toEqual("filename.pdf");
-      expect(model.get("url")).toEqual("filename.pdf");
-      expect(model.get("ctime")).toEqual(1359167989);
-      expect(model.get("etime")).toEqual(1359167998);
-      expect(model.get("mtime")).toEqual(1359167946);
-      expect(model.get("size")).toEqual(255434);
-      expect(model.get("versions")).toEqual(2);
+      // Note: trailing slash on "name" stripped during fetch
+      expect(model.get("name")).to.equal("test folder");
+      expect(model.get("url")).to.equal("test%20folder/");
     });
   });
 });

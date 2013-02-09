@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('FilesCollection', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();
@@ -33,31 +34,32 @@ describe('FilesCollection', function() {
       this.server.respond();
     });
     it('should fetch from the server using GET', function() {
-      expect(this.server.requests[0].method).to.equal("GET");
+      this.server.requests[0].method.should.equal("GET");
     });
     it('should use the expected url', function() {
-      expect(this.server.requests[0].url)
-        .to.equal("https://spideroak.com/storage/" + this.b32username +
-          "/Test%20device/test/");
+      this.server.requests[0].url
+        .should.equal("https://spideroak.com/storage/"
+                      + this.b32username
+                      + "/Test%20device/test/");
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);
-      expect(this.successSpy.calledOnce).to.equal(true);
-      expect(this.collection.models.length).to.equal(1);
+      this.successSpy.should.have.been.calledOnce;
+      this.collection.models.length.should.equal(1);
     });
     it('should populate with FileModel instance(s)', function() {
       var model = this.collection.at(0);
-      expect(model instanceof spiderOakApp.FileModel).to.equal(true);
+      model.should.be.instanceOf(spiderOakApp.FileModel);
     });
     it('should asign the correct attributes in the model(s)', function() {
       var model = this.collection.at(0);
-      expect(model.get("name")).to.equal("filename.pdf");
-      expect(model.get("url")).to.equal("filename.pdf");
-      expect(model.get("ctime")).to.equal(1359167989);
-      expect(model.get("etime")).to.equal(1359167998);
-      expect(model.get("mtime")).to.equal(1359167946);
-      expect(model.get("size")).to.equal(255434);
-      expect(model.get("versions")).to.equal(2);
+      model.get("name").should.equal("filename.pdf");
+      model.get("url").should.equal("filename.pdf");
+      model.get("ctime").should.equal(1359167989);
+      model.get("etime").should.equal(1359167998);
+      model.get("mtime").should.equal(1359167946);
+      model.get("size").should.equal(255434);
+      model.get("versions").should.equal(2);
     });
   });
 });

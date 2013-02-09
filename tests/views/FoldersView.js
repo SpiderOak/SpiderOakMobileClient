@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('FoldersView', function() {
 	beforeEach(function() {
     this.server = sinon.fakeServer.create();
@@ -33,31 +34,31 @@ describe('FoldersView', function() {
       this.server.respond();
     });
     it('should create a list element', function() {
-      expect(this.view.el.nodeName).to.equal("UL");
+      this.view.el.nodeName.should.equal("UL");
     });
     describe('Methods', function() {
       it('should call addAll', function() {
-        expect(this.view.addAll.called).to.equal(true);
+        this.view.addAll.should.have.been.called;
       });
       it('should call addOne', function() {
-        expect(this.view.addOne.called).to.equal(true);
+        this.view.addOne.should.have.been.called;
       });
     });
     describe('List items', function() {
       it('should append a list item for each model', function() {
-        expect(this.view.$("li").length)
-          .to.equal(this.view.collection.models.length);
+        this.view.$("li").length
+          .should.equal(this.view.collection.models.length);
       });
       it('should display the name of the model', function() {
         // well... it might have a leading space... trim it first
         var liText = this.view.$("li").first().text().replace(/^\s/,"");
         var modelName = this.view.collection.at(0).get("name");
-        expect(liText).to.equal(modelName);
+        liText.should.equal(modelName);
       });
       it('should set the model in the dataset', function() {
         var dataModel = this.view.$("li a").first().data("model");
         var collectionModel = this.view.collection.at(0);
-        expect(dataModel).to.equal(collectionModel);
+        dataModel.should.equal(collectionModel);
       });
     });
   });

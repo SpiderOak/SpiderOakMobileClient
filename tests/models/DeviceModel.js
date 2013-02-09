@@ -1,3 +1,4 @@
+/*jshint expr:true */
 describe('DeviceModel', function() {
   describe('instantiation', function() {
     beforeEach(function() {
@@ -7,12 +8,12 @@ describe('DeviceModel', function() {
       });
     });
     it('should have a name', function() {
-      expect(this.model.get("name")).to.be.a("string");
-      expect(this.model.get("name")).to.equal("Test device");
+      this.model.get("name").should.be.a("string");
+      this.model.get("name").should.equal("Test device");
     });
     it('should have a URL', function() {
-      expect(this.model.get("url")).to.a("string");
-      expect(this.model.get("url")).to.equal("Test%20device/");
+      this.model.get("url").should.a("string");
+      this.model.get("url").should.equal("Test%20device/");
     });
   });
 });

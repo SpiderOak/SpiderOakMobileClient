@@ -9,7 +9,6 @@
     <!-- Testing apparatus -->
     <script src="../../node_modules/mocha/mocha.js"></script>
     <script src="../../node_modules/chai/chai.js"></script>
-    <script src="../../node_modules/chai/chai.js"></script>
     <!-- Sinon.JS - might need more individual libs -->
     <script src="../../node_modules/sinon/lib/sinon.js"></script>
     <script src="../../node_modules/sinon/lib/sinon/spy.js"></script>
@@ -29,11 +28,18 @@
     <script src="../components/Nibbler.min/index.js"></script>
     <script src="../components/jQTouch/src/jqtouch.js"></script>
     <script src="../components/jQTouch/extensions/jqt.menusheet.js"></script>
+    <!-- chai-jquery - after zepto -->
+    <script>
+      if (typeof jQuery === "undefined") {
+        jQuery = Zepto;
+      }
+    </script>
+    <script src="../../node_modules/chai-jquery/chai-jquery.js"></script>
     <!-- SpiderOak app js -->
     <script src="../js/SpiderOakMobile.js"></script>
     <!-- initialize mocha/chai/etc -->
     <script>
-      mocha.ui('bdd'); 
+      mocha.ui('bdd');
       mocha.reporter('html');
       mocha.setup({ignoreLeaks: true});
       should = chai.should();

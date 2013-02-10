@@ -31,10 +31,18 @@
     <!-- chai-jquery - after zepto -->
     <script>
       if (typeof jQuery === "undefined") {
-        jQuery = Zepto;
+        <!-- Some fancy footwork so chai-jquery uses zepto: -->
+        var wasjQuery = jQuery;
+        var jQuery = Zepto;
       }
     </script>
     <script src="../../node_modules/chai-jquery/chai-jquery.js"></script>
+    <script>
+      <!-- Undo fancy footwork, so nothing besides chai-jquery is affected: -->
+      if (typeof wasjQuery === "undefined") {
+        jQuery = wasjQuery;
+      }
+    </script>
     <!-- SpiderOak app js -->
     <script src="../js/SpiderOakMobile.js"></script>
     <!-- initialize mocha/chai/etc -->

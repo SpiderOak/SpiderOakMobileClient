@@ -35,6 +35,7 @@ describe('FoldersView', function() {
     });
     it('should create a list element', function() {
       this.view.el.nodeName.should.equal("UL");
+      $(this.view.el).should.have.class("edgetoedge");
     });
     describe('Methods', function() {
       it('should call addAll', function() {

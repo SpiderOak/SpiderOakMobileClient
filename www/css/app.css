@@ -1,129 +1,181 @@
-#jqt ul.edgetoedge {
+/**
+ * This file should have generic css that will be used for all platforms
+ */
+
+body {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  padding: 0;
   margin: 0;
-}
-#jqt > div {
-  background-image: url(../img/cream_dust_@2X.png);
-  background-color: #fff;
-}
-.ios #jqt .back {
-  max-width: 55px;
-}
-.ios #jqt .back div {
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-}
-.ios #menusheet {
-  background-image: none;
-  background-color: #333;
-}
-.ios #menusheet ul li a {
-  background-color: #ccc;
-  border-color: #333;
-  color: #333;
-}
-.ios #menusheet form ul.search {
-  margin-left: -1px;
-  border-bottom: 2px solid #999;
-}
-.ios #menusheet form ul.search li {
-  padding: 8px 5px;
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.03, #222),
-    color-stop(0.52, #444),
-    color-stop(0.76, #666)
-  );
-}
-.ios #menusheet form ul.edgetoedge li input[type=search] {
-  border: 1px solid #eee;
-  background-color: #fff;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
-  border-radius: 15px;
-  padding: 0 28px 0 28px;
-  margin: 0;
-  line-height: 26px;
-}
-.ios #menusheet .clear-icon {
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  color: #aaa;
-  display: none;
-}
-.ios #menusheet .search-icon {
-  position: absolute;
-  left: 13px;
-  top: 14px;
-  color: #aaa;
-  font-size: 15px;
-}
-.ios #menusheet form ul li ::-webkit-input-placeholder {
-  color: #bfbfbf;
-  text-shadow: white 0 1px 0;
-  font-size: 15px;
-  padding-top: 2px;
-}
-.ios #menusheet .tip {
-  padding: 5px 10px;
-  background-color: #666;
-  color: #ccc;
-  border-bottom: 1px solid #999;
-}
-.ios #menusheet .sep {
-  padding: 0 10px;
-  background-color: #333;
-  color: #ccc;
-  border-bottom: 1px solid #999;
-}
-.ios #login form {
-  -webkit-transform: translateZ(10px);
-}
-.ios #login .login-logo {
-  background: url(../img/brand_logo.png) center top no-repeat;
-  -webkit-background-size: 130px 130px;
-  height: 120px;
-  width:100%;
-}
-.ios #login .login-logo.rotated {
-  -webkit-transform: rotate(17.5deg) translate(-60px, 70px);
-}
-.ios #login .loginButton {
-  position: absolute;
-  right: 0;
-  padding: 10px 60px;
-  margin: 0 10px;
-  font-size: 14px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-.ios #login .shareRoomsButton {
-  margin: 0 10px;
-  position: absolute;
-  left: 0;
-  font-size: 14px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-.ios #login .switch {
-  position: absolute;
-  margin: 0 10px;
-  right: 0;
-  top: 50px;
-}
-.ios #login .switch-label {
-  font-size: 12px;
-  position: absolute;
-  margin: 0 10px;
-  right: 0;
-  top: 83px;
-}
-.folderViewLoading {
-  display: none;
-}
-.folderViewLoading.loadingFolders,
-.folderViewLoading.loadingFiles {
-  display: block;
 }
 
+.app {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.menu {
+  padding: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 270px;
+  background-color: #333;
+}
+
+/* animate open with $('#main').animate({"-webkit-transform":"translate3d(270px,0,0)"},100) */
+.main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #eee;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 51px;
+  background-color: #e4e4e4;
+}
+
+.nav {
+  color: #fff;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  border-width: 0 0 0 1px;
+}
+
+ul li {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  border-top: 1px solid #ccc;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  -webkit-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+ul li:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+ul li small {
+  font-size: 0.6em;
+  display: block;
+  position: static;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul li.icon {
+  margin-right: 30px;
+}
+
+ul li.icon a {
+  margin-right: -30px;
+}
+
+ul li a {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  margin: -10px;
+  -webkit-transform: translateZ(0);
+  color: #000;
+}
+
+ul li a:hover {
+  background-image: none;
+  /*background-color: #3366cc;*/
+  background-color: #ccc;
+  color: black;
+}
+
+ul li a:hover small.counter {
+  background-color: #24478f;
+}
+
+ul li ::-webkit-input-placeholder {
+  color: #8293a1;
+  text-shadow: #e8ebee 0 1px 0;
+}
+
+ul li input[type="text"],
+ul li input[type="password"],
+ul li input[type="tel"],
+ul li input[type="number"],
+ul li input[type="search"],
+ul li input[type="email"],
+ul li input[type="url"],
+ul li textarea, ul li select {
+  color: black;
+  text-shadow: #e8ebee 0 1px 0;
+  background: transparent url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+  border: 0;
+  font: normal 17px "Helvetica Neue", Helvetica;
+  padding: 0;
+  display: inline-block;
+  margin-left: 0;
+  width: 100%;
+  -webkit-appearance: textarea;
+  -moz-appearance: textarea;
+}
+
+ul li textarea {
+  height: 120px;
+  padding: 0;
+  text-indent: -2px;
+}
+
+ul.form li {
+  padding: 7px 10px;
+}
+
+ul li.sep {
+  font-size: 0.9em;
+  padding: 2px 10px;
+  background-color: #666;
+  color: white;
+  border: none;
+}
+
+.menu ul li {
+  background-color: #ccc;
+  border-color: #333;
+}
+
+.menu ul li.sep {
+  background-color: #333;
+  color: white;
+}

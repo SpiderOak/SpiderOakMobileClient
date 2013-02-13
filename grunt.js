@@ -74,6 +74,25 @@ module.exports = function(grunt) {
           'tests/**/*.js'
         ],
         dest: 'www/tests/<%= pkg.name %>-tests.js'
+      },
+      zepto: {
+        src: [
+          'www/components/zepto/src/zepto.js',
+          'www/components/zepto/src/ajax.js',
+          'www/components/zepto/src/assets.js',
+          'www/components/zepto/src/data.js',
+          'www/components/zepto/src/detect.js',
+          'www/components/zepto/src/event.js',
+          'www/components/zepto/src/form.js',
+          'www/components/zepto/src/fx.js',
+          'www/components/zepto/src/fx_methods.js',
+          'www/components/zepto/src/gesture.js',
+          'www/components/zepto/src/polyfill.js',
+          'www/components/zepto/src/selector.js',
+          'www/components/zepto/src/stack.js',
+          'www/components/zepto/src/touch.js'
+        ],
+        dest: 'www/components/zepto/zepto.js'
       }
     },
     min: {
@@ -83,6 +102,12 @@ module.exports = function(grunt) {
           '<config:concat.dist.dest>'
         ],
         dest: 'www/js/<%= pkg.name %>.min.js'
+      },
+      zepto: {
+        src: [
+          'www/components/zepto/zepto.js'
+        ],
+        dest: 'www/components/zepto/zepto.min.js'
       }
     },
     compass: {

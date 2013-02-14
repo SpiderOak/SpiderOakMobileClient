@@ -7,7 +7,6 @@
     "backbone.basicauth": "https://github.com/fiznool/backbone.basicauth.git",
     "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "yepnope": "~1.5.4",
-    "font-awesome": "~3.0.1",
     "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.min.js",
     "zepto": "https://github.com/madrobby/zepto/archive/v1.0rc1.zip",
     "iscroll": "latest"

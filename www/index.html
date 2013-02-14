@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <title>SpiderOak Mobile</title>
-    <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/icomoon/style.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <script type="text/javascript" src="components/zepto/zepto.js"></script>
     <script type="text/javascript" src="components/yepnope/yepnope.js"></script>
@@ -32,38 +32,34 @@
       });
     </script>
   </head>
-  <body>
+  <body ontouchstart>
     <div id="app" class="app">
       <div id="menu" class="menu">
-        <ul>
-          <li class="sep">SpiderSync</li>
-          <li><a href="#"><i class="icon icon-folder-open"></i>SpiderOak folder</a></li>
-          <li class="sep">Devices</li>
-          <li><a href="#"><i class="icon icon-folder-open"></i>Banky</a></li>
-          <li class="sep">Sections</li>
-          <li><a href="#"><i class="icon icon-cloud-upload"></i>Share Rooms</a></li>
-          <li><a href="#"><i class="icon icon-cog"></i>Settings</a></li>
-          <li><a href="#"><i class="icon icon-signout"></i>Log out</a></li>
-        </ul>
+        <div>
+          <!-- // -->
+        </div>
       </div>
       <div id="main" class="main">
         <div id="nav" class="nav">
-          <a href="#" class="menu-btn"><i class="icon-align-justify icon-large"></i></a>
-          <div class="title">SpiderOak folder</div>
+          <a class="menu-btn"></a>
+          <a class="back-btn hidden"></a>
+          <div class="title">SpiderOak</div>
         </div>
-        <div id="subviews" class="subviews">
+        <div id="subviews" class="page">
           <!-- TEMP CONTENT FOR STYLING -->
-          <ul>
-            <li class="sep">Separator</li>
-            <li>Some stuff that's not a link, but something longer.</li>
-            <li class="icon"><a href="#"></i>item two</a></li>
-            <li><a href="#">item three</a></li>
-            <li class="sep">Separator</li>
-            <li><a href="#">This is an improbably long link or folder name</a></li>
-            <li><a href="#">item five<small>has some under text that is improbably long considering how tiny it is</small></a></li>
-            <li><a href="#">item six<small>has some under text</small></a></li>
-            <li><a href="#">item seven</a></li>
-          </ul>
+          <div>
+            <ul>
+              <li class="sep">Separator</li>
+              <li>Some stuff that's not a link, but something longer.</li>
+              <li><a href="#"></i><span class="icon-folder"></span> item two</a></li>
+              <li><a href="#"><span class="icon-folder"></span> item three</a></li>
+              <li class="sep">Separator</li>
+              <li><a href="#"><span class="icon-file"></span> This is an improbably long link or folder name</a></li>
+              <li><a href="#"><span class="icon-file-pdf"></span> item five<small>has some under text that is improbably long considering how tiny it is</small></a></li>
+              <li><a href="#"><span class="icon-file-excel"></span> item six<small>has some under text</small></a></li>
+              <li><a href="#"><span class="icon-file-zip"></span> item seven</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

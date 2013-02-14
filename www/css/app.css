@@ -53,7 +53,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  top: 51px;
+  top: 44px;
   background-color: #e4e4e4;
 }
 
@@ -76,9 +76,6 @@ ul li {
   margin: 0;
   padding: 10px;
   -webkit-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
@@ -92,15 +89,8 @@ ul li small {
   position: static;
   text-align: left;
   overflow: hidden;
+  padding-left: 25px;
   text-overflow: ellipsis;
-}
-
-ul li.icon {
-  margin-right: 30px;
-}
-
-ul li.icon a {
-  margin-right: -30px;
 }
 
 ul li a {
@@ -112,17 +102,18 @@ ul li a {
   padding: 10px;
   margin: -10px;
   -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   color: #000;
 }
 
-ul li a:hover {
+ul li a:active {
   background-image: none;
   /*background-color: #3366cc;*/
   background-color: #ccc;
   color: black;
 }
 
-ul li a:hover small.counter {
+ul li a:active small.counter {
   background-color: #24478f;
 }
 
@@ -149,7 +140,6 @@ ul li textarea, ul li select {
   margin-left: 0;
   width: 100%;
   -webkit-appearance: textarea;
-  -moz-appearance: textarea;
 }
 
 ul li textarea {
@@ -178,4 +168,12 @@ ul li.sep {
 .menu ul li.sep {
   background-color: #333;
   color: white;
+}
+
+.icon-large {
+  font-size: 1.4em;
+}
+
+.hidden {
+  display: none;
 }

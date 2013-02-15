@@ -61,7 +61,7 @@
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
-          if (where[1] === "login") {
+          if (where && where[1] === "login") {
             // Try again at indicated data center and/or path:
             if (where[2].charAt(0) === "/") {
               // Revise just the path part of the login url:
@@ -76,7 +76,7 @@
             _self.login(username, password, successCallback, errorCallback,
                         login_url);
           }
-          else if (where[1] === "location") {
+          else if (where && where[1] === "location") {
             _self.set("storage_web_url", where[2]);
             loginSuccess(login_url);
           }

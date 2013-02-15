@@ -21,8 +21,8 @@
     },
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
+      // this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
+      // this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
     },
     render: function() {
       // @FIXME: This will actually be set by the users choice...
@@ -47,17 +47,13 @@
       // ...
     },
     input_focusHandler: function(event) {
-      // window.setTimeout(function(){
-        this.$(".login-logo").addClass("rotated");
-      // },50);
+      // change logos
     },
     input_blurHandler: function(event) {
-      // window.setTimeout(function(){
-        this.$(".login-logo").removeClass("rotated");
-      // },50);
+      // change logos
     },
     form_submitHandler: function(event) {
-      this.$("input").blur();
+      event.preventDefault();
       var username = $("#username").val();
       var password = $("#password").val();
       var rememberme = $("#rememberme").is(":checked");
@@ -68,10 +64,9 @@
         account.set("rememberme",rememberme);
         // @TODO: Unblock spinner
         // Navigate away...
-        window.jQT.goTo("#main","slidedown");
-      };
+        this.dismiss();
+      }.bind(this);
       var error = function(status, error) {
-        // @TODO: Are there more options than just 403?
         // Clear it out
         spiderOakApp.accountModel = account = undefined;
         // @TODO: Unblock spinner
@@ -93,20 +88,24 @@
             " computer to continue.  Thank you. -- The SpiderOak Team");
         }
         else {
-          msg = ("Temporary server failure. Please try again later."); }
+          msg = ("Temporary server failure. Please try again later.");
+        }
         navigator.notification.alert(msg, null, "Authentication error", "OK");
       };
 
+      if(document.activeElement) {
+        document.activeElement.blur();
+      }
       var account = spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       account.login(username, password, success, error);
     },
     loginButton_tapHandler: function(event) {
-      this.$("input").blur();
       event.preventDefault();
+      this.form_submitHandler(event);
     },
     shareRoomsButton_tapHandler: function(event) {
-      this.$("input").blur();
       event.preventDefault();
+      this.form_submitHandler(event);
     },
     switch_tapHandler: function(event) {
       var $this = null;
@@ -119,6 +118,18 @@
       var $checkbox = $this.find("input[type=checkbox]");
       $checkbox.attr("checked",!$checkbox.is(":checked"));
       $this.toggleClass("on");
+    },
+    dismiss: function() {
+      if (!this.$el.hasClass("dismissed")) {
+        this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, 100);
+        this.$el.addClass("dismissed");
+      }
+    },
+    show: function() {
+      if (this.$el.hasClass("dismissed")) {
+        this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+        this.$el.removeClass("dismissed");
+      }
     }
   });
   spiderOakApp.loginView = new spiderOakApp.LoginView().render();

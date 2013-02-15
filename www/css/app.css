@@ -57,6 +57,17 @@ body {
   background-color: #e4e4e4;
 }
 
+.login {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #eee;
+}
+
 .nav {
   color: #fff;
 }
@@ -122,7 +133,7 @@ ul li ::-webkit-input-placeholder {
   text-shadow: #e8ebee 0 1px 0;
 }
 
-ul li input[type="text"],
+/*ul li input[type="text"],
 ul li input[type="password"],
 ul li input[type="tel"],
 ul li input[type="number"],
@@ -131,10 +142,9 @@ ul li input[type="email"],
 ul li input[type="url"],
 ul li textarea, ul li select {
   color: black;
-  text-shadow: #e8ebee 0 1px 0;
   background: transparent url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
   border: 0;
-  font: normal 17px "Helvetica Neue", Helvetica;
+  font: normal 17px "Roboto", Helvetica;
   padding: 0;
   display: inline-block;
   margin-left: 0;
@@ -148,9 +158,9 @@ ul li textarea {
   text-indent: -2px;
 }
 
-ul.form li {
+ul form li {
   padding: 7px 10px;
-}
+}*/
 
 ul li.sep {
   font-size: 0.9em;
@@ -158,6 +168,21 @@ ul li.sep {
   background-color: #666;
   color: white;
   border: none;
+}
+
+ul.rounded {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+ul.rounded li {
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+ul.rounded li:first-child {
+  border-top: none;
 }
 
 .menu ul li {

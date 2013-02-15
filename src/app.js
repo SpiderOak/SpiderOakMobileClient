@@ -40,7 +40,10 @@
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
       }).render();
-    }
+    },
+    navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
+    noEffect: new window.BackStack.NoEffect(),
+    fadeEffect: new window.BackStack.FadeEffect()
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

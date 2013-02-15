@@ -48,8 +48,8 @@
     render: function() {
       this.$el.html(
         _.template(
-          "<a href='#storage' class='fade'>" +
-          "<i class='icon-folder-close'></i> <%= name %>" +
+          "<a href='#storage'>" +
+          "<i class='icon-folder'></i> <%= name %>" +
           "</a>",
           this.model.toJSON()
         )

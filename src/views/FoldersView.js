@@ -23,7 +23,6 @@
       this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
     },
     render: function() {
-      $("#jqt").append(this.el);
       return this;
     },
     pageAnimationStart_handler: function(event, data) {
@@ -116,7 +115,6 @@
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
     tagName: "li",
-    className: "arrow",
     events: {
       "tap a": "a_tapHandler"
     },
@@ -126,7 +124,7 @@
     render: function() {
       this.$el.html(
         _.template(
-          "<a href='#'><i class='icon-folder-close'></i> <%= name %></a>",
+          "<a href='#'><i class='icon-folder'></i> <%= name %></a>",
           this.model.toJSON()
         )
       );

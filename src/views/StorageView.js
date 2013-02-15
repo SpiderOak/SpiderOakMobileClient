@@ -11,7 +11,6 @@
 
   // A subset of the folder view
   spiderOakApp.StorageView = spiderOakApp.FolderView.extend({
-    el: "#storage",
     templateID: "#storageViewTemplate"
   });
   spiderOakApp.storageView = new spiderOakApp.StorageView().render();

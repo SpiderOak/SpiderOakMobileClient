@@ -18,6 +18,8 @@
     },
     initialize: function() {
       _.bindAll(this);
+      $(document).on("menuOpening", this.menuOpening);
+      $(document).on("menuClosing", this.menuClosing);
       // this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
       // this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
     },
@@ -37,8 +39,14 @@
       });
 
       return this;
-    }/*,
-    pageAnimationStart_handler: function(event, data) {
+    },
+    menuOpening: function(event) {
+      this.scroller.refresh();
+    },
+    menuClosing: function(event) {
+      // ...
+    }
+    /*pageAnimationStart_handler: function(event, data) {
       if (data.direction === "out") {
         this.$("input[type=search]").attr("disabled", true);
         this.$("input[type=search]").blur();

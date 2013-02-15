@@ -55,6 +55,10 @@
         )
       );
       this.$("a").data("model",this.model);
+      this.$("a").data("view", new spiderOakApp.StorageView({
+          id: this.model.cid,
+          model: this.model
+      }));
       return this;
     }
   });

@@ -23,6 +23,7 @@ body {
   top: 0;
   width: 100%;
   overflow: hidden;
+  background-color: #333;
 }
 
 .menu {
@@ -183,6 +184,10 @@ ul.rounded li {
 
 ul.rounded li:first-child {
   border-top: none;
+}
+
+.folderViewLoading li {
+  text-align: center;
 }
 
 .menu ul li {

@@ -12,8 +12,9 @@
   spiderOakApp.MainView = Backbone.View.extend({
     el: "#main",
     events: {
-      'tap .menu-btn': 'menuButton_handler',
-      'tap .back-btn': 'backButton_hanlder'
+      // Use touchend to work around a bug in ICS
+      'touchend .menu-btn': 'menuButton_handler',
+      'touchend .back-btn': 'backButton_hanlder'
     },
     initialize: function() {
       _.bindAll(this);
@@ -53,23 +54,19 @@
       // ...
     },
     openMenu: function(event) {
+      $(document).trigger("menuOpening");
       $('#main').animate({
         "-webkit-transform": "translate3d(270px,0,0)"
       },200,'ease-in-out');
       $("#main").addClass("open");
-      // window.setTimeout(function(){
-      //   $('#menu input[type=search]').removeAttr('disabled');
-      // },300);
     },
     closeMenu: function(event) {
+      $(document).trigger("menuClosing");
       if ($("#main").hasClass("open")) {
         $('#main').animate({
           "-webkit-transform": "translate3d(0,0,0)"
         },200,'ease-in-out');
         $('#menu input[type=search]').blur();
-        // window.setTimeout(function(){
-        //   $('#menu input[type=search]').attr('disabled',true);
-        // },200);
         $("#main").removeClass("open");
       }
     }

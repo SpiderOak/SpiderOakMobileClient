@@ -71,6 +71,30 @@ describe('AccountModel', function() {
       );
     });
 
+    describe('successful case-insensitive login', function(){
+      it('should use proper case-translated username for basic auth',
+         function() {
+           this.usernameUpCased = this.username.toUpperCase();
+           sinon.spy(Backbone.BasicAuth,'set');
+           this.successSpy = sinon.spy();
+           this.errorSpy = sinon.spy();
+           this.server.respondWith(
+             "POST",
+             "https://spideroak.com/browse/login",
+             [200, {"Content-Type": "text/html"},
+              "location:https://spideroak.com/" + this.b32username + "/storage"]
+           );
+           this.accountModel.login(this.usernameUpCased, this.password,
+                                   this.successSpy, this.errorSpy);
+           this.server.respond();
+           this.successSpy.calledOnce.should.equal(true);
+           Backbone.BasicAuth.set.should.have.been.calledWith(this.username,
+                                                              this.password);
+           Backbone.BasicAuth.set.restore();
+         }
+        );
+    });
+
     describe('events', function() {
       beforeEach(function(){
         this.successSpy = sinon.spy();

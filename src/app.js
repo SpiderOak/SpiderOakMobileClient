@@ -46,7 +46,7 @@
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 
 /* Polyfills in lieu of Cordova */
-if (! navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+if (! window.cordova) {
   if (! navigator.notification) {
     navigator.notification = {};
   }

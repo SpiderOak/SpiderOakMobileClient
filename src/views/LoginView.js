@@ -1,5 +1,5 @@
 /**
- * MainView.js
+ * LoginView.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -12,8 +12,6 @@
   spiderOakApp.LoginView = Backbone.View.extend({
     el: "#login",
     events: {
-      "focus input": "input_focusHandler",
-      "blur input": "input_blurHandler",
       "submit form": "form_submitHandler",
       "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
@@ -21,8 +19,8 @@
     },
     initialize: function() {
       _.bindAll(this);
-      // this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      // this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
+      $(document).on("focus", "#login input", this.input_focusHandler);
+      $(document).on("blur", "#login input", this.input_blurHandler);
     },
     render: function() {
       // @FIXME: This will actually be set by the users choice...
@@ -31,26 +29,28 @@
       }
       return this;
     },
-    pageAnimationStart_handler: function(event, data) {
-      // Assume that if this view is being displayed it is due to
-      //  logging out or needing reauthentication
-      if (data.direction === "in") {
-        // Clear inputs
-        $("#username").val("");
-        $("#password").val("");
-        spiderOakApp.accountModel.logout(function() {
-          spiderOakApp.accountModel = undefined;
-        });
-      }
-    },
-    pageAnimationEnd_handler: function(event, data) {
-      // ...
-    },
+    // pageAnimationStart_handler: function(event, data) {
+    //   // Assume that if this view is being displayed it is due to
+    //   //  logging out or needing reauthentication
+    //   if (data.direction === "in") {
+    //     // Clear inputs
+    //     $("#username").val("");
+    //     $("#password").val("");
+    //     spiderOakApp.accountModel.logout(function() {
+    //       spiderOakApp.accountModel = undefined;
+    //     });
+    //   }
+    // },
+    // pageAnimationEnd_handler: function(event, data) {
+    //   // ...
+    // },
     input_focusHandler: function(event) {
-      // change logos
+      // @TODO: also change logos
+      $(event.target).closest("div.login-input").addClass("focused");
     },
     input_blurHandler: function(event) {
-      // change logos
+      // @TODO: also change logos
+      $(event.target).closest("div.login-input").removeClass("focused");
     },
     form_submitHandler: function(event) {
       event.preventDefault();

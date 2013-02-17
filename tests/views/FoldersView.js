@@ -56,11 +56,6 @@ describe('FoldersView', function() {
         var modelName = this.view.collection.at(0).get("name");
         liText.should.equal(modelName);
       });
-      it('should set the model in the dataset', function() {
-        var dataModel = this.view.$("li a").first().data("model");
-        var collectionModel = this.view.collection.at(0);
-        dataModel.should.equal(collectionModel);
-      });
     });
   });
 });

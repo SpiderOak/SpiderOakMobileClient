@@ -17,31 +17,23 @@
   // });
   spiderOakApp.FolderView = Backbone.View.extend({
     templateID: "#folderViewTemplate",
+    destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      return this;
-    },
-    pageAnimationStart_handler: function(event, data) {
-      if (data.direction === "out" || data.back ||
-          this.$(".folderViewLoading").css("display") === "none") {
-        return true;
-      }
-      if (!this.model) {
-        this.referrer = this.$el.data("referrer");
-        this.model = this.referrer.data("model");
-      }
       this.$el.html(_.template($(this.templateID).text(), this.model.toJSON()));
-      
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
       this.loadFolders();
       this.loadFiles();
-      this.render();
-    },
-    pageAnimationEnd_handler: function(event, data) {
-      // console.log("storage.pageAnimationEnd - " + data.direction);
+      return this;
     },
     loadFolders: function() {
       // The folders...
@@ -60,6 +52,10 @@
       // When we have finished fetching the folders, help hide the spinner
       this.$(".foldersList").one("complete", function(event) {
         this.$(".folderViewLoading").removeClass("loadingFolders");
+        window.setTimeout(function(){
+          this.scroller.refresh();
+        }.bind(this),0);
+        // @TODO: Refresh subviews scroller
       }.bind(this));
     },
     loadFiles: function() {
@@ -78,8 +74,43 @@
       });
       // When we have finished fetching the files, help hide the spinner
       this.$(".filesList").one("complete", function(event) {
+        // @TODO: Refresh subviews scroller
         this.$(".folderViewLoading").removeClass("loadingFiles");
+        window.setTimeout(function(){
+          this.scroller.refresh();
+        }.bind(this),0);
       }.bind(this));
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.model.get("name"));
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      //this.close();
+    },
+    close: function() {
+      // Clean up our subviews
+      this.scroller.destroy();
+      this.foldersListView.close();
+      this.filesListView.close();
     }
   });
 
@@ -90,6 +121,8 @@
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
+
+      this.subViews = [];
 
       this.collection.fetch();
     },
@@ -103,13 +136,23 @@
       var view = new spiderOakApp.FoldersListItemView({
         model: model
       });
-      view.render();
-      this.$el.append(view.el);
+      this.$el.append(view.render().el);
+      this.subViews.push(view);
     },
     addAll: function() {
-      this.$el.empty();
+      this.$el.empty(); // needed still ?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
+    },
+    close: function(){
+      this.remove();
+      this.unbind();
+      // handle other unbinding needs, here
+      _.each(this.subViews, function(subViews){
+        if (subViews.close){
+          subViews.close();
+        }
+      });
     }
   });
 
@@ -128,22 +171,21 @@
           this.model.toJSON()
         )
       );
-      this.$("a").data("model",this.model);
+      var options = {
+        id: this.model.cid,
+        model: this.model
+      };
+      this.folderView = new spiderOakApp.FolderView(options);
       return this;
     },
     a_tapHandler: function(event) {
       event.preventDefault();
-      if ($("#"+this.model.cid).length) {
-        window.jQT.goTo("#"+this.model.cid, "slideleft");
-      }
-      else {
-        this.folderView = new spiderOakApp.FolderView({
-          id: this.model.cid,
-          model: this.model
-        });
-        this.folderView.render();
-        window.jQT.goTo("#"+this.model.cid, "slideleft");
-      }
+      spiderOakApp.navigator.pushView(this.folderView, {},
+        spiderOakApp.defaultEffect);
+    },
+    close: function(){
+      this.remove();
+      this.unbind();
     }
   });
 

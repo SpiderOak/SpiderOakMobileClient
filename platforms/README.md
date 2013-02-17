@@ -1,1 +1,0 @@
-## Cordova platforms go here

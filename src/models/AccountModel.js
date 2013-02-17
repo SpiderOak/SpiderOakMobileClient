@@ -36,7 +36,6 @@
     login: function(username, password, successCallback, errorCallback,
                     login_url) {
       var _self = this;
-      var b32username = this.b32encode(username);
       login_url = login_url || _self.get("login_url_start");
       $.ajax({
         type: "POST",
@@ -48,6 +47,15 @@
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
           function loginSuccess(login_url) {
+            // Obtain the b32username according to the server -
+            // the section of the URL before the least '/' delimiter:
+            var b32username = login_url.split('/');
+            b32username = b32username[b32username.length - 2];
+            // Replace our notion of the username with the one the server
+            // has, according to the b32username: the server preserves the
+            // original account's alphabetic case, and uses it, whatever
+            // case differences the user enters for login.
+            username = _self.b32nibbler.decode(b32username);
             // Set the basicauth details:
             Backbone.BasicAuth.set(username,password);
             // Record the b32username:
@@ -77,8 +85,12 @@
                         login_url);
           }
           else if (where && where[1] === "location") {
-            _self.set("storage_web_url", where[2]);
-            loginSuccess(login_url);
+            var destination = login_url;
+            if (destination === _self.get("login_url_start")) {
+              destination = where[2];
+            }
+            _self.set("storage_web_url", destination);
+            loginSuccess(destination);
           }
           else {
             errorCallback(0, "unexpected server response");
@@ -94,14 +106,14 @@
       Backbone.BasicAuth.clear();
       // @TODO: Clear keychain credentials
       // Post to the logout URL to get the session cookie expired:
-      var logout_url = (this.get('logout_url_preface')
-                        + this.get("b32username")
-                        + "/logout");
+      var logout_url = (this.get('logout_url_preface') +
+                        this.get("b32username") +
+                        "/logout");
       $.ajax({type: "POST",
               url: logout_url,
               error: function(xhr, errorType, error) {
-                console.log("Account logout returned error, status: "
-                            + xhr.status);
+                console.log("Account logout returned error, status: " +
+                            xhr.status);
                 }
              });
       // @TODO: Clear any localStorage
@@ -109,15 +121,12 @@
       this.clear();
       successCallback();
     },
-    b32encode: function(str) {
-      var nibbler = new window.Nibbler({
-        dataBits: 8,
-        codeBits: 5,
-        keyString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
-        pad: ""
-      });
-      return nibbler.encode(str);
-    },
+    b32nibbler: new window.Nibbler({
+      dataBits: 8,
+      codeBits: 5,
+      keyString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+      pad: ""
+    }),
     getStorageURL: function() {
       return this.get("login_url_preface") +
               this.get("b32username") +

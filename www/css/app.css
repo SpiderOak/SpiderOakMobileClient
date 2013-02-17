@@ -134,35 +134,6 @@ ul li ::-webkit-input-placeholder {
   text-shadow: #e8ebee 0 1px 0;
 }
 
-/*ul li input[type="text"],
-ul li input[type="password"],
-ul li input[type="tel"],
-ul li input[type="number"],
-ul li input[type="search"],
-ul li input[type="email"],
-ul li input[type="url"],
-ul li textarea, ul li select {
-  color: black;
-  background: transparent url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
-  border: 0;
-  font: normal 17px "Roboto", Helvetica;
-  padding: 0;
-  display: inline-block;
-  margin-left: 0;
-  width: 100%;
-  -webkit-appearance: textarea;
-}
-
-ul li textarea {
-  height: 120px;
-  padding: 0;
-  text-indent: -2px;
-}
-
-ul form li {
-  padding: 7px 10px;
-}*/
-
 ul li.sep {
   font-size: 0.9em;
   padding: 2px 10px;
@@ -195,6 +166,11 @@ ul.rounded li:first-child {
   border-color: #333;
 }
 
+.menu ul li a:active {
+  background-color: #666;
+  color: #ccc;
+}
+
 .menu ul li.sep {
   background-color: #333;
   color: white;
@@ -206,4 +182,13 @@ ul.rounded li:first-child {
 
 .hidden {
   display: none;
+}
+
+.folderViewLoading {
+  display: none;
+}
+
+.folderViewLoading.loadingFolders,
+.folderViewLoading.loadingFiles {
+  display: block;
 }

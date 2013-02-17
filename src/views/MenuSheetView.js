@@ -20,8 +20,6 @@
       _.bindAll(this);
       $(document).on("menuOpening", this.menuOpening);
       $(document).on("menuClosing", this.menuClosing);
-      // this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      // this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
     },
     render: function() {
       this.$("input[type=search]").attr("disabled",true);
@@ -32,7 +30,7 @@
         collection: this.devicesCollection,
         el: this.$(".devices")
       }).render();
-      this.scroller = new window.iScroll(this.el, {
+      spiderOakApp.menuScroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
         hScrollbar: false
@@ -41,39 +39,11 @@
       return this;
     },
     menuOpening: function(event) {
-      this.scroller.refresh();
+      spiderOakApp.menuScroller.refresh();
     },
     menuClosing: function(event) {
       // ...
     }
-    /*pageAnimationStart_handler: function(event, data) {
-      if (data.direction === "out") {
-        this.$("input[type=search]").attr("disabled", true);
-        this.$("input[type=search]").blur();
-      }
-    },
-    pageAnimationEnd_handler: function(event, data) {
-      if (data.direction === "in") {
-        window.setTimeout(function(){
-          this.$("input[type=search]").removeAttr("disabled");
-        },100);
-      }
-    },
-    menuSearch_focusHandler: function(event) {
-      // ...
-    },
-    menuSearch_changeHandler: function(event) {
-      if ($(event.target).val().length) {
-        this.$(".clear-icon").show();
-      }
-      else {
-        this.$(".clear-icon").hide();
-      }
-    },
-    clearIcon_tapHandler: function(event) {
-      $("#menu-search").val("");
-      this.$(".clear-icon").hide();
-    }*/
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

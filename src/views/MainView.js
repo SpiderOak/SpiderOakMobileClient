@@ -21,15 +21,8 @@
       $('.page').on('tap',this.closeMenu);
     },
     render: function() {
+      this.showBackButton(false);
       return this;
-    },
-    showMenuButton: function(show) {
-      if (show) {
-        this.$('.menu-btn').show();
-      }
-      else {
-        this.$('.menu-btn').hide();
-      }
     },
     showBackButton: function(show) {
       if (show) {
@@ -41,6 +34,13 @@
         this.$('.back-btn').hide();
       }
     },
+    setTitle: function(title) {
+      var $title = this.$('.nav .title');
+      $title.animate({opacity:0},50,"linear",function(){
+        $title.html(title);
+        $title.animate({opacity:1},50,"linear");
+      });
+    },
     menuButton_handler: function(event) {
       if (!$("#main").hasClass("open")) {
         this.openMenu();
@@ -51,21 +51,25 @@
       return false;
     },
     backButton_hanlder: function(event) {
-      // ...
+      if (!spiderOakApp.backDisabled) {
+        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+      }
     },
     openMenu: function(event) {
       $(document).trigger("menuOpening");
+      var duration = ($.os.android) ? 200 : 300;
       $('#main').animate({
-        "-webkit-transform": "translate3d(270px,0,0)"
-      },200,'ease-in-out');
+        translate3d: '270px,0,0'
+      },duration,'ease-in-out');
       $("#main").addClass("open");
     },
     closeMenu: function(event) {
       $(document).trigger("menuClosing");
+      var duration = ($.os.android) ? 200 : 300;
       if ($("#main").hasClass("open")) {
         $('#main').animate({
-          "-webkit-transform": "translate3d(0,0,0)"
-        },200,'ease-in-out');
+          translate3d: '0,0,0'
+        },duration,'ease-in-out');
         $('#menu input[type=search]').blur();
         $("#main").removeClass("open");
       }

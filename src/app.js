@@ -9,6 +9,9 @@
       _           = window._,
       $           = window.$;
 
+  // Fix for lack of detach in Zepto...
+  $.fn.detach = $.fn.remove;
+
   // Considering changing the template settings as the ERB defaults are annoying
   // _.templateSettings = {
   //   evaluate:    /\{\{#([\s\S]+?)=\}\}/g,          // {{# console.log("blah") }}
@@ -30,6 +33,7 @@
         false
       );
     },
+    backDisabled: true,
     onDeviceReady: function() {
       // @FIXME: This seems cludgey
       if (window.cssLoaded) navigator.splashscreen.hide();
@@ -43,7 +47,9 @@
     },
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
-    fadeEffect: new window.BackStack.FadeEffect()
+    fadeEffect: new window.BackStack.FadeEffect(),
+    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() :
+      null)
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

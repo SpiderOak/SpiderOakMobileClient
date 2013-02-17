@@ -61,19 +61,16 @@
       <div id="main" class="main">
         <div id="nav" class="nav">
           <a class="menu-btn"></a>
+          <a class="back-btn"></a>
           <div class="title">SpiderOak</div>
         </div>
-        <div id="subviews" class="page">
-          <div class="content">
-            <!-- // -->
-          </div>
-        </div>
+        <div id="subviews" class="page"></div>
       </div>
       <div id="login" class="login">
         <!-- @FIXME: inline styles are fail -->
         <img src="img/brand_logo.png" 
           style="display:block; width:100px;margin: 10px auto;" />
-        <form action="#" class="login-form">
+        <form class="login-form">
           <div class="login-input">
             <input id="username" type="text" name="username"
                        autocapitalize="off" placeholder="Username" />
@@ -83,20 +80,22 @@
             <input id="password" type="password" name="password"
                        placeholder="Password" />
           </div>
-          <a class="button loginButton" href="#">Log in</a>
-          <a class="button shareRoomsButton" href="#">Go to ShareRooms</a>
+          <a class="button loginButton">Log in</a>
+          <a class="button shareRoomsButton">Go to ShareRooms</a>
           <input type="submit" style="visibility:hidden" />
         </form>
       </div>
     </div>
     <!-- Templates -->
     <!-- @FIXME: inline styles are fail -->
-    <script type="text/html" id="storageViewTemplate">
-      <ul class="folderViewLoading loadingFolders loadingFiles">
-        <li>Loading...</li>
-      </ul>
-      <ul class="foldersList"></ul>
-      <ul class="filesList" ></ul>
+    <script type="text/html" id="folderViewTemplate">
+      <div>
+        <ul class="folderViewLoading loadingFolders loadingFiles">
+          <li>Loading...</li>
+        </ul>
+        <ul class="foldersList"></ul>
+        <ul class="filesList" ></ul>
+      </div>
     </script>
     <!-- Cordova -->
     <script src="cordova.js"></script>
@@ -111,7 +110,8 @@
     <script src="js/SpiderOakMobile.js"></script>
     <!-- initialization -->
 
-    <!-- <script src="http://devgeeks.org:8080/target/target-script-min.js#spideroak"></script> -->
+    <!-- <script src="http://devgeeks.org:8080/target/target-script-min.js#spideroak">
+    </script> -->
 
     <script type="text/javascript">
       window.spiderOakApp && window.spiderOakApp.initialize();      

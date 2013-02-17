@@ -1,0 +1,164 @@
+/**
+ * This file should have css that will be used for android
+ */
+body {
+    background-color: #eee;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+
+.nav {
+	height: 50px;
+	background-color: #000;
+}
+
+.nav .menu-btn,
+.nav .back-btn {
+  color: rgba(0,0,0,0);
+	display: block;
+	position: absolute; 
+	left: 0;
+	padding: 0 3px;
+  background: url('../../img/ic_ab_back_holo_dark.png') no-repeat, url('../../img/icon.png') no-repeat;
+	width: 50px;
+	height:50px;
+	background-size: 16px, 35px;
+  background-position: 0 17px, 13px 7.5px;
+}
+
+.nav .menu-btn:active,
+.nav .back-btn:active {
+	background-color: #333;
+}
+
+.nav .title {
+  display: block;
+  width: 250px;
+  padding: 10px;
+  position: absolute;
+  left: 45px;
+  font-size: 1.3em;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 44px;
+  background-color: #e4e4e4;
+}
+
+ul li {
+    font-size: 1.2em;
+    padding: 13px 10px;
+}
+
+ul li a {
+  padding: 13px 10px;
+  margin: -13px -10px;
+}
+
+.menu {
+    padding: 0 10px;
+    width: 250px;
+}
+
+.menu ul li {
+  padding-top: 20px;
+  background-color: #333;
+  border-color: #333;
+  color: #fff;
+}
+
+.menu ul li.current {
+  border-left: 5px solid orange;
+  margin-left: -5px;
+}
+
+.menu ul li.sep {
+  background-color: #333;
+  border-bottom: 2px solid #666;
+  color: #ccc;
+}
+
+.menu ul li a {
+  color: #fff;
+}
+
+.menu ul li a:active {
+  color: #000;
+}
+
+ul.rounded {
+  border: none;
+}
+
+ul.rounded li {
+  border: none;
+}
+
+div.login-input {
+  position: relative;
+  border-bottom: solid 1px #ccc;
+  border-left: solid 1px #ccc;
+  margin: 20px;
+  border-right: solid 1px #ccc;
+  overflow: visible;
+  max-height: 0.1em;
+  display: block;
+  padding: 2px 17px 2px 2px;
+}
+
+div.login-input.focused {
+  position: relative;
+  border-bottom: solid 1px orange;
+  border-left: solid 1px orange;
+  margin: 20px;
+  border-right: solid 1px orange;
+  overflow: visible;
+  max-height: 0.1em;
+  display: block;
+  padding: 2px 17px 2px 2px;
+}
+
+div.login-input input {
+  -webkit-user-modify: read-write-plaintext-only;
+  -webkit-tap-highlight-color:rgba(0,0,0,0); 
+  width: 100%;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  outline: none;
+  border: none;
+  background: transparent;
+  display: block;
+  position: relative;
+  bottom: 20px;
+  margin: -5px 0;
+  font-size: 1.1em;
+}
+
+a.button,
+button {
+  -webkit-tap-highlight-color: rgba(100%, 65%, 0%, 0.3);
+  display: block;
+  margin: 10px 20px;
+  padding: 8px 40px;
+  border-top: 1px solid rgba(255,255,255,0.34);
+  border-right: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.43);
+  border-left: 1px solid rgba(0,0,0,0.04);
+  border-radius: 1px;
+  text-decoration: none;
+  text-align: center;
+  background-color: #ccc;
+  color: #333;
+}
+
+a.button:active {
+  box-shadow: 0 0 2px 4px orange;
+  outline:0;
+}
+

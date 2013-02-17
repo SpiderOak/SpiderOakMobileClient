@@ -82,7 +82,6 @@
       $("#menusheet ul li").removeClass("current");
       this.$el.addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {
-        console.log(1);
         spiderOakApp.navigator.pushView(
           spiderOakApp.FolderView,
           options,

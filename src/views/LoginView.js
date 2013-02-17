@@ -54,8 +54,8 @@
     },
     form_submitHandler: function(event) {
       event.preventDefault();
-      var username = $("#username").val();
-      var password = $("#password").val();
+      var username = $("#unme").val();
+      var password = $("#pwrd").val();
       var rememberme = $("#rememberme").is(":checked");
 
       var success = function(apiRoot) {

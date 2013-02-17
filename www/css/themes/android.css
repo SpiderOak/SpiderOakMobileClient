@@ -7,8 +7,8 @@ body {
 }
 
 .nav {
-	height: 50px;
-	background-color: #000;
+	height: 50px !important;
+	background-color: #111;
 }
 
 .nav .menu-btn,
@@ -22,7 +22,7 @@ body {
 	width: 50px;
 	height:50px;
 	background-size: 16px, 35px;
-  background-position: 0 17px, 13px 7.5px;
+  background-position: 0 15px, 13px 5px;
 }
 
 .nav .menu-btn:active,
@@ -33,7 +33,7 @@ body {
 .nav .title {
   display: block;
   width: 250px;
-  padding: 10px;
+  padding: 8px;
   position: absolute;
   left: 45px;
   font-size: 1.3em;
@@ -130,7 +130,7 @@ div.login-input input {
   -webkit-tap-highlight-color:rgba(0,0,0,0); 
   width: 100%;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
-  outline: none;
+  outline: none !important;
   border: none;
   background: transparent;
   display: block;

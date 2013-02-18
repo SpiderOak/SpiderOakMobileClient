@@ -106,6 +106,12 @@
     viewDeactivate: function(event) {
       //this.close();
     },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
     close: function() {
       // Clean up our subviews
       this.scroller.destroy();
@@ -180,6 +186,9 @@
     },
     a_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       spiderOakApp.navigator.pushView(this.folderView, {},
         spiderOakApp.defaultEffect);
     },

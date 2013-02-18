@@ -89,7 +89,7 @@
             if (destination === _self.get("login_url_start")) {
               destination = where[2];
             }
-            _self.set("storage_web_url", destination);
+            _self.set("storage_web_url", destination.replace(/\/[A-Z2-7]*\/login$/,"/"));
             loginSuccess(destination);
           }
           else {
@@ -128,7 +128,7 @@
       pad: ""
     }),
     getStorageURL: function() {
-      return this.get("login_url_preface") +
+      return this.get("storage_web_url") +
               this.get("b32username") +
               "/";
     }

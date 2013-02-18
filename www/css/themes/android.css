@@ -90,6 +90,7 @@ ul li a {
 }
 
 .menu ul li a:active {
+  background-color: #ccc;
   color: #000;
 }
 

@@ -52,7 +52,9 @@
 
   spiderOakApp.FilesListItemView = Backbone.View.extend({
     tagName: "li",
-    className: "arrow",
+    events: {
+      "tap a": "a_tapHandler"
+    },
     initialize: function() {
       _.bindAll(this);
     },
@@ -68,6 +70,17 @@
       );
       this.$("a").data("model",this.model);
       return this;
+    },
+    a_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        return;
+      }
+      navigator.notification.alert(
+        "Still looking for a good way to handle viewing files...",
+        null,
+        "TODO",
+        "OK"
+      );
     },
     close: function(){
       this.remove();

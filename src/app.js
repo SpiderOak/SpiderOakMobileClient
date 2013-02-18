@@ -35,6 +35,16 @@
     },
     backDisabled: true,
     onDeviceReady: function() {
+      document.addEventListener(
+        "backbutton",
+        spiderOakApp.onBackKeyDown,
+        false
+      );
+      document.addEventListener(
+        "menubutton",
+        spiderOakApp.onMenuKeyDown,
+        false
+      );
       // @FIXME: This seems cludgey
       if (window.cssLoaded) navigator.splashscreen.hide();
       // @TODO: Instantiate any plugins
@@ -44,6 +54,22 @@
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
       }).render();
+    },
+    onBackKeyDown: function(event) {
+      event.preventDefault();
+      // @FIXME: Extend this logic a bit... it's a bit simplistic
+      if ($("#main").hasClass("open")) {
+        spiderOakApp.mainView.closeMenu();
+        return;
+      }
+      if ($(".nav .back-btn").css("display") === "block") {
+        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        return;
+      }
+      navigator.app.exitApp();
+    },
+    onMenuKeyDown: function(event) {
+      spiderOakApp.mainView.openMenu();
     },
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),

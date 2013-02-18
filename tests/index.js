@@ -64,15 +64,7 @@ describe('Application setup', function() {
         encoded_share_id.should.equal("NV4V643IMFZGKX3JMQ");
       });
     });
-
-    describe('jQTouch', function() {
-      it('should have jqtouch', function() {
-        window.$.jQTouch.should.be.a('function');
-      });
-      it('should have jqtouch menusheet', function() {
-        window.$.fn.menusheet.should.be.a('function');
-      });
-    });
+    
   });
 
   describe('initialize', function() {

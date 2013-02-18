@@ -4,20 +4,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name = "format-detection" content = "telephone=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta name="viewport" 
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, 
+        minimum-scale=1, width=device-width" />
     <title>SpiderOak Mobile</title>
-    <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css" />
-    <script type="text/javascript" src="components/jQTouch/lib/zepto/zepto.js"></script>
-
-    <script type="text/javascript" src="components/yepnope/yepnope.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/icomoon/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <script src="components/zepto/zepto.js"></script>
+    <script src="components/yepnope/yepnope.js"></script>
     <script type="text/javascript">
       yepnope({
         test : $.os.android,
         yep  : [
-          'css/themes/vanilla.css'
+          'css/themes/android.css'
         ],
         nope : [
-          'css/themes/spideroak-ios.css'
+          // force android for now..
+          // 'css/themes/ios.css'
+          'css/themes/android.css'
         ],
         complete: function(url, result, key) {
           $('body').addClass((result)?"android":"ios");
@@ -29,140 +33,88 @@
         }
       });
     </script>
-    <script type="text/javascript" src="components/jQTouch/src/jqtouch.js"></script>
-    <!-- the menusheet extension js needs to be the last script tag in the head. Fragile, much? -->
-    <script type="text/javascript" src="components/jQTouch/extensions/jqt.menusheet.js"></script>
-    <!-- Load the app.css last -->
-    <link rel="stylesheet" type="text/css" href="css/app.css" />
   </head>
-  <body>
-<!-- jQTouch container -->
-    <div id="jqt">
-<!-- Slide drawer menu -->
-      <div id="menusheet" class="menusheet">
-        <div class="scroll">
-          <div>
-            <!-- Search input must be disabled during slide out animation to prevent ghost click focus -->
-            <form>
-              <ul class="edgetoedge search">
-                <li>
-                  <i class="icon-search search-icon"></i>
-                  <input type="search" name="menu-search" id="menu-search" autocomplete="off" autocorrect="off" placeholder="Search SpiderOak" results=5 autosave=menusearch />
-                  <i class="icon-remove-sign clear-icon"></i>
-                </li>
-              </ul>
-            </form>
-            <div class="tip">
-              SpiderOak tip #24: Llama's bark when looked straight in the eye.
-            </div>
-            <div class="sync">
-              <div class="sep">Sync</div>
-              <ul class="edgetoedge">
-                <li><a href="#main" class="fade fast"><i class="icon-folder-close"></i> SpiderOak folder</a></li>
-              </ul>
-            </div>
-            <div class="devices">
-              <div class="sep">Devices</div>
-              <ul class="edgetoedge">
-                <li><a href="#" class="dismiss loading">loading...</a></li>
-              </ul>
-            </div>
-            <div class="sections">
-              <div class="sep">Sections</div>
-              <ul class="edgetoedge">
-                <li><a href="#" class="dismiss"><i class="icon-cloud-upload"></i> Share rooms</a></li>
-                <li><a href="#" class="dismiss"><i class="icon-star"></i> Favorites</a></li>
-                <li><a href="#" class="dismiss"><i class="icon-time"></i> Recents</a></li>
-                <li><a href="#" class="dismiss"><i class="icon-cog"></i> Settings</a></li>
-                <li><a href="#login" class="slideup"><i class="icon-signout"></i> Log out</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-<!-- Device root and SpiderOak folder -->
-      <div id="main" class="">
-        <div class="toolbar">
-          <a href="#menusheet" class="button leftButton menu">
-            <i class="icon-align-justify icon-large"></i>
-          </a>
-          <h1>SpiderOak</h1>
-        </div>
-        <div class="scroll">
-          <div>
-            <!-- // -->
-          </div>
-        </div>
-      </div>
-      <div id="storage" class=""></div>
-      <script type="text/html" id="storageViewTemplate">
-        <div class="toolbar">
-          <a href="#menusheet" class="button leftButton menu">
-            <i class="icon-align-justify icon-large"></i>
-          </a>
-          <h1><%= name %></h1>
-        </div>
-        <div class="scroll">
-          <div>
-            <ul class="edgetoedge folderViewLoading loadingFolders loadingFiles"><li style="text-align:center;">Loading...</li></ul>
-            <ul class="edgetoedge foldersList"></ul>
-            <ul class="edgetoedge filesList" ></ul>
-          </div>
-        </div>
-      </script>
-      <script type="text/html" id="folderViewTemplate">
-        <div class="toolbar">
-          <a href="#" class="back"><div>Back</div></a>
-          <h1><%= name %></h1>
-        </div>
-        <div class="scroll">
-          <div>
-            <ul class="edgetoedge folderViewLoading loadingFolders loadingFiles"><li style="text-align:center;">Loading...</li></ul>
-            <ul class="edgetoedge foldersList"></ul>
-            <ul class="edgetoedge filesList" ></ul>
-          </div>
-        </div>
-      </script>
-<!-- Login screen -->
-      <!-- @FIXME: Inline styles -->
-      <div id="login" class="current">
-        <div class="login-logo straight"></div>
-        <form action="#" id="form-login">
-          <ul class="rounded">
-            <li><input id="username" type="text" name="username"
-                       autocapitalize="off" placeholder="Username" /></li>
-            <li><input id="password" type="password" name="password"
-                       placeholder="Password" /></li>
+  <body ontouchstart="">
+    <div id="app" class="app">
+      <div id="menusheet" class="menu">
+        <div class="content">
+          <ul><li class="sep">SpiderSync</li></ul>
+          <ul class="spidersync">
+            <li class="current">
+              <a><i class="icon-folder"></i> SpiderOak folder</a>
+            </li>
           </ul>
-          <div style="position:relative">
-            <button type="submit" class="whiteButton loginButton">Log In</button>
-            <div class="switch">
-              <span class="thumb"></span>
-              <input type="checkbox" name="rememberme" id="rememberme" />
-            </div>
-            <div class="switch-label">Remember Me</div>
+          <ul><li class="sep">Devices</li></ul>
+          <ul class="devices"></ul>
+          <ul><li class="sep">Sections</li></ul>
+          <ul class="sections">
+            <li>
+                <a href="#"><i class="icon-cloud-upload"></i> ShareRooms</a>
+            </li>
+            <li><a href="#"><i class="icon-clock"></i> Recents</a></li>
+            <li><a href="#"><i class="icon-heart"></i> Favorites</a></li>
+            <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+            <li><a href="#"><i class="icon-exit"></i> Log out</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="main" class="main">
+        <div id="nav" class="nav">
+          <a class="menu-btn"></a>
+          <a class="back-btn"></a>
+          <div class="title">SpiderOak</div>
+        </div>
+        <div id="subviews" class="page"></div>
+      </div>
+      <div id="login" class="login">
+        <!-- @FIXME: inline styles are fail -->
+        <img src="img/brand_logo.png" 
+          style="display:block; width:100px;margin: 10px auto;" />
+        <form class="login-form">
+          <div class="login-input">
+            <input id="unme" type="text" name="unme"
+                       autocapitalize="off" placeholder="Username" />
           </div>
+          <div style="height:5px;"></div>
+          <div class="login-input">
+            <input id="pwrd" type="password" name="pwrd"
+                       placeholder="Password" />
+          </div>
+          <a class="button loginButton">Log in</a>
+          <a class="button shareRoomsButton">Go to ShareRooms</a>
+          <input type="submit" style="visibility:hidden" />
         </form>
-        <button class="orangeButton shareRoomsButton">Share Rooms</button>
       </div>
     </div>
-<!-- JavaScripts -->
+    <!-- Templates -->
+    <!-- @FIXME: inline styles are fail -->
+    <script type="text/html" id="folderViewTemplate">
+      <div>
+        <ul class="folderViewLoading loadingFolders loadingFiles">
+          <li>Loading...</li>
+        </ul>
+        <ul class="foldersList"></ul>
+        <ul class="filesList" ></ul>
+      </div>
+    </script>
     <!-- Cordova -->
-    <script type="text/javascript" src="cordova.js"></script>
+    <script src="cordova.js"></script>
     <!-- Components -->
-    <script type="text/javascript" src="components/underscore/underscore.js"></script>
-    <script type="text/javascript" src="components/backbone/backbone.js"></script>
-    <script type="text/javascript" src="components/backbone.basicauth/backbone.basicauth.js"></script>
-    <script type="text/javascript" src="components/Nibbler.min/index.js"></script>
+    <script src="components/underscore/underscore.js"></script>
+    <script src="components/backbone/backbone.js"></script>
+    <script src="components/backbone.basicauth/backbone.basicauth.js"></script>
+    <script src="components/backstack/backstack.js"></script>
+    <script src="components/Nibbler.min/index.js"></script>
+    <script src="components/iscroll/src/iscroll.js"></script>
     <!-- SpiderOakMobile script -->
-    <script type="text/javascript" src="js/SpiderOakMobile.js"></script>
+    <script src="js/SpiderOakMobile.js"></script>
     <!-- initialization -->
+
+    <!-- <script src="http://devgeeks.org:8080/target/target-script-min.js#spideroak">
+    </script> -->
+
     <script type="text/javascript">
-      window.jQT = new $.jQTouch({
-        // jQTouch options
-        // debug: false
-      });
-      window.spiderOakApp && window.spiderOakApp.initialize();      
+      window.spiderOakApp && window.spiderOakApp.initialize();
     </script>
   </body>
 </html>

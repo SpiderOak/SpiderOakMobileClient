@@ -1,6 +1,5 @@
 www/components/**/*
 !www/components/.gitignore
-www/css/themes
 node_modules
 platforms/ios
 platforms/android

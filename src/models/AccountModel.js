@@ -69,7 +69,7 @@
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
-          if (where[1] === "login") {
+          if (where && where[1] === "login") {
             // Try again at indicated data center and/or path:
             if (where[2].charAt(0) === "/") {
               // Revise just the path part of the login url:
@@ -84,12 +84,12 @@
             _self.login(username, password, successCallback, errorCallback,
                         login_url);
           }
-          else if (where[1] === "location") {
+          else if (where && where[1] === "location") {
             var destination = login_url;
             if (destination === _self.get("login_url_start")) {
               destination = where[2];
             }
-            _self.set("storage_web_url", destination);
+            _self.set("storage_web_url", destination.replace(/\/[A-Z2-7]*\/login$/,"/"));
             loginSuccess(destination);
           }
           else {
@@ -106,14 +106,14 @@
       Backbone.BasicAuth.clear();
       // @TODO: Clear keychain credentials
       // Post to the logout URL to get the session cookie expired:
-      var logout_url = (this.get('logout_url_preface')
-                        + this.get("b32username")
-                        + "/logout");
+      var logout_url = (this.get('logout_url_preface') +
+                        this.get("b32username") +
+                        "/logout");
       $.ajax({type: "POST",
               url: logout_url,
               error: function(xhr, errorType, error) {
-                console.log("Account logout returned error, status: "
-                            + xhr.status);
+                console.log("Account logout returned error, status: " +
+                            xhr.status);
                 }
              });
       // @TODO: Clear any localStorage
@@ -128,7 +128,7 @@
       pad: ""
     }),
     getStorageURL: function() {
-      return this.get("login_url_preface") +
+      return this.get("storage_web_url") +
               this.get("b32username") +
               "/";
     }

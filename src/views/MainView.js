@@ -12,21 +12,67 @@
   spiderOakApp.MainView = Backbone.View.extend({
     el: "#main",
     events: {
-      // ...
+      // Use touchend to work around a bug in ICS
+      'touchend .menu-btn': 'menuButton_handler',
+      'touchend .back-btn': 'backButton_hanlder'
     },
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
+      $('.page').on('tap',this.closeMenu);
     },
     render: function() {
+      this.showBackButton(false);
       return this;
     },
-    pageAnimationStart_handler: function(event, data) {
-      // console.log("main.pageAnimationStart - " + data.direction);
+    showBackButton: function(show) {
+      if (show) {
+        this.$('.menu-btn').hide();
+        this.$('.back-btn').show();
+      }
+      else {
+        this.$('.menu-btn').show();
+        this.$('.back-btn').hide();
+      }
     },
-    pageAnimationEnd_handler: function(event, data) {
-      // console.log("main.pageAnimationEnd - " + data.direction);
+    setTitle: function(title) {
+      var $title = this.$('.nav .title');
+      $title.animate({opacity:0},50,"linear",function(){
+        $title.html(title);
+        $title.animate({opacity:1},50,"linear");
+      });
+    },
+    menuButton_handler: function(event) {
+      if (!$("#main").hasClass("open")) {
+        this.openMenu();
+      }
+      else {
+        this.closeMenu();
+      }
+      return false;
+    },
+    backButton_hanlder: function(event) {
+      if (!spiderOakApp.backDisabled) {
+        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+      }
+    },
+    openMenu: function(event) {
+      $(document).trigger("menuOpening");
+      var duration = ($.os.android) ? 200 : 300;
+      $('#main').animate({
+        translate3d: '270px,0,0'
+      },duration,'ease-in-out');
+      $("#main").addClass("open");
+    },
+    closeMenu: function(event) {
+      $(document).trigger("menuClosing");
+      var duration = ($.os.android) ? 200 : 300;
+      if ($("#main").hasClass("open")) {
+        $('#main').animate({
+          translate3d: '0,0,0'
+        },duration,'ease-in-out');
+        $('#menu input[type=search]').blur();
+        $("#main").removeClass("open");
+      }
     }
   });
   spiderOakApp.mainView = new spiderOakApp.MainView().render();

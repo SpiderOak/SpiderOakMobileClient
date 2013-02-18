@@ -5,10 +5,10 @@
     "backbone": "latest",
     "underscore": "latest",
     "backbone.basicauth": "https://github.com/fiznool/backbone.basicauth.git",
+    "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "yepnope": "~1.5.4",
-    "font-awesome": "~3.0.1",
-    "jQTouch": "https://github.com/SpiderOak/jQTouch/archive/master.zip",
-    "compass-recipes": "https://github.com/senchalabs/compass-recipes.git",
-    "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.min.js"
+    "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.min.js",
+    "zepto": "https://github.com/madrobby/zepto/archive/v1.0rc1.zip",
+    "iscroll": "latest"
   }
 }

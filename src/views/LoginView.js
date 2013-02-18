@@ -1,5 +1,5 @@
 /**
- * MainView.js
+ * LoginView.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -12,8 +12,6 @@
   spiderOakApp.LoginView = Backbone.View.extend({
     el: "#login",
     events: {
-      "focus input": "input_focusHandler",
-      "blur input": "input_blurHandler",
       "submit form": "form_submitHandler",
       "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
@@ -21,8 +19,8 @@
     },
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
+      $(document).on("focus", "#login input", this.input_focusHandler);
+      $(document).on("blur", "#login input", this.input_blurHandler);
     },
     render: function() {
       // @FIXME: This will actually be set by the users choice...
@@ -31,35 +29,33 @@
       }
       return this;
     },
-    pageAnimationStart_handler: function(event, data) {
-      // Assume that if this view is being displayed it is due to
-      //  logging out or needing reauthentication
-      if (data.direction === "in") {
-        // Clear inputs
-        $("#username").val("");
-        $("#password").val("");
-        spiderOakApp.accountModel.logout(function() {
-          spiderOakApp.accountModel = undefined;
-        });
-      }
-    },
-    pageAnimationEnd_handler: function(event, data) {
-      // ...
-    },
+    // pageAnimationStart_handler: function(event, data) {
+    //   // Assume that if this view is being displayed it is due to
+    //   //  logging out or needing reauthentication
+    //   if (data.direction === "in") {
+    //     // Clear inputs
+    //     $("#username").val("");
+    //     $("#password").val("");
+    //     spiderOakApp.accountModel.logout(function() {
+    //       spiderOakApp.accountModel = undefined;
+    //     });
+    //   }
+    // },
+    // pageAnimationEnd_handler: function(event, data) {
+    //   // ...
+    // },
     input_focusHandler: function(event) {
-      // window.setTimeout(function(){
-        this.$(".login-logo").addClass("rotated");
-      // },50);
+      // @TODO: also change logos
+      $(event.target).closest("div.login-input").addClass("focused");
     },
     input_blurHandler: function(event) {
-      // window.setTimeout(function(){
-        this.$(".login-logo").removeClass("rotated");
-      // },50);
+      // @TODO: also change logos
+      $(event.target).closest("div.login-input").removeClass("focused");
     },
     form_submitHandler: function(event) {
-      this.$("input").blur();
-      var username = $("#username").val();
-      var password = $("#password").val();
+      event.preventDefault();
+      var username = $("#unme").val();
+      var password = $("#pwrd").val();
       var rememberme = $("#rememberme").is(":checked");
 
       var success = function(apiRoot) {
@@ -68,10 +64,9 @@
         account.set("rememberme",rememberme);
         // @TODO: Unblock spinner
         // Navigate away...
-        window.jQT.goTo("#main","slidedown");
-      };
+        this.dismiss();
+      }.bind(this);
       var error = function(status, error) {
-        // @TODO: Are there more options than just 403?
         // Clear it out
         spiderOakApp.accountModel = account = undefined;
         // @TODO: Unblock spinner
@@ -93,19 +88,22 @@
             " computer to continue.  Thank you. -- The SpiderOak Team");
         }
         else {
-          msg = ("Temporary server failure. Please try again later."); }
+          msg = ("Temporary server failure. Please try again later.");
+        }
         navigator.notification.alert(msg, null, "Authentication error", "OK");
       };
 
+      if(document.activeElement) {
+        document.activeElement.blur();
+      }
       var account = spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       account.login(username, password, success, error);
     },
     loginButton_tapHandler: function(event) {
-      this.$("input").blur();
       event.preventDefault();
+      this.form_submitHandler(event);
     },
     shareRoomsButton_tapHandler: function(event) {
-      this.$("input").blur();
       event.preventDefault();
     },
     switch_tapHandler: function(event) {
@@ -119,6 +117,18 @@
       var $checkbox = $this.find("input[type=checkbox]");
       $checkbox.attr("checked",!$checkbox.is(":checked"));
       $this.toggleClass("on");
+    },
+    dismiss: function() {
+      if (!this.$el.hasClass("dismissed")) {
+        this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, 100);
+        this.$el.addClass("dismissed");
+      }
+    },
+    show: function() {
+      if (this.$el.hasClass("dismissed")) {
+        this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+        this.$el.removeClass("dismissed");
+      }
     }
   });
   spiderOakApp.loginView = new spiderOakApp.LoginView().render();

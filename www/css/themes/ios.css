@@ -1,0 +1,60 @@
+/**
+ * This file should have css that will be used for ios
+ */
+body {
+  background-color: #fff;
+  font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+}
+
+.nav {
+	height: 44px;
+	background-color: #000;
+}
+
+.nav .menu-btn,
+.nav .back-btn {
+  color: white;
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 44px;
+  height:44px;
+  z-index: 99;
+}
+
+.nav .menu-btn:active,
+.nav .back-btn:active {
+  background-color: #333;
+}
+
+.nav .title {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  left: 0;
+  top: 5px;
+	width: 100%;
+	text-align: center;
+  margin: 0;
+	padding: 0 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  font-size: 1.5em;
+  color: #999;
+  white-space: nowrap;
+}
+
+.page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 44px;
+  background-color: #e4e4e4;
+}
+
+.scroll {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}

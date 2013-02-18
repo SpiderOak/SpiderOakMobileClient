@@ -137,13 +137,13 @@ div.login-input input {
   display: block;
   position: relative;
   bottom: 20px;
-  margin: -5px 0;
+  margin: -5px 5px;
   font-size: 1.1em;
 }
 
 a.button,
 button {
-  -webkit-tap-highlight-color: rgba(100%, 65%, 0%, 0.3);
+  -webkit-tap-highlight-color: rgba(60%, 65%, 0%, 1);
   display: block;
   margin: 10px 20px;
   padding: 8px 40px;
@@ -159,6 +159,7 @@ button {
 }
 
 a.button:active {
+  background-color: rgba(100%, 65%, 0%, 0.3);
   box-shadow: 0 0 2px 4px orange;
   outline:0;
 }

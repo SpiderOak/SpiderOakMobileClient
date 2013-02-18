@@ -105,7 +105,6 @@
     },
     shareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
-      this.form_submitHandler(event);
     },
     switch_tapHandler: function(event) {
       var $this = null;

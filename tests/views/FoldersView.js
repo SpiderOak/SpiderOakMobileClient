@@ -27,15 +27,13 @@ describe('FoldersView', function() {
                                     this.b32username + "/Test%20device/test/";
       this.view = new spiderOakApp.FoldersListView({
         collection: this.filesCollection,
-        el: $("<ul id='files' class='edgetoedge'></ul>")
+        el: $("<ul id='files'></ul>")
       }).render();
       sinon.spy(this.view,'addOne');
       sinon.spy(this.view,'addAll');
+      this.completeSpy = sinon.spy();
+      this.view.$el.on("complete", this.completeSpy);
       this.server.respond();
-    });
-    it('should create a list element', function() {
-      this.view.el.nodeName.should.equal("UL");
-      $(this.view.el).should.have.class("edgetoedge");
     });
     describe('Methods', function() {
       it('should call addAll', function() {
@@ -56,6 +54,11 @@ describe('FoldersView', function() {
         var modelName = this.view.collection.at(0).get("name");
         liText.should.equal(modelName);
       });
+      it('should fire a "complete" event when all items added',
+        function(){
+          this.completeSpy.should.be.called;
+        }
+      );
     });
   });
 });

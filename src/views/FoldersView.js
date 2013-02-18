@@ -25,7 +25,8 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template($(this.templateID).text(), this.model.toJSON()));
+      this.$el.html(_.template($(this.templateID).text(),
+        this.model.toJSON()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,

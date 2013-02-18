@@ -48,6 +48,7 @@ module.exports = function(grunt) {
       dist: {
         src: [
           '<banner:meta.banner>',
+          'src/FastSlideEffect.js',
           'src/models/AccountModel.js',
           'src/models/FileModel.js',
           'src/models/FolderModel.js',
@@ -74,6 +75,25 @@ module.exports = function(grunt) {
           'tests/**/*.js'
         ],
         dest: 'www/tests/<%= pkg.name %>-tests.js'
+      },
+      zepto: {
+        src: [
+          'www/components/zepto/src/zepto.js',
+          'www/components/zepto/src/ajax.js',
+          'www/components/zepto/src/assets.js',
+          'www/components/zepto/src/data.js',
+          'www/components/zepto/src/detect.js',
+          'www/components/zepto/src/event.js',
+          'www/components/zepto/src/form.js',
+          'www/components/zepto/src/fx.js',
+          'www/components/zepto/src/fx_methods.js',
+          'www/components/zepto/src/gesture.js',
+          'www/components/zepto/src/polyfill.js',
+          'www/components/zepto/src/selector.js',
+          'www/components/zepto/src/stack.js',
+          'www/components/zepto/src/touch.js'
+        ],
+        dest: 'www/components/zepto/zepto.js'
       }
     },
     min: {
@@ -83,29 +103,35 @@ module.exports = function(grunt) {
           '<config:concat.dist.dest>'
         ],
         dest: 'www/js/<%= pkg.name %>.min.js'
-      }
-    },
-    compass: {
-      dev: {
-        src: 'www/css/scss',
-        dest: 'www/css/themes',
-        outputstyle: 'expanded',
-        linecomments: true,
-        require: [
-          'www/components/compass-recipes/lib/compass-recipes'
-        ]
       },
-      prod: {
-        src: 'www/css/scss',
-        dest: 'www/css/themes/min',
-        outputstyle: 'compressed',
-        linecomments: false,
-        forcecompile: true,
-        require: [
-          'www/components/compass-recipes/lib/compass-recipes'
-        ]
+      zepto: {
+        src: [
+          'www/components/zepto/zepto.js'
+        ],
+        dest: 'www/components/zepto/zepto.min.js'
       }
     },
+    // compass: {
+    //   dev: {
+    //     src: 'www/css/scss',
+    //     dest: 'www/css/themes',
+    //     outputstyle: 'expanded',
+    //     linecomments: true,
+    //     require: [
+    //       'www/components/compass-recipes/lib/compass-recipes'
+    //     ]
+    //   },
+    //   prod: {
+    //     src: 'www/css/scss',
+    //     dest: 'www/css/themes/min',
+    //     outputstyle: 'compressed',
+    //     linecomments: false,
+    //     forcecompile: true,
+    //     require: [
+    //       'www/components/compass-recipes/lib/compass-recipes'
+    //     ]
+    //   }
+    // },
     watch: {
       files: [
         '<config:lint.files>',
@@ -113,7 +139,7 @@ module.exports = function(grunt) {
         'tests/**/*',
         'www/css/**/*.scss'
       ],
-      tasks: 'lint concat shell:mochadot compass:dev'
+      tasks: 'lint concat shell:mochadot'
     },
     jshint: {
       options: {
@@ -143,10 +169,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
-  grunt.registerTask('default', 'lint concat compass:dev shell:mochadot');
+  grunt.registerTask('default', 'lint concat shell:mochadot');
   // Custom tasks
   grunt.registerTask('test', 'lint concat shell:mochaspec');
-  grunt.registerTask('debug_ios', 'lint concat compass:dev shell:mochadot shell:debug_ios');
-  grunt.registerTask('debug_android', 'lint concat compass:dev shell:mochadot shell:debug_android');
+  grunt.registerTask('debug_ios', 'lint concat shell:mochadot shell:debug_ios');
+  grunt.registerTask('debug_android', 'lint concat shell:mochadot shell:debug_android');
 
 };

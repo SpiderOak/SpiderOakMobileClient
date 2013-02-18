@@ -17,6 +17,8 @@
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
 
+      this.subViews = [];
+
       this.collection.fetch();
     },
     render: function() {
@@ -28,23 +30,36 @@
       var view = new spiderOakApp.FilesListItemView({
         model: model
       });
-      view.render();
-      this.$el.append(view.el);
+      this.$el.append(view.render().el);
+      this.subViews.push(view);
     },
     addAll: function() {
       this.$el.empty();
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
+    },
+    close: function(){
+      this.remove();
+      this.unbind();
+      // handle other unbinding needs, here
+      _.each(this.subViews, function(subViews){
+        if (subViews.close){
+          subViews.close();
+        }
+      });
     }
   });
 
   spiderOakApp.FilesListItemView = Backbone.View.extend({
     tagName: "li",
-    className: "arrow",
+    events: {
+      "tap a": "a_tapHandler"
+    },
     initialize: function() {
       _.bindAll(this);
     },
     render: function() {
+      // @TODO: These should be different icons for different file types
       this.$el.html(
         _.template(
           "<a href='#'>" +
@@ -55,6 +70,21 @@
       );
       this.$("a").data("model",this.model);
       return this;
+    },
+    a_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        return;
+      }
+      navigator.notification.alert(
+        "Still looking for a good way to handle viewing files...",
+        null,
+        "TODO",
+        "OK"
+      );
+    },
+    close: function(){
+      this.remove();
+      this.unbind();
     }
   });
 

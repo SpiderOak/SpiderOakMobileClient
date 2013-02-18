@@ -12,66 +12,37 @@
   spiderOakApp.MenuSheetView = Backbone.View.extend({
     el: "#menusheet",
     events: {
-      "focus #menu-search": "menuSearch_focusHandler",
-      "keyup #menu-search": "menuSearch_changeHandler",
-      "tap .clear-icon": "clearIcon_tapHandler"
+      // "focus #menu-search": "menuSearch_focusHandler",
+      // "keyup #menu-search": "menuSearch_changeHandler",
+      // "tap .clear-icon": "clearIcon_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
-      this.$el.bind("pageAnimationStart", this.pageAnimationStart_handler);
-      this.$el.bind("pageAnimationEnd", this.pageAnimationEnd_handler);
+      $(document).on("menuOpening", this.menuOpening);
+      $(document).on("menuClosing", this.menuClosing);
     },
     render: function() {
-      // $("#menusheet").menusheet("init");
       this.$("input[type=search]").attr("disabled",true);
-      // Hax fix for container scrolling while menu is open.
-      $("#jqt").on("scroll", function(event) {
-        // Snap back if not after about the half way point...
-        if (this.scrollLeft < ($(window).width() / 4)) {
-          this.scrollLeft = 0;
-        }
-        // Or close if it is...
-        else {
-          $("#menusheet").menusheet("hide");
-        }
-      });
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
       this.devicesCollection.url = spiderOakApp.accountModel.getStorageURL();
       this.devicesListView = new spiderOakApp.DevicesListView({
         collection: this.devicesCollection,
-        el: this.$(".devices ul")
+        el: this.$(".devices")
       }).render();
+      spiderOakApp.menuScroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
 
       return this;
     },
-    pageAnimationStart_handler: function(event, data) {
-      if (data.direction === "out") {
-        this.$("input[type=search]").attr("disabled", true);
-        this.$("input[type=search]").blur();
-      }
+    menuOpening: function(event) {
+      spiderOakApp.menuScroller.refresh();
     },
-    pageAnimationEnd_handler: function(event, data) {
-      if (data.direction === "in") {
-        window.setTimeout(function(){
-          this.$("input[type=search]").removeAttr("disabled");
-        },100);
-      }
-    },
-    menuSearch_focusHandler: function(event) {
+    menuClosing: function(event) {
       // ...
-    },
-    menuSearch_changeHandler: function(event) {
-      if ($(event.target).val().length) {
-        this.$(".clear-icon").show();
-      }
-      else {
-        this.$(".clear-icon").hide();
-      }
-    },
-    clearIcon_tapHandler: function(event) {
-      $("#menu-search").val("");
-      this.$(".clear-icon").hide();
     }
   });
 

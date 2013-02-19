@@ -46,11 +46,13 @@
         },
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
-          function loginSuccess(login_url) {
+          function loginSuccess(login_url, locationResponse) {
             // Obtain the b32username according to the server -
             // the section of the URL before the least '/' delimiter:
-            var b32username = login_url.split('/');
-            b32username = b32username[b32username.length - 2];
+            var splat = login_url.split('/');
+            var b32username = splat[splat.length - 2];
+            var storageRootURL = (splat.slice(0, splat.length-2).join("/")
+                                  + "/storage/" + b32username + "/");
             // Replace our notion of the username with the one the server
             // has, according to the b32username: the server preserves the
             // original account's alphabetic case, and uses it, whatever
@@ -63,6 +65,10 @@
             // @TODO: Set the keychain credentials
             // Record the login url:
             _self.set("login_url", login_url);
+            // Record the root of the account's storage content:
+            _self.set("storageRootURL", storageRootURL);
+            // Record the web browsing root location:
+            _self.set("webRootURL", locationResponse);
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
             // Trigger the login complete event so other views can react
@@ -89,8 +95,7 @@
             if (destination === _self.get("login_url_start")) {
               destination = where[2];
             }
-            _self.set("storage_web_url", destination.replace(/\/[A-Z2-7]*\/login$/,"/"));
-            loginSuccess(destination);
+            loginSuccess(destination, data.slice("location:".length));
           }
           else {
             errorCallback(0, "unexpected server response");
@@ -128,9 +133,7 @@
       pad: ""
     }),
     getStorageURL: function() {
-      return this.get("storage_web_url") +
-              this.get("b32username") +
-              "/";
+      return this.get("storageRootURL");
     }
   });
 

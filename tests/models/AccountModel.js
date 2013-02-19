@@ -69,6 +69,13 @@ describe('AccountModel', function() {
           this.accountModel.get("b32username").should.equal(this.b32username);
         }
       );
+      it('should set proper accountModel storage root URL' +
+         ' upon successful login',
+         function() {
+           this.accountModel.getStorageURL().should.equal(
+             "https://spideroak.com/storage/" + this.b32username + "/");
+         }
+        );
     });
 
     describe('successful case-insensitive login', function(){

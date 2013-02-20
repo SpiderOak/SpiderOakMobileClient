@@ -46,13 +46,17 @@
         },
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
+          /** Register settings according to a successful login.
+           *
+           * @param {string} login_url - the actual login location. Eg:
+           *        https://web-dc2.spideroak.com/storage/EBRG6Z3VOMQA/login
+           * @param {string} locationResponse - the account's web browsing URL
+           */
           function loginSuccess(login_url, locationResponse) {
-            // Obtain the b32username according to the server -
-            // the section of the URL before the least '/' delimiter:
             var splat = login_url.split('/');
             var b32username = splat[splat.length - 2];
             var storageRootURL = (splat.slice(0, splat.length-2).join("/")
-                                  + "/storage/" + b32username + "/");
+                                  + "/" + b32username + "/");
             // Replace our notion of the username with the one the server
             // has, according to the b32username: the server preserves the
             // original account's alphabetic case, and uses it, whatever

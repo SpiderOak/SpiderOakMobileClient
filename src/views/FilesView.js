@@ -87,7 +87,6 @@
           "OK"
         );
       }, 50);
-      console.log(this.model.toJSON());
     },
     a_longTapHandler: function(event) {
       event.preventDefault();

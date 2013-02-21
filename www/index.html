@@ -29,6 +29,9 @@
           if (navigator.splashscreen) {
             navigator.splashscreen.hide();
           }
+          window.setTimeout(function(){
+            $(".splash").hide();
+          },500);
           window.cssLoaded = true;
         }
       });
@@ -86,6 +89,7 @@
         </form>
       </div>
     </div>
+    <div class="splash"><img src="img/brand_logo.png" width="100%" /></div>
     <!-- Templates -->
     <!-- @FIXME: inline styles are fail -->
     <script type="text/html" id="folderViewTemplate">

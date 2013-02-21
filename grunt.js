@@ -48,7 +48,8 @@ module.exports = function(grunt) {
       dist: {
         src: [
           '<banner:meta.banner>',
-          'src/FastSlideEffect.js',
+          'src/helpers/FileHelper.js',
+          'src/effects/FastSlideEffect.js',
           'src/models/AccountModel.js',
           'src/models/FileModel.js',
           'src/models/FolderModel.js',

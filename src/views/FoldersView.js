@@ -165,6 +165,7 @@
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
     tagName: "li",
+    templateID: "#folderItemViewTemplate",
     events: {
       "tap a": "a_tapHandler"
     },
@@ -173,8 +174,7 @@
     },
     render: function() {
       this.$el.html(
-        _.template(
-          "<a href='#'><i class='icon-folder'></i> <%= name %></a>",
+        _.template($(this.templateID).text(),
           this.model.toJSON()
         )
       );

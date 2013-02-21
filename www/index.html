@@ -52,7 +52,7 @@
                 <a href="#"><i class="icon-cloud-upload"></i> ShareRooms</a>
             </li>
             <li><a href="#"><i class="icon-clock"></i> Recents</a></li>
-            <li><a href="#"><i class="icon-heart"></i> Favorites</a></li>
+            <li><a href="#"><i class="icon-star"></i> Favorites</a></li>
             <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
             <li><a href="#"><i class="icon-exit"></i> Log out</a></li>
           </ul>
@@ -97,6 +97,28 @@
         <ul class="filesList" ></ul>
       </div>
     </script>
+    <script type="text/html" id="folderItemViewTemplate">
+      <a>
+        <div class="icon"><i class="icon-folder"></i></div>
+        <div class="foldername"><%= name %></div>
+      </a>
+    </script>
+    <script type="text/html" id="fileItemViewTemplate">
+      <a>
+        <div class="icon"><i class="icon-<%= icon %>"></i></div>
+        <div class="filename"><%= name %></div>
+        <div class="subtext darkgray">
+          <div class="file-info">
+            <%= description %>,
+            <%= fileHelper.readableFileSize(size) %></div>
+            <div class="file-modified">
+              <%= moment(new String(mtime), "X").fromNow() %>
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="rightButton"><i class="icon-star innershadow"></i></div>
+      </a>
+    </script>
     <!-- Cordova -->
     <script src="cordova.js"></script>
     <!-- Components -->
@@ -106,13 +128,11 @@
     <script src="components/backstack/backstack.js"></script>
     <script src="components/Nibbler.min/index.js"></script>
     <script src="components/iscroll/src/iscroll.js"></script>
+    <script src="components/moment/moment.js"></script>
+    <script src="components/moment/moment.js"></script>
     <!-- SpiderOakMobile script -->
     <script src="js/SpiderOakMobile.js"></script>
     <!-- initialization -->
-
-    <!-- <script src="http://devgeeks.org:8080/target/target-script-min.js#spideroak">
-    </script> -->
-
     <script type="text/javascript">
       window.spiderOakApp && window.spiderOakApp.initialize();
     </script>

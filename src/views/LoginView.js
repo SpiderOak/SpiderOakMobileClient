@@ -81,8 +81,8 @@
           msg = "Incorrect ShareID or RoomKey.";
         }
         else if (status === 418) {
-          msg = ("We apologize, but you must first complete your account setup" +
-            " using the SpiderOak desktop software.  This is necessary" +
+          msg = ("We apologize, but you must first complete your account" +
+            " setup using the SpiderOak desktop software.  This is necessary" +
             " so that proper cryptographic keys can be generated to" +
             " keep your data private.  Please open SpiderOak on your" +
             " computer to continue.  Thank you. -- The SpiderOak Team");

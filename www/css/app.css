@@ -36,7 +36,6 @@ body {
   background-color: #333;
 }
 
-/* animate open with $('#main').animate({"-webkit-transform":"translate3d(270px,0,0)"},100) */
 .main {
   position: absolute;
   left: 0;
@@ -50,6 +49,8 @@ body {
 }
 
 .page {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   position: absolute;
   left: 0;
   right: 0;
@@ -106,6 +107,7 @@ ul li small {
 }
 
 ul li a {
+  position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -191,4 +193,81 @@ ul.rounded li:first-child {
 .folderViewLoading.loadingFolders,
 .folderViewLoading.loadingFiles {
   display: block;
+}
+
+.file-info {
+  float: left;
+}
+
+.file-modified {
+  float: right;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.gray {
+  color: #ccc;
+}
+
+.darkgray {
+  color: #666;
+}
+
+.innershadow {
+  text-shadow: 0 1px 0 white, 0 -1px 0 #999;
+}
+
+ul li a {
+  height: 30px;
+}
+
+ul li a .icon {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  height: 30px;
+  width: 20px;
+  padding: 5px;
+  font-size: 1.2em;
+  color: #333;
+}
+ul li a .rightButton {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  height: 30px;
+  width: 20px;
+  padding: 15px 5px 5px 5px;
+  font-size: 1.1em;
+  color: #ccc;
+}
+
+ul li a .filename {
+  position: absolute;
+  left: 45px;
+  right: 40px;
+  top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul li a .foldername {
+  position: absolute;
+  left: 45px;
+  right: 40px;
+  top: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul li a .subtext {
+  position: absolute;
+  left: 45px;
+  top: 30px;
+  right: 40px;
+  font-size: 0.7em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

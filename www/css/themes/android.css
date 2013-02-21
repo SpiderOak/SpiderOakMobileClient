@@ -7,7 +7,7 @@ body {
 }
 
 .nav {
-	height: 50px !important;
+	height: 48px !important;
 	background-color: #111;
 }
 
@@ -18,11 +18,12 @@ body {
 	position: absolute; 
 	left: 0;
 	padding: 0 3px;
-  background: url('../../img/ic_ab_back_holo_dark.png') no-repeat, url('../../img/icon.png') no-repeat;
-	width: 50px;
-	height:50px;
+  background: url('../../img/ic_ab_back_holo_dark.png') no-repeat,
+    url('../../img/icon.png') no-repeat;
+	width: 48px;
+	height:48px;
 	background-size: 16px, 35px;
-  background-position: 0 15px, 13px 5px;
+  background-position: 0 17.5px, 13px 7.5px;
 }
 
 .nav .menu-btn:active,
@@ -33,7 +34,7 @@ body {
 .nav .title {
   display: block;
   width: 250px;
-  padding: 8px;
+  padding: 10px;
   position: absolute;
   left: 45px;
   font-size: 1.3em;
@@ -44,11 +45,13 @@ body {
 }
 
 .page {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  top: 44px;
+  top: 48px;
   background-color: #e4e4e4;
 }
 
@@ -80,6 +83,7 @@ ul li a {
 }
 
 .menu ul li.sep {
+  padding: 2px 10px;
   background-color: #333;
   border-bottom: 2px solid #666;
   color: #ccc;

@@ -36,6 +36,10 @@
     },
     setTitle: function(title) {
       var $title = this.$('.nav .title');
+      if ($.os.android) {
+        $title.html(title);
+        return;
+      }
       $title.animate({opacity:0},50,"linear",function(){
         $title.html(title);
         $title.animate({opacity:1},50,"linear");

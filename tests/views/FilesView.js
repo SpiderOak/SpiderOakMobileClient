@@ -53,9 +53,10 @@ describe('FilesView', function() {
       });
       it('should display the name of the model', function() {
         // well... it might have a leading space... trim it first
-        var liText = this.view.$("li").first().text().replace(/^\s/,"");
+        var liText = this.view.$("li .filename").first().text();
         var modelName = this.view.collection.at(0).get("name");
-        liText.should.equal(modelName);
+        var regexp = new RegExp(liText).test(modelName);
+        regexp.should.be.ok;
       });
       it('should set the model in the dataset', function() {
         var dataModel = this.view.$("li a").first().data("model");

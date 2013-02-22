@@ -32,7 +32,8 @@ window.onload = function() {
 			'icon-exit' : '&#xe017;',
 			'icon-checkbox-checked' : '&#xe018;',
 			'icon-checkbox-unchecked' : '&#xe019;',
-			'icon-share' : '&#xe01a;'
+			'icon-share' : '&#xe01a;',
+			'icon-file-powerpoint' : '&#xe01b;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

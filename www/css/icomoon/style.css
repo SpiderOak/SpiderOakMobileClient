@@ -25,7 +25,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"]:before {
 */
-.icon-folder:before, .icon-finder:before, .icon-windows8:before, .icon-tux:before, .icon-cog:before, .icon-star:before, .icon-clock:before, .icon-cloud-upload:before, .icon-menu:before, .icon-folder-open:before, .icon-file:before, .icon-file-pdf:before, .icon-file-excel:before, .icon-file-zip:before, .icon-file-xml:before, .icon-file-css:before, .icon-file-word:before, .icon-image:before, .icon-heart:before, .icon-info:before, .icon-close:before, .icon-checkmark:before, .icon-enter:before, .icon-exit:before, .icon-checkbox-checked:before, .icon-checkbox-unchecked:before, .icon-share:before {
+.icon-folder:before, .icon-finder:before, .icon-windows8:before, .icon-tux:before, .icon-cog:before, .icon-star:before, .icon-clock:before, .icon-cloud-upload:before, .icon-menu:before, .icon-folder-open:before, .icon-file:before, .icon-file-pdf:before, .icon-file-excel:before, .icon-file-zip:before, .icon-file-xml:before, .icon-file-css:before, .icon-file-word:before, .icon-image:before, .icon-heart:before, .icon-info:before, .icon-close:before, .icon-checkmark:before, .icon-enter:before, .icon-exit:before, .icon-checkbox-checked:before, .icon-checkbox-unchecked:before, .icon-share:before, .icon-file-powerpoint:before {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -113,4 +113,7 @@ you can use the generic selector below, but it's slower:
 }
 .icon-share:before {
 	content: "\e01a";
+}
+.icon-file-powerpoint:before {
+	content: "\e01b";
 }

@@ -13,6 +13,11 @@
     model: spiderOakApp.FileModel,
     parse: function(resp, xhr) {
       // window.console.log(resp);
+      _.each(resp.files, function(file) {
+        _.extend(file, window.fileHelper
+          .fileTypeFromExtension(file.name)
+        );
+      });
       return resp.files;
     }
   });

@@ -49,10 +49,10 @@ describe('FoldersView', function() {
           .should.equal(this.view.collection.models.length);
       });
       it('should display the name of the model', function() {
-        // well... it might have a leading space... trim it first
-        var liText = this.view.$("li").first().text().replace(/^\s/,"");
+        var liText = this.view.$("li .foldername").first().text();
         var modelName = this.view.collection.at(0).get("name");
-        liText.should.equal(modelName);
+        var regexp = new RegExp(liText).test(modelName);
+        regexp.should.be.ok;
       });
       it('should fire a "complete" event when all items added',
         function(){

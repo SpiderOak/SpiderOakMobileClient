@@ -52,8 +52,11 @@
 
   spiderOakApp.FilesListItemView = Backbone.View.extend({
     tagName: "li",
+    templateID: "#fileItemViewTemplate",
     events: {
-      "tap a": "a_tapHandler"
+      "tap a": "a_tapHandler",
+      "longTap a": "a_longTapHandler",
+      "tap .rightButton": "favorite_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -61,10 +64,7 @@
     render: function() {
       // @TODO: These should be different icons for different file types
       this.$el.html(
-        _.template(
-          "<a href='#'>" +
-          "<i class='icon-file'></i> <%= name %>" +
-          "</a>",
+        _.template($(this.templateID).text(),
           this.model.toJSON()
         )
       );
@@ -75,12 +75,43 @@
       if ($("#main").hasClass("open")) {
         return;
       }
-      navigator.notification.alert(
-        "Still looking for a good way to handle viewing files...",
-        null,
-        "TODO",
-        "OK"
-      );
+      if ($(event.target).hasClass("icon-star") ||
+            $(event.target).hasClass("rightButton")) {
+        return;
+      }
+      window.setTimeout(function(){
+        navigator.notification.alert(
+          "Still looking for a good way to handle viewing files...",
+          null,
+          "TODO",
+          "OK"
+        );
+      }, 50);
+      console.log(this.model.toJSON());
+    },
+    a_longTapHandler: function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.setTimeout(function(){
+        navigator.notification.alert(
+          "This will show file options",
+          null,
+          "TODO",
+          "OK"
+        );
+      }, 50);
+    },
+    favorite_tapHandler: function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.setTimeout(function(){
+        navigator.notification.alert(
+          "This will add to favorites",
+          null,
+          "TODO",
+          "OK"
+        );
+      }, 50);
     },
     close: function(){
       this.remove();

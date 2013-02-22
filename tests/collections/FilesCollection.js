@@ -38,9 +38,9 @@ describe('FilesCollection', function() {
     });
     it('should use the expected url', function() {
       this.server.requests[0].url
-        .should.equal("https://spideroak.com/storage/"
-                      + this.b32username
-                      + "/Test%20device/test/");
+        .should.equal("https://spideroak.com/storage/" +
+                      this.b32username +
+                      "/Test%20device/test/");
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);
@@ -51,7 +51,7 @@ describe('FilesCollection', function() {
       var model = this.collection.at(0);
       model.should.be.instanceOf(spiderOakApp.FileModel);
     });
-    it('should asign the correct attributes in the model(s)', function() {
+    it('should assign the correct attributes in the model(s)', function() {
       var model = this.collection.at(0);
       model.get("name").should.equal("filename.pdf");
       model.get("url").should.equal("filename.pdf");
@@ -60,6 +60,13 @@ describe('FilesCollection', function() {
       model.get("mtime").should.equal(1359167946);
       model.get("size").should.equal(255434);
       model.get("versions").should.equal(2);
+    });
+    it('should assign the correct additional attributes in the model(s)', function() {
+      var model = this.collection.at(0);
+      model.get("description").should.equal("Adobe PDF");
+      model.get("icon").should.equal("file-pdf");
+      model.get("openInternally").should.equal(false);
+      model.get("type").should.equal("application/pdf");
     });
   });
 });

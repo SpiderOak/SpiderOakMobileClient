@@ -50,7 +50,6 @@ describe('FoldersView', function() {
       });
       it('should display the name of the model', function() {
         var liText = this.view.$("li .foldername").first().text();
-        console.log(liText);
         var modelName = this.view.collection.at(0).get("name");
         var regexp = new RegExp(liText).test(modelName);
         regexp.should.be.ok;

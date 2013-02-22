@@ -9,12 +9,6 @@
       _           = window._,
       $           = window.$;
 
-  // Should be many of these, so will not be tied to an existing DOM element
-  // Will be initialised with a unique id and possibly a URL
-  // var folderView = new spiderOakApp.FolderView({
-  //   id: "someUniqueID",
-  //   url: "/path/to/folder"
-  // });
   spiderOakApp.FolderView = Backbone.View.extend({
     templateID: "#folderViewTemplate",
     destructionPolicy: "never",
@@ -32,8 +26,13 @@
         vScrollbar: !$.os.android,
         hScrollbar: false
       });
+
+      // Load the files and folders at the same time (quasi-async)
+      window.setTimeout(function(){
+        this.loadFiles();
+      }.bind(this), 10);
       this.loadFolders();
-      this.loadFiles();
+
       return this;
     },
     loadFolders: function() {
@@ -165,6 +164,7 @@
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
     tagName: "li",
+    templateID: "#folderItemViewTemplate",
     events: {
       "tap a": "a_tapHandler"
     },
@@ -173,8 +173,7 @@
     },
     render: function() {
       this.$el.html(
-        _.template(
-          "<a href='#'><i class='icon-folder'></i> <%= name %></a>",
+        _.template($(this.templateID).text(),
           this.model.toJSON()
         )
       );

@@ -35,9 +35,9 @@ describe('DevicesCollection', function() {
     });
     it('should use the expected url', function() {
       this.server.requests[0].url
-        .should.equal("https://spideroak.com/storage/"
-                      + this.b32username
-                      + "/");
+        .should.equal("https://spideroak.com/storage/" +
+                      this.b32username +
+                      "/");
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);

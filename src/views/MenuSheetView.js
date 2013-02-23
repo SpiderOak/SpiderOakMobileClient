@@ -12,6 +12,7 @@
   spiderOakApp.MenuSheetView = Backbone.View.extend({
     el: "#menusheet",
     events: {
+      "tap .sharerooms": "sharerooms_tapHandler"
       // "focus #menu-search": "menuSearch_focusHandler",
       // "keyup #menu-search": "menuSearch_changeHandler",
       // "tap .clear-icon": "clearIcon_tapHandler"
@@ -38,6 +39,43 @@
 
       return this;
     },
+    sharerooms_tapHandler: function(event) {
+      if (! this.shareRoomsCollection) {
+        this.shareRoomsCollection = new spiderOakApp.ShareRoomsCollection();
+        this.shareRoomsListView = new spiderOakApp.ShareRoomsListView({
+          collection: this.shareRoomsCollection
+        }).render();
+      }
+      else {
+        this.shareRoomsListView.render();
+      }
+      this.shareRoomsListModel = this.shareRoomsListView.model;
+      spiderOakApp.mainView.closeMenu(event);
+      var options = {
+        id: this.shareRoomsListViewModel.cid,
+        model: this.shareRoomsListViewModel
+      };
+      $("#menusheet ul li").removeClass("current");
+      event.element.addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.FolderView,
+          options,
+          spiderOakApp.noEffect
+        );
+        return;
+      }
+      else if (_.last(spiderOakApp.navigator.viewsStack)
+                .instance.model.cid === this.model.cid) {
+        return;
+      }
+      spiderOakApp.navigator.replaceAll(
+        spiderOakApp.FolderView,
+        options,
+        spiderOakApp.noEffect
+      );
+    },
+
     menuOpening: function(event) {
       spiderOakApp.menuScroller.refresh();
     },

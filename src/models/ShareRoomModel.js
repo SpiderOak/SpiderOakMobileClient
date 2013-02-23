@@ -1,5 +1,5 @@
 /**
- * MyShareRoomsModel.js
+ * ShareRoomModel.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.MyShareRoomsModel = Backbone.Model.extend({
+  spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
     // ...
   });
 

@@ -71,6 +71,8 @@
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
             _self.set("storageRootURL", storageRootURL);
+            // Record the location of the account's shares list:
+            _self.set("mySharesRootURL", storageRootURL + "shares");
             // Record the web browsing root location:
             _self.set("webRootURL", locationResponse);
             // Return the data center part of the url:
@@ -138,6 +140,10 @@
     }),
     getStorageURL: function() {
       return this.get("storageRootURL");
+    },
+    getMyShareRoomsURL: function() {
+      // TODO: test to verify the correct url, both when logged in and not.
+      return this.get("myShareRoomsURL");
     }
   });
 

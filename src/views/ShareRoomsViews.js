@@ -38,26 +38,27 @@
       return this;
     },
     loadVisitedShareRooms: function() {
-      this.visitedShareRoomsCollection = new spiderOakApp.FoldersCollection();
-      // Populate the folder with share rooms being visited...
-      this.visitedShareRoomsListView = new spiderOakApp.FoldersListView({
-        collection: this.visitedShareRoomsCollection,
-        el: this.$(".visitedList")
-      });
-      // When we have finished fetching the folders, help hide the spinner
-      this.$(".visitedSharesList").one("complete", function(event) {
-        this.$(".visitedSharesViewLoading").removeClass("loadingFolders");
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
-        // @TODO: Refresh subviews scroller
-      }.bind(this));
+      // @FIXME: Commented out till we figure out what to do with these
+      //
+      // this.visitedShareRoomsCollection = new spiderOakApp.FoldersCollection();
+      // // Populate the folder with share rooms being visited...
+      // this.visitedShareRoomsListView = new spiderOakApp.FoldersListView({
+      //   collection: this.visitedShareRoomsCollection,
+      //   el: this.$(".visitedList")
+      // });
+      // // When we have finished fetching the folders, help hide the spinner
+      // this.$(".visitedSharesList").one("complete", function(event) {
+      //   this.$(".visitedSharesViewLoading").removeClass("loadingFolders");
+      //   window.setTimeout(function(){
+      //     this.scroller.refresh();
+      //   }.bind(this),0);
+      //   // @TODO: Refresh subviews scroller
+      // }.bind(this));
     },
     loadMyShareRooms: function() {
       this.myShareRooms = new spiderOakApp.FoldersCollection();
       this.myShareRooms.url = spiderOakApp.accountModel.getMyShareRoomsURL();
       // We want to track the url when it is unset, as well as when it's set:
-      this.myShareRooms.set("url", this.myShareRooms.url);
       if (this.myShareRooms.url) {
         this.myShareRoomsListView = new spiderOakApp.FoldersListView({
           collection: this.folders,

@@ -40,14 +40,14 @@
       return this;
     },
     sharerooms_tapHandler: function(event) {
-      // Instantiate ShareRoomsConsolidatedView and push it on the view stack.
-      if (! this.shareRoomsRoot) {
-        this.shareRoomsRootView = new spiderOakApp.ShareRoomsRootView();
-      }
-      this.shareRoomsRootView.render();
+      spiderOakApp.mainView.closeMenu(event);
+      spiderOakApp.mainView.setTitle("ShareRooms");
+      
       if (spiderOakApp.navigator.viewsStack.length === 0) {
         spiderOakApp.navigator.pushView(
-          this.shareRoomsRootView
+          spiderOakApp.ShareRoomsRootView,
+          {},
+          spiderOakApp.noEffect
         );
         return;
       }
@@ -55,7 +55,9 @@
       // the new one?
       else {
         spiderOakApp.navigator.replaceAll(
-          this.shareRoomsRootView
+          spiderOakApp.ShareRoomsRootView,
+          {},
+          spiderOakApp.noEffect
         );
       }
     },

@@ -150,7 +150,7 @@
     },
     getMyShareRoomsURL: function() {
       // TODO: test to verify the correct url, both when logged in and not.
-      return this.get("myShareRoomsURL");
+      return this.get("mySharesRootURL");
     }
   });
 

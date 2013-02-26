@@ -20,10 +20,6 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 	- Node package manager for Grunt Add-ons
 - PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
-- SASS - [http://sass-lang.com/](http://sass-lang.com/)
-	- Sass is an extension of CSS3
-- Compass - [http://compass-style.org/](http://compass-style.org/)
-	- Compile SCSS CSS files
 
 ## Getting started
 

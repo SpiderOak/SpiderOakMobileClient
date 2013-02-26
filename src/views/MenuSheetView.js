@@ -51,6 +51,8 @@
         );
         return;
       }
+      // XXX Do we to provide a case for the current view being the same as
+      // the new one?
       else {
         spiderOakApp.navigator.replaceAll(
           this.shareRoomsRootView

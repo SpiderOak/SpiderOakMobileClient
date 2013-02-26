@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           'src/collections/DevicesCollection.js',
           'src/collections/ShareRoomsCollection.js',
           'src/views/DevicesView.js',
-          'src/views/ShareRoomsView.js',
+          'src/views/ShareRoomsViews.js',
           'src/views/FoldersView.js',
           'src/views/FilesView.js',
           'src/views/LoginView.js',

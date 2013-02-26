@@ -90,6 +90,7 @@
         return;
       }
       else if (_.last(spiderOakApp.navigator.viewsStack)
+                .instance.model && _.last(spiderOakApp.navigator.viewsStack)
                 .instance.model.cid === this.model.cid) {
         return;
       }

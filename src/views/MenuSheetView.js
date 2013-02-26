@@ -40,40 +40,22 @@
       return this;
     },
     sharerooms_tapHandler: function(event) {
-      if (! this.shareRoomsCollection) {
-        this.shareRoomsCollection = new spiderOakApp.ShareRoomsCollection();
-        this.shareRoomsListView = new spiderOakApp.ShareRoomsListView({
-          collection: this.shareRoomsCollection
-        }).render();
+      // Instantiate ShareRoomsConsolidatedView and push it on the view stack.
+      if (! this.shareRoomsRoot) {
+        this.shareRoomsRootView = new spiderOakApp.ShareRoomsRootView();
       }
-      else {
-        this.shareRoomsListView.render();
-      }
-      this.shareRoomsListModel = this.shareRoomsListView.model;
-      spiderOakApp.mainView.closeMenu(event);
-      var options = {
-        id: this.shareRoomsListViewModel.cid,
-        model: this.shareRoomsListViewModel
-      };
-      $("#menusheet ul li").removeClass("current");
-      event.element.addClass("current");
+      this.shareRoomsRootView.render();
       if (spiderOakApp.navigator.viewsStack.length === 0) {
         spiderOakApp.navigator.pushView(
-          spiderOakApp.FolderView,
-          options,
-          spiderOakApp.noEffect
+          this.shareRoomsRootView
         );
         return;
       }
-      else if (_.last(spiderOakApp.navigator.viewsStack)
-                .instance.model.cid === this.model.cid) {
-        return;
+      else {
+        spiderOakApp.navigator.replaceAll(
+          this.shareRoomsRootView
+        );
       }
-      spiderOakApp.navigator.replaceAll(
-        spiderOakApp.FolderView,
-        options,
-        spiderOakApp.noEffect
-      );
     },
 
     menuOpening: function(event) {

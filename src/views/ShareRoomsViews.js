@@ -13,6 +13,7 @@
    *
    */
   spiderOakApp.ShareRoomsRootView = Backbone.View.extend({
+    templateID: "#shareRoomsRootViewTemplate",
     destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);

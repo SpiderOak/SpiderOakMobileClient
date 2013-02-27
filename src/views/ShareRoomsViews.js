@@ -23,29 +23,27 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html("<html><body><h2>Yop!</h2></body></html>");
+      this.$el.html(_.template($(this.templateID).text()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
         hScrollbar: false
       });
 
-      // Load the visited and account share rooms simultaneously (quasi-async)
-      window.setTimeout(function(){
+//      // Load the visited and account share rooms simultaneously (quasi-async)
+//      window.setTimeout(function(){
         this.loadMyShareRooms();
-      }.bind(this), 10);
+//      }.bind(this), 10);
       this.loadVisitedShareRooms();
 
       return this;
     },
     loadVisitedShareRooms: function() {
-      // @FIXME: Commented out till we figure out what to do with these
-      //
-      // this.visitedShareRoomsCollection = new spiderOakApp.FoldersCollection();
-      // // Populate the folder with share rooms being visited...
+      this.visitedRoomsArray = [];
+      // Populate the array with share rooms being visited...
       // this.visitedShareRoomsListView = new spiderOakApp.FoldersListView({
-      //   collection: this.visitedShareRoomsCollection,
-      //   el: this.$(".visitedList")
+      //   collection: this.visitedArray,
+      //   el: this.$(".visitedShareRoomsList")
       // });
       // // When we have finished fetching the folders, help hide the spinner
       // this.$(".visitedSharesList").one("complete", function(event) {
@@ -57,13 +55,13 @@
       // }.bind(this));
     },
     loadMyShareRooms: function() {
-      this.myShareRooms = new spiderOakApp.FoldersCollection();
+      this.myShareRooms = new spiderOakApp.myShareRoomsCollection();
       this.myShareRooms.url = spiderOakApp.accountModel.getMyShareRoomsURL();
       // We want to track the url when it is unset, as well as when it's set:
       if (this.myShareRooms.url) {
-        this.myShareRoomsListView = new spiderOakApp.FoldersListView({
-          collection: this.folders,
-          el: this.$(".mySharesList")
+        this.myShareRoomsListView = new spiderOakApp.ShareRoomsListView({
+          collection: this.myShareRooms,
+          el: this.$(".myShareRoomssList")
         });
         // When we have finished fetching the folders, help hide the spinner
         this.$(".mySharesList").one("complete", function(event) {
@@ -113,7 +111,7 @@
       this.myShareRoomsListView.close();
     }
   });
-  spiderOakApp.ShareRoomsCollectionView = Backbone.View.extend({
+  spiderOakApp.ShareRoomsListView = Backbone.View.extend({
     initialize: function() {
       this.views = [];
       _.bindAll(this);
@@ -142,7 +140,7 @@
     },
     addAll: function() {
       this.$el.empty(); // needed still?
-      this.visitedShareRoomsCollection.each(this.addOne, this);
+      _.each(this.visitedRoomsArray, this.addOne);
     },
     close: function(){
       this.remove();

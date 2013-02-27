@@ -109,6 +109,23 @@
         <div class="foldername"><%= name %></div>
       </a>
     </script>
+    <script type="text/html" id="shareRoomsRootViewTemplate">
+      <div>
+        <ul class="folderViewLoading loadingFolders loadingFiles">
+          <li>Loading...</li>
+        </ul>
+        <ul> <li class="sep">My Shares</li> </ul>
+        <ul class="myShareRoomsList"></ul>
+        <ul> <li class="sep">Public Shares</li>  </ul>
+        <ul class="visitedShareRoomsList"></ul>
+      </div>
+    </script>
+    <script type="text/html" id="shareRoomItemViewTemplate">
+      <a>
+        <div class="icon"><i class="icon-cloud-upload"></i></div>
+        <div class="foldername"><%= name %></div>
+      </a>
+    </script>
     <script type="text/html" id="fileItemViewTemplate">
       <a>
         <div class="icon"><i class="icon-<%= icon %>"></i></div>

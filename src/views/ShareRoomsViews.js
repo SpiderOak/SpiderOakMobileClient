@@ -42,7 +42,7 @@
       this.visitedRoomsArray = [];
       // Populate the array with share rooms being visited...
       // this.visitedShareRoomsListView = new spiderOakApp.FoldersListView({
-      //   collection: this.visitedArray,
+      //   models: this.visitedArray,
       //   el: this.$(".visitedShareRoomsList")
       // });
       // // When we have finished fetching the folders, help hide the spinner
@@ -61,6 +61,7 @@
       if (this.myShareRooms.url) {
         this.myShareRoomsListView = new spiderOakApp.ShareRoomsListView({
           collection: this.myShareRooms,
+          models: this.myShareRooms.models,
           el: this.$(".myShareRoomssList")
         });
         // When we have finished fetching the folders, help hide the spinner
@@ -140,7 +141,9 @@
     },
     addAll: function() {
       this.$el.empty(); // needed still?
-      _.each(this.visitedRoomsArray, this.addOne);
+      // Since the visited share rooms collection is actually an array,
+      // iterate directly over the models:
+      _.each(this.models, this.addOne);
     },
     close: function(){
       this.remove();

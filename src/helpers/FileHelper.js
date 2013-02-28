@@ -160,7 +160,7 @@
     else if (fileExtension === "png") {
         return FILETYPE_PNG;
     }
-    else if (fileExtension === "txt" || fileExtension === "md") {
+    else if (fileExtension === "txt") {
         return FILETYPE_TEXT;
     }
     else if (fileExtension === "pdf") {

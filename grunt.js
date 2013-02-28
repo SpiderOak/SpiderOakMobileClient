@@ -66,6 +66,7 @@ module.exports = function(grunt) {
           'src/views/MainView.js',
           'src/views/StorageView.js',
           'src/views/MenuSheetView.js',
+          'src/views/DialogView.js',
           'src/app.js'
         ],
         dest: 'www/js/<%= pkg.name %>.js'
@@ -166,7 +167,6 @@ module.exports = function(grunt) {
     uglify: {}
   });
 
-  grunt.loadNpmTasks('grunt-compass');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.

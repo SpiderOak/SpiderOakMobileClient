@@ -48,8 +48,12 @@
       // @FIXME: This seems cludgey
       if (window.cssLoaded) navigator.splashscreen.hide();
       // @TODO: Instantiate any plugins
+      spiderOakApp.fileViewer = window.cordova &&
+        window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     onLoginSuccess: function() {
+      $(".modal").hide();
+      $(".modal .wait-dialog").hide();
       // Instantiate the menusheet and bind the spiderOakApp.accountModel
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
@@ -57,6 +61,9 @@
     },
     onBackKeyDown: function(event) {
       event.preventDefault();
+      if ($(".modal").is(":visible")) {
+        return;
+      }
       // @FIXME: Extend this logic a bit... it's a bit simplistic
       if ($("#main").hasClass("open")) {
         spiderOakApp.mainView.closeMenu();
@@ -74,8 +81,7 @@
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
-    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() :
-      null)
+    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : null)
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

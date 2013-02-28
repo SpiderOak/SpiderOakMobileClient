@@ -54,6 +54,9 @@
     },
     form_submitHandler: function(event) {
       event.preventDefault();
+
+      spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
+
       var username = $("#unme").val();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").is(":checked");
@@ -90,6 +93,9 @@
         else {
           msg = ("Temporary server failure. Please try again later.");
         }
+
+        spiderOakApp.dialogView.hide();
+
         navigator.notification.alert(msg, null, "Authentication error", "OK");
       };
 

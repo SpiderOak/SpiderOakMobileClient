@@ -71,6 +71,13 @@ describe('AccountModel', function() {
           this.accountModel.get("b32username").should.equal(this.b32username);
         }
       );
+      it('should set the basic authentication credentials for file headers',
+        function() {
+          this.accountModel.get("basicAuthCredentials").should.be.ok;
+          this.accountModel.get("basicAuthCredentials").should
+            .equal("Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA==");
+        }
+      );
       it('should set proper accountModel storage root URL' +
          ' upon successful login',
          function() {

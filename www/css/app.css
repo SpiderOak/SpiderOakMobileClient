@@ -259,6 +259,7 @@ ul li a .filename {
   left: 45px;
   right: 40px;
   top: 5px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -268,6 +269,7 @@ ul li a .foldername {
   left: 45px;
   right: 40px;
   top: 17px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -278,6 +280,148 @@ ul li a .subtext {
   top: 30px;
   right: 40px;
   font-size: 0.7em;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal .title,
+.modal .progress-dialog .subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+.modal .progress-dialog {
+  /*display: none;*/
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  right: 15%;
+  border-radius: 5px;
+  background-color: #000;
+  color: #ccc;
+  text-align: center;
+}
+
+.meter { 
+  height: 15px;  /* Can be anything */
+  position: relative;
+  margin: 20px;
+  background: #333;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0px;
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: rgb(120,120,120);
+  position: relative;
+  overflow: hidden;
+}
+
+.modal .wait-dialog {
+  /*display: none;*/
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  right: 15%;
+  border-radius: 5px;
+  background-color: #000;
+  color: #ccc;
+  text-align: center;
+}
+
+#fadingBarsG{
+  position:relative;
+  width:83px;
+  height:10px;
+  margin: 20px auto;
+}
+
+.fadingBarsG{
+  position:absolute;
+  top:0;
+  background-color:#cccccc;
+  width:10px;
+  height:10px;
+  -webkit-animation-name:bounce_fadingBarsG;
+  -webkit-animation-duration:1.9s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-direction:linear;
+  -webkit-transform:scale(.3);
+}
+
+#fadingBarsG_1{
+left:0;
+-webkit-animation-delay:0.36s;
+}
+
+#fadingBarsG_2{
+left:10px;
+-webkit-animation-delay:0.55s;
+}
+
+#fadingBarsG_3{
+left:21px;
+-webkit-animation-delay:0.74s;
+}
+
+#fadingBarsG_4{
+left:31px;
+-webkit-animation-delay:0.93s;
+}
+
+#fadingBarsG_5{
+left:42px;
+-webkit-animation-delay:1.12s;
+}
+
+#fadingBarsG_6{
+left:52px;
+-webkit-animation-delay:1.31s;
+}
+
+#fadingBarsG_7{
+left:62px;
+-webkit-animation-delay:1.5s;
+}
+
+#fadingBarsG_8{
+left:73px;
+-webkit-animation-delay:1.69s;
+}
+
+@-webkit-keyframes bounce_fadingBarsG{
+0%{
+-webkit-transform:scale(1);
+background-color:#cccccc;
+}
+
+100%{
+-webkit-transform:scale(.3);
+background-color:#000000;
+}
+
+}
+
+

@@ -67,6 +67,8 @@
             // Record the b32username:
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
+            // Record the basic auth credentials
+            _self.set("basicAuthCredentials", _self.getBasicAuth(username, password));
             // Record the login url:
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
@@ -109,6 +111,11 @@
           errorCallback(xhr.status, "authentication failed");
         }
       });
+    },
+    getBasicAuth: function (user, password) {
+      var tok = user + ':' + password;
+      var hash = btoa(tok);
+      return "Basic " + hash;
     },
     logout: function(successCallback) {
       // Clear basic auth details:

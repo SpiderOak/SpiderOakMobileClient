@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.spideroak.fileviewerplugin"
+    version="0.1.0">
+
+    <name>File Viewer Plugin</name>
+
+    <asset src="www/FileViewerPlugin.js" target="FileViewerPlugin.js" />
+
+    <!-- android -->
+    <platform name="android">
+
+        <!-- Cordova 2.x.x -->
+        <config-file target="res/xml/config.xml" parent="/cordova/plugins">
+            <plugin name="FileViewerPlugin"
+                value="com.spideroak.fileviewerplugin.FileViewerPlugin"/>
+        </config-file>
+
+        <source-file src="src/android/FileViewerPlugin.java"
+                target-dir="src/com/spideroak/fileviewerplugin" />
+    </platform>
+</plugin>

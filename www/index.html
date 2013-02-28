@@ -90,8 +90,8 @@
       </div>
     </div>
     <div class="splash"><img src="img/brand_logo.png" width="100%" /></div>
+    <div id="dialog" class="modal"></div>
     <!-- Templates -->
-    <!-- @FIXME: inline styles are fail -->
     <script type="text/html" id="folderViewTemplate">
       <div>
         <ul class="folderViewLoading loadingFolders loadingFiles">
@@ -123,8 +123,34 @@
         <div class="rightButton"><i class="icon-star innershadow"></i></div>
       </a>
     </script>
+    <script type="text/html" id="progress-dialog">
+      <div class="progress-dialog">
+        <h3 class="title"><%= title %></h3>
+        <p class="subtitle"><%= subtitle %></p>
+        <div class="meter">
+          <span class="progress" style="width: <%= start %>%"></span>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="wait-dialog">
+      <div class="wait-dialog">
+        <h3 class="title"><%= title %></h3>
+        <p class="subtitle"><%= subtitle %></p>
+        <div id="fadingBarsG">
+          <div id="fadingBarsG_1" class="fadingBarsG"></div>
+          <div id="fadingBarsG_2" class="fadingBarsG"></div>
+          <div id="fadingBarsG_3" class="fadingBarsG"></div>
+          <div id="fadingBarsG_4" class="fadingBarsG"></div>
+          <div id="fadingBarsG_5" class="fadingBarsG"></div>
+          <div id="fadingBarsG_6" class="fadingBarsG"></div>
+          <div id="fadingBarsG_7" class="fadingBarsG"></div>
+          <div id="fadingBarsG_8" class="fadingBarsG"></div>
+        </div>
+      </div>
+    </script>
     <!-- Cordova -->
     <script src="cordova.js"></script>
+    <script src="FileViewerPlugin.js"></script>
     <!-- Components -->
     <script src="components/underscore/underscore.js"></script>
     <script src="components/backbone/backbone.js"></script>
@@ -132,7 +158,6 @@
     <script src="components/backstack/backstack.js"></script>
     <script src="components/Nibbler.min/index.js"></script>
     <script src="components/iscroll/src/iscroll.js"></script>
-    <script src="components/moment/moment.js"></script>
     <script src="components/moment/moment.js"></script>
     <!-- SpiderOakMobile script -->
     <script src="js/SpiderOakMobile.js"></script>

@@ -88,33 +88,6 @@
 
 /* Cordova polyfills */
 
-if (! window.cordova) {
-  if (! navigator.notification) {
-    navigator.notification = {};
-  }
-
-  if (! navigator.notification.alert) {
-    navigator.notification.alert =
-        function (message, alertCallback, title, buttonName) {
-          window.alert(message);
-          if (alertCallback) {
-            alertCallback();
-          }
-        };
-  }
-
-  if (! navigator.notification.confirm) {
-    navigator.notification.confirm =
-        function (message, confirmCallback, title, buttonLabels){
-          var isConfirmed = window.confirm(message);
-          if (confirmCallback)
-          {
-            confirmCallback((isConfirmed) ? 1 : 2);
-          }
-        };
-  }
-}
-
 /* Function.bind polyfill */
 
 if (!Function.prototype.bind) {

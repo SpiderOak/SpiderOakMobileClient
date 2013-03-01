@@ -27,9 +27,7 @@ body {
 }
 
 .nav .menu-btn.active,
-.nav .back-btn.active,
-.nav .menu-btn:active,
-.nav .back-btn:active {
+.nav .back-btn.active {
 	background-color: #333;
 }
 
@@ -67,8 +65,7 @@ ul li a {
   margin: -13px -10px;
 }
 
-ul li a.active,
-ul li a:active {
+ul li a.active {
   background-image: none;
   /*background-color: #3366cc;*/
   background-color: #ccc;
@@ -103,8 +100,7 @@ ul li a:active {
   color: #fff;
 }
 
-.menu ul li a.active,
-.menu ul li a:active {
+.menu ul li a.active {
   background-color: #ccc;
   color: #000;
 }
@@ -190,8 +186,7 @@ button {
   color: #333;
 }
 
-a.button.active,
-a.button:active {
+a.button.active {
   background-color: rgba(100%, 65%, 0%, 0.3);
   box-shadow: 0 0 2px 4px orange;
   outline:0;

@@ -22,8 +22,8 @@ body {
   z-index: 99;
 }
 
-.nav .menu-btn:active,
-.nav .back-btn:active {
+.nav .menu-btn.active,
+.nav .back-btn.active {
   background-color: #333;
 }
 

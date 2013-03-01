@@ -10,31 +10,32 @@
     <title>SpiderOak Mobile</title>
     <link rel="stylesheet" type="text/css" href="css/icomoon/style.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/themes/android.css" />
     <script src="components/zepto/zepto.js"></script>
     <script src="components/yepnope/yepnope.js"></script>
     <script type="text/javascript">
-      yepnope({
-        test : $.os.android,
-        yep  : [
-          'css/themes/android.css'
-        ],
-        nope : [
-          // force android for now..
-          // 'css/themes/ios.css'
-          'css/themes/android.css'
-        ],
-        complete: function(url, result, key) {
-          $('body').addClass((result)?"android":"ios");
-          // @FIXME: This seems cludgey
-          if (navigator.splashscreen) {
-            navigator.splashscreen.hide();
-          }
-          window.setTimeout(function(){
-            $(".splash").hide();
-          },500);
-          window.cssLoaded = true;
-        }
-      });
+      // yepnope({
+      //   test : $.os.android,
+      //   yep  : [
+      //     'css/themes/android.css'
+      //   ],
+      //   nope : [
+      //     // force android for now..
+      //     // 'css/themes/ios.css'
+      //     'css/themes/android.css'
+      //   ],
+      //   complete: function(url, result, key) {
+      //     $('body').addClass((result)?"android":"ios");
+      //     // @FIXME: This seems cludgey
+      //     if (navigator.splashscreen) {
+      //       navigator.splashscreen.hide();
+      //     }
+      //     window.setTimeout(function(){
+      //       $(".splash").hide();
+      //     },500);
+      //     window.cssLoaded = true;
+      //   }
+      // });
     </script>
   </head>
   <body ontouchstart="">
@@ -76,7 +77,8 @@
         <form class="login-form">
           <div class="login-input">
             <input id="unme" type="text" name="unme"
-                       autocapitalize="off" placeholder="Username" />
+                       autocorrect="off" autocapitalize="off" 
+                       placeholder="Username" />
           </div>
           <div style="height:5px;"></div>
           <div class="login-input">

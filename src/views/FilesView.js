@@ -173,9 +173,9 @@
         function(entry) {
           spiderOakApp.dialogView.hide();
 
-          if (this.model.get("openInternally")) {
-            window.open(encodeURI(entry.fullPath),"_blank","location=no");
-          } else {
+          // if (this.model.get("openInternally")) {
+          //   window.open(encodeURI(entry.fullPath),"_blank","location=no");
+          // } else {
             spiderOakApp.fileViewer.view({
               action: spiderOakApp.fileViewer.ACTION_VIEW,
               url: encodeURI(entry.fullPath)
@@ -188,7 +188,7 @@
                 "OK"
               );
             });
-          }
+          // }
           console.log("download complete: " + entry.fullPath);
         }.bind(this),
         function(error) { // @FIXME: Real error handling...

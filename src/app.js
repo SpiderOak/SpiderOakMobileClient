@@ -32,6 +32,20 @@
         this.onLoginSuccess,
         false
       );
+      // Hax for Android 2.x not groking :active
+      $(document).on("touchstart", "a", function(event) {
+        var $this = $(this);
+        $this.addClass("active");
+      });
+      $(document).on("touchend", "a", function(event) {
+        var $this = $(this);
+        $this.removeClass("active");
+      });
+      $(document).on("touchmove", "a", function(event) {
+        var $this = $(this);
+        $this.removeClass("active");
+      });
+      $(".splash").hide();
     },
     backDisabled: true,
     onDeviceReady: function() {

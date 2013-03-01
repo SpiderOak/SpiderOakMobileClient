@@ -185,30 +185,11 @@
       return this;
     },
     a_tapHandler: function(event) {
-      spiderOakApp.mainView.closeMenu(event);
-      var options = {
-        id: this.model.cid,
-        title: this.model.get("name"),
-        model: this.model
-      };
-      $("#menusheet ul li").removeClass("current");
-      this.$el.addClass("current");
-      if (spiderOakApp.navigator.viewsStack.length === 0) {
-        spiderOakApp.navigator.pushView(
-          spiderOakApp.FolderView,
-          options,
-          spiderOakApp.noEffect
-        );
-        return;
-      }
-      else if (_.last(spiderOakApp.navigator.viewsStack)
-                .instance.model.cid === this.model.cid) {
-        return;
-      }
-      spiderOakApp.navigator.replaceAll(
-        spiderOakApp.FolderView,
-        options,
-        spiderOakApp.noEffect
+      navigator.notification.alert(
+        "Will navigate to ShareRoom",
+        null,
+        "Authentication error",
+        "OK"
       );
     },
     close: function(){

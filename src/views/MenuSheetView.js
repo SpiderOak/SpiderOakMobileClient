@@ -50,6 +50,7 @@
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
+      spiderOakApp.mainView.setTitle("SpiderOak");
       // Log out
       spiderOakApp.accountModel.logout(function() {
         // And finally, pop up the LoginView

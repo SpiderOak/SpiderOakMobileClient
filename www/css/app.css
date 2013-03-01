@@ -130,14 +130,14 @@ ul li a {
   color: #000;
 }
 
-ul li a:active {
+ul li a.active {
   background-image: none;
   /*background-color: #3366cc;*/
   background-color: #ccc;
   color: black;
 }
 
-ul li a:active small.counter {
+ul li a.active small.counter {
   background-color: #24478f;
 }
 
@@ -178,7 +178,7 @@ ul.rounded li:first-child {
   border-color: #333;
 }
 
-.menu ul li a:active {
+.menu ul li a.active {
   background-color: #666;
   color: #ccc;
 }

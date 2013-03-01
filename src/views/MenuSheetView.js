@@ -45,7 +45,17 @@
     menuClosing: function(event) {
       // ...
     },
-    logout_tapHandler: function() {
+    logout_tapHandler: function(event) {
+      window.setTimeout(function(){
+        navigator.notification.confirm(
+          'Are you sure you want to sign out?.',
+          this.logoutConfirmed,
+          'Sign out'
+        );
+      }.bind(this),50);
+    },
+    logoutConfirmed: function(button) {
+      if (button === 2) return false;
       // Clean up
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);

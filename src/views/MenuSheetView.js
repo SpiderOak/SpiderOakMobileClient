@@ -42,7 +42,8 @@
     sharerooms_tapHandler: function(event) {
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle("ShareRooms");
-      
+      $("#menusheet ul li").removeClass("current");
+      $(".sharerooms").closest("li").addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {
         spiderOakApp.navigator.pushView(
           spiderOakApp.ShareRoomsRootView,

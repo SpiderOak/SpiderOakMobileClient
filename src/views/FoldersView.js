@@ -101,6 +101,9 @@
       }
     },
     viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
       spiderOakApp.backDisabled = false;
     },
     viewDeactivate: function(event) {

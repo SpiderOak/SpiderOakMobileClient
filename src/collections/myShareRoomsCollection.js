@@ -24,7 +24,7 @@
                  share_id: share_id,
                  room_key: shareroom.room_key,
                  name: shareroom.room_name,
-                 description: shareroom.description,
+                 description: shareroom.room_description,
                  browse_url: shareroom.url
                });
       });

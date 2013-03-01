@@ -40,6 +40,7 @@
     },
     loadVisitedShareRooms: function() {
       this.visitedRoomsArray = [];
+      this.$(".mySharesViewLoading").removeClass("loadingVisitedShares");
       // Populate the array with share rooms being visited...
       // this.visitedShareRoomsListView = new spiderOakApp.FoldersListView({
       //   models: this.visitedArray,
@@ -62,11 +63,11 @@
         this.myShareRoomsListView = new spiderOakApp.ShareRoomsListView({
           collection: this.myShareRooms,
           models: this.myShareRooms.models,
-          el: this.$(".myShareRoomssList")
+          el: this.$(".myShareRoomsList")
         });
         // When we have finished fetching the folders, help hide the spinner
-        this.$(".mySharesList").one("complete", function(event) {
-          this.$(".mySharesViewLoading").removeClass("loadingFolders");
+        this.$(".myShareRoomsList").one("complete", function(event) {
+          this.$(".mySharesViewLoading").removeClass("loadingMyShares");
           window.setTimeout(function(){
             this.scroller.refresh();
           }.bind(this),0);
@@ -78,13 +79,14 @@
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
+      var viewsStack = spiderOakApp.navigator.viewsStack;
       if (event.toView === this) {
         spiderOakApp.mainView.setTitle(this.name);
-        if (!!spiderOakApp.navigator.viewsStack[0] &&
-              spiderOakApp.navigator.viewsStack[0].instance === this) {
+        if (!!viewsStack[0] &&
+              viewsStack[0].instance.templateID === this.templateID) {
           spiderOakApp.mainView.showBackButton(false);
         }
-        else if (!spiderOakApp.navigator.viewsStack[0] ||
+        else if (!viewsStack[0] ||
             spiderOakApp.navigator.viewsStack.length === 0) {
           spiderOakApp.mainView.showBackButton(false);
         }
@@ -94,6 +96,9 @@
       }
     },
     viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
       spiderOakApp.backDisabled = false;
     },
     viewDeactivate: function(event) {
@@ -143,7 +148,9 @@
       this.$el.empty(); // needed still?
       // Since the visited share rooms collection is actually an array,
       // iterate directly over the models:
-      _.each(this.models, this.addOne);
+      // _.each(this.models, this.addOne);
+      this.collection.each(this.addOne, this);
+      this.$el.trigger("complete");
     },
     close: function(){
       this.remove();

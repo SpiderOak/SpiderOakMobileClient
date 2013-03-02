@@ -1,5 +1,5 @@
 /**
- * ShareRoomsCollection.js
+ * myShareRoomsCollection.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";

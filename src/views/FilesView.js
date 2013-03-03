@@ -52,7 +52,6 @@
 
   spiderOakApp.FilesListItemView = Backbone.View.extend({
     tagName: "li",
-    templateID: "#fileItemViewTemplate",
     events: {
       "tap a": "a_tapHandler",
       "longTap a": "a_longTapHandler",
@@ -64,7 +63,7 @@
     render: function() {
       // @TODO: These should be different icons for different file types
       this.$el.html(
-        _.template($(this.templateID).text(),
+        _.template(window.tpl.get("fileItemViewTemplate"),
           this.model.toJSON()
         )
       );
@@ -99,14 +98,36 @@
     favorite_tapHandler: function(event) {
       event.preventDefault();
       event.stopPropagation();
-      window.setTimeout(function(){
-        navigator.notification.alert(
-          "This will add to favorites",
-          null,
-          "TODO",
-          "OK"
-        );
-      }, 50);
+      if (this.$(".rightButton").hasClass("favorite")) {
+        window.setTimeout(function(){
+          navigator.notification.alert(
+            "This will remove from favorites",
+            null,
+            "TODO",
+            "OK"
+          );
+        }, 50);
+        this.$(".rightButton").removeClass("favorite");
+        // If file exists in PERSISTENT file system, delete it
+        // Remove model from the Favorites Collection
+        // Persist Favorites Collection to localStorage
+      }
+      else {
+        window.setTimeout(function(){
+          navigator.notification.alert(
+            "This will add to favorites",
+            null,
+            "TODO",
+            "OK"
+          );
+        }, 50);
+        // Check if file has already been downloaded (ie: viewed)
+        //    if so, copy the file to the PERSISTENT file system
+        //    if not, download the file to the PERSISTENT file system
+        // Add file model (with added local path) to the Favorites Collection
+        // Persist Favorites Collection to localStorage
+        this.$(".rightButton").addClass("favorite");
+      }
     },
     view: function() {
       window.requestFileSystem(

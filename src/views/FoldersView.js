@@ -10,7 +10,6 @@
       $           = window.$;
 
   spiderOakApp.FolderView = Backbone.View.extend({
-    templateID: "#folderViewTemplate",
     destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
@@ -19,7 +18,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template($(this.templateID).text(),
+      this.$el.html(_.template(window.tpl.get("folderViewTemplate"),
         this.model.toJSON()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -167,7 +166,6 @@
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
     tagName: "li",
-    templateID: "#folderItemViewTemplate",
     events: {
       "tap a": "a_tapHandler"
     },
@@ -176,7 +174,7 @@
     },
     render: function() {
       this.$el.html(
-        _.template($(this.templateID).text(),
+        _.template(window.tpl.get("folderItemViewTemplate"),
           this.model.toJSON()
         )
       );

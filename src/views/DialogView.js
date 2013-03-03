@@ -22,7 +22,7 @@
       options.title = options.title || "Please wait";
       options.subtitle = options.subtitle || "";
       this.$el.html(_.template(
-        $("#wait-dialog").text(),
+        window.tpl.get("waitDialog"),
         options
       ));
       this.$el.show();
@@ -37,7 +37,7 @@
       options.subtitle = options.subtitle || "";
       options.start = options.start || 0;
       this.$el.html(_.template(
-        $("#progress-dialog").text(),
+        window.tpl.get("progressDialog"),
         options
       ));
       this.$el.show();

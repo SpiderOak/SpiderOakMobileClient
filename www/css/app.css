@@ -254,6 +254,10 @@ ul li a .rightButton {
   color: #ccc;
 }
 
+ul li a .rightButton.favorite {
+  color: orange;
+}
+
 ul li a .filename {
   position: absolute;
   left: 45px;

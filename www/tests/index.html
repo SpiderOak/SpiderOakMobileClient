@@ -13,37 +13,6 @@
       </div>
     </div>
     <!-- Templates -->
-    <script type="text/html" id="folderViewTemplate">
-      <div>
-        <ul class="folderViewLoading loadingFolders loadingFiles">
-          <li>Loading...</li>
-        </ul>
-        <ul class="foldersList"></ul>
-        <ul class="filesList" ></ul>
-      </div>
-    </script>
-    <script type="text/html" id="folderItemViewTemplate">
-      <a>
-        <div class="icon"><i class="icon-folder"></i></div>
-        <div class="foldername"><%= name %></div>
-      </a>
-    </script>
-    <script type="text/html" id="fileItemViewTemplate">
-      <a>
-        <div class="icon"><i class="icon-<%= icon %>"></i></div>
-        <div class="filename"><%= name %></div>
-        <div class="subtext darkgray">
-          <div class="file-info">
-            <%= description %>,
-            <%= fileHelper.readableFileSize(size) %></div>
-            <div class="file-modified">
-              <%= moment(new String(mtime), "X").fromNow() %>
-            </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="rightButton"><i class="icon-star innershadow"></i></div>
-      </a>
-    </script>
     <!-- Testing apparatus -->
     <script src="../../node_modules/mocha/mocha.js"></script>
     <script src="../../node_modules/chai/chai.js"></script>
@@ -93,8 +62,18 @@
     </script>
     <script src="./SpiderOakMobile-tests.js"></script>
     <script>
-      if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-      else { mocha.run(); }
+      tpl.loadTemplates(
+        '../tpl',
+        [
+          'folderViewTemplate',
+          'folderItemViewTemplate',
+          'fileItemViewTemplate'
+        ],
+        function() {
+          if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+          else { mocha.run(); }
+        }
+      );
     </script>
   </body>
 </html>

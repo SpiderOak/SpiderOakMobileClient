@@ -65,9 +65,12 @@
       tpl.loadTemplates(
         '../tpl',
         [
+          'menusheetTemplate',
           'folderViewTemplate',
           'folderItemViewTemplate',
-          'fileItemViewTemplate'
+          'fileItemViewTemplate',
+          'progressDialog',
+          'waitDialog'
         ],
         function() {
           if (window.mochaPhantomJS) { mochaPhantomJS.run(); }

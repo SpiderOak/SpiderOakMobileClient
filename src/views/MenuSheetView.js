@@ -23,6 +23,7 @@
       $(document).on("menuClosing", this.menuClosing);
     },
     render: function() {
+      this.$el.html(_.template(window.tpl.get("menusheetTemplate")));
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();

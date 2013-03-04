@@ -10,12 +10,13 @@
       $           = window.$;
 
   spiderOakApp.DialogView = Backbone.View.extend({
-    el: "#dialog",
+    className: "modal",
     initialize: function() {
       _.bindAll(this);
     },
     render: function() {
-      // ...
+      $("body").append(this.el);
+      return this;
     },
     showWait: function(options) {
       options = options || {};
@@ -56,6 +57,6 @@
       });
     }
   });
-  spiderOakApp.dialogView = new spiderOakApp.DialogView();
+  spiderOakApp.dialogView = new spiderOakApp.DialogView().render();
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

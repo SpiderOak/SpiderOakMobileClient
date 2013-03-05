@@ -113,85 +113,86 @@
         // Persist Favorites Collection to localStorage
       }
       else {
-        window.setTimeout(function(){
-          navigator.notification.alert(
-            "This will add to favorites",
-            null,
-            "TODO",
-            "OK"
-          );
-        }, 50);
-        // Check if file has already been downloaded (ie: viewed)
-        //    if so, copy the file to the PERSISTENT file system
-        //    if not, download the file to the PERSISTENT file system
-        // Add file model (with added local path) to the Favorites Collection
-        // Persist Favorites Collection to localStorage
+        // Download the file to the PERSISTENT file system
+        // Start by getting the folder path
+        var path = "Download/SpiderOak/.favorites" +
+          this.model.url
+            .replace(
+              new RegExp(spiderOakApp.accountModel.getStorageURL()),
+              "/"
+            ).replace(
+              new RegExp(this.model.get("name")),
+              ""
+            );
+        spiderOakApp.dialogView.showProgress({
+          title: "Adding to Favorites",
+          subtitle: this.model.get("name"),
+          start: 0
+        });
+        var downloadOptions = {
+          fileName: this.model.get("name"),
+          from: this.model.url,
+          to: path,
+          fsType: window.LocalFileSystem.PERSISTENT,
+          onprogress: function onprogress(progressEvent) {
+            if (progressEvent.lengthComputable) {
+              var percentComplete =
+                    (progressEvent.loaded / progressEvent.total) * 100;
+              spiderOakApp.dialogView.updateProgress(percentComplete);
+            }
+          },
+          headers: {
+            "Authorization": spiderOakApp.accountModel
+              .get("basicAuthCredentials")
+          }
+        };
+        spiderOakApp.downloader.downloadFile(
+          downloadOptions,
+          function successCallback(fileEntry) {
+            spiderOakApp.dialogView.hide();
+            // @FIXME: Add file model (with added local path) to the Favorites Collection
+            // @FIXME: Persist Favorites Collection to localStorage
+            navigator.notification.alert(
+              fileEntry.name + " added to Favorites",
+              null,
+              "Success",
+              "OK"
+            );
+          },
+          function errorCallback(error) { // @FIXME: Real error handling...
+            spiderOakApp.dialogView.hide();
+            console.log(error);
+          }
+        );
         this.$(".rightButton").addClass("favorite");
       }
     },
     view: function() {
-      window.requestFileSystem(
-        window.LocalFileSystem.TEMPORARY,
-        0,
-        this.gotFS,
-        function(error) { // @FIXME: Real error handling...
-          console.log(error);
-        }
-      );
-    },
-    gotFS: function(fileSystem) {
-      fileSystem.root.getDirectory(
-        "data", // @FIXME: What does this path really need to be?
-        {create: true, exclusive: false},
-        this.gotDir,
-        function(error){ // @FIXME: Real error handling...
-          console.log(error);
-        }
-      );
-    },
-    gotDir: function(dirEntry) {
-      dirEntry.getFile(
-        this.model.get("name"),
-        {create: true, exclusive: false},
-        this.gotFile,
-        function(error) { // @FIXME: Real error handling...
-          console.log(error);
-        }
-      );
-    },
-    gotFile: function(fileEntry) {
-      // Start FileTransfer here...
-      var fileTransfer = new window.FileTransfer();
-
-      var options = {
+      var downloadOptions = {
+        fileName: this.model.get("name"),
+        from: this.model.url,
+        to: ".caches",
+        fsType: window.LocalFileSystem.TEMPORARY,
+        onprogress: function onprogress(progressEvent) {
+          if (progressEvent.lengthComputable) {
+            var percentComplete =
+                  (progressEvent.loaded / progressEvent.total) * 100;
+            spiderOakApp.dialogView.updateProgress(percentComplete);
+          }
+        },
         headers: {
-            "Authorization": spiderOakApp.accountModel
-              .get("basicAuthCredentials")
+          "Authorization": spiderOakApp.accountModel
+            .get("basicAuthCredentials")
         }
       };
-      fileTransfer.onprogress = function(progressEvent) {
-        if (progressEvent.lengthComputable) {
-          var percentComplete =
-                (progressEvent.loaded / progressEvent.total) * 100;
-          spiderOakApp.dialogView.updateProgress(percentComplete);
-        }
-      };
-
       spiderOakApp.dialogView.showProgress({
         title: "Downloading",
         subtitle: this.model.get("name"),
         start: 0
       });
-
-      $(document).one("backbutton", function(event) {
-        fileTransfer.abort();
-        spiderOakApp.dialogView.hide();
-      });
-
-      fileTransfer.download(
-        this.model.url,
-        fileEntry.fullPath,
-        function(entry) {
+      spiderOakApp.downloader.downloadFile(
+        downloadOptions,
+        function successCallback(fileEntry) {
           spiderOakApp.dialogView.hide();
 
           // if (this.model.get("openInternally")) {
@@ -199,8 +200,9 @@
           // } else {
             spiderOakApp.fileViewer.view({
               action: spiderOakApp.fileViewer.ACTION_VIEW,
-              url: encodeURI(entry.fullPath)
-            }, null,
+              url: encodeURI(fileEntry.fullPath)
+            },
+            function(){},
             function (error) { // @FIXME: Real error handling...
               navigator.notification.alert(
                 "Cannot find an app to view files of this type.",
@@ -210,17 +212,19 @@
               );
             });
           // }
-          console.log("download complete: " + entry.fullPath);
-        }.bind(this),
+        },
         function(error) { // @FIXME: Real error handling...
           spiderOakApp.dialogView.hide();
-          console.log("download error source " + error.source);
-          console.log("download error target " + error.target);
-          console.log("download error code " + error.code);
-          console.log("download error status " + error.http_status);
-        },
-        false,
-        options
+          if (error.code) {
+            console.log("download error source " + error.source);
+            console.log("download error target " + error.target);
+            console.log("download error code " + error.code);
+            console.log("download error status " + error.http_status);
+          }
+          else {
+            console.log(error);
+          }
+        }
       );
     },
     close: function(){

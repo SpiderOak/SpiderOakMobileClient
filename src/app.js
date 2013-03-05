@@ -92,6 +92,7 @@
     onMenuKeyDown: function(event) {
       spiderOakApp.mainView.openMenu();
     },
+    downloader: new window.FileDownloadHelper(),
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),

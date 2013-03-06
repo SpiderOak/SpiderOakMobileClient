@@ -55,6 +55,7 @@
       $(".modal").hide();
       $(".modal .wait-dialog").hide();
       // Instantiate the menusheet and bind the spiderOakApp.accountModel
+      // @TODO: refactor so menuSheetView can also be used without active login.
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
       }).render();

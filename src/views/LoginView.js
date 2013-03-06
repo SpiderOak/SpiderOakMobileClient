@@ -111,6 +111,13 @@
     },
     shareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
+      navigator.notification.alert(
+        "Will navigate to ShareRooms Root" +
+            " (Note: Menu sheet will need to provide for absent login case.)",
+        null,
+        "Authentication error",
+        "OK"
+      );
     },
     switch_tapHandler: function(event) {
       var $this = null;

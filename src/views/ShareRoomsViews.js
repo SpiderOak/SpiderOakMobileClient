@@ -40,6 +40,7 @@
     },
     loadVisitedShareRooms: function() {
       this.visitedShareRooms = new spiderOakApp.visitedShareRoomsCollection();
+      this.visitedShareRooms.url = "";
 
       this.$(".mySharesViewLoading").removeClass("loadingVisitedShares");
       // Populate the array with share rooms being visited...
@@ -58,6 +59,9 @@
       }.bind(this));
     },
     loadMyShareRooms: function() {
+      if (! spiderOakApp.accountModel) {
+        return;
+      }
       this.myShareRooms = new spiderOakApp.myShareRoomsCollection();
       this.myShareRooms.url = spiderOakApp.accountModel.getMyShareRoomsURL();
       // We want to track the url when it is unset, as well as when it's set:
@@ -201,12 +205,16 @@
       return this;
     },
     a_tapHandler: function(event) {
-      navigator.notification.alert(
-        "Will navigate to ShareRoom",
-        null,
-        "Authentication error",
-        "OK"
-      );
+      var options = {
+        id: this.model.cid,
+        title: this.model.get("name"),
+        model: this.model
+      };
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.FolderView,
+        options,
+        spiderOakApp.defaultEffect);
+
     },
     close: function(){
       this.remove();

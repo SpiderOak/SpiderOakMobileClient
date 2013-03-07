@@ -27,6 +27,16 @@
     },
     addOne: function(model) {
       model.url = this.collection.url + model.get("url");
+      // @FIXME: Is this the best pattern for this?
+      var isFavorite = _.find(
+        spiderOakApp.favoritesCollection.toJSON(), function(favorite){
+          return favorite.url === model.url;
+      });
+      if (isFavorite) {
+        model.set("isFavorite", true);
+        model.set("path", isFavorite.path);
+        console.log(isFavorite.path);
+      }
       var view = new spiderOakApp.FilesListItemView({
         model: model
       });
@@ -61,7 +71,6 @@
       _.bindAll(this);
     },
     render: function() {
-      // @TODO: These should be different icons for different file types
       this.$el.html(
         _.template(window.tpl.get("fileItemViewTemplate"),
           this.model.toJSON()
@@ -79,7 +88,14 @@
         return;
       }
       window.setTimeout(function(){
-        this.view();
+        if (this.model.get("isFavorite")) {
+          this.viewFavorite(
+            this.model.get("path") + this.model.get("name")
+          );
+        }
+        else {
+          this.view();
+        }
       }.bind(this), 50);
       console.log(this.model.toJSON());
     },
@@ -99,72 +115,10 @@
       event.preventDefault();
       event.stopPropagation();
       if (this.$(".rightButton").hasClass("favorite")) {
-        window.setTimeout(function(){
-          navigator.notification.alert(
-            "This will remove from favorites",
-            null,
-            "TODO",
-            "OK"
-          );
-        }, 50);
-        this.$(".rightButton").removeClass("favorite");
-        // If file exists in PERSISTENT file system, delete it
-        // Remove model from the Favorites Collection
-        // Persist Favorites Collection to localStorage
+       this.removeFavorite();
       }
       else {
-        // Download the file to the PERSISTENT file system
-        // Start by getting the folder path
-        var path = "Download/SpiderOak/.favorites" +
-          this.model.url
-            .replace(
-              new RegExp(spiderOakApp.accountModel.getStorageURL()),
-              "/"
-            ).replace(
-              new RegExp(this.model.get("name")),
-              ""
-            );
-        spiderOakApp.dialogView.showProgress({
-          title: "Adding to Favorites",
-          subtitle: this.model.get("name"),
-          start: 0
-        });
-        var downloadOptions = {
-          fileName: this.model.get("name"),
-          from: this.model.url,
-          to: path,
-          fsType: window.LocalFileSystem.PERSISTENT,
-          onprogress: function onprogress(progressEvent) {
-            if (progressEvent.lengthComputable) {
-              var percentComplete =
-                    (progressEvent.loaded / progressEvent.total) * 100;
-              spiderOakApp.dialogView.updateProgress(percentComplete);
-            }
-          },
-          headers: {
-            "Authorization": spiderOakApp.accountModel
-              .get("basicAuthCredentials")
-          }
-        };
-        spiderOakApp.downloader.downloadFile(
-          downloadOptions,
-          function successCallback(fileEntry) {
-            spiderOakApp.dialogView.hide();
-            // @FIXME: Add file model (with added local path) to the Favorites Collection
-            // @FIXME: Persist Favorites Collection to localStorage
-            navigator.notification.alert(
-              fileEntry.name + " added to Favorites",
-              null,
-              "Success",
-              "OK"
-            );
-          },
-          function errorCallback(error) { // @FIXME: Real error handling...
-            spiderOakApp.dialogView.hide();
-            console.log(error);
-          }
-        );
-        this.$(".rightButton").addClass("favorite");
+        this.saveFavorite();
       }
     },
     view: function() {
@@ -199,18 +153,19 @@
           //   window.open(encodeURI(entry.fullPath),"_blank","location=no");
           // } else {
             spiderOakApp.fileViewer.view({
-              action: spiderOakApp.fileViewer.ACTION_VIEW,
-              url: encodeURI(fileEntry.fullPath)
-            },
-            function(){},
-            function (error) { // @FIXME: Real error handling...
-              navigator.notification.alert(
-                "Cannot find an app to view files of this type.",
-                null,
-                "File error",
-                "OK"
-              );
-            });
+                action: spiderOakApp.fileViewer.ACTION_VIEW,
+                url: encodeURI(fileEntry.fullPath)
+              },
+              function(){},
+              function (error) { // @FIXME: Real error handling...
+                navigator.notification.alert(
+                  "Cannot find an app to view files of this type.",
+                  null,
+                  "File error",
+                  "OK"
+                );
+              }
+            );
           // }
         },
         function(error) { // @FIXME: Real error handling...
@@ -226,6 +181,125 @@
           }
         }
       );
+    },
+    viewFavorite: function(path) {
+      window.requestFileSystem(
+        window.LocalFileSystem.PERSISTENT,
+        0,
+        function viewFavoriteGetFS(fileSystem) {
+          fileSystem.root.getFile(
+            path,
+            {},
+            function viewFavoriteGotFS(fileEntry) {
+              spiderOakApp.fileViewer.view({
+                  action: spiderOakApp.fileViewer.ACTION_VIEW,
+                  url: encodeURI(fileEntry.fullPath)
+                },
+                function(){},
+                function (error) { // @FIXME: Real error handling...
+                  navigator.notification.alert(
+                    "Cannot find an app to view files of this type.",
+                    null,
+                    "File error",
+                    "OK"
+                  );
+                }
+              );
+            }
+          );
+        },
+        function errorViewingFileByPath(error) { // @FIXME: Real error handling...
+          navigator.notification.alert(
+            "Error viewing file. Error code " + error.code,
+            null,
+            "File error",
+            "OK"
+          );
+        }
+      );
+    },
+    saveFavorite: function() {
+      // Download the file to the PERSISTENT file system
+      // Start by getting the folder path
+      // @FIXME: This path should be controlled by a platform config
+      // @FIXME: This might be better moved to  method in the model
+      var path = "Download/SpiderOak/.favorites" +
+        this.model.url
+          .replace(
+            new RegExp(spiderOakApp.accountModel.getStorageURL()),
+            "/"
+          ).replace(
+            new RegExp(this.model.get("name")),
+            ""
+          );
+      spiderOakApp.dialogView.showProgress({
+        title: "Adding to Favorites",
+        subtitle: this.model.get("name"),
+        start: 0
+      });
+      var downloadOptions = {
+        fileName: this.model.get("name"),
+        from: this.model.url,
+        to: path,
+        fsType: window.LocalFileSystem.PERSISTENT,
+        onprogress: function onprogress(progressEvent) {
+          if (progressEvent.lengthComputable) {
+            var percentComplete =
+                  (progressEvent.loaded / progressEvent.total) * 100;
+            spiderOakApp.dialogView.updateProgress(percentComplete);
+          }
+        },
+        headers: {
+          "Authorization": spiderOakApp.accountModel
+            .get("basicAuthCredentials")
+        }
+      };
+      var favorite = this.model.toJSON();
+      favorite.path = path;
+      favorite.url = this.model.url;
+      spiderOakApp.downloader.downloadFile(
+        downloadOptions,
+        function successCallback(fileEntry) {
+          spiderOakApp.dialogView.hide();
+          // Add file model (with added local path) to the Favorites Collection
+          spiderOakApp.favoritesCollection.add(
+            new spiderOakApp.FavoriteModel(favorite)
+          );
+          this.$(".rightButton").addClass("favorite");
+          // Persist Favorites Collection to localStorage
+          // window.store.set(
+          window.localStorage.setItem(
+            "favorites-" + spiderOakApp.accountModel.get("b32username"),
+            JSON.stringify(spiderOakApp.favoritesCollection.toJSON())
+          );
+          this.model.set("path", favorite.path);
+          this.model.set("isFavorite", true);
+          navigator.notification.alert(
+            fileEntry.name + " added to Favorites",
+            null,
+            "Success",
+            "OK"
+          );
+        }.bind(this),
+        function errorCallback(error) { // @FIXME: Real error handling...
+          spiderOakApp.dialogView.hide();
+          console.log(error);
+        }
+      );
+    },
+    removeFavorite: function() {
+      window.setTimeout(function(){
+        navigator.notification.alert(
+          "This will remove from favorites",
+          null,
+          "TODO",
+          "OK"
+        );
+      }, 50);
+      this.$(".rightButton").removeClass("favorite");
+      // If file exists in PERSISTENT file system, delete it
+      // Remove model from the Favorites Collection
+      // Persist Favorites Collection to localStorage
     },
     close: function(){
       this.remove();

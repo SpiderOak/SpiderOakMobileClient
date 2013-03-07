@@ -64,7 +64,14 @@ describe('Application setup', function() {
         encoded_share_id.should.equal("NV4V643IMFZGKX3JMQ");
       });
     });
-    
+
+    describe('store.js', function(){
+      it('should have store.js', function() {
+        window.store.should.be.ok;
+        window.store.enabled.should.be.ok;
+      });
+    });
+
   });
 
   describe('initialize', function() {

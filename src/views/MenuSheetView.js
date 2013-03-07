@@ -26,7 +26,8 @@
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
-      this.devicesCollection.url = spiderOakApp.accountModel.getStorageURL();
+      this.devicesCollection.url =
+          spiderOakApp.accountModel.get("storageRootURL");
       this.devicesListView = new spiderOakApp.DevicesListView({
         collection: this.devicesCollection,
         el: this.$(".devices")

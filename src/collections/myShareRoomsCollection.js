@@ -19,7 +19,7 @@
       _.each(resp.share_rooms,
              function(shareroom){
                sharerooms.push({
-                 url: share_id_b32 + "/" + shareroom.room_key + "/",
+                 url: shareroom.room_key + "/",
                  share_id_b32: share_id_b32,
                  share_id: share_id,
                  room_key: shareroom.room_key,

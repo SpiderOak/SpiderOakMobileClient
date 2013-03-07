@@ -63,7 +63,7 @@
         return;
       }
       this.myShareRooms = new spiderOakApp.myShareRoomsCollection();
-      this.myShareRooms.url = spiderOakApp.accountModel.getMyShareRoomsURL();
+      this.myShareRooms.url = spiderOakApp.accountModel.get("mySharesListURL");
       // We want to track the url when it is unset, as well as when it's set:
       if (this.myShareRooms.url) {
         this.myShareRoomsListView = new spiderOakApp.myShareRoomsListView({
@@ -143,8 +143,8 @@
       return this;
     },
     addOne: function(model) {
-      // @TODO: Assigning model.url seems like the collection's responsibility:
-      model.url = this.collection.url + model.get("url");
+      model.url = (spiderOakApp.accountModel.get("mySharesRootURL") +
+                   model.get("url"));
       var view = new spiderOakApp.ShareRoomItemView({
         model: model
       });
@@ -210,11 +210,11 @@
         title: this.model.get("name"),
         model: this.model
       };
+      var folderView = new spiderOakApp.FolderView(options);
       spiderOakApp.navigator.pushView(
-        spiderOakApp.FolderView,
-        options,
+        folderView,
+        {},
         spiderOakApp.defaultEffect);
-
     },
     close: function(){
       this.remove();

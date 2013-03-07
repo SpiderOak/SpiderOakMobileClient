@@ -71,6 +71,10 @@
           el: this.$(".myShareRoomsList")
         });
 
+        // Now reset the collection url to the base for share rooms, themselves:
+        this.myShareRoomsListView.collection.url =
+            spiderOakApp.accountModel.get("mySharesRootURL");
+
         // When we have finished fetching the folders, help hide the spinner
         this.$(".myShareRoomsList").one("complete", function(event) {
           this.$(".mySharesViewLoading").removeClass("loadingMyShares");
@@ -174,8 +178,7 @@
   spiderOakApp.visitedShareRoomsListView = myShareRoomsListView.extend({
     addOne: function(model) {
       // @TODO: Assigning model.url seems like the collection's responsibility:
-      model.url = spiderOakApp.accountModel.get("mySharesRootURL") +
-        model.get("url");
+      model.url = model.get("url");
       var view = new spiderOakApp.ShareRoomItemView({
         model: model
       });

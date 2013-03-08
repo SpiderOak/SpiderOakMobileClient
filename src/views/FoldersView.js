@@ -10,7 +10,6 @@
       $           = window.$;
 
   spiderOakApp.FolderView = Backbone.View.extend({
-    templateID: "#folderViewTemplate",
     destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
@@ -19,7 +18,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template($(this.templateID).text(),
+      this.$el.html(_.template(window.tpl.get("folderViewTemplate"),
         this.model.toJSON()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -39,11 +38,12 @@
       // The folders...
       this.folders = new spiderOakApp.FoldersCollection();
       if (this.model.collection) {
-        this.folders.url = this.model.collection.url + this.model.get("url");
+        this.folders.url = (this.model.collection.urlBase ||
+                            this.model.collection.url) + this.model.get("url");
       }
       else {
-        this.folders.url = spiderOakApp.accountModel.getStorageURL() +
-          this.model.get("url");
+        this.folders.url = (spiderOakApp.accountModel.get("storageRootURL") +
+                            this.model.get("url"));
       }
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
@@ -62,11 +62,12 @@
       // The files...
       this.files = new spiderOakApp.FilesCollection();
       if (this.model.collection) {
-        this.files.url = this.model.collection.url + this.model.get("url");
+        this.files.url = (this.model.collection.urlBase ||
+                          this.model.collection.url) + this.model.get("url");
       }
       else {
-        this.files.url = spiderOakApp.accountModel.getStorageURL() +
-          this.model.get("url");
+        this.files.url = (spiderOakApp.accountModel.get("storageRootURL") +
+                          this.model.get("url"));
       }
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,
@@ -167,7 +168,6 @@
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
     tagName: "li",
-    templateID: "#folderItemViewTemplate",
     events: {
       "tap a": "a_tapHandler"
     },
@@ -176,7 +176,7 @@
     },
     render: function() {
       this.$el.html(
-        _.template($(this.templateID).text(),
+        _.template(window.tpl.get("folderItemViewTemplate"),
           this.model.toJSON()
         )
       );

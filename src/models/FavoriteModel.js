@@ -1,5 +1,5 @@
 /**
- * FileModel.js
+ * FavoriteModel.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -9,9 +9,9 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FileModel = Backbone.Model.extend({
+  spiderOakApp.FavoriteModel = Backbone.Model.extend({
     defaults: {
-      isFavorite: false
+      isFavorite: true
     }
   });
 

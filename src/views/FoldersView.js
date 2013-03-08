@@ -38,11 +38,12 @@
       // The folders...
       this.folders = new spiderOakApp.FoldersCollection();
       if (this.model.collection) {
-        this.folders.url = this.model.collection.url + this.model.get("url");
+        this.folders.url = (this.model.collection.urlBase ||
+                            this.model.collection.url) + this.model.get("url");
       }
       else {
-        this.folders.url = spiderOakApp.accountModel.getStorageURL() +
-          this.model.get("url");
+        this.folders.url = (spiderOakApp.accountModel.get("storageRootURL") +
+                            this.model.get("url"));
       }
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
@@ -61,11 +62,12 @@
       // The files...
       this.files = new spiderOakApp.FilesCollection();
       if (this.model.collection) {
-        this.files.url = this.model.collection.url + this.model.get("url");
+        this.files.url = (this.model.collection.urlBase ||
+                          this.model.collection.url) + this.model.get("url");
       }
       else {
-        this.files.url = spiderOakApp.accountModel.getStorageURL() +
-          this.model.get("url");
+        this.files.url = (spiderOakApp.accountModel.get("storageRootURL") +
+                          this.model.get("url"));
       }
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,

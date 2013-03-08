@@ -55,8 +55,8 @@
           function loginSuccess(login_url, locationResponse) {
             var splat = login_url.split('/');
             var b32username = splat[splat.length - 2];
-            var storageRootURL = (splat.slice(0, splat.length-2).join("/")
-                                  + "/" + b32username + "/");
+            var storageHost = splat.slice(0, splat.length-3).join("/");
+            var storageRootURL = storageHost + "/storage/" + b32username + "/";
             // Replace our notion of the username with the one the server
             // has, according to the b32username: the server preserves the
             // original account's alphabetic case, and uses it, whatever
@@ -68,11 +68,16 @@
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
             // Record the basic auth credentials
-            _self.set("basicAuthCredentials", _self.getBasicAuth(username, password));
+            _self.set("basicAuthCredentials",
+                      _self.getBasicAuth(username, password));
             // Record the login url:
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
             _self.set("storageRootURL", storageRootURL);
+            // Record the location of the account's shares list:
+            _self.set("mySharesListURL", storageRootURL + "shares");
+            // Record the location of the account's shares root:
+            _self.set("mySharesRootURL", storageHost + "/share/");
             // Record the web browsing root location:
             _self.set("webRootURL", locationResponse);
             // Return the data center part of the url:
@@ -142,10 +147,7 @@
       codeBits: 5,
       keyString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
       pad: ""
-    }),
-    getStorageURL: function() {
-      return this.get("storageRootURL");
-    }
+    })
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

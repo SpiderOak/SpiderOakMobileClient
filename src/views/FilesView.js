@@ -232,7 +232,7 @@
           var path = "Download/SpiderOak/.favorites" +
             this.model.url
               .replace(
-                new RegExp(spiderOakApp.accountModel.getStorageURL()),
+                new RegExp(spiderOakApp.accountModel.get("storageRootURL")),
                 "/"
               ).replace(
                 new RegExp(this.model.get("name")),

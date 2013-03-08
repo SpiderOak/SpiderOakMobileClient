@@ -13,7 +13,8 @@
     el: "#menusheet",
     events: {
       "tap .logout": "logout_tapHandler",
-      "tap .favorites": "favorites_tapHandler"
+      "tap .favorites": "favorites_tapHandler",
+      "tap .sharerooms": "sharerooms_tapHandler"
       // "focus #menu-search": "menuSearch_focusHandler",
       // "keyup #menu-search": "menuSearch_changeHandler",
       // "tap .clear-icon": "clearIcon_tapHandler"
@@ -28,7 +29,8 @@
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
-      this.devicesCollection.url = spiderOakApp.accountModel.getStorageURL();
+      this.devicesCollection.url =
+        spiderOakApp.accountModel.get("storageRootURL");
       this.$(".devices").one("complete", function(event) {
         if (spiderOakApp.navigator.viewsStack.length === 0) {
           var $firstDevice = this.$(".devices").find("li a").first();
@@ -66,6 +68,30 @@
 
       return this;
     },
+    sharerooms_tapHandler: function(event) {
+      spiderOakApp.mainView.closeMenu(event);
+      spiderOakApp.mainView.setTitle("ShareRooms");
+      $("#menusheet ul li").removeClass("current");
+      $(".sharerooms").closest("li").addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.ShareRoomsRootView,
+          {},
+          spiderOakApp.noEffect
+        );
+        return;
+      }
+      // XXX Do we to provide a case for the current view being the same as
+      // the new one?
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.ShareRoomsRootView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+    },
+
     menuOpening: function(event) {
       spiderOakApp.menuScroller.refresh();
     },

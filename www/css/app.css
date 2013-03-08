@@ -169,7 +169,8 @@ ul.rounded li:first-child {
   border-top: none;
 }
 
-.folderViewLoading li {
+.folderViewLoading li,
+.mySharesViewLoading li {
   text-align: center;
 }
 
@@ -196,12 +197,15 @@ ul.rounded li:first-child {
   display: none;
 }
 
-.folderViewLoading {
+.folderViewLoading,
+.mySharesViewLoading {
   display: none;
 }
 
 .folderViewLoading.loadingFolders,
-.folderViewLoading.loadingFiles {
+.folderViewLoading.loadingFiles,
+.mySharesViewLoading.loadingMyShares,
+.mySharesViewLoading.loadingVisitedShares {
   display: block;
 }
 

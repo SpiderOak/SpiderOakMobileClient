@@ -81,7 +81,7 @@ describe('AccountModel', function() {
       it('should set proper accountModel storage root URL' +
          ' upon successful login',
          function() {
-           this.accountModel.getStorageURL().should.equal(
+           this.accountModel.get("storageRootURL").should.equal(
              "https://spideroak.com/storage/" + this.b32username + "/");
          }
         );

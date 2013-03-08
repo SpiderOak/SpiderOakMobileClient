@@ -66,12 +66,22 @@
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     onLoginSuccess: function() {
-      $(".modal").hide();
-      $(".modal .wait-dialog").hide();
       // Instantiate the menusheet and bind the spiderOakApp.accountModel
+      // @TODO: refactor so menuSheetView can also be used without active login.
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
       }).render();
+      // Instantiate the favorites and populate from localStorage
+      // var favorites = window.store.get(
+      //   "favorites:" + spiderOakApp.accountModel.get("b32username")
+      // );
+      var favorites = JSON.parse(window.localStorage.getItem(
+        "favorites-" + spiderOakApp.accountModel.get("b32username")
+      ));
+      favorites = favorites || [];
+      spiderOakApp.favoritesCollection =
+        new spiderOakApp.FavoritesCollection(favorites);
+      // console.log(JSON.stringify(favorites));
     },
     onBackKeyDown: function(event) {
       event.preventDefault();
@@ -83,15 +93,21 @@
         spiderOakApp.mainView.closeMenu();
         return;
       }
-      if ($(".nav .back-btn").css("display") === "block") {
+      if ($(".nav .back-btn").is(":visible")) {
         spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
         return;
       }
       navigator.app.exitApp();
     },
     onMenuKeyDown: function(event) {
-      spiderOakApp.mainView.openMenu();
+      if ($("#main").hasClass("open")) {
+        spiderOakApp.mainView.closeMenu();
+      }
+      else {
+        spiderOakApp.mainView.openMenu();
+      }
     },
+    downloader: new window.FileDownloadHelper(),
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
@@ -100,28 +116,27 @@
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 
-/* Cordova polyfills */
-
 /* Function.bind polyfill */
 
 if (!Function.prototype.bind) {
   Function.prototype.bind = function (oThis) {
     if (typeof this !== "function") {
       // closest thing possible to the ECMAScript 5 internal IsCallable function
-      throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+      throw new TypeError("Function.prototype.bind - " +
+        "what is trying to be bound is not callable");
     }
- 
+
     var aArgs = Array.prototype.slice.call(arguments, 1),
         fToBind = this,
         FNOP = function () {},
         fBound = function () {
           return fToBind.apply(this instanceof FNOP && oThis ? this : oThis,
-                               aArgs.concat(Array.prototype.slice.call(arguments)));
+                          aArgs.concat(Array.prototype.slice.call(arguments)));
         };
- 
+
     FNOP.prototype = this.prototype;
     fBound.prototype = new FNOP();
- 
+
     return fBound;
   };
 }

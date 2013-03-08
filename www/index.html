@@ -41,28 +41,7 @@
   </head>
   <body ontouchstart="">
     <div id="app" class="app">
-      <div id="menusheet" class="menu">
-        <div class="content">
-          <ul><li class="sep">SpiderSync</li></ul>
-          <ul class="spidersync">
-            <li class="current">
-              <a><i class="icon-folder"></i> SpiderOak folder</a>
-            </li>
-          </ul>
-          <ul><li class="sep">Devices</li></ul>
-          <ul class="devices"></ul>
-          <ul><li class="sep">Sections</li></ul>
-          <ul class="sections">
-            <li>
-                <a href="#"><i class="icon-cloud-upload"></i> ShareRooms</a>
-            </li>
-            <li><a href="#"><i class="icon-clock"></i> Recents</a></li>
-            <li><a href="#"><i class="icon-star"></i> Favorites</a></li>
-            <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-            <li><a href="#" class="logout"><i class="icon-exit"></i> Log out</a></li>
-          </ul>
-        </div>
-      </div>
+      <div id="menusheet" class="menu"></div>
       <div id="main" class="main">
         <div id="nav" class="nav">
           <a class="menu-btn"></a>
@@ -71,6 +50,8 @@
         </div>
         <div id="subviews" class="page"></div>
       </div>
+      <!-- Login view needs to be ready as early as possible... 
+        might not want it in a template -->
       <div id="login" class="login">
         <!-- @FIXME: inline styles are fail -->
         <img src="img/brand_logo.png" 
@@ -93,64 +74,6 @@
       </div>
     </div>
     <div class="splash"><img src="img/brand_logo.png" width="100%" /></div>
-    <div id="dialog" class="modal"></div>
-    <!-- Templates -->
-    <script type="text/html" id="folderViewTemplate">
-      <div>
-        <ul class="folderViewLoading loadingFolders loadingFiles">
-          <li>Loading...</li>
-        </ul>
-        <ul class="foldersList"></ul>
-        <ul class="filesList" ></ul>
-      </div>
-    </script>
-    <script type="text/html" id="folderItemViewTemplate">
-      <a>
-        <div class="icon"><i class="icon-folder"></i></div>
-        <div class="foldername"><%= name %></div>
-      </a>
-    </script>
-    <script type="text/html" id="fileItemViewTemplate">
-      <a>
-        <div class="icon"><i class="icon-<%= icon %>"></i></div>
-        <div class="filename"><%= name %></div>
-        <div class="subtext darkgray">
-          <div class="file-info">
-            <%= description %>,
-            <%= fileHelper.readableFileSize(size) %></div>
-            <div class="file-modified">
-              <%= moment(new String(mtime), "X").fromNow() %>
-            </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="rightButton"><i class="icon-star innershadow"></i></div>
-      </a>
-    </script>
-    <script type="text/html" id="progress-dialog">
-      <div class="progress-dialog">
-        <h3 class="title"><%= title %></h3>
-        <p class="subtitle"><%= subtitle %></p>
-        <div class="meter">
-          <span class="progress" style="width: <%= start %>%"></span>
-        </div>
-      </div>
-    </script>
-    <script type="text/html" id="wait-dialog">
-      <div class="wait-dialog">
-        <h3 class="title"><%= title %></h3>
-        <p class="subtitle"><%= subtitle %></p>
-        <div id="fadingBarsG">
-          <div id="fadingBarsG_1" class="fadingBarsG"></div>
-          <div id="fadingBarsG_2" class="fadingBarsG"></div>
-          <div id="fadingBarsG_3" class="fadingBarsG"></div>
-          <div id="fadingBarsG_4" class="fadingBarsG"></div>
-          <div id="fadingBarsG_5" class="fadingBarsG"></div>
-          <div id="fadingBarsG_6" class="fadingBarsG"></div>
-          <div id="fadingBarsG_7" class="fadingBarsG"></div>
-          <div id="fadingBarsG_8" class="fadingBarsG"></div>
-        </div>
-      </div>
-    </script>
     <!-- Cordova -->
     <script src="cordova.js"></script>
     <script src="cordova-polyfills.js"></script>
@@ -162,12 +85,29 @@
     <script src="components/backstack/backstack.js"></script>
     <script src="components/Nibbler.min/index.js"></script>
     <script src="components/iscroll/src/iscroll.js"></script>
+    <script src="components/store.js/store.min.js"></script>
     <script src="components/moment/moment.js"></script>
     <!-- SpiderOakMobile script -->
     <script src="js/SpiderOakMobile.js"></script>
     <!-- initialization -->
     <script type="text/javascript">
-      window.spiderOakApp && window.spiderOakApp.initialize();
+      tpl.loadTemplates(
+        'tpl',
+        [
+          'menusheetTemplate',
+          'favoritesViewTemplate',
+          'folderViewTemplate',
+          'folderItemViewTemplate',
+          'shareRoomsRootViewTemplate',
+          'shareRoomItemViewTemplate',
+          'fileItemViewTemplate',
+          'progressDialog',
+          'waitDialog'
+        ],
+        function() {
+          window.spiderOakApp && window.spiderOakApp.initialize();
+        }
+      );
     </script>
   </body>
 </html>

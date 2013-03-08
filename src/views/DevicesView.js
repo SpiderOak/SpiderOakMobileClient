@@ -24,7 +24,7 @@
     },
     render: function() {
       // @TODO: Add a "loading spinner" row at the top
-      this.addAll();
+      // this.addAll();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
@@ -35,6 +35,7 @@
       });
       this.$el.append(view.render().el);
       this.subViews.push(view);
+      this.$el.trigger("complete");
     },
     addAll: function() {
       this.$el.empty(); // needed still?
@@ -70,6 +71,7 @@
           this.model.toJSON()
         )
       );
+      this.$("a").data("model", this.model);
       return this;
     },
     a_tapHandler: function(event) {

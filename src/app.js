@@ -66,8 +66,6 @@
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     onLoginSuccess: function() {
-      $(".modal").hide();
-      $(".modal .wait-dialog").hide();
       // Instantiate the menusheet and bind the spiderOakApp.accountModel
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel

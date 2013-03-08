@@ -93,9 +93,32 @@
     };
 
   FileDownloadHelper.prototype.fileExists =
-    function(path, fsType) {
-      fsType = fsType || window.LocalFileSystem.TEMPORARY;
+    function(options, successCallback, errorCallback) {
+      options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
       return true;
+    };
+
+  FileDownloadHelper.prototype.deleteFile =
+    function(options, successCallback, errorCallback) {
+      options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
+      window.requestFileSystem(
+        options.fsType,
+        0,
+        function gotFS(fileSystem) {
+          fileSystem.root.getFile(
+            options.path,
+            {},
+            function gotFile(fileEntry) {
+              fileEntry.remove(
+                successCallback,
+                errorCallback
+              );
+            },
+            errorCallback
+          );
+        },
+        errorCallback
+      );
     };
 
 })(window);

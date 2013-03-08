@@ -82,6 +82,7 @@
       favorites = favorites || [];
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
+      // console.log(JSON.stringify(favorites));
     },
     onBackKeyDown: function(event) {
       event.preventDefault();

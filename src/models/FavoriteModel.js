@@ -10,7 +10,9 @@
       $           = window.$;
 
   spiderOakApp.FavoriteModel = Backbone.Model.extend({
-    // ...
+    defaults: {
+      isFavorite: true
+    }
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

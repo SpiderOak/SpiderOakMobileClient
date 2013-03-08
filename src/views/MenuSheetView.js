@@ -12,7 +12,8 @@
   spiderOakApp.MenuSheetView = Backbone.View.extend({
     el: "#menusheet",
     events: {
-      "tap .logout": "logout_tapHandler"
+      "tap .logout": "logout_tapHandler",
+      "tap .favorites": "favorites_tapHandler"
       // "focus #menu-search": "menuSearch_focusHandler",
       // "keyup #menu-search": "menuSearch_changeHandler",
       // "tap .clear-icon": "clearIcon_tapHandler"
@@ -45,6 +46,28 @@
     },
     menuClosing: function(event) {
       // ...
+    },
+    favorites_tapHandler: function(event) {
+      spiderOakApp.mainView.closeMenu(event);
+      $("#menusheet ul li").removeClass("current");
+      $(".favorites").closest("li").addClass("current");
+      spiderOakApp.mainView.setTitle("Favorites");
+      spiderOakApp.mainView.showBackButton(false);
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.FavoritesView,
+          {},
+          spiderOakApp.noEffect
+        );
+        return;
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.FavoritesView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
     },
     logout_tapHandler: function(event) {
       window.setTimeout(function(){

@@ -48,7 +48,7 @@
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
         el: this.$(".foldersList")
-      });
+      }).render();
       // When we have finished fetching the folders, help hide the spinner
       this.$(".foldersList").one("complete", function(event) {
         this.$(".folderViewLoading").removeClass("loadingFolders");
@@ -72,7 +72,7 @@
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,
         el: this.$(".filesList")
-      });
+      }).render();
       // When we have finished fetching the files, help hide the spinner
       this.$(".filesList").one("complete", function(event) {
         // @TODO: Refresh subviews scroller
@@ -137,7 +137,7 @@
       this.collection.fetch();
     },
     render: function() {
-      this.addAll();
+      // this.addAll();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },

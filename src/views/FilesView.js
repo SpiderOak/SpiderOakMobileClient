@@ -22,7 +22,7 @@
       this.collection.fetch();
     },
     render: function() {
-      this.addAll();
+      // this.addAll();
       return this;
     },
     addOne: function(model) {

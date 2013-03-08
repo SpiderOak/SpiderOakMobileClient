@@ -30,15 +30,11 @@ describe('FoldersView', function() {
         el: $("<ul id='files'></ul>")
       }).render();
       sinon.spy(this.view,'addOne');
-      sinon.spy(this.view,'addAll');
       this.completeSpy = sinon.spy();
       this.view.$el.on("complete", this.completeSpy);
       this.server.respond();
     });
     describe('Methods', function() {
-      it('should call addAll', function() {
-        this.view.addAll.should.have.been.called;
-      });
       it('should call addOne', function() {
         this.view.addOne.should.have.been.called;
       });

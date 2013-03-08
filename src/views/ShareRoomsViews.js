@@ -63,17 +63,16 @@
         return;
       }
       this.myShareRooms = new spiderOakApp.myShareRoomsCollection();
-      this.myShareRooms.url = spiderOakApp.accountModel.get("mySharesListURL");
-      // We want to track the url when it is unset, as well as when it's set:
+      this.myShareRooms.url =
+          spiderOakApp.accountModel.get("mySharesListURL");
+      this.myShareRooms.urlBase =
+          spiderOakApp.accountModel.get("mySharesRootURL");
+      // Avoid trying to fetch account's share rooms when not logged in:
       if (this.myShareRooms.url) {
         this.myShareRoomsListView = new spiderOakApp.myShareRoomsListView({
           collection: this.myShareRooms,
           el: this.$(".myShareRoomsList")
         });
-
-        // Now reset the collection url to the base for share rooms, themselves:
-        this.myShareRoomsListView.collection.url =
-            spiderOakApp.accountModel.get("mySharesRootURL");
 
         // When we have finished fetching the folders, help hide the spinner
         this.$(".myShareRoomsList").one("complete", function(event) {
@@ -177,8 +176,6 @@
   var myShareRoomsListView = spiderOakApp.myShareRoomsListView;
   spiderOakApp.visitedShareRoomsListView = myShareRoomsListView.extend({
     addOne: function(model) {
-      // @TODO: Assigning model.url seems like the collection's responsibility:
-      model.url = model.get("url");
       var view = new spiderOakApp.ShareRoomItemView({
         model: model
       });

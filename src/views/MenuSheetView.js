@@ -29,6 +29,31 @@
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
       this.devicesCollection.url = spiderOakApp.accountModel.getStorageURL();
+      this.$(".devices").one("complete", function(event) {
+        if (spiderOakApp.navigator.viewsStack.length === 0) {
+          var $firstDevice = this.$(".devices").find("li a").first();
+          var firstDeviceModel = $firstDevice.data("model");
+          if (firstDeviceModel) {
+            var options = {
+              id: firstDeviceModel.cid,
+              title: firstDeviceModel.get("name"),
+              model: firstDeviceModel
+            };
+            $("#menusheet ul li").removeClass("current");
+            $firstDevice.closest("li").addClass("current");
+            spiderOakApp.navigator.pushView(
+              spiderOakApp.FolderView,
+              options,
+              spiderOakApp.noEffect
+            );
+            spiderOakApp.dialogView.hide();
+          }
+        }
+        else {
+          // Just in case...
+          spiderOakApp.dialogView.hide();
+        }
+      }.bind(this));
       this.devicesListView = new spiderOakApp.DevicesListView({
         collection: this.devicesCollection,
         el: this.$(".devices")

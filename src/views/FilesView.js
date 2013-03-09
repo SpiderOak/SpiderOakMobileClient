@@ -26,7 +26,6 @@
       return this;
     },
     addOne: function(model) {
-      model.url = this.collection.url + model.get("url");
       // @FIXME: Is this the best pattern for this?
       if (spiderOakApp.favoritesCollection &&
                   spiderOakApp.favoritesCollection.models &&

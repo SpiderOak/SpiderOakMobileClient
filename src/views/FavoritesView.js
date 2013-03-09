@@ -232,9 +232,9 @@
           // Remove model from the Favorites Collection
           spiderOakApp.favoritesCollection.remove(this.model);
           // Persist Favorites Collection to localStorage
-          window.localStorage.setItem(
+          window.store.set(
             "favorites-" + spiderOakApp.accountModel.get("b32username"),
-            JSON.stringify(spiderOakApp.favoritesCollection.toJSON())
+            spiderOakApp.favoritesCollection.toJSON()
           );
         }.bind(this),
         "Favorites"

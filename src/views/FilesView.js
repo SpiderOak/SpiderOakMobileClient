@@ -28,7 +28,8 @@
     addOne: function(model) {
       model.url = this.collection.url + model.get("url");
       // @FIXME: Is this the best pattern for this?
-      if (spiderOakApp.favoritesCollection.models &&
+      if (spiderOakApp.favoritesCollection &&
+                  spiderOakApp.favoritesCollection.models &&
                   spiderOakApp.favoritesCollection.models.length > 0) {
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){

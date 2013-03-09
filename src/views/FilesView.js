@@ -28,14 +28,17 @@
     addOne: function(model) {
       model.url = this.collection.url + model.get("url");
       // @FIXME: Is this the best pattern for this?
-      var isFavorite = _.find(
-        spiderOakApp.favoritesCollection.models, function(favorite){
-          return favorite.get("url") === model.url;
-      });
-      if (isFavorite) {
-        model.set("isFavorite", true);
-        model.set("path", isFavorite.get("path"));
-        model.set("favoriteModel", isFavorite);
+      if (spiderOakApp.favoritesCollection.models &&
+                  spiderOakApp.favoritesCollection.models.length > 0) {
+        var isFavorite = _.find(
+          spiderOakApp.favoritesCollection.models, function(favorite){
+            return favorite.get("url") === model.url;
+        });
+        if (isFavorite) {
+          model.set("isFavorite", true);
+          model.set("path", isFavorite.get("path"));
+          model.set("favoriteModel", isFavorite);
+        }
       }
       var view = new spiderOakApp.FilesListItemView({
         model: model

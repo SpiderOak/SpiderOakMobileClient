@@ -38,9 +38,7 @@
       // The folders...
       this.folders = new spiderOakApp.FoldersCollection();
       if (this.model.collection) {
-        this.folders.url =
-            (this.model.collection.urlBase || this.model.collection.url) +
-            this.model.get("url");
+        this.folders.url = this.model.composedUrl();
       }
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
@@ -59,9 +57,7 @@
       // The files...
       this.files = new spiderOakApp.FilesCollection();
       if (this.model.collection) {
-        this.files.url =
-            (this.model.collection.urlBase || this.model.collection.url) +
-            this.model.get("url");
+        this.files.url = this.model.composedUrl();
       }
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,

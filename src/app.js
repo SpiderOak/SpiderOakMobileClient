@@ -111,6 +111,19 @@
     defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : null)
   });
 
+Backbone.Model.prototype.composedUrl = function() {
+  var urlTail = this.get("url") || this.url;
+  var collection = this.collection;
+  var urlHead = collection ? (collection.urlBase || collection.url) : "";
+  if (typeof urlTail === "function") {
+    urlTail = urlTail.bind(this)();
+  }
+  if (typeof urlHead === "function") {
+    urlHead = urlHead.bind(this.collection)();
+  }
+  return urlHead + urlTail;
+};
+
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 
 /* Function.bind polyfill */

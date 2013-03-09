@@ -136,6 +136,12 @@ Backbone.Model.prototype.composedUrl = function() {
   }
   return urlHead + urlTail;
 };
+/**
+ * Method to fetch model.url string and function versions identically.
+ */
+Backbone.Model.prototype.urlResult = function() {
+  return (typeof this.url === "function") ? this.url() : this.url;
+};
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 

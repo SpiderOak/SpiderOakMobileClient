@@ -279,9 +279,9 @@
               this.$(".rightButton").addClass("favorite");
               // Persist Favorites Collection to localStorage
               // window.store.set(
-              window.localStorage.setItem(
+              window.store.set(
                 "favorites-" + spiderOakApp.accountModel.get("b32username"),
-                JSON.stringify(spiderOakApp.favoritesCollection.toJSON())
+                spiderOakApp.favoritesCollection.toJSON()
               );
               this.model.set("path", favorite.path);
               this.model.set("isFavorite", true);
@@ -335,9 +335,9 @@
           // Remove model from the Favorites Collection
           spiderOakApp.favoritesCollection.remove(this.model.get("favoriteModel"));
           // Persist Favorites Collection to localStorage
-          window.localStorage.setItem(
+          window.store.set(
             "favorites-" + spiderOakApp.accountModel.get("b32username"),
-            JSON.stringify(spiderOakApp.favoritesCollection.toJSON())
+            spiderOakApp.favoritesCollection.toJSON()
           );
           // Put the model back to unfavorited state
           this.model.unset("path");

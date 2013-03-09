@@ -72,12 +72,9 @@
         model: spiderOakApp.accountModel
       }).render();
       // Instantiate the favorites and populate from localStorage
-      // var favorites = window.store.get(
-      //   "favorites:" + spiderOakApp.accountModel.get("b32username")
-      // );
-      var favorites = JSON.parse(window.localStorage.getItem(
+      var favorites = window.store.get(
         "favorites-" + spiderOakApp.accountModel.get("b32username")
-      ));
+      );
       favorites = favorites || [];
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);

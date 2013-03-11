@@ -32,7 +32,9 @@
                   spiderOakApp.favoritesCollection.models.length > 0) {
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
-            return favorite.get("url") === model.urlResult();
+            var faveURL = favorite.get("url") + favorite.get("name");
+            var modelURL = model.urlResult() + model.get("name");
+            return faveURL === modelURL;
         });
         if (isFavorite) {
           model.set("isFavorite", true);
@@ -241,7 +243,6 @@
                 new RegExp(this.model.get("name")),
                 ""
               );
-          console.log(path);
           spiderOakApp.dialogView.showProgress({
             title: "Adding to Favorites",
             subtitle: this.model.get("name"),
@@ -264,12 +265,10 @@
                 .get("basicAuthCredentials")
             }
           };
-          console.log(JSON.stringify(downloadOptions));
           var favorite = this.model.toJSON();
           favorite.path = path;
           favorite.url = this.model.urlResult();
           favorite.isFavorite = true;
-          console.log(JSON.stringify(favorite));
           spiderOakApp.downloader.downloadFile(
             downloadOptions,
             function successCallback(fileEntry) {
@@ -278,6 +277,7 @@
               spiderOakApp.favoritesCollection.add(
                 new spiderOakApp.FavoriteModel(favorite)
               );
+              console.log("adding: " + favorite.name);
               this.$(".rightButton").addClass("favorite");
               // Persist Favorites Collection to localStorage
               // window.store.set(

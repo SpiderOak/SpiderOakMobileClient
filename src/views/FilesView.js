@@ -126,7 +126,7 @@
     view: function() {
       var downloadOptions = {
         fileName: this.model.get("name"),
-        from: this.model.urlResult(),
+        from: this.model.urlResult() + this.model.get("name"),
         to: ".caches",
         fsType: window.LocalFileSystem.TEMPORARY,
         onprogress: function onprogress(progressEvent) {
@@ -248,7 +248,7 @@
           });
           var downloadOptions = {
             fileName: this.model.get("name"),
-            from: this.model.urlResult(),
+            from: this.model.urlResult() + this.model.get("name"),
             to: path,
             fsType: window.LocalFileSystem.PERSISTENT,
             onprogress: function onprogress(progressEvent) {

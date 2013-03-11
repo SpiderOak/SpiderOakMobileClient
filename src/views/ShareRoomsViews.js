@@ -22,32 +22,34 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("shareRoomsRootViewTemplate"),{}));
+      this.$el.html(_.template(
+        window.tpl.get("shareRoomsRootViewTemplate"),{})
+      );
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
         hScrollbar: false
       });
 
-//      // Load the visited and account share rooms simultaneously (quasi-async)
-//      window.setTimeout(function(){
+      // Load the visited and account share rooms simultaneously (quasi-async)
+      window.setTimeout(function(){
         this.loadMyShareRooms();
-//      }.bind(this), 10);
+      }.bind(this), 10);
       this.loadVisitedShareRooms();
 
       return this;
     },
     loadVisitedShareRooms: function() {
-      this.visitedShareRooms = new spiderOakApp.visitedShareRoomsCollection();
+      this.visitedShareRooms = new spiderOakApp.VisitedShareRoomsCollection();
       this.visitedShareRooms.url = "";
 
       this.$(".mySharesViewLoading").removeClass("loadingVisitedShares");
       // Populate the array with share rooms being visited...
       this.visitedShareRoomsListView =
-          new spiderOakApp.visitedShareRoomsListView({
-            collection: this.visitedShareRooms,
-            el: this.$(".visitedShareRoomsList")
-          });
+        new spiderOakApp.VisitedShareRoomsListView({
+          collection: this.visitedShareRooms,
+          el: this.$(".visitedShareRoomsList")
+        });
       // When we've finished fetching the folders, help hide the spinner:
       this.$(".visitedSharesList").one("complete", function(event) {
         this.$(".visitedSharesViewLoading").removeClass("loadingFolders");
@@ -61,14 +63,14 @@
       if (! spiderOakApp.accountModel) {
         return;
       }
-      this.myShareRooms = new spiderOakApp.myShareRoomsCollection();
+      this.myShareRooms = new spiderOakApp.MyShareRoomsCollection();
       this.myShareRooms.url =
           spiderOakApp.accountModel.get("mySharesListURL");
       this.myShareRooms.urlBase =
           spiderOakApp.accountModel.get("mySharesRootURL");
       // Avoid trying to fetch account's share rooms when not logged in:
       if (this.myShareRooms.url) {
-        this.myShareRoomsListView = new spiderOakApp.myShareRoomsListView({
+        this.myShareRoomsListView = new spiderOakApp.MyShareRoomsListView({
           collection: this.myShareRooms,
           el: this.$(".myShareRoomsList")
         });
@@ -126,7 +128,7 @@
     }
   });
 
-  spiderOakApp.myShareRoomsListView = Backbone.View.extend({
+  spiderOakApp.MyShareRoomsListView = Backbone.View.extend({
     initialize: function() {
       this.views = [];
       _.bindAll(this);
@@ -172,8 +174,8 @@
     }
   });
 
-  var myShareRoomsListView = spiderOakApp.myShareRoomsListView;
-  spiderOakApp.visitedShareRoomsListView = myShareRoomsListView.extend({
+  var MyShareRoomsListView = spiderOakApp.MyShareRoomsListView;
+  spiderOakApp.VisitedShareRoomsListView = MyShareRoomsListView.extend({
     addOne: function(model) {
       var view = new spiderOakApp.ShareRoomItemView({
         model: model
@@ -213,7 +215,8 @@
       spiderOakApp.navigator.pushView(
         folderView,
         {},
-        spiderOakApp.defaultEffect);
+        spiderOakApp.defaultEffect
+      );
     },
     close: function(){
       this.remove();

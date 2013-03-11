@@ -129,10 +129,10 @@ Backbone.Model.prototype.composedUrl = function() {
   var collection = this.collection;
   var urlHead = collection ? (collection.urlBase || collection.url) : "";
   if (typeof urlTail === "function") {
-    urlTail = urlTail.bind(this)();
+    urlTail = urlTail.call(this);
   }
   if (typeof urlHead === "function") {
-    urlHead = urlHead.bind(this.collection)();
+    urlHead = urlHead.call(this.collection);
   }
   return urlHead + urlTail;
 };

@@ -231,16 +231,17 @@
           // Download the file to the PERSISTENT file system
           // Start by getting the folder path
           // @FIXME: This path should be controlled by a platform config
-          // @FIXME: This might be better moved to  method in the model
+          // @FIXME: This might be better moved to a method in the model
           var path = "Download/SpiderOak/.favorites" +
             this.model.urlResult()
               .replace(
-                new RegExp(spiderOakApp.accountModel.get("storageRootURL")),
-                "/"
+                new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
+                ""
               ).replace(
                 new RegExp(this.model.get("name")),
                 ""
               );
+          console.log(path);
           spiderOakApp.dialogView.showProgress({
             title: "Adding to Favorites",
             subtitle: this.model.get("name"),
@@ -263,10 +264,12 @@
                 .get("basicAuthCredentials")
             }
           };
+          console.log(JSON.stringify(downloadOptions));
           var favorite = this.model.toJSON();
           favorite.path = path;
           favorite.url = this.model.urlResult();
           favorite.isFavorite = true;
+          console.log(JSON.stringify(favorite));
           spiderOakApp.downloader.downloadFile(
             downloadOptions,
             function successCallback(fileEntry) {

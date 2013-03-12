@@ -20,6 +20,7 @@
 
       this.subViews = [];
 
+      this.collection.urlBase = spiderOakApp.accountModel.get("storageRootURL");
       this.collection.fetch();
     },
     render: function() {
@@ -29,7 +30,6 @@
       return this;
     },
     addOne: function(model) {
-      model.url = this.collection.url + model.get("url");
       var view = new spiderOakApp.DeviceItemView({
         model: model
       });

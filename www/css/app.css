@@ -195,14 +195,15 @@ ul.rounded li:first-child {
 }
 
 .folderViewLoading,
-.mySharesViewLoading {
+.mySharesViewLoading,
+.visitedSharesViewLoading {
   display: none;
 }
 
 .folderViewLoading.loadingFolders,
 .folderViewLoading.loadingFiles,
 .mySharesViewLoading.loadingMyShares,
-.mySharesViewLoading.loadingVisitedShares {
+.visitedSharesViewLoading.loadingVisitedShares {
   display: block;
 }
 

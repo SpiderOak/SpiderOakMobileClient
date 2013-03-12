@@ -26,14 +26,15 @@
       return this;
     },
     addOne: function(model) {
-      model.url = this.collection.url + model.get("url");
       // @FIXME: Is this the best pattern for this?
       if (spiderOakApp.favoritesCollection &&
                   spiderOakApp.favoritesCollection.models &&
                   spiderOakApp.favoritesCollection.models.length > 0) {
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
-            return favorite.get("url") === model.url;
+            var faveURL = favorite.get("url") + favorite.get("name");
+            var modelURL = model.urlResult() + model.get("name");
+            return faveURL === modelURL;
         });
         if (isFavorite) {
           model.set("isFavorite", true);
@@ -127,7 +128,7 @@
     view: function() {
       var downloadOptions = {
         fileName: this.model.get("name"),
-        from: this.model.url,
+        from: this.model.urlResult() + this.model.get("name"),
         to: ".caches",
         fsType: window.LocalFileSystem.TEMPORARY,
         onprogress: function onprogress(progressEvent) {
@@ -232,12 +233,12 @@
           // Download the file to the PERSISTENT file system
           // Start by getting the folder path
           // @FIXME: This path should be controlled by a platform config
-          // @FIXME: This might be better moved to  method in the model
+          // @FIXME: This might be better moved to a method in the model
           var path = "Download/SpiderOak/.favorites" +
-            this.model.url
+            this.model.urlResult()
               .replace(
-                new RegExp(spiderOakApp.accountModel.get("storageRootURL")),
-                "/"
+                new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
+                ""
               ).replace(
                 new RegExp(this.model.get("name")),
                 ""
@@ -249,7 +250,7 @@
           });
           var downloadOptions = {
             fileName: this.model.get("name"),
-            from: this.model.url,
+            from: this.model.urlResult() + this.model.get("name"),
             to: path,
             fsType: window.LocalFileSystem.PERSISTENT,
             onprogress: function onprogress(progressEvent) {
@@ -266,7 +267,7 @@
           };
           var favorite = this.model.toJSON();
           favorite.path = path;
-          favorite.url = this.model.url;
+          favorite.url = this.model.urlResult();
           favorite.isFavorite = true;
           spiderOakApp.downloader.downloadFile(
             downloadOptions,
@@ -276,6 +277,7 @@
               spiderOakApp.favoritesCollection.add(
                 new spiderOakApp.FavoriteModel(favorite)
               );
+              console.log("adding: " + favorite.name);
               this.$(".rightButton").addClass("favorite");
               // Persist Favorites Collection to localStorage
               // window.store.set(

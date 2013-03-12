@@ -63,8 +63,7 @@ module.exports = function(grunt) {
           'src/collections/FilesCollection.js',
           'src/collections/DevicesCollection.js',
           'src/collections/FavoritesCollection.js',
-          'src/collections/myShareRoomsCollection.js',
-          'src/collections/visitedShareRoomsCollection.js',
+          'src/collections/ShareRoomsCollections.js',
           'src/views/DevicesView.js',
           'src/views/ShareRoomsViews.js',
           'src/views/FoldersView.js',
@@ -82,6 +81,7 @@ module.exports = function(grunt) {
       tests: {
         src: [
           '<banner:meta.banner>',
+          'tests/*.js',
           'tests/**/*.js'
         ],
         dest: 'www/tests/<%= pkg.name %>-tests.js'

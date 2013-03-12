@@ -3,6 +3,22 @@ describe('DevicesView', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
+    this.server.respondWith(
+      "POST",
+      "https://spideroak.com/browse/login",
+      [200, {"Content-Type": "text/html"},
+       "location:https://spideroak.com/storage/"
+       + this.b32username
+       + "/login"]
+    );
+    this.username = "testusername";
+    this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
+    this.password = "testpassword";
+    this.accountModel =
+        spiderOakApp.accountModel = new spiderOakApp.AccountModel();
+    this.accountModel.login(this.username, this.password,
+                                function(){}, function(){});
+    this.server.respond();
   });
   afterEach(function() {
     this.server.restore();

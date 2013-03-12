@@ -274,8 +274,9 @@
             function successCallback(fileEntry) {
               spiderOakApp.dialogView.hide();
               // Add file model (with added local path) to the Favorites Collection
+              var favoriteModel = new spiderOakApp.FavoriteModel(favorite);
               spiderOakApp.favoritesCollection.add(
-                new spiderOakApp.FavoriteModel(favorite)
+                favoriteModel
               );
               console.log("adding: " + favorite.name);
               this.$(".rightButton").addClass("favorite");
@@ -287,6 +288,7 @@
               );
               this.model.set("path", favorite.path);
               this.model.set("isFavorite", true);
+              this.model.set("favoriteModel", favoriteModel);
               navigator.notification.alert(
                 fileEntry.name + " added to Favorites",
                 null,

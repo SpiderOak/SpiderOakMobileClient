@@ -66,7 +66,6 @@
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     onLoginSuccess: function() {
-      console.log("LOGIN SUCCESS CALLED");
       // Instantiate the menusheet and bind the spiderOakApp.accountModel
       // @TODO: refactor so menuSheetView can also be used without active login.
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({

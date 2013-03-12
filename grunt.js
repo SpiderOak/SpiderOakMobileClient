@@ -81,6 +81,7 @@ module.exports = function(grunt) {
       tests: {
         src: [
           '<banner:meta.banner>',
+          'tests/*.js',
           'tests/**/*.js'
         ],
         dest: 'www/tests/<%= pkg.name %>-tests.js'
@@ -179,7 +180,7 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', 'lint concat shell:mochadot');
   // Custom tasks
-  grunt.registerTask('test', 'lint concat shell:mochadot');
+  grunt.registerTask('test', 'lint concat shell:mochaspec');
   grunt.registerTask('debug_ios', 'lint concat shell:mochadot shell:debug_ios');
   grunt.registerTask('debug_android', 'lint concat shell:mochadot shell:debug_android');
 

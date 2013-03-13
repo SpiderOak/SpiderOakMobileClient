@@ -13,8 +13,9 @@
     el: "#main",
     events: {
       // Use touchend to work around a bug in ICS
-      'touchend .menu-btn': 'menuButton_handler',
-      'touchend .back-btn': 'backButton_hanlder'
+      "touchend .menu-btn": "menuButton_handler",
+      "touchend .back-btn": "backButton_handler",
+      "touchend .clear-recents-btn": "clearRecentsBtn_handler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -22,6 +23,7 @@
     },
     render: function() {
       this.showBackButton(false);
+      this.hideClearRecentsButton();
       return this;
     },
     showBackButton: function(show) {
@@ -33,6 +35,12 @@
         this.$('.menu-btn').show();
         this.$('.back-btn').hide();
       }
+    },
+    showClearRecentsButton: function() {
+      $(".nav .clear-recents-btn").show();
+    },
+    hideClearRecentsButton: function() {
+      $(".nav .clear-recents-btn").hide();
     },
     setTitle: function(title) {
       var $title = this.$('.nav .title');
@@ -54,10 +62,13 @@
       }
       return false;
     },
-    backButton_hanlder: function(event) {
+    backButton_handler: function(event) {
       if (!spiderOakApp.backDisabled) {
         spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
       }
+    },
+    clearRecentsBtn_handler: function(event) {
+      $(document).trigger("clearRecents");
     },
     openMenu: function(event) {
       $(document).trigger("menuOpening");

@@ -12,6 +12,9 @@
   spiderOakApp.FavoritesView = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
       this.$el.html(_.template(window.tpl.get("favoritesViewTemplate"),{}));

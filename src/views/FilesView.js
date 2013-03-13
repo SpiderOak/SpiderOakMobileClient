@@ -88,10 +88,14 @@
       if ($("#main").hasClass("open")) {
         return;
       }
+      // Add the file to the recents collection (view or fave)
+      spiderOakApp.recentsCollection.add(this.model);
+      // ...and then ignore it if it was supposed to be a favorite add/remove
       if ($(event.target).hasClass("icon-star") ||
             $(event.target).hasClass("rightButton")) {
         return;
       }
+      // View it otherwise
       window.setTimeout(function(){
         if (this.model.get("isFavorite")) {
           this.viewFavorite(

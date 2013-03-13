@@ -27,8 +27,23 @@ body {
 }
 
 .nav .menu-btn.active,
-.nav .back-btn.active {
+.nav .back-btn.active,
+.nav .clear-recents-btn.active {
 	background-color: #333;
+}
+
+.nav .clear-recents-btn {
+  font-size: 28px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  width: 38px;
+  height: 48px;
+  color: #ccc;
+  padding: 8px 0 0 10px;
+  display: block;
+  color: #999;
 }
 
 .nav .title {

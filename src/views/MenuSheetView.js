@@ -13,6 +13,7 @@
     el: "#menusheet",
     events: {
       "tap .logout": "logout_tapHandler",
+      "tap .recents": "recents_tapHandler",
       "tap .favorites": "favorites_tapHandler",
       "tap .sharerooms": "sharerooms_tapHandler"
       // "focus #menu-search": "menuSearch_focusHandler",
@@ -98,6 +99,28 @@
     menuClosing: function(event) {
       // ...
     },
+    recents_tapHandler: function(event) {
+      spiderOakApp.mainView.closeMenu(event);
+      $("#menusheet ul li").removeClass("current");
+      $(".recents").closest("li").addClass("current");
+      spiderOakApp.mainView.setTitle("Recents");
+      spiderOakApp.mainView.showBackButton(false);
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.RecentsView,
+          {},
+          spiderOakApp.noEffect
+        );
+        return;
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.RecentsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+    },
     favorites_tapHandler: function(event) {
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
@@ -123,7 +146,7 @@
     logout_tapHandler: function(event) {
       window.setTimeout(function(){
         navigator.notification.confirm(
-          'Are you sure you want to sign out?.',
+          'Are you sure you want to sign out?',
           this.logoutConfirmed,
           'Sign out'
         );

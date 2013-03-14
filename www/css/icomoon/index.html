@@ -31,12 +31,13 @@
 		box-shadow: inset 0 0 0 1px #f8f8f8, 0 0 0 1px #CCC;
 	}
 	.glyph input {
+		font-family: consolas, monospace;
+		font-size: 13px;
 		width: 100%;
 		text-align: center;
-		font-family: consolas, monospace;
-	}
-	.glyph input, .mtm {
-		margin-top: .75em;
+		border: 0;
+		box-shadow: 0 0 0 1px #ccc;
+		padding: .125em;
 	}
 	.w-main {
 		width: 80%;
@@ -156,12 +157,12 @@
 		<input type="text" readonly="readonly" value="&amp;#xe010;" />
 	</div>
 	<div class="glyph">
-		<div class="fs1" aria-hidden="true" data-icon="&#xe011;"></div>
-		<input type="text" readonly="readonly" value="&amp;#xe011;" />
-	</div>
-	<div class="glyph">
 		<div class="fs1" aria-hidden="true" data-icon="&#xe012;"></div>
 		<input type="text" readonly="readonly" value="&amp;#xe012;" />
+	</div>
+	<div class="glyph">
+		<div class="fs1" aria-hidden="true" data-icon="&#xe011;"></div>
+		<input type="text" readonly="readonly" value="&amp;#xe011;" />
 	</div>
 	<div class="glyph">
 		<div class="fs1" aria-hidden="true" data-icon="&#xe013;"></div>
@@ -199,6 +200,10 @@
 		<div class="fs1" aria-hidden="true" data-icon="&#xe01b;"></div>
 		<input type="text" readonly="readonly" value="&amp;#xe01b;" />
 	</div>
+	<div class="glyph">
+		<div class="fs1" aria-hidden="true" data-icon="&#xe01c;"></div>
+		<input type="text" readonly="readonly" value="&amp;#xe01c;" />
+	</div>
 	</section>
 	<div class="clear"></div>
 	<section class="mtm clearfix" id="glyphs">
@@ -206,52 +211,16 @@
 		<h1>Class Names</h1>
 	</header>
 	<span class="box1">
-		<span aria-hidden="true" class="icon-folder"></span>
-		&nbsp;icon-folder
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-finder"></span>
-		&nbsp;icon-finder
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-windows8"></span>
-		&nbsp;icon-windows8
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-tux"></span>
-		&nbsp;icon-tux
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-cog"></span>
-		&nbsp;icon-cog
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-star"></span>
-		&nbsp;icon-star
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-clock"></span>
-		&nbsp;icon-clock
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-cloud-upload"></span>
-		&nbsp;icon-cloud-upload
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-menu"></span>
-		&nbsp;icon-menu
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-folder-open"></span>
-		&nbsp;icon-folder-open
-	</span>
-	<span class="box1">
 		<span aria-hidden="true" class="icon-file"></span>
 		&nbsp;icon-file
 	</span>
 	<span class="box1">
 		<span aria-hidden="true" class="icon-file-pdf"></span>
 		&nbsp;icon-file-pdf
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-file-word"></span>
+		&nbsp;icon-file-word
 	</span>
 	<span class="box1">
 		<span aria-hidden="true" class="icon-file-excel"></span>
@@ -262,6 +231,10 @@
 		&nbsp;icon-file-zip
 	</span>
 	<span class="box1">
+		<span aria-hidden="true" class="icon-file-powerpoint"></span>
+		&nbsp;icon-file-powerpoint
+	</span>
+	<span class="box1">
 		<span aria-hidden="true" class="icon-file-xml"></span>
 		&nbsp;icon-file-xml
 	</span>
@@ -270,20 +243,76 @@
 		&nbsp;icon-file-css
 	</span>
 	<span class="box1">
-		<span aria-hidden="true" class="icon-file-word"></span>
-		&nbsp;icon-file-word
+		<span aria-hidden="true" class="icon-film"></span>
+		&nbsp;icon-film
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-music"></span>
+		&nbsp;icon-music
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-star"></span>
+		&nbsp;icon-star
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-star-2"></span>
+		&nbsp;icon-star-2
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-cog"></span>
+		&nbsp;icon-cog
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-clock"></span>
+		&nbsp;icon-clock
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-history"></span>
+		&nbsp;icon-history
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-tux"></span>
+		&nbsp;icon-tux
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-finder"></span>
+		&nbsp;icon-finder
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-windows"></span>
+		&nbsp;icon-windows
 	</span>
 	<span class="box1">
 		<span aria-hidden="true" class="icon-image"></span>
 		&nbsp;icon-image
 	</span>
 	<span class="box1">
-		<span aria-hidden="true" class="icon-heart"></span>
-		&nbsp;icon-heart
+		<span aria-hidden="true" class="icon-menu"></span>
+		&nbsp;icon-menu
 	</span>
 	<span class="box1">
-		<span aria-hidden="true" class="icon-info"></span>
-		&nbsp;icon-info
+		<span aria-hidden="true" class="icon-arrow-left"></span>
+		&nbsp;icon-arrow-left
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-exit"></span>
+		&nbsp;icon-exit
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-folder-open"></span>
+		&nbsp;icon-folder-open
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-folder"></span>
+		&nbsp;icon-folder
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-cloud-upload"></span>
+		&nbsp;icon-cloud-upload
+	</span>
+	<span class="box1">
+		<span aria-hidden="true" class="icon-remove"></span>
+		&nbsp;icon-remove
 	</span>
 	<span class="box1">
 		<span aria-hidden="true" class="icon-close"></span>
@@ -294,28 +323,8 @@
 		&nbsp;icon-checkmark
 	</span>
 	<span class="box1">
-		<span aria-hidden="true" class="icon-enter"></span>
-		&nbsp;icon-enter
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-exit"></span>
-		&nbsp;icon-exit
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-checkbox-checked"></span>
-		&nbsp;icon-checkbox-checked
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-checkbox-unchecked"></span>
-		&nbsp;icon-checkbox-unchecked
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-share"></span>
-		&nbsp;icon-share
-	</span>
-	<span class="box1">
-		<span aria-hidden="true" class="icon-file-powerpoint"></span>
-		&nbsp;icon-file-powerpoint
+		<span aria-hidden="true" class="icon-loop"></span>
+		&nbsp;icon-loop
 	</span>
 	</section>
 	<footer>

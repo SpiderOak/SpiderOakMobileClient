@@ -1,39 +1,40 @@
-/* Use this script if you need to support IE 7 and IE 6. */
+/* Load this script using conditional IE comments if you need to support IE 7 and IE 6. */
 
 window.onload = function() {
 	function addIcon(el, entity) {
 		var html = el.innerHTML;
-		el.innerHTML = '<span style="font-family: \'icomoon\'">' + entity + '</span>' + html;
+		el.innerHTML = '<span style="font-family: \'SpiderOakIcons\'">' + entity + '</span>' + html;
 	}
 	var icons = {
-			'icon-folder' : '&#xe000;',
-			'icon-finder' : '&#xe001;',
-			'icon-windows8' : '&#xe002;',
-			'icon-tux' : '&#xe003;',
-			'icon-cog' : '&#xe004;',
-			'icon-star' : '&#xe005;',
-			'icon-clock' : '&#xe006;',
-			'icon-cloud-upload' : '&#xe007;',
-			'icon-menu' : '&#xe008;',
-			'icon-folder-open' : '&#xe009;',
-			'icon-file' : '&#xe00a;',
-			'icon-file-pdf' : '&#xe00b;',
-			'icon-file-excel' : '&#xe00c;',
-			'icon-file-zip' : '&#xe00d;',
-			'icon-file-xml' : '&#xe00e;',
-			'icon-file-css' : '&#xe00f;',
-			'icon-file-word' : '&#xe010;',
+			'icon-file' : '&#xe000;',
+			'icon-file-pdf' : '&#xe001;',
+			'icon-file-word' : '&#xe002;',
+			'icon-file-excel' : '&#xe003;',
+			'icon-file-zip' : '&#xe004;',
+			'icon-file-powerpoint' : '&#xe005;',
+			'icon-file-xml' : '&#xe006;',
+			'icon-file-css' : '&#xe007;',
+			'icon-film' : '&#xe008;',
+			'icon-music' : '&#xe009;',
+			'icon-star' : '&#xe00a;',
+			'icon-star-2' : '&#xe00b;',
+			'icon-cog' : '&#xe00c;',
+			'icon-clock' : '&#xe00d;',
+			'icon-history' : '&#xe00e;',
+			'icon-tux' : '&#xe00f;',
+			'icon-finder' : '&#xe010;',
+			'icon-windows' : '&#xe012;',
 			'icon-image' : '&#xe011;',
-			'icon-heart' : '&#xe012;',
-			'icon-info' : '&#xe013;',
-			'icon-close' : '&#xe014;',
-			'icon-checkmark' : '&#xe015;',
-			'icon-enter' : '&#xe016;',
-			'icon-exit' : '&#xe017;',
-			'icon-checkbox-checked' : '&#xe018;',
-			'icon-checkbox-unchecked' : '&#xe019;',
-			'icon-share' : '&#xe01a;',
-			'icon-file-powerpoint' : '&#xe01b;'
+			'icon-menu' : '&#xe013;',
+			'icon-arrow-left' : '&#xe014;',
+			'icon-exit' : '&#xe015;',
+			'icon-folder-open' : '&#xe016;',
+			'icon-folder' : '&#xe017;',
+			'icon-cloud-upload' : '&#xe018;',
+			'icon-remove' : '&#xe019;',
+			'icon-close' : '&#xe01a;',
+			'icon-checkmark' : '&#xe01b;',
+			'icon-loop' : '&#xe01c;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

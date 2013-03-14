@@ -137,7 +137,10 @@
                             xhr.status);
                 }
              });
-      // @TODO: Clear any localStorage
+      // Clear any localStorage (favorites, etc)
+      // window.store.clear();
+      // Clear recents
+      spiderOakApp.recentsCollection.reset([]);
       // Clear internal settings:
       this.clear();
       successCallback();

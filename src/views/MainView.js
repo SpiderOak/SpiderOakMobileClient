@@ -13,8 +13,8 @@
     el: "#main",
     events: {
       // Use touchend to work around a bug in ICS
-      'touchend .menu-btn': 'menuButton_handler',
-      'touchend .back-btn': 'backButton_hanlder'
+      "touchend .menu-btn": "menuButton_handler",
+      "touchend .back-btn": "backButton_handler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -54,7 +54,7 @@
       }
       return false;
     },
-    backButton_hanlder: function(event) {
+    backButton_handler: function(event) {
       if (!spiderOakApp.backDisabled) {
         spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
       }

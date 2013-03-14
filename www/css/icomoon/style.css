@@ -1,20 +1,22 @@
 @font-face {
-	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot');
-	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-		url('fonts/icomoon.woff') format('woff'),
-		url('fonts/icomoon.ttf') format('truetype'),
-		url('fonts/icomoon.svg#icomoon') format('svg');
+	font-family: 'SpiderOakIcons';
+	src:url('fonts/SpiderOakIcons.eot');
+	src:url('fonts/SpiderOakIcons.eot?#iefix') format('embedded-opentype'),
+		url('fonts/SpiderOakIcons.woff') format('woff'),
+		url('fonts/SpiderOakIcons.ttf') format('truetype'),
+		url('fonts/SpiderOakIcons.svg#SpiderOakIcons') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 /* Use the following CSS code if you want to use data attributes for inserting your icons */
 [data-icon]:before {
-	font-family: 'icomoon';
+	font-family: 'SpiderOakIcons';
 	content: attr(data-icon);
 	speak: none;
 	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
@@ -25,95 +27,100 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"]:before {
 */
-.icon-folder:before, .icon-finder:before, .icon-windows8:before, .icon-tux:before, .icon-cog:before, .icon-star:before, .icon-clock:before, .icon-cloud-upload:before, .icon-menu:before, .icon-folder-open:before, .icon-file:before, .icon-file-pdf:before, .icon-file-excel:before, .icon-file-zip:before, .icon-file-xml:before, .icon-file-css:before, .icon-file-word:before, .icon-image:before, .icon-heart:before, .icon-info:before, .icon-close:before, .icon-checkmark:before, .icon-enter:before, .icon-exit:before, .icon-checkbox-checked:before, .icon-checkbox-unchecked:before, .icon-share:before, .icon-file-powerpoint:before {
-	font-family: 'icomoon';
+.icon-file:before, .icon-file-pdf:before, .icon-file-word:before, .icon-file-excel:before, .icon-file-zip:before, .icon-file-powerpoint:before, .icon-file-xml:before, .icon-file-css:before, .icon-film:before, .icon-music:before, .icon-star:before, .icon-star-2:before, .icon-cog:before, .icon-clock:before, .icon-history:before, .icon-tux:before, .icon-finder:before, .icon-windows:before, .icon-image:before, .icon-menu:before, .icon-arrow-left:before, .icon-exit:before, .icon-folder-open:before, .icon-folder:before, .icon-cloud-upload:before, .icon-remove:before, .icon-close:before, .icon-checkmark:before, .icon-loop:before {
+	font-family: 'SpiderOakIcons';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
-.icon-folder:before {
+.icon-file:before {
 	content: "\e000";
 }
-.icon-finder:before {
+.icon-file-pdf:before {
 	content: "\e001";
 }
-.icon-windows8:before {
+.icon-file-word:before {
 	content: "\e002";
 }
-.icon-tux:before {
+.icon-file-excel:before {
 	content: "\e003";
 }
-.icon-cog:before {
+.icon-file-zip:before {
 	content: "\e004";
 }
-.icon-star:before {
+.icon-file-powerpoint:before {
 	content: "\e005";
 }
-.icon-clock:before {
+.icon-file-xml:before {
 	content: "\e006";
 }
-.icon-cloud-upload:before {
+.icon-file-css:before {
 	content: "\e007";
 }
-.icon-menu:before {
+.icon-film:before {
 	content: "\e008";
 }
-.icon-folder-open:before {
+.icon-music:before {
 	content: "\e009";
 }
-.icon-file:before {
+.icon-star:before {
 	content: "\e00a";
 }
-.icon-file-pdf:before {
+.icon-star-2:before {
 	content: "\e00b";
 }
-.icon-file-excel:before {
+.icon-cog:before {
 	content: "\e00c";
 }
-.icon-file-zip:before {
+.icon-clock:before {
 	content: "\e00d";
 }
-.icon-file-xml:before {
+.icon-history:before {
 	content: "\e00e";
 }
-.icon-file-css:before {
+.icon-tux:before {
 	content: "\e00f";
 }
-.icon-file-word:before {
+.icon-finder:before {
 	content: "\e010";
+}
+.icon-windows:before {
+	content: "\e012";
 }
 .icon-image:before {
 	content: "\e011";
 }
-.icon-heart:before {
-	content: "\e012";
-}
-.icon-info:before {
+.icon-menu:before {
 	content: "\e013";
 }
-.icon-close:before {
+.icon-arrow-left:before {
 	content: "\e014";
 }
-.icon-checkmark:before {
+.icon-exit:before {
 	content: "\e015";
 }
-.icon-enter:before {
+.icon-folder-open:before {
 	content: "\e016";
 }
-.icon-exit:before {
+.icon-folder:before {
 	content: "\e017";
 }
-.icon-checkbox-checked:before {
+.icon-cloud-upload:before {
 	content: "\e018";
 }
-.icon-checkbox-unchecked:before {
+.icon-remove:before {
 	content: "\e019";
 }
-.icon-share:before {
+.icon-close:before {
 	content: "\e01a";
 }
-.icon-file-powerpoint:before {
+.icon-checkmark:before {
 	content: "\e01b";
+}
+.icon-loop:before {
+	content: "\e01c";
 }

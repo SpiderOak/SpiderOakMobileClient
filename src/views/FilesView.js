@@ -88,10 +88,11 @@
       if ($("#main").hasClass("open")) {
         return;
       }
-      if ($(event.target).hasClass("icon-star") ||
+      if ($(event.target).hasClass("icon-star-2") ||
             $(event.target).hasClass("rightButton")) {
         return;
       }
+      // View it otherwise
       window.setTimeout(function(){
         if (this.model.get("isFavorite")) {
           this.viewFavorite(
@@ -126,6 +127,7 @@
       }
     },
     view: function() {
+      var model = this.model;
       var downloadOptions = {
         fileName: this.model.get("name"),
         from: this.model.urlResult() + this.model.get("name"),
@@ -160,7 +162,10 @@
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
                 url: encodeURI(fileEntry.fullPath)
               },
-              function(){},
+              function(){
+                // Add the file to the recents collection (view or fave)
+                spiderOakApp.recentsCollection.add(model);
+              },
               function (error) { // @FIXME: Real error handling...
                 navigator.notification.alert(
                   "Cannot find an app to view files of this type.",
@@ -187,6 +192,7 @@
       );
     },
     viewFavorite: function(path) {
+      var model = this.model;
       window.requestFileSystem(
         window.LocalFileSystem.PERSISTENT,
         0,
@@ -199,7 +205,10 @@
                   action: spiderOakApp.fileViewer.ACTION_VIEW,
                   url: encodeURI(fileEntry.fullPath)
                 },
-                function(){},
+                function(){
+                  // Add the file to the recents collection (view or fave)
+                  spiderOakApp.recentsCollection.add(model);
+                },
                 function (error) { // @FIXME: Real error handling...
                   navigator.notification.alert(
                     "Cannot find an app to view files of this type.",
@@ -223,6 +232,7 @@
       );
     },
     saveFavorite: function() {
+      var model = this.model;
       // Confirmation dialog
       navigator.notification.confirm(
         "Do you want to add this file to your favorites?",
@@ -240,17 +250,17 @@
                 new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
                 ""
               ).replace(
-                new RegExp(this.model.get("name")),
+                new RegExp(model.get("name")),
                 ""
               );
           spiderOakApp.dialogView.showProgress({
             title: "Adding to Favorites",
-            subtitle: this.model.get("name"),
+            subtitle: model.get("name"),
             start: 0
           });
           var downloadOptions = {
-            fileName: this.model.get("name"),
-            from: this.model.urlResult() + this.model.get("name"),
+            fileName: model.get("name"),
+            from: model.urlResult() + model.get("name"),
             to: path,
             fsType: window.LocalFileSystem.PERSISTENT,
             onprogress: function onprogress(progressEvent) {
@@ -265,9 +275,9 @@
                 .get("basicAuthCredentials")
             }
           };
-          var favorite = this.model.toJSON();
+          var favorite = model.toJSON();
           favorite.path = path;
-          favorite.url = this.model.urlResult();
+          favorite.url = model.urlResult();
           favorite.isFavorite = true;
           spiderOakApp.downloader.downloadFile(
             downloadOptions,
@@ -286,9 +296,11 @@
                 "favorites-" + spiderOakApp.accountModel.get("b32username"),
                 spiderOakApp.favoritesCollection.toJSON()
               );
-              this.model.set("path", favorite.path);
-              this.model.set("isFavorite", true);
-              this.model.set("favoriteModel", favoriteModel);
+              model.set("path", favorite.path);
+              model.set("isFavorite", true);
+              model.set("favoriteModel", favoriteModel);
+              // Add the file to the recents collection (view or fave)
+              spiderOakApp.recentsCollection.add(model);
               navigator.notification.alert(
                 fileEntry.name + " added to Favorites",
                 null,

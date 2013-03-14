@@ -88,8 +88,7 @@
       if ($("#main").hasClass("open")) {
         return;
       }
-      spiderOakApp.recentsCollection.add(this.model);
-      if ($(event.target).hasClass("icon-star") ||
+      if ($(event.target).hasClass("icon-star-2") ||
             $(event.target).hasClass("rightButton")) {
         return;
       }
@@ -128,6 +127,7 @@
       }
     },
     view: function() {
+      var model = this.model;
       var downloadOptions = {
         fileName: this.model.get("name"),
         from: this.model.urlResult() + this.model.get("name"),
@@ -162,7 +162,10 @@
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
                 url: encodeURI(fileEntry.fullPath)
               },
-              function(){},
+              function(){
+                // Add the file to the recents collection (view or fave)
+                spiderOakApp.recentsCollection.add(model);
+              },
               function (error) { // @FIXME: Real error handling...
                 navigator.notification.alert(
                   "Cannot find an app to view files of this type.",

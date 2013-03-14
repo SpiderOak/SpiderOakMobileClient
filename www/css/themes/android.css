@@ -33,15 +33,16 @@ body {
 }
 
 .nav .clear-recents-btn {
-  font-size: 28px;
+  font-size: 22px;
   position: absolute;
   right: 0;
   top: 0;
   margin: 0;
-  width: 38px;
-  height: 48px;
+  width: 48px;
+  height: 28px;
   color: #ccc;
-  padding: 8px 0 0 10px;
+  text-align: center;
+  padding: 13px 0;
   display: block;
   color: #999;
 }

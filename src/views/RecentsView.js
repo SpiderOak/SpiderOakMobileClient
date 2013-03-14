@@ -15,7 +15,6 @@
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
-      $(document).on("clearRecents", this.clearRecentsBtn_handler);
     },
     render: function() {
       this.$el.html(_.template(window.tpl.get("recentsViewTemplate"),{}));
@@ -24,8 +23,6 @@
         vScrollbar: !$.os.android,
         hScrollbar: false
       });
-
-      spiderOakApp.mainView.showClearRecentsButton();
 
       this.loadRecents();
 
@@ -36,6 +33,7 @@
         this.$(".folderViewLoading").removeClass("loadingFiles");
         return;
       }
+
       // When we have finished fetching the files, help hide the spinner
       this.$(".filesList").one("complete", function(event) {
         // @TODO: Refresh subviews scroller
@@ -63,28 +61,13 @@
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
+      this.clearRecentsButtonView =
+        new spiderOakApp.RecentsClearRecentsButton();
+      $("#main .nav").append(this.clearRecentsButtonView.render().el);
       spiderOakApp.backDisabled = false;
     },
     viewDeactivate: function(event) {
-      spiderOakApp.mainView.hideClearRecentsButton();
-    },
-    clearRecentsBtn_handler: function(event) {
-      if (spiderOakApp.recentsCollection.models &&
-              spiderOakApp.recentsCollection.length > 0) {
-        // Get confirmation
-        window.setTimeout(function(){
-          navigator.notification.confirm(
-            'Are you sure you want to clear your recent history?',
-            this.clearRecentsConfirmed,
-            'Clear Recents'
-          );
-        }.bind(this), 50);
-      }
-    },
-    clearRecentsConfirmed: function(button) {
-      if (button === 2 || button === 0) return false;
-      // Otherwise...
-      spiderOakApp.recentsCollection.reset([]);
+      this.clearRecentsButtonView.remove();
     },
     remove: function() {
       this.close();
@@ -136,6 +119,42 @@
           subViews.close();
         }
       });
+    }
+  });
+
+  // <a class="clear-recents-btn"><i class="icon-history"></i></a>
+  spiderOakApp.RecentsClearRecentsButton = Backbone.View.extend({
+    events: {
+      "tap a": "a_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+    },
+    render: function() {
+      this.$el.html(
+        "<a class='clear-recents-btn'><i class='icon-close'></i></a>"
+      );
+      return this;
+    },
+    a_tapHandler: function(event) {
+      event.preventDefault();
+      if (spiderOakApp.recentsCollection.models &&
+              spiderOakApp.recentsCollection.length > 0) {
+        // Get confirmation
+        window.setTimeout(function(){
+          navigator.notification.confirm(
+            'Are you sure you want to clear your recent history?',
+            this.clearRecentsConfirmed,
+            'Clear Recents'
+          );
+        }.bind(this), 50);
+      }
+    },
+    clearRecentsConfirmed: function(button) {
+      $(document).one("clearRecents", this.clearRecentsBtn_handler);
+      if (button === 2 || button === 0) return false;
+      // Otherwise...
+      spiderOakApp.recentsCollection.reset([]);
     }
   });
 

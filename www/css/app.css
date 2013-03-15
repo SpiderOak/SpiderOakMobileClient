@@ -6,10 +6,7 @@ body {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
   -webkit-text-size-adjust: none;
-  -ms-text-size-adjust: none;
   -webkit-user-select: none;
-  -ms-user-select: none;
-  -moz-user-select: none;
   user-select: none;
   padding: 0;
   margin: 0;

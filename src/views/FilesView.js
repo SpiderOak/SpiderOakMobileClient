@@ -85,6 +85,8 @@
       return this;
     },
     a_tapHandler: function(event) {
+      event.preventDefault();
+      event.stopPropagation();
       if ($("#main").hasClass("open")) {
         return;
       }
@@ -107,14 +109,88 @@
     a_longTapHandler: function(event) {
       event.preventDefault();
       event.stopPropagation();
-      window.setTimeout(function(){
-        navigator.notification.alert(
-          "This will show file options",
-          null,
-          "TODO",
-          "OK"
-        );
-      }, 50);
+      var items = [
+          {className: "open", description: "Open"},
+          {className: "details", description: "Details"},
+          {className: "send-link", description: "Send link"},
+          {className: "save", description: "Save file"},
+          {className: "share", description: "Share file"}
+      ];
+      if (this.model.get("isFavorite")) {
+        items.push({
+          className: "un-favorite", description: "Remove from favorites"
+        });
+      }
+      else {
+        items.push({
+          className: "favorite", description: "Add to favorites"
+        });
+      }
+      var menuView = new spiderOakApp.ContextPopup({
+        items: items
+      });
+      $(document).one("backbutton", function(event) {
+        spiderOakApp.dialogView.hide();
+        menuView.remove();
+      });
+      menuView.once("item:tapped", function menu_tapHandler(event){
+        var command = $(event.target).data("command");
+        spiderOakApp.dialogView.hide();
+        menuView.remove();
+        switch(command) {
+          case "open":
+            this.a_tapHandler(event);
+            break;
+          case "details":
+            window.setTimeout(function(){
+              navigator.notification.alert(
+                "Display " + this.model.get("name") + " details",
+                null,
+                "TODO",
+                "OK"
+              );
+            }.bind(this), 50);
+            break;
+          case "send-link":
+            window.setTimeout(function(){
+              navigator.notification.alert(
+                "Create link to " + this.model.get("name") +
+                  " and send via SMS (or Email?)",
+                null,
+                "TODO",
+                "OK"
+              );
+            }.bind(this), 50);
+            break;
+          case "save":
+            window.setTimeout(function(){
+              navigator.notification.alert(
+                "What in the world is this supposed to do?!",
+                null,
+                "TODO",
+                "OK"
+              );
+            }.bind(this), 50);
+            break;
+          case "share":
+            window.setTimeout(function(){
+              navigator.notification.alert(
+                "Share " + this.model.get("name") + " via share intent",
+                null,
+                "TODO",
+                "OK"
+              );
+            }.bind(this), 50);
+            break;
+          case "favorite":
+            this.saveFavorite();
+            break;
+          case "un-favorite":
+            this.removeFavorite();
+            break;
+        }
+      }.bind(this));
+      spiderOakApp.dialogView.showDialogView(menuView);
     },
     favorite_tapHandler: function(event) {
       event.preventDefault();
@@ -184,6 +260,20 @@
             console.log("download error target " + error.target);
             console.log("download error code " + error.code);
             console.log("download error status " + error.http_status);
+            switch (error.code) {
+              case window.FileTransferError.FILE_NOT_FOUND_ERR:
+                console.log("FILE_NOT_FOUND_ERR");
+                break;
+              case window.FileTransferError.INVALID_URL_ERR:
+                console.log("INVALID_URL_ERR");
+                break;
+              case window.FileTransferError.CONNECTION_ERR:
+                console.log("CONNECTION_ERR");
+                break;
+              case window.FileTransferError.ABORT_ERR:
+                console.log("ABORT_ERR");
+                break;
+            }
           }
           else {
             console.log(error);

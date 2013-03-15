@@ -92,7 +92,7 @@
       return this;
     },
     addOne: function(model) {
-      var view = new spiderOakApp.FavoritesListItem({
+      var view = new spiderOakApp.FilesListItemView({
         model: model
       });
       this.$el.append(view.render().el);
@@ -112,140 +112,6 @@
           subViews.close();
         }
       });
-    }
-  });
-
-  spiderOakApp.FavoritesListItem = Backbone.View.extend({
-    tagName: "li",
-    events: {
-      "tap a": "a_tapHandler",
-      "longTap a": "a_longTapHandler",
-      "tap .rightButton": "favorite_tapHandler"
-    },
-    initialize: function() {
-      _.bindAll(this);
-    },
-    render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("fileItemViewTemplate"),
-          this.model.toJSON()
-        )
-      );
-      this.$("a").data("model",this.model);
-      return this;
-    },
-    a_tapHandler: function(event) {
-      if ($("#main").hasClass("open")) {
-        return;
-      }
-      if ($(event.target).hasClass("icon-star") ||
-            $(event.target).hasClass("rightButton")) {
-        return;
-      }
-      window.setTimeout(function(){
-        this.viewFavorite(
-          this.model.get("path") + this.model.get("name")
-        );
-      }.bind(this), 50);
-    },
-    a_longTapHandler: function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      window.setTimeout(function(){
-        navigator.notification.alert(
-          "This will show file options",
-          null,
-          "TODO",
-          "OK"
-        );
-      }, 50);
-    },
-    favorite_tapHandler: function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.removeFavorite();
-    },
-    viewFavorite: function(path) {
-      window.requestFileSystem(
-        window.LocalFileSystem.PERSISTENT,
-        0,
-        function viewFavoriteGetFS(fileSystem) {
-          fileSystem.root.getFile(
-            path,
-            {},
-            function viewFavoriteGotFS(fileEntry) {
-              spiderOakApp.fileViewer.view({
-                  action: spiderOakApp.fileViewer.ACTION_VIEW,
-                  url: encodeURI(fileEntry.fullPath)
-                },
-                function(){},
-                function (error) { // @FIXME: Real error handling...
-                  navigator.notification.alert(
-                    "Cannot find an app to view files of this type.",
-                    null,
-                    "File error",
-                    "OK"
-                  );
-                }
-              );
-            }
-          );
-        },
-        function errorViewingFileByPath(error) { // @FIXME: Real error handling...
-          navigator.notification.alert(
-            "Error viewing file. Error code " + error.code,
-            null,
-            "File error",
-            "OK"
-          );
-        }
-      );
-    },
-    removeFavorite: function() {
-      // Confirmation dialog
-      navigator.notification.confirm(
-        "Do you want to remove this file to your favorites?",
-        function(button) {
-          if (button !== 1) {
-            return;
-          }
-          // If file exists in PERSISTENT file system, delete it
-          // @FIXME: Check if the file exists first?
-          var options = {
-            fsType: window.LocalFileSystem.PERSISTENT,
-            path: this.model.get("path") +
-              this.model.get("name")
-          };
-          this.$(".rightButton").removeClass("favorite");
-          spiderOakApp.downloader.deleteFile(
-            options,
-            function(entry) {
-              console.log("File deleted");
-            },
-            function(error) { // @FIXME: Real error handling...
-              navigator.notification.alert(
-                "Error removing favorite from device (error code: " +
-                  error.code + ")",
-                null,
-                "Error",
-                "OK"
-              );
-            }
-          );
-          // Remove model from the Favorites Collection
-          spiderOakApp.favoritesCollection.remove(this.model);
-          // Persist Favorites Collection to localStorage
-          window.store.set(
-            "favorites-" + spiderOakApp.accountModel.get("b32username"),
-            spiderOakApp.favoritesCollection.toJSON()
-          );
-        }.bind(this),
-        "Favorites"
-      );
-    },
-    close: function(){
-      this.remove();
-      this.unbind();
     }
   });
 

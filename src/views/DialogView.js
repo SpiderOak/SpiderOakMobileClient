@@ -46,6 +46,10 @@
     updateProgress: function(progressPercent) {
       this.$(".meter .progress").animate({"width":progressPercent+"%"});
     },
+    showDialogView: function(view) {
+      this.$el.html(view.render().el);
+      this.$el.show();
+    },
     close: function(){
       this.remove();
       this.unbind();
@@ -58,5 +62,39 @@
     }
   });
   spiderOakApp.dialogView = new spiderOakApp.DialogView().render();
+
+  spiderOakApp.ContextPopup = Backbone.View.extend({
+    className: "context-popup",
+    events: {
+      "tap a": "a_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+    },
+    render: function() {
+      this.$el.html(_.template(
+        window.tpl.get("androidContextPopup"),
+        {items: this.options.items}
+      ));
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: false,
+        hScrollbar: false
+      });
+      return this;
+    },
+    a_tapHandler: function(event) {
+      this.trigger("item:tapped", event);
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      this.scroller.destroy();
+    }
+  });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

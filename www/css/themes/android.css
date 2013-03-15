@@ -208,4 +208,13 @@ a.button.active {
   outline:0;
 }
 
+.modal .context-popup {
+  background-color: #eee;
+  width: 275px;
+  margin: 60px auto;
+  max-height: 75%;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  overflow-y: hidden;
+}
+
 

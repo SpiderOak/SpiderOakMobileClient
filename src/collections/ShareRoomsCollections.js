@@ -31,22 +31,30 @@
     }
   });
 
-  spiderOakApp.VisitedShareRoomsCollection = Backbone.Collection.extend({
-    model: spiderOakApp.ShareRoomModel,
-    sync: function(mode, model, options) {
+  spiderOakApp.VisitedShareRoomsRootCollection = Backbone.Collection.extend({
+    model: spiderOakApp.VisitedShareRoomRootItemModel,
+    // XXX Use an application paramter!
+    urlBase: function() { return "https://spideroak.com/share/"; },
+    fetch: function(options) {
+      console.log("VisitedShareRoomsRootCollection.fetch()");
+      this.sync("read", this, options);
+    },
+    sync: function(mode, collection, options) {
       if (mode.match(/read/i)) {
-        console.log("@TODO: visitedShareRoomsCollection READ sync");
-        // @TODO: If the policy is to restore visits across sessions, do so.
+        console.log("@TODO: VisitedShareRoomsRootCollection READ sync");
         // @DELETE: Dummy code for exercising with an example share room:
-        // if (this.models.length === 0) {
-        //   var newone = new this.model(
-        //     "https://spideroak.com/browse/share/devgeeks/android-apk"
-        //   );
-        //   this.add(newone);
-        // }
+        if (this.models.length === 0) {
+          var newone = new this.model({
+            share_id: "klming",
+            room_key: "media",
+            retained: true      // "Remember Visited" in the graphical spec.
+          });
+          this.add(newone);
+        }
+        collection.trigger('request', collection, null, options);
       }
       else if (mode.match(/write/i)) {
-        console.log("@TODO: visitedShareRoomsCollection WRITE sync");
+        console.log("@TODO: VisitedShareRoomsRootCollection WRITE sync");
         // @TODO: If we are retaining visits across sessions, preserve the urls.
       }
     }

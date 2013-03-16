@@ -40,17 +40,17 @@
       return this;
     },
     loadVisitedShareRooms: function() {
-      this.visitedShareRooms = new spiderOakApp.VisitedShareRoomsCollection();
-      this.visitedShareRooms.url = "";
+      this.visitedShareRoomsRoot =
+          new spiderOakApp.VisitedShareRoomsRootCollection();
 
       this.visitedShareRoomsListView =
         new spiderOakApp.VisitedShareRoomsListView({
-          collection: this.visitedShareRooms,
+          collection: this.visitedShareRoomsRoot,
           el: this.$(".visitedShareRoomsSection")
         });
       // When we've finished fetching the folders, help hide the spinner:
       this.visitedShareRoomsListView.$el.one("complete", function(event) {
-        this.$(".visitedSharesViewLoading").removeClass("loadingVisitedShares");
+        this.visitedShareRoomsListView.settle();
         window.setTimeout(function(){
           this.scroller.refresh();
         }.bind(this),0);
@@ -128,16 +128,15 @@
 
   spiderOakApp.MyShareRoomsListView = Backbone.View.extend({
     initialize: function() {
+      this.subViews = [];
+
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".myShareRoomsList");
-      this.views = [];
       _.bindAll(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
-
-      this.subViews = [];
 
       this.collection.fetch();
     },
@@ -148,7 +147,8 @@
       return this;
     },
     settle: function() {
-      this.$el.find(".mySharesViewLoading").removeClass("loadingMyShares");
+      this.$el.find(".mySharesViewLoading")
+          .removeClass("loadingMyShares");
     },
     addOne: function(model) {
       var view = new spiderOakApp.ShareRoomItemView({
@@ -179,16 +179,17 @@
       "tap .addPublicShare": "addPublicShare_tapHandler"
     },
     initialize: function() {
+      this.subViews = [];
+
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".visitedShareRoomsList");
-      this.views = [];
+
       _.bindAll(this);
-      // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
 
-      this.subViews = [];
+      this.collection.fetch();
     },
     render: function() {
       // @TODO: Add a "loading spinner" row at the top
@@ -196,7 +197,11 @@
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
-    addOne: function(model) {
+    settle: function() {
+      this.$el.find(".visitedSharesViewLoading")
+          .removeClass("loadingVisitedShares");
+    },
+   addOne: function(model) {
       var view = new spiderOakApp.ShareRoomItemView({
         model: model
       });
@@ -205,9 +210,6 @@
     },
     addAll: function() {
       this.$elList.empty(); // needed still?
-      // Since the visited share rooms collection is actually an array,
-      // iterate directly over the models:
-      // _.each(this.models, this.addOne);
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },

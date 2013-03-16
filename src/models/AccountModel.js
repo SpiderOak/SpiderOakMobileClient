@@ -61,7 +61,7 @@
             // has, according to the b32username: the server preserves the
             // original account's alphabetic case, and uses it, whatever
             // case differences the user enters for login.
-            username = _self.b32nibbler.decode(b32username);
+            username = spiderOakApp.b32nibbler.decode(b32username);
             // Set the basicauth details:
             Backbone.BasicAuth.set(username,password);
             // Record the b32username:
@@ -144,13 +144,7 @@
       // Clear internal settings:
       this.clear();
       successCallback();
-    },
-    b32nibbler: new window.Nibbler({
-      dataBits: 8,
-      codeBits: 5,
-      keyString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
-      pad: ""
-    })
+    }
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

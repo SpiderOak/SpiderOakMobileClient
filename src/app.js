@@ -114,34 +114,8 @@
                                     keyString:
                                       "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
                                     pad: ""
-                                   }),
-    /** Maintain persistent local settings.
-     *
-     * - Values are maintained transparently using JSON.
-     * - Use .get(name), .set(name, value), and .remove(name).
-     * - .keys() returns an array of all stored keys.
-     * - .length() returns the number of keys.
-     */
-    localVal: {
-      get: function (name) {
-        return JSON.parse(localStorage.getItem(name));
-      },
-      set: function (name, value) {
-        localStorage.setItem(name, JSON.stringify(value));
-      },
-      remove: function (name) {
-        localStorage.removeItem(name);
-      },
-      keys: function () {
-        return Object.keys(localStorage);
-      }
-    }
+                                   })
   });
-  // Implement spiderOakApp.local.length as a property, for iterability:
-  Object.defineProperty(spiderOakApp.localVal, "length",
-                        {get: function() { return localStorage.length; },
-                         enumerable: true
-                        });
 
   /*
    * How a model in our framework determines its' composite URL.

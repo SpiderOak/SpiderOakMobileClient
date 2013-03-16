@@ -33,6 +33,8 @@ import org.apache.cordova.api.PluginResult;
  */
 public class FileViewerPlugin extends Plugin {
 
+  private static final String LOG_TAG = "FileViewerPlugin";
+
   private String onNewIntentCallback = null;
 
   /**
@@ -53,14 +55,15 @@ public class FileViewerPlugin extends Plugin {
         if (args.length() != 1) {
           return new PluginResult(PluginResult.Status.INVALID_ACTION);
         }
+        // Log.d(LOG_TAG, action);
 
         // Parse the arguments
         JSONObject obj = args.getJSONObject(0);
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         Uri uri = obj.has("url") ? Uri.parse(obj.getString("url")) : null;
-        File file = new File(uri.getPath());
-            String ext=file.getName().substring(file.getName().indexOf(".")+1);
+        String ext=mime.getFileExtensionFromUrl(Uri.encode(uri.toString()));
         String type = obj.has("type") ? obj.getString("type") : mime.getMimeTypeFromExtension(ext);
+        
         JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;
         Map<String, String> extrasMap = new HashMap<String, String>();
 

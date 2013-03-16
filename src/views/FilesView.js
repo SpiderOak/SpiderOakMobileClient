@@ -236,13 +236,14 @@
           // } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
-                url: encodeURI(fileEntry.fullPath)
+                url: fileEntry.fullPath
               },
               function(){
                 // Add the file to the recents collection (view or fave)
                 spiderOakApp.recentsCollection.add(model);
               },
               function (error) { // @FIXME: Real error handling...
+                console.log(JSON.stringify(error));
                 navigator.notification.alert(
                   "Cannot find an app to view files of this type.",
                   null,
@@ -419,8 +420,8 @@
           // @FIXME: Check if the file exists first?
           var options = {
             fsType: window.LocalFileSystem.PERSISTENT,
-            path: this.model.get("favoriteModel").get("path") +
-              this.model.get("favoriteModel").get("name")
+            path: this.model.get("path") +
+              this.model.get("name")
           };
           this.$(".rightButton").removeClass("favorite");
           spiderOakApp.downloader.deleteFile(
@@ -439,7 +440,16 @@
             }
           );
           // Remove model from the Favorites Collection
-          spiderOakApp.favoritesCollection.remove(this.model.get("favoriteModel"));
+          // First determine if this.model is a file model or a favorite model
+          var model = null;
+          if (this.model.get("favoriteModel")) {
+            model = this.model.get("favoriteModel");
+          }
+          else {
+            model = this.model;
+          }
+          // ...then remove it
+          spiderOakApp.favoritesCollection.remove(model);
           // Persist Favorites Collection to localStorage
           window.store.set(
             "favorites-" + spiderOakApp.accountModel.get("b32username"),

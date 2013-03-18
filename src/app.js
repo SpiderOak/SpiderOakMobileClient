@@ -123,11 +123,14 @@
    * How a model in our framework determines its' composite URL.
    *
    * The URL is a concatenation of model and collection url elements.  Any
-   * prevailing elements that are functions are evaluated for their result.
+   * prevailing elements that are functions are evaluated, as methods on
+   * the object from which they were obtained, for their result.
    *
    * - A head part is taken in this order of precedence:
-   *   - the model's collection's urlBase attribute, or
-   *   - the model's collection's url attribute,
+   *   - the model's .get("urlBase")
+   *   - or the model's urlBase attribute
+   *   - or the containing collection's .urlBase
+   *   - or the containing collection's .url
    * - The url part is taken from the model's .get("url").
    *
    * @this{model}
@@ -135,14 +138,22 @@
   Backbone.Model.prototype.composedUrl = function() {
     var urlTail = this.get("url");
     var collection = this.collection;
-    var urlHead = collection ? (collection.urlBase || collection.url) : "";
+    var urlHead = this.get("urlBase") || this.urlBase;
+    var urlHeadObject = urlHead && this;
+    if (! urlHead && collection) {
+      urlHead = (collection.get("urlBase")
+                 || collection.urlBase
+                 || collection.url
+                 || "");
+      urlHeadObject = urlHead && collection;
+    }
+    if (typeof urlHead === "function") {
+      urlHead = urlHead.call(urlHeadObject);
+    }
     if (typeof urlTail === "function") {
       urlTail = urlTail.call(this);
     }
-    if (typeof urlHead === "function") {
-      urlHead = urlHead.call(this.collection);
-    }
-    return urlHead + urlTail;
+    return (urlHead || "") + (urlTail || "");
   };
   /**
    * Method to fetch model.url string and function versions identically.

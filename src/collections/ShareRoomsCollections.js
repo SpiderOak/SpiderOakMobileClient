@@ -34,7 +34,7 @@
   spiderOakApp.VisitedShareRoomsRootCollection = Backbone.Collection.extend({
     model: spiderOakApp.VisitedShareRoomRootItemModel,
     // XXX Use an application paramter!
-    urlBase: function() { return "https://spideroak.com/share/"; },
+    urlBase: "https://" + spiderOakApp.config.server + "/share/",
     fetch: function(options) {
       console.log("VisitedShareRoomsRootCollection.fetch()");
       this.sync("read", this, options);

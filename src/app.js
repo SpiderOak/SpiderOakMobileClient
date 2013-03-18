@@ -20,6 +20,10 @@
   // };
 
   _.extend(spiderOakApp, {
+    // @TODO: Establish distinct config file and fetch settings from it.
+    config: {
+      server: "spideroak.com"
+    },
     initialize: function() {
       // Start listening for important app-level events
       document.addEventListener(

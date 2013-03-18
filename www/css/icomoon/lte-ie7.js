@@ -34,7 +34,9 @@ window.onload = function() {
 			'icon-remove' : '&#xe019;',
 			'icon-close' : '&#xe01a;',
 			'icon-checkmark' : '&#xe01b;',
-			'icon-loop' : '&#xe01c;'
+			'icon-loop' : '&#xe01c;',
+			'icon-plus' : '&#xe01d;',
+			'icon-minus' : '&#xe01e;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

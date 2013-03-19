@@ -11,6 +11,7 @@
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
     // ...
+    which: "ShareRoomRootItemModel"
   });
 
   /**
@@ -28,17 +29,23 @@
       url: ""
     },
     initialize: function() {
-      this.on("change:share_id", this.updateURL);
-      this.on("change:room_key", this.updateURL);
-      this.updateURL();
-    },
-    updateURL: function() {
       this.set("url",
                spiderOakApp.b32nibbler.encode(this.get("share_id")) +
                "/" + this.get("room_key") + "/",
                // Prevent infinite regress:
                {silent: true});
-    }
+    },
+    getShareRoom: function() {
+      // XXX Look for existing before minting a new one.
+      var shareroom = new spiderOakApp.ShareRoomModel({}, {
+        collection: spiderOakApp.shareRoomsCollection
+        });
+      shareroom.url = this.get("url");
+      shareroom.set("url", shareroom.url);
+      shareroom.fetch();
+      return shareroom;
+    },
+    which: "VisitedShareRoomRootItemModel"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

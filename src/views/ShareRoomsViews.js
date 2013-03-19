@@ -203,9 +203,9 @@
       this.$el.find(".visitedSharesViewLoading")
           .removeClass("loadingVisitedShares");
     },
-   addOne: function(model) {
+    addOne: function(model) {
       var view = new spiderOakApp.ShareRoomItemView({
-        model: model
+        model: model.getShareRoom()
       });
       this.$elList.append(view.render().el);
       this.subViews.push(view);

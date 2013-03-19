@@ -9,8 +9,16 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.MyShareRoomsCollection = Backbone.Collection.extend({
+  spiderOakApp.ShareRoomsCollection = Backbone.Collection.extend({
     model: spiderOakApp.ShareRoomModel,
+    initialize: function() {
+      this.urlBase = "https://" + spiderOakApp.config.server + "/share/";
+    },
+    which: "ShareRoomsCollection"
+  });
+
+  var ShareRoomsCollection = spiderOakApp.ShareRoomsCollection;
+  spiderOakApp.MyShareRoomsCollection = ShareRoomsCollection.extend({
     parse: function(resp, xhr) {
       // window.console.log(resp);
       var sharerooms = [],
@@ -28,13 +36,15 @@
         });
       });
       return sharerooms;
-    }
+    },
+    which: "MyShareRoomsCollection"
   });
 
   spiderOakApp.VisitedShareRoomsRootCollection = Backbone.Collection.extend({
     model: spiderOakApp.VisitedShareRoomRootItemModel,
-    // XXX Use an application paramter!
-    urlBase: "https://" + spiderOakApp.config.server + "/share/",
+    initialize: function() {
+      this.urlBase = "https://" + spiderOakApp.config.server + "/share/";
+    },
     fetch: function(options) {
       console.log("VisitedShareRoomsRootCollection.fetch()");
       this.sync("read", this, options);
@@ -51,13 +61,15 @@
           });
           this.add(newone);
         }
+        // XXX Something beside "request" to get the "complete" to fire?
         collection.trigger('request', collection, null, options);
       }
       else if (mode.match(/write/i)) {
         console.log("@TODO: VisitedShareRoomsRootCollection WRITE sync");
         // @TODO: If we are retaining visits across sessions, preserve the urls.
       }
-    }
+    },
+    which: "VisitedShareRoomsCollection"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

@@ -15,6 +15,8 @@
   spiderOakApp.ShareRoomsRootView = Backbone.View.extend({
     destructionPolicy: "never",
     initialize: function() {
+      spiderOakApp.shareRoomsCollection =
+          new spiderOakApp.ShareRoomsCollection();
       _.bindAll(this);
       this.name = "Share Rooms";
       this.on("viewActivate",this.viewActivate);

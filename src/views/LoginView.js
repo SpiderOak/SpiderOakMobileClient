@@ -14,8 +14,7 @@
     events: {
       "submit form": "form_submitHandler",
       "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
-      "tap .loginButton": "loginButton_tapHandler",
-      "tap .switch": "switch_tapHandler"
+      "tap .loginButton": "loginButton_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -65,14 +64,12 @@
         // @TODO: Do something with the apiRoot
         // Store the "remember me" setting
         account.set("rememberme",rememberme);
-        // @TODO: Unblock spinner
         // Navigate away...
         this.dismiss();
       }.bind(this);
       var error = function(status, error) {
         // Clear it out
         spiderOakApp.accountModel = account = undefined;
-        // @TODO: Unblock spinner
         var msg;
         if (status === 401) {
           msg = "Authentication failed - Unauthorized.";
@@ -118,18 +115,6 @@
         "Authentication error",
         "OK"
       );
-    },
-    switch_tapHandler: function(event) {
-      var $this = null;
-      if ($(event.target).hasClass("switch")) {
-        $this = $(event.target);
-      }
-      else {
-        $this = $(event.target).closest(".switch");
-      }
-      var $checkbox = $this.find("input[type=checkbox]");
-      $checkbox.attr("checked",!$checkbox.is(":checked"));
-      $this.toggleClass("on");
     },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {

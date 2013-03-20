@@ -10,8 +10,26 @@
       $           = window.$;
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
-    // ...
-    which: "ShareRoomRootItemModel"
+    initialize: function() {
+      this.url = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
+                  "/" + this.get("room_key") + "/");
+      this.set("url", this.url);
+    },
+    parse: function(resp, xhr) {
+      var stats = resp.stats;
+      return {
+        dirs: resp.dirs,
+        name: stats.room_name,
+        owner_firstname: stats.firstname,
+        owner_lastname: stats.lastname,
+        number_of_files: stats.number_of_files,
+        number_of_folders: stats.number_of_folders,
+        description: stats.room_description,
+        size: stats.room_size,
+        start_date: stats.start_date
+      };
+    },
+   which: "ShareRoomModel"
   });
 
   /**
@@ -28,20 +46,13 @@
       room_key: null,
       url: ""
     },
-    initialize: function() {
-      this.set("url",
-               spiderOakApp.b32nibbler.encode(this.get("share_id")) +
-               "/" + this.get("room_key") + "/",
-               // Prevent infinite regress:
-               {silent: true});
-    },
     getShareRoom: function() {
-      // XXX Look for existing before minting a new one.
-      var shareroom = new spiderOakApp.ShareRoomModel({}, {
-        collection: spiderOakApp.shareRoomsCollection
-        });
-      shareroom.url = this.get("url");
-      shareroom.set("url", shareroom.url);
+      // XXX Seek existing before minting a new one.
+      var shareroom = new spiderOakApp.ShareRoomModel({
+        share_id: this.get("share_id"),
+        room_key: this.get("room_key")
+      });
+      spiderOakApp.shareRoomsCollection.add([shareroom]);
       shareroom.fetch();
       return shareroom;
     },

@@ -12,7 +12,8 @@
   spiderOakApp.ShareRoomsCollection = Backbone.Collection.extend({
     model: spiderOakApp.ShareRoomModel,
     initialize: function() {
-      this.urlBase = "https://" + spiderOakApp.config.server + "/share/";
+      this.url = "https://" + spiderOakApp.config.server + "/share/";
+      this.urlBase = this.url;
     },
     which: "ShareRoomsCollection"
   });

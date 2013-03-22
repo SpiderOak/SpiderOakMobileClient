@@ -16,20 +16,28 @@
       this.set("url", this.url);
     },
     parse: function(resp, xhr) {
-      var stats = resp.stats;
-      return {
-        dirs: resp.dirs,
-        name: stats.room_name,
-        owner_firstname: stats.firstname,
-        owner_lastname: stats.lastname,
-        number_of_files: stats.number_of_files,
-        number_of_folders: stats.number_of_folders,
-        description: stats.room_description,
-        size: stats.room_size,
-        start_date: stats.start_date
-      };
+      if (! resp || ! resp.stats) {
+        return resp;
+      }
+      else {
+        //console.log(this.which + ".parse resp (resp.stats): " +
+        //            JSON.stringify(resp));
+        var stats = resp.stats;
+        return {
+          browse_url: resp.browse_url,
+          dirs: resp.dirs,
+          name: stats.room_name,
+          owner_firstname: stats.firstname,
+          owner_lastname: stats.lastname,
+          number_of_files: stats.number_of_files,
+          number_of_folders: stats.number_of_folders,
+          description: stats.room_description,
+          size: stats.room_size,
+          start_date: stats.start_date
+        };
+      }
     },
-   which: "ShareRoomModel"
+    which: "ShareRoomModel"
   });
 
   /**
@@ -53,8 +61,27 @@
         room_key: this.get("room_key")
       });
       spiderOakApp.shareRoomsCollection.add([shareroom]);
+      shareroom.collection = spiderOakApp.shareRoomsCollection;
+      shareroom.url = shareroom.collection.url + shareroom.url;
       shareroom.fetch();
       return shareroom;
+    },
+    parse: function(resp, xhr) {
+      //console.log("VisitedShareRoomRootItemModel.parse resp (resp.stats): " +
+      //            JSON.stringify(resp));
+      var stats = resp.stats;
+      return {
+        browse_url: resp.browse_url,
+        dirs: resp.dirs,
+        name: stats.room_name,
+        owner_firstname: stats.firstname,
+        owner_lastname: stats.lastname,
+        number_of_files: stats.number_of_files,
+        number_of_folders: stats.number_of_folders,
+        description: stats.room_description,
+        size: stats.room_size,
+        start_date: stats.start_date
+      };
     },
     which: "VisitedShareRoomRootItemModel"
   });

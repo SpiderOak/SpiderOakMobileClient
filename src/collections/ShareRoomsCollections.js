@@ -13,15 +13,13 @@
     model: spiderOakApp.ShareRoomModel,
     initialize: function() {
       this.url = "https://" + spiderOakApp.config.server + "/share/";
-      this.urlBase = this.url;
     },
     which: "ShareRoomsCollection"
   });
-
   var ShareRoomsCollection = spiderOakApp.ShareRoomsCollection;
+
   spiderOakApp.MyShareRoomsCollection = ShareRoomsCollection.extend({
     parse: function(resp, xhr) {
-      // window.console.log(resp);
       var sharerooms = [],
           share_id_b32 = resp.share_id_b32,
           share_id = resp.share_id;

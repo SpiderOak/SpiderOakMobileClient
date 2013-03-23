@@ -43,7 +43,7 @@
     },
     loadVisitedShareRooms: function() {
       this.visitedShareRoomsRoot =
-          new spiderOakApp.VisitedShareRoomsRootCollection();
+          new spiderOakApp.ShareRoomsRecordCollection();
 
       this.visitedShareRoomsListView =
         new spiderOakApp.VisitedShareRoomsListView({
@@ -205,7 +205,7 @@
     },
     addOne: function(model) {
       var view = new spiderOakApp.ShareRoomItemView({
-        model: model.getShareRoom()
+        model: model.getPublicShareRoom()
       });
       this.$elList.append(view.render().el);
       this.subViews.push(view);

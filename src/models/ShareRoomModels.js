@@ -11,9 +11,9 @@
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
     initialize: function() {
-      this.url = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
-                  "/" + this.get("room_key") + "/");
-      this.set("url", this.url);
+      this.set("url", (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
+                       "/" + this.get("room_key") + "/"));
+      this.url = this.composedUrl();
     },
     parse: function(resp, xhr) {
       if (! resp || ! resp.stats) {
@@ -40,6 +40,10 @@
     which: "ShareRoomModel"
   });
 
+  spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
+    which: "PublicShareRoomModel"
+  });
+
   /**
    * Distinct entities for identifying currently visited public share rooms.
    *
@@ -47,43 +51,27 @@
    * recording, separate from coordination of the actual share rooms with
    * the server.
    */
-  spiderOakApp.VisitedShareRoomRootItemModel = Backbone.Model.extend({
+  spiderOakApp.ShareRoomRecordModel = Backbone.Model.extend({
     defaults: {
       retained: false,
       share_id: null,
       room_key: null,
       url: ""
     },
-    getShareRoom: function() {
-      // XXX Seek existing before minting a new one.
-      var shareroom = new spiderOakApp.ShareRoomModel({
-        share_id: this.get("share_id"),
-        room_key: this.get("room_key")
-      });
-      spiderOakApp.shareRoomsCollection.add([shareroom]);
-      shareroom.collection = spiderOakApp.shareRoomsCollection;
-      shareroom.url = shareroom.collection.url + shareroom.url;
+    getPublicShareRoom: function() {
+      var collection = spiderOakApp.shareRoomsCollection;
+      var shareroom = new spiderOakApp.PublicShareRoomModel(
+        {share_id: this.get("share_id"), room_key: this.get("room_key")},
+        {collection: collection}
+      );
+      // Use existing if already present, or add:
+      shareroom = (collection.get(shareroom)
+                   || (collection.add([shareroom]).get(shareroom)));
+      // XXX Dang.  shareroom.fetch() doesn't return?
       shareroom.fetch();
       return shareroom;
     },
-    parse: function(resp, xhr) {
-      //console.log("VisitedShareRoomRootItemModel.parse resp (resp.stats): " +
-      //            JSON.stringify(resp));
-      var stats = resp.stats;
-      return {
-        browse_url: resp.browse_url,
-        dirs: resp.dirs,
-        name: stats.room_name,
-        owner_firstname: stats.firstname,
-        owner_lastname: stats.lastname,
-        number_of_files: stats.number_of_files,
-        number_of_folders: stats.number_of_folders,
-        description: stats.room_description,
-        size: stats.room_size,
-        start_date: stats.start_date
-      };
-    },
-    which: "VisitedShareRoomRootItemModel"
+    which: "ShareRoomRecordModel"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

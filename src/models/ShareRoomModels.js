@@ -67,7 +67,6 @@
       // Use existing if already present, or add:
       shareroom = (collection.get(shareroom)
                    || (collection.add([shareroom]).get(shareroom)));
-      // XXX Dang.  shareroom.fetch() doesn't return?
       shareroom.fetch();
       return shareroom;
     },

@@ -39,39 +39,16 @@
     which: "MyShareRoomsCollection"
   });
 
-  spiderOakApp.PublicShareRoomsCollection = ShareRoomsCollection.extend({
-    model: spiderOakApp.PublicShareRoomModel,
-    parse: function(resp, xhr) {
-      console.log("PublicShareRoomsCollection.parse: " +
-                  JSON.stringify(resp));
-      var stats = resp.stats;
-      return {
-        browse_url: resp.browse_url,
-        dirs: resp.dirs,
-        name: stats.room_name,
-        owner_firstname: stats.firstname,
-        owner_lastname: stats.lastname,
-        number_of_files: stats.number_of_files,
-        number_of_folders: stats.number_of_folders,
-        description: stats.room_description,
-        size: stats.room_size,
-        start_date: stats.start_date
-      };
-    },
-    which: "PublicShareRoomsCollection"
-  });
-
   spiderOakApp.ShareRoomsRecordCollection = Backbone.Collection.extend({
     model: spiderOakApp.ShareRoomRecordModel,
     fetch: function(options) {
-      console.log("ShareRoomRecordCollection.fetch()");
-      // Skip right to the sync - there is no remote url for fetching:
+      //console.log("ShareRoomRecordCollection.fetch()");
+      // Skip right to the sync - records have no remote url to be fetched:
       this.sync("read", this, options);
     },
     sync: function(mode, collection, options) {
       if (mode.match(/read/i)) {
-        console.log("@TODO: ShareRoomRecordCollection READ sync");
-        // @DELETE: Dummy code for exercising with an example share room:
+        // @TODO: Replace dummy code for exercising with an example share room:
         if (this.models.length === 0) {
           var newone = new this.model({
             share_id: "klming",
@@ -80,8 +57,6 @@
           });
           this.add(newone);
         }
-        // XXX Something beside "request" to get the "complete" to fire?
-        collection.trigger('request', collection, null, options);
       }
       else if (mode.match(/write/i)) {
         console.log("@TODO: ShareRoomRecordCollection WRITE sync");

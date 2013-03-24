@@ -15,32 +15,27 @@
                        "/" + this.get("room_key") + "/"));
       this.url = this.composedUrl();
     },
-    parse: function(resp, xhr) {
-      if (! resp || ! resp.stats) {
-        return resp;
-      }
-      else {
-        //console.log(this.which + ".parse resp (resp.stats): " +
-        //            JSON.stringify(resp));
-        var stats = resp.stats;
-        return {
-          browse_url: resp.browse_url,
-          dirs: resp.dirs,
-          name: stats.room_name,
-          owner_firstname: stats.firstname,
-          owner_lastname: stats.lastname,
-          number_of_files: stats.number_of_files,
-          number_of_folders: stats.number_of_folders,
-          description: stats.room_description,
-          size: stats.room_size,
-          start_date: stats.start_date
-        };
-      }
-    },
     which: "ShareRoomModel"
   });
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
+    parse: function(resp, xhr) {
+      //console.log("PublicShareRoomModel.parse() " +
+      //            JSON.stringify(resp));
+      var stats = resp.stats;
+      return {
+        browse_url: resp.browse_url,
+        dirs: resp.dirs,
+        name: stats.room_name,
+        owner_firstname: stats.firstname,
+        owner_lastname: stats.lastname,
+        number_of_files: stats.number_of_files,
+        number_of_folders: stats.number_of_folders,
+        description: stats.room_description,
+        size: stats.room_size,
+        start_date: stats.start_date
+      };
+    },
     which: "PublicShareRoomModel"
   });
 

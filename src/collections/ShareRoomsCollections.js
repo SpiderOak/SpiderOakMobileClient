@@ -37,6 +37,10 @@
             room_key = visited_record.get("room_key");
         this.add({share_id: share_id, room_key: room_key});
       }.bind(this));
+      // Now fetch the models:
+      this.each(function (model) {
+        model.fetch();
+      });
     },
     which: "PublicShareRoomsCollection"
   });

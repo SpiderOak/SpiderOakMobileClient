@@ -21,10 +21,11 @@
   spiderOakApp.PublicShareRoomsCollection = ShareRoomsCollection.extend({
     model: spiderOakApp.PublicShareRoomModel,
     initialize: function () {
-      ShareRoomsCollection.prototype.initialize.call(this);
+      var got = ShareRoomsCollection.prototype.initialize.call(this);
       this.visited_records = new spiderOakApp.ShareRoomsRecordCollection();
       this.visited_records.fetch();
       this.index = {};
+      return got;
     },
     /**
      * Fetch public share rooms according to the recorded collection of

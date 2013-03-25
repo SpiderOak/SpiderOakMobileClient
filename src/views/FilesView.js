@@ -81,7 +81,7 @@
           this.model.toJSON()
         )
       );
-      this.$("a").data("model",this.model);
+      // this.$("a").data("model",this.model);
       return this;
     },
     a_tapHandler: function(event) {

@@ -22,10 +22,7 @@
       $(document).on("blur", "#login input", this.input_blurHandler);
     },
     render: function() {
-      // @FIXME: This will actually be set by the users choice...
-      if (this.$(".switch").hasClass("on")) {
-        this.$(".switch input[type=checkbox]").attr("checked",true);
-      }
+      // @FIXME: Set rememberme switch based on user's choice in localStorage
       return this;
     },
     // pageAnimationStart_handler: function(event, data) {
@@ -56,14 +53,17 @@
 
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
-      var username = $("#unme").val();
-      var password = $("#pwrd").val();
-      var rememberme = $("#rememberme").is(":checked");
+      var username = $("[name=username]").val();
+      var password = $("[name=password]").val();
+      var rememberme = $("[name=rememberme]").is(":checked");
 
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
         // Store the "remember me" setting
         account.set("rememberme",rememberme);
+        if (rememberme) {
+          window.store.set("account", account.toJSON());
+        }
         // Navigate away...
         this.dismiss();
       }.bind(this);

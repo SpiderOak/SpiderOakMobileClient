@@ -54,11 +54,11 @@ describe('FilesView', function() {
         var regexp = new RegExp(liText).test(modelName);
         regexp.should.be.ok;
       });
-      it('should set the model in the dataset', function() {
-        var dataModel = this.view.$("li a").first().data("model");
-        var collectionModel = this.view.collection.at(0);
-        dataModel.should.equal(collectionModel);
-      });
+      // it('should set the model in the dataset', function() {
+      //   var dataModel = this.view.$("li a").first().data("model");
+      //   var collectionModel = this.view.collection.at(0);
+      //   dataModel.should.equal(collectionModel);
+      // });
       it('should fire a "complete" event when all items added',
         function(){
           this.completeSpy.should.be.called;

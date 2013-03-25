@@ -11,8 +11,10 @@
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
     initialize: function() {
-      this.set("url", (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
-                       "/" + this.get("room_key") + "/"));
+      var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
+                       "/" + this.get("room_key") + "/");
+      this.set("id", id);
+      this.set("url", id);
       this.url = this.composedUrl();
     },
     which: "ShareRoomModel"
@@ -53,17 +55,9 @@
       room_key: null,
       url: ""
     },
-    getPublicShareRoom: function() {
-      var collection = spiderOakApp.shareRoomsCollection;
-      var shareroom = new spiderOakApp.PublicShareRoomModel(
-        {share_id: this.get("share_id"), room_key: this.get("room_key")},
-        {collection: collection}
-      );
-      // Use existing if already present, or add:
-      shareroom = (collection.get(shareroom)
-                   || (collection.add([shareroom]).get(shareroom)));
-      shareroom.fetch();
-      return shareroom;
+    initialize: function() {
+      this.set("id", (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
+                      "/" + this.get("room_key") + "/"));
     },
     which: "ShareRoomRecordModel"
   });

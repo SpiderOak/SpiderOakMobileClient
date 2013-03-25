@@ -17,6 +17,8 @@
     initialize: function() {
       spiderOakApp.shareRoomsCollection =
           new spiderOakApp.ShareRoomsCollection();
+      spiderOakApp.publicShareRoomsCollection =
+          new spiderOakApp.PublicShareRoomsCollection();
       _.bindAll(this);
       this.name = "Share Rooms";
       this.on("viewActivate",this.viewActivate);
@@ -43,7 +45,7 @@
     },
     loadVisitedShareRooms: function() {
       this.visitedShareRoomsRoot =
-          new spiderOakApp.ShareRoomsRecordCollection();
+          new spiderOakApp.PublicShareRoomsCollection();
 
       this.visitedShareRoomsListView =
         new spiderOakApp.VisitedShareRoomsListView({
@@ -205,7 +207,7 @@
     },
     addOne: function(model) {
       var view = new spiderOakApp.ShareRoomItemView({
-        model: model.getPublicShareRoom()
+        model: model
       });
       this.$elList.append(view.render().el);
       this.subViews.push(view);

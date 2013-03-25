@@ -18,6 +18,28 @@
   });
   var ShareRoomsCollection = spiderOakApp.ShareRoomsCollection;
 
+  spiderOakApp.PublicShareRoomsCollection = ShareRoomsCollection.extend({
+    model: spiderOakApp.PublicShareRoomModel,
+    initialize: function () {
+      ShareRoomsCollection.prototype.initialize.call(this);
+      this.visited_records = new spiderOakApp.ShareRoomsRecordCollection();
+      this.visited_records.fetch();
+      this.index = {};
+    },
+    /**
+     * Fetch public share rooms according to the recorded collection of
+     * those being visited.
+     */
+    fetch: function (options) {
+      this.visited_records.each(function (visited_record) {
+        var share_id = visited_record.get("share_id"),
+            room_key = visited_record.get("room_key");
+        this.add({share_id: share_id, room_key: room_key});
+      }.bind(this));
+    },
+    which: "PublicShareRoomsCollection"
+  });
+
   spiderOakApp.MyShareRoomsCollection = ShareRoomsCollection.extend({
     parse: function(resp, xhr) {
       var sharerooms = [],

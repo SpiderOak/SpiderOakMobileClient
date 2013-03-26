@@ -44,13 +44,11 @@
       return this;
     },
     loadVisitedShareRooms: function() {
-      this.visitedShareRoomsRoot =
-          new spiderOakApp.PublicShareRoomsCollection();
-
       this.visitedShareRoomsListView =
         new spiderOakApp.VisitedShareRoomsListView({
-          collection: this.visitedShareRoomsRoot,
-          el: this.$(".visitedShareRoomsSection")
+          collection: spiderOakApp.publicShareRoomsCollection,
+          el: this.$(".visitedShareRoomsSection"),
+          scroller: this.scroller
         });
       // When we've finished fetching the folders, help hide the spinner:
       this.visitedShareRoomsListView.$el.one("complete", function(event) {
@@ -184,6 +182,9 @@
     },
     initialize: function() {
       this.subViews = [];
+      if (this.options.scroller) {
+        this.scroller = this.options.scroller;
+      }
 
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".visitedShareRoomsList");
@@ -198,6 +199,7 @@
     render: function() {
       // @TODO: Add a "loading spinner" row at the top
       this.addAll();
+      this.scroller.refresh();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
@@ -218,7 +220,16 @@
       this.$el.trigger("complete");
     },
     addPublicShare_tapHandler: function(event) {
-      navigator.notification.alert("addPublicShare_tapHandler");
+      var attrs = {}, model;
+      function attr_setter(name) {
+        return function(result) { attrs[name] = result; };
+      }
+      navigator.notification.prompt("Share Id:", attr_setter("share_id"));
+      navigator.notification.prompt("Room Key:", attr_setter("room_key"));
+      navigator.notification.confirm("Remember? ('Cancel' for transient)",
+                                     attr_setter("remember"));
+      this.collection.add(attrs);
+      this.addAll();
     },
     close: function(){
       this.remove();

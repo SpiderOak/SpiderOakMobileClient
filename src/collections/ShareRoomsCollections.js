@@ -22,9 +22,10 @@
     model: spiderOakApp.PublicShareRoomModel,
     initialize: function () {
       var got = ShareRoomsCollection.prototype.initialize.call(this);
-      this.visited_records = new spiderOakApp.ShareRoomsRecordCollection();
-      this.visited_records.fetch();
-      this.index = {};
+      /** A hash of the share rooms to be retained in local storage.
+       * {"<b32(share_id)>/<room_key>": 1, ...}
+       */
+      this.retain = this.getRetainedRecords("everyone");//Could be account name.
       return got;
     },
     /**
@@ -32,15 +33,32 @@
      * those being visited.
      */
     fetch: function (options) {
-      this.visited_records.each(function (visited_record) {
-        var share_id = visited_record.get("share_id"),
-            room_key = visited_record.get("room_key");
-        this.add({share_id: share_id, room_key: room_key});
+      _.each(this.retain, function (value, key) {
+        this.addFromModelId(key);
       }.bind(this));
       // Now fetch the models:
       this.each(function (model) {
         model.fetch();
       });
+    },
+    addFromModelId: function(modelId) {
+      var splat = modelId.split("/"),
+          share_id = spiderOakApp.b32nibbler.decode(splat[0]),
+          room_key = splat[1];
+      this.add({share_id: share_id, room_key: room_key});
+    },
+    formRetainedName: function(name) {
+      return "spiderOakApp_pubshares_" + JSON.stringify(name);
+    },
+    getRetainedRecords: function(name) {
+      var fromStorage = window.store.get(this.formRetainedName(name));
+      // XXX Artificially inject a demo item:
+      fromStorage = JSON.stringify({"NNWG22LOM4/media": 0});
+      return JSON.parse(fromStorage);
+    },
+    saveRetainedRecords: function(name) {
+      window.store.set(this.formRetainedName(name),
+                       JSON.stringify(this.retain));
     },
     which: "PublicShareRoomsCollection"
   });
@@ -64,33 +82,6 @@
       return sharerooms;
     },
     which: "MyShareRoomsCollection"
-  });
-
-  spiderOakApp.ShareRoomsRecordCollection = Backbone.Collection.extend({
-    model: spiderOakApp.ShareRoomRecordModel,
-    fetch: function(options) {
-      //console.log("ShareRoomRecordCollection.fetch()");
-      // Skip right to the sync - records have no remote url to be fetched:
-      this.sync("read", this, options);
-    },
-    sync: function(mode, collection, options) {
-      if (mode.match(/read/i)) {
-        // @TODO: Replace dummy code for exercising with an example share room:
-        if (this.models.length === 0) {
-          var newone = new this.model({
-            share_id: "klming",
-            room_key: "media",
-            retained: true      // "Remember Visited" in the graphical spec.
-          });
-          this.add(newone);
-        }
-      }
-      else if (mode.match(/write/i)) {
-        console.log("@TODO: ShareRoomRecordCollection WRITE sync");
-        // @TODO: If we are retaining visits across sessions, preserve the urls.
-      }
-    },
-    which: "ShareRoomRecordCollection"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

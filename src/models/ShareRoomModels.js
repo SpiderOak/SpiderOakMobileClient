@@ -41,25 +41,4 @@
     which: "PublicShareRoomModel"
   });
 
-  /**
-   * Distinct entities for identifying currently visited public share rooms.
-   *
-   * These distinct items and collection enables handling device-local
-   * recording, separate from coordination of the actual share rooms with
-   * the server.
-   */
-  spiderOakApp.ShareRoomRecordModel = Backbone.Model.extend({
-    defaults: {
-      retained: false,
-      share_id: null,
-      room_key: null,
-      url: ""
-    },
-    initialize: function() {
-      this.set("id", (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
-                      "/" + this.get("room_key") + "/"));
-    },
-    which: "ShareRoomRecordModel"
-  });
-
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

@@ -31,4 +31,14 @@ if (! window.cordova) {
           }
         };
   }
+  if (! navigator.notification.prompt) {
+    navigator.notification.prompt =
+        function (message, promptCallback, title, buttonLabels){
+          var promptResult = window.prompt(message);
+          if (promptCallback)
+          {
+            promptCallback(promptResult);
+          }
+        };
+  }
 }

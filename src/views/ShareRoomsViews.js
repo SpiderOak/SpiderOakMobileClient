@@ -220,16 +220,20 @@
       this.$el.trigger("complete");
     },
     addPublicShare_tapHandler: function(event) {
-      var attrs = {}, model;
-      function attr_setter(name) {
+      var attrs = {remember: 0}, model;
+      function attrSetter(name) {
         return function(result) { attrs[name] = result; };
       }
-      navigator.notification.prompt("Share Id:", attr_setter("share_id"));
-      navigator.notification.prompt("Room Key:", attr_setter("room_key"));
-      navigator.notification.confirm("Remember? ('Cancel' for transient)",
-                                     attr_setter("remember"));
-      this.collection.add(attrs);
-      this.addAll();
+      navigator.notification.prompt("Share Id:", attrSetter("share_id"));
+      if (attrs["share_id"]) {
+        navigator.notification.prompt("Room Key:", attrSetter("room_key"));
+        if (attrs["room_key"]) {
+          navigator.notification.confirm("Remember? ('Cancel' for transient)",
+                                         attrSetter("remember"));
+          this.collection.add(attrs);
+          this.addAll();
+        }
+      }
     },
     close: function(){
       this.remove();

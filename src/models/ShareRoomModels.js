@@ -21,6 +21,9 @@
   });
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
+    defaults: {
+      remember: 0
+    },
     parse: function(resp, xhr) {
       //console.log("PublicShareRoomModel.parse() " +
       //            JSON.stringify(resp));

@@ -19,7 +19,8 @@
       storage_web_url: "",      // Irrelevant to mobile client for now.
       login_url_preface: "https://" + base_domain + "/storage/",
       login_url_start: "https://" + base_domain + "/browse/login",
-      logout_url_preface: "https://" + base_domain + "/storage/"
+      logout_url_preface: "https://" + base_domain + "/storage/",
+      b32username: ""
     },
     initialize: function() {
       _.bindAll(this, "login");

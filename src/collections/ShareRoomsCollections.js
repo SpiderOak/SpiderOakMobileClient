@@ -22,10 +22,13 @@
     model: spiderOakApp.PublicShareRoomModel,
     initialize: function () {
       var got = ShareRoomsCollection.prototype.initialize.call(this);
-      /** A hash of the share rooms to be retained in local storage.
-       * {"<b32(share_id)>/<room_key>": 1, ...}
+      this.on("add", this.addHandler);
+      this.on("remove", this.removeHandler);
+      /** A hash of the public share rooms being visited, mapped to their
+       * local storage retention election. Retain is 0 or 1 for compactness.
+       * {"<b32(share_id)>/<room_key>": <retain?>, ...}
        */
-      this.retain = this.getRetainedRecords("everyone");//Could be account name.
+      this.visiting = this.getRetainedRecords();
       return got;
     },
     /**
@@ -33,32 +36,64 @@
      * those being visited.
      */
     fetch: function (options) {
-      _.each(this.retain, function (value, key) {
-        this.addFromModelId(key);
+      // Fetch according to the recorded list of those being visited.
+      _.each(this.visiting, function (remember, modelId) {
+        var splat = modelId.split("/"),
+        share_id = spiderOakApp.b32nibbler.decode(splat[0]),
+        room_key = splat[1];
+        this.add({share_id: share_id,
+                  room_key: room_key,
+                  remember: remember});
       }.bind(this));
-      // Now fetch the models:
-      this.each(function (model) {
-        model.fetch();
+      // addHandler does the fetch for each model.
+    },
+    addHandler: function(model, collection, options) {
+      var surroundingSuccess = options && options.success,
+          surroundingError = options && options.error;
+      _.extend(options, {
+        success: function() {
+          this.visiting[model.id] = model.get("remember") ? 1 : 0;
+          // We always save to account for subtle changes, like remember status.
+          this.saveRetainedRecords();
+          if (surroundingSuccess) {
+            surroundingSuccess();
+          }
+        }.bind(this),
+        error: function(model, xhr, options) {
+          // @TODO: Use some kind of toast, or other non-modal alert.
+          navigator.notification.alert("Share Room " +
+                                       model.get("share_id") + "/" +
+                                       model.get("room_key") +
+                                      " not found.");
+          this.remove(model);
+          if (surroundingError) {
+            surroundingError();
+          }
+        }.bind(this)
       });
+      model.fetch(options);
     },
-    addFromModelId: function(modelId) {
-      var splat = modelId.split("/"),
-          share_id = spiderOakApp.b32nibbler.decode(splat[0]),
-          room_key = splat[1];
-      this.add({share_id: share_id, room_key: room_key});
-    },
-    formRetainedName: function(name) {
-      return "spiderOakApp_pubshares_" + JSON.stringify(name);
+    removeHandler: function(model, collection, options) {
+      if (this.visiting.hasOwnProperty(model.id)) {
+        delete this.visiting[model.id];
+        this.saveRetainedRecords();
+      }
     },
     getRetainedRecords: function(name) {
-      var fromStorage = window.store.get(this.formRetainedName(name));
-      // XXX Artificially inject a demo item:
-      fromStorage = JSON.stringify({"NNWG22LOM4/media": 0});
+      var fromStorage = window.store.get(this.retentionName());
       return JSON.parse(fromStorage);
     },
     saveRetainedRecords: function(name) {
-      window.store.set(this.formRetainedName(name),
-                       JSON.stringify(this.retain));
+      var retain = {};
+      _.each(this.visiting, function (value, key) {
+        if (value) { retain[key] = value; }
+      });
+      window.store.set(this.retentionName(), JSON.stringify(retain));
+    },
+    retentionName: function() {
+      // "anonymous" should never collide with all-upper-case base32 names.
+      var name = spiderOakApp.accountModel.get("b32username") || "anonymous";
+      return "spiderOakApp_pubshares_" + name;
     },
     which: "PublicShareRoomsCollection"
   });

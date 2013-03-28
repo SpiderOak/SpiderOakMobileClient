@@ -224,9 +224,9 @@
       function attrSetter(name) {
         return function(result) { attrs[name] = result; };
       }
-      navigator.notification.prompt("Share Id:", attrSetter("share_id"));
+      attrSetter("share_id")(window.prompt("Share Id:"));
       if (attrs["share_id"]) {
-        navigator.notification.prompt("Room Key:", attrSetter("room_key"));
+        attrSetter("room_key")(window.prompt("Room Key:"));
         if (attrs["room_key"]) {
           navigator.notification.confirm("Remember? ('Cancel' for transient)",
                                          attrSetter("remember"));

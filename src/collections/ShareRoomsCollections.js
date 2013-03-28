@@ -81,7 +81,7 @@
     },
     getRetainedRecords: function(name) {
       var fromStorage = window.store.get(this.retentionName());
-      return JSON.parse(fromStorage);
+      return JSON.parse(fromStorage) || {};
     },
     saveRetainedRecords: function(name) {
       var retain = {};

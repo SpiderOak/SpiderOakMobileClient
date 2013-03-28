@@ -221,17 +221,19 @@
     },
     addPublicShare_tapHandler: function(event) {
       var attrs = {remember: 0}, model;
-      function attrSetter(name) {
-        return function(result) { attrs[name] = result; };
-      }
-      attrSetter("share_id")(window.prompt("Share Id:"));
-      if (attrs["share_id"]) {
-        attrSetter("room_key")(window.prompt("Room Key:"));
-        if (attrs["room_key"]) {
-          navigator.notification.confirm("Remember? ('Cancel' for transient)",
-                                         attrSetter("remember"));
-          this.collection.add(attrs);
-          this.addAll();
+      attrs.share_id = window.prompt("Share Id:");
+      if (attrs.share_id) {
+        attrs.room_key = window.prompt("Room Key:");
+        if (attrs.room_key) {
+          var doAdds = function(remember) {
+            attrs.remember = (remember == 1) ? 1 : 0;
+            this.collection.add(attrs);
+            this.addAll();
+          }.bind(this);
+          navigator.notification.confirm("Remember this Share Room?",
+                                         doAdds,
+                                         "Remember?",
+                                         "Remember,Don't Remember");
         }
       }
     },

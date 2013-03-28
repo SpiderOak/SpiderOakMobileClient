@@ -27,7 +27,7 @@ if (! window.cordova) {
           var isConfirmed = window.confirm(message);
           if (confirmCallback)
           {
-            confirmCallback((isConfirmed) ? 1 : 0);
+            confirmCallback((isConfirmed) ? 1 : 2);
           }
         };
   }

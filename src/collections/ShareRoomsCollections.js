@@ -79,16 +79,32 @@
         this.saveRetainedRecords();
       }
     },
-    getRetainedRecords: function(name) {
+    getRetainedRecords: function() {
       var fromStorage = window.store.get(this.retentionName());
-      return JSON.parse(fromStorage) || {};
+      if (! fromStorage) {
+        return {};
+      }
+      try {
+        return JSON.parse(fromStorage);
+      } catch (e) {
+        if (e instanceof SyntaxError) {
+          console.log("Removing malformed locally stored" +
+                      " Public Share Room records: " +
+                      fromStorage);
+          this.removeRetainedRecords();
+          return {};
+        }
+      }
     },
-    saveRetainedRecords: function(name) {
+    saveRetainedRecords: function() {
       var retain = {};
       _.each(this.visiting, function (value, key) {
         if (value) { retain[key] = value; }
       });
       window.store.set(this.retentionName(), JSON.stringify(retain));
+    },
+    removeRetainedRecords: function() {
+      window.store.remove(this.retentionName());
     },
     retentionName: function() {
       // "anonymous" should never collide with all-upper-case base32 names.

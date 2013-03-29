@@ -253,7 +253,7 @@
     tagName: "li",
     className: "",
     events: {
-      "tap a": "a_tapHandler"
+      "tap a": "descend_tapHandler"
     },
     initialize: function() {
       _.bindAll(this, "render");
@@ -269,7 +269,7 @@
       );
       return this;
     },
-    a_tapHandler: function(event) {
+    descend_tapHandler: function(event) {
       var options = {
         id: this.model.cid,
         title: this.model.get("name"),

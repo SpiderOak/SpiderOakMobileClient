@@ -2,7 +2,7 @@
   "name": "SpiderOakMobile",
   "version": "0.1.0",
   "dependencies": {
-    "backbone": "latest",
+    "backbone": "~0.9.10",
     "underscore": "latest",
     "backbone.basicauth": "https://github.com/fiznool/backbone.basicauth.git",
     "backstack": "https://github.com/pwalczyszyn/backstack.git",

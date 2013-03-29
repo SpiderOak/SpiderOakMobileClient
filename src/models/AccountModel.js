@@ -19,7 +19,8 @@
       storage_web_url: "",      // Irrelevant to mobile client for now.
       login_url_preface: "https://" + base_domain + "/storage/",
       login_url_start: "https://" + base_domain + "/browse/login",
-      logout_url_preface: "https://" + base_domain + "/storage/"
+      logout_url_preface: "https://" + base_domain + "/storage/",
+      b32username: ""
     },
     initialize: function() {
       _.bindAll(this, "login");
@@ -61,7 +62,7 @@
             // has, according to the b32username: the server preserves the
             // original account's alphabetic case, and uses it, whatever
             // case differences the user enters for login.
-            username = _self.b32nibbler.decode(b32username);
+            username = spiderOakApp.b32nibbler.decode(b32username);
             // Set the basicauth details:
             Backbone.BasicAuth.set(username,password);
             // Record the b32username:
@@ -144,13 +145,7 @@
       // Clear internal settings:
       this.clear();
       successCallback();
-    },
-    b32nibbler: new window.Nibbler({
-      dataBits: 8,
-      codeBits: 5,
-      keyString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
-      pad: ""
-    })
+    }
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

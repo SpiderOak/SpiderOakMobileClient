@@ -25,9 +25,9 @@
 /*
 Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
-[class*="icon-"]:before {
+[class*="icon-"] {
 */
-.icon-file:before, .icon-file-pdf:before, .icon-file-word:before, .icon-file-excel:before, .icon-file-zip:before, .icon-file-powerpoint:before, .icon-file-xml:before, .icon-file-css:before, .icon-film:before, .icon-music:before, .icon-star:before, .icon-star-2:before, .icon-cog:before, .icon-clock:before, .icon-history:before, .icon-tux:before, .icon-finder:before, .icon-windows:before, .icon-image:before, .icon-menu:before, .icon-arrow-left:before, .icon-exit:before, .icon-folder-open:before, .icon-folder:before, .icon-cloud-upload:before, .icon-remove:before, .icon-close:before, .icon-checkmark:before, .icon-loop:before {
+.icon-file, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-cog, .icon-clock, .icon-history, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus {
 	font-family: 'SpiderOakIcons';
 	speak: none;
 	font-style: normal;
@@ -117,6 +117,20 @@ you can use the generic selector below, but it's slower:
 }
 .icon-close:before {
 	content: "\e01a";
+}
+.icon-checkmark:before {
+	content: "\e01b";
+}
+.icon-loop:before {
+	content: "\e01c";
+}
+.icon-plus:before {
+	content: "\e01d";
+}
+.icon-minus:before {
+	content: "\e01e";
+}
+nt: "\e01a";
 }
 .icon-checkmark:before {
 	content: "\e01b";

@@ -61,7 +61,15 @@ public class FileViewerPlugin extends Plugin {
         JSONObject obj = args.getJSONObject(0);
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         Uri uri = obj.has("url") ? Uri.parse(obj.getString("url")) : null;
-        String ext=mime.getFileExtensionFromUrl(Uri.encode(uri.toString()));
+        // File file = new File(uri.getEncodedPath());
+        // Log.d(LOG_TAG, Uri.encode(uri.toString()));
+        // String ext=mime.getFileExtensionFromUrl(uri.toString());
+        String ext = "";
+        int x = uri.toString().lastIndexOf('.');
+        if (x > 0) {
+            ext = uri.toString().substring(x+1);
+        }
+        // Log.d(LOG_TAG, ext);
         String type = obj.has("type") ? obj.getString("type") : mime.getMimeTypeFromExtension(ext);
         
         JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;

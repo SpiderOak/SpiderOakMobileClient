@@ -92,6 +92,111 @@ describe('Application setup', function() {
     });
   });
 
+  describe('utilities', function() {
+    /**
+     * model.composeUrl() permutations to test:
+     *
+     *                collection         /              model
+     *      .urlBase | .url   / .get("urlBase") | .urlBase | .get("url") | .url
+     * Each setting needs to be tried as direct attribute and function value.
+     */
+    describe('composedUrl', function() {
+      /** Fabricate model and collection with selected urlBase and url criteria.
+       *
+       * @returns{object} the model
+       */
+      beforeEach(function(){
+        this.model = new Backbone.Model();
+        this.model.collection = new Backbone.Collection();
+      });
+      afterEach(function(){
+        delete this.model.collection;
+        delete this.model;
+      });
+      it("should use collection.urlBase and model.get('url')",
+         function() {
+           this.model.set("url", "model.get('url')")
+           this.model.collection.urlBase = "collection.urlBase/";
+           this.model.composedUrl().should.equal(
+             "collection.urlBase/model.get('url')"
+           );
+         });
+      it("should not use plain.url",
+         function() {
+           this.model.url = "model.url";
+           this.model.collection.urlBase = "collection.urlBase/";
+           this.model.composedUrl().should.equal(
+             "collection.urlBase/"
+           );
+         });
+      it("should use model.get('url') even when model.url is set",
+         function() {
+           this.model.url = "model.url";
+           this.model.set("url", "model.get('url')")
+           this.model.collection.urlBase = "collection.urlBase/";
+           this.model.composedUrl().should.equal(
+             "collection.urlBase/model.get('url')"
+           );
+         });
+      it("should prefer model.urlBase over collection.urlBase",
+         function() {
+           this.model.set("url", "model.get('url')")
+           this.model.urlBase = "model.urlBase/";
+           this.model.collection.urlBase = "collection.urlBase/";
+           this.model.composedUrl().should.equal(
+             "model.urlBase/model.get('url')"
+           );
+         });
+      it("should prefer model.get('urlBase') over model.urlBase",
+         function() {
+           this.model.set("url", "model.get('url')")
+           this.model.urlBase = "model.urlBase/";
+           this.model.set("urlBase", "model.get('urlBase')/")
+           this.model.composedUrl().should.equal(
+             "model.get('urlBase')/model.get('url')"
+           );
+         });
+      it("should prefer model.get('urlBase') over model.urlBase and " +
+         " collection.urlBase",
+         function() {
+           this.model.set("url", "model.get('url')")
+           this.model.urlBase = "model.urlBase/";
+           this.model.set("urlBase", "model.get('urlBase')/")
+           this.model.collection.urlBase = "collection.urlBase/";
+           this.model.composedUrl().should.equal(
+             "model.get('urlBase')/model.get('url')"
+           );
+         });
+      it("should prefer model.urlBase over collection.urlBase",
+         function() {
+           this.model.set("url", "model.get('url')")
+           this.model.urlBase = "model.urlBase/";
+           this.model.collection.urlBase = "collection.urlBase/";
+           this.model.composedUrl().should.equal(
+             "model.urlBase/model.get('url')"
+           );
+         });
+      it("should use collection urlBase as function and model.get('url')",
+         function() {
+           this.model.set("url", "model.get('url')")
+           this.model.collection.urlBase =
+               function () { return "collection.urlBase()/";
+                             this.model.composedUrl().should.equal(
+                               "collection.urlBase()/model.get('url')"
+                             )};
+         });
+      it("should use both collection urlBase and model.get('url') as functions",
+         function() {
+           this.model.set("url", function () { return "model.get('url')()"});
+           this.model.collection.urlBase =
+               function () { return "collection.urlBase()/";
+                             this.model.composedUrl().should.equal(
+                               "collection.urlBase()/model.get('url')()"
+                             )};
+         });
+    });
+  });
+
 });
 
 

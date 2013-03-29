@@ -20,6 +20,10 @@
   // };
 
   _.extend(spiderOakApp, {
+    // @TODO: Establish distinct config file and fetch settings from it.
+    config: {
+      server: "spideroak.com"
+    },
     initialize: function() {
       // Start listening for important app-level events
       document.addEventListener(
@@ -110,40 +114,57 @@
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
-    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : null)
+    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : null),
+    b32nibbler: new window.Nibbler({dataBits: 8,
+                                    codeBits: 5,
+                                    keyString:
+                                      "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+                                    pad: ""
+                                   })
   });
 
-/*
- * How a model in our framework determines its' composite URL.
- *
- * The URL is a concatenation of model and collection url elements.  Any
- * prevailing elements that are functions are evaluated for their result.
- *
- * - A head part is taken in this order of precedence:
- *   - the model's collection's urlBase attribute, or
- *   - the model's collection's url attribute,
- * - The url part is taken from the model's .get("url").
- *
- * @this{model}
- */
-Backbone.Model.prototype.composedUrl = function() {
-  var urlTail = this.get("url");
-  var collection = this.collection;
-  var urlHead = collection ? (collection.urlBase || collection.url) : "";
-  if (typeof urlTail === "function") {
-    urlTail = urlTail.call(this);
-  }
-  if (typeof urlHead === "function") {
-    urlHead = urlHead.call(this.collection);
-  }
-  return urlHead + urlTail;
-};
-/**
- * Method to fetch model.url string and function versions identically.
- */
-Backbone.Model.prototype.urlResult = function() {
-  return (typeof this.url === "function") ? this.url() : this.url;
-};
+  /*
+   * How a model in our framework determines its' composite URL.
+   *
+   * The URL is a concatenation of model and collection url elements.  Any
+   * prevailing elements that are functions are evaluated, as methods on
+   * the object from which they were obtained, for their result.
+   *
+   * - A head part is taken in this order of precedence:
+   *   - the model's .get("urlBase")
+   *   - or the model's urlBase attribute
+   *   - or the containing collection's .urlBase
+   *   - or the containing collection's .url
+   * - The url part is taken from the model's .get("url").
+   *
+   * @this{model}
+   */
+  Backbone.Model.prototype.composedUrl = function() {
+    var urlTail = this.get("url");
+    var collection = this.collection;
+    var urlHead = this.get("urlBase") || this.urlBase;
+    var urlHeadObject = urlHead && this;
+    if (! urlHead && collection) {
+      urlHead = (collection.get("urlBase")
+                 || collection.urlBase
+                 || collection.url
+                 || "");
+      urlHeadObject = urlHead && collection;
+    }
+    if (typeof urlHead === "function") {
+      urlHead = urlHead.call(urlHeadObject);
+    }
+    if (typeof urlTail === "function") {
+      urlTail = urlTail.call(this);
+    }
+    return (urlHead || "") + (urlTail || "");
+  };
+  /**
+   * Method to fetch model.url string and function versions identically.
+   */
+  Backbone.Model.prototype.urlResult = function() {
+    return (typeof this.url === "function") ? this.url() : this.url;
+  };
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 

@@ -288,6 +288,7 @@
     }
   });
 
+
   spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
     events: {
       "tap .descend": "descend_tapHandler",

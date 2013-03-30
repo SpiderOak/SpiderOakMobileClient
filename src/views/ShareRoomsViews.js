@@ -208,7 +208,7 @@
           .removeClass("loadingVisitedShares");
     },
     addOne: function(model) {
-      var view = new spiderOakApp.ShareRoomItemView({
+      var view = new spiderOakApp.PublicShareRoomItemView({
         model: model
       });
       this.$elList.append(view.render().el);
@@ -253,7 +253,7 @@
     tagName: "li",
     className: "",
     events: {
-      "tap a": "a_tapHandler"
+      "tap a": "descend_tapHandler"
     },
     initialize: function() {
       _.bindAll(this, "render");
@@ -269,7 +269,7 @@
       );
       return this;
     },
-    a_tapHandler: function(event) {
+    descend_tapHandler: function(event) {
       var options = {
         id: this.model.cid,
         title: this.model.get("name"),
@@ -285,6 +285,36 @@
     close: function(){
       this.remove();
       this.unbind();
+    }
+  });
+
+
+  spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
+    events: {
+      "tap .descend": "descend_tapHandler",
+      "tap .removePublicShare": "removePublicShare_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this, "render");
+    },
+    render: function() {
+      this.$el.html(
+        _.template(
+          ("<a href='#share'>" +
+           "<span class='descend' width='100%'>" +
+           "<i class='icon-folder'></i> <%= name %>" +
+           "</span>" +
+           "<span style='float: right' class='removePublicShare'>" +
+           "X" +
+           "</span>" +
+           "</a>"),
+          this.model.toJSON()
+        )
+      );
+      return this;
+    },
+    removePublicShare_tapHandler: function(event) {
+      this.model.collection.remove(this.model);
     }
   });
 

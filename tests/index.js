@@ -1,11 +1,6 @@
 /*jshint expr:true */
 describe('Application setup', function() {
   describe('components', function() {
-    describe('yepnope', function() {
-      it('should have yepnope', function() {
-        window.yepnope.should.be.a('function');
-      });
-    });
 
     describe('zepto', function() {
       it('should have zepto', function() {

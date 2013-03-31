@@ -10,6 +10,7 @@ module.exports = function(grunt) {
         '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
         ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' + "\n" +
         ' * License: <%= _.pluck(pkg.licenses, "type").join(", ") %> (<%= _.pluck(pkg.licenses, "url").join(", ") %>)' + "\n" +
+        ' * GENERATED FILE. DO NOT EDIT.' + "\n" +
         ' */'
     },
     shell: {
@@ -107,6 +108,26 @@ module.exports = function(grunt) {
           'www/components/zepto/src/touch.js'
         ],
         dest: 'www/components/zepto/zepto.js'
+      },
+      defaultcss: {
+        src: [
+          '<banner:meta.banner>',
+          'www/css/themes/android.css'
+        ],
+        dest: 'www/css/platform.css'
+      },
+      androidcss: {
+        src: [
+          '<banner:meta.banner>',
+          'www/css/themes/android.css'
+        ],
+        dest: 'merges/android/css/platform.css'
+      },
+      ioscss: {
+        src: [
+          'www/css/themes/ios.css'
+        ],
+        dest: 'merges/ios/css/platform.css'
       }
     },
     min: {

@@ -28,8 +28,14 @@
        * local storage retention election. Retain is 0 or 1 for compactness.
        * {"<b32(share_id)>/<room_key>": <retain?>, ...}
        */
-      this.visiting = this.getRetainedRecords();
+      if (! spiderOakApp.visitingPublicShares) {
+        spiderOakApp.visitingPublicShares = this.getRetainedRecords();
+      }
       return got;
+    },
+    reset: function (models, options) {
+      ShareRoomsCollection.prototype.reset.call(this, models, options);
+      spiderOakApp.visitingPublicShares = null;
     },
     /**
      * Fetch public share rooms according to the recorded collection of
@@ -37,7 +43,7 @@
      */
     fetch: function (options) {
       // Fetch according to the recorded list of those being visited.
-      _.each(this.visiting, function (remember, modelId) {
+      _.each(spiderOakApp.visitingPublicShares, function (remember, modelId) {
         var splat = modelId.split("/"),
         share_id = spiderOakApp.b32nibbler.decode(splat[0]),
         room_key = splat[1];
@@ -52,7 +58,8 @@
           surroundingError = options && options.error;
       _.extend(options, {
         success: function() {
-          this.visiting[model.id] = model.get("remember") ? 1 : 0;
+          spiderOakApp.visitingPublicShares[model.id] =
+              model.get("remember") ? 1 : 0;
           // We always save to account for subtle changes, like remember status.
           this.saveRetainedRecords();
           if (surroundingSuccess) {
@@ -74,8 +81,8 @@
       model.fetch(options);
     },
     removeHandler: function(model, collection, options) {
-      if (this.visiting.hasOwnProperty(model.id)) {
-        delete this.visiting[model.id];
+      if (spiderOakApp.visitingPublicShares.hasOwnProperty(model.id)) {
+        delete spiderOakApp.visitingPublicShares[model.id];
         this.saveRetainedRecords();
       }
     },
@@ -98,7 +105,7 @@
     },
     saveRetainedRecords: function() {
       var retain = {};
-      _.each(this.visiting, function (value, key) {
+      _.each(spiderOakApp.visitingPublicShares, function (value, key) {
         if (value) { retain[key] = value; }
       });
       window.store.set(this.retentionName(), JSON.stringify(retain));

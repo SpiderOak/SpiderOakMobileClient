@@ -142,6 +142,9 @@
       // window.store.clear();
       // Clear recents
       spiderOakApp.recentsCollection.reset([]);
+      if (spiderOakApp.publicShareRoomsCollection) {
+        spiderOakApp.publicShareRoomsCollection.reset();
+      }
       // Clear internal settings:
       this.clear();
       successCallback();

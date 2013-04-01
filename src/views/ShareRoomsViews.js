@@ -19,6 +19,8 @@
           new spiderOakApp.ShareRoomsCollection();
       spiderOakApp.publicShareRoomsCollection =
           new spiderOakApp.PublicShareRoomsCollection();
+      // spiderOakApp.addShareRoomView =
+      //     new spiderOakApp.AddShareRoomView().render();
       _.bindAll(this);
       this.name = "Share Rooms";
       this.on("viewActivate",this.viewActivate);
@@ -110,9 +112,12 @@
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
+      this.addPublicShareRoomButtonView =
+        new spiderOakApp.PublicShareRoomsAddButton();
+      $("#main .nav").append(this.addPublicShareRoomButtonView.render().el);
     },
     viewDeactivate: function(event) {
-      //this.close();
+      this.addPublicShareRoomButtonView.remove();
     },
     remove: function() {
       this.close();
@@ -177,9 +182,6 @@
   });
 
   spiderOakApp.VisitedShareRoomsListView = Backbone.View.extend({
-    events: {
-      "tap .addPublicShare": "addPublicShare_tapHandler"
-    },
     initialize: function() {
       this.subViews = [];
       if (this.options.scroller) {
@@ -194,12 +196,13 @@
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
 
+      $(document).on("addPublicShareRoom", this.addPublicShare, this);
+
       this.collection.fetch();
     },
     render: function() {
       // @TODO: Add a "loading spinner" row at the top
       this.addAll();
-      this.scroller.refresh();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
@@ -218,24 +221,15 @@
       this.$elList.empty(); // needed still?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
+      this.scroller.refresh();
     },
-    addPublicShare_tapHandler: function(event) {
-      var attrs = {remember: 0}, model;
-      attrs.share_id = window.prompt("Share Id:");
-      if (attrs.share_id) {
-        attrs.room_key = window.prompt("Room Key:");
-        if (attrs.room_key) {
-          var doAdds = function(remember) {
-            attrs.remember = (remember == 1) ? 1 : 0;
-            this.collection.add(attrs);
-            this.addAll();
-          }.bind(this);
-          navigator.notification.confirm("Remember this Share Room?",
-                                         doAdds,
-                                         "Remember?",
-                                         "Remember,Don't Remember");
-        }
-      }
+    addPublicShare: function(event) {
+      // spiderOakApp.addShareRoomView.show();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.PublicShareRoomItemView,
+        {model:this.model},
+        spiderOakApp.defaultEffect
+      );
     },
     close: function(){
       this.remove();
@@ -246,6 +240,93 @@
           subViews.close();
         }
       });
+    }
+  });
+
+  spiderOakApp.AddShareRoomView = Backbone.View.extend({
+    name: "Add Public Share Room",
+    className: "addShareRoom",
+    events: {
+      "submit form": "form_submitHandler",
+      "tap .addShareRoomsButton": "addShareRoomsButton_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      this.$el.html(_.template(
+        window.tpl.get("addShareRoomTemplate"),{})
+      );
+      return this;
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.showBackButton(true);
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.$("input").val("");
+      this.$("input").blur();
+    },
+    form_submitHandler: function(event) {
+      event.preventDefault();
+      this.$("input").blur();
+      var doAdds = function(remember) {
+        spiderOakApp.publicShareRoomsCollection.add({
+          remember: (remember === 1) ? 1 : 0,
+          share_id: this.$("[name=shareid]").val(),
+          room_key: this.$("[name=roomkey]").val()
+        });
+        spiderOakApp.navigator.popView();
+        // this.addAll();
+      }.bind(this);
+      navigator.notification.confirm(
+        "Remember this Share Room?",
+        doAdds,
+        "Remember?",
+        "Remember,Don't Remember"
+      );
+    },
+    addShareRoomsButton_tapHandler: function(event) {
+      event.preventDefault();
+      this.form_submitHandler(event);
+    },
+    close: function(){
+      this.remove();
+      this.unbind();
+    }
+  });
+
+  spiderOakApp.PublicShareRoomsAddButton = Backbone.View.extend({
+    events: {
+      "tap a": "a_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+    },
+    render: function() {
+      this.$el.html(
+        "<a class='add-sharerooms-btn'><i class='icon-plus'></i></a>"
+      );
+      return this;
+    },
+    a_tapHandler: function(event) {
+      event.preventDefault();
+      // fire the event, let a view catch it and do something
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.AddShareRoomView,
+        {},
+        spiderOakApp.defaultEffect
+      );
     }
   });
 
@@ -270,6 +351,13 @@
       return this;
     },
     descend_tapHandler: function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      console.log($(event.target));
+      if ($(event.target).hasClass("rightButton") ||
+          $(event.target).hasClass("icon-close")) {
+        return;
+      }
       var options = {
         id: this.model.cid,
         title: this.model.get("name"),
@@ -291,30 +379,33 @@
 
   spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
     events: {
-      "tap .descend": "descend_tapHandler",
+      "tap a": "descend_tapHandler",
       "tap .removePublicShare": "removePublicShare_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this, "render");
+      _.bindAll(this);
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          ("<a href='#share'>" +
-           "<span class='descend' width='100%'>" +
-           "<i class='icon-folder'></i> <%= name %>" +
-           "</span>" +
-           "<span style='float: right' class='removePublicShare'>" +
-           "X" +
-           "</span>" +
-           "</a>"),
-          this.model.toJSON()
-        )
-      );
+      this.$el.html(_.template(
+        window.tpl.get("publicShareRoomItemViewTemplate"),
+        this.model.toJSON()
+      ));
       return this;
     },
     removePublicShare_tapHandler: function(event) {
-      this.model.collection.remove(this.model);
+      event.stopPropagation();
+      event.preventDefault();
+      var removeShare = function(button) {
+        if (button === 1) {
+          this.model.collection.remove(this.model);
+        }
+      }.bind(this);
+      navigator.notification.confirm(
+        "Remove this Share Room?",
+        removeShare,
+        "Remove?",
+        "OK,Cancel"
+      );
     }
   });
 

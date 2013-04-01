@@ -18,8 +18,8 @@ body {
 	position: absolute; 
 	left: 0;
 	padding: 0 3px;
-  background: url('../../img/ic_ab_back_holo_dark.png') no-repeat,
-    url('../../img/icon.png') no-repeat;
+  background: url('../img/ic_ab_back_holo_dark.png') no-repeat,
+    url('../img/icon.png') no-repeat;
 	width: 48px;
 	height:48px;
 	background-size: 16px, 35px;

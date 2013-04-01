@@ -3,8 +3,10 @@ www/components/**/*
 node_modules
 platforms/ios
 platforms/android
+www/css/platform.css
 www/js/SpiderOakMobile.js
 www/js/SpiderOakMobile.min.js
 www/tests/SpiderOakMobile-tests.js
 _SpecRunner.html
 .sass-cache
+merges/**/*

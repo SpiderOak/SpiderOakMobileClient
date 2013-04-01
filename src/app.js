@@ -91,10 +91,6 @@
       if ($(".modal").is(":visible")) {
         return;
       }
-      if ($(".addShareRoom").length &&
-          !$(".addShareRoom").hasClass("dismissed")) {
-        return;
-      }
       // @FIXME: Extend this logic a bit... it's a bit simplistic
       if ($("#main").hasClass("open")) {
         spiderOakApp.mainView.closeMenu();

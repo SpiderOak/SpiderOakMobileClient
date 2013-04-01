@@ -19,8 +19,8 @@
           new spiderOakApp.ShareRoomsCollection();
       spiderOakApp.publicShareRoomsCollection =
           new spiderOakApp.PublicShareRoomsCollection();
-      spiderOakApp.addShareRoomView =
-          new spiderOakApp.AddShareRoomView().render();
+      // spiderOakApp.addShareRoomView =
+      //     new spiderOakApp.AddShareRoomView().render();
       _.bindAll(this);
       this.name = "Share Rooms";
       this.on("viewActivate",this.viewActivate);
@@ -224,7 +224,12 @@
       this.scroller.refresh();
     },
     addPublicShare: function(event) {
-      spiderOakApp.addShareRoomView.show();
+      // spiderOakApp.addShareRoomView.show();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.PublicShareRoomItemView,
+        {model:this.model},
+        spiderOakApp.defaultEffect
+      );
     },
     close: function(){
       this.remove();
@@ -239,41 +244,38 @@
   });
 
   spiderOakApp.AddShareRoomView = Backbone.View.extend({
-    className: "addShareRoom dismissed",
+    name: "Add Public Share Room",
+    className: "addShareRoom",
     events: {
       "submit form": "form_submitHandler",
-      "tap .addShareRoomsButton": "addShareRoomsButton_tapHandler",
-      "tap .backToLoginButton": "backToLoginButton_tapHandler",
-      "tap .cancelButton": "cancelButton_tapHandler"
+      "tap .addShareRoomsButton": "addShareRoomsButton_tapHandler"
     },
     initialize: function() {
-      $('#app').append(this.el);
+      _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
       this.$el.html(_.template(
-        window.tpl.get("addShareRoomTemplate"),{
-          loggedIn: !!spiderOakApp.accountModel &&
-                    !!spiderOakApp.accountModel.get("b32username")
-        })
+        window.tpl.get("addShareRoomTemplate"),{})
       );
       return this;
     },
-    show: function() {
-      if (this.$el.hasClass("dismissed")) {
-        this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
-        this.$el.removeClass("dismissed");
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
       }
-      $(document).one("backbutton", function(event) {
-        this.dismiss(event);
-      }.bind(this));
+      if (event.toView === this) {
+        spiderOakApp.mainView.showBackButton(true);
+      }
     },
-    dismiss: function(event) {
-      if (!this.$el.hasClass("dismissed")) {
-        this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, 100);
-        this.$el.addClass("dismissed");
-        // Clear values
-        this.$("input").val("");
-      }
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.$("input").val("");
+      this.$("input").blur();
     },
     form_submitHandler: function(event) {
       event.preventDefault();
@@ -284,7 +286,7 @@
           share_id: this.$("[name=shareid]").val(),
           room_key: this.$("[name=roomkey]").val()
         });
-        this.dismiss();
+        spiderOakApp.navigator.popView();
         // this.addAll();
       }.bind(this);
       navigator.notification.confirm(
@@ -297,14 +299,6 @@
     addShareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
       this.form_submitHandler(event);
-    },
-    backToLoginButton_tapHandler: function(event) {
-      this.$("input").blur();
-      this.dismiss();
-    },
-    cancelButton_tapHandler: function(event) {
-      this.$("input").blur();
-      this.dismiss();
     },
     close: function(){
       this.remove();
@@ -328,7 +322,11 @@
     a_tapHandler: function(event) {
       event.preventDefault();
       // fire the event, let a view catch it and do something
-      $(document).trigger("addPublicShareRoom");
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.AddShareRoomView,
+        {},
+        spiderOakApp.defaultEffect
+      );
     }
   });
 

@@ -342,9 +342,7 @@
     render: function() {
       this.$el.html(
         _.template(
-          "<a href='#share'>" +
-          "<i class='icon-folder'></i> <%= name %>" +
-          "</a>",
+          window.tpl.get("shareRoomItemViewTemplate"),
           this.model.toJSON()
         )
       );

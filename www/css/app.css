@@ -291,6 +291,19 @@ ul li a .subtext {
   text-overflow: ellipsis;
 }
 
+.addShareRoom {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #eee;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+
 .modal {
   display: none;
   position: absolute;

@@ -28,11 +28,13 @@ body {
 
 .nav .menu-btn.active,
 .nav .back-btn.active,
-.nav .clear-recents-btn.active {
+.nav .clear-recents-btn.active,
+.nav .add-sharerooms-btn.active {
 	background-color: #333;
 }
 
-.nav .clear-recents-btn {
+.nav .clear-recents-btn,
+.nav .add-sharerooms-btn {
   font-size: 22px;
   position: absolute;
   right: 0;

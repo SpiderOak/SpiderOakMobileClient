@@ -19,10 +19,10 @@ module.exports = function(grunt) {
         stdout: true
       },
       debug_ios: {
-        command: 'cordova build ios && cordova emulate ios'
+        command: 'cordova build ios && ./platforms/ios/cordova/run'
       },
       debug_android: {
-        command: 'cordova build android && cordova emulate android'
+        command: 'cordova build android && ./platforms/android/cordova/run'
       },
       // Some different reporters...
       mochaspec: {

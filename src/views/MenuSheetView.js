@@ -163,6 +163,7 @@
         spiderOakApp.mainView.closeMenu();
         spiderOakApp.loginView.show();
       });
+      this.undelegateEvents();
     }
   });
 

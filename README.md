@@ -20,6 +20,8 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 	- Node package manager for Grunt Add-ons
 - PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
+- FileViewerPlugin - [https://github.com/SpiderOak/FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin)
+	- Cordova plugin for viewing files on Android via Intents
 
 ## Getting started
 
@@ -27,6 +29,10 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - cd into the project folder
 - `npm install` to install node_modules and js/css components (`npm install` will also run `bower install`).
 - `cordova platform add ios` and/or `cordova platform add android`
+- include the FileViewerPlugin:
+ - create a SpiderOakMobileClient project subdirectory named `plugins`
+ - clone the [FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin) somewhere
+ - add the FileViewerPlugin to the project: `cordova plugin add /path/to/FileViewerPlugin`
 
 ## First test
 

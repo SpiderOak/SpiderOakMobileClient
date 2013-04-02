@@ -10,3 +10,4 @@ www/tests/SpiderOakMobile-tests.js
 _SpecRunner.html
 .sass-cache
 merges/**/*
+plugins/**/*

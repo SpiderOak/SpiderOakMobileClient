@@ -280,21 +280,13 @@
     form_submitHandler: function(event) {
       event.preventDefault();
       this.$("input").blur();
-      var doAdds = function(remember) {
-        spiderOakApp.publicShareRoomsCollection.add({
-          remember: (remember === 1) ? 1 : 0,
-          share_id: this.$("[name=shareid]").val(),
-          room_key: this.$("[name=roomkey]").val()
-        });
-        spiderOakApp.navigator.popView();
-        // this.addAll();
-      }.bind(this);
-      navigator.notification.confirm(
-        "Remember this Share Room?",
-        doAdds,
-        "Remember?",
-        "Remember,Don't Remember"
-      );
+      spiderOakApp.publicShareRoomsCollection.add({
+        remember: this.$("[name=remember]").is(":checked") ? 1 : 0,
+        share_id: this.$("[name=shareid]").val(),
+        room_key: this.$("[name=roomkey]").val()
+      });
+      spiderOakApp.navigator.popView();
+      // this.addAll();
     },
     addShareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
@@ -351,7 +343,6 @@
     descend_tapHandler: function(event) {
       event.stopPropagation();
       event.preventDefault();
-      console.log($(event.target));
       if ($(event.target).hasClass("rightButton") ||
           $(event.target).hasClass("icon-close")) {
         return;

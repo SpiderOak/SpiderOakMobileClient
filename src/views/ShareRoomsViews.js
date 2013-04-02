@@ -321,7 +321,6 @@
     },
     a_tapHandler: function(event) {
       event.preventDefault();
-      // fire the event, let a view catch it and do something
       spiderOakApp.navigator.pushView(
         spiderOakApp.AddShareRoomView,
         {},

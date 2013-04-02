@@ -15,6 +15,7 @@
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      $(document).on("refreshAllFavorites", this.refreshAllFavorites);
     },
     render: function() {
       this.$el.html(_.template(window.tpl.get("favoritesViewTemplate"),{}));
@@ -47,6 +48,9 @@
         el: this.$(".filesList")
       }).render();
     },
+    refreshAllFavorites: function(event) {
+      console.log("refreshAllFavorites triggered");
+    },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
@@ -61,6 +65,12 @@
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
+      this.refreshAllFavoritesButtonView =
+        new spiderOakApp.RefreshAllFavoritesButtonView();
+      $("#main .nav").append(this.refreshAllFavoritesButtonView.render().el);
+    },
+    viewDeactivate: function(event) {
+      this.refreshAllFavoritesButtonView.remove();
     },
     remove: function() {
       this.close();
@@ -74,6 +84,26 @@
       if (this.favoritesListView) {
         this.favoritesListView.close();
       }
+    }
+  });
+
+  spiderOakApp.RefreshAllFavoritesButtonView = Backbone.View.extend({
+    events: {
+      "tap a": "a_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+    },
+    render: function() {
+      this.$el.html(
+        "<a class='refresh-favorites-btn'><i class='icon-loop'></i></a>"
+      );
+      return this;
+    },
+    a_tapHandler: function(event) {
+      event.preventDefault();
+      // fire the event, let a view catch it and do something
+      $(document).trigger("refreshAllFavorites");
     }
   });
 

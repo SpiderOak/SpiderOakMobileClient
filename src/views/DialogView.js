@@ -48,6 +48,9 @@
     },
     showDialogView: function(view) {
       this.$el.html(view.render().el);
+      window.setTimeout(function(){
+        view.scroller.refresh();
+      },10);
       this.$el.show();
     },
     close: function(){

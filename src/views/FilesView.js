@@ -118,6 +118,9 @@
       ];
       if (this.model.get("isFavorite")) {
         items.push({
+          className: "refresh-favorite", description: "Refresh favorite"
+        });
+        items.push({
           className: "un-favorite", description: "Remove from favorites"
         });
       }
@@ -184,6 +187,9 @@
             break;
           case "favorite":
             this.saveFavorite();
+            break;
+          case "refresh-favorite":
+            this.refreshFavorite();
             break;
           case "un-favorite":
             this.removeFavorite();
@@ -407,6 +413,9 @@
         }.bind(this),
         "Favorites"
       );
+    },
+    refreshFavorite: function() {
+      console.log("refreshFavorite called");
     },
     removeFavorite: function() {
       // Confirmation dialog

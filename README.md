@@ -29,8 +29,10 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - cd into the project folder
 - `npm install` to install node_modules and js/css components (`npm install` will also run `bower install`).
 - `cordova platform add ios` and/or `cordova platform add android`
-- clone the FileViewerPlugin somewhere
-- add the FileViewerPlugin to the project using `cordova plugin add /path/to/FileViewerPlugin`
+- include the FileViewerPlugin:
+ - create a SpiderOakMobileClient project subdirectory named `plugins`
+ - clone the [FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin) somewhere
+ - add the FileViewerPlugin to the project: `cordova plugin add /path/to/FileViewerPlugin`
 
 ## First test
 

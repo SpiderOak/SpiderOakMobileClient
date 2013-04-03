@@ -28,6 +28,21 @@
       ));
       this.$el.show();
     },
+    showNotify: function(options) {
+      options = options || {};
+      options.title = options.title || "Done"; // terrible default ;)
+      options.subtitle = options.subtitle || "";
+      options.duration = options.duration || 2000; // in ms
+      this.$el.html(_.template(
+        window.tpl.get("waitDialog"),
+        options
+      ));
+      this.$(".fadingBarsG").hide();
+      this.$el.show();
+      window.setTimeout(function(){
+        this.hide();
+      }.bind(this), options.duration);
+    },
     hide: function() {
       this.$el.hide();
       this.$el.empty();

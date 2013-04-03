@@ -278,13 +278,33 @@
       this.$("input").blur();
     },
     form_submitHandler: function(event) {
+      var remember = this.$("[name=remember]").is(":checked") ? 1 : 0,
+          shareId = this.$("[name=shareid]").val(),
+          roomKey = this.$("[name=roomkey]").val(),
+          pubShares = spiderOakApp.publicShareRoomsCollection;
+
       event.preventDefault();
       this.$("input").blur();
-      spiderOakApp.publicShareRoomsCollection.add({
-        remember: this.$("[name=remember]").is(":checked") ? 1 : 0,
-        share_id: this.$("[name=shareid]").val(),
-        room_key: this.$("[name=roomkey]").val()
-      });
+
+      if (pubShares.hasByAttributes(shareId, roomKey)) {
+        // @TODO: Use some kind of toast, or other non-modal alert.
+        navigator.notification.alert("Share Room <" +
+                                     shareId + "/" + roomKey +
+                                     "> already present");
+      }
+      else {
+        spiderOakApp.publicShareRoomsCollection.add({
+          remember: this.$("[name=remember]").is(":checked") ? 1 : 0,
+          share_id: this.$("[name=shareid]").val(),
+          room_key: this.$("[name=roomkey]").val()
+        }, {
+          error: function (model, xhr, options) {
+            navigator.notification.alert("Share Room <" +
+                                         shareId + "/" + roomKey +
+                                         "> not found");
+          }
+        });
+      }
       spiderOakApp.navigator.popView();
       // this.addAll();
     },

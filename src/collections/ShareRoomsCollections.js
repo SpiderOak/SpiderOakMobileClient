@@ -14,7 +14,10 @@
     initialize: function() {
       this.url = "https://" + spiderOakApp.config.server + "/share/";
     },
-    attrsToId: function (share_id, room_key) {
+    hasByAttributes: function(share_id, room_key) {
+      return this.get(this.attributesToId(share_id, room_key));
+    },
+    attributesToId: function (share_id, room_key) {
       return spiderOakApp.b32nibbler.encode(share_id) + "/" + room_key + "/";
     },
     which: "ShareRoomsCollection"
@@ -56,26 +59,6 @@
       }.bind(this));
       // addHandler does the fetch for each model.
     },
-    add: function (models, options) {
-      var it = this.get(this.attrsToId(models.share_id, models.room_key)),
-          changed;
-      if (it) {
-        if (it.get("remember") != models.remember) {
-          it.set("remember", models.remember);
-          changed = " (Remember " + (models.remember ?
-                                     "activated)" :
-                                     "deactivated)");
-        }
-        // @TODO: Use some kind of toast, or other non-modal alert.
-        navigator.notification.alert("Share Room " +
-                                     models.share_id + "/" +
-                                     models.room_key +
-                                     " already present" +
-                                     (changed ? changed : "") + ".");
-        return;
-      }
-      ShareRoomsCollection.prototype.add.call(this, models, options);
-    },
     addHandler: function(model, collection, options) {
       var surroundingSuccess = options && options.success,
           surroundingError = options && options.error;
@@ -90,11 +73,6 @@
           }
         }.bind(this),
         error: function(model, xhr, options) {
-          // @TODO: Use some kind of toast, or other non-modal alert.
-          navigator.notification.alert("Share Room " +
-                                       model.get("share_id") + "/" +
-                                       model.get("room_key") +
-                                      " not found.");
           this.remove(model);
           if (surroundingError) {
             surroundingError();

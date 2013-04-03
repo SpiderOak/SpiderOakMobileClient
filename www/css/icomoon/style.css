@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-file, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-cog, .icon-clock, .icon-history, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus {
+.icon-file, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-cog, .icon-clock, .icon-history, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus, .icon-warning {
 	font-family: 'SpiderOakIcons';
 	speak: none;
 	font-style: normal;
@@ -130,11 +130,6 @@ you can use the generic selector below, but it's slower:
 .icon-minus:before {
 	content: "\e01e";
 }
-nt: "\e01a";
-}
-.icon-checkmark:before {
-	content: "\e01b";
-}
-.icon-loop:before {
-	content: "\e01c";
+.icon-warning:before {
+	content: "\e01f";
 }

@@ -287,10 +287,11 @@
       this.$("input").blur();
 
       if (pubShares.hasByAttributes(shareId, roomKey)) {
-        // @TODO: Use some kind of toast, or other non-modal alert.
-        navigator.notification.alert("Share Room <" +
-                                     shareId + "/" + roomKey +
-                                     "> already present");
+        spiderOakApp.dialogView.showNotify({
+          title: "ShareRoom Already Present",
+          subtitle: ("Public ShareRoom " + shareId + "/" + roomKey +
+                     " is already being visited.")
+        });
       }
       else {
         spiderOakApp.publicShareRoomsCollection.add({
@@ -299,9 +300,11 @@
           room_key: this.$("[name=roomkey]").val()
         }, {
           error: function (model, xhr, options) {
-            navigator.notification.alert("Share Room <" +
-                                         shareId + "/" + roomKey +
-                                         "> not found");
+            spiderOakApp.dialogView.showNotify({
+              title: "ShareRoom Not Found",
+              subtitle: ("No such ShareRoom " + shareId +
+                         "/" + roomKey + ".")
+            });
           }
         });
       }

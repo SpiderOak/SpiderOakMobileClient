@@ -29,12 +29,14 @@ body {
 .nav .menu-btn.active,
 .nav .back-btn.active,
 .nav .clear-recents-btn.active,
-.nav .add-sharerooms-btn.active {
+.nav .add-sharerooms-btn.active,
+.nav .refresh-favorites-btn.active {
 	background-color: #333;
 }
 
 .nav .clear-recents-btn,
-.nav .add-sharerooms-btn {
+.nav .add-sharerooms-btn,
+.nav .refresh-favorites-btn {
   font-size: 22px;
   position: absolute;
   right: 0;
@@ -212,7 +214,7 @@ a.button.active {
   background-color: #eee;
   width: 275px;
   margin: 60px auto;
-  max-height: 75%;
+  max-height: 70%;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
   overflow-y: hidden;
 }

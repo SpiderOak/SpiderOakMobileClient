@@ -386,7 +386,7 @@
       // Download the file to the PERSISTENT file system
       // @FIXME: This might be better moved to a method in the model
       spiderOakApp.dialogView.showProgress({
-        title: "Adding to Favorites",
+        title: "Downloading Favorite",
         subtitle: model.get("name"),
         start: 0
       });
@@ -416,7 +416,7 @@
         }
       );
     },
-    refreshFavorite: function() {
+    refreshFavorite: function(callback) {
       var model = this.model;
       model.url = model.get("url");
       // @FIXME: This should be in a function and be based on platform
@@ -429,9 +429,10 @@
             new RegExp(model.get("name")),
             ""
           );
-      this.downloadFavorite(model, path, function(fileEntry) {
+      callback = callback || function(fileEntry) {
         spiderOakApp.dialogView.hide();
-      });
+      };
+      this.downloadFavorite(model, path, callback);
     },
     removeFavorite: function() {
       // Confirmation dialog

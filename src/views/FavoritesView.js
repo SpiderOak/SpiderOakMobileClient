@@ -15,7 +15,6 @@
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
-      $(document).on("refreshAllFavorites", this.refreshAllFavorites);
     },
     render: function() {
       this.$el.html(_.template(window.tpl.get("favoritesViewTemplate"),{}));
@@ -47,9 +46,6 @@
         collection: spiderOakApp.favoritesCollection,
         el: this.$(".filesList")
       }).render();
-    },
-    refreshAllFavorites: function(event) {
-      console.log("refreshAllFavorites triggered");
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {
@@ -114,6 +110,7 @@
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
+      $(document).on("refreshAllFavorites", this.refreshAllFavorites);
 
       this.subViews = [];
     },
@@ -132,6 +129,34 @@
       this.$el.empty();
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
+    },
+    refreshAllFavorites: function(event) {
+      console.log("refreshAllFavorites triggered");
+      navigator.notification.confirm(
+        "Do you want to refresh all of your favorites? This will re-download" +
+          " the latest versions.",
+        function(button) {
+          if (button !== 1) {
+            return;
+          }
+          var remaining = this.subViews.slice(0);
+          this.refresh(remaining, function() {
+            spiderOakApp.dialogView.hide();
+          });
+        }.bind(this),
+        "Favorites"
+      );
+    },
+    refresh: function(remaining, callback) {
+      var current = remaining.shift();
+      current.refreshFavorite(function(){
+        if (remaining.length) {
+          spiderOakApp.dialogView.hide();
+          this.refresh(remaining, callback);
+          return;
+        }
+        callback();
+      }.bind(this));
     },
     close: function(){
       this.remove();

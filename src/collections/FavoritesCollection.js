@@ -10,7 +10,10 @@
       $           = window.$;
 
   spiderOakApp.FavoritesCollection = Backbone.Collection.extend({
-    model: spiderOakApp.FavoriteModel
+    model: spiderOakApp.FavoriteModel,
+    comparator: function(object) {
+      return object.get("name");
+    }
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

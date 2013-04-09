@@ -61,6 +61,12 @@
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
+      this.refreshAllFavoritesButtonView =
+        new spiderOakApp.RefreshAllFavoritesButtonView();
+      $("#main .nav").append(this.refreshAllFavoritesButtonView.render().el);
+    },
+    viewDeactivate: function(event) {
+      this.refreshAllFavoritesButtonView.remove();
     },
     remove: function() {
       this.close();
@@ -77,6 +83,26 @@
     }
   });
 
+  spiderOakApp.RefreshAllFavoritesButtonView = Backbone.View.extend({
+    events: {
+      "tap a": "a_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+    },
+    render: function() {
+      this.$el.html(
+        "<a class='refresh-favorites-btn'><i class='icon-loop'></i></a>"
+      );
+      return this;
+    },
+    a_tapHandler: function(event) {
+      event.preventDefault();
+      // fire the event, let a view catch it and do something
+      $(document).trigger("refreshAllFavorites");
+    }
+  });
+
   spiderOakApp.FavoritesListView = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this);
@@ -84,6 +110,7 @@
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
+      $(document).on("refreshAllFavorites", this.refreshAllFavorites);
 
       this.subViews = [];
     },
@@ -102,6 +129,34 @@
       this.$el.empty();
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
+    },
+    refreshAllFavorites: function(event) {
+      console.log("refreshAllFavorites triggered");
+      navigator.notification.confirm(
+        "Do you want to refresh all of your favorites? This will re-download" +
+          " the latest versions.",
+        function(button) {
+          if (button !== 1) {
+            return;
+          }
+          var remaining = this.subViews.slice(0);
+          this.refresh(remaining, function() {
+            spiderOakApp.dialogView.hide();
+          });
+        }.bind(this),
+        "Favorites"
+      );
+    },
+    refresh: function(remaining, callback) {
+      var current = remaining.shift();
+      current.refreshFavorite(function(){
+        if (remaining.length) {
+          spiderOakApp.dialogView.hide();
+          this.refresh(remaining, callback);
+          return;
+        }
+        callback();
+      }.bind(this));
     },
     close: function(){
       this.remove();

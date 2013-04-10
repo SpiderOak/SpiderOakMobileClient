@@ -17,7 +17,7 @@ describe('FoldersCollection', function() {
           "/Test%20device/test/",
         [
           200,
-          {"Content-Type": "test/html"},
+          {"Content-Type": "text/html"},
           '{"dirs": [["test folder/", "test%20folder/"], ["tmp/", "tmp/"] ],'+
             ' "files": [{"ctime": 1359167989, "etime": 1359167998, '+
             '"mtime": 1359167946, "name": "filename.pdf", "size": 255434, '+

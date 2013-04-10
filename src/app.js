@@ -75,6 +75,13 @@
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
       }).render();
+
+      spiderOakApp.storageBarModel = new spiderOakApp.StorageBarModel();
+      spiderOakApp.storageBarModel.url =
+        spiderOakApp.accountModel.get("storageRootURL");
+      spiderOakApp.storageBarView = new spiderOakApp.StorageBarView({
+        model: spiderOakApp.storageBarModel
+      });
       // Instantiate the favorites and populate from localStorage
       var favorites = window.store.get(
         "favorites-" + spiderOakApp.accountModel.get("b32username")

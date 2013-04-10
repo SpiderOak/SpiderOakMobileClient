@@ -1,0 +1,10 @@
+<div class="bar-graph">
+  <div class="inner" style="width:<%= percentUsed %>%;"></div>
+</div>
+<div class="devices-info">
+  <div style="float:left;">
+    <%= devices %> device<%= ((devices > 1) ? "s" : "") %>
+  </div>
+  <div style="float:right;"><%= backupsize %> / <%= size %> GB</div>
+  <div class="clear"></div>
+</div>

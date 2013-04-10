@@ -58,6 +58,11 @@ body {
   width: 0;
 }
 
+.storagebar .devices-info {
+  font-size: 0.8em;
+  padding: 3px 10px;
+}
+
 .main {
   position: absolute;
   left: 0;

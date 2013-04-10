@@ -1,5 +1,5 @@
 /*jshint expr:true */
-describe('DevicesCollection', function() {
+describe('StorageBarModel', function() {
   beforeEach(function() {
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
@@ -7,7 +7,7 @@ describe('DevicesCollection', function() {
   afterEach(function() {
     this.server.restore();
   });
-  describe('Fetching', function() {
+  describe('instantiation', function() {
     beforeEach(function() {
       this.successSpy = sinon.spy();
       this.errorSpy = sinon.spy();
@@ -18,13 +18,18 @@ describe('DevicesCollection', function() {
           200,
           {"Content-Type": "text/html"},
           '{"devices":[["Test device","Test%20device/"],'+
-            '["Other device","Other%20device/"]],"stats":{}}'
+            '["Other device","Other%20device/"]],"stats":{'+
+              '"backupsize":"543.21 MB","backupsize_for_robots":"543215432",'+
+              '"billing_url":"https://spideroak.com/user/validate?hmac='+
+              '&avatar=&time=","devices":2,'+
+              '"firstname":"Test","lastname":"User","size":100,'+
+              '"size_for_robots":100000000000}}'
         ]
       );
-      this.collection = new spiderOakApp.DevicesCollection();
-      this.collection.url = "https://spideroak.com/storage/" +
+      this.model = new spiderOakApp.StorageBarModel();
+      this.model.url = "https://spideroak.com/storage/" +
                                     this.b32username + "/";
-      this.collection.fetch({
+      this.model.fetch({
         success: this.successSpy,
         error: this.errorSpy
       });
@@ -39,19 +44,15 @@ describe('DevicesCollection', function() {
                       this.b32username +
                       "/");
     });
-    it('should fetch the model(s)', function() {
-      var model = this.collection.at(0);
+    it('should asign the correct attributes in the model', function() {
       this.successSpy.should.have.been.calledOnce;
-      this.collection.models.length.should.equal(2);
+      this.model.get("backupsize").should.equal("543.21 MB");
+      this.model.get("backupsize_for_robots").should.equal("543215432");
+      this.model.get("size").should.equal(100);
+      this.model.get("size_for_robots").should.equal(100000000000);
     });
-    it('should populate with DeviceModel instance(s)', function() {
-      var model = this.collection.at(0);
-      model.should.be.instanceOf(spiderOakApp.DeviceModel);
-    });
-    it('should asign the correct attributes in the model(s)', function() {
-      var model = this.collection.at(0);
-      model.get("name").should.equal("Test device");
-      model.get("url").should.equal("Test%20device/");
+    it('should calculate the percent of the backup used', function() {
+      this.model.get("percentUsed").should.equal(1);
     });
   });
 });

@@ -176,14 +176,7 @@
             }.bind(this), 50);
             break;
           case "share":
-            window.setTimeout(function(){
-              navigator.notification.alert(
-                "Share " + this.model.get("name") + " via share intent",
-                null,
-                "TODO",
-                "OK"
-              );
-            }.bind(this), 50);
+            this.shareFile();
             break;
           case "favorite":
             this.saveFavorite();
@@ -207,6 +200,76 @@
       else {
         this.saveFavorite();
       }
+    },
+    shareViaIntent: function(path) {
+      var model = this.model;
+      var extras = {};
+      extras[spiderOakApp.fileViewer.EXTRA_STREAM] = path;
+      var params = {
+        action: spiderOakApp.fileViewer.ACTION_SEND,
+        type: model.get("type"),
+        extras: extras
+      };
+      spiderOakApp.fileViewer.share(
+        params,
+        function(){
+          // Add the file to the recents collection (view or fave)
+          spiderOakApp.recentsCollection.add(model);
+          // @FIXME: Should we be cleaning up the file here?
+        },
+        function (error) { // @FIXME: Real error handling...
+          console.log(JSON.stringify(error));
+          navigator.notification.alert(
+            "Error sharing this file.",
+            null,
+            "File error",
+            "OK"
+          );
+        }
+      );
+    },
+    shareFile: function() {
+      var model = this.model;
+      var path;
+      // Start by getting the folder path
+      if (this.model.get("isFavorite")) {
+        path = this.model.get("path") + this.model.get("name");
+        window.requestFileSystem(
+          window.LocalFileSystem.PERSISTENT,
+          0,
+          function shareFavoriteGetFS(fileSystem) {
+            fileSystem.root.getFile(
+              path,
+              {},
+              function shareFavoriteGotFS(fileEntry) {
+                this.shareViaIntent(fileEntry.fullPath);
+              }.bind(this)
+            );
+          }.bind(this),
+          function errorSharingFileByPath(error) { // @FIXME: Real error handling...
+            navigator.notification.alert(
+              "Error sharing file. Error code " + error.code,
+              null,
+              "File error",
+              "OK"
+            );
+          }
+        );
+        return; // return early
+      }
+      path = "Download/SpiderOak/.shared" +
+        model.urlResult()
+          .replace(
+            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
+            ""
+          ).replace(
+            new RegExp(model.get("name")),
+            ""
+          );
+      this.downloadFile(model, path, function(fileEntry) {
+        spiderOakApp.dialogView.hide();
+        this.shareViaIntent(fileEntry.fullPath);
+      }.bind(this));
     },
     view: function() {
       var model = this.model;
@@ -247,6 +310,7 @@
               function(){
                 // Add the file to the recents collection (view or fave)
                 spiderOakApp.recentsCollection.add(model);
+                // @FIXME: Should we be cleaning up the file here?
               },
               function (error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
@@ -351,7 +415,8 @@
           if (button !== 1) {
             return;
           }
-          this.downloadFavorite(model, path, function(fileEntry) {
+          this.downloadFile(model, path, function(fileEntry) {
+            console.log(fileEntry.fullPath);
             spiderOakApp.dialogView.hide();
             // Add file model (with added local path) to the Favorites Collection
             var favoriteModel = new spiderOakApp.FavoriteModel(favorite);
@@ -382,11 +447,11 @@
         "Favorites"
       );
     },
-    downloadFavorite: function(model, path, successCallback) {
+    downloadFile: function(model, path, successCallback) {
       // Download the file to the PERSISTENT file system
       // @FIXME: This might be better moved to a method in the model
       spiderOakApp.dialogView.showProgress({
-        title: "Downloading Favorite",
+        title: "Downloading",
         subtitle: model.get("name"),
         start: 0
       });
@@ -432,7 +497,7 @@
       callback = callback || function(fileEntry) {
         spiderOakApp.dialogView.hide();
       };
-      this.downloadFavorite(model, path, callback);
+      this.downloadFile(model, path, callback);
     },
     removeFavorite: function() {
       // Confirmation dialog

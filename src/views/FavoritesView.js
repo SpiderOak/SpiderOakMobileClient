@@ -149,6 +149,7 @@
     },
     refresh: function(remaining, callback) {
       var current = remaining.shift();
+      current.model.url = current.model.get("url");
       current.refreshFavorite(function(){
         if (remaining.length) {
           spiderOakApp.dialogView.hide();

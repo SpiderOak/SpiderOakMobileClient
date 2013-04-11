@@ -483,7 +483,6 @@
     },
     refreshFavorite: function(callback) {
       var model = this.model;
-      model.url = model.get("url");
       // @FIXME: This should be in a function and be based on platform
       var path = "Download/SpiderOak/.favorites" +
         model.urlResult()

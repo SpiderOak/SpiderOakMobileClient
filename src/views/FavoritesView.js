@@ -119,9 +119,11 @@
       return this;
     },
     addOne: function(model) {
+      model.url = model.get("url");
       var view = new spiderOakApp.FilesListItemView({
         model: model
       });
+
       this.$el.append(view.render().el);
       this.subViews.push(view);
     },

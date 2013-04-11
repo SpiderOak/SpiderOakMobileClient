@@ -119,9 +119,11 @@
       return this;
     },
     addOne: function(model) {
+      model.url = model.get("url");
       var view = new spiderOakApp.FilesListItemView({
         model: model
       });
+
       this.$el.append(view.render().el);
       this.subViews.push(view);
     },
@@ -149,7 +151,6 @@
     },
     refresh: function(remaining, callback) {
       var current = remaining.shift();
-      current.model.url = current.model.get("url");
       current.refreshFavorite(function(){
         if (remaining.length) {
           spiderOakApp.dialogView.hide();

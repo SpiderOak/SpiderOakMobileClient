@@ -189,7 +189,7 @@ input[type="password"]:focus {
 
 a.button,
 button {
-  -webkit-tap-highlight-color: rgba(60%, 65%, 0%, 1);
+  -webkit-tap-highlight-color: orange;
   display: block;
   margin: 10px 20px;
   padding: 8px 40px;
@@ -205,7 +205,7 @@ button {
 }
 
 a.button.active {
-  background-color: rgba(100%, 65%, 0%, 0.3);
+  background-color: orange;
   box-shadow: 0 0 2px 4px orange;
   outline:0;
 }
@@ -213,8 +213,8 @@ a.button.active {
 .modal .context-popup {
   background-color: #eee;
   width: 275px;
-  margin: 60px auto;
-  max-height: 70%;
+  margin: 10% auto 0 auto;
+  max-height: 90%;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
   overflow-y: hidden;
 }

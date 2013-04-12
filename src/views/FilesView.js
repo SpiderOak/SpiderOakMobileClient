@@ -166,14 +166,7 @@
             }.bind(this), 50);
             break;
           case "save":
-            window.setTimeout(function(){
-              navigator.notification.alert(
-                "What in the world is this supposed to do?!",
-                null,
-                "TODO",
-                "OK"
-              );
-            }.bind(this), 50);
+            this.saveFile();
             break;
           case "share":
             this.shareFile();
@@ -445,6 +438,33 @@
           }.bind(this));
         }.bind(this),
         "Favorites"
+      );
+    },
+    saveFile: function() {
+      // Confirmation dialog
+      var model = this.model;
+      // Start by getting the folder path
+      var path = "Download/";
+      navigator.notification.confirm(
+        "Do you want to save this file to your device?",
+        function(button) {
+          if (button !== 1) {
+            return;
+          }
+          this.downloadFile(model, path, function(fileEntry) {
+            console.log(fileEntry.fullPath);
+            spiderOakApp.dialogView.hide();
+            // Add the file to the recents collection (view or fave)
+            spiderOakApp.recentsCollection.add(model);
+            navigator.notification.alert(
+              fileEntry.name + " downloaded to " + fileEntry.fullPath,
+              null,
+              "Success",
+              "OK"
+            );
+          }.bind(this));
+        }.bind(this),
+        "Save file"
       );
     },
     downloadFile: function(model, path, successCallback) {

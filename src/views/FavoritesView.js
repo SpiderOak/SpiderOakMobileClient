@@ -77,6 +77,7 @@
     close: function() {
       // Clean up our subviews
       this.scroller.destroy();
+      this.refreshAllFavoritesButtonView.close();
       if (this.favoritesListView) {
         this.favoritesListView.close();
       }
@@ -100,6 +101,10 @@
       event.preventDefault();
       // fire the event, let a view catch it and do something
       $(document).trigger("refreshAllFavorites");
+    },
+    close: function() {
+      this.remove();
+      this.unbind();
     }
   });
 
@@ -163,6 +168,7 @@
     close: function(){
       this.remove();
       this.unbind();
+      $(document).off("refreshAllFavorites");
       // handle other unbinding needs, here
       _.each(this.subViews, function(subViews){
         if (subViews.close){

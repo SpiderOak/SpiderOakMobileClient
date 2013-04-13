@@ -197,12 +197,12 @@
       };
       spiderOakApp.fileViewer.share(
         params,
-        function(){
+        function() {
           // Add the file to the recents collection (view or fave)
           spiderOakApp.recentsCollection.add(model);
           // @FIXME: Should we be cleaning up the file here?
         },
-        function (error) { // @FIXME: Real error handling...
+        function(error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
             "Error sharing this file.",
@@ -240,7 +240,7 @@
               // Add the file to the recents collection (view or fave)
               spiderOakApp.recentsCollection.add(model);
             },
-            function (error) { // @FIXME: Real error handling...
+            function(error) { // @FIXME: Real error handling...
               console.log(JSON.stringify(error));
               navigator.notification.alert(
                 "Error sending this link.",
@@ -332,12 +332,12 @@
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
                 url: fileEntry.fullPath
               },
-              function(){
+              function() {
                 // Add the file to the recents collection (view or fave)
                 spiderOakApp.recentsCollection.add(model);
                 // @FIXME: Should we be cleaning up the file here?
               },
-              function (error) { // @FIXME: Real error handling...
+              function(error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
                 navigator.notification.alert(
                   "Cannot find an app to view files of this type.",
@@ -391,11 +391,11 @@
                   action: spiderOakApp.fileViewer.ACTION_VIEW,
                   url: encodeURI(fileEntry.fullPath)
                 },
-                function(){
+                function() {
                   // Add the file to the recents collection (view or fave)
                   spiderOakApp.recentsCollection.add(model);
                 },
-                function (error) { // @FIXME: Real error handling...
+                function(error) { // @FIXME: Real error handling...
                   navigator.notification.alert(
                     "Cannot find an app to view files of this type.",
                     null,

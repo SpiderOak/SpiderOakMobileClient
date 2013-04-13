@@ -155,15 +155,7 @@
             }.bind(this), 50);
             break;
           case "send-link":
-            window.setTimeout(function(){
-              navigator.notification.alert(
-                "Create link to " + this.model.get("name") +
-                  " and send via SMS (or Email?)",
-                null,
-                "TODO",
-                "OK"
-              );
-            }.bind(this), 50);
+            this.sendLink();
             break;
           case "save":
             this.saveFile();
@@ -220,6 +212,47 @@
           );
         }
       );
+    },
+    sendLink: function() {
+      var model = this.model;
+      spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
+      var url = model.urlResult() + model.get("name");
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers: {
+          "Authorization": spiderOakApp.accountModel.get("basicAuthCredentials")
+        },
+        success: function(result) {
+          spiderOakApp.dialogView.hide();
+          var text = "I want to share this link to " + model.get("name") +
+              " with you: " + "https://spideroak.com" + result;
+          console.log(text);
+          var extras = {};
+          extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
+          var params = {
+            action: spiderOakApp.fileViewer.ACTION_SEND,
+            type: "text/plain",
+            extras: extras
+          };
+          spiderOakApp.fileViewer.share(
+            params,
+            function(){
+              // Add the file to the recents collection (view or fave)
+              spiderOakApp.recentsCollection.add(model);
+            },
+            function (error) { // @FIXME: Real error handling...
+              console.log(JSON.stringify(error));
+              navigator.notification.alert(
+                "Error sending this link.",
+                null,
+                "File error",
+                "OK"
+              );
+            }
+          );
+        }
+      });
     },
     shareFile: function() {
       var model = this.model;

@@ -227,7 +227,6 @@
           spiderOakApp.dialogView.hide();
           var text = "I want to share this link to " + model.get("name") +
               " with you: " + "https://spideroak.com" + result;
-          console.log(text);
           var extras = {};
           extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
           var params = {

@@ -46,7 +46,6 @@ describe('FileItemVersionsCollection', function() {
                       this.b32username +
                       "/Test%20device/test/filename.pdf" +
                       "?format=version_info");
-        console.log(this.server.responses[0]);
     });
     it('should fetch the model(s)', function() {
       var model = this.collection.at(0);

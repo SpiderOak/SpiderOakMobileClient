@@ -181,6 +181,12 @@ ul li.sep {
   border: none;
 }
 
+.folderViewLoading .sep,
+.mySharesViewLoading .sep {
+  background-color: #ccc;
+  color: #000;
+}
+
 ul.rounded {
   border: 1px solid #ccc;
   border-radius: 10px;

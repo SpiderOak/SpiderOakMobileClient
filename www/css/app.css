@@ -286,7 +286,7 @@ ul li a .rightButton {
   color: #ccc;
 }
 
-ul li a .rightButton.favorite {
+.rightButton.favorite {
   color: orange;
 }
 
@@ -405,6 +405,56 @@ ul li a .subtext {
   -webkit-animation-iteration-count:infinite;
   -webkit-animation-direction:linear;
   -webkit-transform:scale(.3);
+}
+
+.fileDetails-container {
+  padding-bottom: 50px;
+}
+
+.fileDetails {
+  padding: 10px;
+  line-height: 2em;
+}
+
+.fileDetails .icon-large {
+  display: inline-block;
+  width: 30px;
+}
+
+.fileDetails .name {
+  width: 100%;
+  word-wrap: break-word;
+  line-height: 1em;
+  margin: 10px 0;
+}
+
+.fileDetails .section {
+  font-size: 0.8em;
+  border-top: 1px solid #999;
+}
+
+.fileDetails .label {
+  display: inline-block;
+  width: 100px;
+}
+
+.toolbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background-color: #ccc;
+  border-top: 1px solid #bbb;
+  color: #666;
+  font-size: 1.3em;
+}
+
+.toolbar-button {
+  margin: 12px 0;
+  text-align: center;
+  float: left;
+  width: 25%;
 }
 
 #fadingBarsG_1{

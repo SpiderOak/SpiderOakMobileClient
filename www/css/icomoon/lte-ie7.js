@@ -18,7 +18,6 @@ window.onload = function() {
 			'icon-music' : '&#xe009;',
 			'icon-star' : '&#xe00a;',
 			'icon-star-2' : '&#xe00b;',
-			'icon-cog' : '&#xe00c;',
 			'icon-clock' : '&#xe00d;',
 			'icon-history' : '&#xe00e;',
 			'icon-tux' : '&#xe00f;',
@@ -37,12 +36,27 @@ window.onload = function() {
 			'icon-loop' : '&#xe01c;',
 			'icon-plus' : '&#xe01d;',
 			'icon-minus' : '&#xe01e;',
-			'icon-warning' : '&#xe01f;'
+			'icon-warning' : '&#xe01f;',
+			'icon-eye' : '&#xe021;',
+			'icon-link' : '&#xe022;',
+			'icon-share' : '&#xe023;',
+			'icon-download' : '&#xe024;',
+			'icon-redo' : '&#xe025;',
+			'icon-cog' : '&#xe00c;',
+			'icon-settings' : '&#xe026;',
+			'icon-switch' : '&#xe027;',
+			'icon-info' : '&#xe020;',
+			'icon-checkbox-checked' : '&#xe028;',
+			'icon-checkbox-unchecked' : '&#xe029;',
+			'icon-file-openoffice' : '&#xe02a;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;
-	for (i = 0; i < els.length; i += 1) {
+	for (i = 0; ; i += 1) {
 		el = els[i];
+		if(!el) {
+			break;
+		}
 		attr = el.getAttribute('data-icon');
 		if (attr) {
 			addIcon(el, attr);

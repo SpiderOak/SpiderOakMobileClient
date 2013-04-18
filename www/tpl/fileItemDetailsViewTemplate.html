@@ -1,0 +1,34 @@
+<div class="fileDetails-container">
+  <div class="fileDetails">
+    <div><i class="icon-<%= icon %> icon-large"></i> <%= description %> file</div>
+    <div class="name"><%= name %></div>
+    <div class="section">
+      <div><span class="label">Size:</span>
+        <%= fileHelper.readableFileSize(size) %>
+      </div>
+      <div><span class="label">Created:</span>
+        <%= moment(new String(ctime), "X")
+        .format("llll") %>
+      </div>
+      <div><span class="label">Last Modified:</span>
+        <%= moment(new String(mtime), "X").format("llll") %>
+      </div>
+    </div>
+  </div>
+  <div class="versions"></div>
+</div>
+<div class="innershadow toolbar">
+  <div class="toolbar-button">
+    <a class="file-share-button"><i class="icon-share"></i></a>
+  </div>
+  <div class="toolbar-button">
+    <a class="file-save-button"><i class="icon-download"></i></a>
+  </div>
+  <div class="toolbar-button">
+    <a class="file-send-button"><i class="icon-link"></i></a>
+  </div>
+  <div class="toolbar-button">
+    <a class="file-favorite-button rightButton<% if(isFavorite) { %> favorite<% } %>"><i class="icon-star-2"></i></a>
+  </div>
+  <div class="clear"></div>
+</div>

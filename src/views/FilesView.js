@@ -33,7 +33,7 @@
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
             var faveURL = favorite.get("url") + favorite.get("name");
-            var modelURL = model.urlResult() + model.get("name");
+            var modelURL = model.composedUrl();
             return faveURL === modelURL;
         });
         if (isFavorite) {
@@ -145,14 +145,11 @@
             this.a_tapHandler(event);
             break;
           case "details":
-            window.setTimeout(function(){
-              navigator.notification.alert(
-                "Display " + this.model.get("name") + " details",
-                null,
-                "TODO",
-                "OK"
-              );
-            }.bind(this), 50);
+            spiderOakApp.navigator.pushView(
+              spiderOakApp.FileItemDetailsView,
+              { model: this.model },
+              spiderOakApp.defaultEffect
+            );
             break;
           case "send-link":
             this.sendLink();
@@ -216,7 +213,7 @@
     sendLink: function() {
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
-      var url = model.urlResult() + model.get("name");
+      var url = model.composedUrl();
       $.ajax({
         type: "POST",
         url: url,
@@ -300,7 +297,7 @@
       var model = this.model;
       var downloadOptions = {
         fileName: this.model.get("name"),
-        from: this.model.urlResult() + this.model.get("name"),
+        from: this.model.composedUrl(),
         to: ".caches",
         fsType: window.LocalFileSystem.TEMPORARY,
         onprogress: function onprogress(progressEvent) {
@@ -509,7 +506,7 @@
       });
       var downloadOptions = {
         fileName: model.get("name"),
-        from: model.urlResult() + model.get("name"),
+        from: model.composedUrl(),
         to: path,
         fsType: window.LocalFileSystem.PERSISTENT,
         onprogress: function onprogress(progressEvent) {
@@ -608,6 +605,103 @@
     close: function() {
       this.remove();
       this.unbind();
+    }
+  });
+
+  spiderOakApp.FileItemDetailsView = Backbone.View.extend({
+    events: {
+      // ...
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      this.$el.html(_.template(window.tpl.get("fileItemDetailsViewTemplate"),
+        this.model.toJSON()));
+      // spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
+      spiderOakApp.mainView.setTitle("Details");
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
+      // Insert list of previous versions here... if there are any
+      if (this.model.get("versions") > 1) {
+        this.$(".versions").append(
+          "<ul><li class='sep'>Previous versions</li></ul>"
+        );
+        this.versionsCollection = new spiderOakApp.FileItemVersionsCollection();
+        this.versionsCollection.url = this.model.composedUrl() +
+            "?format=version_info";
+        this.versionsView = new spiderOakApp.FileItemVersionsListView({
+          collection: this.versionsCollection
+        }).render();
+        this.$(".versions").append(this.versionsView.el);
+        var scroller = this.scroller;
+        this.versionsCollection.fetch({
+          success: function(collection) {
+            window.setTimeout(function(){
+              scroller.refresh();
+            },50);
+          }
+        });
+      }
+      return this;
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      // this.close();
+    },
+    close: function() {
+      this.scroller.destroy();
+      this.versionsView.close();
+      this.remove();
+      this.unbind();
+    }
+  });
+
+  spiderOakApp.FileItemVersionsListView = spiderOakApp.FilesListView.extend({
+    tagName: "ul",
+    initialize: function() {
+      _.bindAll(this);
+      this.collection.on( "add", this.addOne, this );
+      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "all", this.render, this );
+
+      this.subViews = [];
+    },
+    addOne: function(model) {
+      var view = new spiderOakApp.FilesVersionsItemView({
+        model: model
+      });
+      this.$el.append(view.render().el);
+      this.subViews.push(view);
+    },
+    close: function() {
+      this.remove();
+      this.unbind();
+    }
+  });
+
+  spiderOakApp.FilesVersionsItemView = spiderOakApp.FilesListItemView.extend({
+    render: function() {
+      this.$el.html(
+        _.template(window.tpl.get("fileVersionsItemViewTemplate"),
+          this.model.toJSON()
+        )
+      );
+      this.$("a").data("model",this.model);
+      return this;
     }
   });
 

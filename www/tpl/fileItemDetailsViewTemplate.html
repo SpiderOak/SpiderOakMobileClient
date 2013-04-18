@@ -1,0 +1,19 @@
+<div>
+  <div class="fileDetails" style="padding:10px;line-height:2em;">
+    <div><i style="display:inline-block;width:30px;" class="icon-<%= icon %> icon-large"></i> <%= description %> file</div>
+    <div style="width:100%;word-wrap:break-word;line-height:1em;margin: 10px 0;"><%= name %></div>
+    <div style="font-size: 0.8em; border-top: 1px solid #999;">
+      <div><span style="display:inline-block;width:100px;">Size:</span>
+        <%= fileHelper.readableFileSize(size) %>
+      </div>
+      <div><span style="display:inline-block;width:100px;">Created:</span>
+        <%= moment(new String(ctime), "X")
+        .format("llll") %>
+      </div>
+      <div><span style="display:inline-block;width:100px;">Last Modified:</span>
+        <%= moment(new String(mtime), "X").format("llll") %>
+      </div>
+    </div>
+  </div>
+  <div class="versions"></div>
+</div>

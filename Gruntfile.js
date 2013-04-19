@@ -3,52 +3,71 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
-        ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' + "\n" +
-        ' * License: <%= _.pluck(pkg.licenses, "type").join(", ") %> (<%= _.pluck(pkg.licenses, "url").join(", ") %>)' + "\n" +
-        ' * GENERATED FILE. DO NOT EDIT.' + "\n" +
-        ' */'
+        '<%= grunt.template.today("yyyy-mm-dd") %>' + '\n' +
+        '<%= pkg.homepage ? "* " + pkg.homepage : "" %>' + '\n' +
+        ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' + '\n' +
+        ' * License: <%= _.pluck(pkg.licenses, "type").join(", ") %> (<%= _.pluck(pkg.licenses, "url").join(", ") %>)' + '\n' +
+        ' * GENERATED FILE. DO NOT EDIT.' + '\n' +
+        ' */\n\n'
     },
     shell: {
-      _options: {
-        failOnError: true,
-        stdout: true
-      },
       debug_ios: {
-        command: 'cordova build ios && ./platforms/ios/cordova/run'
+        command: 'cordova build ios && ./platforms/ios/cordova/run',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
       },
       debug_android: {
-        command: 'cordova build android && ./platforms/android/cordova/run'
+        command: 'cordova build android && ./platforms/android/cordova/run',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
       },
       // Some different reporters...
       mochaspec: {
         command:
-          './node_modules/.bin/mocha-phantomjs www/tests/index.html'
+          './node_modules/.bin/mocha-phantomjs www/tests/index.html',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
       },
       mochamin: {
         command:
-          './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html'
+          './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
       },
       mochadot: {
         command:
-          './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html'
+          './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
       },
       mochatap: {
         command:
-          './node_modules/.bin/mocha-phantomjs -R tap www/tests/index.html'
+          './node_modules/.bin/mocha-phantomjs -R tap www/tests/index.html',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
       }
-    },
-    lint: {
-      files: ['grunt.js', 'src/**/*.js']
     },
     concat: {
       dist: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
-          '<banner:meta.banner>',
           'src/helpers/FileHelper.js',
           'src/helpers/Templates.js',
           'src/helpers/FileDownloadHelper.js',
@@ -87,8 +106,10 @@ module.exports = function(grunt) {
         dest: 'www/js/<%= pkg.name %>.js'
       },
       tests: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
-          '<banner:meta.banner>',
           'tests/*.js',
           'tests/**/*.js'
         ],
@@ -114,31 +135,72 @@ module.exports = function(grunt) {
         dest: 'www/components/zepto/zepto.js'
       },
       defaultcss: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
-          '<banner:meta.banner>',
           'www/css/themes/android.css'
         ],
         dest: 'www/css/platform.css'
       },
       androidcss: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
-          '<banner:meta.banner>',
           'www/css/themes/android.css'
         ],
         dest: 'merges/android/css/platform.css'
       },
       ioscss: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
           'www/css/themes/ios.css'
         ],
         dest: 'merges/ios/css/platform.css'
       }
     },
-    min: {
+    watch: {
+      files: [
+        '<%= jshint.files %>',
+        'www/spec/**/*.js',
+        'tests/**/*',
+        'www/css/**/*.scss'
+      ],
+      tasks: ['jshint', 'concat', 'shell:mochadot']
+    },
+    jshint: {
+      files: ['Gruntfile.js', 'src/**/*.js'],
+      options: {
+        globals: {
+          eqeqeq: false,
+          laxbreak: true,
+          undef: true,
+          newcap: true,
+          noarg: true,
+          strict: false,
+          trailing: true,
+          onecase: true,
+          boss: true,
+          eqnull: true,
+          onevar: false,
+          evil: true,
+          regexdash: true,
+          browser: true,
+          wsh: true,
+          sub: true
+        }
+      }
+    },
+    uglify: {
       dist: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
-          '<banner:meta.banner>',
-          '<config:concat.dist.dest>'
+          '<%= concat.dist.dest %>'
         ],
         dest: 'www/js/<%= pkg.name %>.min.js'
       },
@@ -148,68 +210,21 @@ module.exports = function(grunt) {
         ],
         dest: 'www/components/zepto/zepto.min.js'
       }
-    },
-    // compass: {
-    //   dev: {
-    //     src: 'www/css/scss',
-    //     dest: 'www/css/themes',
-    //     outputstyle: 'expanded',
-    //     linecomments: true,
-    //     require: [
-    //       'www/components/compass-recipes/lib/compass-recipes'
-    //     ]
-    //   },
-    //   prod: {
-    //     src: 'www/css/scss',
-    //     dest: 'www/css/themes/min',
-    //     outputstyle: 'compressed',
-    //     linecomments: false,
-    //     forcecompile: true,
-    //     require: [
-    //       'www/components/compass-recipes/lib/compass-recipes'
-    //     ]
-    //   }
-    // },
-    watch: {
-      files: [
-        '<config:lint.files>',
-        'www/spec/**/*.js',
-        'tests/**/*',
-        'www/css/**/*.scss'
-      ],
-      tasks: 'lint concat shell:mochadot'
-    },
-    jshint: {
-      options: {
-      eqeqeq: false,
-      laxbreak: true,
-      undef: true,
-      newcap: true,
-      noarg: true,
-      strict: false,
-      trailing: true,
-      onecase: true,
-      boss: true,
-      eqnull: true,
-      onevar: false,
-      evil: true,
-      regexdash: true,
-      browser: true,
-      wsh: true,
-      sub: true
-    },
-      globals: {}
-    },
-    uglify: {}
+    }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
-  grunt.registerTask('default', 'lint concat shell:mochadot');
+  grunt.registerTask('default', ['jshint', 'concat', 'shell:mochadot']);
   // Custom tasks
-  grunt.registerTask('test', 'lint concat shell:mochaspec');
-  grunt.registerTask('debug_ios', 'lint concat shell:mochadot shell:debug_ios');
-  grunt.registerTask('debug_android', 'lint concat shell:mochadot shell:debug_android');
+  grunt.registerTask('test', ['jshint', 'concat', 'shell:mochaspec']);
+  grunt.registerTask('min', ['uglify']); // polyfil
+  grunt.registerTask('debug_ios', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_ios']);
+  grunt.registerTask('debug_android', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_android']);
 
 };

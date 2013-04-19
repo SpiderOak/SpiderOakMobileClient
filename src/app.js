@@ -152,10 +152,10 @@
     var urlHead = this.get("urlBase") || this.urlBase;
     var urlHeadObject = urlHead && this;
     if (! urlHead && collection) {
-      urlHead = (collection.get("urlBase")
-                 || collection.urlBase
-                 || collection.url
-                 || "");
+      urlHead = (collection.get("urlBase") ||
+                  collection.urlBase ||
+                  collection.url ||
+                  "");
       urlHeadObject = urlHead && collection;
     }
     if (typeof urlHead === "function") {

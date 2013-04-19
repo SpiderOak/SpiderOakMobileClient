@@ -28,12 +28,17 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "bower": "~0.6.8",
-    "grunt": "~0.3.17",
-    "grunt-shell": "0.1.x",
-    "grunt-compass": "~0.3.7",
+    "grunt-cli": "0.1.x",
+    "grunt": "~0.4.x",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-concat": "~0.2.0",
+    "grunt-shell": "0.2.x",
     "mocha": "~1.8.1",
     "chai": "~1.5.0",
     "sinon": "1.5.x",

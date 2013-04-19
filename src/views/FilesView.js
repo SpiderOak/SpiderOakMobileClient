@@ -107,10 +107,10 @@
       var path = "Download/SpiderOak/.favorites" +
         model.urlResult()
           .replace(
-            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
-            ""
+            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
+            "/"
           ).replace(
-            new RegExp(model.get("name")),
+            new RegExp(model.get("url")),
             ""
           );
       var favorite = model.toJSON();
@@ -254,10 +254,10 @@
       path = "Download/SpiderOak/.shared" +
         model.urlResult()
           .replace(
-            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
-            ""
+            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
+            "/"
           ).replace(
-            new RegExp(model.get("name")),
+            new RegExp(model.get("url")),
             ""
           );
       this.downloadFile(model, path, function(fileEntry) {
@@ -419,10 +419,10 @@
       var path = "Download/SpiderOak/.favorites" +
         model.urlResult()
           .replace(
-            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
-            ""
+            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
+            "/"
           ).replace(
-            new RegExp(model.get("name")),
+            new RegExp(model.get("url")),
             ""
           );
       callback = callback || function(fileEntry) {

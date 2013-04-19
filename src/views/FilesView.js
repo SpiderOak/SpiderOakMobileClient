@@ -638,24 +638,27 @@
       });
       // Insert list of previous versions here... if there are any
       if (this.model.get("versions") > 1) {
-        this.$(".versions").append(
-          "<ul><li class='sep'>Previous versions</li></ul>"
-        );
+        this.$(".versions").show();
         this.versionsCollection = new spiderOakApp.FileItemVersionsCollection();
         this.versionsCollection.url = this.model.composedUrl() +
             "?format=version_info";
         this.versionsView = new spiderOakApp.FileItemVersionsListView({
           collection: this.versionsCollection
         }).render();
-        this.$(".versions").append(this.versionsView.el);
+        this.$(".versions").prepend(this.versionsView.el);
+        this.$(".versions").prepend(
+          "<ul><li class='sep'>Previous versions</li></ul>"
+        );
         var scroller = this.scroller;
-        this.versionsCollection.fetch({
-          success: function(collection) {
-            window.setTimeout(function(){
-              scroller.refresh();
-            },50);
-          }
-        });
+        this.versionsView.$el.one("complete", function(event) {
+          this.$(".versionsViewLoading")
+            .removeClass("loadingVersions");
+          window.setTimeout(function(){
+            this.scroller.refresh();
+          }.bind(this),0);
+          // @TODO: Refresh subviews scroller
+        }.bind(this));
+        this.versionsCollection.fetch();
       }
       return this;
     },
@@ -703,6 +706,11 @@
       });
       this.$el.append(view.render().el);
       this.subViews.push(view);
+    },
+    addAll: function() {
+      this.$el.empty();
+      this.collection.each(this.addOne, this);
+      this.$el.trigger("complete");
     },
     close: function() {
       this.remove();

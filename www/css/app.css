@@ -182,7 +182,8 @@ ul li.sep {
 }
 
 .folderViewLoading .sep,
-.mySharesViewLoading .sep {
+.mySharesViewLoading .sep,
+.versionsViewLoading .sep {
   background-color: #ccc;
   color: #000;
 }
@@ -232,12 +233,14 @@ ul.rounded li:first-child {
 
 .folderViewLoading,
 .mySharesViewLoading,
+.versionsViewLoading,
 .visitedSharesViewLoading {
   display: none;
 }
 
 .folderViewLoading.loadingFolders,
 .folderViewLoading.loadingFiles,
+.versionsViewLoading.loadingVersions,
 .mySharesViewLoading.loadingMyShares,
 .visitedSharesViewLoading.loadingVisitedShares {
   display: block;

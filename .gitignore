@@ -9,5 +9,6 @@ www/js/SpiderOakMobile.min.js
 www/tests/SpiderOakMobile-tests.js
 _SpecRunner.html
 .sass-cache
-merges/**/*
 plugins/**/*
+merges/ios/css/platform.css
+merges/android/css/platform.css

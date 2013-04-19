@@ -113,7 +113,6 @@
             new RegExp(model.get("url")),
             ""
           );
-      console.log(path);
       var favorite = model.toJSON();
       favorite.path = path;
       favorite.url = model.urlResult();

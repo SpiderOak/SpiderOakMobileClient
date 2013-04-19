@@ -74,7 +74,7 @@
                 errorCallback("File transfer aborted");
               });
               fileTransfer.download(
-                encodeURI(options.from),
+                options.from,
                 fileEntry.fullPath,
                 successCallback,
                 errorCallback,

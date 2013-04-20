@@ -12,13 +12,23 @@
   spiderOakApp.DevicesCollection = Backbone.Collection.extend({
     model: spiderOakApp.DeviceModel,
     parse: function(resp, xhr) {
-      // window.console.log(resp);
-      var devices = [];
+      // window.console.log(JSON.stringify(resp));
+      var devices = resp.devices;
       _.each(resp.devices, function(device){
-        devices.push({
-          name: device[0],
-          url: device[1]
-        });
+        device.url = device.encoded;
+        switch (device.sysplatform) {
+          case "darwin":
+            device.icon = "finder";
+            break;
+          case "win32":
+            device.icon = "windows";
+            break;
+          case "linux2":
+            device.icon = "tux";
+            break;
+          default:
+            device.icon = "folder";
+        }
       });
       return devices;
     }

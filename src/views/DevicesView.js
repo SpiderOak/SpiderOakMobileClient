@@ -66,7 +66,7 @@
       this.$el.html(
         _.template(
           "<a href='#storage'>" +
-          "<i class='icon-folder'></i> <%= name %>" +
+          "<i class='icon-<%= icon %>'></i> <%= name %>" +
           "</a>",
           this.model.toJSON()
         )

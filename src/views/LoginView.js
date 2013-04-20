@@ -96,13 +96,23 @@
     },
     shareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
-      navigator.notification.alert(
-        "Will navigate to ShareRooms Root" +
-            " (Note: Menu sheet will need to provide for absent login case.)",
-        null,
-        "Authentication error",
-        "OK"
-      );
+      spiderOakApp.mainView.setTitle("ShareRooms");
+      $(".sharerooms").closest("li").addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.ShareRoomsRootView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.ShareRoomsRootView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+      this.dismiss();
     },
     switch_tapHandler: function(event) {
       var $this = null;

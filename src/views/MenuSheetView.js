@@ -26,7 +26,9 @@
       $(document).on("menuClosing", this.menuClosing);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("menusheetTemplate")));
+      var inOrOut = {"inorout":
+                     spiderOakApp.accountModel.get("isLoggedIn") ?"Out" :"In"};
+      this.$el.html(_.template(window.tpl.get("menusheetTemplate"), inOrOut));
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
@@ -92,6 +94,9 @@
     },
 
     menuOpening: function(event) {
+      if (! spiderOakApp.menuScroller) {
+        this.render();
+      }
       spiderOakApp.menuScroller.refresh();
     },
     menuClosing: function(event) {

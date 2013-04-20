@@ -31,7 +31,7 @@
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
       this.devicesCollection.url =
-        spiderOakApp.accountModel.get("storageRootURL");
+        spiderOakApp.accountModel.get("storageRootURL") + "?device_info=yes";
       this.$(".devices").one("complete", function(event) {
         if (spiderOakApp.navigator.viewsStack.length === 0) {
           var $firstDevice = this.$(".devices").find("li a").first();

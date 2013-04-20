@@ -17,8 +17,16 @@ describe('DevicesCollection', function() {
         [
           200,
           {"Content-Type": "text/html"},
-          '{"devices":[["Test device","Test%20device/"],'+
-            '["Other device","Other%20device/"]],"stats":{}}'
+          '{"devices":[{"encoded":"Test%20device/","lastcommit":1366416269,' +
+          '"lastlogin":1366435030,"name":"Test device","sysplatform":"darwin"},' +
+          '{"encoded":"OtherDevice/","lastcommit":1366242391,' +
+          '"lastlogin":1366435028,"name":"OtherDevice","sysplatform":"darwin"}],' +
+          '"stats":{"backupsize":"278.56 MB",' +
+          '"backupsize_for_robots":"278560719",' +
+          '"billing_url":"https://spideroak.com/user/validate?' +
+          'hmac=hdwiuey984orpuwhef9uwefiuphwdfougsdf&avatar=573057' +
+          '&time=1366867850","devices":2,"firstname":"Test",' +
+          '"lastname":"User","size":100,"size_for_robots":100000000000}}'
         ]
       );
       this.collection = new spiderOakApp.DevicesCollection();

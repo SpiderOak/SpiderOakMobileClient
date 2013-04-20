@@ -77,7 +77,7 @@
       var downloadOptions = {
         fileName: model.get("name"),
         from: model.composedUrl(),
-        to: path,
+        to: decodeURI(path),
         fsType: window.LocalFileSystem.PERSISTENT,
         onprogress: function onprogress(progressEvent) {
           if (progressEvent.lengthComputable) {
@@ -114,7 +114,7 @@
             ""
           );
       var favorite = model.toJSON();
-      favorite.path = path;
+      favorite.path = decodeURI(path);
       favorite.url = model.urlResult();
       favorite.isFavorite = true;
       navigator.notification.confirm(
@@ -372,6 +372,15 @@
                     "OK"
                   );
                 }
+              );
+            },
+            function(error) {
+              console.log(JSON.stringify(error));
+              navigator.notification.alert(
+                "Error viewing file.",
+                null,
+                "File error",
+                "OK"
               );
             }
           );

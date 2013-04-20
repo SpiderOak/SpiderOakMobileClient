@@ -29,21 +29,6 @@
       }
       return this;
     },
-    // pageAnimationStart_handler: function(event, data) {
-    //   // Assume that if this view is being displayed it is due to
-    //   //  logging out or needing reauthentication
-    //   if (data.direction === "in") {
-    //     // Clear inputs
-    //     $("#username").val("");
-    //     $("#password").val("");
-    //     spiderOakApp.accountModel.logout(function() {
-    //       spiderOakApp.accountModel = undefined;
-    //     });
-    //   }
-    // },
-    // pageAnimationEnd_handler: function(event, data) {
-    //   // ...
-    // },
     input_focusHandler: function(event) {
       // @TODO: also change logos
       $(event.target).closest("div.login-input").addClass("focused");
@@ -71,7 +56,7 @@
       }.bind(this);
       var error = function(status, error) {
         // Clear it out
-        spiderOakApp.accountModel = account = undefined;
+        account.loggedOut();
         // @TODO: Unblock spinner
         var msg;
         if (status === 401) {
@@ -102,7 +87,7 @@
       if(document.activeElement) {
         document.activeElement.blur();
       }
-      var account = spiderOakApp.accountModel = new spiderOakApp.AccountModel();
+      var account = spiderOakApp.accountModel;
       account.login(username, password, success, error);
     },
     loginButton_tapHandler: function(event) {

@@ -20,7 +20,14 @@
       login_url_preface: "https://" + base_domain + "/storage/",
       login_url_start: "https://" + base_domain + "/browse/login",
       logout_url_preface: "https://" + base_domain + "/storage/",
-      b32username: ""
+
+      b32username: "",
+      basicAuthCredentials: "",
+      login_url: "",
+      storageRootURL: "",
+      mySharesListURL: "",
+      mySharesRootURL: "",
+      webRootURL: ""
     },
     initialize: function() {
       _.bindAll(this, "login");
@@ -138,16 +145,19 @@
                             xhr.status);
                 }
              });
-      // Clear any localStorage (favorites, etc)
-      // window.store.clear();
-      // Clear recents
-      spiderOakApp.recentsCollection.reset([]);
+      this.loggedOut();
+      successCallback();
+    },
+    /** Clear account resources. */
+    loggedOut: function() {
+      if (spiderOakApp.recentsCollection) {
+          spiderOakApp.recentsCollection.reset([]);
+      }
       if (spiderOakApp.publicShareRoomsCollection) {
         spiderOakApp.publicShareRoomsCollection.reset();
       }
-      // Clear internal settings:
       this.clear();
-      successCallback();
+      this.set(this.defaults);
     }
   });
 

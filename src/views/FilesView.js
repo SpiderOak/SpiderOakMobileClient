@@ -77,7 +77,7 @@
       var downloadOptions = {
         fileName: model.get("name"),
         from: model.composedUrl(),
-        to: path,
+        to: decodeURI(path),
         fsType: window.LocalFileSystem.PERSISTENT,
         onprogress: function onprogress(progressEvent) {
           if (progressEvent.lengthComputable) {
@@ -107,14 +107,14 @@
       var path = "Download/SpiderOak/.favorites" +
         model.urlResult()
           .replace(
-            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
-            ""
+            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
+            "/"
           ).replace(
-            new RegExp(model.get("name")),
+            new RegExp(model.get("url")),
             ""
           );
       var favorite = model.toJSON();
-      favorite.path = path;
+      favorite.path = decodeURI(path);
       favorite.url = model.urlResult();
       favorite.isFavorite = true;
       navigator.notification.confirm(
@@ -254,10 +254,10 @@
       path = "Download/SpiderOak/.shared" +
         model.urlResult()
           .replace(
-            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
-            ""
+            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
+            "/"
           ).replace(
-            new RegExp(model.get("name")),
+            new RegExp(model.get("url")),
             ""
           );
       this.downloadFile(model, path, function(fileEntry) {
@@ -373,6 +373,15 @@
                   );
                 }
               );
+            },
+            function(error) {
+              console.log(JSON.stringify(error));
+              navigator.notification.alert(
+                "Error viewing file.",
+                null,
+                "File error",
+                "OK"
+              );
             }
           );
         },
@@ -419,10 +428,10 @@
       var path = "Download/SpiderOak/.favorites" +
         model.urlResult()
           .replace(
-            new RegExp("^.*" + spiderOakApp.accountModel.get("b32username")),
-            ""
+            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
+            "/"
           ).replace(
-            new RegExp(model.get("name")),
+            new RegExp(model.get("url")),
             ""
           );
       callback = callback || function(fileEntry) {

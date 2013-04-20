@@ -142,13 +142,18 @@
       }
     },
     logout_tapHandler: function(event) {
-      window.setTimeout(function(){
-        navigator.notification.confirm(
-          'Are you sure you want to sign out?',
-          this.logoutConfirmed,
-          'Sign out'
-        );
-      }.bind(this),50);
+      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+        window.setTimeout(function(){
+          navigator.notification.confirm(
+            'Are you sure you want to sign out?',
+            this.logoutConfirmed,
+            'Sign out'
+          );
+        }.bind(this),50);
+      }
+      else {
+        this.logoutConfirmed();
+      }
     },
     logoutConfirmed: function(button) {
       if (button === 2) return false;

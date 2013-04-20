@@ -21,6 +21,7 @@
       login_url_start: "https://" + base_domain + "/browse/login",
       logout_url_preface: "https://" + base_domain + "/storage/",
 
+      isLoggedIn: false,
       b32username: "",
       basicAuthCredentials: "",
       login_url: "",
@@ -91,6 +92,7 @@
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
             // Trigger the login complete event so other views can react
+            _self.set("isLoggedIn", true);
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
@@ -133,18 +135,20 @@
     logout: function(successCallback) {
       // Clear basic auth details:
       Backbone.BasicAuth.clear();
-      // @TODO: Clear keychain credentials
-      // Post to the logout URL to get the session cookie expired:
-      var logout_url = (this.get('logout_url_preface') +
-                        this.get("b32username") +
-                        "/logout");
-      $.ajax({type: "POST",
-              url: logout_url,
-              error: function(xhr, errorType, error) {
-                console.log("Account logout returned error, status: " +
-                            xhr.status);
+      if (this.get("isLoggedIn")) {
+        // @TODO: Clear keychain credentials
+        // Post to the logout URL to get the session cookie expired:
+        var logout_url = (this.get('logout_url_preface') +
+                          this.get("b32username") +
+                          "/logout");
+        $.ajax({type: "POST",
+                url: logout_url,
+                error: function(xhr, errorType, error) {
+                  console.log("Account logout returned error, status: " +
+                              xhr.status);
                 }
-             });
+               });
+      }
       this.loggedOut();
       successCallback();
     },

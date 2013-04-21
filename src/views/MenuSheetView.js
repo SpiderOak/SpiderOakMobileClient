@@ -71,6 +71,10 @@
       });
       this.on("complete", spiderOakApp.menuScroller.refresh, this);
 
+      // @FIXME: Rectify whatever logout or other activity is causing loss
+      //         of the event bindings, and remove this.
+      this.delegateEvents();
+
       return this;
     },
     sharerooms_tapHandler: function(event) {
@@ -96,6 +100,9 @@
     },
 
     menuOpening: function(event) {
+      // @FIXME: Rectify whatever logout or other activity is causing loss
+      //         of the event bindings, and remove this.
+      this.delegateEvents();
       spiderOakApp.menuScroller.refresh();
     },
     menuClosing: function(event) {

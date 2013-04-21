@@ -30,7 +30,13 @@
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
-      });
+      }).render();
+      // Instantiate the favorites and populate from localStorage
+      var favorites = window.store.get("favorites");
+      favorites = favorites || [];
+      spiderOakApp.favoritesCollection =
+        new spiderOakApp.FavoritesCollection(favorites);
+      spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
 
       // Start listening for important app-level events
       document.addEventListener(

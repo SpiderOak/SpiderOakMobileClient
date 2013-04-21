@@ -96,9 +96,6 @@
     },
 
     menuOpening: function(event) {
-      if (! spiderOakApp.menuScroller) {
-        this.render();
-      }
       spiderOakApp.menuScroller.refresh();
     },
     menuClosing: function(event) {

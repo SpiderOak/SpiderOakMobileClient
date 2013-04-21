@@ -63,11 +63,13 @@
         collection: this.devicesCollection,
         el: this.$(".devices")
       }).render();
+
       spiderOakApp.menuScroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
         hScrollbar: false
       });
+      this.on("complete", spiderOakApp.menuScroller.refresh, this);
 
       return this;
     },

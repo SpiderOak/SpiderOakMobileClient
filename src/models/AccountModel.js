@@ -20,7 +20,15 @@
       login_url_preface: "https://" + base_domain + "/storage/",
       login_url_start: "https://" + base_domain + "/browse/login",
       logout_url_preface: "https://" + base_domain + "/storage/",
-      b32username: ""
+
+      isLoggedIn: false,
+      b32username: "",
+      basicAuthCredentials: "",
+      login_url: "",
+      storageRootURL: "",
+      mySharesListURL: "",
+      mySharesRootURL: "",
+      webRootURL: ""
     },
     initialize: function() {
       _.bindAll(this, "login");
@@ -84,6 +92,7 @@
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
             // Trigger the login complete event so other views can react
+            _self.set("isLoggedIn", true);
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
@@ -126,28 +135,33 @@
     logout: function(successCallback) {
       // Clear basic auth details:
       Backbone.BasicAuth.clear();
-      // @TODO: Clear keychain credentials
-      // Post to the logout URL to get the session cookie expired:
-      var logout_url = (this.get('logout_url_preface') +
-                        this.get("b32username") +
-                        "/logout");
-      $.ajax({type: "POST",
-              url: logout_url,
-              error: function(xhr, errorType, error) {
-                console.log("Account logout returned error, status: " +
-                            xhr.status);
+      if (this.get("isLoggedIn")) {
+        // @TODO: Clear keychain credentials
+        // Post to the logout URL to get the session cookie expired:
+        var logout_url = (this.get('logout_url_preface') +
+                          this.get("b32username") +
+                          "/logout");
+        $.ajax({type: "POST",
+                url: logout_url,
+                error: function(xhr, errorType, error) {
+                  console.log("Account logout returned error, status: " +
+                              xhr.status);
                 }
-             });
-      // Clear any localStorage (favorites, etc)
-      // window.store.clear();
-      // Clear recents
-      spiderOakApp.recentsCollection.reset([]);
+               });
+      }
+      this.loggedOut();
+      successCallback();
+    },
+    /** Clear account resources. */
+    loggedOut: function() {
+      if (spiderOakApp.recentsCollection) {
+          spiderOakApp.recentsCollection.reset([]);
+      }
       if (spiderOakApp.publicShareRoomsCollection) {
         spiderOakApp.publicShareRoomsCollection.reset();
       }
-      // Clear internal settings:
       this.clear();
-      successCallback();
+      this.set(this.defaults);
     }
   });
 

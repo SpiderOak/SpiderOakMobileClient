@@ -86,6 +86,9 @@
           // @TODO: Refresh subviews scroller
         }.bind(this));
       }
+      else {
+        this.$el.find(".myShareRoomsSection").hide();
+      }
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {
@@ -148,7 +151,7 @@
       this.collection.fetch();
     },
     render: function() {
-      // @TODO: Add a "loading spinner" row at the top
+      this.$el.find(".myShareRoomsSection").show();
       this.addAll();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
@@ -199,6 +202,9 @@
       $(document).on("addPublicShareRoom", this.addPublicShare, this);
 
       this.collection.fetch();
+      if (this.collection.length === 0) {
+        this.settle();
+      }
     },
     render: function() {
       // @TODO: Add a "loading spinner" row at the top

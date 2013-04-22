@@ -25,6 +25,19 @@
       server: "spideroak.com"
     },
     initialize: function() {
+
+      // Instantiate the menusheet and bind the spiderOakApp.accountModel
+      spiderOakApp.accountModel = new spiderOakApp.AccountModel();
+      spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
+        model: spiderOakApp.accountModel
+      }).render();
+      // Instantiate the favorites and populate from localStorage
+      var favorites = window.store.get("favorites");
+      favorites = favorites || [];
+      spiderOakApp.favoritesCollection =
+        new spiderOakApp.FavoritesCollection(favorites);
+      spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
+
       // Start listening for important app-level events
       document.addEventListener(
         "deviceready",
@@ -70,12 +83,7 @@
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     onLoginSuccess: function() {
-      // Instantiate the menusheet and bind the spiderOakApp.accountModel
-      // @TODO: refactor so menuSheetView can also be used without active login.
-      spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
-        model: spiderOakApp.accountModel
-      }).render();
-
+      spiderOakApp.menuSheetView.render();
       spiderOakApp.storageBarModel = new spiderOakApp.StorageBarModel();
       spiderOakApp.storageBarModel.url =
         spiderOakApp.accountModel.get("storageRootURL");

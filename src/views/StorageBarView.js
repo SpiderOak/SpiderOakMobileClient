@@ -1,4 +1,4 @@
- /**
+/**
  * StorageBarView.js
  */
 (function (spiderOakApp, window, undefined) {

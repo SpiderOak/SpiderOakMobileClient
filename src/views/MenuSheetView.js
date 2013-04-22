@@ -26,7 +26,9 @@
       $(document).on("menuClosing", this.menuClosing);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("menusheetTemplate")));
+      var inOrOut = {"inorout":
+                     spiderOakApp.accountModel.get("isLoggedIn") ?"Out" :"In"};
+      this.$el.html(_.template(window.tpl.get("menusheetTemplate"), inOrOut));
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       this.devicesCollection = new spiderOakApp.DevicesCollection();
@@ -61,11 +63,13 @@
         collection: this.devicesCollection,
         el: this.$(".devices")
       }).render();
+
       spiderOakApp.menuScroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
         hScrollbar: false
       });
+      this.on("complete", spiderOakApp.menuScroller.refresh, this);
 
       return this;
     },
@@ -92,6 +96,8 @@
     },
 
     menuOpening: function(event) {
+      // @FIXME: Rectify whatever logout or other activity is causing loss
+      //         of the event bindings, and remove this.
       spiderOakApp.menuScroller.refresh();
     },
     menuClosing: function(event) {
@@ -142,13 +148,18 @@
       }
     },
     logout_tapHandler: function(event) {
-      window.setTimeout(function(){
-        navigator.notification.confirm(
-          'Are you sure you want to sign out?',
-          this.logoutConfirmed,
-          'Sign out'
-        );
-      }.bind(this),50);
+      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+        window.setTimeout(function(){
+          navigator.notification.confirm(
+            'Are you sure you want to sign out?',
+            this.logoutConfirmed,
+            'Sign out'
+          );
+        }.bind(this),50);
+      }
+      else {
+        this.logoutConfirmed();
+      }
     },
     logoutConfirmed: function(button) {
       if (button === 2) return false;
@@ -157,13 +168,15 @@
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
       spiderOakApp.mainView.setTitle("SpiderOak");
+      spiderOakApp.favoritesCollection.reset();
+      spiderOakApp.recentsCollection.reset();
       // Log out
       spiderOakApp.accountModel.logout(function() {
         // And finally, pop up the LoginView
         spiderOakApp.mainView.closeMenu();
         spiderOakApp.loginView.show();
       });
-      this.undelegateEvents();
+      this.render();
     }
   });
 

@@ -4,7 +4,7 @@ describe('AccountModel', function() {
     beforeEach(function(){
       this.server = sinon.fakeServer.create();
       this.username = "testusername";
-      this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
+      this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // "testusername" nibbler b32
       this.password = "testpassword";
       this.accountModel =
         spiderOakApp.accountModel = new spiderOakApp.AccountModel();
@@ -23,9 +23,9 @@ describe('AccountModel', function() {
           "POST",
           "https://spideroak.com/browse/login",
           [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/"
-           + this.b32username
-           + "/login"]
+           "location:https://spideroak.com/storage/" +
+           this.b32username +
+           "/login"]
         );
         this.accountModel.login(this.username, this.password,
                                 this.successSpy, this.errorSpy);
@@ -121,7 +121,9 @@ describe('AccountModel', function() {
           "POST",
           "https://spideroak.com/browse/login",
           [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/" + this.b32username + "/storage"]
+           "location:https://spideroak.com/storage/" +
+           this.b32username +
+           "/login"]
         );
         this.accountModel.login(this.username, this.password,
                                 function(){}, function(){});
@@ -247,7 +249,9 @@ describe('AccountModel', function() {
           "POST",
           "https://spideroak.com/browse/login",
           [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/" + this.b32username + "/storage"]
+           "location:https://spideroak.com/storage/"
+           + this.b32username
+           + "/login"]
         );
         this.server.respondWith(
           "POST",
@@ -277,6 +281,47 @@ describe('AccountModel', function() {
           var lastIndex = (this.server.requests.length - 1);
           this.server.requests[lastIndex].status.should.equal(200);
       });
+      it('should clear the account attributes', function() {
+        this.accountModel.logout(function(){});
+        this.server.respond();
+        this.accountModel.get("b32username").should.equal("");
+        this.accountModel.get("basicAuthCredentials").should.equal("");
+        this.accountModel.get("login_url").should.equal("");
+        this.accountModel.get("storageRootURL").should.equal("");
+        this.accountModel.get("mySharesRootURL").should.equal("");
+        this.accountModel.get("mySharesListURL").should.equal("");
+        this.accountModel.get("webRootURL").should.equal("");
+      });
+      // @TODO: Clear keychain credentials test
+      // @TODO: Clear any localStorage test
+   });
+    describe('login after logout', function() {
+      beforeEach(function(){
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/browse/login",
+          [200, {"Content-Type": "text/html"},
+           "location:https://spideroak.com/storage/"
+           + this.b32username
+           + "/login"]
+        );
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/storage/" + this.b32username + "/logout",
+          [200, {"Content-Type": "text/html"},
+           "the response page"]
+        );
+        this.successSpy = sinon.spy();
+        this.errorSpy = sinon.spy();
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
+        this.server.respond();
+        this.accountModel.logout(function(){});
+        this.server.respond();
+      });
+
+
+
       // @TODO: Clear keychain credentials test
       // @TODO: Clear any localStorage test
    });

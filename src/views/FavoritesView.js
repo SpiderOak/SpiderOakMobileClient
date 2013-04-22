@@ -138,7 +138,6 @@
       this.$el.trigger("complete");
     },
     refreshAllFavorites: function(event) {
-      console.log("refreshAllFavorites triggered");
       navigator.notification.confirm(
         "Do you want to refresh all of your favorites? This will re-download" +
           " the latest versions.",

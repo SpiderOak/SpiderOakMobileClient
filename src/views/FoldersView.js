@@ -38,9 +38,9 @@
     loadFolders: function() {
       // The folders...
       this.folders = new spiderOakApp.FoldersCollection();
-      if (this.model.collection) {
+      // if (this.model.collection) {
         this.folders.url = this.model.composedUrl();
-      }
+      // }
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
         el: this.$(".foldersList")
@@ -57,9 +57,9 @@
     loadFiles: function() {
       // The files...
       this.files = new spiderOakApp.FilesCollection();
-      if (this.model.collection) {
+      // if (this.model.collection) {
         this.files.url = this.model.composedUrl();
-      }
+      // }
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,
         el: this.$(".filesList")

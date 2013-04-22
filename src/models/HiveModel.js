@@ -11,7 +11,7 @@
 
   spiderOakApp.HiveModel = spiderOakApp.FolderModel.extend({
     defaults: {
-      gotHive: true
+      hasHive: true
     },
     parse: function(resp, xhr) {
       if (resp.syncfolder) {
@@ -19,7 +19,7 @@
         return resp.syncfolder;
       }
       else {
-        this.set("gotHive", false);
+        this.set("hasHive", false);
         return this.attributes;
       }
     },

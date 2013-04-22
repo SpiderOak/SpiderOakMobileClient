@@ -71,7 +71,7 @@
     },
     hiveReady: function(event) {
       this.hiveIsComplete = true;
-      if (this.hiveModel.get("gotHive")) {
+      if (this.hiveModel.get("hasHive")) {
         // Push the hive
         $(".hive-sep").show();
         $(".hive").show();

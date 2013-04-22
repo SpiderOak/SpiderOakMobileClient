@@ -31,7 +31,7 @@
       this.$el.html(_.template(window.tpl.get("menusheetTemplate"), inOrOut));
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
-      if (spiderOakApp.accountModel.get("b32username")) {
+      if (spiderOakApp.accountModel.get("isLoggedIn")) {
         // Hive
         this.hiveModel = new spiderOakApp.HiveModel();
         this.hiveModel.url =
@@ -83,11 +83,18 @@
           title: "SpiderOak Hive", // Hardcoded for now?
           model: this.hiveModel
         };
-        spiderOakApp.navigator.pushView(
-          spiderOakApp.FolderView,
-          options,
-          spiderOakApp.noEffect
-        );
+        if (spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.navigator.pushView(
+            spiderOakApp.FolderView,
+            options,
+            spiderOakApp.noEffect);
+        }
+        else {
+          spiderOakApp.navigator.replaceAll(
+            spiderOakApp.FolderView,
+            options,
+            spiderOakApp.noEffect);
+        }
         spiderOakApp.dialogView.hide();
       }
       else if(this.devicesAreComplete) {

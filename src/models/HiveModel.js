@@ -10,9 +10,18 @@
       $           = window.$;
 
   spiderOakApp.HiveModel = spiderOakApp.FolderModel.extend({
+    defaults: {
+      gotHive: true
+    },
     parse: function(resp, xhr) {
-      resp.syncfolder.name = "SpiderOak Hive";
-      return resp.syncfolder;
+      if (resp.syncfolder) {
+        resp.syncfolder.name = "SpiderOak Hive";
+        return resp.syncfolder;
+      }
+      else {
+        this.set("gotHive", false);
+        return this.attributes;
+      }
     },
     composedUrl: function() {
       var urlTail = encodeURI(this.get("device_path"));

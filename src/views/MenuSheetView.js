@@ -64,15 +64,17 @@
     devicesReady: function(event) {
       this.devicesAreComplete = true;
       $(".devices-sep").show();
-      if (this.hiveIsComplete && spiderOakApp.navigator.viewsStack.length === 0) {
+      if (this.hiveIsComplete &&
+          spiderOakApp.navigator.viewsStack.length === 0) {
         this.pushFirstDevice();
       }
     },
     hiveReady: function(event) {
       this.hiveIsComplete = true;
-      if (this.hiveModel.get("url")) {
+      if (this.hiveModel.get("gotHive")) {
         // Push the hive
         $(".hive-sep").show();
+        $(".hive").show();
         var $hiveRef = this.$(".hive").find("li a").first();
         $("#menusheet ul li").removeClass("current");
         $hiveRef.closest("li").addClass("current");
@@ -90,6 +92,12 @@
       }
       else if(this.devicesAreComplete) {
         this.pushFirstDevice();
+        $(".hive-sep").hide();
+        $(".hive").hide();
+      }
+      else {
+        $(".hive-sep").hide();
+        $(".hive").hide();
       }
     },
     pushFirstDevice: function() {

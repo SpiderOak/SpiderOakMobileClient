@@ -31,38 +31,26 @@
       this.$el.html(_.template(window.tpl.get("menusheetTemplate"), inOrOut));
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
-      this.devicesCollection = new spiderOakApp.DevicesCollection();
-      this.devicesCollection.url =
-        spiderOakApp.accountModel.get("storageRootURL") + "?device_info=yes";
-      this.$(".devices").one("complete", function(event) {
-        if (spiderOakApp.navigator.viewsStack.length === 0) {
-          var $firstDevice = this.$(".devices").find("li a").first();
-          var firstDeviceModel = $firstDevice.data("model");
-          if (firstDeviceModel) {
-            var options = {
-              id: firstDeviceModel.cid,
-              title: firstDeviceModel.get("name"),
-              model: firstDeviceModel
-            };
-            $("#menusheet ul li").removeClass("current");
-            $firstDevice.closest("li").addClass("current");
-            spiderOakApp.navigator.pushView(
-              spiderOakApp.FolderView,
-              options,
-              spiderOakApp.noEffect
-            );
-            spiderOakApp.dialogView.hide();
-          }
-        }
-        else {
-          // Just in case...
-          spiderOakApp.dialogView.hide();
-        }
-      }.bind(this));
-      this.devicesListView = new spiderOakApp.DevicesListView({
-        collection: this.devicesCollection,
-        el: this.$(".devices")
-      }).render();
+      if (spiderOakApp.accountModel.get("b32username")) {
+        // Hive
+        this.hiveModel = new spiderOakApp.HiveModel();
+        this.hiveModel.url =
+          spiderOakApp.accountModel.get("storageRootURL");
+        this.$(".hive").one("complete", this.hiveReady);
+        this.hiveView = new spiderOakApp.HiveView({
+          model: this.hiveModel,
+          el: this.$(".hive")
+        });
+        // Devices
+        this.devicesCollection = new spiderOakApp.DevicesCollection();
+        this.devicesCollection.url =
+          spiderOakApp.accountModel.get("storageRootURL") + "?device_info=yes";
+        this.$(".devices").one("complete", this.devicesReady);
+        this.devicesListView = new spiderOakApp.DevicesListView({
+          collection: this.devicesCollection,
+          el: this.$(".devices")
+        }).render();
+      }
 
       spiderOakApp.menuScroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -72,6 +60,56 @@
       this.on("complete", spiderOakApp.menuScroller.refresh, this);
 
       return this;
+    },
+    devicesReady: function(event) {
+      this.devicesAreComplete = true;
+      $(".devices-sep").show();
+      if (this.hiveIsComplete && spiderOakApp.navigator.viewsStack.length === 0) {
+        this.pushFirstDevice();
+      }
+    },
+    hiveReady: function(event) {
+      this.hiveIsComplete = true;
+      if (this.hiveModel.get("url")) {
+        // Push the hive
+        $(".hive-sep").show();
+        var $hiveRef = this.$(".hive").find("li a").first();
+        $("#menusheet ul li").removeClass("current");
+        $hiveRef.closest("li").addClass("current");
+        var options = {
+          id: this.hiveModel.cid,
+          title: "SpiderOak Hive", // Hardcoded for now?
+          model: this.hiveModel
+        };
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.FolderView,
+          options,
+          spiderOakApp.noEffect
+        );
+        spiderOakApp.dialogView.hide();
+      }
+      else if(this.devicesAreComplete) {
+        this.pushFirstDevice();
+      }
+    },
+    pushFirstDevice: function() {
+      var $firstDevice = this.$(".devices").find("li a").first();
+      var firstDeviceModel = _.first(this.devicesCollection.models);
+      if (firstDeviceModel) {
+        var options = {
+          id: firstDeviceModel.cid,
+          title: firstDeviceModel.get("name"),
+          model: firstDeviceModel
+        };
+        $("#menusheet ul li").removeClass("current");
+        $firstDevice.closest("li").addClass("current");
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.FolderView,
+          options,
+          spiderOakApp.noEffect
+        );
+        spiderOakApp.dialogView.hide();
+      }
     },
     sharerooms_tapHandler: function(event) {
       spiderOakApp.mainView.closeMenu(event);

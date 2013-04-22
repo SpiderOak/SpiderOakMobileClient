@@ -22,7 +22,8 @@
       this.$el.empty();
       this.$el.html(
         _.template(
-          "<li><a href='#' class='hivefolder'><i class='icon-cloud-folder'></i> SpiderOak Hive</a></li>"
+          "<li><a href='#' class='hivefolder'>" +
+            "<i class='icon-folder'></i> SpiderOak Hive</a></li>"
         )
       );
       this.$("a").data("model", this.model);

@@ -687,6 +687,7 @@
     },
     viewActivate: function(event) {
       spiderOakApp.backDisabled = false;
+      spiderOakApp.mainView.showBackButton(true);
     },
     viewDeactivate: function(event) {
       // this.close();

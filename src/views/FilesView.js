@@ -118,7 +118,8 @@
       favorite.url = model.urlResult();
       favorite.isFavorite = true;
       navigator.notification.confirm(
-        "Do you want to add this file to your favorites?",
+        "Do you want to add this file to your favorites? This will download " +
+          "the file to your device.",
         function(button) {
           if (button !== 1) {
             return;
@@ -144,12 +145,6 @@
             model.set("favoriteModel", favoriteModel);
             // Add the file to the recents collection (view or fave)
             spiderOakApp.recentsCollection.add(model);
-            navigator.notification.alert(
-              fileEntry.name + " added to Favorites",
-              null,
-              "Success",
-              "OK"
-            );
           }.bind(this));
         }.bind(this),
         "Favorites"
@@ -407,12 +402,11 @@
             return;
           }
           this.downloadFile(model, path, function(fileEntry) {
-            console.log(fileEntry.fullPath);
             spiderOakApp.dialogView.hide();
             // Add the file to the recents collection (view or fave)
             spiderOakApp.recentsCollection.add(model);
             navigator.notification.alert(
-              fileEntry.name + " downloaded to " + fileEntry.fullPath,
+              fileEntry.name + " saved to " + path + fileEntry.name,
               null,
               "Success",
               "OK"

@@ -168,6 +168,8 @@
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
       spiderOakApp.mainView.setTitle("SpiderOak");
+      spiderOakApp.favoritesCollection.reset();
+      spiderOakApp.recentsCollection.reset();
       // Log out
       spiderOakApp.accountModel.logout(function() {
         // And finally, pop up the LoginView

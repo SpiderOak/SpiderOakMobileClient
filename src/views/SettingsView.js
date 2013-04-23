@@ -13,7 +13,8 @@
     destructionPolicy: "never",
     events: {
       "tap .send-feedback": "feedback_tapHandler",
-      "tap .account-settings": "accountSettings_tapHandler"
+      "tap .account-settings": "accountSettings_tapHandler",
+      "tap .server": "server_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -25,6 +26,7 @@
       this.settingsInfo = spiderOakApp.storageBarModel &&
                           spiderOakApp.storageBarModel.toJSON() ||
                           { firstname: "", lastname: "" };
+      _.extend(this.settingsInfo, {server: spiderOakApp.config.server});
       this.$el.html(
         _.template(
           window.tpl.get("settingsViewTemplate"), this.settingsInfo
@@ -61,6 +63,13 @@
     accountSettings_tapHandler: function(event) {
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsAccountView,
+        {},
+        spiderOakApp.defaultEffect
+      );
+    },
+    server_tapHandler: function(event) {
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsServerView,
         {},
         spiderOakApp.defaultEffect
       );
@@ -105,7 +114,10 @@
     }
   });
 
- spiderOakApp.SettingsAccountView = Backbone.View.extend({
+  spiderOakApp.SettingsAccountView = Backbone.View.extend({
+    // Derive from this and define your particular rendering.
+    templateID: "settingsAccountViewTemplate",
+    viewTitle: "Account",
     destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
@@ -113,11 +125,14 @@
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
+    getTemplateValues: function() {
+      return spiderOakApp.storageBarModel.toJSON();
+    },
     render: function() {
       this.$el.html(
         _.template(
-          window.tpl.get("setingsAccountViewTemplate"),
-          spiderOakApp.storageBarModel.toJSON()
+          window.tpl.get(this.templateID),
+          this.getTemplateValues()
         )
       );
       this.scroller = new window.iScroll(this.el, {
@@ -132,7 +147,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Account");
+        spiderOakApp.mainView.setTitle(this.viewTitle);
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -164,6 +179,14 @@
     close: function() {
       // Clean up our subviews
       this.scroller.destroy();
+    }
+  });
+
+  spiderOakApp.SettingsServerView = spiderOakApp.SettingsAccountView.extend({
+    templateID: "settingsServerViewTemplate",
+    viewTitle: "Server",
+    getTemplateValues: function() {
+      return {server: spiderOakApp.config.server};
     }
   });
 

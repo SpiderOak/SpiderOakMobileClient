@@ -38,6 +38,15 @@
         new spiderOakApp.FavoritesCollection(favorites);
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
 
+      this.version = "0.0.0"; // lame default
+      $.ajax({
+        url: "./config.xml",
+        dataType: "xml",
+        success: function(config){
+          this.version = $(config).find("widget").attr("version") || "";
+        }.bind(this)
+      });
+
       // Start listening for important app-level events
       document.addEventListener(
         "deviceready",

@@ -188,6 +188,24 @@ ul li.sep {
   color: #000;
 }
 
+ul li .label {
+  float: left;
+  color: #666;
+  width: 33%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+ul li .info {
+  float: right;
+  text-align: right;
+  width: 66%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 ul.rounded {
   border: 1px solid #ccc;
   border-radius: 10px;

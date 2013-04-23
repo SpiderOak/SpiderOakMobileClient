@@ -41,6 +41,15 @@
       // Benefit of the doubt
       this.networkAvailable = true;
 
+      this.version = "0.0.0"; // lame default
+      $.ajax({
+        url: "./config.xml",
+        dataType: "xml",
+        success: function(config){
+          this.version = $(config).find("widget").attr("version") || "";
+        }.bind(this)
+      });
+
       // Start listening for important app-level events
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);

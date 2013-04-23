@@ -616,6 +616,7 @@
   });
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
+    destructionPolicy: "never",
     events: {
       "tap .file-share-button": "shareFile",
       "tap .file-save-button": "saveFile",

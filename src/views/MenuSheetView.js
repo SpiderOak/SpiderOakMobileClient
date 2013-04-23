@@ -217,18 +217,7 @@
     logoutConfirmed: function(button) {
       if (button === 2) return false;
       // Clean up
-      if (spiderOakApp.navigator.viewsStack.length > 0) {
-        spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
-      }
-      spiderOakApp.mainView.setTitle("SpiderOak");
-      spiderOakApp.favoritesCollection.reset();
-      spiderOakApp.recentsCollection.reset();
-      // Log out
-      spiderOakApp.accountModel.logout(function() {
-        // And finally, pop up the LoginView
-        spiderOakApp.mainView.closeMenu();
-        spiderOakApp.loginView.show();
-      });
+      $(document).trigger("logoutSuccess");
       this.render();
     }
   });

@@ -49,6 +49,11 @@
         this.onLoginSuccess,
         false
       );
+      document.addEventListener(
+        "logoutSuccess",
+        this.onLogoutSuccess,
+        false
+      );
       // Hax for Android 2.x not groking :active
       $(document).on("touchstart", "a", function(event) {
         var $this = $(this);
@@ -100,6 +105,21 @@
 
       // Fresh new recents collection
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
+    },
+    onLogoutSuccess: function() {
+      if (spiderOakApp.navigator.viewsStack.length > 0) {
+        spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
+      }
+      spiderOakApp.mainView.setTitle("SpiderOak");
+      spiderOakApp.favoritesCollection.reset();
+      spiderOakApp.recentsCollection.reset();
+      spiderOakApp.storageBarView.empty();
+      // Log out
+      spiderOakApp.accountModel.logout(function() {
+        // And finally, pop up the LoginView
+        spiderOakApp.mainView.closeMenu();
+        spiderOakApp.loginView.show();
+      });
     },
     onBackKeyDown: function(event) {
       event.preventDefault();

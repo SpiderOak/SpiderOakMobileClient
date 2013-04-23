@@ -39,21 +39,12 @@
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
 
       // Start listening for important app-level events
-      document.addEventListener(
-        "deviceready",
-        this.onDeviceReady,
-        false
-      );
-      document.addEventListener(
-        "loginSuccess",
-        this.onLoginSuccess,
-        false
-      );
-      document.addEventListener(
-        "logoutSuccess",
-        this.onLogoutSuccess,
-        false
-      );
+      document.addEventListener("deviceready", this.onDeviceReady, false);
+      document.addEventListener("loginSuccess", this.onLoginSuccess, false);
+      document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
+      document.addEventListener("resume", this.onResume, false);
+      document.addEventListener("offline", this.setOffline, false);
+      document.addEventListener("online", this.setOnline, false);
       // Hax for Android 2.x not groking :active
       $(document).on("touchstart", "a", function(event) {
         var $this = $(this);
@@ -87,6 +78,26 @@
       spiderOakApp.fileViewer = window.cordova &&
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
+    setOnline: function(event) {
+      this.networkAvailable = true;
+    },
+    setOffline: function(event) {
+      this.networkAvailable = false;
+      var onConfirm = function() {
+        // modally block the UI
+      };
+      navigator.notification.confirm(
+        "Sorry. You should still be able to access your favorites, but " +
+          "Logging in and access to files or folders requires " +
+          "a network connection.",
+        onConfirm,
+        'Network error',
+        'OK'
+      );
+    },
+    onResume: function(event) {
+      // ...
+    },
     onLoginSuccess: function() {
       spiderOakApp.menuSheetView.render();
       spiderOakApp.storageBarModel = new spiderOakApp.StorageBarModel();
@@ -113,7 +124,9 @@
       spiderOakApp.mainView.setTitle("SpiderOak");
       spiderOakApp.favoritesCollection.reset();
       spiderOakApp.recentsCollection.reset();
-      spiderOakApp.storageBarView.empty();
+      if (spiderOakApp.storageBarView) {
+        spiderOakApp.storageBarView.empty();
+      }
       // Log out
       spiderOakApp.accountModel.logout(function() {
         // And finally, pop up the LoginView

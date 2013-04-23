@@ -91,7 +91,7 @@
       spiderOakApp.backDisabled = false;
     },
     viewDeactivate: function(event) {
-      //this.close();
+      this.remove();
     },
     remove: function() {
       this.close();
@@ -153,7 +153,7 @@
       spiderOakApp.backDisabled = false;
     },
     viewDeactivate: function(event) {
-      //this.close();
+      this.remove();
     },
     remove: function() {
       this.close();

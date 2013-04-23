@@ -37,6 +37,9 @@
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
+      
+      // Benefit of the doubt
+      this.networkAvailable = true;
 
       // Start listening for important app-level events
       document.addEventListener("deviceready", this.onDeviceReady, false);

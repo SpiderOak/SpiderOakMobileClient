@@ -150,6 +150,7 @@
                });
       }
       this.loggedOut();
+      $(document).trigger("logOutSuccess");
       successCallback();
     },
     /** Clear account resources. */

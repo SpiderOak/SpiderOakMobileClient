@@ -25,6 +25,9 @@
         )
       );
       return this;
+    },
+    empty: function() {
+      this.$el.empty();
     }
   });
 

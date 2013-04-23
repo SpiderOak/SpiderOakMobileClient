@@ -44,6 +44,18 @@
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url) {
+      if (!spiderOakApp.networkAvailable && navigator.notification) {
+        navigator.notification.confirm(
+          "Sorry. You should still be able to access your favorites, but " +
+            "Logging in and access to files or folders requires " +
+            "a network connection.",
+          function(){},
+          'Network error',
+          'OK'
+        );
+        spiderOakApp.dialogView.hide();
+        return;
+      }
       var _self = this;
       login_url = login_url || _self.get("login_url_start");
       $.ajax({

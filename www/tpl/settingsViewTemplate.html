@@ -1,0 +1,35 @@
+<div>
+  <ul>
+    <li><a class="send-feedback">Send feedback</a></li>
+    <!-- <li>
+      <span style="float:left;color:#666;">Remember me</span>
+      <div class="checkswitch">
+        <input type="checkbox" id="remember-settings" name="remember-settings" />
+        <label for="remember-settings">
+          <span data-off="No" data-on="Yes"></span>
+        </label>
+      </div>
+      <div class="clearfix"></div>
+    </li> -->
+  </ul>
+  <% if (firstname && lastname) { %>
+  <ul><li class="sep">Account</li></ul>
+  <ul style="font-size:0.8em;">
+    <li>
+      <a class="account-settings">
+        <div class="label">Name</div>
+        <div class="info"><%= firstname + " " + lastname %></div>
+        <div class="clearfix"></div>
+      </a>
+    </li>
+  </ul>
+  <% } %>
+  <ul><li class="sep">Version</li></ul>
+  <ul style="font-size:0.8em;">
+    <li>
+      <div class="label">Version</div>
+      <div class="info"><%= spiderOakApp.version %></div>
+      <div class="clearfix"></div>
+    </li>
+  </ul>
+</div>

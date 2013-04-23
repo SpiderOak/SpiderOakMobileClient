@@ -15,7 +15,8 @@
       "tap .logout": "logout_tapHandler",
       "tap .recents": "recents_tapHandler",
       "tap .favorites": "favorites_tapHandler",
-      "tap .sharerooms": "sharerooms_tapHandler"
+      "tap .sharerooms": "sharerooms_tapHandler",
+      "tap .settings": "settings_tapHandler"
       // "focus #menu-search": "menuSearch_focusHandler",
       // "keyup #menu-search": "menuSearch_changeHandler",
       // "tap .clear-icon": "clearIcon_tapHandler"
@@ -147,7 +148,27 @@
         );
       }
     },
-
+    settings_tapHandler: function(event) {
+      spiderOakApp.mainView.closeMenu(event);
+      spiderOakApp.mainView.setTitle("Settings");
+      $("#menusheet ul li").removeClass("current");
+      $(".settings").closest("li").addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+        return;
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+    },
     menuOpening: function(event) {
       // @FIXME: Rectify whatever logout or other activity is causing loss
       //         of the event bindings, and remove this.

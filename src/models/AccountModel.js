@@ -10,16 +10,12 @@
       $           = window.$;
 
   // @TODO Arrange so that base_domain can vary by app configuration.
-  var base_domain = "spideroak.com";
   spiderOakApp.AccountModel = Backbone.Model.extend({
     defaults: {
       rememberme: false,
       data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
       storage_web_url: "",      // Irrelevant to mobile client for now.
-      login_url_preface: "https://" + base_domain + "/storage/",
-      login_url_start: "https://" + base_domain + "/browse/login",
-      logout_url_preface: "https://" + base_domain + "/storage/",
 
       isLoggedIn: false,
       b32username: "",
@@ -56,7 +52,14 @@
         spiderOakApp.dialogView.hide();
         return;
       }
-      var _self = this;
+
+      var _self = this,
+           server = spiderOakApp.config.server;
+
+      _self.set("login_url_preface", "https://" + server + "/storage/");
+      _self.set("login_url_start", "https://" + server + "/browse/login");
+      _self.set("logout_url_preface", "https://" + server + "/storage/");
+
       login_url = login_url || _self.get("login_url_start");
       $.ajax({
         type: "POST",

@@ -271,6 +271,7 @@
           if (progressEvent.lengthComputable) {
             var percentComplete =
                   (progressEvent.loaded / progressEvent.total) * 100;
+            percentComplete = percentComplete <= 100 ? percentComplete : 100;
             spiderOakApp.dialogView.updateProgress(percentComplete);
           }
         },

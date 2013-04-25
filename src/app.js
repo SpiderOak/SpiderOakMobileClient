@@ -139,12 +139,9 @@
       if (spiderOakApp.storageBarView) {
         spiderOakApp.storageBarView.empty();
       }
-      // Log out
-      spiderOakApp.accountModel.logout(function() {
-        // And finally, pop up the LoginView
-        spiderOakApp.mainView.closeMenu();
-        spiderOakApp.loginView.show();
-      });
+      // And finally, pop up the LoginView
+      spiderOakApp.mainView.closeMenu();
+      spiderOakApp.loginView.show();
     },
     onBackKeyDown: function(event) {
       event.preventDefault();

@@ -165,8 +165,10 @@
                });
       }
       this.loggedOut();
-      $(document).trigger("logOutSuccess");
-      successCallback();
+      $(document).trigger("logoutSuccess");
+      if (successCallback) {
+        successCallback();
+      }
     },
     /** Clear account resources. */
     loggedOut: function() {

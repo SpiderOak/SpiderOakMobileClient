@@ -25,6 +25,7 @@
       _.bindAll(this);
       $(document).on("menuOpening", this.menuOpening);
       $(document).on("menuClosing", this.menuClosing);
+      $(document).on("logoutSuccess", this.render);
     },
     render: function() {
       var inOrOut = {"inorout":
@@ -226,20 +227,16 @@
         window.setTimeout(function(){
           navigator.notification.confirm(
             'Are you sure you want to sign out?',
-            this.logoutConfirmed,
+            function () {
+              spiderOakApp.accountModel.logout();
+            }.bind(spiderOakApp),
             'Sign out'
           );
         }.bind(this),50);
       }
       else {
-        this.logoutConfirmed();
+        $(document).trigger("logoutSuccess");
       }
-    },
-    logoutConfirmed: function(button) {
-      if (button === 2) return false;
-      // Clean up
-      $(document).trigger("logoutSuccess");
-      this.render();
     }
   });
 

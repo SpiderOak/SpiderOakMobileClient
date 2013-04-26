@@ -12,6 +12,40 @@
   spiderOakApp.SettingsCollection = Backbone.Collection.extend({
     retentionPrefix: "spiderOakApp_settings_",
     model: spiderOakApp.SettingModel,
+
+    /** Get setting value, defaulting the value if not present.
+     *
+     * @param (string) setting id
+     * @param (object) default value
+     */
+    getOrDefault: function (id, defaultValue) {
+      var setting = this.get(id);
+      if (setting) {
+        return setting.get("value");
+      }
+      else {
+        return defaultValue;
+      }
+    },
+    /** Set an existing setting, or create it with indicated value.
+     *
+     * Retention of the setting by 'retain' is affected only if the setting
+     * does not already exist.
+     *
+     * @param (string) setting id
+     * @param (object) value
+     * @param (boolean) create a retained value, if true and not already present
+     */
+    setOrCreate: function (id, value, retain) {
+      var setting = this.get(id);
+      if (setting) {
+        setting.set("value", value);
+      }
+      else {
+        this.add({id: id, value: value, retain: retain ? 1 : 0});
+      }
+    },
+
     initialize: function () {
       this.on("add", this.addHandler);
       this.on("remove", this.removeHandler);

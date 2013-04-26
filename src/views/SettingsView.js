@@ -27,7 +27,8 @@
       this.settingsInfo = spiderOakApp.storageBarModel &&
                           spiderOakApp.storageBarModel.toJSON() ||
                           { firstname: "", lastname: "" };
-      _.extend(this.settingsInfo, {server: spiderOakApp.config.server.value});
+      _.extend(this.settingsInfo,
+               {server: spiderOakApp.settings.get("server").get("value")});
       this.$el.html(
         _.template(
           window.tpl.get("settingsViewTemplate"), this.settingsInfo
@@ -70,8 +71,11 @@
       );
     },
     server_tapHandler: function(event) {
+      var settingsServerView = new spiderOakApp.SettingsServerView({
+        model: spiderOakApp.settings.get("server")
+      });
       spiderOakApp.navigator.pushView(
-        spiderOakApp.SettingsServerView,
+        settingsServerView,
         {},
         spiderOakApp.defaultEffect
       );
@@ -196,6 +200,9 @@
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.listenTo(this.model, "change", function () {
+        $(document).trigger("settingChanged");
+      });
     },
     render: function() {
       this.$el.html(_.template(window.tpl.get(this.templateID),
@@ -203,8 +210,10 @@
       return this;
     },
     getTemplateValues: function() {
-      return {server: spiderOakApp.config.server.value,
-              isLoggedIn: spiderOakApp.accountModel.get("isLoggedIn")};
+      return {
+        server: this.model.get("value"),
+        isLoggedIn: spiderOakApp.accountModel.get("isLoggedIn")
+      };
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {
@@ -222,18 +231,17 @@
       this.$("input").blur();
     },
     form_submitHandler: function(event) {
-      var server = this.$("[name=server]").val(),
-          wasServer = spiderOakApp.config.server.value;
+      var newServer = this.$("[name=server]").val(),
+          wasServer = this.model.get("value");
       event.preventDefault();
       this.$("input").blur();
 
       var didit = function(noLogout) {
-        var subtitle = "Primary server address changed to " + server;
+        var subtitle = "Primary server address changed to " + newServer;
         if (! noLogout) {
           subtitle += " and session logged out";
         }
-        spiderOakApp.config.server.value = server;
-        $(document).trigger("settingChanged");
+        this.model.set("value", newServer);
         spiderOakApp.dialogView.showNotify({
           title: "Server changed",
           subtitle: subtitle
@@ -241,8 +249,8 @@
         if (spiderOakApp.navigator.viewsStack.length > 0) {
           spiderOakApp.navigator.popView();
         }
-      };
-      if (server !== wasServer) {
+      }.bind(this);
+      if (newServer !== wasServer) {
         if (spiderOakApp.accountModel.get("isLoggedIn")) {
           spiderOakApp.accountModel.logout(didit);
         }
@@ -253,7 +261,7 @@
       else {
         spiderOakApp.dialogView.showNotify({
           title: "Server remains the same",
-          subtitle: "The specified server address was already set: " + server
+          subtitle: "The specified server address was already set"
         });
         spiderOakApp.navigator.popView();
       }

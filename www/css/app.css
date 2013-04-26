@@ -107,6 +107,21 @@ body {
   background-color: #eee;
 }
 
+.learn-about-spideroak {
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.about-spideroak-content {
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+.about-spideroak-content .email-link,
+.about-spideroak-content .site-link {
+  color:#666;
+}
+
 .nav {
   color: #fff;
 }

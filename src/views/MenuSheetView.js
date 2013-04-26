@@ -16,7 +16,8 @@
       "tap .recents": "recents_tapHandler",
       "tap .favorites": "favorites_tapHandler",
       "tap .sharerooms": "sharerooms_tapHandler",
-      "tap .settings": "settings_tapHandler"
+      "tap .settings": "settings_tapHandler",
+      "tap .about": "about_tapHandler"
       // "focus #menu-search": "menuSearch_focusHandler",
       // "keyup #menu-search": "menuSearch_changeHandler",
       // "tap .clear-icon": "clearIcon_tapHandler"
@@ -165,6 +166,27 @@
       else {
         spiderOakApp.navigator.replaceAll(
           spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+    },
+    about_tapHandler: function(event) {
+      spiderOakApp.mainView.closeMenu(event);
+      spiderOakApp.mainView.setTitle("About SpiderOak");
+      $("#menusheet ul li").removeClass("current");
+      $(".about").closest("li").addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.SettingsAboutView,
+          {},
+          spiderOakApp.noEffect
+        );
+        return;
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.SettingsAboutView,
           {},
           spiderOakApp.noEffect
         );

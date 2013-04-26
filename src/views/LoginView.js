@@ -15,7 +15,8 @@
       "submit form": "form_submitHandler",
       "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
-      "tap .switch": "switch_tapHandler"
+      "tap .switch": "switch_tapHandler",
+      "tap .learn-more": "learnMore_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -126,8 +127,15 @@
       $checkbox.attr("checked",!$checkbox.is(":checked"));
       $this.toggleClass("on");
     },
+    learnMore_tapHandler: function(event) {
+      var learnMoreView = new spiderOakApp.LearnAboutView();
+      window.learnMore = learnMoreView;
+      $(".app").append(learnMoreView.$el);
+      learnMoreView.render().show();
+    },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {
+        this.$("input").attr("disabled", true);
         this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, 100);
         this.$el.addClass("dismissed");
         // Clear username and password values
@@ -136,6 +144,7 @@
     },
     show: function() {
       if (this.$el.hasClass("dismissed")) {
+        this.$("input").removeAttr("disabled");
         this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
         this.$el.removeClass("dismissed");
       }

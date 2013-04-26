@@ -148,7 +148,8 @@
     },
     onBackKeyDown: function(event) {
       event.preventDefault();
-      if ($(".modal").is(":visible")) {
+      if ($(".modal").is(":visible") ||
+          $(".learn-about-spideroak").is(":visible")) {
         return;
       }
       // @FIXME: Extend this logic a bit... it's a bit simplistic

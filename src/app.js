@@ -27,6 +27,7 @@
     initialize: function() {
 
       // Instantiate the menusheet and bind the spiderOakApp.accountModel
+      spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel

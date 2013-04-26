@@ -301,9 +301,9 @@
       }
       else {
         spiderOakApp.publicShareRoomsCollection.add({
-          remember: this.$("[name=remember]").is(":checked") ? 1 : 0,
-          share_id: this.$("[name=shareid]").val(),
-          room_key: this.$("[name=roomkey]").val()
+          remember: remember,
+          share_id: shareId,
+          room_key: roomKey
         }, {
           error: function (model, xhr, options) {
             spiderOakApp.dialogView.showNotify({

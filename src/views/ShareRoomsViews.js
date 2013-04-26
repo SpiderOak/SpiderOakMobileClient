@@ -263,8 +263,11 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
+      var remembering = spiderOakApp.settings
+                          .getOrDefault("shareroomsRemembering", 0);
       this.$el.html(_.template(
-        window.tpl.get("addShareRoomTemplate"),{})
+        window.tpl.get("addShareRoomTemplate"),
+        {"remembering": remembering})
       );
       return this;
     },
@@ -291,6 +294,13 @@
 
       event.preventDefault();
       this.$("input").blur();
+
+      spiderOakApp.settings.setOrCreate("shareroomsRemembering", remember, 1);
+
+      if (! shareId || ! roomkey) {
+        spiderOakApp.navigator.popView();
+        return;
+      }
 
       if (pubShares.hasByAttributes(shareId, roomKey)) {
         spiderOakApp.dialogView.showNotify({

@@ -15,7 +15,8 @@
       "submit form": "form_submitHandler",
       "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
-      "tap .switch": "switch_tapHandler"
+      "tap .switch": "switch_tapHandler",
+      "tap .learn-more": "learnMore_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -125,6 +126,12 @@
       var $checkbox = $this.find("input[type=checkbox]");
       $checkbox.attr("checked",!$checkbox.is(":checked"));
       $this.toggleClass("on");
+    },
+    learnMore_tapHandler: function(event) {
+      var learnMoreView = new spiderOakApp.LearnAboutView();
+      window.learnMore = learnMoreView;
+      $(".app").append(learnMoreView.$el);
+      learnMoreView.render().show();
     },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {

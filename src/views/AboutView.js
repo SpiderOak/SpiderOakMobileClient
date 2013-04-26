@@ -80,7 +80,9 @@
   spiderOakApp.LearnAboutView = spiderOakApp.AboutView.extend({
     className: "learn-about-spideroak",
     events: {
-      "touchend .back-btn": "dismiss"
+      "touchend .back-btn": "dismiss",
+      "tap .site-link": "siteLink_tapHandler",
+      "tap .email-link": "emailLink_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);

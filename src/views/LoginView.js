@@ -16,7 +16,7 @@
       "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
       "tap .switch": "switch_tapHandler",
-      "touchend .learn-more": "learnMore_tapHandler"
+      "tap .learn-more": "learnMore_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);

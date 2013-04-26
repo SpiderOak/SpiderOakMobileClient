@@ -1,19 +1,22 @@
 <div>
-  <form class="login-form">
+  <form name="add-share-room" class="login-form">
     <div class="login-input">
       <input id="shareid" type="text" name="shareid"
                 autocorrect="off" autocapitalize="off"
-                placeholder="Share Id" />
+                placeholder="Share Id"
+                tabindex="1" />
     </div>
     <div style="height:5px;"></div>
     <div class="login-input">
       <input id="roomkey" type="text" name="roomkey"
                 autocorrect="off" autocapitalize="off"
-                placeholder="Room Key" />
+                placeholder="Room Key"
+                tabindex="2" />
     </div>
     <div class="checkswitch-wrapper">
       <div class="checkswitch">
-        <input type="checkbox" id="remember" name="remember" />
+        <input type="checkbox" id="remember" name="remember"
+          tabindex="-1" />
         <label for="remember">
           <span data-off="No" data-on="Yes"></span>
         </label>
@@ -23,7 +26,7 @@
       </label>
       <div class="clearfix"></div>
     </div>
-    <a class="button addShareRoomsButton">Add ShareRoom</a>
-    <input type="submit" style="visibility:hidden" />
+    <a class="button addShareRoomsButton" tabindex="-1">Add ShareRoom</a>
+    <input type="submit" style="visibility:hidden" tabindex="-1" />
   </form>
 </div>

@@ -31,20 +31,22 @@
         <!-- @FIXME: inline styles are fail -->
         <img src="img/brand_logo.png" 
           style="display:block; width:100px;margin: 10px auto;" />
-        <form class="login-form">
+        <form name="login-form" class="login-form">
           <div class="login-input">
             <input id="unme" type="text" name="unme"
                        autocorrect="off" autocapitalize="off" 
-                       placeholder="Username" />
+                       placeholder="Username"
+                       tabindex="1" />
           </div>
           <div style="height:5px;"></div>
           <div class="login-input">
             <input id="pwrd" type="password" name="pwrd"
-                       placeholder="Password" />
+                       placeholder="Password"
+                       tabindex="2" />
           </div>
-          <a class="button loginButton">Log in</a>
-          <a class="button shareRoomsButton">Go to ShareRooms</a>
-          <input type="submit" style="visibility:hidden" />
+          <a class="button loginButton" tabindex="-1">Log in</a>
+          <a class="button shareRoomsButton" tabindex="-1">Go to ShareRooms</a>
+          <input type="submit" style="visibility:hidden" tabindex="-1"/>
         </form>
       </div>
     </div>

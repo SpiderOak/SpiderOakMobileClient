@@ -21,12 +21,13 @@
 
   _.extend(spiderOakApp, {
     // @TODO: Establish distinct config file and fetch settings from it.
+    // Retained values will be held in local storage, and local changes
+    // will supercede these default values.
     config: {
       server: {value: "spideroak.com", retain: 1}
     },
     initialize: function() {
 
-      // Instantiate the menusheet and bind the spiderOakApp.accountModel
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({

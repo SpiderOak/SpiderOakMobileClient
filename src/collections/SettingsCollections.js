@@ -47,7 +47,6 @@
           }
         }.bind(this)
       });
-      model.fetch(options);
     },
     removeHandler: function (model, collection, options) {
       if (spiderOakApp.settings.hasOwnProperty(model.id)) {

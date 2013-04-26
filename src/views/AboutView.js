@@ -17,14 +17,13 @@
     },
     initialize: function() {
       _.bindAll(this);
-      this.on("viewActivate",this.viewActivate);
-      this.on("viewDeactivate",this.viewDeactivate);
-      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.settings = {
+        actionBar: false,
+        offScreen: false,
+        platform: (($.os.android) ? "Android" : "iOS")
+      };
     },
     render: function() {
-      this.settings = {
-        platform: (($.os.android)?"Android":"iOS")
-      };
       this.$el.html(
         _.template(
           window.tpl.get("aboutSpiderOakViewTemplate"), this.settings
@@ -66,12 +65,77 @@
         }
       );
     },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+      this.scroller.destroy();
+    }
+  });
+
+  spiderOakApp.LearnAboutView = spiderOakApp.AboutView.extend({
+    className: "learn-about-spideroak",
+    events: {
+      "touchend .back-btn": "dismiss"
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.settings = {
+        actionBar: true,
+        offScreen: true,
+        platform: (($.os.android)?"Android":"iOS")
+      };
+      $(document).one("backbutton", this.dismiss);
+    },
+    render: function() {
+      this.$el.html(
+        _.template(
+          window.tpl.get("aboutSpiderOakViewTemplate"), this.settings
+        ));
+      this.$el.css("-webkit-transform","translate3d(0,100%,0)");
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
+
+      return this;
+    },
+    show: function() {
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+    },
+    dismiss: function(event) {
+      this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
+        duration: 100,
+        complete: function() {
+          this.remove();
+        }.bind(this)
+      });
+    }
+  });
+
+  spiderOakApp.SettingsAboutView = spiderOakApp.AboutView.extend({
+    initialize: function() {
+      _.bindAll(this);
+      this.settings = {
+        actionBar: false,
+        offScreen: true,
+        platform: (($.os.android)?"Android":"iOS")
+      };
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Settings");
+        spiderOakApp.mainView.setTitle("About SpiderOak");
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -93,16 +157,6 @@
     },
     viewDeactivate: function(event) {
       this.remove();
-    },
-    remove: function() {
-      this.close();
-      this.$el.remove();
-      this.stopListening();
-      return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 

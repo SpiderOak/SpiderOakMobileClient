@@ -177,7 +177,7 @@
       $(".about").closest("li").addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {
         spiderOakApp.navigator.pushView(
-          spiderOakApp.AboutView,
+          spiderOakApp.SettingsAboutView,
           {},
           spiderOakApp.noEffect
         );
@@ -185,7 +185,7 @@
       }
       else {
         spiderOakApp.navigator.replaceAll(
-          spiderOakApp.AboutView,
+          spiderOakApp.SettingsAboutView,
           {},
           spiderOakApp.noEffect
         );

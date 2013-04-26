@@ -38,11 +38,12 @@
       return this;
     },
     feedback_tapHandler: function() {
+      // @FIXME: This is a bit Android-centric
       var subject = "Feedback on SpiderOak Android app version " +
         spiderOakApp.version;
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
-      extras[spiderOakApp.fileViewer.EXTRA_EMAIL] = "android@spideroak.com";
+      extras[spiderOakApp.fileViewer.EXTRA_EMAIL] = "Android@spideroak.com";
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,
         type: "text/plain",

@@ -152,6 +152,7 @@
       );
     },
     shareViaIntent: function(path) {
+      // @FIXME: This is a bit Android-centric
       var model = this.model;
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_STREAM] = path;
@@ -189,6 +190,7 @@
           "Authorization": spiderOakApp.accountModel.get("basicAuthCredentials")
         },
         success: function(result) {
+          // @FIXME: This is a bit Android-centric
           spiderOakApp.dialogView.hide();
           var text = "I want to share this link to " + model.get("name") +
               " with you: " + "https://spideroak.com" + result;

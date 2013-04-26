@@ -22,7 +22,7 @@
   _.extend(spiderOakApp, {
     // @TODO: Establish distinct config file and fetch settings from it.
     config: {
-      server: "spideroak.com"
+      server: {value: "spideroak.com", retain: 1}
     },
     initialize: function() {
 
@@ -37,7 +37,7 @@
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
-      
+
       // Benefit of the doubt
       this.networkAvailable = true;
 

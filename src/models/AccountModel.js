@@ -54,7 +54,7 @@
       }
 
       var _self = this,
-           server = spiderOakApp.config.server;
+           server = spiderOakApp.config.server.value;
 
       _self.set("login_url_preface", "https://" + server + "/storage/");
       _self.set("login_url_start", "https://" + server + "/browse/login");

@@ -27,7 +27,7 @@
       this.settingsInfo = spiderOakApp.storageBarModel &&
                           spiderOakApp.storageBarModel.toJSON() ||
                           { firstname: "", lastname: "" };
-      _.extend(this.settingsInfo, {server: spiderOakApp.config.server});
+      _.extend(this.settingsInfo, {server: spiderOakApp.config.server.value});
       this.$el.html(
         _.template(
           window.tpl.get("settingsViewTemplate"), this.settingsInfo
@@ -203,7 +203,7 @@
       return this;
     },
     getTemplateValues: function() {
-      return {server: spiderOakApp.config.server,
+      return {server: spiderOakApp.config.server.value,
               isLoggedIn: spiderOakApp.accountModel.get("isLoggedIn")};
     },
     viewChanging: function(event) {
@@ -223,7 +223,7 @@
     },
     form_submitHandler: function(event) {
       var server = this.$("[name=server]").val(),
-          wasServer = spiderOakApp.config.server;
+          wasServer = spiderOakApp.config.server.value;
       event.preventDefault();
       this.$("input").blur();
 
@@ -232,7 +232,7 @@
         if (! noLogout) {
           subtitle += " and session logged out";
         }
-        spiderOakApp.config.server = server;
+        spiderOakApp.config.server.value = server;
         $(document).trigger("settingChanged");
         spiderOakApp.dialogView.showNotify({
           title: "Server changed",

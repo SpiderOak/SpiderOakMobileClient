@@ -11,6 +11,7 @@
 
   spiderOakApp.SettingModel = spiderOakApp.FolderModel.extend({
     initialize: function() {
+      this.on("change", function () { this.collection.trigger("change"); });
       // Base behavior is a no-op.
     },
     fetch: function(options) {

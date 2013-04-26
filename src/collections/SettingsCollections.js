@@ -57,13 +57,15 @@
     },
     addRetainedSettings: function() {
       var fromStorage = window.store.get(this.retentionName()),
-          parsed;
+          parsed,
+          _self = this;      // @Note: circumvent apparent ghostjs .bind() bug.
       if (! fromStorage) {
         return;
       }
       try {
         parsed = JSON.parse(fromStorage);
-      } catch (e) {
+      }
+      catch (e) {
         if (e instanceof SyntaxError) {
           console.log("Removing malformed locally stored setting: " +
                       fromStorage);
@@ -73,7 +75,7 @@
       }
 
       _.each(parsed, function (value, key) {
-        this.add({
+        _self.add({
           id: key,
           value: value,
           retain: 1
@@ -82,24 +84,27 @@
     },
     /** Include not-already-present settings from app configuration. */
     includeConfigSettings: function () {
+      var _self = this;      // @Note: circumvent apparent ghostjs .bind() bug.
       _.each(spiderOakApp.config, function (metadata, key) {
         // Do not override established settings:
-        if (! this.haveSetting(key)) {
-          this.add({
+        if (! _self.hasSetting(key)) {
+          _self.add({
             id: key,
             value: metadata.value,
             retain: metadata.retain
-          });
+          }).bind(this);
         }
-      }.bind(this));
+      });
     },
-    haveSetting: function (id) {
+    hasSetting: function (id) {
       return (typeof this.get(id)) !== "undefined";
     },
     saveRetainedSettings: function() {
       var retain = {};
-      _.each(spiderOakApp.settings, function (value, key) {
-        if (value) { retain[key] = value; }
+      _.each(spiderOakApp.settings.models, function (model, key) {
+        if (model.get("retain")) {
+          retain[model.id] = model.get("value");
+        }
       });
       window.store.set(this.retentionName(), JSON.stringify(retain));
     },

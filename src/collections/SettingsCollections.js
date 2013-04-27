@@ -62,25 +62,7 @@
       this.includeConfigSettings();
     },
     addHandler: function(model, collection, options) {
-      var surroundingSuccess = options && options.success,
-          surroundingError = options && options.error;
-      _.extend(options, {
-        success: function() {
-          spiderOakApp.settings[model.id] =
-              model.get("retain") ? 1 : 0;
-          // We always save to account for subtle changes, like retain status.
-          this.saveRetainedSettings();
-          if (surroundingSuccess) {
-            surroundingSuccess();
-          }
-        }.bind(this),
-        error: function(model, xhr, options) {
-          this.remove(model);
-          if (surroundingError) {
-            surroundingError();
-          }
-        }.bind(this)
-      });
+      this.saveRetainedSettings();
     },
     removeHandler: function (model, collection, options) {
       if (spiderOakApp.settings.hasOwnProperty(model.id)) {
@@ -134,7 +116,7 @@
     },
     saveRetainedSettings: function() {
       var retain = {};
-      _.each(spiderOakApp.settings.models, function (model, key) {
+      _.each(this.models, function (model, key) {
         if (model.get("retain")) {
           retain[model.id] = model.get("value");
         }

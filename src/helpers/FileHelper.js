@@ -7,7 +7,6 @@
       $           = window.$;
 
   var FILETYPE_WORDDOC = {
-      type: "application/word",
       description: "MS Word",
       openInternally: false,
       icon: "file-word"
@@ -31,51 +30,54 @@
       icon: "file-pdf"
     },
     FILETYPE_ARCHIVE = {
-      type: "application/archive",
       description: "Archive",
       openInternally: false,
       icon: "file-zip"
     },
     FILETYPE_JPEG = {
-      type: "image/jpeg",
       description: "JPEG Image",
-      openInternally: true,
+      openInternally: false,
       icon: "image"
     },
     FILETYPE_GIF = {
       type: "image/gif",
       description: "GIF Image",
       openInternally: false,
-      icon: "iamge"
+      icon: "image"
     },
     FILETYPE_PNG = {
       type: "image/png",
       description: "PNG Image",
-      openInternally: true,
+      openInternally: false,
       icon: "image"
+    },
+    FILETYPE_MARKDOWN = {
+      type: "text/plain",
+      description: "Markdown",
+      openInternally: false,
+      icon: "file"
     },
     FILETYPE_TEXT = {
       type: "text/plain",
       description: "Plain Text",
-      openInternally: true,
+      openInternally: false,
       icon: "file"
     },
     FILETYPE_HTML = {
       type: "text/html",
       description: "HTML",
-      openInternally: true,
+      openInternally: false,
       icon: "file-xml"
     },
     FILETYPE_XML = {
       type: "text/xml",
       description: "XML",
-      openInternally: true,
+      openInternally: false,
       icon: "file-xml"
     },
     FILETYPE_CSS = {
-      type: "text/css",
       description: "CSS",
-      openInternally: true,
+      openInternally: false,
       icon: "file-css"
     },
     FILETYPE_JS = {
@@ -111,17 +113,65 @@
     FILETYPE_CSV = {
       type: "text/csv",
       description: "CSV",
-      openInternally: true,
+      openInternally: false,
       icon: "file"
     },
     FILETYPE_VCARD = {
-      type: "application_vcard",
       description: "Vcard",
       openInternally: false,
       icon: "file"
     },
+    FILETYPE_APK = {
+      description: "Android APK",
+      openInternally: false,
+      icon: "file"
+    },
+    FILETYPE_EBOOK = {
+      description: "Ebook",
+      openInternally: false,
+      icon: "file"
+    },
+    FILETYPE_HEADER = {
+      // type: "text/plain",
+      description: "Header",
+      openInternally: false,
+      icon: "file"
+    },
+    FILETYPE_SOURCE = {
+      type: "text/plain",
+      description: "Source",
+      openInternally: false,
+      icon: "file"
+    },
+    FILETYPE_JAVA = {
+      type: "text/plain",
+      description: "Java",
+      openInternally: false,
+      icon: "file"
+    },
+    FILETYPE_ODS = {
+      type: "application/vnd.oasis.opendocument.spreadsheet",
+      description: "OpenOffice Spreadsheet",
+      openInternally: false,
+      icon: "file-openoffice"
+    },
+    FILETYPE_ODT = {
+      type: "application/vnd.oasis.opendocument.text",
+      description: "OpenOffice Spreadsheet",
+      openInternally: false,
+      icon: "file-openoffice"
+    },
+    FILETYPE_SOUND = {
+      description: "Sound",
+      openInternally: false,
+      icon: "music"
+    },
+    FILETYPE_VIDEO = {
+      description: "Video",
+      openInternally: false,
+      icon: "film"
+    },
     FILETYPE_UNKNOWN = {
-      type: "unknown",
       description: "Unknown",
       openInternally: false,
       icon: "file"
@@ -163,6 +213,10 @@
     else if (fileExtension === "txt") {
         return FILETYPE_TEXT;
     }
+    else if (fileExtension === "md" ||
+            fileExtension === "mdown") {
+        return FILETYPE_MARKDOWN;
+    }
     else if (fileExtension === "pdf") {
         return FILETYPE_PDF;
     }
@@ -181,8 +235,33 @@
     else if (fileExtension === "csv") {
         return FILETYPE_CSV;
     }
+    else if (fileExtension === "odt") {
+        return FILETYPE_ODT;
+    }
+    else if (fileExtension === "ods") {
+        return FILETYPE_ODS;
+    }
     else if (fileExtension === "vcf") {
         return FILETYPE_VCARD;
+    }
+    else if (fileExtension === "apk") {
+        return FILETYPE_APK;
+    }
+    else if (fileExtension === "h") {
+        return FILETYPE_HEADER;
+    }
+    else if (fileExtension === "c" ||
+              fileExtension === "cc" ||
+              fileExtension === "cpp" ||
+              fileExtension === "m") {
+        return FILETYPE_SOURCE;
+    }
+    else if (fileExtension === "java") {
+        return FILETYPE_JAVA;
+    }
+    else if (fileExtension === "mobi" ||
+            fileExtension === "epub") {
+        return FILETYPE_EBOOK;
     }
     else if (fileExtension === "html" || fileExtension === "htm") {
        return FILETYPE_HTML;
@@ -195,6 +274,21 @@
     }
     else if (fileExtension === "js") {
        return FILETYPE_JS;
+    }
+    else if (fileExtension === "m4a" ||
+              fileExtension === "mp3" ||
+              fileExtension === "wav" ||
+              fileExtension === "ogm" ||
+              fileExtension === "au") {
+       return FILETYPE_SOUND;
+    }
+    else if (fileExtension === "mp4" ||
+              fileExtension === "mpg" ||
+              fileExtension === "avi" ||
+              fileExtension === "qt" ||
+              fileExtension === "mkv" ||
+              fileExtension === "mov") {
+       return FILETYPE_VIDEO;
     }
     else if (fileExtension === "zip" || fileExtension === "tar" ||
           fileExtension === "gz" ||  fileExtension === "rar") {

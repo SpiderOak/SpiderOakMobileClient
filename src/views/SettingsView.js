@@ -230,40 +230,97 @@
       this.$("input").val("");
       this.$("input").blur();
     },
+    /** Validate and apply the server host change.
+     *
+     * We have to dance around a bit for server validation and logout:
+     *
+     * - We have to go through the error (and possibly success) callback on
+     *   a login test to verify that the new designated address host a valid
+     *   SpiderOak service. (We use deliberately invalid credentials.)
+     * - We use a further callback, for employment via logout in the case
+     *   that server change is valid and the current session is authenticated.
+     */
     form_submitHandler: function(event) {
       var newServer = this.$("[name=server]").val(),
           wasServer = this.model.get("value");
       event.preventDefault();
       this.$("input").blur();
 
-      var didit = function(noLogout) {
-        var subtitle = "Primary server address changed to " + newServer;
-        if (! noLogout) {
-          subtitle += " and session logged out";
-        }
-        this.model.set("value", newServer);
+      if (newServer === wasServer) {
         spiderOakApp.dialogView.showNotify({
-          title: "Server changed",
-          subtitle: subtitle
-        });
-        if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView();
-        }
-      }.bind(this);
-      if (newServer !== wasServer) {
-        if (spiderOakApp.accountModel.get("isLoggedIn")) {
-          spiderOakApp.accountModel.logout(didit);
-        }
-        else {
-          didit(true);
-        }
-      }
-      else {
-        spiderOakApp.dialogView.showNotify({
-          title: "Server remains the same",
-          subtitle: "The specified server address was already set"
+          title: "Server address not changed",
+          subtitle: "The specified address is already current"
         });
         spiderOakApp.navigator.popView();
+      }
+      else {
+        var didLogout = spiderOakApp.accountModel.get("isLoggedIn");
+
+        /** Take suitable action, from handleLoginProbeResult.
+         *
+         * This may be run as a logout callback, if logout is necessary,
+         * else, run directly.
+         */
+        var concludeServerChangeAttempt = function() {
+          var subtitle = "Service host changed to " + newServer;
+          if (didLogout) {
+            subtitle += " and session logged out";
+          }
+          this.model.set("value", newServer);
+          spiderOakApp.dialogView.showNotify({
+            title: "Server changed",
+            subtitle: subtitle
+          });
+          if (spiderOakApp.navigator.viewsStack.length > 0) {
+            spiderOakApp.navigator.popView();
+          }
+        }.bind(this);
+
+        /** Callback for login probe to validate server SpiderOak-ness
+         *
+         * This should only be run as an error callback, because the login
+         * attempt is not viable for legitimate servers.  It should still
+         * do the right thing, though, if called as a success callback for an
+         * unexpectedly login success.
+         */
+        var handleLoginProbeResult = function(statusCode, statusText, xhr) {
+
+          // We use xhr.status because xhr is a consistent parameter for both
+          // success and failure callbacks:
+          if (xhr.status !== 403) {
+            // Host is not a SpiderOak service provider - fail:
+
+            spiderOakApp.dialogView.showNotify({
+              title: "Server host not changed",
+              subtitle: (newServer +
+                         " is not the host of a valid SpiderOak service")
+            });
+            if (spiderOakApp.navigator.viewsStack.length > 0) {
+              spiderOakApp.navigator.popView();
+            }
+          }
+
+          else {
+            // Valid SpiderOak service provider - make the change:
+
+            // (Recheck the login status, to prevent some potential gambits
+            // for suborned servers to try.)
+            if (spiderOakApp.accountModel.get("isLoggedIn")) {
+              didLogout = true;
+              spiderOakApp.accountModel.logout(concludeServerChangeAttempt);
+            }
+            else {
+              concludeServerChangeAttempt();
+            }
+          }
+        };
+
+        // Do the right thing via a login probe of the new server address:
+        spiderOakApp.accountModel.login(" ", "",
+                                        handleLoginProbeResult,
+                                        handleLoginProbeResult,
+                                        null,
+                                        newServer);
       }
     },
     changeServerButton_tapHandler: function(event) {

@@ -27,6 +27,7 @@
   var ShareRoomsCollection = spiderOakApp.ShareRoomsCollection;
 
   spiderOakApp.PublicShareRoomsCollection = ShareRoomsCollection.extend({
+    settingPrefix: "pubshares_",
     model: spiderOakApp.PublicShareRoomModel,
     initialize: function () {
       var got = ShareRoomsCollection.prototype.initialize.call(this);
@@ -90,17 +91,17 @@
       }
     },
     getRetainedRecords: function() {
-      var fromStorage = window.store.get(this.retentionName());
-      if (! fromStorage) {
+      var setting = spiderOakApp.settings.get(this.settingName());
+      if (! setting) {
         return {};
       }
       try {
-        return JSON.parse(fromStorage);
+        return JSON.parse(setting.get("value"));
       } catch (e) {
         if (e instanceof SyntaxError) {
           console.log("Removing malformed locally stored" +
                       " Public Share Room records: " +
-                      fromStorage);
+                      setting.get("value"));
           this.removeRetainedRecords();
           return {};
         }
@@ -111,15 +112,17 @@
       _.each(spiderOakApp.visitingPublicShares, function (value, key) {
         if (value) { retain[key] = value; }
       });
-      window.store.set(this.retentionName(), JSON.stringify(retain));
+      spiderOakApp.settings.setOrCreate(this.settingName(),
+                                        JSON.stringify(retain),
+                                        1);
     },
     removeRetainedRecords: function() {
-      window.store.remove(this.retentionName());
+      spiderOakApp.settings.remove(this.settingName());
     },
-    retentionName: function() {
+    settingName: function() {
       // "anonymous" should never collide with all-upper-case base32 names.
       var name = spiderOakApp.accountModel.get("b32username") || "anonymous";
-      return "spiderOakApp_pubshares_" + name;
+      return this.settingPrefix + name;
     },
     which: "PublicShareRoomsCollection"
   });

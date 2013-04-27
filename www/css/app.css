@@ -499,6 +499,11 @@ ul li a .subtext {
   width: 25%;
 }
 
+.toolbar-button a.active {
+  color: #333;
+  text-shadow: 0 0 10px #fff;
+}
+
 #fadingBarsG_1{
 left:0;
 -webkit-animation-delay:0.36s;

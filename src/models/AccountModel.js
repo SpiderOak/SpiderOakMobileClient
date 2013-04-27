@@ -32,14 +32,17 @@
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
      *
+     * optionalHost is for lightweight test of alternate server addresses.
+     *
      * @param {string} username
      * @param {string} password
-     * @param {string} successCallback
-     * @param {string} errorCallback
-     * @param {string} login_url Optional explicit login location for username
+     * @param {string} successCallback - gets data, status code, xhr
+     * @param {string} errorCallback - gets status code, status text, xhr
+     * @param {string} login_url Optional explicit login location
+     * @param {string} login_optionalHost Optional explicit login domain
      */
     login: function(username, password, successCallback, errorCallback,
-                    login_url) {
+                    login_url, optionalHost) {
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
           "Sorry. You should still be able to access your favorites, but " +
@@ -54,13 +57,13 @@
       }
 
       var _self = this,
-           server = spiderOakApp.settings.get("server").get("value");
+          server = (optionalHost ||
+                    spiderOakApp.settings.get("server").get("value")),
+          login_url_start = "https://" + server + "/browse/login";
 
-      _self.set("login_url_preface", "https://" + server + "/storage/");
-      _self.set("login_url_start", "https://" + server + "/browse/login");
-      _self.set("logout_url_preface", "https://" + server + "/storage/");
+_self.get("login_url_start");
 
-      login_url = login_url || _self.get("login_url_start");
+      login_url = login_url || login_url_start;
       $.ajax({
         type: "POST",
         url: login_url,
@@ -81,6 +84,11 @@
             var b32username = splat[splat.length - 2];
             var storageHost = splat.slice(0, splat.length-3).join("/");
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
+
+            _self.set("login_url_preface", "https://" + server + "/storage/");
+            _self.set("login_url_start", "https://" + server + "/browse/login");
+            _self.set("logout_url_preface", "https://" + server + "/storage/");
+
             // Replace our notion of the username with the one the server
             // has, according to the b32username: the server preserves the
             // original account's alphabetic case, and uses it, whatever
@@ -124,21 +132,21 @@
             }
             // Recurse, with adjusted login_url:
             _self.login(username, password, successCallback, errorCallback,
-                        login_url);
+                        login_url, optionalHost);
           }
           else if (where && where[1] === "location") {
             var destination = login_url;
-            if (destination === _self.get("login_url_start")) {
+            if (destination === login_url_start) {
               destination = where[2];
             }
             loginSuccess(destination, data.slice("location:".length));
           }
           else {
-            errorCallback(0, "unexpected server response");
+            errorCallback(0, "unexpected server response", xhr);
           }
         },
         error: function(xhr, errorType, error) {
-          errorCallback(xhr.status, "authentication failed");
+          errorCallback(xhr.status, "authentication failed", xhr);
         }
       });
     },
@@ -147,6 +155,11 @@
       var hash = btoa(tok);
       return "Basic " + hash;
     },
+    /** Do server logout and local zeroing of credentials, etc.
+     *
+     * We always do local zeroing and call successCallback, regardless of
+     * server response.
+     */
     logout: function(successCallback) {
       // Clear basic auth details:
       Backbone.BasicAuth.clear();

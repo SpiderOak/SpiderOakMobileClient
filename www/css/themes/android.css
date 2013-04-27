@@ -213,7 +213,7 @@ a.button.active {
 .modal .context-popup {
   background-color: #eee;
   width: 275px;
-  margin: 40px auto 0 auto;
+  margin: 10% auto 0 auto;
   max-height: 90%;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
   overflow-y: hidden;

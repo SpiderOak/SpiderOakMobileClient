@@ -293,12 +293,13 @@
         function successCallback(fileEntry) {
           spiderOakApp.dialogView.hide();
 
-          // if (this.model.get("openInternally")) {
-          //   window.open(encodeURI(entry.fullPath),"_blank","location=no");
-          // } else {
+          if (model.get("openInternally")) {
+            window.open(encodeURI(fileEntry.fullPath),"_blank","location=no");
+          } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
-                url: fileEntry.fullPath
+                url: fileEntry.fullPath,
+                type: model.get("type")
               },
               function() {
                 // Add the file to the recents collection (view or fave)
@@ -307,15 +308,20 @@
               },
               function(error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
-                navigator.notification.alert(
-                  "Cannot find an app to view files of this type.",
-                  null,
+                navigator.notification.confirm(
+                  "Cannot find an app to view files of this type. Would you like to try and open it anyway?",
+                  function(button) {
+                    if (button !== 1) {
+                      return;
+                    }
+                    window.open(encodeURI(fileEntry.fullPath),"_blank","location=no");
+                  }.bind(this),
                   "File error",
-                  "OK"
+                  "Yes,No"
                 );
               }
             );
-          // }
+          }
         },
         function(error) { // @FIXME: Real error handling...
           spiderOakApp.dialogView.hide();

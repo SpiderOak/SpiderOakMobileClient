@@ -13,6 +13,10 @@
     className: "modal",
     initialize: function() {
       _.bindAll(this);
+      var supportsOrientationChange = "onorientationchange" in window;
+      this.orientationEvent = supportsOrientationChange ?
+                                "orientationchange" :
+                                "resize";
     },
     render: function() {
       $("body").append(this.el);
@@ -44,6 +48,7 @@
       }.bind(this), options.duration);
     },
     hide: function() {
+      $(window).off(this.orientationEvent);
       this.$el.hide();
       this.$el.empty();
     },
@@ -62,7 +67,25 @@
       this.$(".meter .progress").animate({"width":progressPercent+"%"});
     },
     showDialogView: function(view) {
+      $(window).on(this.orientationEvent, function() {
+        // alert("The rotation is " + window.orientation + " and the resolution is " + screen.width + " x " + screen.height);
+        if (window.orientation === -90 || window.orientation === 90) {
+          view.$el.css({"margin-top":"0", "max-height":"275px"});
+          window.setTimeout(function(){
+            view.scroller.refresh();
+          },10);
+        }
+        else {
+          view.$el.css({"margin-top":"10%", "max-height":"90%"});
+          window.setTimeout(function(){
+            view.scroller.refresh();
+          },10);
+        }
+      }, false);
       this.$el.html(view.render().el);
+      if (window.orientation === -90 || window.orientation === 90) {
+        view.$el.css({"margin-top":"0", "max-height":"275px"});
+      }
       window.setTimeout(function(){
         view.scroller.refresh();
       },10);

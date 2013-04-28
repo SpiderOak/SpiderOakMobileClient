@@ -61,8 +61,6 @@
                     spiderOakApp.settings.get("server").get("value")),
           login_url_start = "https://" + server + "/browse/login";
 
-_self.get("login_url_start");
-
       login_url = login_url || login_url_start;
       $.ajax({
         type: "POST",

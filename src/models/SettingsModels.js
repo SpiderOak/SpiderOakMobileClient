@@ -10,11 +10,6 @@
       $           = window.$;
 
   spiderOakApp.SettingModel = spiderOakApp.FolderModel.extend({
-    initialize: function() {
-      this.on("change", function () {
-        this.collection.trigger("change");
-      });
-    },
     which: "SettingModel"
   });
 

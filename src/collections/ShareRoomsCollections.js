@@ -37,14 +37,22 @@
        * local storage retention election. Retain is 0 or 1 for compactness.
        * {"<b32(share_id)>/<room_key>": <retain?>, ...}
        */
-      if (! spiderOakApp.visitingPublicShares) {
-        spiderOakApp.visitingPublicShares = this.getRetainedRecords();
+      if (! spiderOakApp.visitingPubShares) {
+        spiderOakApp.visitingPubShares = this.getRetainedRecords();
+        if (spiderOakApp.accountModel.get("isLoggedIn")) {
+          // Include the records from the anonymous collection, too:
+          spiderOakApp.visitingPubSharesAnon = this.getRetainedRecords(true);
+        }
+        else {
+          spiderOakApp.visitingPubSharesAnon = {};
+        }
       }
       return got;
     },
     reset: function (models, options) {
       ShareRoomsCollection.prototype.reset.call(this, models, options);
-      spiderOakApp.visitingPublicShares = null;
+      spiderOakApp.visitingPubShares = null;
+      spiderOakApp.visitingPubSharesAnon = null;
     },
     /**
      * Fetch public share rooms according to the recorded collection of
@@ -52,7 +60,9 @@
      */
     fetch: function (options) {
       // Fetch according to the recorded list of those being visited.
-      _.each(spiderOakApp.visitingPublicShares, function (remember, modelId) {
+      var all = _.clone(spiderOakApp.visitingPubShares);
+      _.extend(all, spiderOakApp.visitingPubSharesAnon);
+      _.each(all, function (remember, modelId) {
         var splat = modelId.split("/"),
         share_id = spiderOakApp.b32nibbler.decode(splat[0]),
         room_key = splat[1];
@@ -67,7 +77,7 @@
           surroundingError = options && options.error;
       _.extend(options, {
         success: function() {
-          spiderOakApp.visitingPublicShares[model.id] =
+          spiderOakApp.visitingPubShares[model.id] =
               model.get("remember") ? 1 : 0;
           // We always save to account for subtle changes, like remember status.
           this.saveRetainedRecords();
@@ -85,13 +95,19 @@
       model.fetch(options);
     },
     removeHandler: function(model, collection, options) {
-      if (spiderOakApp.visitingPublicShares.hasOwnProperty(model.id)) {
-        delete spiderOakApp.visitingPublicShares[model.id];
+      /* Do both current account and anonymous, independently.
+         This may mean removing an item from both - proper. */
+      if (spiderOakApp.visitingPubShares.hasOwnProperty(model.id)) {
+        delete spiderOakApp.visitingPubShares[model.id];
         this.saveRetainedRecords();
       }
+      if (spiderOakApp.visitingPubSharesAnon.hasOwnProperty(model.id)) {
+        delete spiderOakApp.visitingPubSharesAnon[model.id];
+        this.saveRetainedRecords(true);
+      }
     },
-    getRetainedRecords: function() {
-      var setting = spiderOakApp.settings.get(this.settingName());
+    getRetainedRecords: function(anonymous) {
+      var setting = spiderOakApp.settings.get(this.settingName(anonymous));
       if (! setting) {
         return {};
       }
@@ -102,26 +118,36 @@
           console.log("Removing malformed locally stored" +
                       " Public Share Room records: " +
                       setting.get("value"));
-          this.removeRetainedRecords();
+          this.removeRetainedRecords(anonymous);
           return {};
         }
       }
     },
-    saveRetainedRecords: function() {
-      var retain = {};
-      _.each(spiderOakApp.visitingPublicShares, function (value, key) {
+    saveRetainedRecords: function(anonymous) {
+      var retain = {},
+          they = (anonymous ?
+                  spiderOakApp.visitingPubSharesAnon :
+                  spiderOakApp.visitingPubShares);
+      _.each(they, function (value, key) {
         if (value) { retain[key] = value; }
       });
-      spiderOakApp.settings.setOrCreate(this.settingName(),
+      spiderOakApp.settings.setOrCreate(this.settingName(anonymous),
                                         JSON.stringify(retain),
                                         1);
     },
-    removeRetainedRecords: function() {
-      spiderOakApp.settings.remove(this.settingName());
+    removeRetainedRecords: function(anonymous) {
+      spiderOakApp.settings.remove(this.settingName(anonymous));
     },
-    settingName: function() {
+    /** Get the name of our setting object, per authenticated account.
+     *
+     * @param {object} anonymous true to force the name for non-authenticated
+     */
+    settingName: function(anonymous) {
       // "anonymous" should never collide with all-upper-case base32 names.
-      var name = spiderOakApp.accountModel.get("b32username") || "anonymous";
+      var name = "anonymous";
+      if (! anonymous) {
+        name = spiderOakApp.accountModel.get("b32username") || name;
+      }
       return this.settingPrefix + name;
     },
     which: "PublicShareRoomsCollection"

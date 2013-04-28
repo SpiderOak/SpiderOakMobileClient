@@ -141,6 +141,12 @@
       if (spiderOakApp.storageBarView) {
         spiderOakApp.storageBarView.empty();
       }
+      if (spiderOakApp.shareRoomsCollection) {
+        spiderOakApp.shareRoomsCollection.reset();
+      }
+      if (spiderOakApp.publicShareRoomsCollection) {
+        spiderOakApp.publicShareRoomsCollection.reset();
+      }
       // And finally, pop up the LoginView
       spiderOakApp.mainView.closeMenu();
       spiderOakApp.loginView.show();

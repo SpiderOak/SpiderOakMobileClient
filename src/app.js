@@ -21,12 +21,14 @@
 
   _.extend(spiderOakApp, {
     // @TODO: Establish distinct config file and fetch settings from it.
+    // Retained values will be held in local storage, and local changes
+    // will supercede these default values.
     config: {
-      server: "spideroak.com"
+      server: {value: "spideroak.com", retain: 1}
     },
     initialize: function() {
 
-      // Instantiate the menusheet and bind the spiderOakApp.accountModel
+      spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
         model: spiderOakApp.accountModel
@@ -37,7 +39,7 @@
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
-      
+
       // Benefit of the doubt
       this.networkAvailable = true;
 
@@ -139,12 +141,15 @@
       if (spiderOakApp.storageBarView) {
         spiderOakApp.storageBarView.empty();
       }
-      // Log out
-      spiderOakApp.accountModel.logout(function() {
-        // And finally, pop up the LoginView
-        spiderOakApp.mainView.closeMenu();
-        spiderOakApp.loginView.show();
-      });
+      if (spiderOakApp.shareRoomsCollection) {
+        spiderOakApp.shareRoomsCollection.reset();
+      }
+      if (spiderOakApp.publicShareRoomsCollection) {
+        spiderOakApp.publicShareRoomsCollection.reset();
+      }
+      // And finally, pop up the LoginView
+      spiderOakApp.mainView.closeMenu();
+      spiderOakApp.loginView.show();
     },
     onBackKeyDown: function(event) {
       event.preventDefault();

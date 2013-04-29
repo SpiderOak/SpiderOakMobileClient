@@ -13,18 +13,22 @@
     destructionPolicy: "never",
     events: {
       "tap .send-feedback": "feedback_tapHandler",
-      "tap .account-settings": "accountSettings_tapHandler"
+      "tap .account-settings": "accountSettings_tapHandler",
+      "tap .server": "server_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
+      $(document).on("settingChanged", this.render);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
       this.settingsInfo = spiderOakApp.storageBarModel &&
                           spiderOakApp.storageBarModel.toJSON() ||
                           { firstname: "", lastname: "" };
+      _.extend(this.settingsInfo,
+               {server: spiderOakApp.settings.get("server").get("value")});
       this.$el.html(
         _.template(
           window.tpl.get("settingsViewTemplate"), this.settingsInfo
@@ -62,6 +66,16 @@
     accountSettings_tapHandler: function(event) {
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsAccountView,
+        {},
+        spiderOakApp.defaultEffect
+      );
+    },
+    server_tapHandler: function(event) {
+      var settingsServerView = new spiderOakApp.SettingsServerView({
+        model: spiderOakApp.settings.get("server")
+      });
+      spiderOakApp.navigator.pushView(
+        settingsServerView,
         {},
         spiderOakApp.defaultEffect
       );
@@ -106,7 +120,10 @@
     }
   });
 
- spiderOakApp.SettingsAccountView = Backbone.View.extend({
+  spiderOakApp.SettingsAccountView = Backbone.View.extend({
+    // Derive from this and define your particular rendering.
+    templateID: "settingsAccountViewTemplate",
+    viewTitle: "Account",
     destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
@@ -114,11 +131,14 @@
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
+    getTemplateValues: function() {
+      return spiderOakApp.storageBarModel.toJSON();
+    },
     render: function() {
       this.$el.html(
         _.template(
-          window.tpl.get("setingsAccountViewTemplate"),
-          spiderOakApp.storageBarModel.toJSON()
+          window.tpl.get(this.templateID),
+          this.getTemplateValues()
         )
       );
       this.scroller = new window.iScroll(this.el, {
@@ -133,7 +153,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Account");
+        spiderOakApp.mainView.setTitle(this.viewTitle);
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -165,6 +185,151 @@
     close: function() {
       // Clean up our subviews
       this.scroller.destroy();
+    }
+  });
+
+  spiderOakApp.SettingsServerView = Backbone.View.extend({
+    name: "Server Address",
+    templateID: "settingsServerViewTemplate",
+    events: {
+      "submit form": "form_submitHandler",
+      "tap .changeServerButton": "changeServerButton_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.listenTo(this.model, "change", function () {
+        $(document).trigger("settingChanged");
+      });
+    },
+    render: function() {
+      this.$el.html(_.template(window.tpl.get(this.templateID),
+                               this.getTemplateValues()));
+      return this;
+    },
+    getTemplateValues: function() {
+      return {
+        server: this.model.get("value"),
+        isLoggedIn: spiderOakApp.accountModel.get("isLoggedIn")
+      };
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.showBackButton(true);
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.$("input").val("");
+      this.$("input").blur();
+    },
+    /** Validate and apply the server host change.
+     *
+     * We have to dance around a bit for server validation and logout:
+     *
+     * - We have to go through the error (and possibly success) callback on
+     *   a login test to verify that the new designated address host a valid
+     *   SpiderOak service. (We use deliberately invalid credentials.)
+     * - We use a further callback, for employment via logout in the case
+     *   that server change is valid and the current session is authenticated.
+     */
+    form_submitHandler: function(event) {
+      var newServer = this.$("[name=server]").val(),
+          wasServer = this.model.get("value");
+      event.preventDefault();
+      this.$("input").blur();
+
+      if (newServer === wasServer) {
+        spiderOakApp.dialogView.showNotify({
+          title: "Server address not changed",
+          subtitle: "The specified address is already current"
+        });
+        spiderOakApp.navigator.popView();
+      }
+      else {
+        var didLogout = spiderOakApp.accountModel.get("isLoggedIn");
+
+        /** Take suitable action, from handleLoginProbeResult.
+         *
+         * This may be run as a logout callback, if logout is necessary,
+         * else, run directly.
+         */
+        var concludeServerChangeAttempt = function() {
+          var subtitle = "Service host changed to " + newServer;
+          if (didLogout) {
+            subtitle += " and session logged out";
+          }
+          this.model.set("value", newServer);
+          spiderOakApp.dialogView.showNotify({
+            title: "Server changed",
+            subtitle: subtitle
+          });
+          if (spiderOakApp.navigator.viewsStack.length > 0) {
+            spiderOakApp.navigator.popView();
+          }
+        }.bind(this);
+
+        /** Callback for login probe to validate server SpiderOak-ness
+         *
+         * This should only be run as an error callback, because the login
+         * attempt is not viable for legitimate servers.  It should still
+         * do the right thing, though, if called as a success callback for an
+         * unexpectedly login success.
+         */
+        var handleLoginProbeResult = function(statusCode, statusText, xhr) {
+
+          // We use xhr.status because xhr is a consistent parameter for both
+          // success and failure callbacks:
+          if (xhr.status !== 403) {
+            // Host is not a SpiderOak service provider - fail:
+
+            spiderOakApp.dialogView.showNotify({
+              title: "Server host not changed",
+              subtitle: (newServer +
+                         " is not the host of a valid SpiderOak service")
+            });
+            if (spiderOakApp.navigator.viewsStack.length > 0) {
+              spiderOakApp.navigator.popView();
+            }
+          }
+
+          else {
+            // Valid SpiderOak service provider - make the change:
+
+            // (Recheck the login status, to prevent some potential gambits
+            // for suborned servers to try.)
+            if (spiderOakApp.accountModel.get("isLoggedIn")) {
+              didLogout = true;
+              spiderOakApp.accountModel.logout(concludeServerChangeAttempt);
+            }
+            else {
+              concludeServerChangeAttempt();
+            }
+          }
+        };
+
+        // Do the right thing via a login probe of the new server address:
+        spiderOakApp.accountModel.login(" ", "",
+                                        handleLoginProbeResult,
+                                        handleLoginProbeResult,
+                                        null,
+                                        newServer);
+      }
+    },
+    changeServerButton_tapHandler: function(event) {
+      event.preventDefault();
+      this.form_submitHandler(event);
+    },
+    close: function(){
+      this.remove();
+      this.unbind();
     }
   });
 

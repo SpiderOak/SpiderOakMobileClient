@@ -174,7 +174,51 @@ div.login-input input {
 input[type="text"]:focus,
 input[type="password"]:focus {
   -webkit-user-modify: read-write-plaintext-only;
+  -webkit-user-select: auto;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
+  width: 100%;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  outline: 0 none !important;
+  border: none;
+  background: transparent;
+  display: block;
+  position: relative;
+  bottom: 20px;
+  margin: -5px 5px;
+  font-size: 1.1em;
+}
+
+/* Would like to modularize the input field code, but too unfamiliar with
+   all the concerns */
+
+div.right-input {
+  position: relative;
+  border-bottom: solid 1px #ccc;
+  border-left: solid 1px #ccc;
+  float: right;
+  margin: 20px;
+  border-right: solid 1px #ccc;
+  overflow: visible;
+  max-height: 0.1em;
+  display: block;
+  padding: 2px 17px 2px 2px;
+}
+
+div.right-input.focused {
+  position: relative;
+  border-bottom: solid 1px orange;
+  border-left: solid 1px orange;
+  margin: 20px;
+  border-right: solid 1px orange;
+  overflow: visible;
+  max-height: 0.1em;
+  display: block;
+  padding: 2px 17px 2px 2px;
+}
+
+div.right-input input {
+  -webkit-user-modify: read-write-plaintext-only;
+  -webkit-tap-highlight-color:rgba(0,0,0,0); 
   width: 100%;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   outline: 0 none !important;

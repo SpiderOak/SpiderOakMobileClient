@@ -31,9 +31,6 @@
       if (typeof urlTail === "function") {
         urlTail = urlTail.call(this);
       }
-      // File versions have some extraneous query strings in their url
-      urlHead = urlHead.replace(
-        new RegExp(this.get("name") + "\\?format=version_info"), "");
       if (bare) {
         urlHead = urlHead.split("?")[0];
       }

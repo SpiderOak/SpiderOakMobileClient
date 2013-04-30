@@ -107,7 +107,20 @@ body {
   background-color: #eee;
 }
 
+.learn-more {
+  width: 60%;
+  text-align: center;
+  font-size: 0.8em;
+  margin: -10px auto;
+  padding: 10px;
+}
+
 .learn-about-spideroak {
+  position: absolute;
+  bottom: 0;
+  top:0;
+  left:0;
+  right:0;
   overflow: hidden;
   background-color: #eee;
 }

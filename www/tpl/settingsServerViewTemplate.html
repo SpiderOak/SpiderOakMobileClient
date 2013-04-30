@@ -1,25 +1,31 @@
 <!-- @FIXME: we will probably need some organized styles for settings -->
 <div>
-  <form class="login-form">
-    <ul style="font-size:0.8em;">
-      <li>
-        <div class="label">Server</div>
-        <div class="right-input" width="30em">
+  <div style="height:20px;"></div>
+  <form class="login-form" name="server-form">
+    <div>
+      <!-- UI FOR FUTURE PROTOCOL CHOICE -->
+      <!-- <div style="float:left;margin: 0 0 20px 20px">
+        <select name="protocol-select" style="outline:none;">
+          <option>https://</option>
+          <option>http://</option>
+        </select>
+      </div> -->
+      <!-- <div style="width:70%;float:right;" class="xxx"> -->
+        <div class="login-input">
           <input id="serverInput" type="text" name="server"
                  required
                  class="input-block-level"
                  autocorrect="off" autocapitalize="off" 
                  placeholder="Server"
-                 value="<%= server %>"/>
+                 value="<%= server %>" />
         </div>
-        <a class="button changeServerButton"
-           style="height: 1em; width:3em; float: right; clear: right;
-                  margin-top: -10px; margin-right: 1em"
-           >Submit</a>
-        <input type="submit" style="visibility:hidden" />
-        <div class="clearfix"></div>
-      </li>
-    </ul>
+      <!-- </div> -->
+      <div class="clearfix"></div>
+    </div>
+    <div>
+      <a class="button changeServerButton" tabindex="-1">Submit</a>
+    </div>
+    <input type="submit" style="visibility:hidden" />
   </form>
   <% if(isLoggedIn) { %>
   <div align="center">

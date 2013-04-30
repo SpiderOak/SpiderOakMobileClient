@@ -22,7 +22,8 @@
         console.log('Loading template: ' + name);
         $.ajax({
           url: templateLocation + '/' + name + '.html',
-          async: false,
+          async: true,
+          global: false,
           success: function(data) {
             that.templates[name] = data;
             index++;

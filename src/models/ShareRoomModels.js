@@ -10,12 +10,15 @@
       $           = window.$;
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
+    defaults: {
+      password_required: false
+    },
     initialize: function() {
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
                        "/" + this.get("room_key") + "/");
       this.set("id", id);
       this.set("url", id);
-      this.url = this.composedUrl();
+      this.url = this.composedUrl(false); // Include the query string.
     },
     which: "ShareRoomModel"
   });
@@ -24,22 +27,30 @@
     defaults: {
       remember: 0
     },
+    composedUrl: function(bare) {
+      var base = spiderOakApp.FolderModel.prototype.composedUrl.call(this);
+      return base + (bare ? "" : "?auth_required_format=json");
+    },
     parse: function(resp, xhr) {
-      //console.log("PublicShareRoomModel.parse() " +
-      //            JSON.stringify(resp));
-      var stats = resp.stats;
-      return {
-        browse_url: resp.browse_url,
-        dirs: resp.dirs,
-        name: stats.room_name,
-        owner_firstname: stats.firstname,
-        owner_lastname: stats.lastname,
-        number_of_files: stats.number_of_files,
-        number_of_folders: stats.number_of_folders,
-        description: stats.room_description,
-        size: stats.room_size,
-        start_date: stats.start_date
-      };
+      if (resp.password_required && resp.password_required) {
+        this.set("password_requred", true);
+        return {};
+      }
+      else {
+        var stats = resp.stats;
+        return {
+          browse_url: resp.browse_url,
+          dirs: resp.dirs,
+          name: stats.room_name,
+          owner_firstname: stats.firstname,
+          owner_lastname: stats.lastname,
+          number_of_files: stats.number_of_files,
+          number_of_folders: stats.number_of_folders,
+          description: stats.room_description,
+          size: stats.room_size,
+          start_date: stats.start_date
+        };
+      }
     },
     which: "PublicShareRoomModel"
   });

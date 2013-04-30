@@ -33,7 +33,7 @@
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
             var faveURL = favorite.get("url") + favorite.get("name");
-            var modelURL = model.composedUrl();
+            var modelURL = model.composedUrl(true);
             return faveURL === modelURL;
         });
         if (isFavorite) {
@@ -76,7 +76,7 @@
       });
       var downloadOptions = {
         fileName: model.get("name"),
-        from: model.composedUrl(),
+        from: model.composedUrl(true),
         to: decodeURI(path),
         fsType: window.LocalFileSystem.PERSISTENT,
         onprogress: function onprogress(progressEvent) {
@@ -182,7 +182,7 @@
     sendLink: function() {
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
-      var url = model.composedUrl();
+      var url = model.composedUrl(true);
       $.ajax({
         type: "POST",
         url: url,
@@ -267,7 +267,7 @@
       var model = this.model;
       var downloadOptions = {
         fileName: this.model.get("name"),
-        from: this.model.composedUrl(),
+        from: this.model.composedUrl(true),
         to: ".caches",
         fsType: window.LocalFileSystem.TEMPORARY,
         onprogress: function onprogress(progressEvent) {
@@ -654,7 +654,7 @@
       if (this.model.get("versions") > 1) {
         this.$(".versions").show();
         this.versionsCollection = new spiderOakApp.FileItemVersionsCollection();
-        this.versionsCollection.url = this.model.composedUrl() +
+        this.versionsCollection.url = this.model.composedUrl(true) +
             "?format=version_info";
         this.versionsView = new spiderOakApp.FileItemVersionsListView({
           collection: this.versionsCollection

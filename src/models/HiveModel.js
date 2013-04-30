@@ -23,10 +23,13 @@
         return this.attributes;
       }
     },
-    composedUrl: function() {
+    composedUrl: function(bare) {
       var urlTail = encodeURI(this.get("device_path"));
       var urlHead = this.url.replace("s\/","") + this.get("device_encoded");
-      var urlHeadObject = urlHead && this;
+      if (bare) {
+        urlHead = urlHead && urlHead.split("?")[0];
+        urlTail = urlTail && urlTail.split("?")[0];
+      }
       return (urlHead || "") + (urlTail || "");
     }
   });

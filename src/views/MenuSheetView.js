@@ -249,7 +249,10 @@
         window.setTimeout(function(){
           navigator.notification.confirm(
             'Are you sure you want to sign out?',
-            function () {
+            function (button) {
+              if (button !== 1) {
+                return;
+              }
               spiderOakApp.accountModel.logout();
             }.bind(spiderOakApp),
             'Sign out'

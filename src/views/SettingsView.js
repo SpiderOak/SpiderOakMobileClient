@@ -220,6 +220,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
+        spiderOakApp.mainView.setTitle("Server Address");
         spiderOakApp.mainView.showBackButton(true);
       }
     },
@@ -241,15 +242,19 @@
      *   that server change is valid and the current session is authenticated.
      */
     form_submitHandler: function(event) {
+      spiderOakApp.dialogView.showWait({
+        title: "Validating"
+      });
       var newServer = this.$("[name=server]").val(),
           wasServer = this.model.get("value");
       event.preventDefault();
       this.$("input").blur();
 
       if (newServer === wasServer) {
+        spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "Server address not changed",
-          subtitle: "The specified address is already current"
+          title: "Unchanged",
+          subtitle: "The specified address is\nalready current"
         });
         spiderOakApp.navigator.popView();
       }
@@ -262,9 +267,10 @@
          * else, run directly.
          */
         var concludeServerChangeAttempt = function() {
+          spiderOakApp.dialogView.hide();
           var subtitle = "Service host changed to " + newServer;
           if (didLogout) {
-            subtitle += " and session logged out";
+            subtitle += "\nand session logged out";
           }
           this.model.set("value", newServer);
           spiderOakApp.dialogView.showNotify({
@@ -289,15 +295,17 @@
           // success and failure callbacks:
           if (xhr.status !== 403) {
             // Host is not a SpiderOak service provider - fail:
-
-            spiderOakApp.dialogView.showNotify({
-              title: "Server host not changed",
-              subtitle: (newServer +
-                         " is not the host of a valid SpiderOak service")
-            });
+            spiderOakApp.dialogView.hide();
             if (spiderOakApp.navigator.viewsStack.length > 0) {
               spiderOakApp.navigator.popView();
             }
+            navigator.notification.alert(
+              newServer + " is not the host of a valid SpiderOak service." +
+                " The server is unchanged.",
+              null,
+              "Validation error",
+              "OK"
+            );
           }
 
           else {

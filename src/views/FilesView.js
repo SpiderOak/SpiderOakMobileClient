@@ -159,16 +159,12 @@
       }
       var model = this.model;
       // Start by getting the folder path
-      var path = "Download/SpiderOak/.favorites" +
+      var path = "Download/SpiderOak/.favorites/" +
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
-          .replace(
-            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
-            "/"
-          ).replace(
-            new RegExp(model.get("url")),
-            ""
-          );
-
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(model.get("url")), "");
+      console.log(path);
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
@@ -304,15 +300,11 @@
         );
         return; // return early
       }
-      path = "Download/SpiderOak/.shared" +
+      path = "Download/SpiderOak/.shared/" +
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
-          .replace(
-            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
-            "/"
-          ).replace(
-            new RegExp(model.get("url")),
-            ""
-          );
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(model.get("url")), "");
       this.downloadFile(model, path, function(fileEntry) {
         spiderOakApp.dialogView.hide();
         this.shareViaIntent(fileEntry.fullPath);
@@ -488,15 +480,11 @@
     refreshFavorite: function(callback) {
       var model = this.model;
       // @FIXME: This should be in a function and be based on platform
-      var path = "Download/SpiderOak/.favorites" +
+      var path = "Download/SpiderOak/.favorites/" +
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
-          .replace(
-            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
-            "/"
-          ).replace(
-            new RegExp(model.get("encodedUrl") || model.get("url")),
-            ""
-          );
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(model.get("url")), "");
       callback = callback || function(fileEntry) {
         spiderOakApp.dialogView.hide();
       };

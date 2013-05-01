@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-file, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-clock, .icon-history, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus, .icon-warning, .icon-eye, .icon-link, .icon-share, .icon-download, .icon-redo, .icon-cog, .icon-settings, .icon-switch, .icon-info, .icon-checkbox-checked, .icon-checkbox-unchecked, .icon-file-openoffice {
+.icon-history, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-clock, .icon-switch, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus, .icon-warning, .icon-eye, .icon-link, .icon-share, .icon-download, .icon-redo, .icon-cog, .icon-settings, .icon-file, .icon-info, .icon-checkbox-checked, .icon-checkbox-unchecked, .icon-file-openoffice, .icon-libreoffice {
 	font-family: 'SpiderOakIcons';
 	speak: none;
 	font-style: normal;
@@ -37,8 +37,8 @@ you can use the generic selector below, but it's slower:
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
-.icon-file:before {
-	content: "\e000";
+.icon-history:before {
+	content: "&#xe000;";
 }
 .icon-file-pdf:before {
 	content: "\e001";
@@ -76,7 +76,7 @@ you can use the generic selector below, but it's slower:
 .icon-clock:before {
 	content: "\e00d";
 }
-.icon-history:before {
+.icon-switch:before {
 	content: "\e00e";
 }
 .icon-tux:before {
@@ -151,7 +151,7 @@ you can use the generic selector below, but it's slower:
 .icon-settings:before {
 	content: "\e026";
 }
-.icon-switch:before {
+.icon-file:before {
 	content: "\e027";
 }
 .icon-info:before {
@@ -165,4 +165,7 @@ you can use the generic selector below, but it's slower:
 }
 .icon-file-openoffice:before {
 	content: "\e02a";
+}
+.icon-libreoffice:before {
+	content: "\e02b";
 }

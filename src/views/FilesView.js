@@ -483,7 +483,7 @@
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
-          .replace(new RegExp(model.get("url")), "");
+          .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
       callback = callback || function(fileEntry) {
         spiderOakApp.dialogView.hide();
       };

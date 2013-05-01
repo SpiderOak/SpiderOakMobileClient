@@ -1,5 +1,12 @@
 <a href='#share'>
   <div class="icon"><i class='icon-cloud-upload'></i></div>
-  <div class="foldername"><%= name %></div>
+  <% if (password_required) { %>
+    <div class="foldername">
+      <span class="passwordRequired"> Password pending</span>:
+      <%= share_id %> / <%= room_key %>
+    </div>
+  <% } else { %>
+    <div class="foldername"><%= name %></div>
+  <% } %>
   <div class='rightButton removePublicShare'><i class='icon-close'></i></div>
 </a>

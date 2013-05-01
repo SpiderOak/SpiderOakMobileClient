@@ -233,7 +233,7 @@
       // spiderOakApp.addShareRoomView.show();
       spiderOakApp.navigator.pushView(
         spiderOakApp.PublicShareRoomItemView,
-        {model:this.model},
+        {model: this.model},
         spiderOakApp.defaultEffect
       );
     },
@@ -385,17 +385,22 @@
           $(event.target).hasClass("icon-close")) {
         return;
       }
-      var options = {
-        id: this.model.cid,
-        title: this.model.get("name"),
-        model: this.model
-      };
-      var folderView = new spiderOakApp.FolderView(options);
-      spiderOakApp.navigator.pushView(
-        folderView,
-        {},
-        spiderOakApp.defaultEffect
-      );
+      if (this.model.get("password_required")) {
+        alert("will go to share room password screen");
+      }
+      else {
+        var options = {
+          id: this.model.cid,
+          title: this.model.get("name"),
+          model: this.model
+        };
+        var folderView = new spiderOakApp.FolderView(options);
+        spiderOakApp.navigator.pushView(
+          folderView,
+          {},
+          spiderOakApp.defaultEffect
+        );
+      }
     },
     close: function(){
       this.remove();

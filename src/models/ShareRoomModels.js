@@ -10,9 +10,6 @@
       $           = window.$;
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
-    defaults: {
-      password_required: false
-    },
     initialize: function() {
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
                        "/" + this.get("room_key") + "/");
@@ -25,6 +22,7 @@
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
     defaults: {
+      password_required: false,
       remember: 0
     },
     composedUrl: function(bare) {
@@ -33,8 +31,7 @@
     },
     parse: function(resp, xhr) {
       if (resp.password_required && resp.password_required) {
-        this.set("password_requred", true);
-        return {};
+        return {password_required: true};
       }
       else {
         var stats = resp.stats;

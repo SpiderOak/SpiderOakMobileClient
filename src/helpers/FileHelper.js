@@ -51,6 +51,11 @@
       openInternally: false,
       icon: "image"
     },
+    FILETYPE_PSD = {
+      description: "PSD Image",
+      openInternally: false,
+      icon: "image"
+    },
     FILETYPE_MARKDOWN = {
       type: "text/plain",
       description: "Markdown",
@@ -81,10 +86,15 @@
       icon: "file-css"
     },
     FILETYPE_JS = {
-      type: "text/javascript",
       description: "JavaScript",
-      openInternally: true,
+      openInternally: false,
       icon: "file-css"
+    },
+    FILETYPE_PHP = {
+      type: "text/plain",
+      description: "PHP",
+      openInternally: false,
+      icon: "file"
     },
     FILETYPE_PAGES = {
       type: "application/pages",
@@ -132,7 +142,7 @@
       icon: "file"
     },
     FILETYPE_HEADER = {
-      // type: "text/plain",
+      type: "text/plain",
       description: "Header",
       openInternally: false,
       icon: "file"
@@ -151,13 +161,13 @@
     },
     FILETYPE_ODS = {
       type: "application/vnd.oasis.opendocument.spreadsheet",
-      description: "OpenOffice Spreadsheet",
+      description: "OpenOffice file",
       openInternally: false,
       icon: "file-openoffice"
     },
     FILETYPE_ODT = {
       type: "application/vnd.oasis.opendocument.text",
-      description: "OpenOffice Spreadsheet",
+      description: "OpenOffice file",
       openInternally: false,
       icon: "file-openoffice"
     },
@@ -255,6 +265,9 @@
               fileExtension === "cpp" ||
               fileExtension === "m") {
         return FILETYPE_SOURCE;
+    }
+    else if (fileExtension === "php") {
+        return FILETYPE_PHP;
     }
     else if (fileExtension === "java") {
         return FILETYPE_JAVA;

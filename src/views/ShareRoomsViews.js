@@ -386,7 +386,11 @@
         return;
       }
       if (this.model.get("password_required")) {
-        alert("will go to share room password screen");
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.GetShareRoomPasswordView,
+          {model: this.model},
+          spiderOakApp.defaultEffect
+        );
       }
       else {
         var options = {
@@ -438,6 +442,116 @@
         "Remove?",
         "OK,Cancel"
       );
+    }
+  });
+
+  spiderOakApp.GetShareRoomPasswordView = Backbone.View.extend({
+    name: "Get ShareRoom Password",
+    templateID: "getShareRoomPasswordTemplate",
+    events: {
+      "submit form": "form_submitHandler",
+      "tap .submitPasswordButton": "submitPasswordButton_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.listenTo(this.model, "change", function () {
+        $(document).trigger("settingChanged");
+      });
+    },
+    render: function() {
+      this.$el.html(_.template(window.tpl.get(this.templateID),
+                               this.getTemplateValues()));
+      return this;
+    },
+    getTemplateValues: function() {
+      return this.model.toJSON();
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle("Server Address");
+        spiderOakApp.mainView.showBackButton(true);
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.$("input").val("");
+      this.$("input").blur();
+    },
+    /** Validate and apply the password.
+     *
+     * Given a valid password, we:
+     * - Present a success toast
+     * - Register the password in the share room model
+     * - Proceed to the share room contents
+     *
+     * If invalid:
+     * - We present a failure toast
+     * - Ensure the model's password is zeroed
+     * - Return to the share rooms views - the share will remain
+     */
+    form_submitHandler: function(event) {
+      var password = this.$("[name=pwrd]").val();
+      this.model.set("password", password);
+
+      spiderOakApp.dialogView.showWait({
+        title: "Validating"
+      });
+      event.preventDefault();
+      this.$("input").blur();
+
+      var handleValidPassword = function() {
+        spiderOakApp.dialogView.hide();
+        spiderOakApp.dialogView.showNotify({
+          title: "Password accepted"
+        });
+        if (spiderOakApp.navigator.viewsStack.length > 0) {
+          spiderOakApp.navigator.popView();
+        }
+        var options = {
+          id: this.model.cid,
+          title: this.model.get("name"),
+          model: this.model
+        };
+        var folderView = new spiderOakApp.FolderView(options);
+        spiderOakApp.navigator.pushView(
+          folderView,
+          {},
+          spiderOakApp.defaultEffect
+        );
+      }.bind(this);
+
+      var handleInvalidPassword = function() {
+        spiderOakApp.dialogView.hide();
+        spiderOakApp.dialogView.showNotify({
+          title: "Invalid Password",
+          subtitle: subtitle
+        });
+        if (spiderOakApp.navigator.viewsStack.length > 0) {
+          spiderOakApp.navigator.popView();
+        }
+      }.bind(this);
+
+      var options = {
+        success: handleValidPassword,
+        error: handleInvalidPassword
+      };
+      this.model.fetch(options);
+    },
+    submitPasswordButton_tapHandler: function(event) {
+      event.preventDefault();
+      this.form_submitHandler(event);
+    },
+    close: function() {
+      this.remove();
+      this.unbind();
     }
   });
 

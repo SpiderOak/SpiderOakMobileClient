@@ -28,6 +28,7 @@
     },
     initialize: function() {
       _.bindAll(this, "login");
+      this.basicAuthManager = new spiderOakApp.BasicAuthManager();
     },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
@@ -43,6 +44,8 @@
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url, optionalHost) {
+
+      /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
           "Sorry. You should still be able to access your favorites, but " +
@@ -57,6 +60,11 @@
       }
 
       var _self = this,
+          /** A BasicAuth suspending and resuming utility.
+           *
+           * Once instantiated with current credentials, they're stashed,
+           * and aren't neede to reestablish basic auth based on them.
+           */
           server = (optionalHost ||
                     spiderOakApp.settings.get("server").get("value")),
           login_url_start = "https://" + server + "/browse/login";
@@ -92,14 +100,14 @@
             // original account's alphabetic case, and uses it, whatever
             // case differences the user enters for login.
             username = spiderOakApp.b32nibbler.decode(b32username);
-            // Set the basicauth details:
-            Backbone.BasicAuth.set(username,password);
             // Record the b32username:
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
+            // Set the basicauth details:
+            _self.basicAuthManager.setAccountBasicAuth(username, password);
             // Record the basic auth credentials
             _self.set("basicAuthCredentials",
-                      _self.getBasicAuth(username, password));
+                      _self.basicAuthManager.getAccountBasicAuth());
             // Record the login url:
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
@@ -148,11 +156,6 @@
         }
       });
     },
-    getBasicAuth: function (user, password) {
-      var tok = user + ':' + password;
-      var hash = btoa(tok);
-      return "Basic " + hash;
-    },
     /** Do server logout and local zeroing of credentials, etc.
      *
      * We always do local zeroing and call successCallback, regardless of
@@ -160,7 +163,7 @@
      */
     logout: function(successCallback) {
       // Clear basic auth details:
-      Backbone.BasicAuth.clear();
+      this.basicAuthManager.clear();
       if (this.get("isLoggedIn")) {
         // @TODO: Clear keychain credentials
         // Post to the logout URL to get the session cookie expired:
@@ -193,5 +196,45 @@
       this.set(this.defaults);
     }
   });
+
+  spiderOakApp.BasicAuthManager = function () {
+    // @TESTTHIS
+    var accountUsername = "",
+        accountPassword = "";
+    return {
+      /** Establish basic auth based on credentials, and stash them. */
+      setAccountBasicAuth: function (username, password) {
+        accountUsername = username;
+        accountPassword = password;
+        this.resumeAccountBasicAuth();
+        return this;
+      },
+      /** Reestablish basic auth based on stashed credentials. */
+      resumeAccountBasicAuth: function () {
+        if (accountUsername || accountPassword) {
+          Backbone.BasicAuth.set(accountUsername, accountPassword);
+        }
+        else {
+          this.clear();
+        }
+        return this;
+      },
+      /** Establish basic auth per alternate creds, keeping stashed around. */
+      setAlternateBasicAuth: function (username, password) {
+        Backbone.BasicAuth.set(username, password);
+        return this;
+      },
+      /** Establish basic auth per alternate creds, keeping stashed around. */
+      getAccountBasicAuth: function () {
+        var tok = accountUsername + ':' + accountPassword;
+        var hash = btoa(tok);
+        return "Basic " + hash;
+      },
+      clear: function () {
+        Backbone.BasicAuth.clear();
+        accountUsername = accountPassword = "";
+      }
+    };
+  };
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

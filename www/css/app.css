@@ -8,6 +8,7 @@ body {
   -webkit-text-size-adjust: none;
   -webkit-user-select: none;
   user-select: none;
+  font-size: 100%;
   padding: 0;
   margin: 0;
 }
@@ -59,7 +60,7 @@ body {
 }
 
 .storagebar .devices-info {
-  font-size: 0.8em;
+  font-size: 80%;
   padding: 3px 10px;
 }
 
@@ -110,7 +111,7 @@ body {
 .learn-more {
   width: 60%;
   text-align: center;
-  font-size: 0.8em;
+  font-size: 80%;
   margin: -10px auto;
   padding: 10px;
 }
@@ -127,7 +128,7 @@ body {
 
 .about-spideroak-content {
   padding: 10px;
-  font-size: 0.9em;
+  font-size: 90%;
 }
 
 .about-spideroak-content .email-link,
@@ -162,7 +163,7 @@ ul li:last-child {
 }
 
 ul li small {
-  font-size: 0.6em;
+  font-size: 60%;
   display: block;
   position: static;
   text-align: left;
@@ -202,7 +203,7 @@ ul li ::-webkit-input-placeholder {
 }
 
 ul li.sep {
-  font-size: 0.9em;
+  font-size: 90%;
   padding: 2px 10px;
   background-color: #666;
   color: white;
@@ -270,7 +271,7 @@ ul.rounded li:first-child {
 }
 
 .icon-large {
-  font-size: 1.4em;
+  font-size: 140%;
 }
 
 .hidden {
@@ -327,7 +328,7 @@ ul li a .icon {
   height: 30px;
   width: 20px;
   padding: 5px;
-  font-size: 1.2em;
+  font-size: 120%;
   color: #333;
 }
 ul li a .rightButton {
@@ -337,7 +338,7 @@ ul li a .rightButton {
   height: 30px;
   width: 20px;
   padding: 15px 5px 5px 5px;
-  font-size: 1.1em;
+  font-size: 110%;
   color: #ccc;
 }
 
@@ -374,7 +375,7 @@ ul li a .subtext {
   left: 45px;
   top: 30px;
   right: 40px;
-  font-size: 0.7em;
+  font-size: 70%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -472,7 +473,7 @@ ul li a .subtext {
 
 .fileDetails {
   padding: 10px;
-  line-height: 2em;
+  line-height: 200%;
 }
 
 .fileDetails .icon-large {
@@ -483,12 +484,12 @@ ul li a .subtext {
 .fileDetails .name {
   width: 100%;
   word-wrap: break-word;
-  line-height: 1em;
+  line-height: 100%;
   margin: 10px 0;
 }
 
 .fileDetails .section {
-  font-size: 0.8em;
+  font-size: 80%;
   border-top: 1px solid #999;
 }
 
@@ -506,7 +507,7 @@ ul li a .subtext {
   background-color: #ccc;
   border-top: 1px solid #bbb;
   color: #666;
-  font-size: 1.3em;
+  font-size: 130%;
 }
 
 .toolbar-button {

@@ -38,6 +38,10 @@
       favorites = favorites || [];
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
+      var favoritesConfirmationAccepted =
+        store.get("favoritesConfirmationAccepted") || false;
+      spiderOakApp.accountModel.set("favoritesConfirmationAccepted",
+                                    favoritesConfirmationAccepted);
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
 
       // Benefit of the doubt
@@ -117,6 +121,11 @@
       spiderOakApp.storageBarModel = new spiderOakApp.StorageBarModel();
       spiderOakApp.storageBarModel.url =
         spiderOakApp.accountModel.get("storageRootURL");
+      var favoritesConfirmationAccepted =
+        store.get("favoritesConfirmationAccepted-" +
+        spiderOakApp.accountModel.get("b32username")) || false;
+      spiderOakApp.accountModel.set("favoritesConfirmationAccepted",
+                                    favoritesConfirmationAccepted);
       spiderOakApp.storageBarView = new spiderOakApp.StorageBarView({
         model: spiderOakApp.storageBarModel
       });

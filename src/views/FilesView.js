@@ -98,59 +98,110 @@
         successCallback,
         function errorCallback(error) { // @FIXME: Real error handling...
           spiderOakApp.dialogView.hide();
-          console.log(error);
+          console.log(JSON.stringify(error));
+          switch (error.code) {
+            case window.FileError.NOT_FOUND_ERR:
+              console.log("FileError.NOT_FOUND_ERR");
+              break;
+            case window.FileError.SECURITY_ERR:
+              console.log("FileError.SECURITY_ERR");
+              break;
+            case window.FileError.ABORT_ERR:
+              console.log("FileError.ABORT_ERR");
+              break;
+            case window.FileError.NOT_READABLE_ERR:
+              console.log("FileError.NOT_READABLE_ERR");
+              break;
+            case window.FileError.ENCODING_ERR:
+              console.log("FileError.ENCODING_ERR");
+              break;
+            case window.FileError.NO_MODIFICATION_ALLOWED_ERR:
+              console.log("FileError.NO_MODIFICATION_ALLOWED_ERR");
+              break;
+            case window.FileError.INVALID_STATE_ERR:
+              console.log("FileError.INVALID_STATE_ERR");
+              break;
+            case window.FileError.SYNTAX_ERR:
+              console.log("FileError.SYNTAX_ERR");
+              break;
+            case window.FileError.INVALID_MODIFICATION_ERR:
+              console.log("FileError.INVALID_MODIFICATION_ERR");
+              break;
+            case window.FileError.QUOTA_EXCEEDED_ERR:
+              console.log("FileError.QUOTA_EXCEEDED_ERR");
+              break;
+            case window.FileError.TYPE_MISMATCH_ERR:
+              console.log("FileError.TYPE_MISMATCH_ERR");
+              break;
+            case window.FileError.PATH_EXISTS_ERR:
+              console.log("FileError.PATH_EXISTS_ERR");
+              break;
+          }
         }
       );
     },
     saveFavorite: function() {
-      // Confirmation dialog
+      if (spiderOakApp.accountModel.get("favoritesConfirmationAccepted")) {
+        // Skip confirmation
+        this.saveFavoriteConfirmed(1);
+      }
+      else {
+        navigator.notification.confirm(
+          "Do you want to add this file to your favorites? This will download " +
+            "the file to your device.",
+          this.saveFavoriteConfirmed,
+          "Favorites"
+        );
+      }
+    },
+    saveFavoriteConfirmed: function(button) {
+      if (button !== 1) {
+        return;
+      }
       var model = this.model;
       // Start by getting the folder path
-      var path = "Download/SpiderOak/.favorites" +
+      var path = "Download/SpiderOak/.favorites/" +
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
-          .replace(
-            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
-            "/"
-          ).replace(
-            new RegExp(model.get("url")),
-            ""
-          );
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(model.get("url")), "");
+      console.log(path);
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
-      favorite.url = model.urlResult();
+      favorite.encodedUrl = favorite.url;
+      favorite.url = model.composedUrl();
       favorite.isFavorite = true;
-      navigator.notification.confirm(
-        "Do you want to add this file to your favorites? This will download " +
-          "the file to your device.",
-        function(button) {
-          if (button !== 1) {
-            return;
-          }
-          this.downloadFile(model, path, function(fileEntry) {
-            console.log(fileEntry.fullPath);
-            spiderOakApp.dialogView.hide();
-            // Add file model (with added local path) to the Favorites Collection
-            var favoriteModel = new spiderOakApp.FavoriteModel(favorite);
-            spiderOakApp.favoritesCollection.add(
-              favoriteModel
-            );
-            console.log("adding: " + favorite.name);
-            this.$(".rightButton").addClass("favorite");
-            // Persist Favorites Collection to localStorage
-            // window.store.set(
-            window.store.set(
-              "favorites-" + spiderOakApp.accountModel.get("b32username"),
-              spiderOakApp.favoritesCollection.toJSON()
-            );
-            model.set("path", favorite.path);
-            model.set("isFavorite", true);
-            model.set("favoriteModel", favoriteModel);
-            // Add the file to the recents collection (view or fave)
-            spiderOakApp.recentsCollection.add(model);
-          }.bind(this));
-        }.bind(this),
-        "Favorites"
-      );
+
+      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+        store.set("favoritesConfirmationAccepted-" +
+          spiderOakApp.accountModel.get("b32username"), true);
+      }
+      else {
+        store.set("favoritesConfirmationAccepted", true);
+      }
+      spiderOakApp.accountModel.set("favoritesConfirmationAccepted", true);
+      this.downloadFile(model, path, function(fileEntry) {
+        console.log(fileEntry.fullPath);
+        spiderOakApp.dialogView.hide();
+        // Add file model (with added local path) to the Favorites Collection
+        var favoriteModel = new spiderOakApp.FavoriteModel(favorite);
+        spiderOakApp.favoritesCollection.add(
+          favoriteModel
+        );
+        console.log("adding: " + favorite.name);
+        this.$(".rightButton").addClass("favorite");
+        // Persist Favorites Collection to localStorage
+        // window.store.set(
+        window.store.set(
+          "favorites-" + spiderOakApp.accountModel.get("b32username"),
+          spiderOakApp.favoritesCollection.toJSON()
+        );
+        model.set("path", favorite.path);
+        model.set("isFavorite", true);
+        model.set("favoriteModel", favoriteModel);
+        // Add the file to the recents collection (view or fave)
+        spiderOakApp.recentsCollection.add(model);
+      }.bind(this));
     },
     shareViaIntent: function(path) {
       // @FIXME: This is a bit Android-centric
@@ -252,15 +303,11 @@
         );
         return; // return early
       }
-      path = "Download/SpiderOak/.shared" +
+      path = "Download/SpiderOak/.shared/" +
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
-          .replace(
-            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
-            "/"
-          ).replace(
-            new RegExp(model.get("url")),
-            ""
-          );
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(model.get("url")), "");
       this.downloadFile(model, path, function(fileEntry) {
         spiderOakApp.dialogView.hide();
         this.shareViaIntent(fileEntry.fullPath);
@@ -330,6 +377,10 @@
         function(error) { // @FIXME: Real error handling...
           spiderOakApp.dialogView.hide();
           if (error.code) {
+            if (error.code === window.FileTransferError.ABORT_ERR) {
+              console.log("FileTransfer aborted");
+              return;
+            }
             console.log("download error source " + error.source);
             console.log("download error target " + error.target);
             console.log("download error code " + error.code);
@@ -433,15 +484,11 @@
     refreshFavorite: function(callback) {
       var model = this.model;
       // @FIXME: This should be in a function and be based on platform
-      var path = "Download/SpiderOak/.favorites" +
+      var path = "Download/SpiderOak/.favorites/" +
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.urlResult()
-          .replace(
-            new RegExp("^.*(share|storage)\/[A-Z2-7]*\/"),
-            "/"
-          ).replace(
-            new RegExp(model.get("url")),
-            ""
-          );
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
       callback = callback || function(fileEntry) {
         spiderOakApp.dialogView.hide();
       };
@@ -682,7 +729,6 @@
       return this;
     },
     favorite_tapHandler: function(event) {
-      console.log(event.target);
       if ($(event.target).hasClass("favorite") ||
           $(event.target).parent().hasClass("favorite")) {
         this.removeFavorite();

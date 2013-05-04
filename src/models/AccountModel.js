@@ -24,7 +24,8 @@
       storageRootURL: "",
       mySharesListURL: "",
       mySharesRootURL: "",
-      webRootURL: ""
+      webRootURL: "",
+      favoritesConfirmationAccepted: false
     },
     initialize: function() {
       _.bindAll(this, "login");

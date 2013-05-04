@@ -6,7 +6,7 @@ window.onload = function() {
 		el.innerHTML = '<span style="font-family: \'SpiderOakIcons\'">' + entity + '</span>' + html;
 	}
 	var icons = {
-			'icon-file' : '&#xe000;',
+			'icon-history' : '&#xe000;',
 			'icon-file-pdf' : '&#xe001;',
 			'icon-file-word' : '&#xe002;',
 			'icon-file-excel' : '&#xe003;',
@@ -19,7 +19,7 @@ window.onload = function() {
 			'icon-star' : '&#xe00a;',
 			'icon-star-2' : '&#xe00b;',
 			'icon-clock' : '&#xe00d;',
-			'icon-history' : '&#xe00e;',
+			'icon-switch' : '&#xe00e;',
 			'icon-tux' : '&#xe00f;',
 			'icon-finder' : '&#xe010;',
 			'icon-windows' : '&#xe012;',
@@ -44,11 +44,12 @@ window.onload = function() {
 			'icon-redo' : '&#xe025;',
 			'icon-cog' : '&#xe00c;',
 			'icon-settings' : '&#xe026;',
-			'icon-switch' : '&#xe027;',
+			'icon-file' : '&#xe027;',
 			'icon-info' : '&#xe020;',
 			'icon-checkbox-checked' : '&#xe028;',
 			'icon-checkbox-unchecked' : '&#xe029;',
-			'icon-file-openoffice' : '&#xe02a;'
+			'icon-file-openoffice' : '&#xe02a;',
+			'icon-libreoffice' : '&#xe02b;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

@@ -29,6 +29,7 @@
     initialize: function() {
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
+      this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager();
     },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
@@ -108,6 +109,8 @@
             // Record the basic auth credentials
             _self.set("basicAuthCredentials",
                       _self.basicAuthManager.getAccountBasicAuth());
+            // Allocate a fresh pub shares password record for the account:
+            _self.pubSharesPassManager.loggedInTo(username);
             // Record the login url:
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
@@ -186,6 +189,7 @@
     },
     /** Clear account resources. */
     loggedOut: function() {
+      this.pubSharesPassManager.loggedOut();
       if (spiderOakApp.recentsCollection) {
           spiderOakApp.recentsCollection.reset([]);
       }
@@ -233,6 +237,76 @@
       clear: function () {
         Backbone.BasicAuth.clear();
         accountUsername = accountPassword = "";
+      }
+    };
+  };
+  /** Maintain passwords for protected share rooms, per account.
+   *
+   * Make it easy to track obtained passwords within a login session, and
+   * also easy to expunge ones when they prove to be obsolete.  Currently,
+   * the records are not retained across application sessions.
+   *
+   * Removing a share room wipes the password record for that share room,
+   * in the context of the current account.
+   *
+   * ShareRoom password records obtained while not authenticated are
+   * retained across and within authenticated sessions.
+   *
+   * The records could be retained across app sessions using settings, but
+   * that would require decisions about the security exposure, and also UI
+   * for the user to elect such preservation and selective dropping of
+   * specific records.
+   */
+  spiderOakApp.PubSharesPassManager = function () {
+    // @TESTTHIS
+    var byAccount = {};
+    /** The empty string represents the non-authenticated state. */
+    var currentAccount = "";
+    return {
+      loggedInTo: function (username) {
+        currentAccount = username;
+        if (! byAccount.hasOwnProperty(currentAccount)) {
+          currentAccount[username] = {};
+        }
+        return this;
+      },
+      loggedOut: function () {
+        delete byAccount[currentAccount];
+        currentAccount = "";
+        return this;
+      },
+      setCurrentAccountSharePass: function (shareId, roomKey, password) {
+        var currentPasses = byAccount[currentAccount];
+        if (! currentPasses) {
+          currentPasses = byAccount[currentAccount] = {};
+        }
+        currentPasses[JSON.stringify({shareId: roomKey})] = password;
+        return this;
+      },
+      getCurrentAccountSharePass: function (shareId, roomKey) {
+        var passes = byAccount[currentAccount] || {};
+        var stringified = JSON.stringify({shareId: roomKey});
+        var got = (passes[stringified]);
+        if (! got && currentAccount) {
+          // Try the no-authentication record, too:
+          passes = byAccount[""] || {};
+          got = passes[stringified];
+        }
+        return got || "";
+      },
+      removeCurrentAccountSharePass: function (shareId, roomKey) {
+        var passes = byAccount[currentAccount] || {};
+        var stringified = JSON.stringify({shareId: roomKey});
+        delete passes[stringified];
+        // Also remove from no-authentication records:
+        if (currentAccount) {
+          passes = byAccount[""] || {};
+          delete passes[stringified];
+        }
+        return this;
+      },
+      clear: function () {
+        byAccount = {};
       }
     };
   };

@@ -10,10 +10,6 @@
       $           = window.$;
 
   spiderOakApp.FileModel = spiderOakApp.PasswordProtectedModelBase.extend({
-    initialize: function (options) {
-      // XXX @DELETEME
-      return 1;
-    },
     defaults: _.extend(
       {isFavorite: false},
       spiderOakApp.PasswordProtectedModelBase.prototype.defaults

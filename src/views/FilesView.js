@@ -656,7 +656,7 @@
         this.versionsCollection = new spiderOakApp.FileItemVersionsCollection();
         this.versionsCollection.url = this.model.composedUrl(true) +
             "?format=version_info";
-        this.versionsCollection.password = this.model.get("password");
+        this.versionsCollection.setPassword(this.model.getPassword());
         this.versionsView = new spiderOakApp.FileItemVersionsListView({
           collection: this.versionsCollection
         }).render();

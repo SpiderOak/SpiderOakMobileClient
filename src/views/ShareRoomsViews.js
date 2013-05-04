@@ -433,6 +433,7 @@
       event.preventDefault();
       var removeShare = function(button) {
         if (button === 1) {
+          this.model.removePassword();
           this.model.collection.remove(this.model);
         }
       }.bind(this);
@@ -499,7 +500,7 @@
      */
     form_submitHandler: function(event) {
       var password = this.$("[name=pwrd]").val();
-      this.model.set("password", password);
+      this.model.setPassword(password);
 
       spiderOakApp.dialogView.showWait({
         title: "Validating"
@@ -509,35 +510,26 @@
 
       var handleValidPassword = function() {
         // Using '?auth_required_format=json' means always apparent
-        // success; but parsing will zero the password if it the json
-        // indicated:
-        if (! this.model.get("password")) {
+        // success; but parsing will have zeroed the password if the json
+        // result indicated:
+        if (! this.model.getPassword()) {
           return handleInvalidPassword();
         }
         spiderOakApp.dialogView.hide();
-        spiderOakApp.dialogView.showNotify({
-          title: "Password accepted"
-        });
         var options = {
           id: this.model.cid,
           title: this.model.get("name"),
           model: this.model
         };
-        var folderView = new spiderOakApp.FolderView(options);
         if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.replaceAll(
-            folderView,
-            {},
-            spiderOakApp.defaultEffect
-          );
+          spiderOakApp.navigator.popView();
         }
-        else {
-          spiderOakApp.navigator.pushView(
-            folderView,
-            {},
-            spiderOakApp.defaultEffect
-          );
-        }
+        var folderView = new spiderOakApp.FolderView(options);
+        spiderOakApp.navigator.pushView(
+          folderView,
+          {},
+          spiderOakApp.defaultEffect
+        );
       }.bind(this);
 
       var handleInvalidPassword = function() {

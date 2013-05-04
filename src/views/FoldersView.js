@@ -41,7 +41,7 @@
       // if (this.model.collection) {
         this.folders.url = this.model.composedUrl(true);
       // }
-      this.folders.password = this.model.get("password");
+      this.folders.setPassword(this.model.getPassword());
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
         el: this.$(".foldersList")
@@ -61,7 +61,7 @@
       // if (this.model.collection) {
         this.files.url = this.model.composedUrl(true);
       // }
-      this.files.password = this.model.get("password");
+      this.files.setPassword(this.model.getPassword());
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,
         el: this.$(".filesList")
@@ -136,8 +136,8 @@
       return this;
     },
     addOne: function(model) {
-      if (this.collection.password) {
-        model.set("password", this.collection.password);
+      if (this.collection.getPassword()) {
+        model.setPassword(this.collection.getPassword());
       }
       var view = new spiderOakApp.FoldersListItemView({
         model: model
@@ -146,7 +146,6 @@
       this.subViews.push(view);
     },
     addAll: function() {
-      var password = this.collection.password;
       this.$el.empty(); // needed still ?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");

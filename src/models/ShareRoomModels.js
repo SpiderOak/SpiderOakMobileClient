@@ -12,6 +12,7 @@
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
     defaults: _.extend({}, spiderOakApp.FolderModel.prototype.defaults),
     initialize: function() {
+      spiderOakApp.FolderModel.prototype.initialize.call(this);
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
                        "/" + this.get("room_key") + "/");
       this.set("id", id);

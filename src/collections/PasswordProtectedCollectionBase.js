@@ -17,13 +17,13 @@
    */
   spiderOakApp.PasswordProtectedCollectionBase = Backbone.Collection.extend({
     sync: function () {
-      if (this.password) {
+      if (this.getPassword()) {
         /* Temporarily set basic auth for the item password, and restore
            the prevailing basic auth upon return. */
         var bam = spiderOakApp.accountModel.basicAuthManager;
         bam.setAlternateBasicAuth(
           "blank",            // Doesn't matter - username is not regarded.
-          this.password       // The salient thing is the password.
+          this.getPassword()  // The salient thing is the password.
         );
         try {
           return Backbone.Collection.prototype.sync.apply(this, arguments);
@@ -35,6 +35,30 @@
       else {
         return Backbone.Collection.prototype.sync.apply(this, arguments);
       }
+    },
+    setPassword: function (password) {
+      if (this.getPassword() !== password) {
+        this.password = password;
+        spiderOakApp.accountModel.pubSharesPassManager
+            .setCurrentAccountSharePass(this.get("share_id"),
+                                        this.get("room_key"),
+                                        password);
+      }
+    },
+    getPassword: function() {
+      return this.password;
+    },
+    removePassword: function () {
+      if (this.getPassword()) {
+        this.setPassword("");
+        spiderOakApp.accountModel.pubSharesPassManager
+            .removeCurrentAccountSharePass(this.get("share_id"),
+                                           this.get("room_key"));
+      }
+    },
+    clear: function () {
+      this.removePassword();
+      Backbone.Collection.prototype.clear.call(this);
     },
     which: "PasswordProtectedCollectionBase"
   });

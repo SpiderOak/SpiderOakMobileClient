@@ -21,18 +21,27 @@
       password_required: false,
       password: ""
     },
+    initialize: function () {
+      if (spiderOakApp.accountModel) {
+        this.setPassword(
+          spiderOakApp.accountModel.pubSharesPassManager
+              .getCurrentAccountSharePass(
+                this.get("share_id"),
+                this.get("room_key")));
+      }
+    },
     composedUrl: function(bare) {
       var base = Backbone.Model.prototype.composedUrl.call(this);
       return base + (bare ? "" : "?auth_required_format=json");
     },
     sync: function () {
-      if (this.get("password")) {
+      if (this.getPassword()) {
         /* Temporarily set basic auth for the item password, and restore
            the prevailing basic auth upon return. */
         var bam = spiderOakApp.accountModel.basicAuthManager;
         bam.setAlternateBasicAuth(
           "blank",              // Doesn't matter - username is not regarded.
-          this.get("password")  // The salient thing is the password.
+          this.getPassword()  // The salient thing is the password.
         );
         try {
           return Backbone.Model.prototype.sync.apply(this, arguments);
@@ -47,12 +56,37 @@
     },
     parse: function(resp, xhr) {
       if (resp.password_required) {
+        this.removePassword();
         return {password_required: true,
                 password: ""};
       }
       else {
         return this.parseSpecific.call(this, resp, xhr);
       }
+    },
+    setPassword: function(password) {
+      if (this.getPassword() !== password) {
+        this.set("password", password);
+        spiderOakApp.accountModel.pubSharesPassManager
+            .setCurrentAccountSharePass(this.get("share_id"),
+                                        this.get("room_key"),
+                                        password);
+      }
+    },
+    getPassword: function() {
+      return this.get("password");
+    },
+    removePassword: function() {
+      if (this.getPassword()) {
+        this.setPassword("");
+        spiderOakApp.accountModel.pubSharesPassManager
+            .removeCurrentAccountSharePass(this.get("share_id"),
+                                           this.get("room_key"));
+      }
+    },
+    clear: function () {
+      this.removePassword();
+      Backbone.Model.prototype.clear.call(this);
     },
     which: "PasswordProtectedModelBase"
   });

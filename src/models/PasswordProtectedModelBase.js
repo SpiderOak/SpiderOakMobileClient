@@ -84,6 +84,18 @@
                                            this.get("room_key"));
       }
     },
+    /** Generate basic auth per creds. */
+    getBasicAuth: function () {
+      var password = this.getPassword();
+      if (password) {
+        var tok = "whatever" + ':' + password;
+        var hash = btoa(tok);
+        return "Basic " + hash;
+      }
+      else {
+        return "";
+      }
+    },
     clear: function () {
       this.removePassword();
       Backbone.Model.prototype.clear.call(this);

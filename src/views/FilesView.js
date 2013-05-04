@@ -88,8 +88,9 @@
           }
         },
         headers: {
-          "Authorization": spiderOakApp.accountModel
-            .get("basicAuthCredentials")
+          "Authorization": (
+            model.getBasicAuth() ||
+                spiderOakApp.accountModel.get("basicAuthCredentials"))
         }
       };
       spiderOakApp.downloader.downloadFile(
@@ -187,7 +188,9 @@
         type: "POST",
         url: url,
         headers: {
-          "Authorization": spiderOakApp.accountModel.get("basicAuthCredentials")
+          "Authorization": (
+            model.getBasicAuth() ||
+                spiderOakApp.accountModel.get("basicAuthCredentials"))
         },
         success: function(result) {
           // @FIXME: This is a bit Android-centric
@@ -279,8 +282,9 @@
           }
         },
         headers: {
-          "Authorization": spiderOakApp.accountModel
-            .get("basicAuthCredentials")
+          "Authorization": (
+            model.getBasicAuth() ||
+                spiderOakApp.accountModel.get("basicAuthCredentials"))
         }
       };
       spiderOakApp.dialogView.showProgress({

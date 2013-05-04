@@ -32,8 +32,8 @@
                   spiderOakApp.favoritesCollection.models.length > 0) {
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
-            var faveURL = favorite.get("url") + favorite.get("name");
-            var modelURL = model.composedUrl(true);
+            var faveURL = favorite.get("url");
+            var modelURL = model.composedUrl();
             return faveURL === modelURL;
         });
         if (isFavorite) {

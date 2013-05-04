@@ -508,6 +508,12 @@
       this.$("input").blur();
 
       var handleValidPassword = function() {
+        // Using '?auth_required_format=json' means always apparent
+        // success; but parsing will zero the password if it the json
+        // indicated:
+        if (! this.model.get("password")) {
+          return handleInvalidPassword();
+        }
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
           title: "Password accepted"
@@ -537,8 +543,7 @@
       var handleInvalidPassword = function() {
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "Invalid Password",
-          subtitle: subtitle
+          title: "Invalid Password"
         });
         if (spiderOakApp.navigator.viewsStack.length > 0) {
           spiderOakApp.navigator.popView();

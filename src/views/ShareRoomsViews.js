@@ -512,20 +512,26 @@
         spiderOakApp.dialogView.showNotify({
           title: "Password accepted"
         });
-        if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView();
-        }
         var options = {
           id: this.model.cid,
           title: this.model.get("name"),
           model: this.model
         };
         var folderView = new spiderOakApp.FolderView(options);
-        spiderOakApp.navigator.pushView(
-          folderView,
-          {},
-          spiderOakApp.defaultEffect
-        );
+        if (spiderOakApp.navigator.viewsStack.length > 0) {
+          spiderOakApp.navigator.replaceAll(
+            folderView,
+            {},
+            spiderOakApp.defaultEffect
+          );
+        }
+        else {
+          spiderOakApp.navigator.pushView(
+            folderView,
+            {},
+            spiderOakApp.defaultEffect
+          );
+        }
       }.bind(this);
 
       var handleInvalidPassword = function() {

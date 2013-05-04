@@ -41,6 +41,7 @@
       // if (this.model.collection) {
         this.folders.url = this.model.composedUrl(true);
       // }
+      this.folders.password = this.model.get("password");
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
         el: this.$(".foldersList")
@@ -60,6 +61,7 @@
       // if (this.model.collection) {
         this.files.url = this.model.composedUrl(true);
       // }
+      this.files.password = this.model.get("password");
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,
         el: this.$(".filesList")
@@ -112,7 +114,8 @@
       this.scroller.destroy();
       this.foldersListView.close();
       this.filesListView.close();
-    }
+    },
+    which: "FolderView"
   });
 
   spiderOakApp.FoldersListView = Backbone.View.extend({
@@ -133,6 +136,9 @@
       return this;
     },
     addOne: function(model) {
+      if (this.collection.password) {
+        model.set("password", this.collection.password);
+      }
       var view = new spiderOakApp.FoldersListItemView({
         model: model
       });
@@ -140,6 +146,7 @@
       this.subViews.push(view);
     },
     addAll: function() {
+      var password = this.collection.password;
       this.$el.empty(); // needed still ?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
@@ -153,7 +160,8 @@
           subViews.close();
         }
       });
-    }
+    },
+    which: "FoldersListView"
   });
 
   spiderOakApp.FoldersListItemView = Backbone.View.extend({
@@ -188,7 +196,8 @@
     close: function(){
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FoldersListItemView"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

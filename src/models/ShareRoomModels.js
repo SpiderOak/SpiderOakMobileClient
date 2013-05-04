@@ -28,6 +28,7 @@
     parseSpecific: function(resp, xhr) {
       var stats = resp.stats;
       return {
+        password_required: false,
         browse_url: resp.browse_url,
         dirs: resp.dirs,
         name: stats.room_name,

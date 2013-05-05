@@ -31,6 +31,9 @@
       if (typeof urlTail === "function") {
         urlTail = urlTail.call(this);
       }
+      // A version collection url contains the name of the file
+      // We don't want that in the individual model's url
+      urlHead = urlHead.substring(0, urlHead.lastIndexOf("/") + 1);
       if (bare) {
         urlHead = urlHead.split("?")[0];
       }

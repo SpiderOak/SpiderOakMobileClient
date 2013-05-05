@@ -33,7 +33,7 @@
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
             var faveURL = favorite.get("url");
-            var modelURL = model.composedUrl();
+            var modelURL = model.composedUrl(true);
             return faveURL === modelURL;
         });
         if (isFavorite) {
@@ -169,7 +169,7 @@
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
-      favorite.url = model.composedUrl();
+      favorite.url = model.composedUrl(true);
       favorite.isFavorite = true;
 
       if (spiderOakApp.accountModel.get("isLoggedIn")) {
@@ -486,7 +486,7 @@
       // @FIXME: This should be in a function and be based on platform
       var path = "Download/SpiderOak/.favorites/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.urlResult()
+        model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
       callback = callback || function(fileEntry) {

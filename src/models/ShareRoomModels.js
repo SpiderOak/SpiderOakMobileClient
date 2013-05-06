@@ -10,25 +10,25 @@
       $           = window.$;
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
+    defaults: _.extend({}, spiderOakApp.FolderModel.prototype.defaults),
     initialize: function() {
+      spiderOakApp.FolderModel.prototype.initialize.call(this);
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
                        "/" + this.get("room_key") + "/");
       this.set("id", id);
       this.set("url", id);
-      this.url = this.composedUrl();
+      this.url = this.composedUrl(false); // Include the query string.
     },
     which: "ShareRoomModel"
   });
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
-    defaults: {
-      remember: 0
-    },
-    parse: function(resp, xhr) {
-      //console.log("PublicShareRoomModel.parse() " +
-      //            JSON.stringify(resp));
+    defaults: _.extend({remember: 0},
+                       spiderOakApp.ShareRoomModel.prototype.defaults),
+    parseSpecific: function(resp, xhr) {
       var stats = resp.stats;
       return {
+        password_required: false,
         browse_url: resp.browse_url,
         dirs: resp.dirs,
         name: stats.room_name,

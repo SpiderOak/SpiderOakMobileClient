@@ -9,8 +9,15 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FolderModel = Backbone.Model.extend({
-    // ...
+  spiderOakApp.FolderModel = spiderOakApp.PasswordProtectedModelBase.extend({
+    defaults: _.extend(
+      {},
+      spiderOakApp.PasswordProtectedModelBase.prototype.defaults
+    ),
+    parseSpecific: function(resp, xhr) {
+      return Backbone.Model.prototype.parse.call(this, resp, xhr);
+    },
+    which: "FolderModel"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

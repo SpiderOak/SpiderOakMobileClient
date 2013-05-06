@@ -13,7 +13,7 @@
     defaults: {
       isFavorite: false
     },
-    composedUrl: function() {
+    composedUrl: function(bare) {
       var urlTail = this.get("url");
       var collection = this.collection;
       var urlHead = this.get("urlBase") || this.urlBase;
@@ -31,9 +31,12 @@
       if (typeof urlTail === "function") {
         urlTail = urlTail.call(this);
       }
-      // File versions have some extraneous query strings in their url
-      urlHead = urlHead.replace(
-        new RegExp(this.get("name") + "\\?format=version_info"), "");
+      // A version collection url contains the name of the file
+      // We don't want that in the individual model's url
+      urlHead = urlHead.substring(0, urlHead.lastIndexOf("/") + 1);
+      if (bare) {
+        urlHead = urlHead.split("?")[0];
+      }
       return (urlHead || "") + (urlTail || "");
     }
   });

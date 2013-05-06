@@ -233,7 +233,7 @@
       // spiderOakApp.addShareRoomView.show();
       spiderOakApp.navigator.pushView(
         spiderOakApp.PublicShareRoomItemView,
-        {model:this.model},
+        {model: this.model},
         spiderOakApp.defaultEffect
       );
     },
@@ -297,8 +297,8 @@
 
       spiderOakApp.settings.setOrCreate("shareroomsRemembering", remember, 1);
 
-      if (! shareId || ! roomkey) {
-        spiderOakApp.navigator.popView();
+      if (! shareId || ! roomKey) {
+        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
         return;
       }
 
@@ -324,7 +324,7 @@
           }
         });
       }
-      spiderOakApp.navigator.popView();
+      spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
       // this.addAll();
     },
     addShareRoomsButton_tapHandler: function(event) {
@@ -381,21 +381,39 @@
     descend_tapHandler: function(event) {
       event.stopPropagation();
       event.preventDefault();
-      if ($(event.target).hasClass("rightButton") ||
-          $(event.target).hasClass("icon-close")) {
+      var $target = $(event.target);
+
+      if ($target.hasClass("rightButton") ||
+          $target.hasClass("icon-close")) {
         return;
       }
-      var options = {
-        id: this.model.cid,
-        title: this.model.get("name"),
-        model: this.model
-      };
-      var folderView = new spiderOakApp.FolderView(options);
-      spiderOakApp.navigator.pushView(
-        folderView,
-        {},
-        spiderOakApp.defaultEffect
-      );
+
+      $target = $target.tagName === "A" ? $target : $target.closest("a");
+      if ($target.text().trim() === "" ||
+          $target.text().trim() === "Loading...") {
+        return;
+      }
+
+      if (this.model.get("password_required")) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.GetShareRoomPasswordView,
+          {model: this.model},
+          spiderOakApp.defaultEffect
+        );
+      }
+      else {
+        var options = {
+          id: this.model.cid,
+          title: this.model.get("name"),
+          model: this.model
+        };
+        var folderView = new spiderOakApp.FolderView(options);
+        spiderOakApp.navigator.pushView(
+          folderView,
+          {},
+          spiderOakApp.defaultEffect
+        );
+      }
     },
     close: function(){
       this.remove();
@@ -424,6 +442,7 @@
       event.preventDefault();
       var removeShare = function(button) {
         if (button === 1) {
+          this.model.removePassword();
           this.model.collection.remove(this.model);
         }
       }.bind(this);
@@ -433,6 +452,118 @@
         "Remove?",
         "OK,Cancel"
       );
+    }
+  });
+
+  spiderOakApp.GetShareRoomPasswordView = Backbone.View.extend({
+    name: "Get ShareRoom Password",
+    templateID: "getShareRoomPasswordTemplate",
+    events: {
+      "submit form": "form_submitHandler",
+      "tap .submitPasswordButton": "submitPasswordButton_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.listenTo(this.model, "change", function () {
+        $(document).trigger("settingChanged");
+      });
+    },
+    render: function() {
+      this.$el.html(_.template(window.tpl.get(this.templateID),
+                               this.getTemplateValues()));
+      return this;
+    },
+    getTemplateValues: function() {
+      return this.model.toJSON();
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle("Server Address");
+        spiderOakApp.mainView.showBackButton(true);
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.$("input").val("");
+      this.$("input").blur();
+    },
+    /** Validate and apply the password.
+     *
+     * Given a valid password, we:
+     * - Present a success toast
+     * - Register the password in the share room model
+     * - Proceed to the share room contents
+     *
+     * If invalid:
+     * - We present a failure toast
+     * - Ensure the model's password is zeroed
+     * - Return to the share rooms views - the share will remain
+     */
+    form_submitHandler: function(event) {
+      var password = this.$("[name=pwrd]").val();
+      this.model.setPassword(password);
+
+      spiderOakApp.dialogView.showWait({
+        title: "Validating"
+      });
+      event.preventDefault();
+      this.$("input").blur();
+
+      var handleValidPassword = function() {
+        // Using '?auth_required_format=json' means always apparent
+        // success; but parsing will have zeroed the password if the json
+        // result indicated:
+        if (! this.model.getPassword()) {
+          return handleInvalidPassword();
+        }
+        spiderOakApp.dialogView.hide();
+        var options = {
+          id: this.model.cid,
+          title: this.model.get("name"),
+          model: this.model
+        };
+        if (spiderOakApp.navigator.viewsStack.length > 0) {
+          spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        }
+        var folderView = new spiderOakApp.FolderView(options);
+        spiderOakApp.navigator.pushView(
+          folderView,
+          {},
+          spiderOakApp.defaultEffect
+        );
+      }.bind(this);
+
+      var handleInvalidPassword = function() {
+        spiderOakApp.dialogView.hide();
+        spiderOakApp.dialogView.showNotify({
+          title: "Invalid Password"
+        });
+        if (spiderOakApp.navigator.viewsStack.length > 0) {
+          spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        }
+      }.bind(this);
+
+      var options = {
+        success: handleValidPassword,
+        error: handleInvalidPassword
+      };
+      this.model.fetch(options);
+    },
+    submitPasswordButton_tapHandler: function(event) {
+      event.preventDefault();
+      this.form_submitHandler(event);
+    },
+    close: function() {
+      this.remove();
+      this.unbind();
     }
   });
 

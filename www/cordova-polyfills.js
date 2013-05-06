@@ -2,7 +2,7 @@ if (! window.cordova) {
 
   window.cordova = {bogus: "Cordova is absent, this stub is for polyfills."};
 
-  window.cordova['define'] = function(ident, thecode) {
+  window.cordova.define = function(ident, thecode) {
     var msg = "Cordova plugin '" + ident + "' ruthlessly skipped - no Cordova.";
     window.console.log(msg);
   };

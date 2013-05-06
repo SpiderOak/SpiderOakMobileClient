@@ -74,6 +74,7 @@ module.exports = function(grunt) {
           'src/effects/FastSlideEffect.js',
           'src/models/AccountModel.js',
           'src/models/StorageBarModel.js',
+          'src/models/PasswordProtectedModelBase.js',
           'src/models/FileModel.js',
           'src/models/FileVersionModel.js',
           'src/models/FolderModel.js',
@@ -84,6 +85,7 @@ module.exports = function(grunt) {
           'src/models/ShareRoomModels.js',
           'src/models/SettingsModels.js',
           'src/models/SpiderOakFolderModel.js',
+          'src/collections/PasswordProtectedCollectionBase.js',
           'src/collections/FoldersCollection.js',
           'src/collections/FilesCollection.js',
           'src/collections/FileItemVersionsCollection.js',
@@ -180,23 +182,24 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js'],
       options: {
-        globals: {
-          eqeqeq: false,
-          laxbreak: true,
-          undef: true,
-          newcap: true,
-          noarg: true,
-          strict: false,
-          trailing: true,
-          onecase: true,
-          boss: true,
-          eqnull: true,
-          onevar: false,
-          evil: true,
-          regexdash: true,
-          browser: true,
-          wsh: true,
-          sub: true
+        "eqeqeq": false,
+        "laxbreak": true,
+        "undef": true,
+        "newcap": true,
+        "noarg": true,
+        "strict": false,
+        "trailing": true,
+        "onecase": true,
+        "boss": true,
+        "eqnull": true,
+        "onevar": false,
+        "evil": true,
+        "regexdash": true,
+        "browser": true,
+        "wsh": true,
+        "sub": true,
+        "globals": {
+          "cordova": true
         }
       }
     },

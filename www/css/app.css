@@ -346,6 +346,10 @@ ul li a .rightButton {
   color: orange;
 }
 
+.passwordRequired {
+  font-style: italic;
+}
+
 ul li a .filename {
   position: absolute;
   left: 45px;

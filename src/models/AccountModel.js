@@ -29,6 +29,8 @@
     },
     initialize: function() {
       _.bindAll(this, "login");
+      this.basicAuthManager = new spiderOakApp.BasicAuthManager();
+      this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager();
     },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
@@ -44,6 +46,8 @@
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url, optionalHost) {
+
+      /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
           "Sorry. You should still be able to access your favorites, but " +
@@ -58,6 +62,11 @@
       }
 
       var _self = this,
+          /** A BasicAuth suspending and resuming utility.
+           *
+           * Once instantiated with current credentials, they're stashed,
+           * and aren't neede to reestablish basic auth based on them.
+           */
           server = (optionalHost ||
                     spiderOakApp.settings.get("server").get("value")),
           login_url_start = "https://" + server + "/browse/login";
@@ -93,14 +102,16 @@
             // original account's alphabetic case, and uses it, whatever
             // case differences the user enters for login.
             username = spiderOakApp.b32nibbler.decode(b32username);
-            // Set the basicauth details:
-            Backbone.BasicAuth.set(username,password);
             // Record the b32username:
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
+            // Set the basicauth details:
+            _self.basicAuthManager.setAccountBasicAuth(username, password);
             // Record the basic auth credentials
             _self.set("basicAuthCredentials",
-                      _self.getBasicAuth(username, password));
+                      _self.basicAuthManager.getAccountBasicAuth());
+            // Allocate a fresh pub shares password record for the account:
+            _self.pubSharesPassManager.loggedInTo(username);
             // Record the login url:
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
@@ -149,11 +160,6 @@
         }
       });
     },
-    getBasicAuth: function (user, password) {
-      var tok = user + ':' + password;
-      var hash = btoa(tok);
-      return "Basic " + hash;
-    },
     /** Do server logout and local zeroing of credentials, etc.
      *
      * We always do local zeroing and call successCallback, regardless of
@@ -161,7 +167,7 @@
      */
     logout: function(successCallback) {
       // Clear basic auth details:
-      Backbone.BasicAuth.clear();
+      this.basicAuthManager.clear();
       if (this.get("isLoggedIn")) {
         // @TODO: Clear keychain credentials
         // Post to the logout URL to get the session cookie expired:
@@ -184,6 +190,7 @@
     },
     /** Clear account resources. */
     loggedOut: function() {
+      this.pubSharesPassManager.loggedOut();
       if (spiderOakApp.recentsCollection) {
           spiderOakApp.recentsCollection.reset([]);
       }
@@ -194,5 +201,115 @@
       this.set(this.defaults);
     }
   });
+
+  spiderOakApp.BasicAuthManager = function () {
+    // @TESTTHIS
+    var accountUsername = "",
+        accountPassword = "";
+    return {
+      /** Establish basic auth based on credentials, and stash them. */
+      setAccountBasicAuth: function (username, password) {
+        accountUsername = username;
+        accountPassword = password;
+        this.resumeAccountBasicAuth();
+        return this;
+      },
+      /** Reestablish basic auth based on stashed credentials. */
+      resumeAccountBasicAuth: function () {
+        if (accountUsername || accountPassword) {
+          Backbone.BasicAuth.set(accountUsername, accountPassword);
+        }
+        else {
+          this.clear();
+        }
+        return this;
+      },
+      /** Establish basic auth per alternate creds, keeping stashed around. */
+      setAlternateBasicAuth: function (username, password) {
+        Backbone.BasicAuth.set(username, password);
+        return this;
+      },
+      /** Establish basic auth per alternate creds, keeping stashed around. */
+      getAccountBasicAuth: function () {
+        var tok = accountUsername + ':' + accountPassword;
+        var hash = btoa(tok);
+        return "Basic " + hash;
+      },
+      clear: function () {
+        Backbone.BasicAuth.clear();
+        accountUsername = accountPassword = "";
+      }
+    };
+  };
+  /** Maintain passwords for protected share rooms, per account.
+   *
+   * Make it easy to track obtained passwords within a login session, and
+   * also easy to expunge ones when they prove to be obsolete.  Currently,
+   * the records are not retained across application sessions.
+   *
+   * Removing a share room wipes the password record for that share room,
+   * in the context of the current account.
+   *
+   * ShareRoom password records obtained while not authenticated are
+   * retained across and within authenticated sessions.
+   *
+   * The records could be retained across app sessions using settings, but
+   * that would require decisions about the security exposure, and also UI
+   * for the user to elect such preservation and selective dropping of
+   * specific records.
+   */
+  spiderOakApp.PubSharesPassManager = function () {
+    // @TESTTHIS
+    var byAccount = {};
+    /** The empty string represents the non-authenticated state. */
+    var currentAccount = "";
+    return {
+      loggedInTo: function (username) {
+        currentAccount = username;
+        if (! byAccount.hasOwnProperty(currentAccount)) {
+          currentAccount[username] = {};
+        }
+        return this;
+      },
+      loggedOut: function () {
+        delete byAccount[currentAccount];
+        currentAccount = "";
+        return this;
+      },
+      setCurrentAccountSharePass: function (shareId, roomKey, password) {
+        var currentPasses = byAccount[currentAccount];
+        if (! currentPasses) {
+          currentPasses = byAccount[currentAccount] = {};
+        }
+        currentPasses[JSON.stringify({shareId: roomKey})] = password;
+        return this;
+      },
+      getCurrentAccountSharePass: function (shareId, roomKey) {
+        var passes = byAccount[currentAccount] || {};
+        var stringified = JSON.stringify({shareId: roomKey});
+        var got = (passes[stringified]);
+        if (! got && currentAccount) {
+          // Try the no-authentication record, too:
+          passes = byAccount[""] || {};
+          got = passes[stringified];
+        }
+        return got || "";
+      },
+      removeCurrentAccountSharePass: function (shareId, roomKey) {
+        var passes = byAccount[currentAccount] || {};
+        var stringified = JSON.stringify({shareId: roomKey});
+        delete passes[stringified];
+        // Also remove from no-authentication records:
+        if (currentAccount) {
+          passes = byAccount[""] || {};
+          delete passes[stringified];
+        }
+        return this;
+      },
+      clear: function () {
+        byAccount = {};
+      }
+    };
+  };
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

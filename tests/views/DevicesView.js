@@ -7,9 +7,9 @@ describe('DevicesView', function() {
       "POST",
       "https://spideroak.com/browse/login",
       [200, {"Content-Type": "text/html"},
-       "location:https://spideroak.com/storage/"
-       + this.b32username
-       + "/login"]
+       "location:https://spideroak.com/storage/" +
+       this.b32username +
+       "/login"]
     );
     this.username = "testusername";
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"

@@ -49,7 +49,9 @@ window.onload = function() {
 			'icon-checkbox-checked' : '&#xe028;',
 			'icon-checkbox-unchecked' : '&#xe029;',
 			'icon-file-openoffice' : '&#xe02a;',
-			'icon-libreoffice' : '&#xe02b;'
+			'icon-libreoffice' : '&#xe02b;',
+			'icon-unlocked' : '&#xe02c;',
+			'icon-lock' : '&#xe02d;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

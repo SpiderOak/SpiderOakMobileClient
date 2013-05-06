@@ -9,7 +9,8 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FoldersCollection = Backbone.Collection.extend({
+  var ppcb = spiderOakApp.PasswordProtectedCollectionBase;
+  spiderOakApp.FoldersCollection = ppcb.extend({
     model: spiderOakApp.FolderModel,
     parse: function(resp, xhr) {
       // window.console.log(resp);
@@ -21,7 +22,8 @@
         });
       });
       return folders;
-    }
+    },
+    which: "FoldersCollection"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

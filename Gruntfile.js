@@ -182,23 +182,24 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js'],
       options: {
-        globals: {
-          eqeqeq: false,
-          laxbreak: true,
-          undef: true,
-          newcap: true,
-          noarg: true,
-          strict: false,
-          trailing: true,
-          onecase: true,
-          boss: true,
-          eqnull: true,
-          onevar: false,
-          evil: true,
-          regexdash: true,
-          browser: true,
-          wsh: true,
-          sub: true
+        "eqeqeq": false,
+        "laxbreak": true,
+        "undef": true,
+        "newcap": true,
+        "noarg": true,
+        "strict": false,
+        "trailing": true,
+        "onecase": true,
+        "boss": true,
+        "eqnull": true,
+        "onevar": false,
+        "evil": true,
+        "regexdash": true,
+        "browser": true,
+        "wsh": true,
+        "sub": true,
+        "globals": {
+          "cordova": true
         }
       }
     },

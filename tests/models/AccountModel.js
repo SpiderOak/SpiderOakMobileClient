@@ -98,9 +98,9 @@ describe('AccountModel', function() {
              "POST",
              "https://spideroak.com/browse/login",
              [200, {"Content-Type": "text/html"},
-              "location:https://spideroak.com/storage/"
-              + this.b32username
-              + "/login"]
+              "location:https://spideroak.com/storage/" +
+              this.b32username +
+              "/login"]
            );
            this.accountModel.login(this.usernameUpCased, this.password,
                                    this.successSpy, this.errorSpy);
@@ -148,9 +148,9 @@ describe('AccountModel', function() {
             [
               200,
               {"Content-Type": "text/html"},
-              "location:https://spideroak.com/storage/"
-                  + this.b32username
-                  + "/login"
+              "location:https://spideroak.com/storage/" +
+                  this.b32username +
+                  "/login"
             ]
           );
           this.server.respond();
@@ -249,9 +249,9 @@ describe('AccountModel', function() {
           "POST",
           "https://spideroak.com/browse/login",
           [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/"
-           + this.b32username
-           + "/login"]
+           "location:https://spideroak.com/storage/" +
+           this.b32username +
+           "/login"]
         );
         this.server.respondWith(
           "POST",
@@ -301,9 +301,9 @@ describe('AccountModel', function() {
           "POST",
           "https://spideroak.com/browse/login",
           [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/"
-           + this.b32username
-           + "/login"]
+           "location:https://spideroak.com/storage/" +
+           this.b32username +
+           "/login"]
         );
         this.server.respondWith(
           "POST",

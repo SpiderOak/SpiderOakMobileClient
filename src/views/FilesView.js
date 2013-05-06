@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      store       = window.store;
 
   spiderOakApp.FilesListView = Backbone.View.extend({
     initialize: function() {

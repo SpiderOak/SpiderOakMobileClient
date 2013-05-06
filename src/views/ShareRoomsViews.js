@@ -381,10 +381,19 @@
     descend_tapHandler: function(event) {
       event.stopPropagation();
       event.preventDefault();
-      if ($(event.target).hasClass("rightButton") ||
-          $(event.target).hasClass("icon-close")) {
+      var $target = $(event.target);
+
+      if ($target.hasClass("rightButton") ||
+          $target.hasClass("icon-close")) {
         return;
       }
+
+      $target = $target.tagName === "A" ? $target : $target.closest("a");
+      if ($target.text().trim() === "" ||
+          $target.text().trim() === "Loading...") {
+        return;
+      }
+
       if (this.model.get("password_required")) {
         spiderOakApp.navigator.pushView(
           spiderOakApp.GetShareRoomPasswordView,

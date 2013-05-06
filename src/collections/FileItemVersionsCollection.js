@@ -9,7 +9,8 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FileItemVersionsCollection = Backbone.Collection.extend({
+  var ppcb = spiderOakApp.PasswordProtectedCollectionBase;
+  spiderOakApp.FileItemVersionsCollection = ppcb.extend({
     model: spiderOakApp.FileVersionModel,
     parse: function(resp, xhr) {
       // window.console.log(resp);
@@ -19,7 +20,8 @@
         );
       });
       return resp;
-    }
+    },
+    which: "FileItemVersionsCollection"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

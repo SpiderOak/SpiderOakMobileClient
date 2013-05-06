@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      store       = window.store;
 
   spiderOakApp.FilesListView = Backbone.View.extend({
     initialize: function() {
@@ -33,7 +34,7 @@
         var isFavorite = _.find(
           spiderOakApp.favoritesCollection.models, function(favorite){
             var faveURL = favorite.get("url");
-            var modelURL = model.composedUrl();
+            var modelURL = model.composedUrl(true);
             return faveURL === modelURL;
         });
         if (isFavorite) {
@@ -76,7 +77,7 @@
       });
       var downloadOptions = {
         fileName: model.get("name"),
-        from: model.composedUrl(),
+        from: model.composedUrl(true),
         to: decodeURI(path),
         fsType: window.LocalFileSystem.PERSISTENT,
         onprogress: function onprogress(progressEvent) {
@@ -88,8 +89,9 @@
           }
         },
         headers: {
-          "Authorization": spiderOakApp.accountModel
-            .get("basicAuthCredentials")
+          "Authorization": (
+            model.getBasicAuth() ||
+                spiderOakApp.accountModel.get("basicAuthCredentials"))
         }
       };
       spiderOakApp.downloader.downloadFile(
@@ -168,7 +170,7 @@
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
-      favorite.url = model.composedUrl();
+      favorite.url = model.composedUrl(true);
       favorite.isFavorite = true;
 
       if (spiderOakApp.accountModel.get("isLoggedIn")) {
@@ -233,12 +235,14 @@
     sendLink: function() {
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
-      var url = model.composedUrl();
+      var url = model.composedUrl(true);
       $.ajax({
         type: "POST",
         url: url,
         headers: {
-          "Authorization": spiderOakApp.accountModel.get("basicAuthCredentials")
+          "Authorization": (
+            model.getBasicAuth() ||
+                spiderOakApp.accountModel.get("basicAuthCredentials"))
         },
         success: function(result) {
           // @FIXME: This is a bit Android-centric
@@ -314,7 +318,7 @@
       var model = this.model;
       var downloadOptions = {
         fileName: this.model.get("name"),
-        from: this.model.composedUrl(),
+        from: this.model.composedUrl(true),
         to: ".caches",
         fsType: window.LocalFileSystem.TEMPORARY,
         onprogress: function onprogress(progressEvent) {
@@ -326,8 +330,9 @@
           }
         },
         headers: {
-          "Authorization": spiderOakApp.accountModel
-            .get("basicAuthCredentials")
+          "Authorization": (
+            model.getBasicAuth() ||
+                spiderOakApp.accountModel.get("basicAuthCredentials"))
         }
       };
       spiderOakApp.dialogView.showProgress({
@@ -482,7 +487,7 @@
       // @FIXME: This should be in a function and be based on platform
       var path = "Download/SpiderOak/.favorites/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.urlResult()
+        model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
       callback = callback || function(fileEntry) {
@@ -701,8 +706,9 @@
       if (this.model.get("versions") > 1) {
         this.$(".versions").show();
         this.versionsCollection = new spiderOakApp.FileItemVersionsCollection();
-        this.versionsCollection.url = this.model.composedUrl() +
+        this.versionsCollection.url = this.model.composedUrl(true) +
             "?format=version_info";
+        this.versionsCollection.setPassword(this.model.getPassword());
         this.versionsView = new spiderOakApp.FileItemVersionsListView({
           collection: this.versionsCollection
         }).render();

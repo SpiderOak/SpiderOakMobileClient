@@ -9,10 +9,11 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FavoriteModel = Backbone.Model.extend({
-    defaults: {
-      isFavorite: true
-    }
+  spiderOakApp.FavoriteModel = spiderOakApp.PasswordProtectedModelBase.extend({
+    defaults: _.extend(
+      {isFavorite: true},
+      spiderOakApp.PasswordProtectedModelBase.prototype.defaults
+    )
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

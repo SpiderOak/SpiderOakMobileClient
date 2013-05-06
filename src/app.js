@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      store       = window.store;
 
   // Fix for lack of detach in Zepto...
   $.fn.detach = $.fn.remove;
@@ -213,8 +214,9 @@
    * - The url part is taken from the model's .get("url").
    *
    * @this{model}
+   # @param {boolen} bare - when set, strip any query string
    */
-  Backbone.Model.prototype.composedUrl = function() {
+  Backbone.Model.prototype.composedUrl = function(bare) {
     var urlTail = this.get("url");
     var collection = this.collection;
     var urlHead = this.get("urlBase") || this.urlBase;
@@ -231,6 +233,10 @@
     }
     if (typeof urlTail === "function") {
       urlTail = urlTail.call(this);
+    }
+    if (bare) {
+      urlHead = urlHead && urlHead.split("?")[0];
+      urlTail = urlTail && urlTail.split("?")[0];
     }
     return (urlHead || "") + (urlTail || "");
   };

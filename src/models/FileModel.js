@@ -9,10 +9,15 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FileModel = Backbone.Model.extend({
-    defaults: {
-      isFavorite: false
-    }
+  spiderOakApp.FileModel = spiderOakApp.PasswordProtectedModelBase.extend({
+    defaults: _.extend(
+      {isFavorite: false},
+      spiderOakApp.PasswordProtectedModelBase.prototype.defaults
+    ),
+    parseSpecific: function(resp, xhr) {
+      return Backbone.Model.prototype.parse.call(this, resp, xhr);
+    },
+    which: "FileModel"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

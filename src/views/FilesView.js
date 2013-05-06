@@ -163,7 +163,7 @@
       // Start by getting the folder path
       var path = "Download/SpiderOak/.favorites/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.urlResult()
+        model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("url")), "");
       console.log(path);
@@ -306,7 +306,7 @@
       }
       path = "Download/SpiderOak/.shared/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.urlResult()
+        model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("url")), "");
       this.downloadFile(model, path, function(fileEntry) {

@@ -87,6 +87,10 @@ body {
   background-color: #e4e4e4;
 }
 
+.page > div {
+  overflow: auto !important;
+}
+
 .splash {
   position: absolute;
   left: 0;
@@ -154,8 +158,8 @@ ul li {
   list-style-type: none;
   margin: 0;
   padding: 10px;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  /*-webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);*/
 }
 
 ul li:last-child {
@@ -181,8 +185,8 @@ ul li a {
   display: block;
   padding: 10px;
   margin: -10px;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  /*-webkit-transform: translateZ(0);
+  transform: translateZ(0);*/
   color: #000;
 }
 
@@ -379,6 +383,14 @@ ul li a .subtext {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+ul li a .hiddenItem {
+  display: none;
+}
+
+ul li a .hiddenItem:after {
+  content: "Loading...";
 }
 
 .modal {

@@ -28,7 +28,20 @@
       server: {value: "spideroak.com", retain: 1}
     },
     initialize: function() {
+      // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
+      if (window.Modernizr.overflowscrolling) {
+        window.iScroll = function(options) {
+          // ...
+        };
 
+        window.iScroll.prototype.refresh = function() {
+          // ...
+        };
+
+        window.iScroll.prototype.destroy = function() {
+          // ...
+        };
+      }
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({

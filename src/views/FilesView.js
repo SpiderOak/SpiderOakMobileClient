@@ -552,7 +552,16 @@
     }
   });
 
-  spiderOakApp.FilesListItemView = spiderOakApp.FileView.extend({
+  /** Abstract object containing the general elements of a list of items.
+   *
+   * Extend a Backbone view by combining it, inside View.extend(), with your
+   * specific settings by using _.extend().  You must _.extend() onto a fresh
+   * object, so this one is not altered each time you mix it with specific
+   * settings.  Include the specific settings after this one - like:
+   *
+   *   _.extend( {}, spiderOakApp.ListItemViewElements, yourObjects... )
+   */
+  spiderOakApp.ListItemViewElements = {
     tagName: "li",
     events: {
       "tap a": "a_tapHandler",
@@ -565,7 +574,7 @@
     },
     render: function() {
       this.$el.html(
-        _.template(window.tpl.get("fileItemViewTemplate"),
+        _.template(window.tpl.get(this.templateID),
           this.model.toJSON()
         )
       );
@@ -634,7 +643,7 @@
             break;
           case "details":
             spiderOakApp.navigator.pushView(
-              spiderOakApp.FileItemDetailsView,
+              this.itemDetailsView,
               { model: this.model },
               spiderOakApp.defaultEffect
             );
@@ -675,9 +684,27 @@
       this.remove();
       this.unbind();
     }
-  });
+  };
+  spiderOakApp.FilesListItemView = spiderOakApp.FileView.extend(
+    // Extend the specific implementation elements *onto a fresh new object*:
+    _.extend(
+      {},
+      spiderOakApp.ListItemViewElements,
+      {
+        templateID: "fileItemViewTemplate",
+        initialize: function() {
+          spiderOakApp.ListItemViewElements.initialize.call(this);
+          this.itemDetailsView = spiderOakApp.FileItemDetailsView;
+        }
+      }
+    )
+  );
 
-  spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
+  /** Abstract object containing the general elements of a list of item details.
+   *
+   *  See spiderOakApp.ListItemViewElements for usage instructions.
+   */
+  spiderOakApp.ItemDetailsViewElements = {
     destructionPolicy: "never",
     events: {
       "tap .file-share-button": "shareFile",
@@ -693,9 +720,9 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("fileItemDetailsViewTemplate"),
+      this.$el.html(_.template(window.tpl.get(this.templateID),
         this.model.toJSON()));
-      // spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
+      //spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
       spiderOakApp.mainView.setTitle("Details");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -755,7 +782,15 @@
       this.remove();
       this.unbind();
     }
-  });
+  };
+  spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend(
+    _.extend(
+      {},
+      spiderOakApp.ItemDetailsViewElements,
+      {
+        templateID: "fileItemDetailsViewTemplate"
+      })
+  );
 
   spiderOakApp.FileItemVersionsListView = spiderOakApp.FilesListView.extend({
     tagName: "ul",

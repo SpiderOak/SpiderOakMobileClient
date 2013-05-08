@@ -123,14 +123,22 @@
         }
       }
     },
+    /** Update app ledger that tracks retaineds, and record in local storage.
+     */
     saveRetainedRecords: function(anonymous) {
       var retain = {},
+          model,
           they = (anonymous ?
                   spiderOakApp.visitingPubSharesAnon :
                   spiderOakApp.visitingPubShares);
       _.each(they, function (value, key) {
+        model = this.get(key);
+        if (model && model.get("remember") !== value) {
+          // Update ledger with the model's new value:
+          they[key] = value = model.get("remember");
+        }
         if (value) { retain[key] = value; }
-      });
+      }.bind(this));
       spiderOakApp.settings.setOrCreate(this.settingName(anonymous),
                                         JSON.stringify(retain),
                                         1);

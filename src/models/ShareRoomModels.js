@@ -25,6 +25,13 @@
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
     defaults: _.extend({remember: 0},
                        spiderOakApp.ShareRoomModel.prototype.defaults),
+    initialize: function () {
+      this.on("change:remember", this.saveRetainedRecords);
+      spiderOakApp.ShareRoomModel.prototype.initialize.call(this);
+    },
+    saveRetainedRecords: function () {
+      this.collection.saveRetainedRecords();
+    },
     parseSpecific: function(resp, xhr) {
       var stats = resp.stats;
       return {

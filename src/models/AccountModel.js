@@ -267,7 +267,7 @@
       loggedInTo: function (username) {
         currentAccount = username;
         if (! byAccount.hasOwnProperty(currentAccount)) {
-          currentAccount[username] = {};
+          byAccount[username] = {};
         }
         return this;
       },

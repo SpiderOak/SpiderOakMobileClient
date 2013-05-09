@@ -17,14 +17,35 @@
         <span class="label">Room Key:</span>
         <%= room_key %>
       </div>
-      <% if (! password_required) { %>
+      <% if (! password_required || password) { %>
       <div>
-        <span class="label">Password Protected?</span>
-        <% if (password) { %>
+        <span class="label">Owner:</span>
+        <%= owner_firstname %> <%= owner_lastname %>
+      </div>
+      <div>
+        <span class="label">Description:</span>
+        <blockquote> <%= description %> </blockquote>
+      </div>
+      <div>
+        <span class="label">Folders:</span>
+        <%= number_of_folders %>
+      </div>
+      <div>
+        <span class="label">Files:</span>
+        <%= number_of_files %>
+      </div>
+      <% } %>
+      <div>
+        <span class="label">Remembering:</span>
+        <% if (remember) { %>
         Yes
         <% } else { %>
         No
         <% } %>
+      </div>
+      <% if (! password_required && password) { %>
+      <div>
+        <span class="label">Password</span> Protected
       </div>
       <% } %>
     </div>

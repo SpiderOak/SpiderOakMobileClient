@@ -434,7 +434,6 @@
       }
     },
     viewDetails: function (event) {
-      // XXX convert to remember for this object
       spiderOakApp.navigator.pushView(
         spiderOakApp.ShareItemDetailsView,
         { model: this.model,
@@ -444,48 +443,40 @@
       );
     },
     sendLink: function(event) {
-      // XXX convert to remember for this object
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
-      var url = model.composedUrl(true);
-      $.ajax({
-        type: "POST",
-        url: url,
-        headers: {
-          "Authorization": (
-            model.getBasicAuth() ||
-                spiderOakApp.accountModel.get("basicAuthCredentials"))
+      spiderOakApp.dialogView.hide();
+      var name = model.get("name");
+      var alternate = model.get("share_id") + "/" + model.get("room_key");
+      var text = ("I want to share this link with you:" +
+                  "\n\nShareRoom: " + (name || alternate) +
+                  "\nLink: " + model.getWebURL());
+      if (model.get("password_required") || model.get("password")) {
+        text += "\n\n(Access requires an additional password.)";
+      }
+      var extras = {};
+      extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
+      var params = {
+        action: spiderOakApp.fileViewer.ACTION_SEND,
+        type: "text/plain",
+        extras: extras
+      };
+      spiderOakApp.fileViewer.share(
+        params,
+        function(){
+          // Add the file to the recents collection (view or fave)
+          spiderOakApp.recentsCollection.add(model);
         },
-        success: function(result) {
-          // @FIXME: This is a bit Android-centric
-          spiderOakApp.dialogView.hide();
-          var text = "I want to share this link to " + model.get("name") +
-              " with you: " + "https://spideroak.com" + result;
-          var extras = {};
-          extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
-          var params = {
-            action: spiderOakApp.fileViewer.ACTION_SEND,
-            type: "text/plain",
-            extras: extras
-          };
-          spiderOakApp.fileViewer.share(
-            params,
-            function(){
-              // Add the file to the recents collection (view or fave)
-              spiderOakApp.recentsCollection.add(model);
-            },
-            function(error) { // @FIXME: Real error handling...
-              console.log(JSON.stringify(error));
-              navigator.notification.alert(
-                "Error sending this link. Try agains later.",
-                null,
-                "File error",
-                "OK"
-              );
-            }
+        function(error) { // @FIXME: Real error handling...
+          console.log(JSON.stringify(error));
+          navigator.notification.alert(
+            "Error sending this link. Try agains later.",
+            null,
+            "File error",
+            "OK"
           );
         }
-      });
+      );
     },
     a_longTapHandler: function(event, actionItems) {
       if (! actionItems) {
@@ -557,7 +548,6 @@
           .a_longTapHandler.call(this, event, actionItems);
     },
     remember: function(event) {
-      // XXX implement remember
       this.model.set("remember", 1);
     },
     forget: function(event) {
@@ -596,7 +586,6 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      // XXX distinct template; with share id and room key, no versions, etc.
       this.$el.html(_.template(
         window.tpl.get(this.templateID),
         _.extend(this.model.toJSON())

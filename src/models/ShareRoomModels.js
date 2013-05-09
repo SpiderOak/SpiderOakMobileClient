@@ -23,6 +23,14 @@
       this.set("url", id);
       this.url = this.composedUrl(false); // Include the query string.
     },
+    getWebURL: function () {
+      return ("https://" +
+              spiderOakApp.settings.get("server").get("value") +
+              "/browse/share/" +
+              this.get("share_id") +
+              "/" +
+              this.get("room_key"));
+    },
     which: "ShareRoomModel"
   });
 

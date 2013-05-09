@@ -174,6 +174,8 @@
           room_key: shareroom.room_key,
           name: shareroom.room_name,
           description: shareroom.room_description,
+          number_of_folders: shareroom.number_of_folders,
+          number_of_files: shareroom.number_of_files,
           browse_url: shareroom.url
         });
       });

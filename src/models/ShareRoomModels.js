@@ -23,7 +23,8 @@
   });
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
-    defaults: _.extend({remember: 0},
+    defaults: _.extend({remember: 0,
+                        icon: "cloud-upload"},
                        spiderOakApp.ShareRoomModel.prototype.defaults),
     initialize: function () {
       this.on("change:remember", this.saveRetainedRecords);

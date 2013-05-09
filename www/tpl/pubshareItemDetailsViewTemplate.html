@@ -1,0 +1,32 @@
+<div class="fileDetails-container">
+  <div class="fileDetails">
+    <div><i class="icon-<%= icon %> icon-large"></i> <%= description %> </div>
+    <% if (password_required) { %>
+    <div> <span> <strong> Password pending </strong> </span> </div>
+    <% } else { %>
+    <div>
+      <span class="name"><%= name %></span>
+    </div>
+    <% } %>
+    <div class="section">
+      <div>
+        <span class="label">Share ID:</span>
+        <%= share_id %>
+      </div>
+      <div>
+        <span class="label">Room Key:</span>
+        <%= room_key %>
+      </div>
+      <% if (! password_required) { %>
+      <div>
+        <span class="label">Password Protected?</span>
+        <% if (password) { %>
+        Yes
+        <% } else { %>
+        No
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,10 @@
       return this;
     },
     addOne: function(model) {
+      if (spiderOakApp.maxEntries && this.fileCounter > spiderOakApp.maxEntries) {
+        return;
+      }
+      this.fileCounter++;
       // @FIXME: Is this the best pattern for this?
       if (spiderOakApp.favoritesCollection &&
                   spiderOakApp.favoritesCollection.models &&
@@ -51,10 +55,19 @@
     },
     addAll: function() {
       this.$el.empty();
+      this.fileCounter = 1;
+      if (this.collection.length > spiderOakApp.maxEntries) {
+        this.$el.append(
+          "<li class='sep'><i class='icon-warning'></i>" +
+          " Too many files. Displaying first " +
+          spiderOakApp.maxEntries +
+          ".</li>"
+        );
+      }
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    close: function(){
+    close: function() {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
@@ -563,11 +576,20 @@
       this.model.on("change",this.render);
     },
     render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("fileItemViewTemplate"),
-          this.model.toJSON()
-        )
-      );
+      // if (window.Modernizr.overflowscrolling) {
+        this.$el.html(
+          _.template(window.tpl.get("fileItemViewTemplate"),
+            this.model.toJSON()
+          )
+        );
+      // }
+      // else {
+      //   this.$el.html(
+      //     _.template(window.tpl.get("fileItemViewMinTemplate"),
+      //       this.model.toJSON()
+      //     )
+      //   );
+      // }
       this.$("a").data("model",this.model);
       return this;
     },
@@ -834,11 +856,21 @@
 
   spiderOakApp.FilesVersionsItemView = spiderOakApp.FilesListItemView.extend({
     render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("fileVersionsItemViewTemplate"),
-          this.model.toJSON()
-        )
-      );
+      // fileVersionsItemViewMinTemplate
+      // if (window.Modernizr.overflowscrolling) {
+        this.$el.html(
+          _.template(window.tpl.get("fileVersionsItemViewTemplate"),
+            this.model.toJSON()
+          )
+        );
+      // }
+      // else {
+      //   this.$el.html(
+      //     _.template(window.tpl.get("fileVersionsItemViewMinTemplate"),
+      //       this.model.toJSON()
+      //     )
+      //   );
+      // }
       this.$("a").data("model",this.model);
       return this;
     }

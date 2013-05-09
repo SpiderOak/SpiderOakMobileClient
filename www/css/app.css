@@ -346,7 +346,27 @@ ul li a .rightButton {
   color: #ccc;
 }
 
+.fileItem:after {
+  font-family: 'SpiderOakIcons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  content: "\e00b";
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  color: #ccc;
+}
+
 .rightButton.favorite {
+  color: orange;
+}
+
+.favorite:after {
   color: orange;
 }
 

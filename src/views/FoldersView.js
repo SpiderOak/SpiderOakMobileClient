@@ -136,6 +136,10 @@
       return this;
     },
     addOne: function(model) {
+      if (spiderOakApp.maxEntries && this.folderCounter > spiderOakApp.maxEntries) {
+        return;
+      }
+      this.folderCounter++;
       if (this.collection.getPassword()) {
         model.setPassword(this.collection.getPassword());
       }
@@ -147,6 +151,15 @@
     },
     addAll: function() {
       this.$el.empty(); // needed still ?
+      this.folderCounter = 1;
+      if (this.collection.length > spiderOakApp.maxEntries) {
+        this.$el.append(
+          "<li class='sep'><i class='icon-warning'></i>" +
+          " Too many folders. Displaying first " +
+          spiderOakApp.maxEntries +
+          ".</li>"
+        );
+      }
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },

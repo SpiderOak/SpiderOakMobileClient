@@ -42,6 +42,11 @@
           // ...
         };
       }
+      else {
+        // Set some limits for Android 2.x
+        spiderOakApp.maxEntries = 100;
+      }
+
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({

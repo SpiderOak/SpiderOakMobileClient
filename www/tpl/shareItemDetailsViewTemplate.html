@@ -1,0 +1,34 @@
+<div class="fileDetails-container">
+  <div class="fileDetails">
+    <div><i class="icon-<%= icon %> icon-large"></i> <%= kind %> </div>
+    <div>
+      <span class="name"><%= name %></span>
+    </div>
+    <div class="section">
+      <div>
+        <span class="label">Share ID:</span>
+        <%= share_id %>
+      </div>
+      <div>
+        <span class="label">Room Key:</span>
+        <%= room_key %>
+      </div>
+      <div>
+        <span class="label">Owner:</span>
+        <%= owner_firstname %> <%= owner_lastname %>
+      </div>
+      <div>
+        <span class="label">Description:</span>
+        <blockquote> <%= description %> </blockquote>
+      </div>
+      <div>
+        <span class="label">Folders:</span>
+        <%= number_of_folders %>
+      </div>
+      <div>
+        <span class="label">Files:</span>
+        <%= number_of_files %>
+      </div>
+    </div>
+  </div>
+</div>

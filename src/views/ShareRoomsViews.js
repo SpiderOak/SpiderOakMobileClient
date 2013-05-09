@@ -133,7 +133,8 @@
       this.scroller.destroy();
       this.visitedShareRoomsListView.close();
       this.myShareRoomsListView.close();
-    }
+    },
+    which: "ShareRoomsRootView"
   });
 
   spiderOakApp.MyShareRoomsListView = Backbone.View.extend({
@@ -181,7 +182,8 @@
           subViews.close();
         }
       });
-    }
+    },
+    which: "MyShareRoomsListView"
   });
 
   spiderOakApp.VisitedShareRoomsListView = Backbone.View.extend({
@@ -246,7 +248,8 @@
           subViews.close();
         }
       });
-    }
+    },
+    which: "VisitedShareRoomsListView"
   });
 
   spiderOakApp.AddShareRoomView = Backbone.View.extend({
@@ -334,7 +337,8 @@
     close: function(){
       this.remove();
       this.unbind();
-    }
+    },
+    which: "AddShareRoomView"
   });
 
   spiderOakApp.PublicShareRoomsAddButton = Backbone.View.extend({
@@ -357,14 +361,28 @@
         {},
         spiderOakApp.defaultEffect
       );
-    }
+    },
+    which: "PublicShareRoomsAddButton"
   });
 
   spiderOakApp.ShareRoomItemView = Backbone.View.extend({
+    templateID: "shareRoomItemViewTemplate",
+    detailsTemplateID: "shareItemDetailsViewTemplate",
     tagName: "li",
     className: "",
     events: {
-      "tap a": "descend_tapHandler"
+      "tap a": "descend_tapHandler",
+      "longTap a": "a_longTapHandler"
+    },
+    actionItems: [
+      {className: "open", description: "Open"},
+      {className: "details", description: "Details"},
+      {className: "send-link", description: "Send link"}
+    ],
+    actionItemHandlers: {
+      open: function (event) { this.descend_tapHandler(event); },
+      details: function (event) { this.viewDetails(event); },
+      "send-link": function (event) { this.sendLink(); }
     },
     initialize: function() {
       _.bindAll(this, "render");
@@ -372,7 +390,7 @@
     render: function() {
       this.$el.html(
         _.template(
-          window.tpl.get("shareRoomItemViewTemplate"),
+          window.tpl.get(this.templateID),
           this.model.toJSON()
         )
       );
@@ -415,27 +433,125 @@
         );
       }
     },
+    viewDetails: function (event) {
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.ShareItemDetailsView,
+        { model: this.model,
+          templateID: this.detailsTemplateID
+        },
+        spiderOakApp.defaultEffect
+      );
+    },
+    sendLink: function(event) {
+      var model = this.model;
+      spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
+      spiderOakApp.dialogView.hide();
+      var name = model.get("name");
+      var alternate = model.get("share_id") + "/" + model.get("room_key");
+      var text = ("I want to share this link with you:" +
+                  "\n\nShareRoom: " + (name || alternate) +
+                  "\nLink: " + model.getWebURL());
+      if (model.get("password_required") || model.get("password")) {
+        text += "\n\n(Access requires an additional password.)";
+      }
+      var extras = {};
+      extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
+      var params = {
+        action: spiderOakApp.fileViewer.ACTION_SEND,
+        type: "text/plain",
+        extras: extras
+      };
+      spiderOakApp.fileViewer.share(
+        params,
+        function(){
+          // Add the file to the recents collection (view or fave)
+          spiderOakApp.recentsCollection.add(model);
+        },
+        function(error) { // @FIXME: Real error handling...
+          console.log(JSON.stringify(error));
+          navigator.notification.alert(
+            "Error sending this link. Try agains later.",
+            null,
+            "File error",
+            "OK"
+          );
+        }
+      );
+    },
+    a_longTapHandler: function(event, actionItems) {
+      if (! actionItems) {
+        actionItems = this.actionItems;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      var menuView = new spiderOakApp.ContextPopup({
+        items: actionItems
+      });
+      $(document).one("backbutton", function(event) {
+        spiderOakApp.dialogView.hide();
+        menuView.remove();
+      });
+      menuView.once("item:tapped", function menu_tapHandler(event) {
+        var command = $(event.target).data("command");
+        spiderOakApp.dialogView.hide();
+        menuView.remove();
+        this.actionItemHandlers[command].call(this, event);
+      }.bind(this));
+      spiderOakApp.dialogView.showDialogView(menuView);
+    },
     close: function(){
       this.remove();
       this.unbind();
-    }
+    },
+    which: "ShareRoomItemView"
   });
 
-
   spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
-    events: {
-      "tap a": "descend_tapHandler",
-      "tap .removePublicShare": "removePublicShare_tapHandler"
-    },
+    templateID: "publicShareRoomItemViewTemplate",
+    detailsTemplateID: "pubshareItemDetailsViewTemplate",
+    events: _.extend(
+      {},
+      spiderOakApp.ShareRoomItemView.prototype.events,
+      {
+        "tap .removePublicShare": "removePublicShare_tapHandler"
+      }
+    ),
+    actionItems: spiderOakApp.ShareRoomItemView.prototype.actionItems.concat(
+      [{className: "remove", description: "Remove"}]
+    ),
+    actionItemHandlers: _.extend(
+      {},
+      spiderOakApp.ShareRoomItemView.prototype.actionItemHandlers,
+      {
+        remove: function (event) {
+          this.removePublicShare_tapHandler(event); },
+        remember: function (event) { this.remember(); },
+        forget: function (event) { this.forget(); }
+      }
+    ),
     initialize: function() {
       _.bindAll(this);
     },
-    render: function() {
-      this.$el.html(_.template(
-        window.tpl.get("publicShareRoomItemViewTemplate"),
-        this.model.toJSON()
-      ));
-      return this;
+    a_longTapHandler: function(event, actionItems) {
+      if (! actionItems) {
+        actionItems = this.actionItems;
+      }
+      if (this.model.get("remember")) {
+        actionItems = actionItems.concat({className: "forget",
+                                          description: "Forget"});
+      }
+      else {
+        actionItems = actionItems.concat({className: "remember",
+                                          description: "Remember"});
+      }
+      return spiderOakApp.ShareRoomItemView.prototype
+          .a_longTapHandler.call(this, event, actionItems);
+    },
+    remember: function(event) {
+      this.model.set("remember", 1);
+    },
+    forget: function(event) {
+      this.model.set("remember", 0);
     },
     removePublicShare_tapHandler: function(event) {
       event.stopPropagation();
@@ -452,7 +568,54 @@
         "Remove?",
         "OK,Cancel"
       );
-    }
+    },
+    which: "PublicShareRoomItemView"
+  });
+
+  spiderOakApp.ShareItemDetailsView = spiderOakApp.FileView.extend({
+    destructionPolicy: "never",
+    events: {
+      "tap .file-send-button": "sendLink"
+    },
+    initialize: function(options) {
+      _.bindAll(this);
+      this.model.on("change",this.render);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      this.templateID = options.templateID;
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      this.$el.html(_.template(
+        window.tpl.get(this.templateID),
+        _.extend(this.model.toJSON())
+      ));
+      spiderOakApp.mainView.setTitle("Details");
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
+      return this;
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+    },
+    viewActivate: function(event) {
+      spiderOakApp.backDisabled = false;
+      spiderOakApp.mainView.showBackButton(true);
+    },
+    viewDeactivate: function(event) {
+      // this.close();
+    },
+    close: function() {
+      this.scroller.destroy();
+      this.remove();
+      this.unbind();
+    },
+    which: "ShareItemDetailsView"
   });
 
   spiderOakApp.GetShareRoomPasswordView = Backbone.View.extend({
@@ -564,7 +727,8 @@
     close: function() {
       this.remove();
       this.unbind();
-    }
+    },
+    which: "GetShareRoomPasswordView"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

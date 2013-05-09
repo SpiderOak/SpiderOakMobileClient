@@ -10,7 +10,11 @@
       $           = window.$;
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
-    defaults: _.extend({}, spiderOakApp.FolderModel.prototype.defaults),
+    defaults: _.extend({},
+                       spiderOakApp.FolderModel.prototype.defaults,
+                       {icon: "cloud-upload",
+                        kind: "My ShareRoom"}
+                      ),
     initialize: function() {
       spiderOakApp.FolderModel.prototype.initialize.call(this);
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
@@ -19,12 +23,30 @@
       this.set("url", id);
       this.url = this.composedUrl(false); // Include the query string.
     },
+    getWebURL: function () {
+      return ("https://" +
+              spiderOakApp.settings.get("server").get("value") +
+              "/browse/share/" +
+              this.get("share_id") +
+              "/" +
+              this.get("room_key"));
+    },
     which: "ShareRoomModel"
   });
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
-    defaults: _.extend({remember: 0},
-                       spiderOakApp.ShareRoomModel.prototype.defaults),
+    defaults: _.extend({},
+                       spiderOakApp.ShareRoomModel.prototype.defaults,
+                       {remember: 0,
+                        kind: "Public ShareRoom"}
+                      ),
+    initialize: function () {
+      this.on("change:remember", this.saveRetainedRecords);
+      spiderOakApp.ShareRoomModel.prototype.initialize.call(this);
+    },
+    saveRetainedRecords: function () {
+      this.collection.saveRetainedRecords();
+    },
     parseSpecific: function(resp, xhr) {
       var stats = resp.stats;
       return {

@@ -366,6 +366,8 @@
   });
 
   spiderOakApp.ShareRoomItemView = Backbone.View.extend({
+    templateID: "shareRoomItemViewTemplate",
+    detailsTemplateID: "shareItemDetailsViewTemplate",
     tagName: "li",
     className: "",
     events: {
@@ -388,7 +390,7 @@
     render: function() {
       this.$el.html(
         _.template(
-          window.tpl.get("shareRoomItemViewTemplate"),
+          window.tpl.get(this.templateID),
           this.model.toJSON()
         )
       );
@@ -435,7 +437,9 @@
       // XXX convert to remember for this object
       spiderOakApp.navigator.pushView(
         spiderOakApp.ShareItemDetailsView,
-        { model: this.model },
+        { model: this.model,
+          templateID: this.detailsTemplateID
+        },
         spiderOakApp.defaultEffect
       );
     },
@@ -512,6 +516,8 @@
   });
 
   spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
+    templateID: "publicShareRoomItemViewTemplate",
+    detailsTemplateID: "pubshareItemDetailsViewTemplate",
     events: _.extend(
       {},
       spiderOakApp.ShareRoomItemView.prototype.events,
@@ -534,13 +540,6 @@
     ),
     initialize: function() {
       _.bindAll(this);
-    },
-    render: function() {
-      this.$el.html(_.template(
-        window.tpl.get("publicShareRoomItemViewTemplate"),
-        this.model.toJSON()
-      ));
-      return this;
     },
     a_longTapHandler: function(event, actionItems) {
       if (! actionItems) {
@@ -588,19 +587,20 @@
     events: {
       "tap .file-send-button": "sendLink"
     },
-    initialize: function() {
+    initialize: function(options) {
       _.bindAll(this);
       this.model.on("change",this.render);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
+      this.templateID = options.templateID;
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
       // XXX distinct template; with share id and room key, no versions, etc.
       this.$el.html(_.template(
-        window.tpl.get("pubshareItemDetailsViewTemplate"),
-        _.extend(this.model.toJSON(),
-                 {description: "Public ShareRoom"})));
+        window.tpl.get(this.templateID),
+        _.extend(this.model.toJSON())
+      ));
       spiderOakApp.mainView.setTitle("Details");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,

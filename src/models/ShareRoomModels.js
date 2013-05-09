@@ -10,7 +10,11 @@
       $           = window.$;
 
   spiderOakApp.ShareRoomModel = spiderOakApp.FolderModel.extend({
-    defaults: _.extend({}, spiderOakApp.FolderModel.prototype.defaults),
+    defaults: _.extend({},
+                       spiderOakApp.FolderModel.prototype.defaults,
+                       {icon: "cloud-upload",
+                        kind: "My ShareRoom"}
+                      ),
     initialize: function() {
       spiderOakApp.FolderModel.prototype.initialize.call(this);
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
@@ -23,9 +27,11 @@
   });
 
   spiderOakApp.PublicShareRoomModel = spiderOakApp.ShareRoomModel.extend({
-    defaults: _.extend({remember: 0,
-                        icon: "cloud-upload"},
-                       spiderOakApp.ShareRoomModel.prototype.defaults),
+    defaults: _.extend({},
+                       spiderOakApp.ShareRoomModel.prototype.defaults,
+                       {remember: 0,
+                        kind: "Public ShareRoom"}
+                      ),
     initialize: function () {
       this.on("change:remember", this.saveRetainedRecords);
       spiderOakApp.ShareRoomModel.prototype.initialize.call(this);

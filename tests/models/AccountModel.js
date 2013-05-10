@@ -87,13 +87,15 @@ describe('AccountModel', function() {
         );
     });
 
-    describe('successful case-insensitive login', function(){
-      it('should use proper case-translated username for basic auth',
+    describe('case-altered username', function(){
+      it('client should fail login with case-altered username',
          function() {
            this.usernameUpCased = this.username.toUpperCase();
            sinon.spy(Backbone.BasicAuth,'set');
            this.successSpy = sinon.spy();
            this.errorSpy = sinon.spy();
+           // The server responds affirmatively to the case-altered username:
+           window.spiderOakApp.initialize();
            this.server.respondWith(
              "POST",
              "https://spideroak.com/browse/login",
@@ -105,9 +107,10 @@ describe('AccountModel', function() {
            this.accountModel.login(this.usernameUpCased, this.password,
                                    this.successSpy, this.errorSpy);
            this.server.respond();
-           this.successSpy.calledOnce.should.equal(true);
-           Backbone.BasicAuth.set.should.have.been.calledWith(this.username,
-                                                              this.password);
+           this.successSpy.should.not.have.been.called;
+           this.errorSpy.should.have.been.calledOnce;
+           this.errorSpy.should.have.been.calledWith(403);
+           Backbone.BasicAuth.set.should.not.have.been.called;
            Backbone.BasicAuth.set.restore();
          }
         );

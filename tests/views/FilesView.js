@@ -3,6 +3,7 @@ describe('FilesView', function() {
 	beforeEach(function() {
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
+    window.Modernizr.overflowscrolling = true; // Hack to display what we want
   });
   afterEach(function() {
     this.server.restore();

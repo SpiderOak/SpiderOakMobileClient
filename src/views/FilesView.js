@@ -27,6 +27,10 @@
       return this;
     },
     addOne: function(model) {
+      if (spiderOakApp.maxEntries && this.fileCounter > spiderOakApp.maxEntries) {
+        return;
+      }
+      this.fileCounter++;
       // @FIXME: Is this the best pattern for this?
       if (spiderOakApp.favoritesCollection &&
                   spiderOakApp.favoritesCollection.models &&
@@ -51,10 +55,19 @@
     },
     addAll: function() {
       this.$el.empty();
+      this.fileCounter = 1;
+      if (this.collection.length > spiderOakApp.maxEntries) {
+        this.$el.append(
+          "<li class='sep'><i class='icon-warning'></i>" +
+          " Too many files. Displaying first " +
+          spiderOakApp.maxEntries +
+          ".</li>"
+        );
+      }
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    close: function(){
+    close: function() {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
@@ -166,7 +179,6 @@
         model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("url")), "");
-      console.log(path);
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
@@ -190,7 +202,7 @@
           favoriteModel
         );
         console.log("adding: " + favorite.name);
-        this.$(".rightButton").addClass("favorite");
+        // this.$(".rightButton").addClass("favorite");
         // Persist Favorites Collection to localStorage
         // window.store.set(
         window.store.set(
@@ -510,7 +522,7 @@
             path: this.model.get("path") +
               this.model.get("name")
           };
-          this.$(".rightButton").removeClass("favorite");
+          // this.$(".rightButton").removeClass("favorite");
           spiderOakApp.downloader.deleteFile(
             options,
             function(entry) {
@@ -564,11 +576,20 @@
       this.model.on("change",this.render);
     },
     render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("fileItemViewTemplate"),
-          this.model.toJSON()
-        )
-      );
+      // if (window.Modernizr.overflowscrolling) {
+        this.$el.html(
+          _.template(window.tpl.get("fileItemViewTemplate"),
+            this.model.toJSON()
+          )
+        );
+      // }
+      // else {
+      //   this.$el.html(
+      //     _.template(window.tpl.get("fileItemViewMinTemplate"),
+      //       this.model.toJSON()
+      //     )
+      //   );
+      // }
       this.$("a").data("model",this.model);
       return this;
     },
@@ -664,8 +685,8 @@
     favorite_tapHandler: function(event) {
       event.preventDefault();
       event.stopPropagation();
-      if (this.$(".rightButton").hasClass("favorite")) {
-       this.removeFavorite();
+      if (this.model.get("isFavorite")) {
+        this.removeFavorite();
       }
       else {
         this.saveFavorite();
@@ -679,12 +700,6 @@
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
     destructionPolicy: "never",
-    events: {
-      "tap .file-share-button": "shareFile",
-      "tap .file-save-button": "saveFile",
-      "tap .file-send-button": "sendLink",
-      "tap .file-favorite-button": "favorite_tapHandler"
-    },
     initialize: function() {
       _.bindAll(this);
       this.model.on("change",this.render);
@@ -697,6 +712,15 @@
         this.model.toJSON()));
       // spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
       spiderOakApp.mainView.setTitle("Details");
+
+      this.toolbarView = new spiderOakApp.FileItemDetailsToolbarView({
+        model: this.model
+      });
+      this.toolbarView.$el.on("shareFile", this.shareFile, event);
+      this.toolbarView.$el.on("saveFile", this.saveFile, event);
+      this.toolbarView.$el.on("sendLink", this.sendLink, event);
+      this.toolbarView.$el.on("favorite", this.favorite_tapHandler, event);
+
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -730,8 +754,7 @@
       return this;
     },
     favorite_tapHandler: function(event) {
-      if ($(event.target).hasClass("favorite") ||
-          $(event.target).parent().hasClass("favorite")) {
+      if (this.model.get("isFavorite")) {
         this.removeFavorite();
         return;
       }
@@ -741,17 +764,63 @@
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
+      else {
+        this.toolbarView.close();
+        spiderOakApp.toolbarView.hide();
+      }
     },
     viewActivate: function(event) {
       spiderOakApp.backDisabled = false;
       spiderOakApp.mainView.showBackButton(true);
+      spiderOakApp.toolbarView.addButtonsView(this.toolbarView).show();
     },
     viewDeactivate: function(event) {
-      // this.close();
+      this.close();
     },
     close: function() {
       this.scroller.destroy();
-      this.versionsView.close();
+      if (this.versionsView) {
+        this.versionsView.close();
+      }
+      this.toolbarView.close();
+      this.remove();
+      this.unbind();
+    }
+  });
+
+  spiderOakApp.FileItemDetailsToolbarView = Backbone.View.extend({
+    events: {
+      "tap .file-share-button": "shareFile_tapHandler",
+      "tap .file-save-button": "saveFile_tapHandler",
+      "tap .file-send-button": "sendLink_tapHandler",
+      "tap .file-favorite-button": "favorite_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+      this.model.on("change", this.render);
+    },
+    render: function() {
+      this.$el.html(
+        _.template(window.tpl.get("fileItemDetailsToolbarViewTemplate"),
+          this.model.toJSON()
+        )
+      );
+      return this;
+    },
+    shareFile_tapHandler: function(event) {
+      this.$el.trigger("shareFile", event);
+    },
+    saveFile_tapHandler: function(event) {
+      this.$el.trigger("saveFile", event);
+    },
+    sendLink_tapHandler: function(event) {
+      this.$el.trigger("sendLink", event);
+    },
+    favorite_tapHandler: function(event) {
+      this.$el.trigger("favorite", event);
+    },
+    close: function() {
+      spiderOakApp.toolbarView.hide();
       this.remove();
       this.unbind();
     }
@@ -787,11 +856,21 @@
 
   spiderOakApp.FilesVersionsItemView = spiderOakApp.FilesListItemView.extend({
     render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("fileVersionsItemViewTemplate"),
-          this.model.toJSON()
-        )
-      );
+      // fileVersionsItemViewMinTemplate
+      // if (window.Modernizr.overflowscrolling) {
+        this.$el.html(
+          _.template(window.tpl.get("fileVersionsItemViewTemplate"),
+            this.model.toJSON()
+          )
+        );
+      // }
+      // else {
+      //   this.$el.html(
+      //     _.template(window.tpl.get("fileVersionsItemViewMinTemplate"),
+      //       this.model.toJSON()
+      //     )
+      //   );
+      // }
       this.$("a").data("model",this.model);
       return this;
     }

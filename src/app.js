@@ -28,6 +28,24 @@
       server: {value: "spideroak.com", retain: 1}
     },
     initialize: function() {
+      // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
+      if (window.Modernizr.overflowscrolling) {
+        window.iScroll = function(options) {
+          // ...
+        };
+
+        window.iScroll.prototype.refresh = function() {
+          // ...
+        };
+
+        window.iScroll.prototype.destroy = function() {
+          // ...
+        };
+      }
+      else {
+        // Set some limits for Android 2.x
+        spiderOakApp.maxEntries = 100;
+      }
 
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();

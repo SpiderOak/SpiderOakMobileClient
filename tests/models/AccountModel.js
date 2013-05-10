@@ -95,7 +95,6 @@ describe('AccountModel', function() {
            this.successSpy = sinon.spy();
            this.errorSpy = sinon.spy();
            // The server responds affirmatively to the case-altered username:
-           window.spiderOakApp.initialize();
            this.server.respondWith(
              "POST",
              "https://spideroak.com/browse/login",

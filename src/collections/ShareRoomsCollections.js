@@ -123,14 +123,22 @@
         }
       }
     },
+    /** Update app ledger that tracks retaineds, and record in local storage.
+     */
     saveRetainedRecords: function(anonymous) {
       var retain = {},
+          model,
           they = (anonymous ?
                   spiderOakApp.visitingPubSharesAnon :
                   spiderOakApp.visitingPubShares);
       _.each(they, function (value, key) {
+        model = this.get(key);
+        if (model && model.get("remember") !== value) {
+          // Update ledger with the model's new value:
+          they[key] = value = model.get("remember");
+        }
         if (value) { retain[key] = value; }
-      });
+      }.bind(this));
       spiderOakApp.settings.setOrCreate(this.settingName(anonymous),
                                         JSON.stringify(retain),
                                         1);
@@ -166,6 +174,8 @@
           room_key: shareroom.room_key,
           name: shareroom.room_name,
           description: shareroom.room_description,
+          number_of_folders: shareroom.number_of_folders,
+          number_of_files: shareroom.number_of_files,
           browse_url: shareroom.url
         });
       });

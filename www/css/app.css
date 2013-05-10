@@ -530,6 +530,11 @@ ul li a .hiddenItem:after {
   width: 100px;
 }
 
+.fileDetails blockquote {
+  margin-top: -0.7em;
+  margin-bottom: -0.5em;
+}
+
 .toolbar {
   display: none;
   position: absolute;

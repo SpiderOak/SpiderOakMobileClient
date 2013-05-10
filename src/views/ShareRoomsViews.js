@@ -479,6 +479,13 @@
       );
     },
     a_longTapHandler: function(event, actionItems) {
+      var $target = $(event.target);
+      $target = $target.tagName === "A" ? $target : $target.closest("a");
+      if ($target.text().trim() === "" ||
+          $target.text().trim() === "Loading...") {
+        return;
+      }
+
       if (! actionItems) {
         actionItems = this.actionItems;
       }

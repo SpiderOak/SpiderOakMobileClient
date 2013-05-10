@@ -75,10 +75,16 @@
       $.ajax({
         type: "POST",
         url: login_url,
+        cache: false,
         data: {
           username: username,
           password: password
         },
+        /** Handle server login success.
+         *
+         * We may refuse the success, because while the server is tolerant
+         * of variations in the username case, the clients should not be.
+         */
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
           /** Register settings according to a successful login.
@@ -90,19 +96,19 @@
           function loginSuccess(login_url, locationResponse) {
             var splat = login_url.split('/');
             var b32username = splat[splat.length - 2];
+            var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
             var storageHost = splat.slice(0, splat.length-3).join("/");
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
+
+            if (gotUsername !== username) {
+              errorCallback(403, "authentication failed", xhr);
+              return;
+            }
 
             _self.set("login_url_preface", "https://" + server + "/storage/");
             _self.set("login_url_start", "https://" + server + "/browse/login");
             _self.set("logout_url_preface", "https://" + server + "/storage/");
 
-            // Replace our notion of the username with the one the server
-            // has, according to the b32username: the server preserves the
-            // original account's alphabetic case, and uses it, whatever
-            // case differences the user enters for login.
-            username = spiderOakApp.b32nibbler.decode(b32username);
-            // Record the b32username:
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
             // Set the basicauth details:
@@ -176,6 +182,7 @@
                           "/logout");
         $.ajax({type: "POST",
                 url: logout_url,
+                cache: false,
                 error: function(xhr, errorType, error) {
                   console.log("Account logout returned error, status: " +
                               xhr.status);

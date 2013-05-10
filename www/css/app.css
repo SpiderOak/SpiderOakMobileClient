@@ -531,6 +531,7 @@ ul li a .hiddenItem:after {
 }
 
 .fileDetails blockquote {
+  line-height: 1.2em;
   margin-top: -0.7em;
   margin-bottom: -0.5em;
 }

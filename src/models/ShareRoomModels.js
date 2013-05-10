@@ -14,9 +14,7 @@
                         spiderOakApp.FolderModel.prototype.defaults,
                         {
                           icon: "cloud-upload",
-                          kind: "My ShareRoom",
-                          owner_firstname: "", // This should probably know the
-                          owner_lastname: ""   // first and last name of the user
+                          kind: "My ShareRoom"
                         }
 
                       ),

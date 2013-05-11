@@ -247,7 +247,40 @@
     sendLink: function() {
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
+
+      var doView = function (url) {
+        // @FIXME: This is a bit Android-centric
+        spiderOakApp.dialogView.hide();
+        var text = "I want to share this link to " + model.get("name") +
+            " with you:\n\n  " + url;
+        var extras = {};
+        extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
+        var params = {
+          action: spiderOakApp.fileViewer.ACTION_SEND,
+          type: "text/plain",
+          extras: extras
+        };
+        spiderOakApp.fileViewer.share(
+          params,
+          function(){
+            // Add the file to the recents collection (view or fave)
+            spiderOakApp.recentsCollection.add(model);
+          },
+          function(error) { // @FIXME: Real error handling...
+            navigator.notification.alert(
+              "Error sending this link. Try agains later.",
+              null,
+              "File error",
+              "OK"
+            );
+          }
+        );
+      };
+
+      // Try technique for contents of storage first, and if that fails
+      // with result code 405, use url for contents of share rooms.
       var url = model.composedUrl(true);
+      var protohost = url.split("/").slice(0,3).join("/") + "/";
       $.ajax({
         type: "POST",
         url: url,
@@ -257,33 +290,20 @@
                 spiderOakApp.accountModel.get("basicAuthCredentials"))
         },
         success: function(result) {
-          // @FIXME: This is a bit Android-centric
-          spiderOakApp.dialogView.hide();
-          var text = "I want to share this link to " + model.get("name") +
-              " with you: " + "https://spideroak.com" + result;
-          var extras = {};
-          extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
-          var params = {
-            action: spiderOakApp.fileViewer.ACTION_SEND,
-            type: "text/plain",
-            extras: extras
-          };
-          spiderOakApp.fileViewer.share(
-            params,
-            function(){
-              // Add the file to the recents collection (view or fave)
-              spiderOakApp.recentsCollection.add(model);
-            },
-            function(error) { // @FIXME: Real error handling...
-              console.log(JSON.stringify(error));
-              navigator.notification.alert(
-                "Error sending this link. Try agains later.",
-                null,
-                "File error",
-                "OK"
-              );
-            }
-          );
+          doView(protohost + result);
+        },
+        error: function (xhr, errorType, error) {
+          if (xhr.status === 405 && url.split("/")[3] === "share") {
+            // Handle as share room contents, which don't allow "POST":
+            doView(url);
+          }
+          else {
+            spiderOakApp.dialogView.showNotify({
+              title: "Link fetch failed",
+              subtitle: ("Access to link " + url + " failed: " +
+                         xhr.statusText + " (" + xhr.status + ")")
+            });
+          }
         }
       });
     },

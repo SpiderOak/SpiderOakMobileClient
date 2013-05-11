@@ -20,7 +20,11 @@
 
       this.subViews = [];
 
-      this.collection.fetch();
+      this.collection.fetch({
+        error: function(collection, response, options) {
+          this.render().addAll();
+        }.bind(this)
+      });
     },
     render: function() {
       // this.addAll();

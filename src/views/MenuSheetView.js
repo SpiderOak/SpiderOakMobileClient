@@ -28,7 +28,7 @@
       $(document).on("menuClosing", this.menuClosing);
       $(document).on("logoutSuccess", this.render);
     },
-    render: function() {
+    render: function(refresh) {
       var inOrOut = {"inorout":
                      spiderOakApp.accountModel.get("isLoggedIn") ?"Out" :"In"};
       this.$el.html(_.template(window.tpl.get("menusheetTemplate"), inOrOut));
@@ -39,7 +39,7 @@
         this.hiveModel = new spiderOakApp.HiveModel();
         this.hiveModel.url =
           spiderOakApp.accountModel.get("storageRootURL");
-        this.$(".hive").one("complete", this.hiveReady);
+        if (!refresh) this.$(".hive").one("complete", this.hiveReady);
         this.hiveView = new spiderOakApp.HiveView({
           model: this.hiveModel,
           el: this.$(".hive")
@@ -48,7 +48,7 @@
         this.devicesCollection = new spiderOakApp.DevicesCollection();
         this.devicesCollection.url =
           spiderOakApp.accountModel.get("storageRootURL") + "?device_info=yes";
-        this.$(".devices").one("complete", this.devicesReady);
+        if (!refresh) this.$(".devices").one("complete", this.devicesReady);
         this.devicesListView = new spiderOakApp.DevicesListView({
           collection: this.devicesCollection,
           el: this.$(".devices")

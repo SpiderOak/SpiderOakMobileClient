@@ -9,6 +9,12 @@
       _           = window._,
       $           = window.$,
       store       = window.store;
+  $.ajaxSettings = _.extend($.ajaxSettings, {
+    timeout: 6000,
+    error: function(collection, response, options) {
+      window.alert(response);
+    }
+  });
 
   // Fix for lack of detach in Zepto...
   $.fn.detach = $.fn.remove;
@@ -96,6 +102,51 @@
         $this.removeClass("active");
       });
       $(".splash").hide();
+
+      // @TODO: THIS IS WHERE WE WILL AUTO-LOGIN IF REMEMBER ME IS ON
+      // 1. check remember me state, if on...
+      // 2. spiderOakApp.dialogView.showWait();
+      // 3. spiderOakApp.loginView.dismiss();
+      // 4. <get the user data from AccountManager plugin>
+      // 5. spiderOakApp.accountModel = new spiderOakApp.AccountModel(<serialised AccountModel>);
+      // 6. spiderOakApp.accountModel.basicAuthManager.setAccountBasicAuth(<username>, <password>);
+      // 7. spiderOakApp.onLoginSuccess();
+      if (window.cordova && window.plugins && window.plugins.accountmanager) {
+        var am = window.plugins.accountmanager;
+        am.getAccountsByType("com.spideroak.android.beta", function(error, accounts) {
+          if (error) {
+            console.log(error);
+            return;
+          }
+          if (accounts.length) {
+            am.getUserData(accounts[0], "accountModel", function(error, accountModel) {
+              if (error) {
+                console.log(error);
+                return;
+              }
+              am.getPassword(accounts[0], function(error, password) {
+                if (error) {
+                  console.log(error);
+                  return;
+                }
+                var u = accounts[0].name;
+                var p = password;
+                spiderOakApp.dialogView.showWait();
+                spiderOakApp.loginView.dismiss();
+                spiderOakApp.accountModel = new spiderOakApp.AccountModel(
+                  JSON.parse(accountModel)
+                );
+                spiderOakApp.accountModel.basicAuthManager
+                  .setAccountBasicAuth(u, p);
+                spiderOakApp.onLoginSuccess();
+              });
+            });
+            return;
+          }
+          console.log("no accounts found");
+        });
+      }
+
     },
     backDisabled: true,
     onDeviceReady: function() {
@@ -116,6 +167,9 @@
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     setOnline: function(event) {
+      if (!this.networkAvailable) {
+        spiderOakApp.menuSheetView.render(true);
+      }
       this.networkAvailable = true;
     },
     setOffline: function(event) {
@@ -131,6 +185,7 @@
         'Network error',
         'OK'
       );
+      spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
     onResume: function(event) {
       // ...

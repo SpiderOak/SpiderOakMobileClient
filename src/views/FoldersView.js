@@ -128,7 +128,12 @@
 
       this.subViews = [];
 
-      this.collection.fetch();
+      // @TODO: Errors should either be thrown, or at least a blank state added
+      this.collection.fetch({
+        error: function(collection, response, options) {
+          this.render().addAll();
+        }.bind(this)
+      });
     },
     render: function() {
       // this.addAll();

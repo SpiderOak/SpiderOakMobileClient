@@ -14,7 +14,6 @@ describe('AccountModel', function() {
       this.server.restore();
     });
 
-    // @FIXME: Add in jasmine-sinon to make sinon behave better
     describe('successful basic login', function(){
       beforeEach(function(){
         this.successSpy = sinon.spy();
@@ -85,6 +84,44 @@ describe('AccountModel', function() {
              "https://spideroak.com/storage/" + this.b32username + "/");
          }
         );
+    });
+
+    describe('password character sets', function() {
+      beforeEach(function(){
+        this.funkyCharPassword = "ֶאבגדהוז";
+        this.xhr = sinon.useFakeXMLHttpRequest();
+        this.requests = [];
+        this.xhr.onCreate = function (xhr) {
+          this.requests.push(xhr);
+        }.bind(this);
+        this.server.respondWith(
+          "POST",
+          "https://spideroak.com/browse/login",
+          [200, {"Content-Type": "text/html"},
+           "location:https://spideroak.com/storage/" +
+           this.b32username +
+           "/login"]
+        );
+        this.accountModel.login(this.username, this.funkyCharPassword,
+                                this.successSpy, this.errorSpy);
+        this.server.respond();
+      });
+
+      it('should convey passwords with funky characters to the server',
+         function() {
+           this.requests.length.should.equal(1);
+           // Get the password from the request body:
+           this.decodedGotPass =
+               decodeURIComponent(this.requests[0].requestBody
+                                  .split("&")[1]
+                                  .split("=")[1]);
+           this.decodedGotPass.should.equal(this.funkyCharPassword);
+           delete this.gotPass;
+         });
+
+      afterEach(function() {
+        this.xhr.restore();
+      });
     });
 
     describe('case-altered username', function(){

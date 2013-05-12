@@ -30,18 +30,12 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - `npm install` to install node_modules and js/css components (`npm install` will also run `bower install`).
 - `cordova platform add ios` and/or `cordova platform add android`
 
-### Adding the plugins
+### Adding the plugin(s)
 - create a SpiderOakMobileClient project subdirectory named `plugins`
 	- `mkdir plugins`
 - include FileViewerPlugin:
 	- clone the [FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin) somewhere
 	- add the FileViewerPlugin to the project: `cordova plugin add /path/to/FileViewerPlugin`
-- include cordova-android-accountmanager:
-	- clone the [cordova-android-accountmanager](https://github.com/SpiderOak/cordova-android-accountmanager) somewhere
-	- `cd cordova plugin add /path/to/cordova-android-accountmanager`
-	- check out the `spideroak` branch: `git checkout spideroak`
-	- `cd -` (go back to the SpiderOakMobileClient folder)
-	- add the cordova-android-accountmanager to the project: `cordova plugin add /path/to/cordova-android-accountmanager`
 
 ## First test
 

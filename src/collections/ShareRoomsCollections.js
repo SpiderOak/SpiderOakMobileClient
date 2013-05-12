@@ -68,27 +68,36 @@
         room_key = splat[1];
         this.add({share_id: share_id,
                   room_key: room_key,
-                  remember: remember});
+                  remember: remember,
+                  beenSituated: true});
       }.bind(this));
       // addHandler does the fetch for each model.
     },
     addHandler: function(model, collection, options) {
       var surroundingSuccess = options && options.success,
           surroundingError = options && options.error;
+      var preserve = function (model) {
+        spiderOakApp.visitingPubShares[model.id] =
+            model.get("remember") ? 1 : 0;
+        // We always save to account for subtle changes, like remember status.
+        this.saveRetainedRecords();
+      }.bind(this);
       _.extend(options, {
         success: function() {
-          spiderOakApp.visitingPubShares[model.id] =
-              model.get("remember") ? 1 : 0;
-          // We always save to account for subtle changes, like remember status.
-          this.saveRetainedRecords();
+          preserve(model);
           if (surroundingSuccess) {
             surroundingSuccess();
           }
         }.bind(this),
         error: function(model, xhr, options) {
-          this.remove(model);
-          if (surroundingError) {
-            surroundingError();
+          if (model.get("beenSituated")) {
+            preserve(model);
+          }
+          else {
+            this.remove(model);
+            if (surroundingError) {
+              surroundingError();
+            }
           }
         }.bind(this)
       });

@@ -41,6 +41,7 @@
     defaults: _.extend({},
                        spiderOakApp.ShareRoomModel.prototype.defaults,
                        {remember: 0,
+                        beenSituated: false,
                         kind: "Public ShareRoom"}
                       ),
     initialize: function () {

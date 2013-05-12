@@ -9,6 +9,21 @@
       _           = window._,
       $           = window.$,
       store       = window.store;
+  $.ajaxSettings = _.extend($.ajaxSettings, {
+    timeout: 120000, // two minutes
+    // timeout: 3000, // three seconds
+    error: function(collection, response, options) {
+      console.log("Default error handler thrown:");
+      // might leave us in a strange state, but better then an endless hang...
+      spiderOakApp.dialogView.hide();
+      console.log(JSON.stringify(response.statusText));
+      spiderOakApp.dialogView.showNotify({
+        title: "<i class='icon-warning'></i> Error",
+        subtitle: "An error occurred.",
+        duration: 3000
+      });
+    }
+  });
 
   // Fix for lack of detach in Zepto...
   $.fn.detach = $.fn.remove;
@@ -95,7 +110,32 @@
         var $this = $(this);
         $this.removeClass("active");
       });
+
+      // 1. check remember me state, if on...
+      // 2. spiderOakApp.dialogView.showWait();
+      // 3. spiderOakApp.loginView.dismiss();
+      // 4. <get the user data from AccountManager plugin>
+      // 5. spiderOakApp.accountModel = new spiderOakApp.AccountModel(<serialised AccountModel>);
+      // 6. spiderOakApp.accountModel.basicAuthManager.setAccountBasicAuth(<username>, <password>);
+      // 7. spiderOakApp.onLoginSuccess();
+      var rememberedAccount =
+        spiderOakApp.settings.getOrDefault("rememberedAccount");
+      if (rememberedAccount) {
+        var rememberedAccountModel = JSON.parse(rememberedAccount);
+        var credentials = atob(rememberedAccountModel
+          .basicAuthCredentials.split(" ")[1]).split(":");
+        spiderOakApp.dialogView.showWait();
+        spiderOakApp.accountModel =
+          new spiderOakApp.AccountModel(rememberedAccountModel);
+        spiderOakApp.accountModel.basicAuthManager
+          .setAccountBasicAuth(credentials[0], credentials[1]);
+        spiderOakApp.onLoginSuccess();
+        spiderOakApp.loginView.dismiss();
+        $(".splash").hide();
+        return;
+      }
       $(".splash").hide();
+
     },
     backDisabled: true,
     onDeviceReady: function() {
@@ -116,6 +156,9 @@
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     setOnline: function(event) {
+      if (!this.networkAvailable) {
+        spiderOakApp.menuSheetView.render(true);
+      }
       this.networkAvailable = true;
     },
     setOffline: function(event) {
@@ -131,6 +174,7 @@
         'Network error',
         'OK'
       );
+      spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
     onResume: function(event) {
       // ...

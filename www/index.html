@@ -32,8 +32,7 @@
         might not want it in a template -->
       <div id="login" class="login">
         <!-- @FIXME: inline styles are fail -->
-        <img src="img/brand_logo.png" 
-          style="display:block; width:100px;margin: 10px auto;" />
+        <img src="img/brand_logo.png" class="login-logo" />
         <form name="login-form" class="login-form">
           <div class="login-input">
             <input id="unme" type="text" name="unme"
@@ -46,6 +45,19 @@
             <input id="pwrd" type="password" name="pwrd"
                        placeholder="Password"
                        tabindex="2" />
+          </div>
+          <div class="checkswitch-wrapper">
+            <div class="checkswitch">
+              <input type="checkbox" id="rememberme" name="rememberme"
+                  tabindex="-1" />
+              <label for="rememberme">
+                <span data-off="No" data-on="Yes"></span>
+              </label>
+            </div>
+            <label style="float:right; padding:0 20px; color:#666; font-size: 90%;">
+              Remember me
+            </label>
+            <div class="clearfix"></div>
           </div>
           <a class="button loginButton" tabindex="-1">Log in</a>
           <a class="button shareRoomsButton" tabindex="-1">Go to ShareRooms</a>

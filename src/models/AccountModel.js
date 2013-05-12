@@ -174,6 +174,8 @@
     logout: function(successCallback) {
       // Clear basic auth details:
       this.basicAuthManager.clear();
+      spiderOakApp.settings.remove("rememberedAccount");
+      spiderOakApp.settings.saveRetainedSettings();
       if (this.get("isLoggedIn")) {
         // @TODO: Clear keychain credentials
         // Post to the logout URL to get the session cookie expired:

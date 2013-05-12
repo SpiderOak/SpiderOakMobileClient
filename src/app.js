@@ -12,7 +12,8 @@
   $.ajaxSettings = _.extend($.ajaxSettings, {
     timeout: 60000,
     error: function(collection, response, options) {
-      window.alert(response);
+      console.log("Default error handler thrown:");
+      console.log(response);
     }
   });
 

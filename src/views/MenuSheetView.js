@@ -27,6 +27,8 @@
       $(document).on("menuOpening", this.menuOpening);
       $(document).on("menuClosing", this.menuClosing);
       $(document).on("logoutSuccess", this.render);
+      $(document).on("offline", this.offline);
+      $(document).on("online", this.online);
     },
     render: function(refresh) {
       var inOrOut = {"inorout":
@@ -39,7 +41,12 @@
         this.hiveModel = new spiderOakApp.HiveModel();
         this.hiveModel.url =
           spiderOakApp.accountModel.get("storageRootURL");
-        if (!refresh) this.$(".hive").one("complete", this.hiveReady);
+        this.$(".hive").one("complete", function(event) {
+          if (this.hiveModel.attributes.device) {
+            this.$(".hive-sep").show();
+            if (!refresh) this.hiveReady(event);
+          }
+        }.bind(this));
         this.hiveView = new spiderOakApp.HiveView({
           model: this.hiveModel,
           el: this.$(".hive")
@@ -48,7 +55,12 @@
         this.devicesCollection = new spiderOakApp.DevicesCollection();
         this.devicesCollection.url =
           spiderOakApp.accountModel.get("storageRootURL") + "?device_info=yes";
-        if (!refresh) this.$(".devices").one("complete", this.devicesReady);
+        this.$(".devices").one("complete", function(event) {
+          if (this.devicesCollection.length) {
+            this.$(".devices-sep").show();
+            if (!refresh) this.devicesReady(event);
+          }
+        }.bind(this));
         this.devicesListView = new spiderOakApp.DevicesListView({
           collection: this.devicesCollection,
           el: this.$(".devices")
@@ -262,6 +274,18 @@
       else {
         $(document).trigger("logoutSuccess");
       }
+    },
+    offline: function() {
+      this.$(".hive").hide();
+      this.$(".hive-sep").hide();
+      this.$(".devices").hide();
+      this.$(".sharerooms").closest("li").hide();
+      this.$(".devices-sep").hide();
+    },
+    online: function() {
+      this.$(".hive").show();
+      this.$(".devices").show();
+      this.$(".sharerooms").closest("li").show();
     }
   });
 

@@ -1,16 +1,6 @@
 <div>
   <ul>
     <li><a class="send-feedback">Send feedback</a></li>
-    <!-- <li>
-      <span style="float:left;color:#666;">Remember me</span>
-      <div class="checkswitch">
-        <input type="checkbox" id="remember-settings" name="remember-settings" />
-        <label for="remember-settings">
-          <span data-off="No" data-on="Yes"></span>
-        </label>
-      </div>
-      <div class="clearfix"></div>
-    </li> -->
   </ul>
   <% if (spiderOakApp.accountModel.get("isLoggedIn")) { %>
   <ul><li class="sep">Account</li></ul>
@@ -18,9 +8,20 @@
     <li>
       <a class="account-settings">
         <div class="label">Name</div>
-        <div class="info"><%= firstname + " " + lastname %></div>
+        <div class="info"><%= [firstname, lastname].join(" ") %></div>
         <div class="clearfix"></div>
       </a>
+    </li>
+    <li>
+      <span style="float:left;color:#666;">Remember me</span>
+      <div class="checkswitch">
+        <input type="checkbox" id="settings-rememberme" name="settings-rememberme"
+          <%= (spiderOakApp.accountModel.get("rememberme")) ? "checked='true'" : "" %> />
+        <label for="settings-rememberme">
+          <span data-off="No" data-on="Yes"></span>
+        </label>
+      </div>
+      <div class="clearfix"></div>
     </li>
   </ul>
   <% } %>

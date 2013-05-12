@@ -10,7 +10,7 @@
       $           = window.$,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
-    timeout: 6000,
+    timeout: 60000,
     error: function(collection, response, options) {
       window.alert(response);
     }
@@ -101,9 +101,7 @@
         var $this = $(this);
         $this.removeClass("active");
       });
-      $(".splash").hide();
 
-      // @TODO: THIS IS WHERE WE WILL AUTO-LOGIN IF REMEMBER ME IS ON
       // 1. check remember me state, if on...
       // 2. spiderOakApp.dialogView.showWait();
       // 3. spiderOakApp.loginView.dismiss();
@@ -111,41 +109,23 @@
       // 5. spiderOakApp.accountModel = new spiderOakApp.AccountModel(<serialised AccountModel>);
       // 6. spiderOakApp.accountModel.basicAuthManager.setAccountBasicAuth(<username>, <password>);
       // 7. spiderOakApp.onLoginSuccess();
-      if (window.cordova && window.plugins && window.plugins.accountmanager) {
-        var am = window.plugins.accountmanager;
-        am.getAccountsByType("com.spideroak.android.beta", function(error, accounts) {
-          if (error) {
-            console.log(error);
-            return;
-          }
-          if (accounts.length) {
-            am.getUserData(accounts[0], "accountModel", function(error, accountModel) {
-              if (error) {
-                console.log(error);
-                return;
-              }
-              am.getPassword(accounts[0], function(error, password) {
-                if (error) {
-                  console.log(error);
-                  return;
-                }
-                var u = accounts[0].name;
-                var p = password;
-                spiderOakApp.dialogView.showWait();
-                spiderOakApp.loginView.dismiss();
-                spiderOakApp.accountModel = new spiderOakApp.AccountModel(
-                  JSON.parse(accountModel)
-                );
-                spiderOakApp.accountModel.basicAuthManager
-                  .setAccountBasicAuth(u, p);
-                spiderOakApp.onLoginSuccess();
-              });
-            });
-            return;
-          }
-          console.log("no accounts found");
-        });
+      var rememberedAccount =
+        spiderOakApp.settings.getOrDefault("rememberedAccount");
+      if (rememberedAccount) {
+        var rememberedAccountModel = JSON.parse(rememberedAccount);
+        var credentials = atob(rememberedAccountModel
+          .basicAuthCredentials.split(" ")[1]).split(":");
+        spiderOakApp.dialogView.showWait();
+        spiderOakApp.accountModel =
+          new spiderOakApp.AccountModel(rememberedAccountModel);
+        spiderOakApp.accountModel.basicAuthManager
+          .setAccountBasicAuth(credentials[0], credentials[1]);
+        spiderOakApp.onLoginSuccess();
+        spiderOakApp.loginView.dismiss();
+        $(".splash").hide();
+        return;
       }
+      $(".splash").hide();
 
     },
     backDisabled: true,

@@ -149,7 +149,16 @@
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );
 
-      this.collection.fetch();
+      this.collection.fetch({
+        error: function(collection, response, options) {
+          spiderOakApp.dialogView.showNotify({
+            title: "<i class='icon-warning'></i> Error",
+            subtitle: "An error occurred.",
+            duration: 4000
+          });
+          this.render().addAll();
+        }
+      });
     },
     render: function() {
       this.$el.find(".myShareRoomsSection").show();
@@ -307,7 +316,7 @@
 
       if (pubShares.hasByAttributes(shareId, roomKey)) {
         spiderOakApp.dialogView.showNotify({
-          title: "ShareRoom Already Present",
+          title: "<i class='icon-warning'></i> ShareRoom already present",
           subtitle: ("Public ShareRoom " + shareId + "/" + roomKey +
                      " is already being visited.")
         });
@@ -320,9 +329,9 @@
         }, {
           error: function (model, xhr, options) {
             spiderOakApp.dialogView.showNotify({
-              title: "ShareRoom Not Found",
-              subtitle: ("No such ShareRoom " + shareId +
-                         "/" + roomKey + ".")
+              title: "<i class='icon-warning'></i> Not found",
+              subtitle: ("No such ShareRoom:<br>" + shareId +
+                         " / " + roomKey + ".")
             });
           }
         });
@@ -714,7 +723,7 @@
       var handleInvalidPassword = function() {
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "Invalid Password"
+          title: "<i class='icon-warning'></i> Invalid password"
         });
         if (spiderOakApp.navigator.viewsStack.length > 0) {
           spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);

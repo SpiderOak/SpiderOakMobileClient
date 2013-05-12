@@ -267,7 +267,7 @@
       if (newServer === wasServer) {
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "Unchanged",
+          title: "<i class='icon-info'></i> Unchanged",
           subtitle: "The specified address is\nalready current"
         });
         spiderOakApp.navigator.popView();
@@ -288,7 +288,7 @@
           }
           this.model.set("value", newServer);
           spiderOakApp.dialogView.showNotify({
-            title: "Server changed",
+            title: "<i class='icon-info'></i> Server changed",
             subtitle: subtitle
           });
           if (spiderOakApp.navigator.viewsStack.length > 0) {

@@ -10,10 +10,18 @@
       $           = window.$,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
-    timeout: 60000,
+    timeout: 120000, // two minutes
+    // timeout: 3000, // three seconds
     error: function(collection, response, options) {
       console.log("Default error handler thrown:");
-      console.log(response);
+      // might leave us in a strange state, but better then an endless hang...
+      spiderOakApp.dialogView.hide();
+      console.log(JSON.stringify(response.statusText));
+      spiderOakApp.dialogView.showNotify({
+        title: "<i class='icon-warning'></i> Error",
+        subtitle: "An error occurred.",
+        duration: 3000
+      });
     }
   });
 

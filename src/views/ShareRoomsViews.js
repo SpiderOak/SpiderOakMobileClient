@@ -157,7 +157,7 @@
             duration: 4000
           });
           this.render().addAll();
-        }
+        }.bind(this)
       });
     },
     render: function() {

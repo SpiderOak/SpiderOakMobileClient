@@ -31,11 +31,13 @@
       return this;
     },
     input_focusHandler: function(event) {
-      // @TODO: also change logos
+      // this.$(".login-logo").hide();
+      // $(".login-logo").css({"height":"10px", "opacity":"0"});
       $(event.target).closest("div.login-input").addClass("focused");
     },
     input_blurHandler: function(event) {
-      // @TODO: also change logos
+      // this.$(".login-logo").show();
+      // $(".login-logo").css({"height":"auto", "opacity":"1"});
       $(event.target).closest("div.login-input").removeClass("focused");
     },
     form_submitHandler: function(event) {
@@ -51,6 +53,13 @@
         // @TODO: Do something with the apiRoot
         // Store the "remember me" setting
         account.set("rememberme",rememberme);
+        if (rememberme) {
+          spiderOakApp.settings.setOrCreate(
+            "rememberedAccount",
+            JSON.stringify(spiderOakApp.accountModel.toJSON()),
+            true
+          );
+        }
         // @TODO: Unblock spinner
         // Navigate away...
         this.dismiss();

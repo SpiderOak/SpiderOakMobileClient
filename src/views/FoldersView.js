@@ -128,7 +128,18 @@
 
       this.subViews = [];
 
-      this.collection.fetch();
+      // @TODO: Errors should either be thrown, or at least a blank state added
+      this.collection.fetch({
+        error: function(collection, response, options) {
+          this.render().addAll();
+          console.log(JSON.stringify(response.statusText));
+          spiderOakApp.dialogView.showNotify({
+            title: "<i class='icon-warning'></i> Error",
+            subtitle: "An error occurred.",
+            duration: 3000
+          });
+        }.bind(this)
+      });
     },
     render: function() {
       // this.addAll();

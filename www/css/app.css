@@ -112,6 +112,14 @@ body {
   background-color: #eee;
 }
 
+.login-logo {
+  position: relative;
+  top: 0;
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+}
+
 .learn-more {
   width: 60%;
   text-align: center;

@@ -21,7 +21,15 @@
       this.subViews = [];
 
       this.collection.urlBase = spiderOakApp.accountModel.get("storageRootURL");
-      this.collection.fetch();
+      this.collection.fetch({
+        error: function(collection, response, options) {
+          spiderOakApp.dialogView.showNotify({
+            title: "<i class='icon-warning'></i> Error",
+            subtitle: "An error occurred.",
+            duration: 3000
+          });
+        }
+      });
     },
     render: function() {
       // @TODO: Add a "loading spinner" row at the top

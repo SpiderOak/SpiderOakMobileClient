@@ -14,14 +14,15 @@
     events: {
       "tap .send-feedback": "feedback_tapHandler",
       "tap .account-settings": "accountSettings_tapHandler",
-      "tap .server": "server_tapHandler"
+      "tap .server": "server_tapHandler",
+      "change #settings-rememberme": "rememberMe_changeHandler"
     },
     initialize: function() {
       _.bindAll(this);
-      this.on("viewActivate",this.viewActivate);
-      this.on("viewDeactivate",this.viewDeactivate);
+      this.on("viewActivate", this.viewActivate);
+      this.on("viewDeactivate", this.viewDeactivate);
       $(document).on("settingChanged", this.render);
-      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      spiderOakApp.navigator.on("viewChanging", this.viewChanging);
     },
     render: function() {
       this.settingsInfo = spiderOakApp.storageBarModel &&
@@ -69,6 +70,19 @@
         {},
         spiderOakApp.defaultEffect
       );
+    },
+    rememberMe_changeHandler: function(event) {
+      if ($(event.target).is(":checked")) {
+        spiderOakApp.settings.setOrCreate(
+          "rememberedAccount",
+          JSON.stringify(spiderOakApp.accountModel.toJSON()),
+          true
+        );
+      }
+      else {
+        spiderOakApp.settings.remove("rememberedAccount");
+        spiderOakApp.settings.saveRetainedSettings();
+      }
     },
     server_tapHandler: function(event) {
       var settingsServerView = new spiderOakApp.SettingsServerView({
@@ -253,7 +267,7 @@
       if (newServer === wasServer) {
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "Unchanged",
+          title: "<i class='icon-info'></i> Unchanged",
           subtitle: "The specified address is\nalready current"
         });
         spiderOakApp.navigator.popView();
@@ -274,7 +288,7 @@
           }
           this.model.set("value", newServer);
           spiderOakApp.dialogView.showNotify({
-            title: "Server changed",
+            title: "<i class='icon-info'></i> Server changed",
             subtitle: subtitle
           });
           if (spiderOakApp.navigator.viewsStack.length > 0) {

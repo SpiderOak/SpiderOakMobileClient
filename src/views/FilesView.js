@@ -20,7 +20,17 @@
 
       this.subViews = [];
 
-      this.collection.fetch();
+      this.collection.fetch({
+        error: function(collection, response, options) {
+          this.render().addAll();
+          console.log(JSON.stringify(response.statusText));
+          spiderOakApp.dialogView.showNotify({
+            title: "<i class='icon-warning'></i> Error",
+            subtitle: "An error occurred.",
+            duration: 3000
+          });
+        }.bind(this)
+      });
     },
     render: function() {
       // this.addAll();
@@ -769,7 +779,15 @@
           }.bind(this),0);
           // @TODO: Refresh subviews scroller
         }.bind(this));
-        this.versionsCollection.fetch();
+        this.versionsCollection.fetch({
+          error: function(collection, response, options) {
+            spiderOakApp.dialogView.showNotify({
+              title: "<i class='icon-warning'></i> Error",
+              subtitle: "An error occurred.",
+              duration: 3000
+            });
+          }
+        });
       }
       return this;
     },

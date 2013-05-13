@@ -13,8 +13,8 @@
     el: "#main",
     events: {
       // Use touchend to work around a bug in ICS
-      "touchend .menu-btn": "menuButton_handler",
-      "touchend .back-btn": "backButton_handler"
+      "tap .menu-btn": "menuButton_handler",
+      "tap .back-btn": "backButton_handler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -55,6 +55,10 @@
       return false;
     },
     backButton_handler: function(event) {
+      if ($("#main").hasClass("open")) {
+        this.closeMenu();
+        return;
+      }
       if (!spiderOakApp.backDisabled) {
         spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
       }
@@ -70,7 +74,7 @@
     closeMenu: function(event) {
       $(document).trigger("menuClosing");
       var duration = ($.os.android) ? 200 : 300;
-      if ($("#main").hasClass("open")) {
+      if ($("#main").hasClass("open") || window.inAction) {
         $('#main').animate({
           translate3d: '0,0,0'
         },duration,'ease-in-out');

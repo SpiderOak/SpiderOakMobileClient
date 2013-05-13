@@ -117,50 +117,69 @@
                 spiderOakApp.accountModel.get("basicAuthCredentials"))
         }
       };
+
       spiderOakApp.downloader.downloadFile(
         downloadOptions,
         successCallback,
-        function errorCallback(error) { // @FIXME: Real error handling...
+        function errorCallback(error) {
+          var errorMessage = "";
           spiderOakApp.dialogView.hide();
           console.log(JSON.stringify(error));
           switch (error.code) {
             case window.FileError.NOT_FOUND_ERR:
+              errorMessage = "File not found.";
               console.log("FileError.NOT_FOUND_ERR");
               break;
             case window.FileError.SECURITY_ERR:
+              errorMessage = "Security error.";
               console.log("FileError.SECURITY_ERR");
               break;
             case window.FileError.ABORT_ERR:
+              errorMessage = "Aborted.";
               console.log("FileError.ABORT_ERR");
               break;
             case window.FileError.NOT_READABLE_ERR:
+              errorMessage = "File not readable";
               console.log("FileError.NOT_READABLE_ERR");
               break;
             case window.FileError.ENCODING_ERR:
+              errorMessage = "Encoding error.";
               console.log("FileError.ENCODING_ERR");
               break;
             case window.FileError.NO_MODIFICATION_ALLOWED_ERR:
+              errorMessage = "No modification allowed.";
               console.log("FileError.NO_MODIFICATION_ALLOWED_ERR");
               break;
             case window.FileError.INVALID_STATE_ERR:
+              errorMessage = "Invalid state.";
               console.log("FileError.INVALID_STATE_ERR");
               break;
             case window.FileError.SYNTAX_ERR:
+              errorMessage = "Syntax error.";
               console.log("FileError.SYNTAX_ERR");
               break;
             case window.FileError.INVALID_MODIFICATION_ERR:
+              errorMessage = "Invalid modification.";
               console.log("FileError.INVALID_MODIFICATION_ERR");
               break;
             case window.FileError.QUOTA_EXCEEDED_ERR:
+              errorMessage = "Quoa exceeded.";
               console.log("FileError.QUOTA_EXCEEDED_ERR");
               break;
             case window.FileError.TYPE_MISMATCH_ERR:
+              errorMessage = "Type mismatch.";
               console.log("FileError.TYPE_MISMATCH_ERR");
               break;
             case window.FileError.PATH_EXISTS_ERR:
+              errorMessage = "Path exists.";
               console.log("FileError.PATH_EXISTS_ERR");
               break;
           }
+          spiderOakApp.dialogView.showNotify({
+            title: "<i class='icon-warning'></i> Error",
+            subtitle: "An error occurred.<br>" + errorMessage,
+            duration: 3000
+          });
         }
       );
     },
@@ -278,7 +297,7 @@
           },
           function(error) { // @FIXME: Real error handling...
             navigator.notification.alert(
-              "Error sending this link. Try agains later.",
+              "Error sending this link. Try again later.",
               null,
               "File error",
               "OK"
@@ -309,9 +328,9 @@
           }
           else {
             spiderOakApp.dialogView.showNotify({
-              title: "Link fetch failed",
-              subtitle: ("Access to link " + url + " failed: " +
-                         xhr.statusText + " (" + xhr.status + ")")
+              title: "<i class='icon-warning'></i> Error</i>",
+              subtitle: "Access to link failed.",
+              duration: 3000
             });
           }
         }

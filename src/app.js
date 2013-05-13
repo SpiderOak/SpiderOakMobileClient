@@ -163,14 +163,11 @@
     },
     setOffline: function(event) {
       this.networkAvailable = false;
-      var onConfirm = function() {
-        // modally block the UI
-      };
-      navigator.notification.confirm(
+      navigator.notification.alert(
         "Sorry. You should still be able to access your favorites, but " +
           "Logging in and access to files or folders requires " +
           "a network connection.",
-        onConfirm,
+        null,
         'Network error',
         'OK'
       );

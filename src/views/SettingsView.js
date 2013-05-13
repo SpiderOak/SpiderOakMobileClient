@@ -26,10 +26,11 @@
     },
     render: function() {
       this.settingsInfo = spiderOakApp.storageBarModel &&
-                          spiderOakApp.storageBarModel.toJSON() ||
-                          { firstname: "", lastname: "" };
+                          spiderOakApp.storageBarModel.toJSON();
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.get("server").get("value")});
+      this.settingsInfo.firstname = this.settingsInfo.firstname || "";
+      this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       this.$el.html(
         _.template(
           window.tpl.get("settingsViewTemplate"), this.settingsInfo

@@ -127,20 +127,10 @@
           var d = touch.dx * pxMultiplier;
           if (!$("#main").hasClass("open") && touch.dx > 0) {
             $("#main").css({ '-webkit-transform':'translate3d(' + d + 'px,0,0)' });
-            // if (d >= threshold) {
-            //   if (!$("#main").hasClass("open")) {
-            //     spiderOakApp.mainView.openMenu();
-            //   }
-            // }
           }
           else if ($("#main").hasClass("open") && touch.dx < 0) {
             if ($("#main").hasClass("open")) {
               $("#main").css({ '-webkit-transform':'translate3d(' + (270 - Math.abs(d)) + 'px,0,0)' });
-              // if (Math.abs(d) >= threshold) {
-              //   if ($("#main").hasClass("open")) {
-              //     spiderOakApp.mainView.closeMenu();
-              //   }
-              // }
             }
           }
         }

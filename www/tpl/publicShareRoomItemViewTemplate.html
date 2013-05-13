@@ -9,7 +9,13 @@
     </div>
   <% } else { %>
     <div class="foldername">
-      <%= name || "<span style='color:#999;'>Loading...</span>" %>
+      <% if (name) { %> <%= name %>
+      <% } else if (beenSituated) { %>
+      <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
+      <em><%= share_id %> / <%= room_key %></em>
+      <% } else { %>
+         <span style='color:#999;'>Loading...</span>
+      <% } %>
     </div>
   <% } %>
   <div class='rightButton removePublicShare'><i class='icon-close'></i></div>

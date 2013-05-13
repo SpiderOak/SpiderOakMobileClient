@@ -337,7 +337,6 @@
         });
       }
       spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
-      // this.addAll();
     },
     addShareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
@@ -406,6 +405,7 @@
       return this;
     },
     descend_tapHandler: function(event) {
+      var options;
       event.stopPropagation();
       event.preventDefault();
       var $target = $(event.target);
@@ -428,8 +428,27 @@
           spiderOakApp.defaultEffect
         );
       }
+      else if (! this.model.get("name")) {
+        // Hasn't yet resolved, do a fetch and descend again on success:
+        spiderOakApp.dialogView.showWait({
+          title: "Fetching"
+        });
+        options = {
+          success: function () {
+            spiderOakApp.dialogView.hide();
+            this.descend_tapHandler(event);
+          }.bind(this),
+          error: function () {
+            spiderOakApp.dialogView.hide();
+            spiderOakApp.dialogView.showNotify({
+              title: "Fetch unsatisfied"
+            });
+          }.bind(this)
+        };
+        this.model.fetch(options);
+      }
       else {
-        var options = {
+        options = {
           id: this.model.cid,
           title: this.model.get("name"),
           model: this.model

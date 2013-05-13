@@ -3,6 +3,8 @@
     <div><i class="icon-<%= icon %> icon-large"></i> <%= kind %> </div>
     <% if (password_required) { %>
     <div> <span> <strong> Password pending </strong> </span> </div>
+    <% } else if (!name) { %>
+    <div> <span> <strong> Successful fetch pending </strong> </span> </div>
     <% } else { %>
     <div>
       <span class="name"><%= name %></span>
@@ -17,7 +19,7 @@
         <span class="label">Room Key:</span>
         <%= room_key %>
       </div>
-      <% if (! password_required || password) { %>
+      <% if (name) { %>
       <div>
         <span class="label">Owner:</span>
         <%= owner_firstname %> <%= owner_lastname %>

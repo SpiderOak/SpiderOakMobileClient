@@ -111,6 +111,63 @@
         $this.removeClass("active");
       });
 
+      var touch = {};
+      var pxMultiplier = 1;
+      var threshold = 80;
+      $(document).on("touchstart", "#main", function(event){
+        touch.x1 = event.touches[0].pageX;
+        touch.y1 = event.touches[0].pageY;
+      });
+      $(document).on("touchmove", "#main", function(event) {
+        window.inAction = true;
+        if (event.touches.length == 1 ) {
+          touch.dx = event.touches[0].pageX - touch.x1; // right, left
+          // touch.dy = event.touches[0].pageY - touch.y1; // up, down
+
+          var d = touch.dx * pxMultiplier;
+          if (!$("#main").hasClass("open") && touch.dx > 0) {
+            $("#main").css({ '-webkit-transform':'translate3d(' + d + 'px,0,0)' });
+            // if (d >= threshold) {
+            //   if (!$("#main").hasClass("open")) {
+            //     spiderOakApp.mainView.openMenu();
+            //   }
+            // }
+          }
+          else if ($("#main").hasClass("open") && touch.dx < 0) {
+            if ($("#main").hasClass("open")) {
+              $("#main").css({ '-webkit-transform':'translate3d(' + (270 - Math.abs(d)) + 'px,0,0)' });
+              // if (Math.abs(d) >= threshold) {
+              //   if ($("#main").hasClass("open")) {
+              //     spiderOakApp.mainView.closeMenu();
+              //   }
+              // }
+            }
+          }
+        }
+      });
+      $(document).on("touchend touchcancel", "#main", function(event) {
+        if (window.inAction) {
+          var d = touch.dx * pxMultiplier;
+          if (touch.dx > 0 && !$("#main").hasClass("open")) {
+            if (touch.dx > threshold) {
+              spiderOakApp.mainView.openMenu();
+            }
+            else {
+              spiderOakApp.mainView.closeMenu();
+            }
+          }
+          else if (touch.dx < 0 && $("#main").hasClass("open")) {
+            if (Math.abs(d) > threshold) {
+              spiderOakApp.mainView.closeMenu();
+            }
+            else {
+              spiderOakApp.mainView.openMenu();
+            }
+          }
+          window.inAction = false;
+        }
+      });
+
       // 1. check remember me state, if on...
       // 2. spiderOakApp.dialogView.showWait();
       // 3. spiderOakApp.loginView.dismiss();

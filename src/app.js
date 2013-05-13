@@ -68,7 +68,7 @@
         model: spiderOakApp.accountModel
       }).render();
       // Instantiate the favorites and populate from localStorage
-      var favorites = window.store.get("favorites");
+      var favorites = window.store.get("favorites-"); // trailing slash of weirdness
       favorites = favorites || [];
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
@@ -208,7 +208,12 @@
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
       spiderOakApp.mainView.setTitle("SpiderOak");
-      spiderOakApp.favoritesCollection.reset();
+
+      // Instantiate the favorites and populate from localStorage
+      var favorites = window.store.get("favorites-"); // trailing slash of weirdness
+      favorites = favorites || [];
+      spiderOakApp.favoritesCollection.reset(favorites);
+
       spiderOakApp.recentsCollection.reset();
       if (spiderOakApp.storageBarView) {
         spiderOakApp.storageBarView.empty();

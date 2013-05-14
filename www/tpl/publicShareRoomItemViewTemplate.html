@@ -9,7 +9,11 @@
     </div>
   <% } else { %>
     <div class="foldername">
-      <% if (name) { %> <%= name %>
+      <% if (name) { %>
+        <% if (password) { %>
+        <i class="icon-unlocked" style="color:#999;font-size:80%;"></i>
+        <% } %>
+      <%= name %>
       <% } else if (beenSituated) { %>
       <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
       <em><%= share_id %> / <%= room_key %></em>

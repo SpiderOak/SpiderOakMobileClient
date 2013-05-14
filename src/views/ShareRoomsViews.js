@@ -561,7 +561,8 @@
         remove: function (event) {
           this.removePublicShare_tapHandler(event); },
         remember: function (event) { this.remember(); },
-        forget: function (event) { this.forget(); }
+        forget: function (event) { this.forget(); },
+        forgetPassword: function (event) { this.forgetPassword(); }
       }
     ),
     initialize: function() {
@@ -579,6 +580,10 @@
         actionItems = actionItems.concat({className: "remember",
                                           description: "Remember"});
       }
+      if (this.model.getPassword() && this.model.get("name")) {
+        actionItems = actionItems.concat({className: "forgetPassword",
+                                          description: "Forget password"});
+      }
       return spiderOakApp.ShareRoomItemView.prototype
           .a_longTapHandler.call(this, event, actionItems);
     },
@@ -587,6 +592,10 @@
     },
     forget: function(event) {
       this.model.set("remember", 0);
+    },
+    forgetPassword: function(event) {
+      this.model.removePassword();
+      this.model.fetch();
     },
     removePublicShare_tapHandler: function(event) {
       event.stopPropagation();

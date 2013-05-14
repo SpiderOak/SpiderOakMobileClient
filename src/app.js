@@ -130,7 +130,8 @@
           }
           else if ($("#main").hasClass("open") && touch.dx < 0) {
             if ($("#main").hasClass("open")) {
-              $("#main").css({ '-webkit-transform':'translate3d(' + (270 - Math.abs(d)) + 'px,0,0)' });
+              var pos = ((270 - Math.abs(d)) > 0) ? (270 - Math.abs(d)) : 0;
+              $("#main").css({ '-webkit-transform':'translate3d(' + pos + 'px,0,0)' });
             }
           }
         }
@@ -154,6 +155,7 @@
               spiderOakApp.mainView.openMenu();
             }
           }
+          touch.dx = 0;
           window.inAction = false;
         }
       });

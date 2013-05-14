@@ -39,10 +39,6 @@
     setPassword: function (password) {
       if (this.getPassword() !== password) {
         this.password = password;
-        spiderOakApp.accountModel.pubSharesPassManager
-            .setCurrentAccountSharePass(this.get("share_id"),
-                                        this.get("room_key"),
-                                        password);
       }
     },
     getPassword: function() {
@@ -51,9 +47,6 @@
     removePassword: function () {
       if (this.getPassword()) {
         this.setPassword("");
-        spiderOakApp.accountModel.pubSharesPassManager
-            .removeCurrentAccountSharePass(this.get("share_id"),
-                                           this.get("room_key"));
       }
     },
     clear: function () {

@@ -30,7 +30,7 @@
     initialize: function() {
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
-      this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager();
+      this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager(this);
     },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
@@ -116,8 +116,6 @@
             // Record the basic auth credentials
             _self.set("basicAuthCredentials",
                       _self.basicAuthManager.getAccountBasicAuth());
-            // Allocate a fresh pub shares password record for the account:
-            _self.pubSharesPassManager.loggedInTo(username);
             // Record the login url:
             _self.set("login_url", login_url);
             // Record the root of the account's storage content:
@@ -267,37 +265,39 @@
    * for the user to elect such preservation and selective dropping of
    * specific records.
    */
-  spiderOakApp.PubSharesPassManager = function () {
-    // @TESTTHIS
+  spiderOakApp.PubSharesPassManager = function (accountModel) {
     var byAccount = {};
-    /** The empty string represents the non-authenticated state. */
-    var currentAccount = "";
+
     return {
-      loggedInTo: function (username) {
-        currentAccount = username;
-        if (! byAccount.hasOwnProperty(currentAccount)) {
-          byAccount[username] = {};
+      _currentAccount: function () {
+        var it = "";
+        if (spiderOakApp.accountModel) {
+          it = spiderOakApp.accountModel.get("b32username");
         }
-        return this;
+        if (! byAccount.hasOwnProperty(it)) {
+          byAccount[it] = {};
+        }
+        return it;
       },
       loggedOut: function () {
-        delete byAccount[currentAccount];
-        currentAccount = "";
+        delete byAccount[this._currentAccount()];
         return this;
       },
       setCurrentAccountSharePass: function (shareId, roomKey, password) {
-        var currentPasses = byAccount[currentAccount];
+        var currentPasses = byAccount[this._currentAccount()];
         if (! currentPasses) {
-          currentPasses = byAccount[currentAccount] = {};
+          currentPasses = byAccount[this._currentAccount()] = {};
         }
-        currentPasses[JSON.stringify({shareId: roomKey})] = password;
+        currentPasses[JSON.stringify({shareId: shareId,
+                                      roomKey: roomKey})] = password;
         return this;
       },
       getCurrentAccountSharePass: function (shareId, roomKey) {
-        var passes = byAccount[currentAccount] || {};
-        var stringified = JSON.stringify({shareId: roomKey});
+        var passes = byAccount[this._currentAccount()] || {};
+        var stringified = JSON.stringify({shareId: shareId,
+                                          roomKey: roomKey});
         var got = (passes[stringified]);
-        if (! got && currentAccount) {
+        if (! got && this._currentAccount()) {
           // Try the no-authentication record, too:
           passes = byAccount[""] || {};
           got = passes[stringified];
@@ -305,11 +305,12 @@
         return got || "";
       },
       removeCurrentAccountSharePass: function (shareId, roomKey) {
-        var passes = byAccount[currentAccount] || {};
-        var stringified = JSON.stringify({shareId: roomKey});
+        var passes = byAccount[this._currentAccount()] || {};
+        var stringified = JSON.stringify({shareId: shareId,
+                                          roomKey: roomKey});
         delete passes[stringified];
         // Also remove from no-authentication records:
-        if (currentAccount) {
+        if (this._currentAccount()) {
           passes = byAccount[""] || {};
           delete passes[stringified];
         }

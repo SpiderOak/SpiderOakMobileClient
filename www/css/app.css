@@ -553,7 +553,6 @@ ul li a .hiddenItem:after {
   height: 48px;
   background-color: #ccc;
   border-top: 1px solid #bbb;
-  color: #666;
   font-size: 130%;
 }
 
@@ -562,9 +561,18 @@ ul li a .hiddenItem:after {
   text-align: center;
   float: left;
   width: 25%;
+  color: #ccc;
 }
 
-.toolbar-button a.active {
+.toolbar-button .enabled {
+  color: #666;
+}
+
+.toolbar-button .favorite {
+  color: orange;
+}
+
+.toolbar-button a.active.enabled {
   color: #333;
   text-shadow: 0 0 10px #fff;
 }

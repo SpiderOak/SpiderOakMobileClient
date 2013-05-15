@@ -286,7 +286,7 @@
         return it;
       },
       loggedOut: function () {
-        delete byAccount[currentAccount];
+        delete byAccount[this._currentAccount()];
         return this;
       },
       setCurrentAccountSharePass: function (shareId, roomKey, password) {

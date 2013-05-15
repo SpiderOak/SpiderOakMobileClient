@@ -25,8 +25,7 @@
       mySharesListURL: "",
       mySharesRootURL: "",
       webRootURL: "",
-      favoritesConfirmationAccepted: false,
-      pubSharesPasswords: null
+      favoritesConfirmationAccepted: false
     },
     initialize: function() {
       _.bindAll(this, "login");
@@ -267,12 +266,7 @@
    * specific records.
    */
   spiderOakApp.PubSharesPassManager = function (accountModel) {
-    /** A collection that is serialized with the accountModel. */
-    var byAccount = accountModel.get("pubSharesPasswords");
-    if (! byAccount) {
-      byAccount = {};
-      accountModel.set("pubSharesPasswords", byAccount);
-    }
+    var byAccount = {};
 
     return {
       _currentAccount: function () {

@@ -10,7 +10,7 @@
       $           = window.$,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
-    timeout: 120000, // two minutes
+    timeout: 180000, // two minutes
     // timeout: 3000, // three seconds
     error: function(collection, response, options) {
       console.log("Default error handler thrown:");
@@ -30,9 +30,9 @@
 
   // Considering changing the template settings as the ERB defaults are annoying
   // _.templateSettings = {
-  //   evaluate:    /\{\{#([\s\S]+?)=\}\}/g,          // {{# console.log("blah") }}
+  //   evaluate:    /\{\{#([\s\S]+?)=\}\}/g,      // {{# console.log("blah") }}
   //   interpolate: /\{\{[^#\{]([\s\S]+?)[^\}]\}\}/g, // {{ title }}
-  //   escape:      /\{\{\{([\s\S]+?)\}\}\}/g         // {{{ title }}}
+  //   escape:      /\{\{\{([\s\S]+?)\}\}\}/g     // {{{ title }}}
   // };
 
   _.extend(spiderOakApp, {
@@ -68,7 +68,8 @@
         model: spiderOakApp.accountModel
       }).render();
       // Instantiate the favorites and populate from localStorage
-      var favorites = window.store.get("favorites-"); // trailing slash of weirdness
+      // trailing slash of weirdness
+      var favorites = window.store.get("favorites-");
       favorites = favorites || [];
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
@@ -111,6 +112,7 @@
         $this.removeClass("active");
       });
 
+      // Dragging open the menu
       var touch = {};
       var pxMultiplier = 1;
       var threshold = 80;
@@ -125,13 +127,17 @@
           // touch.dy = event.touches[0].pageY - touch.y1; // up, down
 
           var d = touch.dx * pxMultiplier;
+          var pos;
           if (!$("#main").hasClass("open") && touch.dx > 0) {
-            $("#main").css({ '-webkit-transform':'translate3d(' + d + 'px,0,0)' });
+            pos = (d < 270) ? d : 270;
+            $("#main")
+              .css({ '-webkit-transform':'translate3d(' + pos + 'px,0,0)' });
           }
           else if ($("#main").hasClass("open") && touch.dx < 0) {
             if ($("#main").hasClass("open")) {
-              var pos = ((270 - Math.abs(d)) > 0) ? (270 - Math.abs(d)) : 0;
-              $("#main").css({ '-webkit-transform':'translate3d(' + pos + 'px,0,0)' });
+              pos = ((270 - Math.abs(d)) > 0) ? (270 - Math.abs(d)) : 0;
+              $("#main")
+                .css({ '-webkit-transform':'translate3d(' + pos + 'px,0,0)' });
             }
           }
         }
@@ -164,8 +170,10 @@
       // 2. spiderOakApp.dialogView.showWait();
       // 3. spiderOakApp.loginView.dismiss();
       // 4. <get the user data from AccountManager plugin>
-      // 5. spiderOakApp.accountModel = new spiderOakApp.AccountModel(<serialised AccountModel>);
-      // 6. spiderOakApp.accountModel.basicAuthManager.setAccountBasicAuth(<username>, <password>);
+      // 5. spiderOakApp.accountModel =
+      //        new spiderOakApp.AccountModel(<serialised AccountModel>);
+      // 6. spiderOakApp.accountModel
+      //        .basicAuthManager.setAccountBasicAuth(<username>, <password>);
       // 7. spiderOakApp.onLoginSuccess();
       var rememberedAccount =
         spiderOakApp.settings.getOrDefault("rememberedAccount");
@@ -184,6 +192,10 @@
         return;
       }
       $(".splash").hide();
+
+      if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
+        spiderOakApp.migrateFavorites();
+      }
 
     },
     backDisabled: true,
@@ -259,7 +271,8 @@
       spiderOakApp.mainView.setTitle("SpiderOak");
 
       // Instantiate the favorites and populate from localStorage
-      var favorites = window.store.get("favorites-"); // trailing slash of weirdness
+      // trailing slash of weirdness
+      var favorites = window.store.get("favorites-");
       favorites = favorites || [];
       spiderOakApp.favoritesCollection.reset(favorites);
 

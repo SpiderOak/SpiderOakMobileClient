@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.spideroak.android.beta" version="0.9.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.spideroak.android" version="1.9.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>SpiderOak</name>
     <description>
-        SpiderOak Mobile Client.
+        SpiderOak Mobile Client for Android.
     </description>
     <author email="tommy@devgeeks.org" href="http://www.spideroak.com">
         SpiderOak
@@ -35,6 +35,8 @@
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="false" />
+    
+    <preference name="keepRunning" value="true" />
 
     <preference name="UIWebViewBounce" value="false" />
     <preference name="AutoHideSplashScreen" value="false" />

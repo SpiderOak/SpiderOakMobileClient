@@ -71,6 +71,7 @@ module.exports = function(grunt) {
           'src/helpers/FileHelper.js',
           'src/helpers/Templates.js',
           'src/helpers/FileDownloadHelper.js',
+          'src/helpers/Migrator.js',
           'src/effects/FastSlideEffect.js',
           'src/models/AccountModel.js',
           'src/models/StorageBarModel.js',

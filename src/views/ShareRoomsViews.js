@@ -493,12 +493,20 @@
         params,
         function(){
           // Add the file to the recents collection (view or fave)
+          var recentModels = spiderOakApp.recentsCollection.models;
+          var matchingModels = _.filter(recentModels, function(recent){
+            return recent.composedUrl(true) === model.composedUrl(true);
+          });
+          if (matchingModels.length > 1) {
+//            console.log("Multiple duplicates detected...");
+          }
+          spiderOakApp.recentsCollection.remove(matchingModels[0]);
           spiderOakApp.recentsCollection.add(model);
         },
         function(error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
-            "Error sending this link. Try agains later.",
+            "Error sending this link. Try again later.",
             null,
             "File error",
             "OK"

@@ -223,6 +223,14 @@
         model.set("isFavorite", true);
         model.set("favoriteModel", favoriteModel);
         // Add the file to the recents collection (view or fave)
+        var recentModels = spiderOakApp.recentsCollection.models;
+        var matchingModels = _.filter(recentModels, function(recent){
+          return recent.composedUrl(true) === model.composedUrl(true);
+        });
+        if (matchingModels.length > 1) {
+//          console.log("Multiple duplicates detected...");
+        }
+        spiderOakApp.recentsCollection.remove(matchingModels[0]);
         spiderOakApp.recentsCollection.add(model);
       }.bind(this));
     },
@@ -240,6 +248,14 @@
         params,
         function() {
           // Add the file to the recents collection (view or fave)
+          var recentModels = spiderOakApp.recentsCollection.models;
+          var matchingModels = _.filter(recentModels, function(recent){
+            return recent.composedUrl(true) === model.composedUrl(true);
+          });
+          if (matchingModels.length > 1) {
+//            console.log("Multiple duplicates detected...");
+          }
+          spiderOakApp.recentsCollection.remove(matchingModels[0]);
           spiderOakApp.recentsCollection.add(model);
           // @FIXME: Should we be cleaning up the file here?
         },
@@ -274,6 +290,14 @@
           params,
           function(){
             // Add the file to the recents collection (view or fave)
+            var recentModels = spiderOakApp.recentsCollection.models;
+            var matchingModels = _.filter(recentModels, function(recent){
+              return recent.composedUrl(true) === model.composedUrl(true);
+            });
+            if (matchingModels.length > 1) {
+//              console.log("Multiple duplicates detected...");
+            }
+            spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
           },
           function(error) { // @FIXME: Real error handling...
@@ -397,6 +421,14 @@
               },
               function() {
                 // Add the file to the recents collection (view or fave)
+                var recentModels = spiderOakApp.recentsCollection.models;
+                var matchingModels = _.filter(recentModels, function(recent){
+                  return recent.composedUrl(true) === model.composedUrl(true);
+                });
+                if (matchingModels.length > 1) {
+//                  console.log("Multiple duplicates detected...");
+                }
+                spiderOakApp.recentsCollection.remove(matchingModels[0]);
                 spiderOakApp.recentsCollection.add(model);
                 // @FIXME: Should we be cleaning up the file here?
               },
@@ -465,6 +497,14 @@
                 },
                 function() {
                   // Add the file to the recents collection (view or fave)
+                  var recentModels = spiderOakApp.recentsCollection.models;
+                  var matchingModels = _.filter(recentModels, function(recent){
+                    return recent.composedUrl(true) === model.composedUrl(true);
+                  });
+                  if (matchingModels.length > 1) {
+//                    console.log("Multiple duplicates detected...");
+                  }
+                  spiderOakApp.recentsCollection.remove(matchingModels[0]);
                   spiderOakApp.recentsCollection.add(model);
                 },
                 function(error) { // @FIXME: Real error handling...
@@ -512,6 +552,14 @@
           this.downloadFile(model, path, function(fileEntry) {
             spiderOakApp.dialogView.hide();
             // Add the file to the recents collection (view or fave)
+            var recentModels = spiderOakApp.recentsCollection.models;
+            var matchingModels = _.filter(recentModels, function(recent){
+              return recent.composedUrl(true) === model.composedUrl(true);
+            });
+            if (matchingModels.length > 1) {
+//              console.log("Multiple duplicates detected...");
+            }
+            spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
             navigator.notification.alert(
               fileEntry.name + " saved to " + path + fileEntry.name,

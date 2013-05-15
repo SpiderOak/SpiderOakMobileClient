@@ -22,7 +22,9 @@
       password: ""
     },
     initialize: function () {
-      if (spiderOakApp.accountModel) {
+      var shareId = this.get("share_id");
+      var roomKey = this.get("room_key");
+      if (spiderOakApp.accountModel && shareId && roomKey) {
         this.setPassword(
           spiderOakApp.accountModel.pubSharesPassManager
               .getCurrentAccountSharePass(
@@ -34,6 +36,7 @@
       var base = Backbone.Model.prototype.composedUrl.call(this);
       return base + (bare ? "" : "?auth_required_format=json");
     },
+    /** Transiently include tailored authentication if we have a password */
     sync: function () {
       if (this.getPassword()) {
         /* Temporarily set basic auth for the item password, and restore
@@ -67,10 +70,21 @@
     setPassword: function(password) {
       if (this.getPassword() !== password) {
         this.set("password", password);
-        spiderOakApp.accountModel.pubSharesPassManager
-            .setCurrentAccountSharePass(this.get("share_id"),
-                                        this.get("room_key"),
-                                        password);
+        var shareId = this.get("share_id");
+        var roomKey = this.get("room_key");
+        if (shareId && roomKey) {
+          if (password) {
+            spiderOakApp.accountModel.pubSharesPassManager
+                .setCurrentAccountSharePass(this.get("share_id"),
+                                            this.get("room_key"),
+                                            password);
+          }
+          else {
+            spiderOakApp.accountModel.pubSharesPassManager
+                .removeCurrentAccountSharePass(this.get("share_id"),
+                                               this.get("room_key"));
+          }
+        }
       }
     },
     getPassword: function() {
@@ -79,9 +93,6 @@
     removePassword: function() {
       if (this.getPassword()) {
         this.setPassword("");
-        spiderOakApp.accountModel.pubSharesPassManager
-            .removeCurrentAccountSharePass(this.get("share_id"),
-                                           this.get("room_key"));
       }
     },
     /** Generate basic auth per creds. */

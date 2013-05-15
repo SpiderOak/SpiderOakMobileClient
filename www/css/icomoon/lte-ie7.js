@@ -51,7 +51,8 @@ window.onload = function() {
 			'icon-file-openoffice' : '&#xe02a;',
 			'icon-libreoffice' : '&#xe02b;',
 			'icon-unlocked' : '&#xe02c;',
-			'icon-lock' : '&#xe02d;'
+			'icon-lock' : '&#xe02d;',
+			'icon-hive-black' : '&#xe02e;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

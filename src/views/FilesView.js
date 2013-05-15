@@ -223,6 +223,14 @@
         model.set("isFavorite", true);
         model.set("favoriteModel", favoriteModel);
         // Add the file to the recents collection (view or fave)
+        var recentModels = spiderOakApp.recentsCollection.models;
+        var matchingModels = _.filter(recentModels, function(recent){
+          return recent.composedUrl(true) === model.composedUrl(true);
+        });
+        if (matchingModels.length > 1) {
+//          console.log("Multiple duplicates detected...");
+        }
+        spiderOakApp.recentsCollection.remove(matchingModels[0]);
         spiderOakApp.recentsCollection.add(model);
       }.bind(this));
     },
@@ -240,6 +248,14 @@
         params,
         function() {
           // Add the file to the recents collection (view or fave)
+          var recentModels = spiderOakApp.recentsCollection.models;
+          var matchingModels = _.filter(recentModels, function(recent){
+            return recent.composedUrl(true) === model.composedUrl(true);
+          });
+          if (matchingModels.length > 1) {
+//            console.log("Multiple duplicates detected...");
+          }
+          spiderOakApp.recentsCollection.remove(matchingModels[0]);
           spiderOakApp.recentsCollection.add(model);
           // @FIXME: Should we be cleaning up the file here?
         },
@@ -274,6 +290,14 @@
           params,
           function(){
             // Add the file to the recents collection (view or fave)
+            var recentModels = spiderOakApp.recentsCollection.models;
+            var matchingModels = _.filter(recentModels, function(recent){
+              return recent.composedUrl(true) === model.composedUrl(true);
+            });
+            if (matchingModels.length > 1) {
+//              console.log("Multiple duplicates detected...");
+            }
+            spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
           },
           function(error) { // @FIXME: Real error handling...
@@ -397,6 +421,14 @@
               },
               function() {
                 // Add the file to the recents collection (view or fave)
+                var recentModels = spiderOakApp.recentsCollection.models;
+                var matchingModels = _.filter(recentModels, function(recent){
+                  return recent.composedUrl(true) === model.composedUrl(true);
+                });
+                if (matchingModels.length > 1) {
+//                  console.log("Multiple duplicates detected...");
+                }
+                spiderOakApp.recentsCollection.remove(matchingModels[0]);
                 spiderOakApp.recentsCollection.add(model);
                 // @FIXME: Should we be cleaning up the file here?
               },
@@ -461,10 +493,19 @@
             function viewFavoriteGotFS(fileEntry) {
               spiderOakApp.fileViewer.view({
                   action: spiderOakApp.fileViewer.ACTION_VIEW,
-                  url: encodeURI(fileEntry.fullPath)
+                  url: encodeURI(fileEntry.fullPath),
+                  type: model.get("type")
                 },
                 function() {
                   // Add the file to the recents collection (view or fave)
+                  var recentModels = spiderOakApp.recentsCollection.models;
+                  var matchingModels = _.filter(recentModels, function(recent){
+                    return recent.composedUrl(true) === model.composedUrl(true);
+                  });
+                  if (matchingModels.length > 1) {
+//                    console.log("Multiple duplicates detected...");
+                  }
+                  spiderOakApp.recentsCollection.remove(matchingModels[0]);
                   spiderOakApp.recentsCollection.add(model);
                 },
                 function(error) { // @FIXME: Real error handling...
@@ -512,6 +553,14 @@
           this.downloadFile(model, path, function(fileEntry) {
             spiderOakApp.dialogView.hide();
             // Add the file to the recents collection (view or fave)
+            var recentModels = spiderOakApp.recentsCollection.models;
+            var matchingModels = _.filter(recentModels, function(recent){
+              return recent.composedUrl(true) === model.composedUrl(true);
+            });
+            if (matchingModels.length > 1) {
+//              console.log("Multiple duplicates detected...");
+            }
+            spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
             navigator.notification.alert(
               fileEntry.name + " saved to " + path + fileEntry.name,
@@ -729,7 +778,7 @@
   });
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
-    destructionPolicy: "never",
+//    destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
       this.model.on("change",this.render);
@@ -743,8 +792,11 @@
       // spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
       spiderOakApp.mainView.setTitle("Details");
 
+      var isVersionDetails = /\?version=[0-9]/.test(this.model.get("url"));
+
       this.toolbarView = new spiderOakApp.FileItemDetailsToolbarView({
-        model: this.model
+        model: this.model,
+        disabled: isVersionDetails
       });
       this.toolbarView.$el.on("shareFile", this.shareFile, event);
       this.toolbarView.$el.on("saveFile", this.saveFile, event);
@@ -803,14 +855,16 @@
         spiderOakApp.backDisabled = true;
       }
       else {
-        this.toolbarView.close();
+        if (this.toolbarView) this.toolbarView.close();
         spiderOakApp.toolbarView.hide();
       }
     },
     viewActivate: function(event) {
       spiderOakApp.backDisabled = false;
       spiderOakApp.mainView.showBackButton(true);
-      spiderOakApp.toolbarView.addButtonsView(this.toolbarView).show();
+      if (this.toolbarView) {
+        spiderOakApp.toolbarView.addButtonsView(this.toolbarView).show();
+      }
     },
     viewDeactivate: function(event) {
       this.close();
@@ -820,7 +874,9 @@
       if (this.versionsView) {
         this.versionsView.close();
       }
-      this.toolbarView.close();
+      if (this.toolbarView) {
+        this.toolbarView.close();
+      }
       this.remove();
       this.unbind();
     }
@@ -828,10 +884,10 @@
 
   spiderOakApp.FileItemDetailsToolbarView = Backbone.View.extend({
     events: {
-      "tap .file-share-button": "shareFile_tapHandler",
-      "tap .file-save-button": "saveFile_tapHandler",
-      "tap .file-send-button": "sendLink_tapHandler",
-      "tap .file-favorite-button": "favorite_tapHandler"
+      "tap .file-share-button.enabled": "shareFile_tapHandler",
+      "tap .file-save-button.enabled": "saveFile_tapHandler",
+      "tap .file-send-button.enabled": "sendLink_tapHandler",
+      "tap .file-favorite-button.enabled": "favorite_tapHandler"
     },
     initialize: function() {
       _.bindAll(this);
@@ -840,7 +896,8 @@
     render: function() {
       this.$el.html(
         _.template(window.tpl.get("fileItemDetailsToolbarViewTemplate"),
-          this.model.toJSON()
+         {isFavorite: this.model.get("isFavorite"),
+           disabled: this.options.disabled}
         )
       );
       return this;

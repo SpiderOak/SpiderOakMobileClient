@@ -461,7 +461,8 @@
             function viewFavoriteGotFS(fileEntry) {
               spiderOakApp.fileViewer.view({
                   action: spiderOakApp.fileViewer.ACTION_VIEW,
-                  url: encodeURI(fileEntry.fullPath)
+                  url: encodeURI(fileEntry.fullPath),
+                  type: model.get("type")
                 },
                 function() {
                   // Add the file to the recents collection (view or fave)

@@ -35,6 +35,7 @@
       icon: "file-zip"
     },
     FILETYPE_JPEG = {
+      type: "image/jpeg",
       description: "JPEG Image",
       openInternally: false,
       icon: "image"

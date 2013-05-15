@@ -1,26 +1,67 @@
+/**
+ * Migrator.js
+ */
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
   console.log = console.log || function(){};
-  var Backbone    = window.Backbone,
-      _           = window._,
+  var _           = window._,
       $           = window.$;
 
   function queryDB(tx) {
     tx.executeSql('SELECT * FROM favorites', [], querySuccess, errorCB);
   }
 
+  function copyFile(from, to, name) {
+    window.resolveLocalFileSystemURI(
+      "file://" + from,
+      function(fromFileEntry) {
+        spiderOakApp.downloader.createPath(
+          to,
+          function(toDirEntry) {
+            fromFileEntry.copyTo(
+              toDirEntry,
+              name,
+              function() {
+                // yay?
+                console.log("Migrated " + from + " to " + to);
+              },
+              function(err) {
+                console.log(JSON.stringify(err));
+              }
+            );
+          },
+          function(err) {
+            console.log(JSON.stringify(err));
+          },
+          window.LocalFileSystem.PERSISTENT
+        );
+      },
+      function(err){
+        console.log(JSON.stringify(err));
+      }
+    );
+  }
+
   function querySuccess(tx, results) {
     var len = results.rows.length;
-    console.log("favorites table: " + len + " rows found.");
-    for (var i=0; i<=len; i++){
-      // @TODO: DO SOMETHING WITH THE DATA HERE...
-      console.log(results.rows.item(i));
+    var faves = {};
+    for (var i=0; i<len; i++){
       var row = results.rows.item(i);
       var fileInfo = window.fileHelper.fileTypeFromExtension(row.name);
-      var path = row.localpath.replace(
-        /^.*\/\.favorites/, "Download/SpiderOak/.favorites"
-      );
+//      var path = row.localpath.replace(
+//        /^.*\/\.favorites/, "Download/SpiderOak/.favorites"
+//      );
+      var b32username = "";
+      if (row.source && /\/storage\/[2-7A-Z]*\//.test(row.source)) {
+        b32username = row.source
+                            .replace(/^.*\/storage\/([2-7A-Z]*)\/.*/,"$1");
+      }
+      var path = "Download/SpiderOak/.favorites/" +
+        (b32username || "anonymous") +
+        row.fullpath
+          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp(encodeURIComponent(row.name)), "");
       var fave = {
         "ctime": row.mtime,
         "etime": row.mtime,
@@ -34,62 +75,64 @@
         "isFavorite": true,
         "password_required": false,
         "password": "",
-        "path": path.replace(_.last(path.split("/")), ""),
-        "encodedUrl": encodeURIComponent(row.name)
+        "path": path,
+        "encodedUrl": encodeURIComponent(row.name),
+        "type": fileInfo.type
       };
-      var b32username = "";
-      if (row.source && /\/storage\/[2-7A-Z]*\//.test(row.source)) {
-        b32username = row.source
-                            .replace(/^.*\/storage\/([2-7A-Z]*)\/.*/,"$1");
-        console.log(b32username);
-      }
-      var faves = window.store.get("favorites-" + b32username) || [];
-      faves.push(fave);
-      console.log(faves);
-      window.store.set(
-        "favorites-" + b32username,
-        faves
-      );
+      faves["favorites-" + b32username] = faves["favorites-" + b32username] || [];
+      faves["favorites-" + b32username].push(fave);
+      // now copy the file to its new location
+      copyFile(row.localpath, path, row.name);
+      b32username = "";
     }
-    // reset the anon faves in case this just added some
-    spiderOakApp.favoritesCollection.reset(window.store.get("favorites-"));
+    // ...
+    for (var faveCollection in faves) {
+      if (faves.hasOwnProperty(faveCollection)) {
+        window.store.set(faveCollection, faves[faveCollection]);
+      }
+    }
+    // reset the anon faves in case this just added any from a share
+    spiderOakApp.favoritesCollection.reset(faves["favorites-"] || []);
   }
 
   function errorCB(tx, err) {
-      console.log(err);
+      console.log(JSON.stringify(err));
   }
 
   // This will create the db to be copied over below
-  var db = window.openDatabase("favorites", "", "Favorites DB", 1000000);
-  window.resolveLocalFileSystemURI(
-    "file:///data/data/com.spideroak.android.beta/databases/favoritesDb",
-    function(fileEntry) {
-      console.log(fileEntry);
-      window.resolveLocalFileSystemURI(
-        "file:///data/data/com.spideroak.android.beta/app_database/file__0/",
-        function(parentEntry) {
-          fileEntry.moveTo(
-            parentEntry,
-            "0000000000000001.db",
-            function() {
-              var db = window.openDatabase(
-                "favorites", "", "Favorites DB", 1000000
-              );
-              db.transaction(queryDB, errorCB);
-            },
-            function(error) {
-              console.log(error);
-            }
-          );
-        },
-        function(error) {
-          console.log(error);
-        }
-      );
-    },
-    function(error) {
-      console.log(error);
-    }
-  );
+  spiderOakApp.migrateFavorites = function() {
+    console.log("Running one-time favorites migration");
+    window.store.set("favoritesMigrationHasRun", true);
+    var db = window.openDatabase("favorites", "", "Favorites DB", 1000000);
+    window.resolveLocalFileSystemURI(
+      "file:///data/data/com.spideroak.android/databases/favoritesDb",
+      function(fileEntry) {
+        window.resolveLocalFileSystemURI(
+          "file:///data/data/com.spideroak.android/app_database/file__0/",
+          function(parentEntry) {
+            fileEntry.moveTo(
+              parentEntry,
+              "0000000000000001.db",
+              function() {
+                var db = window.openDatabase(
+                  "favorites", "", "Favorites DB", 1000000
+                );
+                db.transaction(queryDB, errorCB);
+              },
+              function(error) {
+                console.log(JSON.stringify(error));
+              }
+            );
+          },
+          function(error) {
+            console.log(JSON.stringify(error));
+          }
+        );
+      },
+      function(error) {
+        console.log(JSON.stringify(error));
+      }
+    );
+  };
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-history, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-clock, .icon-switch, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus, .icon-warning, .icon-eye, .icon-link, .icon-share, .icon-download, .icon-redo, .icon-cog, .icon-settings, .icon-file, .icon-info, .icon-checkbox-checked, .icon-checkbox-unchecked, .icon-file-openoffice, .icon-libreoffice, .icon-unlocked, .icon-lock {
+.icon-history, .icon-file-pdf, .icon-file-word, .icon-file-excel, .icon-file-zip, .icon-file-powerpoint, .icon-file-xml, .icon-file-css, .icon-film, .icon-music, .icon-star, .icon-star-2, .icon-clock, .icon-switch, .icon-tux, .icon-finder, .icon-windows, .icon-image, .icon-menu, .icon-arrow-left, .icon-exit, .icon-folder-open, .icon-folder, .icon-cloud-upload, .icon-remove, .icon-close, .icon-checkmark, .icon-loop, .icon-plus, .icon-minus, .icon-warning, .icon-eye, .icon-link, .icon-share, .icon-download, .icon-redo, .icon-cog, .icon-settings, .icon-file, .icon-info, .icon-checkbox-checked, .icon-checkbox-unchecked, .icon-file-openoffice, .icon-libreoffice, .icon-unlocked, .icon-lock, .icon-hive-black {
 	font-family: 'SpiderOakIcons';
 	speak: none;
 	font-style: normal;
@@ -174,4 +174,7 @@ you can use the generic selector below, but it's slower:
 }
 .icon-lock:before {
 	content: "\e02d";
+}
+.icon-hive-black:before {
+	content: "\e02e";
 }

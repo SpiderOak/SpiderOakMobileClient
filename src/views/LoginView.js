@@ -51,18 +51,28 @@
 
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
-        // Store the "remember me" setting
-        account.set("rememberme",rememberme);
-        if (rememberme) {
-          spiderOakApp.settings.setOrCreate(
-            "rememberedAccount",
-            JSON.stringify(spiderOakApp.accountModel.toJSON()),
-            true
-          );
-        }
-        // @TODO: Unblock spinner
         // Navigate away...
         this.dismiss();
+        var b32username = spiderOakApp.accountModel.get("b32username");
+        // Store the "remember me" setting
+        if (rememberme) {
+          if (!window.store.get("hasAcceptedTheRisk-" + b32username)) {
+            // Pop up the warning
+            this.rememberMeWarningView =
+              new spiderOakApp.RememberMeWarningView();
+            $(".app").append(this.rememberMeWarningView.el);
+            this.rememberMeWarningView.render().show();
+          }
+          else {
+            // Go ahead...
+            account.set("rememberme",rememberme);
+            spiderOakApp.settings.setOrCreate(
+              "rememberedAccount",
+              JSON.stringify(spiderOakApp.accountModel.toJSON()),
+              true
+            );
+          }
+        }
       }.bind(this);
       var error = function(status, error) {
         // Clear it out
@@ -138,7 +148,6 @@
     },
     learnMore_tapHandler: function(event) {
       var learnMoreView = new spiderOakApp.LearnAboutView();
-      window.learnMore = learnMoreView;
       $(".app").append(learnMoreView.$el);
       learnMoreView.render().show();
     },
@@ -160,6 +169,74 @@
     }
   });
   spiderOakApp.loginView = new spiderOakApp.LoginView().render();
+
+  spiderOakApp.RememberMeWarningView = Backbone.View.extend({
+    className: "rememberme-warning",
+    destructionPolicy: "never",
+    events: {
+      "tap .remember-me": "rememberMe_tapHandler",
+      "tap .forget-me": "forgetMe_tapHandler"
+    },
+    initialize: function() {
+      _.bindAll(this);
+    },
+    render: function() {
+      this.$el.html(
+        _.template(
+          window.tpl.get("rememberMeWarningViewTemplate")
+        ));
+      this.$el.css("-webkit-transform","translate3d(0,100%,0)");
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
+
+      return this;
+    },
+    rememberMe_tapHandler: function(event) {
+      var b32username = spiderOakApp.accountModel.get("b32username");
+      spiderOakApp.accountModel.set("rememberme", true);
+      window.store.set(
+        "hasAcceptedTheRisk-" + b32username,
+        true
+      );
+      spiderOakApp.settings.setOrCreate(
+        "rememberedAccount",
+        JSON.stringify(spiderOakApp.accountModel.toJSON()),
+        true
+      );
+      this.dismiss();
+    },
+    forgetMe_tapHandler: function(event) {
+      spiderOakApp.accountModel.set("rememberme", false);
+      if (this.options && this.options.checkBox) {
+        this.options.checkBox.prop("checked",false);
+      }
+      this.dismiss();
+    },
+    show: function() {
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+    },
+    dismiss: function(event) {
+      this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
+        duration: 100,
+        complete: function() {
+          this.remove();
+        }.bind(this)
+      });
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+      this.scroller.destroy();
+    }
+  });
 
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

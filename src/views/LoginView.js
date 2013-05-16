@@ -45,7 +45,7 @@
 
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
-      var username = $("#unme").val();
+      var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").is(":checked");
 

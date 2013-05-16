@@ -300,8 +300,8 @@
     },
     form_submitHandler: function(event) {
       var remember = this.$("[name=remember]").is(":checked") ? 1 : 0,
-          shareId = this.$("[name=shareid]").val(),
-          roomKey = this.$("[name=roomkey]").val(),
+          shareId = this.$("[name=shareid]").val().trim(),
+          roomKey = this.$("[name=roomkey]").val().trim(),
           pubShares = spiderOakApp.publicShareRoomsCollection;
 
       event.preventDefault();

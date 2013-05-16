@@ -128,13 +128,14 @@ body {
   padding: 10px;
 }
 
-.learn-about-spideroak {
+.learn-about-spideroak,
+.rememberme-warning {
   position: absolute;
   bottom: 0;
   top:0;
   left:0;
   right:0;
-  overflow: hidden;
+  overflow: auto;
   background-color: #eee;
 }
 

@@ -259,7 +259,7 @@
       spiderOakApp.dialogView.showWait({
         title: "Validating"
       });
-      var newServer = this.$("[name=server]").val(),
+      var newServer = this.$("[name=server]").val().trim(),
           wasServer = this.model.get("value");
       event.preventDefault();
       this.$("input").blur();

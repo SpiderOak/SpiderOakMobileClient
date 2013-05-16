@@ -189,6 +189,7 @@
         spiderOakApp.onLoginSuccess();
         spiderOakApp.loginView.dismiss();
         $(".splash").hide();
+        spiderOakApp.dialogView.hide();
         return;
       }
       $(".splash").hide();
@@ -263,6 +264,7 @@
 
       // Fresh new recents collection
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
+      spiderOakApp.dialogView.hide();
     },
     onLogoutSuccess: function() {
       if (spiderOakApp.navigator.viewsStack.length > 0) {

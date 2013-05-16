@@ -171,8 +171,8 @@
       }
       else {
         navigator.notification.confirm(
-          "Do you want to add this file to your favorites? This will download " +
-            "the file to your device.",
+          "Do you want to add this file to your favorites? This will " +
+              " download the contents to your device.",
           this.saveFavoriteConfirmed,
           "Favorites"
         );
@@ -589,7 +589,7 @@
     removeFavorite: function() {
       // Confirmation dialog
       navigator.notification.confirm(
-        "Do you want to remove this file to your favorites?",
+        "Do you want to remove this file from your favorites?",
         function(button) {
           if (button !== 1) {
             return;

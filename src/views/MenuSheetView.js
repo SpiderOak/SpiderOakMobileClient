@@ -110,7 +110,6 @@
             options,
             spiderOakApp.noEffect);
         }
-        spiderOakApp.dialogView.hide();
       }
       else if(this.devicesAreComplete) {
         this.pushFirstDevice();
@@ -138,7 +137,6 @@
           options,
           spiderOakApp.noEffect
         );
-        spiderOakApp.dialogView.hide();
       }
     },
     sharerooms_tapHandler: function(event) {

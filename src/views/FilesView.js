@@ -37,8 +37,12 @@
       return this;
     },
     addOne: function(model) {
-      if (spiderOakApp.maxEntries && this.fileCounter > spiderOakApp.maxEntries) {
+      if (spiderOakApp.maxEntries &&
+          this.fileCounter > spiderOakApp.maxEntries) {
         return;
+      }
+      if (this.collection.getPassword()) {
+        model.setPassword(this.collection.getPassword());
       }
       this.fileCounter++;
       // @FIXME: Is this the best pattern for this?

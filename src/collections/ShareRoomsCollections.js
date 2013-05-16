@@ -9,7 +9,8 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.ShareRoomsCollection = Backbone.Collection.extend({
+  var ppcb = spiderOakApp.PasswordProtectedCollectionBase;
+  spiderOakApp.ShareRoomsCollection = ppcb.extend({
     model: spiderOakApp.ShareRoomModel,
     initialize: function() {
       this.url = ("https://" +

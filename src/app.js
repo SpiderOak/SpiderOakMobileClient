@@ -369,7 +369,8 @@
       urlHead = urlHead && urlHead.split("?")[0];
       urlTail = urlTail && urlTail.split("?")[0];
     }
-    return (urlHead || "") + (urlTail || "");
+    var result = (urlHead || "") + (urlTail || "");
+    return result;
   };
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

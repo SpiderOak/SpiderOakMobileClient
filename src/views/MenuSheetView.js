@@ -44,8 +44,8 @@
         this.$(".hive").one("complete", function(event) {
           if (this.hiveModel.attributes.device) {
             this.$(".hive-sep").show();
-            if (!refresh) this.hiveReady(event);
           }
+          this.hiveReady(event, refresh);
         }.bind(this));
         this.hiveView = new spiderOakApp.HiveView({
           model: this.hiveModel,
@@ -58,8 +58,8 @@
         this.$(".devices").one("complete", function(event) {
           if (this.devicesCollection.length) {
             this.$(".devices-sep").show();
-            if (!refresh) this.devicesReady(event);
           }
+          this.devicesReady(event, refresh);
         }.bind(this));
         this.devicesListView = new spiderOakApp.DevicesListView({
           collection: this.devicesCollection,
@@ -76,15 +76,15 @@
 
       return this;
     },
-    devicesReady: function(event) {
+    devicesReady: function(event, refresh) {
       this.devicesAreComplete = true;
       $(".devices-sep").show();
       if (this.hiveIsComplete &&
           spiderOakApp.navigator.viewsStack.length === 0) {
-        this.pushFirstDevice();
+        if (!refresh) this.pushFirstDevice();
       }
     },
-    hiveReady: function(event) {
+    hiveReady: function(event, refresh) {
       this.hiveIsComplete = true;
       if (this.hiveModel.get("hasHive")) {
         // Push the hive
@@ -98,21 +98,23 @@
           title: "SpiderOak Hive", // Hardcoded for now?
           model: this.hiveModel
         };
-        if (spiderOakApp.navigator.viewsStack.length === 0) {
-          spiderOakApp.navigator.pushView(
-            spiderOakApp.FolderView,
-            options,
-            spiderOakApp.noEffect);
-        }
-        else {
-          spiderOakApp.navigator.replaceAll(
-            spiderOakApp.FolderView,
-            options,
-            spiderOakApp.noEffect);
+        if (!refresh) {
+          if (spiderOakApp.navigator.viewsStack.length === 0) {
+            spiderOakApp.navigator.pushView(
+              spiderOakApp.FolderView,
+              options,
+              spiderOakApp.noEffect);
+          }
+          else {
+            spiderOakApp.navigator.replaceAll(
+              spiderOakApp.FolderView,
+              options,
+              spiderOakApp.noEffect);
+          }
         }
       }
       else if(this.devicesAreComplete) {
-        this.pushFirstDevice();
+        if (!refresh) this.pushFirstDevice();
         $(".hive-sep").hide();
         $(".hive").hide();
       }

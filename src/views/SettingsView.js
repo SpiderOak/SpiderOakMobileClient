@@ -72,12 +72,27 @@
       );
     },
     rememberMe_changeHandler: function(event) {
-      if ($(event.target).is(":checked")) {
-        spiderOakApp.settings.setOrCreate(
-          "rememberedAccount",
-          JSON.stringify(spiderOakApp.accountModel.toJSON()),
-          true
-        );
+      var rememberme = $(event.target).is(":checked");
+      var b32username = spiderOakApp.accountModel.get("b32username");
+      if (rememberme) {
+        if (!window.store.get("hasAcceptedTheRisk-" + b32username)) {
+          // Pop up the warning
+          this.rememberMeWarningView =
+            new spiderOakApp.RememberMeWarningView({
+              checkBox: $(event.target)
+            });
+          $(".app").append(this.rememberMeWarningView.el);
+          this.rememberMeWarningView.render().show();
+        }
+        else {
+          // Go ahead...
+          spiderOakApp.accountModel.set("rememberme",rememberme);
+          spiderOakApp.settings.setOrCreate(
+            "rememberedAccount",
+            JSON.stringify(spiderOakApp.accountModel.toJSON()),
+            true
+          );
+        }
       }
       else {
         spiderOakApp.settings.remove("rememberedAccount");

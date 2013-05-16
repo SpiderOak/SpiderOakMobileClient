@@ -147,7 +147,8 @@
       return this;
     },
     addOne: function(model) {
-      if (spiderOakApp.maxEntries && this.folderCounter > spiderOakApp.maxEntries) {
+      if (spiderOakApp.maxEntries &&
+          this.folderCounter > spiderOakApp.maxEntries) {
         return;
       }
       this.folderCounter++;

@@ -680,6 +680,7 @@
       event.preventDefault();
       event.stopPropagation();
       if ($("#main").hasClass("open")) {
+        spiderOakApp.mainView.closeMenu();
         return;
       }
       if ($(event.target).hasClass("icon-star-2") ||
@@ -701,6 +702,9 @@
     a_longTapHandler: function(event) {
       event.preventDefault();
       event.stopPropagation();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       var items = [
           {className: "open", description: "Open"},
           {className: "details", description: "Details"},

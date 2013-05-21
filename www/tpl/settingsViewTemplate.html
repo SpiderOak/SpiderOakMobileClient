@@ -13,14 +13,17 @@
       </a>
     </li>
     <li>
-      <span style="float:left;color:#666;">Remember me</span>
-      <div class="checkswitch">
-        <input type="checkbox" id="settings-rememberme" name="settings-rememberme"
+      <a class="remember-me">
+        <span style="float:left;color:#666;">Remember me</span>
+        <div class="checkswitch">
+          <input type="checkbox" id="settings-rememberme"
+                 name="settings-rememberme"
           <%= (spiderOakApp.accountModel.get("rememberme")) ? "checked='true'" : "" %> />
-        <label for="settings-rememberme">
-          <span data-off="No" data-on="Yes"></span>
-        </label>
-      </div>
+          <label for="settings-rememberme">
+            <span data-off="No" data-on="Yes"></span>
+          </label>
+        </div>
+      </a>
       <div class="clearfix"></div>
     </li>
   </ul>

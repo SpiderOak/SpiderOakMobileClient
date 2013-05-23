@@ -12,13 +12,11 @@
       icon: "file-word"
     },
     FILETYPE_EXCEL = {
-      type: "application/excel",
       description: "MS Excel",
       openInternally: false,
       icon: "file-excel"
     },
     FILETYPE_POWERPOINT = {
-      type: "application/powerpoint",
       description: "MS PowerPoint",
       openInternally: false,
       icon: "file-powerpoint"
@@ -98,31 +96,26 @@
       icon: "file"
     },
     FILETYPE_PAGES = {
-      type: "application/pages",
       description: "Apple Pages",
       openInternally: false,
       icon: "file-powerpoint"
     },
     FILETYPE_NUMBERS = {
-      type: "application/numbers",
       description: "Apple Numbers",
       openInternally: false,
       icon: "file"
     },
     FILETYPE_KEYNOTE = {
-      type: "application/keynote",
       description: "Apple Keynote",
       openInternally: false,
       icon: "file-powerpoint"
     },
     FILETYPE_RTF = {
-      type: "application/rtf",
       description: "Rich Text",
       openInternally: false,
-      icon: "file-powerpoint"
+      icon: "file"
     },
     FILETYPE_CSV = {
-      type: "text/csv",
       description: "CSV",
       openInternally: false,
       icon: "file"

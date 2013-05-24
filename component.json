@@ -8,9 +8,9 @@
     "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.js",
     "zepto": "https://github.com/madrobby/zepto/archive/v1.0rc1.zip",
-    "iscroll": "latest",
+    "iscroll": "https://github.com/cubiq/iscroll/archive/v4.2.zip",
     "modernizr": "latest",
     "moment": "~2.0.0",
-    "store.js": "~1.3.6"
+    "store.js": "1.3.x"
   }
 }

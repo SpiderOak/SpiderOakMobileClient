@@ -224,7 +224,8 @@
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
         if (accountUsername || accountPassword) {
-          Backbone.BasicAuth.set(accountUsername, accountPassword);
+          Backbone.BasicAuth.set(window.escape(accountUsername),
+                                 window.escape(accountPassword));
         }
         else {
           this.clear();
@@ -233,12 +234,14 @@
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {
-        Backbone.BasicAuth.set(username, password);
+        Backbone.BasicAuth.set(window.escape(username),
+                               window.escape(password));
         return this;
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       getAccountBasicAuth: function () {
-        var tok = accountUsername + ':' + accountPassword;
+        var tok = (window.escape(accountUsername) +
+                   ':' + window.escape(accountPassword));
         var hash = btoa(tok);
         return "Basic " + hash;
       },

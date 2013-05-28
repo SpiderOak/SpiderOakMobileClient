@@ -373,6 +373,25 @@
     return result;
   };
 
+  if (! window.cordova || window.cordova.cordovaAbsent) {
+    /* Polyfill for file downloader functionality. */
+    // This enables, eg, creating favorites.  You still can't view files...
+    // We can't do this in cordova polyfills, because it depends on
+    // spiderOakApp object existing.
+    window.LocalFileSystem = {PERSISTENT: null,
+                              TEMPORARY: null};
+    spiderOakApp.downloader.downloadFile = function (downloadOptions,
+                                                     successCallback,
+                                                     errorCallback) {
+      spiderOakApp.dialogView.showWait({
+        title: "Debugging mode: Dowloading Inhibited"
+      });
+      var dummyFileEntry = {fullPath: "/sdcard" + downloadOptions.to,
+                            name: downloadOptions.fileName};
+      return successCallback(dummyFileEntry);
+    };
+  }
+
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 
 /* Function.bind polyfill */

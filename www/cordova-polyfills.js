@@ -1,6 +1,7 @@
 if (! window.cordova) {
 
-  window.cordova = {bogus: "Cordova is absent, this stub is for polyfills."};
+  window.cordova = {bogus: "Cordova is absent, this stub is for polyfills.",
+                    cordovaAbsent: true};
 
   window.cordova.define = function(ident, thecode) {
     var msg = "Cordova plugin '" + ident + "' ruthlessly skipped - no Cordova.";
@@ -31,4 +32,5 @@ if (! window.cordova) {
           }
         };
   }
+
 }

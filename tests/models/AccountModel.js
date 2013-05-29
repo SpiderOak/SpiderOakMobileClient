@@ -166,6 +166,36 @@ describe('AccountModel', function() {
         );
     });
 
+    describe('different login and content-URL username', function(){
+      it('(blue) login should succeed when login username differs by more' +
+         ' than case from content-URL base32 encoded username',
+         function() {
+           this.blueLoginName = "test1@some.where.local";
+           // spiderOakApp.b32nibbler.encode("some_test_user_123") ===>
+           this.blueb32username = "ONXW2ZK7ORSXG5C7OVZWK4S7GEZDG";
+           sinon.spy(Backbone.BasicAuth,'set');
+           this.successSpy = sinon.spy();
+           this.errorSpy = sinon.spy();
+           // The server responds affirmatively to the case-altered username:
+           this.server.respondWith(
+             "POST",
+             "https://spideroak.com/browse/login",
+             [200, {"Content-Type": "text/html"},
+              "location:https://spideroak.com/storage/" +
+              this.blueb32username +
+              "/login"]
+           );
+           this.accountModel.login(this.blueLoginName, this.password,
+                                   this.successSpy, this.errorSpy);
+           this.server.respond();
+           this.successSpy.should.have.been.calledOnce;
+           this.errorSpy.should.not.have.been.called;
+           Backbone.BasicAuth.set.should.have.been.called;
+           Backbone.BasicAuth.set.restore();
+         }
+        );
+    });
+
     describe('events', function() {
       beforeEach(function(){
         this.successSpy = sinon.spy();

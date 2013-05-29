@@ -37,13 +37,6 @@
         _.template(
           window.tpl.get("settingsViewTemplate"), this.settingsInfo
         ));
-      // Inhibit checkbox response to physical click - we go via the anchor:
-      spiderOakApp.rememberMeSettingInterlock =
-          this.rememberMeSettingInterlock.bind(this);
-      this.$el.find("#settings-rememberme").attr(
-        "onclick",
-        "return spiderOakApp.rememberMeSettingInterlock(true);"
-      );
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -81,25 +74,12 @@
         spiderOakApp.defaultEffect
       );
     },
-    rememberMeSettingInterlock: function(value) {
-      if (typeof value !== "undefined") {
-        this.settings_rememberme_tapped = value;
-      }
-      return this.settings_rememberme_tapped;
-    },
     rememberMeSetting_tapHandler: function(event) {
       event.preventDefault();
-      if (! this.rememberMeSettingInterlock()) {
-        $("#settings-rememberme").trigger('click');
-        this.rememberMeSettingInterlock(false);
-      }
-      else {
-        this.rememberMeSettingInterlock(false);
-      }
+      $("#settings-rememberme").trigger('click');
     },
     rememberMe_changeHandler: function(event) {
       event.preventDefault();
-      this.rememberMeSettingInterlock(false);
       var rememberme = $(event.target).is(":checked");
       var b32username = spiderOakApp.accountModel.get("b32username");
       if (rememberme) {

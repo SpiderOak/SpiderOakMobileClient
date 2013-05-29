@@ -15,7 +15,7 @@
     <li>
       <a class="remember-me">
         <span style="float:left;color:#666;">Remember me</span>
-        <div class="checkswitch">
+        <div style="z-index: -1" class="checkswitch">
           <input type="checkbox" id="settings-rememberme"
                  name="settings-rememberme"
           <%= (spiderOakApp.accountModel.get("rememberme")) ? "checked='true'" : "" %> />

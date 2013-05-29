@@ -1,13 +1,15 @@
 /*jshint expr:true */
 describe('AccountModel', function() {
+  beforeEach(function(){
+    window.spiderOakApp.initialize();
+    this.accountModel = window.spiderOakApp.accountModel;
+  });
   describe('login/logout', function() {
     beforeEach(function(){
       this.server = sinon.fakeServer.create();
       this.username = "testusername";
       this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // "testusername" nibbler b32
       this.password = "testpassword";
-      this.accountModel =
-        spiderOakApp.accountModel = new spiderOakApp.AccountModel();
     });
 
     afterEach(function() {
@@ -86,9 +88,8 @@ describe('AccountModel', function() {
         );
     });
 
-    describe('password character sets', function() {
+    describe('passwords with international characters', function() {
       beforeEach(function(){
-        this.funkyCharPassword = "Æàáâãäåæ";
         this.xhr = sinon.useFakeXMLHttpRequest();
         this.requests = [];
         this.xhr.onCreate = function (xhr) {
@@ -102,13 +103,17 @@ describe('AccountModel', function() {
            this.b32username +
            "/login"]
         );
-        this.accountModel.login(this.username, this.funkyCharPassword,
-                                this.successSpy, this.errorSpy);
-        this.server.respond();
+      });
+      afterEach(function() {
+        this.xhr.restore();
       });
 
-      it('should convey passwords with funky characters to the server',
+      it('should convey passwords with latin characters to the server',
          function() {
+           this.funkyCharPassword = "Ã†Ã Ã¡Ã¢Ã£Ã¤Ã¥Ã¦";
+           this.accountModel.login(this.username, this.funkyCharPassword,
+                                   this.successSpy, this.errorSpy);
+           this.server.respond();
            this.requests.length.should.equal(1);
            // Get the password from the request body:
            this.decodedGotPass =
@@ -116,12 +121,21 @@ describe('AccountModel', function() {
                                   .split("&")[1]
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(this.funkyCharPassword);
-           delete this.gotPass;
+           delete this.decodedGotPass;
+           this.accountModel.basicAuthManager.setAccountBasicAuth(
+             this.accountname, this.funkyCharPassword);
          });
-
-      afterEach(function() {
-        this.xhr.restore();
-      });
+      it('should properly set HTML auth with btoa-breaking characters',
+         function() {
+           this.btoaBreakingPassword = "×©Ö¸××œ×•Ö¹×";
+           /* Exposed directly to this password, btoa would fail with:
+              "Error: INVALID_CHARACTER_ERR: DOM Exception 5" */
+           var bam = this.accountModel.basicAuthManager;
+           bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
+           bam.getAccountBasicAuth().should.equal(
+"Basic dW5kZWZpbmVkOiV1MDVFOSV1MDVCOCV1MDVDMSV1MDVEQyV1MDVENSV1MDVCOSV1MDVERA=="
+             );
+         });
     });
 
     describe('case-altered username', function(){
@@ -147,6 +161,36 @@ describe('AccountModel', function() {
            this.errorSpy.should.have.been.calledOnce;
            this.errorSpy.should.have.been.calledWith(403);
            Backbone.BasicAuth.set.should.not.have.been.called;
+           Backbone.BasicAuth.set.restore();
+         }
+        );
+    });
+
+    describe('different login and content-URL username', function(){
+      it('(blue) login should succeed when login username differs by more' +
+         ' than case from content-URL base32 encoded username',
+         function() {
+           this.blueLoginName = "test1@some.where.local";
+           // spiderOakApp.b32nibbler.encode("some_test_user_123") ===>
+           this.blueb32username = "ONXW2ZK7ORSXG5C7OVZWK4S7GEZDG";
+           sinon.spy(Backbone.BasicAuth,'set');
+           this.successSpy = sinon.spy();
+           this.errorSpy = sinon.spy();
+           // The server responds affirmatively to the case-altered username:
+           this.server.respondWith(
+             "POST",
+             "https://spideroak.com/browse/login",
+             [200, {"Content-Type": "text/html"},
+              "location:https://spideroak.com/storage/" +
+              this.blueb32username +
+              "/login"]
+           );
+           this.accountModel.login(this.blueLoginName, this.password,
+                                   this.successSpy, this.errorSpy);
+           this.server.respond();
+           this.successSpy.should.have.been.calledOnce;
+           this.errorSpy.should.not.have.been.called;
+           Backbone.BasicAuth.set.should.have.been.called;
            Backbone.BasicAuth.set.restore();
          }
         );

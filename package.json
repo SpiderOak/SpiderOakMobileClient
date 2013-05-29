@@ -1,6 +1,6 @@
 {
   "name": "SpiderOakMobile",
-  "version": "2.0.0",
+  "version": "2.0.1-beta.1",
   "description": "SpiderOak Mobile app",
   "main": "index.html",
   "scripts": {

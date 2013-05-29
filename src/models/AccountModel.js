@@ -100,7 +100,10 @@
             var storageHost = splat.slice(0, splat.length-3).join("/");
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
 
-            if (gotUsername !== username) {
+            if ((gotUsername !== username) &&
+                (gotUsername.toLowerCase() === username.toLowerCase())) {
+              // The server allows authentication with alphabetic case
+              // variations in username case, but we do not.
               errorCallback(403, "authentication failed", xhr);
               return;
             }
@@ -224,7 +227,8 @@
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
         if (accountUsername || accountPassword) {
-          Backbone.BasicAuth.set(accountUsername, accountPassword);
+          Backbone.BasicAuth.set(window.escape(accountUsername),
+                                 window.escape(accountPassword));
         }
         else {
           this.clear();
@@ -233,12 +237,14 @@
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {
-        Backbone.BasicAuth.set(username, password);
+        Backbone.BasicAuth.set(window.escape(username),
+                               window.escape(password));
         return this;
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       getAccountBasicAuth: function () {
-        var tok = accountUsername + ':' + accountPassword;
+        var tok = (window.escape(accountUsername) +
+                   ':' + window.escape(accountPassword));
         var hash = btoa(tok);
         return "Basic " + hash;
       },

@@ -17,11 +17,7 @@
       // might leave us in a strange state, but better then an endless hang...
       spiderOakApp.dialogView.hide();
       console.log(JSON.stringify(response.statusText));
-      spiderOakApp.dialogView.showNotify({
-        title: "<i class='icon-warning'></i> Error",
-        subtitle: "An error occurred.",
-        duration: 3000
-      });
+      spiderOakApp.dialogView.showNotifyErrorResponse(response);
     }
   });
 

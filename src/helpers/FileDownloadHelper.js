@@ -5,9 +5,6 @@
   "use strict";
   var console = window.console || {};
   console.log = console.log || function(){};
-  var Backbone    = window.Backbone,
-      _           = window._,
-      $           = window.$;
 
   var FileDownloadHelper = window.FileDownloadHelper = function() {
     // ...
@@ -69,10 +66,13 @@
             function gotFile(fileEntry) {
               var fileTransfer = new window.FileTransfer();
               fileTransfer.onprogress = options.onprogress || function(){};
-              $(document).one("backbutton", function(event) {
-                fileTransfer.abort();
-                errorCallback("File transfer aborted");
-              });
+              window.document.addEventListener("backbutton",
+                function abortHandler(event) {
+                  fileTransfer.abort();
+                  errorCallback("File transfer aborted");
+                  window.document.removeEventListener("backbutton", abortHandler);
+                },
+              false);
               fileTransfer.download(
                 options.from,
                 fileEntry.fullPath,

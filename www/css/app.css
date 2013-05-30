@@ -268,8 +268,8 @@ ul.rounded li:first-child {
 }
 
 .menu ul li {
-  background-color: #ccc;
-  border-color: #333;
+  background-color: #333;
+  border-color: #111;
 }
 
 .menu ul li a.active {

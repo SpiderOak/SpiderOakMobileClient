@@ -149,7 +149,7 @@ module.exports = function(grunt) {
           banner: '<%= meta.banner %>'
         },
         src: [
-          'www/css/themes/android.css'
+          'www/css/themes/ios.css'
         ],
         dest: 'www/css/platform.css'
       },

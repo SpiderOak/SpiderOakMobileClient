@@ -1,5 +1,7 @@
 <div class="content">
-  <ul class="hive-sep" style="display:none;"><li class="sep"></li></ul>
+  <ul class="hive-sep" style="display:none;">
+    <li class="sep"><%= (($.os.ios) ? "&nbsp;" : "") %></li>
+  </ul>
   <ul class="hive"></ul>
   <ul class="devices-sep" style="display:none;"><li class="sep">Devices</li></ul>
   <ul class="devices"></ul>
@@ -13,7 +15,9 @@
     <li><a class="favorites"><i class="icon-star"></i> Favorites</a></li>
     <li><a class="recents"><i class="icon-clock"></i> Recents</a></li>
     <li><a class="settings"><i class="icon-cog"></i> Settings</a></li>
-    <li class="sep"></li>
+  </ul>
+  <ul>
+    <li class="sep"><%= (($.os.ios) ? "&nbsp;" : "") %></li>
     <li><a class="about"><i class="icon-info"></i> About SpiderOak</a></li>
     <li><a class="logout"><i class="icon-exit"></i>
         Log <%= inorout %></a></li>

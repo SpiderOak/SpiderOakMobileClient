@@ -15,6 +15,7 @@
       "tap .send-feedback": "feedback_tapHandler",
       "tap .account-settings": "accountSettings_tapHandler",
       "tap .server": "server_tapHandler",
+      "tap .remember-me": "rememberMeSetting_tapHandler",
       "change #settings-rememberme": "rememberMe_changeHandler"
     },
     initialize: function() {
@@ -73,7 +74,12 @@
         spiderOakApp.defaultEffect
       );
     },
+    rememberMeSetting_tapHandler: function(event) {
+      event.preventDefault();
+      $("#settings-rememberme").trigger('click');
+    },
     rememberMe_changeHandler: function(event) {
+      event.preventDefault();
       var rememberme = $(event.target).is(":checked");
       var b32username = spiderOakApp.accountModel.get("b32username");
       if (rememberme) {

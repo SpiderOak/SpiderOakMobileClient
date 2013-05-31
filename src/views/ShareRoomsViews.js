@@ -151,11 +151,7 @@
 
       this.collection.fetch({
         error: function(collection, response, options) {
-          spiderOakApp.dialogView.showNotify({
-            title: "<i class='icon-warning'></i> Error",
-            subtitle: "An error occurred.",
-            duration: 4000
-          });
+          spiderOakApp.dialogView.showNotifyErrorResponse(response);
           this.render().addAll();
         }.bind(this)
       });
@@ -327,12 +323,14 @@
           share_id: shareId,
           room_key: roomKey
         }, {
-          error: function (model, xhr, options) {
-            spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-warning'></i> Not found",
-              subtitle: ("No such ShareRoom:<br>" + shareId +
-                         " / " + roomKey + ".")
-            });
+          error: function (model, response, options) {
+            spiderOakApp.dialogView.showNotifyErrorResponse(
+              response,
+              {
+                title: "<i class='icon-warning'></i> Not found",
+                subtitle: ("No such ShareRoom " + shareId +
+                           " / " + roomKey)
+              });
           }
         });
       }

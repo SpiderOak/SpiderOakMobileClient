@@ -32,6 +32,16 @@
       ));
       this.$el.show();
     },
+    showNotifyErrorResponse: function(response, options) {
+      options = options ? _.clone(options) : {};
+      options.title = options.title || "<i class='icon-warning'></i> Error";
+      options.duration = options.duration || 4000;
+      options.subtitle = ((options.subtitle && (options.subtitle + ": ")) ||
+                          "");
+      options.subtitle += (response.statusText || "Network timeout " +
+                           "<br>(status: " + response.status || 0 + ")");
+      return this.showNotify(options);
+    },
     showNotify: function(options) {
       options = options || {};
       options.title = options.title || "Done"; // terrible default ;)

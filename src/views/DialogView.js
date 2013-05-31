@@ -38,8 +38,8 @@
       options.duration = options.duration || 4000;
       options.subtitle = ((options.subtitle && (options.subtitle + ": ")) ||
                           "");
-      options.subtitle += (response.statusText || "Request timeout?" +
-                           " (" + response.status + ")");
+      options.subtitle += (response.statusText || "Network timeout " +
+                           "<br>(status: " + response.status || 0 + ")");
       return this.showNotify(options);
     },
     showNotify: function(options) {

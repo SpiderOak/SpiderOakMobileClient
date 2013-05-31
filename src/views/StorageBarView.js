@@ -16,11 +16,7 @@
       this.model.on("change", this.render, this );
       this.model.fetch({
         error: function(model, response, options) {
-          spiderOakApp.dialogView.showNotify({
-            title: "<i class='icon-warning'></i> Error",
-            subtitle: "An error occurred.",
-            duration: 4000
-          });
+          spiderOakApp.dialogView.showNotifyErrorResponse(response);
         }
       });
     },

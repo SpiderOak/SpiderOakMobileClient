@@ -96,7 +96,8 @@
             " computer to continue.  Thank you. -- The SpiderOak Team");
         }
         else {
-          msg = ("Temporary server failure. Please try again later.");
+          msg = ("Temporary server failure. Please try again later (" +
+                 status + ")");
         }
 
         spiderOakApp.dialogView.hide();

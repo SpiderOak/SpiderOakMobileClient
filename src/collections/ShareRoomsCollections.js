@@ -84,20 +84,20 @@
         this.saveRetainedRecords();
       }.bind(this);
       _.extend(options, {
-        success: function() {
+        success: function(model, response, options) {
           preserve(model);
           if (surroundingSuccess) {
-            surroundingSuccess();
+            surroundingSuccess(model, response, options);
           }
         }.bind(this),
-        error: function(model, xhr, options) {
+        error: function(model, response, options) {
           if (model.get("beenSituated")) {
             preserve(model);
           }
           else {
             this.remove(model);
             if (surroundingError) {
-              surroundingError();
+              surroundingError(model, response, options);
             }
           }
         }.bind(this)

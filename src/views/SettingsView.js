@@ -169,7 +169,8 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     getTemplateValues: function() {
-      return spiderOakApp.storageBarModel.toJSON();
+      return _.extend({loginname: spiderOakApp.accountModel.get("loginname")},
+                      spiderOakApp.storageBarModel.toJSON());
     },
     render: function() {
       this.$el.html(

@@ -18,6 +18,7 @@
       storage_web_url: "",      // Irrelevant to mobile client for now.
 
       isLoggedIn: false,
+      loginname: "",
       b32username: "",
       basicAuthCredentials: "",
       login_url: "",
@@ -112,6 +113,11 @@
             _self.set("login_url_start", "https://" + server + "/browse/login");
             _self.set("logout_url_preface", "https://" + server + "/storage/");
 
+            // The name by which they logged in.  (For Blue/enterprise
+            // users, it's different than b32decode(b32username.)
+            _self.set("loginname", username);
+            // The base32 encrypted version of the internal username used
+            // on the login and content urls.
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
             // Set the basicauth details:

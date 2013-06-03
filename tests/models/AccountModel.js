@@ -167,9 +167,7 @@ describe('AccountModel', function() {
     });
 
     describe('different login and content-URL username', function(){
-      it('(blue) login should succeed when login username differs by more' +
-         ' than case from content-URL base32 encoded username',
-         function() {
+      beforeEach(function() {
            this.blueLoginName = "test1@some.where.local";
            // spiderOakApp.b32nibbler.encode("some_test_user_123") ===>
            this.blueb32username = "ONXW2ZK7ORSXG5C7OVZWK4S7GEZDG";
@@ -188,10 +186,23 @@ describe('AccountModel', function() {
            this.accountModel.login(this.blueLoginName, this.password,
                                    this.successSpy, this.errorSpy);
            this.server.respond();
+      });
+      afterEach(function(){
+        Backbone.BasicAuth.set.restore();
+      });
+      it('Login to blue-style server should succeed - where login username' +
+         ' differs by more than case from content-URL base32 encoded username.',
+         function() {
            this.successSpy.should.have.been.calledOnce;
            this.errorSpy.should.not.have.been.called;
            Backbone.BasicAuth.set.should.have.been.called;
-           Backbone.BasicAuth.set.restore();
+         }
+        );
+      it('Blue-server login should yield accountModel "loginname" same' +
+         ' as that provided by user for login.',
+         function() {
+           this.accountModel.get("loginname").should.equal(
+             this.blueLoginName);
          }
         );
     });

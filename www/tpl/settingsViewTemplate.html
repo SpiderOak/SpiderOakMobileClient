@@ -12,18 +12,15 @@
         <div class="clearfix"></div>
       </a>
     </li>
-    <li>
-      <a class="remember-me">
-        <span style="float:left;color:#666;">Remember me</span>
-        <div style="z-index: -1" class="checkswitch">
-          <input type="checkbox" id="settings-rememberme"
-                 name="settings-rememberme"
+    <li style="padding: 15px 10px 25px 10px;">
+      <span style="float:left;color:#666;">Remember me</span>
+      <div class="checkswitch">
+        <input type="checkbox" id="settings-rememberme" name="settings-rememberme"
           <%= (spiderOakApp.accountModel.get("rememberme")) ? "checked='true'" : "" %> />
-          <label for="settings-rememberme">
-            <span data-off="No" data-on="Yes"></span>
-          </label>
-        </div>
-      </a>
+        <label for="settings-rememberme">
+          <span data-off="No" data-on="Yes"></span>
+        </label>
+      </div>
       <div class="clearfix"></div>
     </li>
   </ul>
@@ -40,7 +37,7 @@
   </ul>
   <ul><li class="sep">Version</li></ul>
   <ul style="font-size:80%;">
-    <li>
+    <li style="padding: 15px 10px 25px 10px;">
       <div class="label">Version</div>
       <div class="info"><%= spiderOakApp.version %></div>
       <div class="clearfix"></div>

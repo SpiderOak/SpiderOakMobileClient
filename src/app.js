@@ -369,6 +369,51 @@
     return result;
   };
 
+  if (! window.cordova || window.cordova.cordovaAbsent) {
+    /* Polyfill for file downloader functionality. */
+    // This enables, eg, creating favorites.  You still can't view files...
+    // We can't do this in cordova polyfills, because it depends on
+    // spiderOakApp object existing.
+    if (! window.LocalFileSystem) {
+      window.LocalFileSystem = {TEMPORARY: 0,
+                                PERSISTENT: 1};
+    }
+    if (! window.requestFileSystem) {
+      window.requestFileSystem = function (options, something,
+                                           gotFS, notGotFS) {
+        // Call the gotFS(filesystem) success callback
+        return gotFS({
+          // ... on a pseudo-filesystem object with a 'root' element:
+          root: {
+            // ... with a 'getFile' method:
+            getFile: function (path, options, gotFile, notGotFile) {
+              // ... that applies a gotFile success callback:
+              return gotFile({
+                // ... to a pseudo-fileEntry object with a 'remove' method:
+                remove: function (removed, notRemoved) {
+                  // ... that calls its' removed callback:
+                  return removed();
+                }
+              });
+            }}
+        });
+      };
+    }
+    if (! window.FileTransfer) {
+      spiderOakApp.downloader.downloadFile = function (downloadOptions,
+                                                       successCallback,
+                                                       errorCallback) {
+        console.log("fake downloadFile");
+        spiderOakApp.dialogView.showWait({
+          title: "Debugging mode: Contents not dowloaded"
+        });
+        var dummyFileEntry = {fullPath: "/sdcard" + downloadOptions.to,
+                              name: downloadOptions.fileName};
+        return successCallback(dummyFileEntry);
+      };
+    }
+  }
+
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 
 /* Function.bind polyfill */

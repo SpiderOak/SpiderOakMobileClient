@@ -14,7 +14,7 @@
     events: {
       "tap .send-feedback": "feedback_tapHandler",
       "tap .account-settings": "accountSettings_tapHandler",
-      "tap .server": "server_tapHandler",
+      //"tap .server": "server_tapHandler",
       "change #settings-rememberme": "rememberMe_changeHandler"
     },
     initialize: function() {

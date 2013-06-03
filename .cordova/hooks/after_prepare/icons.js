@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-(function() {
+(function(require) {
   var projectName = 'SpiderOak',
     fs = require('fs'),
     path = require('path'),
@@ -7,7 +7,7 @@
     androidDest = path.join('.', 'platforms', 'android', 'res'),
     iOSDest = path
       .join('.', 'platforms', 'ios', projectName, 'Resources', 'icons');
-  
+
   var androidIcons = [
     { file: 'cordova_android_96.png', dest: 'drawable' },
     { file: 'cordova_android_72.png', dest: 'drawable-hdpi' },
@@ -21,16 +21,18 @@
     { file: 'cordova_ios_72.png', dest: 'icon72.png' },
     { file: 'cordova_ios_144.png', dest: 'icon72@2x.png' }
   ];
-  
+
   function copyFile(from, to) {
     var readStream = fs.createReadStream(from);
     readStream.pipe(fs.createWriteStream(to));
   }
-  
+
   if (fs.existsSync(res)) {
     // Android
     if (fs.existsSync(androidDest)) {
-      for (var idx in androidIcons) {
+      console.log("[hooks] copying android icons...");
+      var idx;
+      for (idx in androidIcons) {
         copyFile(
           path.join(res, androidIcons[idx].file),
           path.join(androidDest, androidIcons[idx].dest, 'icon.png')
@@ -38,8 +40,10 @@
       }
     }
     if (fs.existsSync(iOSDest)) {
+      console.log("[hooks] copying ios icons...");
       // iOS
-      for (var idx in iOSIcons) {
+      var idx;
+      for (idx in iOSIcons) {
         copyFile(
           path.join(res, iOSIcons[idx].file),
           path.join(iOSDest, iOSIcons[idx].dest)
@@ -47,5 +51,5 @@
       }
     }
   }
-  
-})();
+
+})(require);

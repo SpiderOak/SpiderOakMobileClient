@@ -235,8 +235,7 @@ module.exports = function(grunt) {
   // Custom tasks
   grunt.registerTask('test', ['jshint', 'concat', 'shell:mochaspec']);
   grunt.registerTask('min', ['uglify']); // polyfil
-  grunt.registerTask('debug_ios', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_ios']);
-  grunt.registerTask('debug_android', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_android']);
+  // Build tasks
   grunt.registerTask('debug','Create a debug build', function(platform) {
     grunt.task.run('jshint', 'concat', 'shell:mochadot');
     grunt.task.run('shell:debug_' + platform);
@@ -247,4 +246,8 @@ module.exports = function(grunt) {
   grunt.registerTask('production','Create a production build', function(platform) {
     grunt.log.writeln('Placeholder for production build task');
   });
+  // deprecated
+  grunt.registerTask('debug_ios', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_ios']);
+  grunt.registerTask('debug_android', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_android']);
+
 };

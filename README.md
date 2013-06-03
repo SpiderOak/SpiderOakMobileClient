@@ -1,6 +1,7 @@
 # Overview
 
 [![Build Status](https://travis-ci.org/SpiderOak/SpiderOakMobileClient.png)](https://travis-ci.org/SpiderOak/SpiderOakMobileClient)
+[![Project Status](http://githubkanban.herokuapp.com/images/SpiderOakMobileClient.png)](http://bit.ly/11eaQzI)
 
 [SpiderOak](http://spideroak.com) is working on reimplementing its client applications for mobile devices as a central, platform-independent HTML5 / Javascript / CSS core with native extensions to fill in the functionality gaps. This is intended to replace the current, platform-specific native applications. We see many potential benefits to the html5 approach, among them being implementation in a widely used, comprehensible (if we're careful) medium that can be very useful to others.
 

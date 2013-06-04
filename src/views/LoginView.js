@@ -182,10 +182,7 @@
       _.bindAll(this);
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          window.tpl.get("rememberMeWarningViewTemplate")
-        ));
+      this.$el.html(window.tmpl["rememberMeWarningViewTemplate"]());
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,

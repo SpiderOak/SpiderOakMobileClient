@@ -2,25 +2,25 @@
   <div class="icon">
     <i class='icon-cloud-upload'></i>
   </div>
-  <% if (password_required) { %>
+  {{ if (it.password_required) { }}
     <div class="foldername">
       <i class="icon-lock" style="color:#999;font-size:80%;"></i>
-      <em><%= share_id %> / <%= room_key %></em>
+      <em>{{=it.share_id}} / {{=it.room_key}}</em>
     </div>
-  <% } else { %>
+  {{ } else { }}
     <div class="foldername">
-      <% if (name) { %>
-        <% if (password) { %>
+      {{ if (it.name) { }}
+        {{?it.password}}
         <i class="icon-unlocked" style="color:#999;font-size:80%;"></i>
-        <% } %>
-      <%= name %>
-      <% } else if (beenSituated) { %>
+        {{?}}
+        {{=it.name}}
+      {{ } else if (it.beenSituated) { }}
       <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
-      <em><%= share_id %> / <%= room_key %></em>
-      <% } else { %>
+      <em>{{=it.share_id}} / {{=it.room_key}}</em>
+      {{ } else { }}
          <span style='color:#999;'>Loading...</span>
-      <% } %>
+      {{ } }}
     </div>
-  <% } %>
+  {{ } }}
   <div class='rightButton removePublicShare'><i class='icon-close'></i></div>
 </a>

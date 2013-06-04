@@ -32,10 +32,7 @@
       this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.get("server").get("value")});
-      this.$el.html(
-        _.template(
-          window.tpl.get("settingsViewTemplate"), this.settingsInfo
-        ));
+      this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -173,12 +170,7 @@
                       spiderOakApp.storageBarModel.toJSON());
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          window.tpl.get(this.templateID),
-          this.getTemplateValues()
-        )
-      );
+      this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -243,8 +235,7 @@
       });
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get(this.templateID),
-                               this.getTemplateValues()));
+      this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
     getTemplateValues: function() {

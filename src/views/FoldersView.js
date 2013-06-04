@@ -18,8 +18,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("folderViewTemplate"),
-        this.model.toJSON()));
+      this.$el.html(window.tmpl["folderViewTemplate"](this.model.toJSON()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -193,11 +192,9 @@
       _.bindAll(this);
     },
     render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("folderItemViewTemplate"),
+      this.$el.html(window.tmpl["folderItemViewTemplate"](
           this.model.toJSON()
-        )
-      );
+      ));
       var options = {
         id: this.model.cid,
         model: this.model

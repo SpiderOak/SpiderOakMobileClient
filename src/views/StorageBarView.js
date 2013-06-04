@@ -22,12 +22,7 @@
     },
     render: function() {
       this.$el.empty();
-      this.$el.html(
-        _.template(
-          window.tpl.get("storageBarTemplate"),
-          this.model.toJSON()
-        )
-      );
+      this.$el.html(window.tmpl["storageBarTemplate"](this.model.toJSON()));
       return this;
     },
     empty: function() {

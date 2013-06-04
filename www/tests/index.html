@@ -55,6 +55,7 @@
     </script>
     <!-- SpiderOak app js -->
     <script src="../js/SpiderOakMobile.js"></script>
+    <script src="../js/SpiderOak-templates.js"></script>
     <!-- initialize mocha/chai/etc -->
     <script>
       mocha.ui('bdd');
@@ -64,42 +65,42 @@
     </script>
     <script src="./SpiderOakMobile-tests.js"></script>
     <script>
-      tpl.loadTemplates(
-        '../tpl',
-        [
-          'rememberMeWarningViewTemplate',
-          'aboutSpiderOakViewTemplate',
-          'menusheetTemplate',
-          'storageBarTemplate',
-          'favoritesViewTemplate',
-          'recentsViewTemplate',
-          'settingsViewTemplate',
-          'settingsAccountViewTemplate',
-          'settingsServerViewTemplate',
-          'folderViewTemplate',
-          'folderItemViewTemplate',
-          'addShareRoomTemplate',
-          'getShareRoomPasswordTemplate',
-          'publicShareRoomItemViewTemplate',
-          'shareItemDetailsViewTemplate',
-          'pubshareItemDetailsViewTemplate',
-          'shareRoomsRootViewTemplate',
-          'shareRoomItemViewTemplate',
-          'fileItemViewTemplate',
-          'fileItemViewMinTemplate',
-          'fileItemDetailsViewTemplate',
-          'fileItemDetailsToolbarViewTemplate',
-          'fileVersionsItemViewTemplate',
-          'fileVersionsItemViewMinTemplate',
-          'androidContextPopup',
-          'progressDialog',
-          'waitDialog'
-        ],
-        function() {
+      // tpl.loadTemplates(
+      //   '../tpl',
+      //   [
+      //     'rememberMeWarningViewTemplate',
+      //     'aboutSpiderOakViewTemplate',
+      //     'menusheetTemplate',
+      //     'storageBarTemplate',
+      //     'favoritesViewTemplate',
+      //     'recentsViewTemplate',
+      //     'settingsViewTemplate',
+      //     'settingsAccountViewTemplate',
+      //     'settingsServerViewTemplate',
+      //     'folderViewTemplate',
+      //     'folderItemViewTemplate',
+      //     'addShareRoomTemplate',
+      //     'getShareRoomPasswordTemplate',
+      //     'publicShareRoomItemViewTemplate',
+      //     'shareItemDetailsViewTemplate',
+      //     'pubshareItemDetailsViewTemplate',
+      //     'shareRoomsRootViewTemplate',
+      //     'shareRoomItemViewTemplate',
+      //     'fileItemViewTemplate',
+      //     'fileItemViewMinTemplate',
+      //     'fileItemDetailsViewTemplate',
+      //     'fileItemDetailsToolbarViewTemplate',
+      //     'fileVersionsItemViewTemplate',
+      //     'fileVersionsItemViewMinTemplate',
+      //     'androidContextPopup',
+      //     'progressDialog',
+      //     'waitDialog'
+      //   ],
+      // function() {
           if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
           else { mocha.run(); }
-        }
-      );
+      //   }
+      // );
     </script>
   </body>
 </html>

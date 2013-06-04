@@ -17,7 +17,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("recentsViewTemplate"),{}));
+      this.$el.html(window.tmpl["recentsViewTemplate"]());
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,

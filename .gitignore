@@ -12,3 +12,4 @@ _SpecRunner.html
 plugins/**/*
 merges/ios/css/platform.css
 merges/android/css/platform.css
+www/js/SpiderOak-templates.js

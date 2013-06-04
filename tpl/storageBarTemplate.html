@@ -1,0 +1,10 @@
+<div class="bar-graph">
+  <div class="inner" style="width:{{=it.percentUsed}}%;"></div>
+</div>
+<div class="devices-info">
+  <div style="float:left;">
+    {{=it.devices}} device{{= ((it.devices > 1) ? "s" : "") }}
+  </div>
+  <div style="float:right;">{{=it.backupsize}} / {{=it.size}} GB</div>
+  <div class="clear"></div>
+</div>

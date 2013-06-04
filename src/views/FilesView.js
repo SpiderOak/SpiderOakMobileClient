@@ -657,16 +657,12 @@
     render: function() {
       // if (window.Modernizr.overflowscrolling) {
         this.$el.html(
-          _.template(window.tpl.get("fileItemViewTemplate"),
-            this.model.toJSON()
-          )
+          window.tmpl["fileItemViewTemplate"](this.model.toJSON())
         );
       // }
       // else {
       //   this.$el.html(
-      //     _.template(window.tpl.get("fileItemViewMinTemplate"),
-      //       this.model.toJSON()
-      //     )
+      //     window.tmpl["fileItemViewMinTemplate"](this.model.toJSON())
       //   );
       // }
       this.$("a").data("model",this.model);
@@ -791,8 +787,9 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("fileItemDetailsViewTemplate"),
-        this.model.toJSON()));
+      this.$el.html(
+        window.tmpl["fileItemDetailsViewTemplate"](this.model.toJSON())
+      );
       // spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
       spiderOakApp.mainView.setTitle("Details");
 
@@ -895,10 +892,10 @@
     },
     render: function() {
       this.$el.html(
-        _.template(window.tpl.get("fileItemDetailsToolbarViewTemplate"),
-         {isFavorite: this.model.get("isFavorite"),
-           disabled: this.options.disabled}
-        )
+        window.tmpl["fileItemDetailsToolbarViewTemplate"]({
+          isFavorite: this.model.get("isFavorite"),
+          disabled: this.options.disabled
+        })
       );
       return this;
     },
@@ -953,18 +950,14 @@
     render: function() {
       // fileVersionsItemViewMinTemplate
       // if (window.Modernizr.overflowscrolling) {
-        this.$el.html(
-          _.template(window.tpl.get("fileVersionsItemViewTemplate"),
-            this.model.toJSON()
-          )
-        );
+        this.$el.html(window.tmpl["fileVersionsItemViewTemplate"](
+          this.model.toJSON()
+        ));
       // }
       // else {
-      //   this.$el.html(
-      //     _.template(window.tpl.get("fileVersionsItemViewMinTemplate"),
-      //       this.model.toJSON()
-      //     )
-      //   );
+      //   this.$el.html(window.tmpl["fileVersionsItemViewMinTemplate"](
+      //     this.model.toJSON()
+      //   ));
       // }
       this.$("a").data("model",this.model);
       return this;

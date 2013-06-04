@@ -2,43 +2,43 @@
   <ul style="font-size:80%;">
     <li>
       <div class="label">Name</div>
-      <div class="info"><%= firstname + " " + lastname %></div>
+      <div class="info">{{=it.firstname + " " + it.lastname}}</div>
       <div class="clearfix"></div>
     </li>
-    <% if (spiderOakApp.b32nibbler.decode(
-               spiderOakApp.accountModel.get("b32username")) !==
-            loginname) { %>
+    {{ if (spiderOakApp.b32nibbler.decode(
+               spiderOakApp.accountModel.get("b32username")
+          ) !== it.loginname) { }}
     <li>
       <div class="label">Login name</div>
       <div class="info">
-        <%= loginname %>
+        {{=it.loginname}}
       </div>
       <div class="clearfix"></div>
     </li>
-      <% } %>
+    {{ } }}
     <li>
       <div class="label">Username</div>
       <div class="info">
-        <%= spiderOakApp.b32nibbler.decode(
+        {{=spiderOakApp.b32nibbler.decode(
           spiderOakApp.accountModel.get("b32username")
-        ) %>
+        )}}
       </div>
       <div class="clearfix"></div>
     </li>
     <li>
       <div class="label">Used</div>
-      <div class="info"><%= backupsize %></div>
+      <div class="info">{{it.backupsize}}</div>
       <div class="clearfix"></div>
     </li>
     <li>
       <div class="label">Total</div>
-      <div class="info"><%= size %>GB</div>
+      <div class="info">{{it.size}}GB</div>
       <div class="clearfix"></div>
     </li>
     <li>
       <div class="label">Devices</div>
       <div class="info">
-        <%= spiderOakApp.menuSheetView.devicesCollection.length %>
+        {{=spiderOakApp.menuSheetView.devicesCollection.length}}
       </div>
       <div class="clearfix"></div>
     </li>

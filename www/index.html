@@ -86,43 +86,10 @@
     <script src="components/moment/moment.js"></script>
     <!-- SpiderOakMobile script -->
     <script src="js/SpiderOakMobile.js"></script>
+    <script src="js/SpiderOak-templates.js"></script>
     <!-- initialization -->
     <script type="text/javascript">
-      tpl.loadTemplates(
-        'tpl',
-        [
-          'rememberMeWarningViewTemplate',
-          'aboutSpiderOakViewTemplate',
-          'menusheetTemplate',
-          'storageBarTemplate',
-          'favoritesViewTemplate',
-          'recentsViewTemplate',
-          'settingsViewTemplate',
-          'settingsAccountViewTemplate',
-          'settingsServerViewTemplate',
-          'folderViewTemplate',
-          'folderItemViewTemplate',
-          'addShareRoomTemplate',
-          'getShareRoomPasswordTemplate',
-          'publicShareRoomItemViewTemplate',
-          'shareItemDetailsViewTemplate',
-          'pubshareItemDetailsViewTemplate',
-          'shareRoomsRootViewTemplate',
-          'shareRoomItemViewTemplate',
-          'fileItemViewTemplate',
-          'fileItemViewMinTemplate',
-          'fileItemDetailsViewTemplate',
-          'fileItemDetailsToolbarViewTemplate',
-          'fileVersionsItemViewTemplate',
-          'fileVersionsItemViewMinTemplate',
-          'androidContextPopup',
-          'progressDialog',
-          'waitDialog'
-        ],
-        function() {
-          window.spiderOakApp && window.spiderOakApp.initialize();
-        }
-      );
+      window.spiderOakApp && window.spiderOakApp.initialize();
     </script>
   </body>
 </html>

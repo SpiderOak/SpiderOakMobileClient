@@ -24,10 +24,7 @@
       };
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          window.tpl.get("aboutSpiderOakViewTemplate"), this.settings
-        ));
+      this.$el.html(window.tmpl['aboutSpiderOakViewTemplate'](this.settings));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -95,9 +92,8 @@
     },
     render: function() {
       this.$el.html(
-        _.template(
-          window.tpl.get("aboutSpiderOakViewTemplate"), this.settings
-        ));
+        window.tmpl['aboutSpiderOakViewTemplate'](this.settings)
+      );
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,

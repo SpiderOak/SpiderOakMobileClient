@@ -1,0 +1,6 @@
+<a>
+  <div style="overflow:hidden;text-overflow:ellipsis;width:100%;"
+    class="icon-{{=it.icon}}{{?it.isFavorite}} favorite{{?}}">
+    {{=window.moment(it.mtime+"", "X").format("llll")}}
+  </div>
+</a>

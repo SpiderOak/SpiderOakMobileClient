@@ -28,9 +28,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(
-        window.tpl.get("shareRoomsRootViewTemplate"),{})
-      );
+      this.$el.html(window.tmpl["shareRoomsRootViewTemplate"]());
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -273,9 +271,8 @@
     render: function() {
       var remembering = spiderOakApp.settings
                           .getOrDefault("shareroomsRemembering", 0);
-      this.$el.html(_.template(
-        window.tpl.get("addShareRoomTemplate"),
-        {"remembering": remembering})
+      this.$el.html(
+        window.tmpl["addShareRoomTemplate"]({"remembering": remembering})
       );
       return this;
     },
@@ -394,12 +391,7 @@
       _.bindAll(this, "render");
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          window.tpl.get(this.templateID),
-          this.model.toJSON()
-        )
-      );
+      this.$el.html(window.tmpl[this.templateID](this.model.toJSON()));
       return this;
     },
     descend_tapHandler: function(event) {
@@ -636,10 +628,8 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(
-        window.tpl.get(this.templateID),
-        _.extend(this.model.toJSON())
-      ));
+      // Why is this.model.toJSON() being extended with nothing? 
+      this.$el.html(window.tmpl[this.templateID](_.extend(this.model.toJSON())));
       spiderOakApp.mainView.setTitle("Details");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -685,8 +675,7 @@
       });
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get(this.templateID),
-                               this.getTemplateValues()));
+      this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
     getTemplateValues: function() {

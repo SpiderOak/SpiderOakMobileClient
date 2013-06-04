@@ -69,7 +69,6 @@ module.exports = function(grunt) {
         },
         src: [
           'src/helpers/FileHelper.js',
-          'src/helpers/Templates.js',
           'src/helpers/FileDownloadHelper.js',
           'src/helpers/Migrator.js',
           'src/effects/FastSlideEffect.js',
@@ -177,9 +176,10 @@ module.exports = function(grunt) {
         '<%= jshint.files %>',
         'www/spec/**/*.js',
         'tests/**/*',
-        'www/css/**/*.scss'
+        'www/css/**/*.scss',
+        'tpl/**/*.html'
       ],
-      tasks: ['jshint', 'concat', 'shell:mochadot']
+      tasks: ['jshint', 'dot', 'concat', 'shell:mochadot']
     },
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js'],
@@ -221,6 +221,16 @@ module.exports = function(grunt) {
         ],
         dest: 'www/components/zepto/zepto.min.js'
       }
+    },
+    dot: {
+      dist: {
+        options: {
+          variable  : 'tmpl',
+          requirejs : false
+        },
+        src  : ['tpl/**/*.html'],
+        dest : 'www/js/SpiderOak-templates.js'
+      }
     }
   });
 
@@ -229,13 +239,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-dot-compiler');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'concat', 'shell:mochadot']);
+  grunt.registerTask('default', ['jshint', 'dot', 'concat', 'shell:mochadot']);
   // Custom tasks
-  grunt.registerTask('test', ['jshint', 'concat', 'shell:mochaspec']);
+  grunt.registerTask('test', ['jshint', 'dot', 'concat', 'shell:mochaspec']);
   grunt.registerTask('min', ['uglify']); // polyfil
-  grunt.registerTask('debug_ios', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_ios']);
-  grunt.registerTask('debug_android', ['jshint', 'concat', 'shell:mochadot', 'shell:debug_android']);
+  grunt.registerTask('debug_ios', ['jshint', 'dot', 'concat', 'shell:mochadot', 'shell:debug_ios']);
+  grunt.registerTask('debug_android', ['jshint', 'dot', 'concat', 'shell:mochadot', 'shell:debug_android']);
 
 };

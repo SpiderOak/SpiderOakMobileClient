@@ -33,7 +33,7 @@
     render: function(refresh) {
       var inOrOut = {"inorout":
                      spiderOakApp.accountModel.get("isLoggedIn") ?"Out" :"In"};
-      this.$el.html(_.template(window.tpl.get("menusheetTemplate"), inOrOut));
+      this.$el.html(window.tmpl["menusheetTemplate"](inOrOut));
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       if (spiderOakApp.accountModel.get("isLoggedIn")) {

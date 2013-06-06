@@ -28,9 +28,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(
-        window.tpl.get("shareRoomsRootViewTemplate"),{})
-      );
+      this.$el.html(window.tmpl["shareRoomsRootViewTemplate"]());
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -151,11 +149,7 @@
 
       this.collection.fetch({
         error: function(collection, response, options) {
-          spiderOakApp.dialogView.showNotify({
-            title: "<i class='icon-warning'></i> Error",
-            subtitle: "An error occurred.",
-            duration: 4000
-          });
+          spiderOakApp.dialogView.showNotifyErrorResponse(response);
           this.render().addAll();
         }.bind(this)
       });
@@ -277,9 +271,8 @@
     render: function() {
       var remembering = spiderOakApp.settings
                           .getOrDefault("shareroomsRemembering", 0);
-      this.$el.html(_.template(
-        window.tpl.get("addShareRoomTemplate"),
-        {"remembering": remembering})
+      this.$el.html(
+        window.tmpl["addShareRoomTemplate"]({"remembering": remembering})
       );
       return this;
     },
@@ -300,8 +293,8 @@
     },
     form_submitHandler: function(event) {
       var remember = this.$("[name=remember]").is(":checked") ? 1 : 0,
-          shareId = this.$("[name=shareid]").val(),
-          roomKey = this.$("[name=roomkey]").val(),
+          shareId = this.$("[name=shareid]").val().trim(),
+          roomKey = this.$("[name=roomkey]").val().trim(),
           pubShares = spiderOakApp.publicShareRoomsCollection;
 
       event.preventDefault();
@@ -327,12 +320,14 @@
           share_id: shareId,
           room_key: roomKey
         }, {
-          error: function (model, xhr, options) {
-            spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-warning'></i> Not found",
-              subtitle: ("No such ShareRoom:<br>" + shareId +
-                         " / " + roomKey + ".")
-            });
+          error: function (model, response, options) {
+            spiderOakApp.dialogView.showNotifyErrorResponse(
+              response,
+              {
+                title: "<i class='icon-warning'></i> Not found",
+                subtitle: ("No such ShareRoom " + shareId +
+                           " / " + roomKey)
+              });
           }
         });
       }
@@ -396,12 +391,7 @@
       _.bindAll(this, "render");
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          window.tpl.get(this.templateID),
-          this.model.toJSON()
-        )
-      );
+      this.$el.html(window.tmpl[this.templateID](this.model.toJSON()));
       return this;
     },
     descend_tapHandler: function(event) {
@@ -638,10 +628,8 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(
-        window.tpl.get(this.templateID),
-        _.extend(this.model.toJSON())
-      ));
+      // Why is this.model.toJSON() being extended with nothing? 
+      this.$el.html(window.tmpl[this.templateID](_.extend(this.model.toJSON())));
       spiderOakApp.mainView.setTitle("Details");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -687,8 +675,7 @@
       });
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get(this.templateID),
-                               this.getTemplateValues()));
+      this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
     getTemplateValues: function() {

@@ -1,55 +1,55 @@
 <div class="fileDetails-container">
   <div class="fileDetails">
-    <div><i class="icon-<%= icon %> icon-large"></i> <%= kind %> </div>
-    <% if (password_required) { %>
+    <div><i class="icon-{{=it.icon}} icon-large"></i> {{=it.kind}} </div>
+    {{ if (it.password_required) { }}
     <div> <span> <strong> Password pending </strong> </span> </div>
-    <% } else if (!name) { %>
+    {{ } else if (!it.name) { }}
     <div> <span> <strong> Successful fetch pending </strong> </span> </div>
-    <% } else { %>
+    {{ } else { }}
     <div>
-      <span class="name"><%= name %></span>
+      <span class="name">{{=it.name }}</span>
     </div>
-    <% } %>
+    {{ } }}
     <div class="section">
       <div>
         <span class="label">Share ID:</span>
-        <%= share_id %>
+        {{=it.share_id}}
       </div>
       <div>
         <span class="label">Room Key:</span>
-        <%= room_key %>
+        {{=it.room_key }}
       </div>
-      <% if (name) { %>
+      {{ if (it.name) { }}
       <div>
         <span class="label">Owner:</span>
-        <%= owner_firstname %> <%= owner_lastname %>
+        {{=it.owner_firstname }} {{=it.owner_lastname }}
       </div>
       <div>
         <span class="label">Description:</span>
-        <blockquote> <%= description %> </blockquote>
+        <blockquote> {{=it.description }} </blockquote>
       </div>
       <div>
         <span class="label">Folders:</span>
-        <%= number_of_folders %>
+        {{=it.number_of_folders }}
       </div>
       <div>
         <span class="label">Files:</span>
-        <%= number_of_files %>
+        {{=it.number_of_files }}
       </div>
-      <% } %>
+      {{ } }}
       <div>
         <span class="label">Remembering:</span>
-        <% if (remember) { %>
+        {{ if (it.remember) { }}
         Yes
-        <% } else { %>
+        {{ } else { }}
         No
-        <% } %>
+        {{ } }}
       </div>
-      <% if (! password_required && password) { %>
+      {{ if (! it.password_required && it.password) { }}
       <div>
         <span class="label">Password</span> Protected
       </div>
-      <% } %>
+      {{ } }}
     </div>
   </div>
 </div>

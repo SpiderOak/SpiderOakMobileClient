@@ -1,0 +1,22 @@
+<div class="fileDetails-container">
+  <div class="fileDetails">
+    <div><i class="icon-{{=it.icon}} icon-large"></i> {{=it.description}} file</div>
+    <div class="name">{{=it.name}}</div>
+    <div class="section">
+      <div><span class="label">Size:</span>
+        {{=window.fileHelper.readableFileSize(it.size)}}
+      </div>
+      <div><span class="label">Created:</span>
+        {{=window.moment(it.ctime+"", "X").format("llll")}}
+      </div>
+      <div><span class="label">Last Modified:</span>
+        {{=window.moment(it.mtime+"", "X").format("llll")}}
+      </div>
+    </div>
+  </div>
+  <div class="versions" style="display:none;">
+    <ul class="versionsViewLoading loadingVersions">
+      <li class="sep">Loading...</li>
+    </ul>
+  </div>
+</div>

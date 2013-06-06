@@ -26,21 +26,25 @@
       options = options || {};
       options.title = options.title || "Please wait";
       options.subtitle = options.subtitle || "";
-      this.$el.html(_.template(
-        window.tpl.get("waitDialog"),
-        options
-      ));
+      this.$el.html(window.tmpl["waitDialog"](options));
       this.$el.show();
+    },
+    showNotifyErrorResponse: function(response, options) {
+      options = options ? _.clone(options) : {};
+      options.title = options.title || "<i class='icon-warning'></i> Error";
+      options.duration = options.duration || 4000;
+      options.subtitle = ((options.subtitle && (options.subtitle + ": ")) ||
+                          "");
+      options.subtitle += (response.statusText || "Network timeout " +
+                           "<br>(status: " + response.status || 0 + ")");
+      return this.showNotify(options);
     },
     showNotify: function(options) {
       options = options || {};
       options.title = options.title || "Done"; // terrible default ;)
       options.subtitle = options.subtitle || "";
       options.duration = options.duration || 2000; // in ms
-      this.$el.html(_.template(
-        window.tpl.get("waitDialog"),
-        options
-      ));
+      this.$el.html(window.tmpl["waitDialog"](options));
       this.$(".fadingBarsG").hide();
       this.$el.show();
       window.setTimeout(function(){
@@ -57,10 +61,7 @@
       options.title = options.title || "Please wait";
       options.subtitle = options.subtitle || "";
       options.start = options.start || 0;
-      this.$el.html(_.template(
-        window.tpl.get("progressDialog"),
-        options
-      ));
+      this.$el.html(window.tmpl["progressDialog"](options));
       this.$el.show();
     },
     updateProgress: function(progressPercent) {
@@ -113,10 +114,11 @@
       _.bindAll(this);
     },
     render: function() {
-      this.$el.html(_.template(
-        window.tpl.get("androidContextPopup"),
-        {items: this.options.items}
-      ));
+      this.$el.html(
+        window.tmpl["androidContextPopup"]({
+          items: this.options.items
+        })
+      );
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: false,

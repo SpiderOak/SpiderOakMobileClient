@@ -24,11 +24,7 @@
         error: function(collection, response, options) {
           this.render().addAll();
           console.log(JSON.stringify(response.statusText));
-          spiderOakApp.dialogView.showNotify({
-            title: "<i class='icon-warning'></i> Error",
-            subtitle: "An error occurred.",
-            duration: 3000
-          });
+          spiderOakApp.dialogView.showNotifyErrorResponse(response);
         }.bind(this)
       });
     },
@@ -37,8 +33,12 @@
       return this;
     },
     addOne: function(model) {
-      if (spiderOakApp.maxEntries && this.fileCounter > spiderOakApp.maxEntries) {
+      if (spiderOakApp.maxEntries &&
+          this.fileCounter > spiderOakApp.maxEntries) {
         return;
+      }
+      if (this.collection.getPassword()) {
+        model.setPassword(this.collection.getPassword());
       }
       this.fileCounter++;
       // @FIXME: Is this the best pattern for this?
@@ -171,8 +171,8 @@
       }
       else {
         navigator.notification.confirm(
-          "Do you want to add this file to your favorites? This will download " +
-            "the file to your device.",
+          "Do you want to add this file to your favorites? This will " +
+              " download the contents to your device.",
           this.saveFavoriteConfirmed,
           "Favorites"
         );
@@ -589,7 +589,7 @@
     removeFavorite: function() {
       // Confirmation dialog
       navigator.notification.confirm(
-        "Do you want to remove this file to your favorites?",
+        "Do you want to remove this file from your favorites?",
         function(button) {
           if (button !== 1) {
             return;
@@ -657,16 +657,12 @@
     render: function() {
       // if (window.Modernizr.overflowscrolling) {
         this.$el.html(
-          _.template(window.tpl.get("fileItemViewTemplate"),
-            this.model.toJSON()
-          )
+          window.tmpl["fileItemViewTemplate"](this.model.toJSON())
         );
       // }
       // else {
       //   this.$el.html(
-      //     _.template(window.tpl.get("fileItemViewMinTemplate"),
-      //       this.model.toJSON()
-      //     )
+      //     window.tmpl["fileItemViewMinTemplate"](this.model.toJSON())
       //   );
       // }
       this.$("a").data("model",this.model);
@@ -676,6 +672,7 @@
       event.preventDefault();
       event.stopPropagation();
       if ($("#main").hasClass("open")) {
+        spiderOakApp.mainView.closeMenu();
         return;
       }
       if ($(event.target).hasClass("icon-star-2") ||
@@ -697,6 +694,9 @@
     a_longTapHandler: function(event) {
       event.preventDefault();
       event.stopPropagation();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       var items = [
           {className: "open", description: "Open"},
           {className: "details", description: "Details"},
@@ -787,8 +787,9 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("fileItemDetailsViewTemplate"),
-        this.model.toJSON()));
+      this.$el.html(
+        window.tmpl["fileItemDetailsViewTemplate"](this.model.toJSON())
+      );
       // spiderOakApp.mainView.setTitle("Details for " + this.model.get("name"));
       spiderOakApp.mainView.setTitle("Details");
 
@@ -833,11 +834,7 @@
         }.bind(this));
         this.versionsCollection.fetch({
           error: function(collection, response, options) {
-            spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-warning'></i> Error",
-              subtitle: "An error occurred.",
-              duration: 3000
-            });
+            spiderOakApp.dialogView.showNotifyErrorResponse(response);
           }
         });
       }
@@ -895,10 +892,10 @@
     },
     render: function() {
       this.$el.html(
-        _.template(window.tpl.get("fileItemDetailsToolbarViewTemplate"),
-         {isFavorite: this.model.get("isFavorite"),
-           disabled: this.options.disabled}
-        )
+        window.tmpl["fileItemDetailsToolbarViewTemplate"]({
+          isFavorite: this.model.get("isFavorite"),
+          disabled: this.options.disabled
+        })
       );
       return this;
     },
@@ -953,18 +950,14 @@
     render: function() {
       // fileVersionsItemViewMinTemplate
       // if (window.Modernizr.overflowscrolling) {
-        this.$el.html(
-          _.template(window.tpl.get("fileVersionsItemViewTemplate"),
-            this.model.toJSON()
-          )
-        );
+        this.$el.html(window.tmpl["fileVersionsItemViewTemplate"](
+          this.model.toJSON()
+        ));
       // }
       // else {
-      //   this.$el.html(
-      //     _.template(window.tpl.get("fileVersionsItemViewMinTemplate"),
-      //       this.model.toJSON()
-      //     )
-      //   );
+      //   this.$el.html(window.tmpl["fileVersionsItemViewMinTemplate"](
+      //     this.model.toJSON()
+      //   ));
       // }
       this.$("a").data("model",this.model);
       return this;

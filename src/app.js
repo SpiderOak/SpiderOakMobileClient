@@ -17,11 +17,7 @@
       // might leave us in a strange state, but better then an endless hang...
       spiderOakApp.dialogView.hide();
       console.log(JSON.stringify(response.statusText));
-      spiderOakApp.dialogView.showNotify({
-        title: "<i class='icon-warning'></i> Error",
-        subtitle: "An error occurred.",
-        duration: 3000
-      });
+      spiderOakApp.dialogView.showNotifyErrorResponse(response);
     }
   });
 
@@ -189,6 +185,7 @@
         spiderOakApp.onLoginSuccess();
         spiderOakApp.loginView.dismiss();
         $(".splash").hide();
+        spiderOakApp.dialogView.hide();
         return;
       }
       $(".splash").hide();
@@ -263,6 +260,7 @@
 
       // Fresh new recents collection
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
+      spiderOakApp.dialogView.hide();
     },
     onLogoutSuccess: function() {
       if (spiderOakApp.navigator.viewsStack.length > 0) {
@@ -367,8 +365,54 @@
       urlHead = urlHead && urlHead.split("?")[0];
       urlTail = urlTail && urlTail.split("?")[0];
     }
-    return (urlHead || "") + (urlTail || "");
+    var result = (urlHead || "") + (urlTail || "");
+    return result;
   };
+
+  if (! window.cordova || window.cordova.cordovaAbsent) {
+    /* Polyfill for file downloader functionality. */
+    // This enables, eg, creating favorites.  You still can't view files...
+    // We can't do this in cordova polyfills, because it depends on
+    // spiderOakApp object existing.
+    if (! window.LocalFileSystem) {
+      window.LocalFileSystem = {TEMPORARY: 0,
+                                PERSISTENT: 1};
+    }
+    if (! window.requestFileSystem) {
+      window.requestFileSystem = function (options, something,
+                                           gotFS, notGotFS) {
+        // Call the gotFS(filesystem) success callback
+        return gotFS({
+          // ... on a pseudo-filesystem object with a 'root' element:
+          root: {
+            // ... with a 'getFile' method:
+            getFile: function (path, options, gotFile, notGotFile) {
+              // ... that applies a gotFile success callback:
+              return gotFile({
+                // ... to a pseudo-fileEntry object with a 'remove' method:
+                remove: function (removed, notRemoved) {
+                  // ... that calls its' removed callback:
+                  return removed();
+                }
+              });
+            }}
+        });
+      };
+    }
+    if (! window.FileTransfer) {
+      spiderOakApp.downloader.downloadFile = function (downloadOptions,
+                                                       successCallback,
+                                                       errorCallback) {
+        console.log("fake downloadFile");
+        spiderOakApp.dialogView.showWait({
+          title: "Debugging mode: Contents not dowloaded"
+        });
+        var dummyFileEntry = {fullPath: "/sdcard" + downloadOptions.to,
+                              name: downloadOptions.fileName};
+        return successCallback(dummyFileEntry);
+      };
+    }
+  }
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);
 

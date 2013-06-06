@@ -18,8 +18,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get("folderViewTemplate"),
-        this.model.toJSON()));
+      this.$el.html(window.tmpl["folderViewTemplate"](this.model.toJSON()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -133,11 +132,7 @@
         error: function(collection, response, options) {
           this.render().addAll();
           console.log(JSON.stringify(response.statusText));
-          spiderOakApp.dialogView.showNotify({
-            title: "<i class='icon-warning'></i> Error",
-            subtitle: "An error occurred.",
-            duration: 3000
-          });
+          spiderOakApp.dialogView.showNotifyErrorResponse(response);
         }.bind(this)
       });
     },
@@ -147,7 +142,8 @@
       return this;
     },
     addOne: function(model) {
-      if (spiderOakApp.maxEntries && this.folderCounter > spiderOakApp.maxEntries) {
+      if (spiderOakApp.maxEntries &&
+          this.folderCounter > spiderOakApp.maxEntries) {
         return;
       }
       this.folderCounter++;
@@ -196,11 +192,9 @@
       _.bindAll(this);
     },
     render: function() {
-      this.$el.html(
-        _.template(window.tpl.get("folderItemViewTemplate"),
+      this.$el.html(window.tmpl["folderItemViewTemplate"](
           this.model.toJSON()
-        )
-      );
+      ));
       var options = {
         id: this.model.cid,
         model: this.model

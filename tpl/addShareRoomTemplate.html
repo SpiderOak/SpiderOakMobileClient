@@ -16,7 +16,7 @@
     <div class="checkswitch-wrapper">
       <div class="checkswitch">
         <input type="checkbox" id="remember" name="remember"
-               <% if (remembering) { %> checked <% } %>
+               {{?it.remembering}} checked {{?}}
                tabindex="-1" />
         <label for="remember">
           <span data-off="No" data-on="Yes"></span>

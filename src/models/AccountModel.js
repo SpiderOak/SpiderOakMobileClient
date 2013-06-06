@@ -18,6 +18,7 @@
       storage_web_url: "",      // Irrelevant to mobile client for now.
 
       isLoggedIn: false,
+      loginname: "",
       b32username: "",
       basicAuthCredentials: "",
       login_url: "",
@@ -100,7 +101,10 @@
             var storageHost = splat.slice(0, splat.length-3).join("/");
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
 
-            if (gotUsername !== username) {
+            if ((gotUsername !== username) &&
+                (gotUsername.toLowerCase() === username.toLowerCase())) {
+              // The server allows authentication with alphabetic case
+              // variations in username case, but we do not.
               errorCallback(403, "authentication failed", xhr);
               return;
             }
@@ -109,6 +113,11 @@
             _self.set("login_url_start", "https://" + server + "/browse/login");
             _self.set("logout_url_preface", "https://" + server + "/storage/");
 
+            // The name by which they logged in.  (For Blue/enterprise
+            // users, it's different than b32decode(b32username.)
+            _self.set("loginname", username);
+            // The base32 encrypted version of the internal username used
+            // on the login and content urls.
             _self.set("b32username",b32username);
             // @TODO: Set the keychain credentials
             // Set the basicauth details:
@@ -224,7 +233,8 @@
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
         if (accountUsername || accountPassword) {
-          Backbone.BasicAuth.set(accountUsername, accountPassword);
+          Backbone.BasicAuth.set(window.escape(accountUsername),
+                                 window.escape(accountPassword));
         }
         else {
           this.clear();
@@ -233,12 +243,14 @@
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {
-        Backbone.BasicAuth.set(username, password);
+        Backbone.BasicAuth.set(window.escape(username),
+                               window.escape(password));
         return this;
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       getAccountBasicAuth: function () {
-        var tok = accountUsername + ':' + accountPassword;
+        var tok = (window.escape(accountUsername) +
+                   ':' + window.escape(accountPassword));
         var hash = btoa(tok);
         return "Basic " + hash;
       },

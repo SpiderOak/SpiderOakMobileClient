@@ -27,13 +27,12 @@
     render: function() {
       this.settingsInfo = spiderOakApp.storageBarModel &&
                           spiderOakApp.storageBarModel.toJSON() ||
-                          { firstname: "", lastname: "" };
+                          {};
+      this.settingsInfo.firstname = this.settingsInfo.firstname || "";
+      this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.get("server").get("value")});
-      this.$el.html(
-        _.template(
-          window.tpl.get("settingsViewTemplate"), this.settingsInfo
-        ));
+      this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -41,6 +40,11 @@
       });
 
       return this;
+    },
+    noop: function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      return false;
     },
     feedback_tapHandler: function() {
       // @FIXME: This is a bit Android-centric
@@ -72,12 +76,28 @@
       );
     },
     rememberMe_changeHandler: function(event) {
-      if ($(event.target).is(":checked")) {
-        spiderOakApp.settings.setOrCreate(
-          "rememberedAccount",
-          JSON.stringify(spiderOakApp.accountModel.toJSON()),
-          true
-        );
+      event.preventDefault();
+      var rememberme = $(event.target).is(":checked");
+      var b32username = spiderOakApp.accountModel.get("b32username");
+      if (rememberme) {
+        if (!window.store.get("hasAcceptedTheRisk-" + b32username)) {
+          // Pop up the warning
+          this.rememberMeWarningView =
+            new spiderOakApp.RememberMeWarningView({
+              checkBox: $(event.target)
+            });
+          $(".app").append(this.rememberMeWarningView.el);
+          this.rememberMeWarningView.render().show();
+        }
+        else {
+          // Go ahead...
+          spiderOakApp.accountModel.set("rememberme",rememberme);
+          spiderOakApp.settings.setOrCreate(
+            "rememberedAccount",
+            JSON.stringify(spiderOakApp.accountModel.toJSON()),
+            true
+          );
+        }
       }
       else {
         spiderOakApp.settings.remove("rememberedAccount");
@@ -146,15 +166,11 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     getTemplateValues: function() {
-      return spiderOakApp.storageBarModel.toJSON();
+      return _.extend({loginname: spiderOakApp.accountModel.get("loginname")},
+                      spiderOakApp.storageBarModel.toJSON());
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          window.tpl.get(this.templateID),
-          this.getTemplateValues()
-        )
-      );
+      this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -219,8 +235,7 @@
       });
     },
     render: function() {
-      this.$el.html(_.template(window.tpl.get(this.templateID),
-                               this.getTemplateValues()));
+      this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
     getTemplateValues: function() {
@@ -259,7 +274,7 @@
       spiderOakApp.dialogView.showWait({
         title: "Validating"
       });
-      var newServer = this.$("[name=server]").val(),
+      var newServer = this.$("[name=server]").val().trim(),
           wasServer = this.model.get("value");
       event.preventDefault();
       this.$("input").blur();

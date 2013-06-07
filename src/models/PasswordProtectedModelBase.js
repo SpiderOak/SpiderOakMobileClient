@@ -67,7 +67,9 @@
                 password: ""};
       }
       else {
-        return this.parseSpecific.call(this, resp, xhr);
+        var got = this.parseSpecific.call(this, resp, xhr);
+        got.password_required = false;
+        return got;
       }
     },
     setPassword: function(password) {

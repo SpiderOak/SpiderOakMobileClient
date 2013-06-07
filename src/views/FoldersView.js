@@ -37,9 +37,7 @@
     loadFolders: function() {
       // The folders...
       this.folders = new spiderOakApp.FoldersCollection();
-      // if (this.model.collection) {
-        this.folders.url = this.model.composedUrl(true);
-      // }
+      this.folders.url = this.model.composedUrl(true);
       this.folders.setPassword(this.model.getPassword());
       this.foldersListView = new spiderOakApp.FoldersListView({
         collection: this.folders,
@@ -57,9 +55,7 @@
     loadFiles: function() {
       // The files...
       this.files = new spiderOakApp.FilesCollection();
-      // if (this.model.collection) {
-        this.files.url = this.model.composedUrl(true);
-      // }
+      this.files.url = this.model.composedUrl(true);
       this.files.setPassword(this.model.getPassword());
       this.filesListView = new spiderOakApp.FilesListView({
         collection: this.files,
@@ -207,8 +203,17 @@
       if ($("#main").hasClass("open")) {
         return;
       }
-      spiderOakApp.navigator.pushView(this.folderView, {},
-        spiderOakApp.defaultEffect);
+      if (this.model.get("password_required")) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.GetShareRoomPasswordView,
+          {model: this.model},
+          spiderOakApp.defaultEffect
+        );
+      }
+      else {
+        spiderOakApp.navigator.pushView(this.folderView, {},
+                                        spiderOakApp.defaultEffect);
+      }
     },
     close: function(){
       this.remove();

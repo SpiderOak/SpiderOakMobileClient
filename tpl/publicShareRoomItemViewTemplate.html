@@ -2,12 +2,12 @@
   <div class="icon">
     <i class='icon-cloud-upload'></i>
   </div>
-  {{ if (it.password_required) { }}
+  {{? it.password_required}}
     <div class="foldername">
       <i class="icon-lock" style="color:#999;font-size:80%;"></i>
       <em>{{=it.share_id}} / {{=it.room_key}}</em>
     </div>
-  {{ } else { }}
+  {{??}}
     <div class="foldername">
       {{ if (it.name) { }}
         {{?it.password}}
@@ -21,6 +21,6 @@
          <span style='color:#999;'>Loading...</span>
       {{ } }}
     </div>
-  {{ } }}
+  {{?}}
   <div class='rightButton removePublicShare'><i class='icon-close'></i></div>
 </a>

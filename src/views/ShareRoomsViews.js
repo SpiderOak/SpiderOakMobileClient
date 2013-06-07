@@ -145,7 +145,7 @@
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
-      this.collection.on( "all", this.render, this );
+      this.collection.on( "change", this.render, this );
 
       this.collection.fetch({
         error: function(collection, response, options) {
@@ -157,7 +157,6 @@
     render: function() {
       this.$el.find(".myShareRoomsSection").show();
       this.addAll();
-      // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
     settle: function() {
@@ -202,7 +201,7 @@
       _.bindAll(this);
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
-      this.collection.on( "all", this.render, this );
+      this.collection.on( "change", this.render, this );
 
       $(document).on("addPublicShareRoom", this.addPublicShare, this);
 
@@ -212,9 +211,7 @@
       }
     },
     render: function() {
-      // @TODO: Add a "loading spinner" row at the top
       this.addAll();
-      // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
     settle: function() {
@@ -385,10 +382,12 @@
     actionItemHandlers: {
       open: function (event) { this.descend_tapHandler(event); },
       details: function (event) { this.viewDetails(event); },
-      "send-link": function (event) { this.sendLink(); }
+      "send-link": function (event) { this.sendLink(); },
+      forgetPassword: function (event) { this.forgetPassword(); }
     },
     initialize: function() {
       _.bindAll(this, "render");
+      this.model.on("change", this.render, this);
     },
     render: function() {
       this.$el.html(window.tmpl[this.templateID](this.model.toJSON()));
@@ -450,6 +449,10 @@
           spiderOakApp.defaultEffect
         );
       }
+    },
+    forgetPassword: function(event) {
+      this.model.removePassword();
+      this.model.fetch();
     },
     viewDetails: function (event) {
       spiderOakApp.navigator.pushView(
@@ -515,6 +518,10 @@
       if (! actionItems) {
         actionItems = this.actionItems;
       }
+      if (this.model.getPassword()) {
+        actionItems = actionItems.concat({className: "forgetPassword",
+                                          description: "Forget password"});
+      }
       event.preventDefault();
       event.stopPropagation();
       var menuView = new spiderOakApp.ContextPopup({
@@ -559,12 +566,11 @@
         remove: function (event) {
           this.removePublicShare_tapHandler(event); },
         remember: function (event) { this.remember(); },
-        forget: function (event) { this.forget(); },
-        forgetPassword: function (event) { this.forgetPassword(); }
+        forget: function (event) { this.forget(); }
       }
     ),
     initialize: function() {
-      _.bindAll(this);
+      return spiderOakApp.ShareRoomItemView.prototype.initialize.call(this);
     },
     a_longTapHandler: function(event, actionItems) {
       if (! actionItems) {
@@ -578,10 +584,6 @@
         actionItems = actionItems.concat({className: "remember",
                                           description: "Remember"});
       }
-      if (this.model.getPassword() && this.model.get("name")) {
-        actionItems = actionItems.concat({className: "forgetPassword",
-                                          description: "Forget password"});
-      }
       return spiderOakApp.ShareRoomItemView.prototype
           .a_longTapHandler.call(this, event, actionItems);
     },
@@ -590,10 +592,6 @@
     },
     forget: function(event) {
       this.model.set("remember", 0);
-    },
-    forgetPassword: function(event) {
-      this.model.removePassword();
-      this.model.fetch();
     },
     removePublicShare_tapHandler: function(event) {
       event.stopPropagation();
@@ -629,7 +627,9 @@
     },
     render: function() {
       // Why is this.model.toJSON() being extended with nothing? 
-      this.$el.html(window.tmpl[this.templateID](_.extend(this.model.toJSON())));
+      this.$el.html(
+        window.tmpl[this.templateID](_.extend(this.model.toJSON()))
+      );
       spiderOakApp.mainView.setTitle("Details");
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,

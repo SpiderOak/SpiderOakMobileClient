@@ -22,6 +22,7 @@
       password: ""
     },
     initialize: function () {
+      Backbone.Model.prototype.initialize.call(this);
       var shareId = this.get("share_id");
       var roomKey = this.get("room_key");
       if (spiderOakApp.accountModel && shareId && roomKey) {

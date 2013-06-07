@@ -15,6 +15,8 @@
       spiderOakApp.PasswordProtectedModelBase.prototype.defaults
     ),
     parseSpecific: function(resp, xhr) {
+      // Specifically bypass PasswordProtectedModelBase.parse - we were
+      // called form there:
       return Backbone.Model.prototype.parse.call(this, resp, xhr);
     },
     which: "FolderModel"

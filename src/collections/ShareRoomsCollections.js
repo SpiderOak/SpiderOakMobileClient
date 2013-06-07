@@ -192,6 +192,7 @@
           share_id = resp.share_id;
       _.each(resp.share_rooms, function(shareroom){
         sharerooms.push({
+          preliminary: true,
           url: share_id_b32 + "/" + shareroom.room_key + "/",
           share_id_b32: share_id_b32,
           share_id: share_id,

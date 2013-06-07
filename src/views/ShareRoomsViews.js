@@ -400,7 +400,8 @@
       var $target = $(event.target);
 
       if ($target.hasClass("rightButton") ||
-          $target.hasClass("icon-close")) {
+          $target.hasClass("icon-close") ||
+          $target.closest('a').hasClass("preliminary")) {
         return;
       }
 

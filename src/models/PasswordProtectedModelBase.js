@@ -19,7 +19,8 @@
   spiderOakApp.PasswordProtectedModelBase = Backbone.Model.extend({
     defaults: {
       password_required: false,
-      password: ""
+      password: "",
+      preliminary: true         // Until individual records fetched from server.
     },
     initialize: function () {
       Backbone.Model.prototype.initialize.call(this);
@@ -64,11 +65,13 @@
       if (resp.password_required) {
         this.removePassword();
         return {password_required: true,
+                preliminary: false,
                 password: ""};
       }
       else {
         var got = this.parseSpecific.call(this, resp, xhr);
         got.password_required = false;
+        got.preliminary = false;
         return got;
       }
     },

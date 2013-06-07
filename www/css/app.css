@@ -320,6 +320,10 @@ ul.rounded li:first-child {
   display: block;
 }
 
+.preliminary {
+  color: #666;
+}
+
 .file-info {
   float: left;
 }

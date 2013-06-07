@@ -19,9 +19,11 @@
   spiderOakApp.PasswordProtectedModelBase = Backbone.Model.extend({
     defaults: {
       password_required: false,
-      password: ""
+      password: "",
+      preliminary: true         // Until individual records fetched from server.
     },
     initialize: function () {
+      Backbone.Model.prototype.initialize.call(this);
       var shareId = this.get("share_id");
       var roomKey = this.get("room_key");
       if (spiderOakApp.accountModel && shareId && roomKey) {
@@ -63,10 +65,14 @@
       if (resp.password_required) {
         this.removePassword();
         return {password_required: true,
+                preliminary: false,
                 password: ""};
       }
       else {
-        return this.parseSpecific.call(this, resp, xhr);
+        var got = this.parseSpecific.call(this, resp, xhr);
+        got.password_required = false;
+        got.preliminary = false;
+        return got;
       }
     },
     setPassword: function(password) {

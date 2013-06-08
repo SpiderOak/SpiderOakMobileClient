@@ -320,6 +320,10 @@ ul.rounded li:first-child {
   display: block;
 }
 
+.preliminary {
+  color: #999;
+}
+
 .file-info {
   float: left;
 }
@@ -528,7 +532,7 @@ ul li a .hiddenItem:after {
 
 .fileDetails {
   padding: 10px;
-  line-height: 200%;
+ line-height: 120%;
 }
 
 .fileDetails .icon-large {
@@ -555,8 +559,8 @@ ul li a .hiddenItem:after {
 
 .fileDetails blockquote {
   line-height: 1.2em;
-  margin-top: -0.7em;
-  margin-bottom: -0.5em;
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
 }
 
 .toolbar {

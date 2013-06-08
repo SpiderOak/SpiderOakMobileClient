@@ -172,12 +172,27 @@
   });
 
   spiderOakApp.MyShareRoomsCollection = ShareRoomsCollection.extend({
-    parse: function(resp, xhr) {
+    initialize: function () {
+      try {
+        return ShareRoomsCollection.prototype.initialize.call(this);
+      }
+      finally {
+        this.on("reset", this.resetHandler, this);
+      }
+    },
+    resetHandler: function(options) {
+      this.each(function (model) {
+        // Don't pass the options we get - they're for the collection.
+        model.fetch();
+      });
+    },
+    parse: function(resp, options) {
       var sharerooms = [],
           share_id_b32 = resp.share_id_b32,
           share_id = resp.share_id;
       _.each(resp.share_rooms, function(shareroom){
         sharerooms.push({
+          preliminary: true,
           url: share_id_b32 + "/" + shareroom.room_key + "/",
           share_id_b32: share_id_b32,
           share_id: share_id,

@@ -5,7 +5,9 @@
   {{? it.password_required}}
     <div class="foldername">
       <i class="icon-lock" style="color:#999;font-size:80%;"></i>
-      <em> {{=it.share_id}} / {{=it.room_key}} </em>
+      <em>
+        {{=it.share_id}} / {{=it.room_key}}
+      </em>
     </div>
   {{??}}
     <div class="foldername">
@@ -20,5 +22,8 @@
          <span style='color:#999;'>Loading...</span>
       {{ } }}
     </div>
+  {{?}}
+  {{? it.removable}}
+    <div class='rightButton removePublicShare'><i class='icon-close'></i></div>
   {{?}}
 </a>

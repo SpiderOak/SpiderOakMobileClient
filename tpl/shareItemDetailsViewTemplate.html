@@ -2,7 +2,16 @@
   <div class="fileDetails">
     <div><i class="icon-{{=it.icon}} icon-large"></i> {{=it.kind}} </div>
     <div>
-      <span class="name">{{=it.name}}</span>
+      {{? it.password_required}}
+      <i class="icon-lock" style="color:#999;font-size:80%;"></i>
+      {{??}}
+      <i class="icon-unlocked" style="color:#999;font-size:80%;"></i>
+      {{?}} <span class="name">{{=it.name}}</span>
+    </div>
+    <div>
+      {{? it.password_required}}
+      <span> <strong> Password pending </strong> </span>
+      {{?}}
     </div>
     <div class="section">
       <div>
@@ -17,14 +26,18 @@
         <span class="label">Description:</span>
         <blockquote> {{=it.description}} </blockquote>
       </div>
+      {{? it.number_of_folders}}
       <div>
         <span class="label">Folders:</span>
         {{=it.number_of_folders}}
       </div>
+      {{?}}
+      {{? it.number_of_files}}
       <div>
         <span class="label">Files:</span>
         {{=it.number_of_files}}
       </div>
+      {{?}}
     </div>
   </div>
 </div>

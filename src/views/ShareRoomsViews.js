@@ -146,6 +146,7 @@
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "change", this.render, this );
+      this.collection.on( "remove", this.render, this );
 
       this.collection.fetch({
         error: function(collection, response, options) {
@@ -202,6 +203,7 @@
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "change", this.render, this );
+      this.collection.on( "remove", this.render, this );
 
       $(document).on("addPublicShareRoom", this.addPublicShare, this);
 

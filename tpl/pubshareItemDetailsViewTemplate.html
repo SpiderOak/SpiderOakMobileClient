@@ -1,15 +1,17 @@
 <div class="fileDetails-container">
   <div class="fileDetails">
     <div><i class="icon-{{=it.icon}} icon-large"></i> {{=it.kind}} </div>
-    {{ if (it.password_required) { }}
-    <div> <span> <strong> Password pending </strong> </span> </div>
-    {{ } else if (!it.name) { }}
+    {{? it.password_required}}
+    <div> <i class="icon-lock" style="color:#999;font-size:80%;"></i>
+      <span> <strong> Password pending </strong> </span> </div>
+    {{?? ! it.name}}
     <div> <span> <strong> Successful fetch pending </strong> </span> </div>
-    {{ } else { }}
+    {{??}}
     <div>
-      <span class="name">{{=it.name }}</span>
+      <i class="icon-unlocked" style="color:#999;font-size:80%;">
+      </i> <span class="name">{{=it.name }}</span>
     </div>
-    {{ } }}
+    {{?}}
     <div class="section">
       <div>
         <span class="label">Share ID:</span>
@@ -19,7 +21,7 @@
         <span class="label">Room Key:</span>
         {{=it.room_key }}
       </div>
-      {{ if (it.name) { }}
+      {{? it.name}}
       <div>
         <span class="label">Owner:</span>
         {{=it.owner_firstname }} {{=it.owner_lastname }}
@@ -36,20 +38,20 @@
         <span class="label">Files:</span>
         {{=it.number_of_files }}
       </div>
-      {{ } }}
+      {{?}}
       <div>
         <span class="label">Remembering:</span>
-        {{ if (it.remember) { }}
+        {{? it.remember}}
         Yes
-        {{ } else { }}
+        {{??}}
         No
-        {{ } }}
+        {{?}}
       </div>
-      {{ if (! it.password_required && it.password) { }}
+      {{? ! it.password_required && it.password}}
       <div>
         <span class="label">Password</span> Protected
       </div>
-      {{ } }}
+      {{?}}
     </div>
   </div>
 </div>

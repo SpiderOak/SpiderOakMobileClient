@@ -548,7 +548,7 @@
   });
 
   spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
-    templateID: "publicShareRoomItemViewTemplate",
+    templateID: "shareRoomItemViewTemplate",
     detailsTemplateID: "pubshareItemDetailsViewTemplate",
     events: _.extend(
       {},

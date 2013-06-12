@@ -25,12 +25,20 @@
         hScrollbar: false
       });
 
-      // Load the files and folders at the same time (quasi-async)
-      // window.setTimeout(function(){
-      //   this.loadFiles();
-      // }.bind(this), 10);
-      this.loadFolders();
-      this.loadFiles();
+      // Just in case... avoid race condition on start-up
+      if (!this.model.get("url")) {
+        this.model.fetch({
+          success: function(model) {
+            spiderOakApp.mainView.setTitle(this.model.get("name"));
+            this.loadFolders();
+            this.loadFiles();
+          }.bind(this)
+        });
+      }
+      else {
+        this.loadFolders();
+        this.loadFiles();
+      }
 
       return this;
     },

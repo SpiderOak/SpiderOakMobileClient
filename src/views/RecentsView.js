@@ -10,6 +10,7 @@
       $           = window.$;
 
   spiderOakApp.RecentsView = Backbone.View.extend({
+    destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
       this.on("viewActivate",this.viewActivate);

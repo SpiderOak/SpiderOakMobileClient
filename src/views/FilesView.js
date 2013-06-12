@@ -778,7 +778,7 @@
   });
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
-//    destructionPolicy: "never",
+    destructionPolicy: "never",
     initialize: function() {
       _.bindAll(this);
       this.model.on("change",this.render);

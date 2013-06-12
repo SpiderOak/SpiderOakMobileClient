@@ -224,7 +224,8 @@ ul li.sep {
 
 .folderViewLoading .sep,
 .mySharesViewLoading .sep,
-.versionsViewLoading .sep {
+.versionsViewLoading .sep,
+.visitedSharesViewLoading .sep {
   background-color: #ccc;
   color: #000;
 }

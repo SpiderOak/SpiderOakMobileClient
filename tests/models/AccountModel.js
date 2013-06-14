@@ -143,7 +143,8 @@ describe('AccountModel', function() {
              this.asciiNonControls.replace(/ /, "+")
            );
          });
-      it('should properly set HTML auth with btoa-breaking characters',
+      it('should set a known HTML auth for a particular password with' +
+         ' btoa-breaking characters',
          function() {
            this.btoaBreakingPassword = "שָׁלוֹם";
            /* Exposed directly to this password, btoa would fail with:
@@ -151,8 +152,8 @@ describe('AccountModel', function() {
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-"Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RA=="
-             );
+            "Basic OiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RA=="
+           );
          });
       it('should convey ascii non-control plus btoa-breaking UTF8 password' +
          ' characters mostly unsulled',
@@ -177,8 +178,8 @@ describe('AccountModel', function() {
              this.amalgamPassword.replace(/ /, "+")
            );
          });
-      it('should properly set HTML auth with btoa-breaking characters' +
-         ' and ascii non-controls',
+      it('should set a known HTML auth for a particular password with' +
+         ' btoa-breaking and ascii non-controls',
          function() {
            this.btoaBreakingPassword = "שָׁלוֹם";
            for (var i=32; i<=127;i++) {
@@ -187,8 +188,8 @@ describe('AccountModel', function() {
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-"Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RCAhJTIyIyQlMjUmJygpKissLS4vMDEyMzQ1Njc4OTo7JTNDPSUzRT9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVolNUIlNUMlNUQlNUVfJTYwYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXolN0IlN0MlN0R+JTdG"
-             );
+             "Basic OiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RCAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+JTdG"
+           );
          });
     });
 

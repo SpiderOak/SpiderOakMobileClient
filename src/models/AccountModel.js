@@ -230,11 +230,25 @@
         this.resumeAccountBasicAuth();
         return this;
       },
+      encodeText: function (text) {
+        text = text || "";
+        var got = "", i;
+        for (i=0; i< text.length; i++) {
+          if ((text.charCodeAt(i) >= 32) &&
+              (text.charCodeAt(i) <= 126)) {
+            got += text[i];
+          }
+          else {
+            got += window.encodeURI(text[i]);
+          }
+        }
+        return got;
+      },
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
         if (accountUsername || accountPassword) {
-          Backbone.BasicAuth.set(window.escape(accountUsername),
-                                 window.escape(accountPassword));
+          Backbone.BasicAuth.set(this.encodeText(accountUsername),
+                                 this.encodeText(accountPassword));
         }
         else {
           this.clear();
@@ -243,14 +257,14 @@
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {
-        Backbone.BasicAuth.set(window.escape(username),
-                               window.escape(password));
+        Backbone.BasicAuth.set(this.encodeText(username),
+                               this.encodeText(password));
         return this;
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       getAccountBasicAuth: function () {
-        var tok = (window.escape(accountUsername) +
-                   ':' + window.escape(accountPassword));
+        var tok = (this.encodeText(accountUsername) +
+                   ':' + this.encodeText(accountPassword));
         var hash = btoa(tok);
         return "Basic " + hash;
       },

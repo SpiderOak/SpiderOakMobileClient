@@ -121,9 +121,27 @@ describe('AccountModel', function() {
                                   .split("&")[1]
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(this.funkyCharPassword);
-           delete this.decodedGotPass;
-           this.accountModel.basicAuthManager.setAccountBasicAuth(
-             this.accountname, this.funkyCharPassword);
+         });
+      it('should convey ascii non-control password characters mostly unsulled',
+         function() {
+           // Include a bunch of spaces, since the first is treated specially.
+           this.asciiNonControls = "  ";
+           for (var i=32; i<=127;i++) {
+             this.asciiNonControls += String.fromCharCode(i);
+           }
+           this.accountModel.login(this.username, this.asciiNonControls,
+                                   this.successSpy, this.errorSpy);
+           this.server.respond();
+           this.requests.length.should.equal(1);
+           // Get the password from the request body:
+           this.decodedGotPass =
+               decodeURIComponent(this.requests[0].requestBody
+                                  .split("&")[1]
+                                  .split("=")[1]);
+           this.decodedGotPass.should.equal(
+             // The first space is replaced with a "+" due to uri encoding (?)
+             this.asciiNonControls.replace(/ /, "+")
+           );
          });
       it('should properly set HTML auth with btoa-breaking characters',
          function() {
@@ -133,7 +151,43 @@ describe('AccountModel', function() {
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-"Basic dW5kZWZpbmVkOiV1MDVFOSV1MDVCOCV1MDVDMSV1MDVEQyV1MDVENSV1MDVCOSV1MDVERA=="
+"Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RA=="
+             );
+         });
+      it('should convey ascii non-control plus btoa-breaking UTF8 password' +
+         ' characters mostly unsulled',
+         function() {
+           // Include a bunch of spaces, since the first is treated specially.
+           this.amalgamPassword = "שָׁלוֹם";
+           this.amalgamPassword = "  ";
+           for (var i=32; i<=127;i++) {
+             this.amalgamPassword += String.fromCharCode(i);
+           }
+           this.accountModel.login(this.username, this.amalgamPassword,
+                                   this.successSpy, this.errorSpy);
+           this.server.respond();
+           this.requests.length.should.equal(1);
+           // Get the password from the request body:
+           this.decodedGotPass =
+               decodeURIComponent(this.requests[0].requestBody
+                                  .split("&")[1]
+                                  .split("=")[1]);
+           this.decodedGotPass.should.equal(
+             // The first space is replaced with a "+" due to uri encoding (?)
+             this.amalgamPassword.replace(/ /, "+")
+           );
+         });
+      it('should properly set HTML auth with btoa-breaking characters' +
+         ' and ascii non-controls',
+         function() {
+           this.btoaBreakingPassword = "שָׁלוֹם";
+           for (var i=32; i<=127;i++) {
+             this.btoaBreakingPassword += String.fromCharCode(i);
+           }
+           var bam = this.accountModel.basicAuthManager;
+           bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
+           bam.getAccountBasicAuth().should.equal(
+"Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RCAhJTIyIyQlMjUmJygpKissLS4vMDEyMzQ1Njc4OTo7JTNDPSUzRT9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVolNUIlNUMlNUQlNUVfJTYwYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXolN0IlN0MlN0R+JTdG"
              );
          });
     });

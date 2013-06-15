@@ -47,7 +47,6 @@
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url, optionalHost) {
-
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
@@ -231,17 +230,7 @@
         return this;
       },
       encodeText: function (text) {
-        text = text || "";
-        var got = "", i;
-        for (i=0; i< text.length; i++) {
-          if ((text.charCodeAt(i) >= 32) &&
-              (text.charCodeAt(i) <= 126)) {
-            got += text[i];
-          }
-          else {
-            got += window.encodeURI(text[i]);
-          }
-        }
+        var got = window.encodeURI(text).replace(/%20/g, " ");
         return got;
       },
       /** Reestablish basic auth based on stashed credentials. */

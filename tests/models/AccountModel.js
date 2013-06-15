@@ -152,7 +152,7 @@ describe('AccountModel', function() {
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-            "Basic OiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RA=="
+"Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RA=="
            );
          });
       it('should convey ascii non-control plus btoa-breaking UTF8 password' +
@@ -188,7 +188,7 @@ describe('AccountModel', function() {
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-             "Basic OiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RCAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+JTdG"
+             "Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RCAhJTIyIyQlMjUmJygpKissLS4vMDEyMzQ1Njc4OTo7JTNDPSUzRT9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVolNUIlNUMlNUQlNUVfJTYwYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXolN0IlN0MlN0R+JTdG"
            );
          });
     });

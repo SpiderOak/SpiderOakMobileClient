@@ -162,6 +162,8 @@
         }
       });
 
+      // If rememberedAccount is set, reconstitute account from serialized
+      // state:
       // 1. check remember me state, if on...
       // 2. spiderOakApp.dialogView.showWait();
       // 3. spiderOakApp.loginView.dismiss();

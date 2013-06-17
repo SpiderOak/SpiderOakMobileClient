@@ -47,7 +47,6 @@
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url, optionalHost) {
-
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
@@ -233,8 +232,8 @@
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
         if (accountUsername || accountPassword) {
-          Backbone.BasicAuth.set(window.escape(accountUsername),
-                                 window.escape(accountPassword));
+          Backbone.BasicAuth.set(window.encodeURIExceptSpaces(accountUsername),
+                                 window.encodeURIExceptSpaces(accountPassword));
         }
         else {
           this.clear();
@@ -243,14 +242,14 @@
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {
-        Backbone.BasicAuth.set(window.escape(username),
-                               window.escape(password));
+        Backbone.BasicAuth.set(window.encodeURIExceptSpaces(username),
+                               window.encodeURIExceptSpaces(password));
         return this;
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       getAccountBasicAuth: function () {
-        var tok = (window.escape(accountUsername) +
-                   ':' + window.escape(accountPassword));
+        var tok = (window.encodeURIExceptSpaces(accountUsername) +
+                   ':' + window.encodeURIExceptSpaces(accountPassword));
         var hash = btoa(tok);
         return "Basic " + hash;
       },

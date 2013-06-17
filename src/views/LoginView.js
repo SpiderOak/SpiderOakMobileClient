@@ -45,8 +45,9 @@
 
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
-      var username = $("#unme").val().trim();
-      var password = $("#pwrd").val();
+      // .multilingual() provides for non-basic-multilingual-plane characters:
+      var username = window.multilingual($("#unme").val().trim());
+      var password = window.multilingual($("#pwrd").val());
       var rememberme = $("#rememberme").is(":checked");
 
       var success = function(apiRoot) {

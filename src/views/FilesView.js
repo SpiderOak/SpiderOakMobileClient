@@ -864,7 +864,7 @@
       }
     },
     viewDeactivate: function(event) {
-      this.close();
+      // this.close();
     },
     close: function() {
       this.scroller.destroy();

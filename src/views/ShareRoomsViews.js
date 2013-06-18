@@ -292,8 +292,8 @@
     },
     form_submitHandler: function(event) {
       var remember = this.$("[name=remember]").is(":checked") ? 1 : 0,
-          shareId = this.$("[name=shareid]").val().trim(),
-          roomKey = this.$("[name=roomkey]").val().trim(),
+          shareId = window.multilingual(this.$("[name=shareid]").val().trim()),
+          roomKey = window.multilingual(this.$("[name=roomkey]").val().trim()),
           pubShares = spiderOakApp.publicShareRoomsCollection;
 
       event.preventDefault();
@@ -713,7 +713,7 @@
      * - Return to the share rooms views - the share will remain
      */
     form_submitHandler: function(event) {
-      var password = this.$("[name=pwrd]").val();
+      var password = window.multilingual(this.$("[name=pwrd]").val());
       this.model.setPassword(password);
 
       spiderOakApp.dialogView.showWait({

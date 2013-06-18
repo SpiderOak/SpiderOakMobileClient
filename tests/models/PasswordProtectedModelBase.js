@@ -1,7 +1,6 @@
 /*jshint expr:true */
 describe('PasswordProtectedModelBase', function() {
   describe('composedUrl', function() {
-    console.log("PasswordProtectedModelBase test");
     beforeEach(function() {
       this.model = new spiderOakApp.PasswordProtectedModelBase({
         url: "filename.pdf",

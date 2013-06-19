@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  /** A model-less view of the visited share rooms and account share rooms.
+  /** A model-less view of the public share rooms and account share rooms.
    *
    */
   spiderOakApp.ShareRoomsRootView = Backbone.View.extend({
@@ -35,24 +35,24 @@
         hScrollbar: false
       });
 
-      // Load the visited and account share rooms simultaneously (quasi-async)
+      // Load the public and "my" share rooms simultaneously (quasi-async)
       window.setTimeout(function(){
         this.loadMyShareRooms();
       }.bind(this), 10);
-      this.loadVisitedShareRooms();
+      this.loadPublicShareRooms();
 
       return this;
     },
-    loadVisitedShareRooms: function() {
-      this.visitedShareRoomsListView =
-        new spiderOakApp.VisitedShareRoomsListView({
+    loadPublicShareRooms: function() {
+      this.publicShareRoomsListView =
+        new spiderOakApp.PublicShareRoomsListView({
           collection: spiderOakApp.publicShareRoomsCollection,
-          el: this.$(".visitedShareRoomsSection"),
+          el: this.$(".publicShareRoomsSection"),
           scroller: this.scroller
         });
       // When we've finished fetching the folders, help hide the spinner:
-      this.visitedShareRoomsListView.$el.one("complete", function(event) {
-        this.visitedShareRoomsListView.settle();
+      this.publicShareRoomsListView.$el.one("complete", function(event) {
+        this.publicShareRoomsListView.settle();
         window.setTimeout(function(){
           this.scroller.refresh();
         }.bind(this),0);
@@ -129,7 +129,7 @@
     close: function() {
       // Clean up our subviews
       this.scroller.destroy();
-      this.visitedShareRoomsListView.close();
+      this.publicShareRoomsListView.close();
       this.myShareRoomsListView.close();
     },
     which: "ShareRoomsRootView"
@@ -189,7 +189,7 @@
     which: "MyShareRoomsListView"
   });
 
-  spiderOakApp.VisitedShareRoomsListView = Backbone.View.extend({
+  spiderOakApp.PublicShareRoomsListView = Backbone.View.extend({
     initialize: function() {
       this.subViews = [];
       if (this.options.scroller) {
@@ -197,7 +197,7 @@
       }
 
       /** A handle on our section's content list. */
-      this.$elList = this.$el.find(".visitedShareRoomsList");
+      this.$elList = this.$el.find(".publicShareRoomsList");
 
       _.bindAll(this);
       this.collection.on( "add", this.addOne, this );
@@ -217,8 +217,8 @@
       return this;
     },
     settle: function() {
-      this.$el.find(".visitedSharesViewLoading")
-          .removeClass("loadingVisitedShares");
+      this.$el.find(".publicSharesViewLoading")
+          .removeClass("loadingPublicShares");
     },
     addOne: function(model) {
       var view = new spiderOakApp.PublicShareRoomItemView({
@@ -251,7 +251,7 @@
         }
       });
     },
-    which: "VisitedShareRoomsListView"
+    which: "PublicShareRoomsListView"
   });
 
   spiderOakApp.AddShareRoomView = Backbone.View.extend({

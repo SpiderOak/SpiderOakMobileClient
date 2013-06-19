@@ -225,7 +225,7 @@ ul li.sep {
 .folderViewLoading .sep,
 .mySharesViewLoading .sep,
 .versionsViewLoading .sep,
-.visitedSharesViewLoading .sep {
+.publicSharesViewLoading .sep {
   background-color: #ccc;
   color: #000;
 }
@@ -309,7 +309,7 @@ ul.rounded li:first-child {
 .folderViewLoading,
 .mySharesViewLoading,
 .versionsViewLoading,
-.visitedSharesViewLoading {
+.publicSharesViewLoading {
   display: none;
 }
 
@@ -317,7 +317,7 @@ ul.rounded li:first-child {
 .folderViewLoading.loadingFiles,
 .versionsViewLoading.loadingVersions,
 .mySharesViewLoading.loadingMyShares,
-.visitedSharesViewLoading.loadingVisitedShares {
+.publicSharesViewLoading.loadingPublicShares {
   display: block;
 }
 

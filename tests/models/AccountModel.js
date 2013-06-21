@@ -144,7 +144,7 @@ describe('AccountModel', function() {
            );
          });
       it('should set a known HTML auth for a particular password with' +
-         ' btoa-breaking characters',
+         ' btoa-breaking UTF8 characters',
          function() {
            this.btoaBreakingPassword = "שָׁלוֹם";
            /* Exposed directly to this password, btoa would fail with:
@@ -152,7 +152,7 @@ describe('AccountModel', function() {
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-"Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RA=="
+             "Basic dW5kZWZpbmVkOtep1rjXgdec15XWuded"
            );
          });
       it('should convey ascii non-control plus btoa-breaking UTF8 password' +
@@ -179,16 +179,17 @@ describe('AccountModel', function() {
            );
          });
       it('should set a known HTML auth for a particular password with' +
-         ' btoa-breaking and ascii non-controls',
+         ' btoa-breaking UTF8 and ascii non-controls',
          function() {
-           this.btoaBreakingPassword = "שָׁלוֹם";
+           // Include plain ascii, URL special, latin1, simple Chinese, Hebrew:
+           this.btoaBreakingPassword = "abc &:+ ¤«£k 日 שָׁלוֹם";
            for (var i=32; i<=127;i++) {
              this.btoaBreakingPassword += String.fromCharCode(i);
            }
            var bam = this.accountModel.basicAuthManager;
            bam.setAccountBasicAuth(this.accountname, this.btoaBreakingPassword);
            bam.getAccountBasicAuth().should.equal(
-             "Basic dW5kZWZpbmVkOiVENyVBOSVENiVCOCVENyU4MSVENyU5QyVENyU5NSVENiVCOSVENyU5RCAhJTIyIyQlMjUmJygpKissLS4vMDEyMzQ1Njc4OTo7JTNDPSUzRT9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVolNUIlNUMlNUQlNUVfJTYwYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXolN0IlN0MlN0R+JTdG"
+             "Basic dW5kZWZpbmVkOmFiYyAmOisgwqTCq8KjayDml6Ug16nWuNeB15zXlda5150gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWltcXV5fYGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6e3x9fn8="
            );
          });
     });

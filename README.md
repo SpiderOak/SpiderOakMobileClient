@@ -100,4 +100,4 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/Home#wiki-Running_Testing_and_Debugging) of the wiki home page for more info.
 
-Currently, the Android build of this application is distributed as [the SpiderOak application in the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android). We also make the production Android .apk release available in our [Recent Builds Share Room](https://spideroak.com/browse/share/spideroak-html5/Recent), accompanied by the release notes, and sometimes also a newer beta, for testing fixes.
+Currently, the Android build of this application is distributed as [the SpiderOak application in the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android). We also make the our current Android .apk release available in our [Recent Builds Share Room](https://spideroak.com/browse/share/spideroak-html5/Recent), accompanied by the release notes.

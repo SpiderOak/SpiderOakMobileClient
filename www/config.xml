@@ -2,7 +2,7 @@
 <widget id="com.spideroak.android" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>SpiderOak</name>
     <description>
-        SpiderOak Mobile Client for Android.
+        SpiderOak Mobile Client.
     </description>
     <author email="tommy@devgeeks.org" href="http://www.spideroak.com">
         SpiderOak
@@ -31,6 +31,9 @@
     <gap:splash gap:platform="ios" height="960" src="res/screen/iphone_retina_portrait.png" width="640" />
     <gap:splash gap:platform="winphone" height="800" src="res/screen/windows_phone_portrait.jpg" width="480" />
     <feature name="http://api.phonegap.com/1.0/device" />
+
+    <preference name="loglevel" value="DEBUG" />
+
     <preference name="phonegap-version" value="2.6.0" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
@@ -39,8 +42,10 @@
     <preference name="keepRunning" value="true" />
 
     <preference name="UIWebViewBounce" value="false" />
-    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="none" />
 
     <access origin="*" />
+
+
 </widget>

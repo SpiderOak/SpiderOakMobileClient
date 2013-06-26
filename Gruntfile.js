@@ -127,22 +127,82 @@ module.exports = function(grunt) {
       },
       zepto: {
         src: [
-          'www/components/zepto/src/zepto.js',
-          'www/components/zepto/src/ajax.js',
-          'www/components/zepto/src/assets.js',
-          'www/components/zepto/src/data.js',
-          'www/components/zepto/src/detect.js',
-          'www/components/zepto/src/event.js',
-          'www/components/zepto/src/form.js',
-          'www/components/zepto/src/fx.js',
-          'www/components/zepto/src/fx_methods.js',
-          'www/components/zepto/src/gesture.js',
-          'www/components/zepto/src/polyfill.js',
-          'www/components/zepto/src/selector.js',
-          'www/components/zepto/src/stack.js',
-          'www/components/zepto/src/touch.js'
+          'components/zepto/src/zepto.js',
+          'components/zepto/src/ajax.js',
+          'components/zepto/src/assets.js',
+          'components/zepto/src/data.js',
+          'components/zepto/src/detect.js',
+          'components/zepto/src/event.js',
+          'components/zepto/src/form.js',
+          'components/zepto/src/fx.js',
+          'components/zepto/src/fx_methods.js',
+          'components/zepto/src/gesture.js',
+          'components/zepto/src/polyfill.js',
+          'components/zepto/src/selector.js',
+          'components/zepto/src/stack.js',
+          'components/zepto/src/touch.js'
         ],
         dest: 'www/components/zepto/zepto.js'
+      },
+      underscore: {
+        src: [
+          'components/underscore/underscore.js'
+        ],
+        dest: 'www/components/underscore/underscore.js'
+      },
+      backbone: {
+        src: [
+          'components/backbone/backbone.js'
+        ],
+        dest: 'www/components/backbone/backbone.js'
+      },
+      basicauth: {
+        src: [
+          'components/backbone.basicauth/backbone.basicauth.js'
+        ],
+        dest: 'www/components/backbone.basicauth/backbone.basicauth.js'
+      },
+      backstack: {
+        src: [
+          'components/backstack/backstack.js'
+        ],
+        dest: 'www/components/backstack/backstack.js'
+      },
+      nibbler: {
+        src: [
+          'components/Nibbler.min/index.js'
+        ],
+        dest: 'www/components/Nibbler.min/index.js'
+      },
+      iscroll: {
+        src: [
+          'components/iscroll/src/iscroll-lite.js'
+        ],
+        dest: 'www/components/iscroll/src/iscroll-lite.js'
+      },
+      modernizr: {
+        src: [
+          'components/modernizr/modernizr.js'
+        ],
+        dest: 'www/components/modernizr/modernizr.js'
+      },
+      modernizrScrollDetect: {
+        src: [
+          'components/modernizr/feature-detects/css-overflow-scrolling.js'
+        ],
+        dest: 'www/components/modernizr/feature-detects/css-overflow-scrolling.js'
+      },
+      store: {
+        src: [
+          'components/store.js/store.min.js'
+        ],
+        dest: 'www/components/store.js/store.min.js'
+      },
+      moment: {
+        src: [
+          'components/moment/moment.js'
+        ],
+        dest: 'www/components/moment/moment.js'
       },
       defaultcss: {
         options: {

@@ -1,5 +1,7 @@
 www/components/**/*
+components/**/*
 !www/components/.gitignore
+!components/.gitignore
 node_modules
 platforms/ios
 platforms/android

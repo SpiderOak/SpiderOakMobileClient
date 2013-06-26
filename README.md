@@ -51,7 +51,7 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 ## Grunt tasks
 
-`grunt lint`
+`grunt jshint`
 
 - runs JSHint on the src files `src/**/*.js``
 
@@ -64,9 +64,9 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 - minifies `www/js/<package-name-from-package.json>.js` into `www/js/<package-name-from-package.json>.min.js` (so should only be called after calling `grunt concat` above)
 
-`grunt compass:dev`
+`grunt dot`
 
-- compiles the SASS files via Compass and 
+- compiles the DoT templates 
 
 `grunt shell:mochaspec`
 
@@ -78,25 +78,25 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 `grunt watch`
 
-- starts watching the same files as `grunt concat:dist` as well as the files from `grunt concat:tests` and when changes are detected runs `lint concat compass:dev shell:mochadot`
+- starts watching the same files as `grunt concat:dist` as well as the files from `grunt concat:tests` and when changes are detected runs `jshint dot concat shell:mochadot`
 
 #### Custom tasks
 
 `grunt` (default tasks)
 
-- runs `lint concat min shell:mochadot`
+- runs `jshint dot concat shell:mochadot`
 
 `grunt test`
 
-- runs `lint concat shell:mochaspec`
+- runs `jshint dot concat shell:mochaspec`
 
-`grunt debug_ios`
+`grunt debug:ios`
 
-- runs `lint concat shell:debug_ios` to debug iOS platform on the simulator
+- runs `jshint dot concat shell:debug_ios` to debug iOS platform on the simulator
 
-`grunt debug_android`
+`grunt debug:android`
 
-- runs `lint concat shell:debug_android` to debug Android platform on the emulator (or a plugged in device)
+- runs `jshint dot concat shell:debug_android` to debug Android platform on the emulator (or a plugged in device)
 
 See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/Home#wiki-Running_Testing_and_Debugging) of the wiki home page for more info.
 

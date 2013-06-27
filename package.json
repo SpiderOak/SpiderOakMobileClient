@@ -44,6 +44,8 @@
     "sinon-chai": "~2.3.1",
     "chai-jquery": "~1.1.1",
     "mocha-phantomjs": "~2.0.0",
-    "grunt-dot-compiler": "~0.3.14"
+    "grunt-dot-compiler": "~0.3.14",
+    "elementtree": "~0.1.5",
+    "shelljs": "~0.1.4"
   }
 }

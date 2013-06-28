@@ -102,4 +102,11 @@ See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/S
 
 ## Binary Releases
 
-The SpiderOak mobile client Android production release is available via [the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android). We also make put current-release Android .apk binaries available in our [Recent Builds Share Room](https://spideroak.com/browse/share/spideroak-html5/Recent), accompanied by the release notes.  (The current iOS app store release is a native implementation.  We will be replacing that after we finish some custom client work.)
+The SpiderOak mobile client Android production release is available via
+
+*  [the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android)
+* [the Amazon App store](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I)
+* Our [recent builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent), as installable .apks.  (The app will still be elibible for upgrades via the respective stores if installed this way.)
+
+
+(The current iOS app store release is a native implementation.  We will be replacing that after some other work.)

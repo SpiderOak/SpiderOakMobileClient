@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/SpiderOak/SpiderOakMobileClient.png)](https://travis-ci.org/SpiderOak/SpiderOakMobileClient)
 
-[SpiderOak](http://spideroak.com) is reimplementing its mobile client applications as a central, platform-independent HTML5 / Javascript / CSS core with native extensions to fill in the functionality gaps. This is intended to replace the current, platform-specific native applications. We see many potential benefits to the html5 approach, among them being implementation in a widely used, comprehensible (if we're careful) medium that can be very useful to many.
+[SpiderOak](http://spideroak.com) is reimplementing its mobile client applications as a central, platform-independent HTML5 / Javascript / CSS core, hybridized with native extensions to fill functionality gaps. This will replace the current, wholly native applications. We see many benefits to the html5 approach, among them being implementation in a widely used, comprehensible (if we're careful) medium that can be very useful to many.
 
 There are many ways that access to our code can be useful. It can serve as guidance to people as examples for using our APIs. It can serve as a basis for implementing idiosyncratic functionality that they need. It can provide the opportunity to contribute to and help grow this useful tool, itself. These and other reasons are why we make the code openly available, and the development process reasonably transparent.
 
-Hence the code is officially available as open source, under the Apache license, and we are conducting our development using a SpiderOak public repository situated at github.
+Hence the code is officially available as free/open source software, under the terms of [the Apache 2.0 license](https://github.com/SpiderOak/SpiderOakMobileClient/LICENSE), and we are conducting our development using a SpiderOak [public repository](https://github.com/SpiderOak/SpiderOakMobileClient) situated at github.
 
-It's worth mentioning that this mobile client is extremely important to SpiderOak as a business. We are opening the source in order to make the development effort more immediately useful, in ways described above, as well as to leverage various collaboration opportunities that such openness affords. We will continue to devote significant internal development resources to this effort, as it requires.
+It's worth mentioning that this mobile client is extremely important to SpiderOak as a business. We are opening the source in order to make the development effort more immediately useful, in ways described above, as well as to leverage various collaboration opportunities that such openness affords. We will continue to devote core internal development resources to this effort.
 
 ## Requirements
 
@@ -106,7 +106,7 @@ The SpiderOak mobile client Android production release is available via
 
 *  [the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android)
 * [the Amazon App store](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I)
-* Our [recent builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent), as installable .apks.  (The app will still be elibible for upgrades via the respective stores if installed this way.)
+* Our [recent builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent), as installable .apks.  (If your device does have access to one of the above App stores, they will offer upgrades when they have newer versions than the ones that you install from these ShareRoom .apk files.)
 
 
-(The current iOS app store release is a native implementation.  We will be replacing that after some other work.)
+The current iOS app store release is a native implementation.  We will be replacing with one based on this hybrid HTML5 client after some other work.

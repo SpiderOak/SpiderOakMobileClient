@@ -1,8 +1,12 @@
 /*jshint expr:true */
 describe('AccountModel', function() {
   beforeEach(function(){
+    helper.suspendLocalStorage();
     window.spiderOakApp.initialize();
     this.accountModel = window.spiderOakApp.accountModel;
+  });
+  afterEach(function(){
+    helper.resumeLocalStorage();
   });
   describe('login/logout', function() {
     beforeEach(function(){

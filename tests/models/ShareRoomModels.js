@@ -1,26 +1,31 @@
 /*jshint expr:true */
 describe('ShareRoomModel', function() {
-  describe('instantiation', function() {
-    beforeEach(function() {
-      this.urlBase = "https://spideroak.com/";
-      this.share_id = "TestShareRoom";
-      this.b32_share_id = spiderOakApp.b32nibbler.encode(this.share_id);
-      this.room_key = "thekey";
-      this.model = new spiderOakApp.ShareRoomModel({
-        name: "Test ShareRoom",
-        share_id: "TestShareRoom",
-        room_key: "thekey"
-      });
-      this.collection = {
-        // Return null for any .get(), so .composedUrl() resorts to .urlBase:
-        get: function() { return null; },
-        urlBase: this.urlBase
-      }
-      this.model.collection = this.collection;
-      this.model.shouldBeComposedUrl =
-          this.urlBase + this.b32_share_id + "/" + this.room_key + "/" +
-          "?auth_required_format=json";
+  beforeEach(function() {
+    this.username = "tester";
+    this.b32username = spiderOakApp.b32nibbler.encode(this.username)
+    this.urlBase = "https://spideroak.com/";
+    this.share_id = "TestShareRoom";
+    this.b32_share_id = spiderOakApp.b32nibbler.encode(this.share_id);
+    this.room_key = "thekey";
+    this.collection = {
+      // Return null for any .get(), so .composedUrl() resorts to .urlBase:
+      get: function() { return null; },
+      urlBase: this.urlBase,
+    }
+    this.model = new spiderOakApp.ShareRoomModel({
+      name: "Test ShareRoom",
+      share_id: "TestShareRoom",
+      room_key: this.room_key,
+      urlRoot: this.urlBase
+    }, {
+      collection: this.collection,
     });
+    this.shouldBeComposedUrl =
+        this.urlBase + this.b32_share_id + "/" + this.room_key + "/" +
+        "?auth_required_format=json";
+  });
+
+  describe('instantiation', function() {
     it('should have a name', function() {
       this.model.get("name").should.be.a("string");
       this.model.get("name").should.equal("Test ShareRoom");
@@ -31,21 +36,17 @@ describe('ShareRoomModel', function() {
     });
     it('should have a room_key', function() {
       this.model.get("room_key").should.be.a("string");
-      this.model.get("room_key").should.equal("thekey");
+      this.model.get("room_key").should.equal(this.room_key);
     });
-    it('should have a proper URL', function() {
-      this.model.get("url").should.be.a("string");
-      this.model.get("url")
-          .should.equal("KRSXG5CTNBQXEZKSN5XW2/thekey/");
+    it('should have a proper url value', function() {
+      this.model.url.should.be.a("string");
+      this.model.url.should.equal(this.shouldBeComposedUrl);
     });
     it('should have a proper .composedUrl() value', function() {
       this.model.composedUrl().should.be.a("string");
-      this.model.composedUrl().should.equal(
-        this.model.shouldBeComposedUrl
-      );
+      this.model.composedUrl().should.equal(this.shouldBeComposedUrl);
     });
   });
-
   describe('PublicShareRoomModel', function() {
     beforeEach(function() {
       this.share_id = "TestPublicShareRoom";
@@ -54,23 +55,23 @@ describe('ShareRoomModel', function() {
       this.model = new spiderOakApp.PublicShareRoomModel({
         name: "Test Public ShareRoom",
         share_id: this.share_id,
-        room_key: this.room_key
+        room_key: this.room_key,
+        urlRoot: this.urlBase
+      }, {
+        collection: this.collection,
       });
-      this.model.collection = this.collection;
-      this.model.shouldBeComposedUrl =
+      this.shouldBeComposedUrl =
           this.urlBase + this.b32_share_id + "/" + this.room_key + "/" +
           "?auth_required_format=json";
     });
-    it('should have a proper URL', function() {
-      this.model.get("url").should.be.a("string");
-      this.model.get("url")
-          .should.equal("KRSXG5CQOVRGY2LDKNUGC4TFKJXW63I/thekey/");
+    it('should have a proper url value', function() {
+      this.model.url.should.be.a("string");
+      // Full path because we're setting urlRoot for the tests:
+      this.model.url.should.equal(this.shouldBeComposedUrl);
     });
-    it('should have a proper .composedUrl()', function() {
+    it('should have a proper .composedUrl() value', function() {
       this.model.composedUrl().should.be.a("string");
-      this.model.composedUrl().should.equal(
-        this.model.shouldBeComposedUrl
-      );
+      this.model.composedUrl().should.equal(this.shouldBeComposedUrl);
     });
 
     describe('Remembering and forgetting', function() {
@@ -94,56 +95,50 @@ describe('ShareRoomModel', function() {
          });
     });
 
-    describe('Password protected provision', function() {
+    describe('Password protection', function() {
       beforeEach(function() {
         helper.suspendLocalStorage();
-        this.username = "tester";
-        this.b32username = spiderOakApp.b32nibbler.encode(this.username)
-        this.shares_root = (this.model.urlBase + "share/" +
-                            this.b32username +
-                            "/");
         this.server = sinon.fakeServer.create();
         this.successSpy = sinon.spy();
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "GET",
-          this.shares_root + "?auth_required_format=json",
+          this.shouldBeComposedUrl,
           [
             200,
             {"Content-Type": "text/html"},
             '{"password_required": true}'
           ]
         );
+        // Simulate authorization failure if missing auth_requres query string:
         this.server.respondWith(
           "GET",
-          this.shares_root,
+          // Sans the '?auth_required_format=json' query string:
+          this.shouldBeComposedUrl.split('\?')[0],
           [
             401,
             {"Content-Type": "text/html"},
-            ''
+            'Not found'
           ]
-        )
-        this.server.respond();
+        );
       });
       afterEach(function() {
         helper.resumeLocalStorage();
       });
-      it('should discern password is required when fetching without it',
+      it('should detect password-protected shareroom needing absent password',
          function() {
            this.model.get("password_required").should.be.false;
-           this.model.fetch({success:
-                             function(model, resp, options) {
-                               this.successSpy(resp);
-                             },
-                             error: 
-                             function(xhr, errorType, error) {
-                               this.errorSpy(xhr, error);
+           this.model.fetch({success: this.successSpy,
+                             error:
+                             function(model, xhr, options) {
+                               this.errorSpy;
                              },
                             });
+           this.server.respond();
+           this.successSpy.calledWithMatch(200);
            this.model.get("password_required").should.be.true;
-           this.server.reset();
          });
-      it('should get the content, when fetching with the password',
+      it('should get content when fetching password-protected with password',
          function() {
          });
     });

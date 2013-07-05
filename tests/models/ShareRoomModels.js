@@ -2,17 +2,17 @@
 describe('ShareRoomModel', function() {
   beforeEach(function() {
     this.username = "tester";
-    this.b32username = spiderOakApp.b32nibbler.encode(this.username)
+    this.b32username = window.spiderOakApp.b32nibbler.encode(this.username)
     this.urlBase = "https://spideroak.com/";
     this.share_id = "TestShareRoom";
-    this.b32_share_id = spiderOakApp.b32nibbler.encode(this.share_id);
+    this.b32_share_id = window.spiderOakApp.b32nibbler.encode(this.share_id);
     this.room_key = "thekey";
     this.collection = {
       // Return null for any .get(), so .composedUrl() resorts to .urlBase:
       get: function() { return null; },
       urlBase: this.urlBase,
     }
-    this.model = new spiderOakApp.ShareRoomModel({
+    this.model = new window.spiderOakApp.ShareRoomModel({
       name: "Test ShareRoom",
       share_id: "TestShareRoom",
       room_key: this.room_key,
@@ -50,9 +50,10 @@ describe('ShareRoomModel', function() {
   describe('PublicShareRoomModel', function() {
     beforeEach(function() {
       this.share_id = "TestPublicShareRoom";
-      this.b32_share_id = spiderOakApp.b32nibbler.encode(this.share_id);
+      this.b32_share_id = window.spiderOakApp.b32nibbler.encode(this.share_id);
       this.room_key = "thekey";
-      this.model = new spiderOakApp.PublicShareRoomModel({
+      this.pubSharePassword = "thepassword";
+      this.model = new window.spiderOakApp.PublicShareRoomModel({
         name: "Test Public ShareRoom",
         share_id: this.share_id,
         room_key: this.room_key,
@@ -75,12 +76,6 @@ describe('ShareRoomModel', function() {
     });
 
     describe('Remembering and forgetting', function() {
-      beforeEach(function() {
-        helper.suspendLocalStorage();
-      });
-      afterEach(function() {
-        helper.resumeLocalStorage();
-      });
       it('should ask its collection to .saveRetainedRecords() on ' +
          ' retention changes',
          function() {
@@ -97,49 +92,77 @@ describe('ShareRoomModel', function() {
 
     describe('Password protection', function() {
       beforeEach(function() {
-        helper.suspendLocalStorage();
+        window.spiderOakApp.initialize()
         this.server = sinon.fakeServer.create();
         this.successSpy = sinon.spy();
         this.errorSpy = sinon.spy();
-        this.server.respondWith(
-          "GET",
-          this.shouldBeComposedUrl,
-          [
-            200,
-            {"Content-Type": "text/html"},
-            '{"password_required": true}'
-          ]
-        );
-        // Simulate authorization failure if missing auth_requres query string:
-        this.server.respondWith(
-          "GET",
-          // Sans the '?auth_required_format=json' query string:
-          this.shouldBeComposedUrl.split('\?')[0],
-          [
-            401,
-            {"Content-Type": "text/html"},
-            'Not found'
-          ]
-        );
+        var responder = function (request) {
+          if (request.hasOwnProperty("requestHeaders") &&
+              request.requestHeaders.Authorization ===
+              "Basic Ymxhbms6dGhlcGFzc3dvcmQ=") {
+            request.respond(
+              200,
+              {"Content-Type": "application/json"},
+              '{"browse_url": ' +
+                    '"/browse/share/'+ this.b32_share_id + '/aroomkey", ' +
+                  '"dirs": "[]", ' +
+                  '"stats": {' +
+                    '"room_name": "The fetched name", ' +
+                    '"firstname": "Some", ' +
+                    '"lastname": "Body", ' +
+                    '"number_of_files": 0, ' +
+                    '"number_of_folders": 0, ' +
+                    '"room_description": "The fetched description", ' +
+                    '"room_size": "123 MB",' +
+                    '"start_date": ""}}'
+            );
+          }
+          else if (request.url === this.shouldBeComposedUrl) {
+            // Password needed, and "...?auth_required_format=json" provokes
+            // a content-based prompt for auth:
+            request.respond(
+              200,
+              {"Content-Type": "application/json"},
+              '{"password_required": true}'
+            );
+          }
+          else if (request.url === this.shouldBeComposedUrl.split('\?')[0]) {
+            // Password needed, but no "...?auth_required_format=json" means
+            // do a 401 Unauthorized response:
+            request.respond(
+              401,
+              {"Content-Type": "text/plain"},
+              'Unauthorized'
+            );
+          }
+          else {
+            request.respond(
+              404,
+              {"Content-Type": "text/plain"},
+              'Not found'
+            );
+          }
+        }.bind(this);
+        this.server.respondWith(responder);
       });
-      afterEach(function() {
-        helper.resumeLocalStorage();
-      });
-      it('should detect password-protected shareroom needing absent password',
+      it('should recognize passworded shareroom needing absent password',
          function() {
            this.model.get("password_required").should.be.false;
-           this.model.fetch({success: this.successSpy,
-                             error:
-                             function(model, xhr, options) {
-                               this.errorSpy;
-                             },
-                            });
+           this.model.fetch();
            this.server.respond();
-           this.successSpy.calledWithMatch(200);
+           this.server.requests[0].status.should.equal(200);
            this.model.get("password_required").should.be.true;
          });
-      it('should get content when fetching password-protected with password',
+      it('should get content when fetching passworded shareroom with password',
          function() {
+           this.model.setPassword(this.pubSharePassword);
+           this.model.get("password").should.equal(this.pubSharePassword);
+           this.model.fetch();
+           this.server.respond();
+           this.server.requests[0].status.should.equal(200);
+           this.model.get("name").should.equal("The fetched name");
+           this.model.get("description")
+               .should.equal("The fetched description");
          });
     });
   });

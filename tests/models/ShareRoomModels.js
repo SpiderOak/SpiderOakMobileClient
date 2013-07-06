@@ -164,6 +164,18 @@ describe('ShareRoomModel', function() {
            this.model.get("description")
                .should.equal("The fetched description");
          });
+      it('should remove fetching content on password removal',
+         function() {
+           this.model.setPassword(this.pubSharePassword);
+           this.model.get("password").should.equal(this.pubSharePassword);
+           this.model.fetch();
+           this.server.respond();
+           this.server.requests[0].status.should.equal(200);
+           this.model.get("name").should.equal("The fetched name");
+           this.model.removePassword();
+           // The only way I've found to assert a value of undefined:
+           chai.expect(this.model.get("name")).to.equal(undefined);
+         });
     });
   });
 });

@@ -12,7 +12,7 @@
   spiderOakApp.FolderView = Backbone.View.extend({
     destructionPolicy: "never",
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
@@ -123,7 +123,7 @@
 
   spiderOakApp.FoldersListView = Backbone.View.extend({
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
@@ -193,7 +193,7 @@
       "tap a": "a_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
     },
     render: function() {
       this.$el.html(window.tmpl["folderItemViewTemplate"](

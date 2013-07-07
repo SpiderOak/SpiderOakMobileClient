@@ -17,7 +17,7 @@
       "tap .back-btn": "backButton_handler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       $('.page').on('tap',this.closeMenu);
     },
     render: function() {

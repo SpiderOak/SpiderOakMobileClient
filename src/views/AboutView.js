@@ -16,7 +16,7 @@
       "tap .email-link": "emailLink_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.settings = {
         actionBar: false,
         offScreen: false,
@@ -82,7 +82,7 @@
       "tap .email-link": "emailLink_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.settings = {
         actionBar: true,
         offScreen: true,
@@ -118,7 +118,7 @@
 
   spiderOakApp.SettingsAboutView = spiderOakApp.AboutView.extend({
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.settings = {
         actionBar: false,
         offScreen: true,

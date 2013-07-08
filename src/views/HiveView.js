@@ -14,7 +14,7 @@
       "tap a": "a_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.model.on("change", this.render, this );
       this.model.fetch({
         error: function(model, response, options) {

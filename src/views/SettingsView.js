@@ -18,7 +18,7 @@
       "change #settings-rememberme": "rememberMe_changeHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.on("viewActivate", this.viewActivate);
       this.on("viewDeactivate", this.viewDeactivate);
       $(document).on("settingChanged", this.render);
@@ -160,7 +160,7 @@
     viewTitle: "Account",
     destructionPolicy: "never",
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
@@ -226,7 +226,7 @@
       "tap .changeServerButton": "changeServerButton_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);

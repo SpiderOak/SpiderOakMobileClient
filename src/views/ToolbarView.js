@@ -15,7 +15,7 @@
       // ...
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
     },
     render: function() {
       return this;

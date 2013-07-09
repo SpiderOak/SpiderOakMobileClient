@@ -12,7 +12,7 @@
 
   spiderOakApp.FilesListView = Backbone.View.extend({
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
@@ -651,7 +651,7 @@
       "tap .rightButton": "favorite_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.model.on("change",this.render);
     },
     render: function() {
@@ -780,7 +780,7 @@
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
     destructionPolicy: "never",
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.model.on("change",this.render);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
@@ -887,7 +887,7 @@
       "tap .file-favorite-button.enabled": "favorite_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.model.on("change", this.render);
     },
     render: function() {
@@ -921,7 +921,7 @@
   spiderOakApp.FileItemVersionsListView = spiderOakApp.FilesListView.extend({
     tagName: "ul",
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "all", this.render, this );

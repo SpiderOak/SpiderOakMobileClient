@@ -21,7 +21,7 @@
           new spiderOakApp.PublicShareRoomsCollection();
       // spiderOakApp.addShareRoomView =
       //     new spiderOakApp.AddShareRoomView().render();
-      _.bindAll(this);
+      window.bindMine(this);
       this.name = "Share Rooms";
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
@@ -141,7 +141,7 @@
 
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".myShareRoomsList");
-      _.bindAll(this);
+      window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
@@ -199,7 +199,7 @@
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".publicShareRoomsList");
 
-      _.bindAll(this);
+      window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );
       this.collection.on( "change", this.render, this );
@@ -262,7 +262,7 @@
       "tap .addShareRoomsButton": "addShareRoomsButton_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
@@ -348,7 +348,7 @@
       "tap a": "a_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
     },
     render: function() {
       this.$el.html(
@@ -621,7 +621,7 @@
       "tap .file-send-button": "sendLink"
     },
     initialize: function(options) {
-      _.bindAll(this);
+      window.bindMine(this);
       this.model.on("change",this.render);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
@@ -669,7 +669,7 @@
       "tap .submitPasswordButton": "submitPasswordButton_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);

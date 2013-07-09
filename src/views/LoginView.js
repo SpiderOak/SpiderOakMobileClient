@@ -19,7 +19,7 @@
       "tap .learn-more": "learnMore_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       $(document).on("focus", "#login input", this.input_focusHandler);
       $(document).on("blur", "#login input", this.input_blurHandler);
     },
@@ -179,7 +179,7 @@
       "tap .forget-me": "forgetMe_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
     },
     render: function() {
       this.$el.html(window.tmpl["rememberMeWarningViewTemplate"]());

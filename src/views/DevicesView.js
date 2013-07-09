@@ -12,7 +12,7 @@
   spiderOakApp.DevicesListView = Backbone.View.extend({
     initialize: function() {
       this.views = [];
-      _.bindAll(this);
+      window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "reset", this.addAll, this );

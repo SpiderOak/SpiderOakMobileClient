@@ -12,7 +12,7 @@
   spiderOakApp.DialogView = Backbone.View.extend({
     className: "modal",
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       var supportsOrientationChange = "onorientationchange" in window;
       this.orientationEvent = supportsOrientationChange ?
                                 "orientationchange" :
@@ -111,7 +111,7 @@
       "tap a": "a_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
     },
     render: function() {
       this.$el.html(

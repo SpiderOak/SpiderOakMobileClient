@@ -23,7 +23,7 @@
       // "tap .clear-icon": "clearIcon_tapHandler"
     },
     initialize: function() {
-      _.bindAll(this);
+      window.bindMine(this);
       $(document).on("menuOpening", this.menuOpening);
       $(document).on("menuClosing", this.menuClosing);
       $(document).on("logoutSuccess", this.render);

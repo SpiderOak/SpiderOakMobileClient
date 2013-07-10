@@ -42,6 +42,7 @@
                        spiderOakApp.ShareRoomModel.prototype.defaults,
                        {remember: 0,
                         beenSituated: false,
+                        fetchedAttributes: null,
                         removable: true,
                         kind: "Public ShareRoom"}
                       ),
@@ -52,9 +53,16 @@
     saveRetainedRecords: function () {
       this.collection.saveRetainedRecords();
     },
+    /** Prevent security leakage by unsetting attributes with fetched values. */
+    unfetch: function() {
+      for (var attr in this.fetchedAttributes) {
+        this.unset(attr);
+      }
+      this.fetchedAttributes = null;
+    },
     parseSpecific: function(resp, xhr) {
       var stats = resp.stats;
-      return {
+      var got = {
         password_required: false,
         browse_url: resp.browse_url,
         dirs: resp.dirs,
@@ -67,6 +75,8 @@
         size: stats.room_size,
         start_date: stats.start_date
       };
+      this.fetchedAttributes = _.clone(got);
+      return got;
     },
     which: "PublicShareRoomModel"
   });

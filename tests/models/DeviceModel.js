@@ -13,11 +13,11 @@ describe('DeviceModel', function() {
       this.model.get("name").should.equal("Test device");
     });
     it('should have a URL', function() {
-      this.model.get("url").should.a("string");
+      this.model.get("url").should.be.a("string");
       this.model.get("url").should.equal("Test%20device/");
     });
     it('should have an icon', function() {
-      this.model.get("icon").should.a("string");
+      this.model.get("icon").should.be.a("string");
       this.model.get("icon").should.equal("mac");
     });
   });

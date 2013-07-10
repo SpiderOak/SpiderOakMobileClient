@@ -103,18 +103,19 @@ describe('ShareRoomModel', function() {
             request.respond(
               200,
               {"Content-Type": "application/json"},
-              '{"browse_url": ' +
-                    '"/browse/share/'+ this.b32_share_id + '/aroomkey", ' +
-                  '"dirs": "[]", ' +
-                  '"stats": {' +
-                    '"room_name": "The fetched name", ' +
-                    '"firstname": "Some", ' +
-                    '"lastname": "Body", ' +
-                    '"number_of_files": 0, ' +
-                    '"number_of_folders": 0, ' +
-                    '"room_description": "The fetched description", ' +
-                    '"room_size": "123 MB",' +
-                    '"start_date": ""}}'
+              JSON.stringify(
+                {browse_url: "/browse/share/" + this.b32_share_id + "/aroomkey",
+                 dirs: [],
+                 stats: {
+                   room_name: "The fetched name",
+                   firstname: "Some",
+                   lastname: "Body",
+                    number_of_files: 0,
+                    number_of_folders: 0,
+                    room_description: "The fetched description",
+                    room_size: "123 MB",
+                    start_date: ""}}
+              )
             );
           }
           else if (request.url === this.shouldBeComposedUrl) {

@@ -101,7 +101,11 @@
     removePassword: function() {
       if (this.getPassword()) {
         this.setPassword("");
+        this.unfetch();
       }
+    },
+    /** Noop, the deriving class must implement something meaningful. */
+    unfetch: function () {
     },
     /** Generate basic auth per creds. */
     getBasicAuth: function () {

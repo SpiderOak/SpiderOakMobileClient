@@ -1,14 +1,11 @@
 /*jshint expr:true */
 describe('FolderModel', function() {
-  beforeEach(function() {
-    this.urlBase = "https://spideroak.com/";
-    this.content = {
-      name: "foldername",
-      url: "foldername/",
-    };
-  });
   describe('instantiation', function() {
     beforeEach(function() {
+      this.content = {
+        name: "foldername",
+        url: "foldername/",
+      };
       this.model = new spiderOakApp.FolderModel(this.content);
     });
     it('should have a name', function() {
@@ -23,13 +20,16 @@ describe('FolderModel', function() {
   describe('fetching', function() {
     beforeEach(function() {
       window.spiderOakApp.initialize()
+      this.content = {
+        name: "foldername",
+        url: "foldername/",
+      };
       this.server = sinon.fakeServer.create();
       this.password = "a folder password";
-      this.successSpy = sinon.spy();
-      this.errorSpy = sinon.spy();
       this.requestUrl = ("https://spideroak.com/SOME/CONTENT/PATH/" +
                          this.content.url +
                          "?auth_required_format=json");
+      this.model = new spiderOakApp.FolderModel();
       this.model.url = this.requestUrl;
     });
     it('should fetch unrestricted content simply', function () {
@@ -42,19 +42,23 @@ describe('FolderModel', function() {
           JSON.stringify(this.content)
         ]
       );
-      this.model.fetch()
+      this.successSpy = sinon.spy();
+      this.model.fetch({success: this.successSpy})
+      this.server.respond();
+      this.successSpy.should.have.been.called.once;
       this.model.get("name").should.equal(this.content.name);
       this.model.get("url").should.equal(this.content.url);
     });
     describe('password-protected', function () {
       beforeEach(function () {
+        this.content = {
+          name: "foldername",
+          url: "foldername/",
+        };
         this.requestUrl = ("https://spideroak.com/SOME/CONTENT/PATH/" +
                            this.content.url +
                            "?auth_required_format=json");
-        this.model = new spiderOakApp.FolderModel(
-          {
-            collection: this.collection
-          });
+        this.model = new spiderOakApp.FolderModel();
         this.model.url = this.requestUrl;
         var responder = function (request) {
           if (request.url === this.requestUrl &&

@@ -60,10 +60,18 @@ describe('FileModel', function() {
   describe('fetching', function() {
     beforeEach(function() {
       window.spiderOakApp.initialize()
+      this.content = {
+        name: "filename.pdf",
+        url: "filename.pdf",
+        ctime: 1359167989,
+        etime: 1359167998,
+        mtime: 1359167946,
+        size: 255434,
+        versions: 2
+      };
       this.server = sinon.fakeServer.create();
       this.password = "a file password";
-      this.successSpy = sinon.spy();
-      this.errorSpy = sinon.spy();
+      this.model = new spiderOakApp.FileModel();
       this.requestUrl = ("https://spideroak.com/SOME/CONTENT/PATH/" +
                          this.content.filename +
                          "?auth_required_format=json");
@@ -80,6 +88,7 @@ describe('FileModel', function() {
         ]
       );
       this.model.fetch()
+      this.server.respond();
       this.model.get("name").should.equal(this.content.name);
       this.model.get("ctime").should.equal(this.content.ctime);
       var dateFromTimestamp = new Date(this.model.get("ctime") * 1000);

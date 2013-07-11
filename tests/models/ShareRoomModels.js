@@ -20,7 +20,7 @@ describe('ShareRoomModel', function() {
     }, {
       collection: this.collection,
     });
-    this.shouldBeComposedUrl =
+    this.requestUrl =
         this.urlBase + this.b32_share_id + "/" + this.room_key + "/" +
         "?auth_required_format=json";
   });
@@ -40,11 +40,11 @@ describe('ShareRoomModel', function() {
     });
     it('should have a proper url value', function() {
       this.model.url.should.be.a("string");
-      this.model.url.should.equal(this.shouldBeComposedUrl);
+      this.model.url.should.equal(this.requestUrl);
     });
     it('should have a proper .composedUrl() value', function() {
       this.model.composedUrl().should.be.a("string");
-      this.model.composedUrl().should.equal(this.shouldBeComposedUrl);
+      this.model.composedUrl().should.equal(this.requestUrl);
     });
   });
   describe('PublicShareRoomModel', function() {
@@ -61,18 +61,18 @@ describe('ShareRoomModel', function() {
       }, {
         collection: this.collection,
       });
-      this.shouldBeComposedUrl =
+      this.requestUrl =
           this.urlBase + this.b32_share_id + "/" + this.room_key + "/" +
           "?auth_required_format=json";
     });
     it('should have a proper url value', function() {
       this.model.url.should.be.a("string");
       // Full path because we're setting urlRoot for the tests:
-      this.model.url.should.equal(this.shouldBeComposedUrl);
+      this.model.url.should.equal(this.requestUrl);
     });
     it('should have a proper .composedUrl() value', function() {
       this.model.composedUrl().should.be.a("string");
-      this.model.composedUrl().should.equal(this.shouldBeComposedUrl);
+      this.model.composedUrl().should.equal(this.requestUrl);
     });
 
     describe('Remembering and forgetting', function() {
@@ -97,7 +97,8 @@ describe('ShareRoomModel', function() {
         this.successSpy = sinon.spy();
         this.errorSpy = sinon.spy();
         var responder = function (request) {
-          if (request.hasOwnProperty("requestHeaders") &&
+          if (request.url === this.requestUrl &&
+              request.hasOwnProperty("requestHeaders") &&
               request.requestHeaders.Authorization ===
               "Basic Ymxhbms6dGhlcGFzc3dvcmQ=") {
             request.respond(
@@ -118,7 +119,7 @@ describe('ShareRoomModel', function() {
               )
             );
           }
-          else if (request.url === this.shouldBeComposedUrl) {
+          else if (request.url === this.requestUrl) {
             // Password needed, and "...?auth_required_format=json" provokes
             // a content-based prompt for auth:
             request.respond(
@@ -127,7 +128,7 @@ describe('ShareRoomModel', function() {
               '{"password_required": true}'
             );
           }
-          else if (request.url === this.shouldBeComposedUrl.split('\?')[0]) {
+          else if (request.url === this.requestUrl.split('\?')[0]) {
             // Password needed, but no "...?auth_required_format=json" means
             // do a 401 Unauthorized response:
             request.respond(

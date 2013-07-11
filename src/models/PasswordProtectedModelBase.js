@@ -75,6 +75,10 @@
         return got;
       }
     },
+    /** Default content-specific parse is default backbone parse. */
+    parseSpecific: function(resp, xhr) {
+      return Backbone.Model.prototype.parse.call(this, resp, xhr);
+    },
     setPassword: function(password) {
       if (this.getPassword() !== password) {
         this.set("password", password);

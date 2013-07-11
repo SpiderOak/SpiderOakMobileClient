@@ -14,9 +14,6 @@
       {isFavorite: false},
       spiderOakApp.PasswordProtectedModelBase.prototype.defaults
     ),
-    parseSpecific: function(resp, xhr) {
-      return Backbone.Model.prototype.parse.call(this, resp, xhr);
-    },
     which: "FileModel"
   });
 

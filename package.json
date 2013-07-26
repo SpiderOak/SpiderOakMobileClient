@@ -30,7 +30,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "bower": "latest",
+    "bower": "0.9.x",
     "grunt-cli": "0.1.x",
     "grunt": "~0.4.x",
     "grunt-contrib-uglify": "~0.2.0",

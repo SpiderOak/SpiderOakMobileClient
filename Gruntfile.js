@@ -15,14 +15,14 @@ module.exports = function(grunt) {
     },
     shell: {
       debug_ios: {
-        command: 'cordova build ios && ./platforms/ios/cordova/run',
+        command: 'cordova -d run androi',
         options: {
           failOnError: true,
           stdout: true
         }
       },
       debug_android: {
-        command: 'cordova build android && ./platforms/android/cordova/run',
+        command: 'cordova -d run ios',
         options: {
           failOnError: true,
           stdout: true

@@ -4,7 +4,7 @@
   "dependencies": {
     "backbone": "~0.9.10",
     "underscore": "latest",
-    "backbone.basicauth": "https://github.com/fiznool/backbone.basicauth.git",
+    "backbone.basicauth": "https://github.com/fiznool/backbone.basicauth/archive/0.2.0.zip",
     "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.js",
     "zepto": "https://github.com/madrobby/zepto/archive/v1.0rc1.zip",

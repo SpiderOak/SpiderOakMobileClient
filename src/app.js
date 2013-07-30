@@ -82,7 +82,8 @@
       this.networkAvailable = true;
 
       this.version = "0.0.0"; // lame default
-      spiderOakApp.ajax({
+      // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
+      $.ajax({
         url: "./config.xml",
         dataType: "xml",
         success: function(config){

@@ -89,6 +89,7 @@ describe('Application setup', function() {
 
   describe('spiderOakApp.ajax', function() {
     beforeEach(function() {
+      window.spiderOakApp.initialize();
       this.realAjax = $.ajax;
       $.ajax = sinon.spy();
       this.alternateAjax = sinon.spy();

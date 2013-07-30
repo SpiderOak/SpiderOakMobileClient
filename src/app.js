@@ -36,7 +36,10 @@
     // Retained values will be held in local storage, and local changes
     // will supercede these default values.
     config: {
-      server: {value: "spideroak.com", retain: 1}
+      server: {value: "spideroak.com", retain: 1},
+      // If set, alternateAjax callable will be used by SpiderOakApp.ajax
+      // instead of $.ajax:
+      alternateAjax: {value: null, retain: 0}
     },
     initialize: function() {
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
@@ -79,7 +82,7 @@
       this.networkAvailable = true;
 
       this.version = "0.0.0"; // lame default
-      $.ajax({
+      spiderOakApp.ajax({
         url: "./config.xml",
         dataType: "xml",
         success: function(config){
@@ -325,7 +328,12 @@
                                     keyString:
                                       "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
                                     pad: ""
-                                   })
+                                   }),
+    ajax: function (options) {
+      var ajaxFunction = (this.settings.get("alternateAjax").get("value")
+                          || $.ajax);
+      return ajaxFunction(options);
+    }
   });
 
   /*

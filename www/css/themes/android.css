@@ -6,6 +6,12 @@ body {
     font-family: "Roboto", Helvetica, Arial, sans-serif;
 }
 
+input[type="password"], input[type="text"] {
+  position:relative;
+  top: -10000px;
+  -webkit-transform: translate3d(0, 9980px, 0);
+}
+
 .nav {
 	height: 48px !important;
 	background-color: #111;

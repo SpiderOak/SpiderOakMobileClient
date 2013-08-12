@@ -1,0 +1,21 @@
+{
+  "Purpose": "Identify customizable elements, for app and integrators",
+  "GetCustomElementsFrom": [".", "custom", "brand"],
+  "Items":
+  [
+    {
+      "FileName": "brand_logo.png",
+      "TargetFolder": [".", "www", "img"],
+      "Format": "512 x 512 PNG image",
+      "Purpose": "Full-size company logo",
+      "Platforms": ["Android"]
+    },
+    {
+      "FileName": "icon.png",
+      "TargetFolder": [".", "www", "img"],
+      "Format": "57 x 57 PNG image",
+      "Purpose": "Home-screen icon",
+      "Platforms": ["Android"]
+    }
+  ]
+}

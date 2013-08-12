@@ -3,10 +3,10 @@
   var projectName = 'SpiderOak',
     fs = require('fs'),
     path = require('path'),
-    res = path.join('.', 'www', 'res', 'config'),
-    androidDest = path.join('.', 'platforms', 'android'),
-    iOSDest = path
-      .join('.', 'platforms', 'ios', projectName);
+    projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    res = path.join(projectRootDir, 'www', 'res', 'config'),
+    androidDest = path.join(projectRootDir, 'platforms', 'android'),
+    iOSDest = path.join(projectRootDir, 'platforms', 'ios', projectName);
 
   function copyFile(from, to) {
     var readStream = fs.createReadStream(from);

@@ -5,24 +5,101 @@
   [
     {
       "FileName": "custom_config.js",
-      "TargetFolder": "./www",
+      "TargetFolder": "./assets/www",
       "Format": "Javascript",
       "Purpose": "Build-specific configuration settings",
       "Platforms": ["Android", "iOS"]
     },
     {
       "FileName": "brand_logo.png",
-      "TargetFolder": "./www/img",
+      "TargetFolder": "./assets/www/img",
       "Format": "512 x 512 PNG image",
       "Purpose": "Full-size company logo",
       "Platforms": ["Android"]
     },
     {
       "FileName": "icon.png",
-      "TargetFolder": "./www/img",
+      "TargetFolder": "./assets/www/img",
       "Format": "57 x 57 PNG image",
-      "Purpose": "Application home-screen and menu-sheet 'back' button icon",
+      "Purpose": "Menu-sheet 'back' button icon",
+      "Platforms": ["Android", "iOS"]
+    },
+
+    {
+      "SourceFileName": "cordova_android_96.png",
+      "TargetFileName": "icon.png",
+      "TargetFolder": "./res/drawable",
+      "Format": "96 x 96 PNG image",
+      "Purpose": "Android application home-screen icon",
       "Platforms": ["Android"]
+    },
+    {
+      "SourceFileName": "cordova_android_72.png",
+      "TargetFileName": "icon.png",
+      "TargetFolder": "./res/drawable-hdpi",
+      "Format": "72 x 72 PNG image",
+      "Purpose": "Android application home-screen HDPI icon",
+      "Platforms": ["Android"]
+    },
+    {
+      "SourceFileName": "cordova_android_36.png",
+      "TargetFileName": "icon.png",
+      "TargetFolder": "./res/drawable-ldpi",
+      "Format": "36 x 36 PNG image",
+      "Purpose": "Android application home-screen LDPI icon",
+      "Platforms": ["Android"]
+    },
+    {
+      "SourceFileName": "cordova_android_48.png",
+      "TargetFileName": "icon.png",
+      "TargetFolder": "./res/drawable-mdpi",
+      "Format": "48 x 48 PNG image",
+      "Purpose": "Android application home-screen MDPI icon",
+      "Platforms": ["Android"]
+    },
+    {
+      "SourceFileName": "cordova_android_96.png",
+      "TargetFileName": "icon.png",
+      "TargetFolder": "./res/drawable-xhdpi",
+      "Format": "96 x 96 PNG image",
+      "Purpose": "Android application home-screen XHDPI icon",
+      "Platforms": ["Android"]
+    },
+
+    {
+      "SourceFileName": "cordova_ios_57.png",
+      "TargetFileName": "icon.png",
+      "TargetFolder": "./Resources/icons",
+      "Format": "57 x 57 PNG image",
+      "Purpose": "iPhone application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_114.png",
+      "TargetFileName": "icon@2x.png",
+      "SourceFolder": "./www/res/icon",
+      "TargetFolder": "./Resources/icons",
+      "Format": "114 x 114 PNG image",
+      "Purpose": "iPhone retina display application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_72.png",
+      "TargetFileName": "icon-72.png",
+      "SourceFolder": "./www/res/icon",
+      "TargetFolder": "./Resources/icons",
+      "Format": "72 x 72 PNG image",
+      "Purpose": "iPad application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_144.png",
+      "TargetFileName": "icon-72@2x.png",
+      "SourceFolder": "./www/res/icon",
+      "TargetFolder": "./Resources/icons",
+      "Format": "144 x 144 PNG image",
+      "Purpose": "iPad retina display application home-screen icon",
+      "Platforms": ["iOS"]
     }
   ]
 }

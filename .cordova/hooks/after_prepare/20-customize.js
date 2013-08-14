@@ -10,7 +10,7 @@
       elements = require(elementsFilePath),
       elementsNum = 0,
       platformDestinations = {
-        android: path.join(projectRootDir, 'platforms', 'android', 'assets'),
+        android: path.join(projectRootDir, 'platforms', 'android'),
         ios: path.join(projectRootDir, 'platforms', 'ios', projectName)
       },
       customElementsDir =
@@ -21,33 +21,40 @@
   console.log("[hooks] Applying customizations from %s", elementsFilePath);
 
   /** Copy optional customization elements to the indicated platform dir.
+   *
+   * @param {string} sourceFileName The file being copied from
+   * @param {string} targetFileName The file being copied to
+   * @param {string} targetPath The target path relative to platfom dir root
+   * @param {string} platform The name of the target platform (case insensitive)
    */
-  function doCopyIfPresent(fileName, relativePath, platform) {
+  function doCopyIfPresent(sourceFileName, targetFileName,
+                           targetPath, platform) {
     var platformLC = platform.toLowerCase();
     if (! platformDestinations.hasOwnProperty(platformLC)) {
       throw new Error("[hooks] Unrecognized customization platform '%s'",
                       platform);
     }
-    var fromPath = path.join(customElementsDir, fileName);
+    var fromPath = path.join(customElementsDir, sourceFileName);
     var destPath = path.join(platformDestinations[platformLC],
-                             path.join.apply({}, relativePath.split("/")),
-                             fileName);
+                             path.join.apply({}, targetPath.split("/")),
+                             targetFileName);
     // Copy if optional item is present.
     if (fs.existsSync(fromPath)) {
       if (! fs.existsSync(path.dirname(destPath))) {
-        console.log("[hooks] Skipping missing platform %s" +
-                    " destination dir %s, for file %s",
-                    path.dirname(destPath), platform, item.FileName);
+        console.log("[hooks] Skipping missing %s destination dir" +
+                    " for item %s: %s",
+                    platform, item.FileName, path.dirname(destPath));
         return false;
       }
       var readStream = fs.createReadStream(fromPath);
       var writeStream = fs.createWriteStream(destPath);
-      // By queuing the end event, we ensure that copying finishes before
-      // the node.js process exits, because the event queue must drain
-      // before exit.
-      writeStream.on('end', function (event) {});
-      console.log("[hooks] Copying custom platform %s element %s to: %s",
-                  platform, fileName, destPath);
+      // Occupy event queue until write 'end' so process doesn't exit 'til done:
+      writeStream.on('end', function (event) {
+        // console.log() seems to be ineffective in an event handler?
+        //console.log("[hooks] %s written.", destPath);
+      });
+      //console.log("[hooks] Copying custom platform %s element %s to: %s",
+      //            platform, sourceFileName, destPath);
       readStream.pipe(writeStream);
       return true;
     }
@@ -58,10 +65,13 @@
    * CustomElements folder to locations indicated, relative to the
    * projectRootDir. */
   for (var i in elements.Items) {
-    var item = elements.Items[i];
+    var item = elements.Items[i],
+        sourceFileName = item.SourceFileName || item.FileName,
+        targetFileName = item.TargetFileName || item.FileName;
     for (var p in item.Platforms) {
       platform = item.Platforms[p];
-      doCopyIfPresent(item.FileName, item.TargetFolder, platform);
+      doCopyIfPresent(sourceFileName, targetFileName,
+                      item.TargetFolder, platform);
     }
   }
 })(require, console);

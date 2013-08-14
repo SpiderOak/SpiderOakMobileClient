@@ -4,6 +4,13 @@
   "Items":
   [
     {
+      "FileName": "custom_config.js",
+      "TargetFolder": [".", "www"],
+      "Format": "Javascript",
+      "Purpose": "Build-specific configuration settings",
+      "Platforms": ["Android", "iOS"]
+    },
+    {
       "FileName": "brand_logo.png",
       "TargetFolder": [".", "www", "img"],
       "Format": "512 x 512 PNG image",
@@ -14,7 +21,7 @@
       "FileName": "icon.png",
       "TargetFolder": [".", "www", "img"],
       "Format": "57 x 57 PNG image",
-      "Purpose": "Home-screen icon",
+      "Purpose": "Application home-screen and menu-sheet 'back' button icon",
       "Platforms": ["Android"]
     }
   ]

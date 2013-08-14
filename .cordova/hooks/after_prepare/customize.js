@@ -15,7 +15,8 @@
       },
       customElementsDir =
         path.join(projectRootDir,
-                  path.join.apply({}, elements.GetCustomElementsFrom));
+                  path.join.apply({}, elements.GetCustomElementsFrom)),
+      platform;
 
   console.log("[hooks] Applying customizations from %s", elementsFilePath);
 
@@ -33,17 +34,24 @@
                              fileName);
     // Copy if optional item is present.
     if (fs.existsSync(fromPath)) {
+      if (! fs.existsSync(path.dirname(destPath))) {
+        console.log("[hooks] Skipping missing platform %s" +
+                    " destination dir %s, for file %s",
+                    path.dirname(destPath), platform, item.FileName);
+        return false;
+      }
       var readStream = fs.createReadStream(fromPath);
       var writeStream = fs.createWriteStream(destPath);
       // By queuing the end event, we ensure that copying finishes before
       // the node.js process exits, because the event queue must drain
       // before exit.
-      writeStream.on('end', function (event) {
-        console.log("[hooks] Copied custom element %s to platform %s: %s",
-                    fromPath, platform, destPath);
-      });
+      writeStream.on('end', function (event) {});
+      console.log("[hooks] Copying custom platform %s element %s to: %s",
+                  platform, fileName, destPath);
       readStream.pipe(writeStream);
+      return true;
     }
+    return false;
   }
 
   /* Iterate the custom element entries, copying elements found in the
@@ -52,8 +60,8 @@
   for (var i in elements.Items) {
     var item = elements.Items[i];
     for (var p in item.Platforms) {
-      var platform = item.Platforms[p];
+      platform = item.Platforms[p];
       doCopyIfPresent(item.FileName, item.TargetFolder, platform);
-      }
     }
+  }
 })(require, console);

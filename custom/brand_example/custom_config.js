@@ -7,5 +7,5 @@
  */
 
 window.spiderOakMobile_custom_config = {
-  server: {value: "www.spideroak.com", retain: 1}
+  server: {value: "spideroak.com", retain: 1}
 };

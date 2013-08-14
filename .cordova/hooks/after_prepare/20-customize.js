@@ -15,13 +15,16 @@
       },
       customElementsDir =
         path.join(projectRootDir,
-                  path.join.apply({}, elements.GetCustomElementsFrom)),
+                  path.join.apply({},
+                                  // Split+path.join for platform independence:
+                                  elements.GetCustomElementsFrom.split('/'))),
       platform;
 
   console.log("[hooks] Applying customizations from %s", elementsFilePath);
 
   /** Copy optional customization elements to the indicated platform dir.
    *
+   * @return true if item was present and copied, false otherwise.
    * @param {string} sourceFileName The file being copied from
    * @param {string} targetFileName The file being copied to
    * @param {string} targetPath The target path relative to platfom dir root

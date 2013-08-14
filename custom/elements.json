@@ -1,6 +1,6 @@
 {
   "Purpose": "Identify customizable elements, for app and integrators",
-  "GetCustomElementsFrom": [".", "custom", "brand"],
+  "GetCustomElementsFrom": "./custom/brand",
   "Items":
   [
     {

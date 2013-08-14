@@ -77,7 +77,6 @@
     {
       "SourceFileName": "cordova_ios_114.png",
       "TargetFileName": "icon@2x.png",
-      "SourceFolder": "./www/res/icon",
       "TargetFolder": "./Resources/icons",
       "Format": "114 x 114 PNG image",
       "Purpose": "iPhone retina display application home-screen icon",
@@ -86,7 +85,6 @@
     {
       "SourceFileName": "cordova_ios_72.png",
       "TargetFileName": "icon-72.png",
-      "SourceFolder": "./www/res/icon",
       "TargetFolder": "./Resources/icons",
       "Format": "72 x 72 PNG image",
       "Purpose": "iPad application home-screen icon",
@@ -95,7 +93,6 @@
     {
       "SourceFileName": "cordova_ios_144.png",
       "TargetFileName": "icon-72@2x.png",
-      "SourceFolder": "./www/res/icon",
       "TargetFolder": "./Resources/icons",
       "Format": "144 x 144 PNG image",
       "Purpose": "iPad retina display application home-screen icon",

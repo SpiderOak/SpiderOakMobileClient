@@ -30,7 +30,7 @@
     }
     var fromPath = path.join(customElementsDir, fileName);
     var destPath = path.join(platformDestinations[platformLC],
-                             path.join.apply({}, relativePath),
+                             path.join.apply({}, relativePath.split("/")),
                              fileName);
     // Copy if optional item is present.
     if (fs.existsSync(fromPath)) {

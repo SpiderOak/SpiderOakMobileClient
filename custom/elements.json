@@ -5,21 +5,21 @@
   [
     {
       "FileName": "custom_config.js",
-      "TargetFolder": [".", "www"],
+      "TargetFolder": "./www",
       "Format": "Javascript",
       "Purpose": "Build-specific configuration settings",
       "Platforms": ["Android", "iOS"]
     },
     {
       "FileName": "brand_logo.png",
-      "TargetFolder": [".", "www", "img"],
+      "TargetFolder": "./www/img",
       "Format": "512 x 512 PNG image",
       "Purpose": "Full-size company logo",
       "Platforms": ["Android"]
     },
     {
       "FileName": "icon.png",
-      "TargetFolder": [".", "www", "img"],
+      "TargetFolder": "./www/img",
       "Format": "57 x 57 PNG image",
       "Purpose": "Application home-screen and menu-sheet 'back' button icon",
       "Platforms": ["Android"]

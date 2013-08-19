@@ -39,7 +39,7 @@
       spiderOakApp.mainView.closeMenu(event);
       var options = {
         id: this.model.cid,
-        title: "SpiderOak Hive",
+        title: spiderOakApp.settings.get("app_label").get("value") + " Hive",
         model: this.model
       };
       $("#menusheet ul li").removeClass("current");

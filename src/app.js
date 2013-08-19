@@ -267,8 +267,8 @@
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
-      spiderOakApp.mainView.setTitle("SpiderOak");
-
+      spiderOakApp.mainView.setTitle(spiderOakApp.settings.get("app_label")
+                                     .get("value"));
       // Instantiate the favorites and populate from localStorage
       // trailing slash of weirdness
       var favorites = window.store.get("favorites-");

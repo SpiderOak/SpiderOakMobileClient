@@ -7,5 +7,6 @@
  */
 
 window.spiderOakMobile_custom_config = {
+  app_label: {value: "ACMESync", retain: 1},
   server: {value: "spideroak.com", retain: 1}
 };

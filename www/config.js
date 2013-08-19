@@ -3,5 +3,6 @@
  */
 
 window.spiderOakMobile_config = {
+  app_label: {value: "SpiderOak", retain: 1},
   server: {value: "spideroak.com", retain: 1}
 };

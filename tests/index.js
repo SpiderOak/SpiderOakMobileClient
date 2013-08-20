@@ -20,9 +20,6 @@ describe('Application setup', function() {
       it('should have backbone', function() {
         window.Backbone.should.be.an('object');
       });
-      it('should have backbone.basicauth', function() {
-        window.Backbone.BasicAuth.should.be.an('object');
-      });
     });
 
     describe('sinon', function() {

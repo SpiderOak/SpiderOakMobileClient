@@ -7,4 +7,4 @@
 window.encodeUTF8 = function (text) {
   var got = window.unescape(window.encodeURIComponent(text));
   return got;
-},
+};

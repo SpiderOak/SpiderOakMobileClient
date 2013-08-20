@@ -29,6 +29,7 @@ describe('DevicesCollection', function() {
           '"lastname":"User","size":100,"size_for_robots":100000000000}}'
         ]
       );
+      spiderOakApp.initialize();
       this.collection = new spiderOakApp.DevicesCollection();
       this.collection.url = "https://spideroak.com/storage/" +
                                     this.b32username + "/";

@@ -223,7 +223,8 @@
   spiderOakApp.BasicAuthManager = function () {
     // @TESTTHIS
     var accountUsername = "",
-        accountPassword = "";
+        accountPassword = "",
+        currentAuthString = "";
     return {
       /** Establish basic auth based on credentials, and stash them. */
       setAccountBasicAuth: function (username, password) {
@@ -234,31 +235,27 @@
       },
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
-        if (accountUsername || accountPassword) {
-          Backbone.BasicAuth.set(window.encodeUTF8(accountUsername),
-                                 window.encodeUTF8(accountPassword));
-        }
-        else {
-          this.clear();
-        }
-        return this;
+        this.currentAuthString =
+          ((accountUsername !== "") ||
+           (accountPassword !== "")) &&
+          window.makeBasicAuthString(accountUsername, accountPassword);
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {
-        Backbone.BasicAuth.set(window.encodeUTF8(username),
-                               window.encodeUTF8(password));
-        return this;
+        currentAuthString = window.makeBasicAuthString(username, password);
       },
-      /** Establish basic auth per alternate creds, keeping stashed around. */
+      /** Return currently obtaining basic auth string, or "". */
+      getCurrentBasicAuth: function () {
+        return currentAuthString;
+      },
+      /** Return account basic auth string, or false if not logged in. */
       getAccountBasicAuth: function () {
-        var tok = (window.encodeUTF8(accountUsername) +
-                   ':' + window.encodeUTF8(accountPassword));
-        var hash = btoa(tok);
-        return "Basic " + hash;
+        return ((accountUsername !== "") &&
+                (accountPassword !== "") &&
+                window.makeBasicAuthString(accountUsername, accountPassword));
       },
       clear: function () {
-        Backbone.BasicAuth.clear();
-        accountUsername = accountPassword = "";
+        accountUsername = accountPassword = currentAuthString = "";
       }
     };
   };

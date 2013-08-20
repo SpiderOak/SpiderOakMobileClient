@@ -42,6 +42,8 @@
       alternateAjax: {value: null, retain: 0}
     },
     initialize: function() {
+      // Substitute our ajax wrapper for backbone's internal .ajax() calls:
+      Backbone.ajax = this.ajax;
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
       if (window.Modernizr.overflowscrolling) {
         window.iScroll = function(options) {
@@ -330,9 +332,26 @@
                                       "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
                                     pad: ""
                                    }),
+    /** spiderOakApp.ajax() consolidates basicauth and alternate ajax functions.
+     *
+     * We include the 'Basic' 'Authorization' options header if we find a
+     * credentials in (in order of precedence):
+     *
+     * 1. The options parameter, in the form of a 'credentials' attribute
+     *    having a value of an object with 'username' and 'password' fields, or
+     * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a 
+     *
+     * #param {object} options like $.ajax(options)
+     */
     ajax: function (options) {
-      var ajaxFunction = (this.settings.get("alternateAjax").get("value")
-                          || $.ajax);
+      var authString =
+            spiderOakApp.accountModel.basicAuthManager.getCurrentBasicAuth();
+      if (authString) {
+        options = window.makeBasicOptionsHeader(options, authString);
+      }
+      var ajaxFunction = ((this.settings &&
+                           this.settings.get("alternateAjax").get("value")) ||
+                          $.ajax);
       return ajaxFunction(options);
     }
   });

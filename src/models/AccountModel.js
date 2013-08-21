@@ -235,10 +235,13 @@
       },
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
-        this.currentAuthString =
-          ((accountUsername !== "") ||
-           (accountPassword !== "")) &&
-          window.makeBasicAuthString(accountUsername, accountPassword);
+        if ((accountUsername !== "") || (accountPassword !== "")) {
+          currentAuthString =
+            window.makeBasicAuthString(accountUsername, accountPassword);
+        }
+        else {
+          currentAuthString = "";
+        }
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
       setAlternateBasicAuth: function (username, password) {

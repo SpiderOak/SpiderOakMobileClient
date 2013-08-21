@@ -72,7 +72,7 @@
           login_url_start = "https://" + server + "/browse/login";
 
       login_url = login_url || login_url_start;
-      window.spiderOakApp.ajax({
+      spiderOakApp.ajax({
         type: "POST",
         url: login_url,
         cache: false,
@@ -188,7 +188,7 @@
         var logout_url = (this.get('logout_url_preface') +
                           this.get("b32username") +
                           "/logout");
-        window.spiderOakApp.ajax(
+        spiderOakApp.ajax(
           {
             type: "POST",
             url: logout_url,

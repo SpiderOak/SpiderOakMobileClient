@@ -349,8 +349,9 @@
       if (authString) {
         options = window.makeBasicOptionsHeader(options, authString);
       }
+      // Make this usable even when settings are not yet established.
       var ajaxFunction = ((this.settings &&
-                           this.settings.get("alternateAjax").get("value")) ||
+                          this.settings.getOrDefault("alternateAjax", null)) ||
                           $.ajax);
       return ajaxFunction(options);
     }

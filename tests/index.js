@@ -86,6 +86,9 @@ describe('Application setup', function() {
 
   describe('spiderOakApp.ajax', function() {
     beforeEach(function() {
+      // Snapshot previous alternateAjax value:
+      this.wasAlternateAjax = window.spiderOakApp.settings.get("alternateAjax")
+        .get("value");
       window.spiderOakApp.initialize();
       this.realAjax = $.ajax;
       $.ajax = sinon.spy();
@@ -95,6 +98,10 @@ describe('Application setup', function() {
       $.ajax = this.realAjax;
       delete this.realAjax;
       delete this.alternateAjax;
+      // Restore previous alternateAjax value:
+      window.spiderOakApp.settings.get("alternateAjax")
+        .set("value", this.wasAlternateAjax);
+      delete this.wasAlternateAjax;
     });
     it('should use the real $.ajax when not substituted', function() {
       $.ajax.should.not.have.been.called;

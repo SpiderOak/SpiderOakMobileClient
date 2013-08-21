@@ -26,7 +26,7 @@
           this.getPassword()  // The salient thing is the password.
         );
         try {
-          return Backbone.Model.prototype.sync.apply(this, arguments);
+          return Backbone.Collection.prototype.sync.apply(this, arguments);
         }
         finally {
           bam.resumeAccountBasicAuth();

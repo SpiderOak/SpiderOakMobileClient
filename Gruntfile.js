@@ -72,6 +72,7 @@ module.exports = function(grunt) {
           'src/helpers/FileDownloadHelper.js',
           'src/helpers/Migrator.js',
           'src/helpers/multilingualchars.js',
+          'src/helpers/basicauth.js',
           'src/helpers/bindmine.js',
           'src/effects/FastSlideEffect.js',
           'src/models/AccountModel.js',
@@ -156,12 +157,6 @@ module.exports = function(grunt) {
           'components/backbone/backbone.js'
         ],
         dest: 'www/components/backbone/backbone.js'
-      },
-      basicauth: {
-        src: [
-          'components/backbone.basicauth/backbone.basicauth.js'
-        ],
-        dest: 'www/components/backbone.basicauth/backbone.basicauth.js'
       },
       backstack: {
         src: [

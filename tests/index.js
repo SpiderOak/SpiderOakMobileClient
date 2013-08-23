@@ -20,9 +20,6 @@ describe('Application setup', function() {
       it('should have backbone', function() {
         window.Backbone.should.be.an('object');
       });
-      it('should have backbone.basicauth', function() {
-        window.Backbone.BasicAuth.should.be.an('object');
-      });
     });
 
     describe('sinon', function() {
@@ -84,6 +81,43 @@ describe('Application setup', function() {
       window.spiderOakApp.initialize();
       helper.trigger(window.document,'deviceready');
       window.spiderOakApp.onDeviceReady.called.should.equal(true);
+    });
+  });
+
+  describe('spiderOakApp.ajax', function() {
+    beforeEach(function() {
+      // Snapshot previous alternateAjax value:
+      this.wasAlternateAjax = window.spiderOakApp.settings.get("alternateAjax")
+        .get("value");
+      window.spiderOakApp.initialize();
+      this.realAjax = $.ajax;
+      $.ajax = sinon.spy();
+      this.alternateAjax = sinon.spy();
+    });
+    afterEach(function() {
+      $.ajax = this.realAjax;
+      delete this.realAjax;
+      delete this.alternateAjax;
+      // Restore previous alternateAjax value:
+      window.spiderOakApp.settings.get("alternateAjax")
+        .set("value", this.wasAlternateAjax);
+      delete this.wasAlternateAjax;
+    });
+    // it('should use the real $.ajax when not substituted', function() {
+    //   $.ajax.should.not.have.been.called;
+    //   this.alternateAjax.should.not.have.been.called;
+    //   window.spiderOakApp.ajax({});
+    //   $.ajax.should.have.been.called.once;
+    //   this.alternateAjax.should.not.have.been.called;
+    // });
+    it('should use the alternate ajax when substituted', function() {
+      $.ajax.should.not.have.been.called;
+      this.alternateAjax.should.not.have.been.called;
+      window.spiderOakApp.settings.get("alternateAjax").set("value",
+                                                            this.alternateAjax);
+      window.spiderOakApp.ajax({});
+      $.ajax.should.not.have.been.called;
+      this.alternateAjax.should.have.been.called.once;
     });
   });
 

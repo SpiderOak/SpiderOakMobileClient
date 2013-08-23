@@ -16,7 +16,7 @@
    * app's basic authentication accordingly.
    */
   spiderOakApp.PasswordProtectedCollectionBase = Backbone.Collection.extend({
-    sync: function () {
+    sync: function (method, model, options) {
       if (this.getPassword()) {
         /* Temporarily set basic auth for the item password, and restore
            the prevailing basic auth upon return. */

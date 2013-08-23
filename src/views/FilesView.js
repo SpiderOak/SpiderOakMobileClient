@@ -315,7 +315,7 @@
       // with result code 405, use url for contents of share rooms.
       var url = model.composedUrl(true);
       var protohost = url.split("/").slice(0,3).join("/") + "/";
-      $.ajax({
+      window.spiderOakApp.ajax({
         type: "POST",
         url: url,
         headers: {

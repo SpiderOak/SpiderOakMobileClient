@@ -44,6 +44,10 @@
     initialize: function() {
       // Substitute our ajax wrapper for backbone's internal .ajax() calls:
       Backbone.ajax = this.ajax;
+      if (! this.dollarAjax) {
+        this.dollarAjax = $.ajax;
+      }
+      $.ajax = this.ajax;
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
       if (window.Modernizr.overflowscrolling) {
         window.iScroll = function(options) {
@@ -350,9 +354,13 @@
         options = window.makeBasicOptionsHeader(options, authString);
       }
       // Make this usable even when settings are not yet established.
-      var ajaxFunction = ((this.settings &&
-                          this.settings.getOrDefault("alternateAjax", null)) ||
-                          $.ajax);
+      var ajaxFunction = ((spiderOakApp &&
+                           spiderOakApp.settings &&
+                           spiderOakApp.settings.getOrDefault("alternateAjax",
+                                                              null)) ||
+                          // In case this is called before this.initialize()
+                          ((spiderOakApp && spiderOakApp.dollarAjax) ||
+                           $.ajax));
       return ajaxFunction(options);
     }
   });

@@ -41,15 +41,13 @@
       return base + (bare ? "" : (delim + query));
     },
     /** Transiently include tailored authentication if we have a password */
-    sync: function () {
+    sync: function (method, model, options) {
       if (this.getPassword()) {
         /* Temporarily set basic auth for the item password, and restore
            the prevailing basic auth upon return. */
         var bam = spiderOakApp.accountModel.basicAuthManager;
-        bam.setAlternateBasicAuth(
-          "blank",              // Doesn't matter - username is not regarded.
-          this.getPassword()  // The salient thing is the password.
-        );
+        // The username is disregarded by the server for content passwords.
+        bam.setAlternateBasicAuth("blank", this.getPassword());
         try {
           return Backbone.Model.prototype.sync.apply(this, arguments);
         }
@@ -115,9 +113,7 @@
     getBasicAuth: function () {
       var password = this.getPassword();
       if (password) {
-        var tok = "whatever" + ':' + password;
-        var hash = btoa(tok);
-        return "Basic " + hash;
+        return window.makeBasicAuthString("whatever", password);
       }
       else {
         return "";

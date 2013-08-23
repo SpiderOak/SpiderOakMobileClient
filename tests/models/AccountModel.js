@@ -202,7 +202,6 @@ describe('AccountModel', function() {
       it('client should fail login with case-altered username',
          function() {
            this.usernameUpCased = this.username.toUpperCase();
-           sinon.spy(Backbone.BasicAuth,'set');
            this.successSpy = sinon.spy();
            this.errorSpy = sinon.spy();
            // The server responds affirmatively to the case-altered username:
@@ -220,8 +219,6 @@ describe('AccountModel', function() {
            this.successSpy.should.not.have.been.called;
            this.errorSpy.should.have.been.calledOnce;
            this.errorSpy.should.have.been.calledWith(403);
-           Backbone.BasicAuth.set.should.not.have.been.called;
-           Backbone.BasicAuth.set.restore();
          }
         );
     });
@@ -231,7 +228,7 @@ describe('AccountModel', function() {
            this.blueLoginName = "test1@some.where.local";
            // spiderOakApp.b32nibbler.encode("some_test_user_123") ===>
            this.blueb32username = "ONXW2ZK7ORSXG5C7OVZWK4S7GEZDG";
-           sinon.spy(Backbone.BasicAuth,'set');
+           sinon.spy(this.accountModel.basicAuthManager,'setAccountBasicAuth');
            this.successSpy = sinon.spy();
            this.errorSpy = sinon.spy();
            // The server responds affirmatively to the case-altered username:
@@ -248,14 +245,15 @@ describe('AccountModel', function() {
            this.server.respond();
       });
       afterEach(function(){
-        Backbone.BasicAuth.set.restore();
+        this.accountModel.basicAuthManager.setAccountBasicAuth.restore();
       });
       it('Login to blue-style server should succeed - where login username' +
          ' differs by more than case from content-URL base32 encoded username.',
          function() {
            this.successSpy.should.have.been.calledOnce;
            this.errorSpy.should.not.have.been.called;
-           Backbone.BasicAuth.set.should.have.been.called;
+           this.accountModel.basicAuthManager.setAccountBasicAuth
+             .should.have.been.called;
          }
         );
       it('Blue-server login should yield accountModel "loginname" same' +
@@ -291,9 +289,9 @@ describe('AccountModel', function() {
       });
     });
 
-    describe('backbone basic authentication', function() {
-      it('should set Backbone.BasicAuth', function() {
-          sinon.spy(Backbone.BasicAuth,'set');
+    describe('basic authentication', function() {
+      it('login should set basicAuthManager account basic auth', function() {
+          sinon.spy(this.accountModel.basicAuthManager,'setAccountBasicAuth');
           this.accountModel.login(this.username, this.password,
                                   function(){}, function(){});
           this.server.respondWith(
@@ -308,9 +306,9 @@ describe('AccountModel', function() {
             ]
           );
           this.server.respond();
-          Backbone.BasicAuth.set.should.have.been.calledWith(this.username,
-                                                             this.password);
-          Backbone.BasicAuth.set.restore();
+          this.accountModel.basicAuthManager.setAccountBasicAuth
+            .should.have.been.calledWith(this.username, this.password);
+          this.accountModel.basicAuthManager.setAccountBasicAuth.restore();
       });
     });
 
@@ -419,12 +417,12 @@ describe('AccountModel', function() {
                                 this.successSpy, this.errorSpy);
         this.server.respond();
       });
-      it('should clear BackBone.BasicAuth', function() {
-        sinon.spy(Backbone.BasicAuth,'clear');
+      it('should clear basicAuthManager account basic auth', function() {
+        sinon.spy(this.accountModel.basicAuthManager,'clear');
         this.accountModel.logout(function(){});
         this.server.respond();
-        Backbone.BasicAuth.clear.should.have.been.called;
-        Backbone.BasicAuth.clear.restore();
+        this.accountModel.basicAuthManager.clear.should.have.been.called;
+        this.accountModel.basicAuthManager.clear.restore();
       });
       it("should POST to the account's logout URL", function() {
           this.successSpy = sinon.spy();

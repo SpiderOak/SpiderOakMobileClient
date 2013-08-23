@@ -153,7 +153,7 @@ describe('FileModel', function() {
            this.model.get("password_required").should.be.true;
            chai.expect(this.model.get("name")).to.equal(undefined);
          });
-      it('should get protected content when fetching with password',
+      it('should get protected content when fetching with correct password',
          function() {
            this.model.setPassword(this.password);
            this.model.getPassword().should.equal(this.password);

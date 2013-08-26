@@ -32,12 +32,17 @@
   // };
 
   _.extend(spiderOakApp, {
-    // @TODO: Establish distinct config file and fetch settings from it.
-    // Retained values will be held in local storage, and local changes
-    // will supercede these default values.
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     initialize: function() {
       _.extend(this.config, window.spiderOakMobile_custom_config);
+      
+      // Substitute our ajax wrapper for backbone's internal .ajax() calls:
+      Backbone.ajax = this.ajax;
+      if (! this.dollarAjax) {
+        this.dollarAjax = $.ajax;
+      }
+      $.ajax = this.ajax;
+
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
       if (window.Modernizr.overflowscrolling) {
         window.iScroll = function(options) {
@@ -78,6 +83,7 @@
       this.networkAvailable = true;
 
       this.version = "0.0.0"; // lame default
+      // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
       $.ajax({
         url: "./config.xml",
         dataType: "xml",
@@ -324,7 +330,34 @@
                                     keyString:
                                       "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
                                     pad: ""
-                                   })
+                                   }),
+    /** spiderOakApp.ajax() consolidates basicauth and alternate ajax functions.
+     *
+     * We include the 'Basic' 'Authorization' options header if we find a
+     * credentials in (in order of precedence):
+     *
+     * 1. The options parameter, in the form of a 'credentials' attribute
+     *    having a value of an object with 'username' and 'password' fields, or
+     * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a 
+     *
+     * #param {object} options like $.ajax(options)
+     */
+    ajax: function (options) {
+      var authString =
+            spiderOakApp.accountModel.basicAuthManager.getCurrentBasicAuth();
+      if (authString) {
+        options = window.makeBasicOptionsHeader(options, authString);
+      }
+      // Make this usable even when settings are not yet established.
+      var ajaxFunction = ((spiderOakApp &&
+                           spiderOakApp.settings &&
+                           spiderOakApp.settings.getOrDefault("alternateAjax",
+                                                              null)) ||
+                          // In case this is called before this.initialize()
+                          ((spiderOakApp && spiderOakApp.dollarAjax) ||
+                           $.ajax));
+      return ajaxFunction(options);
+    }
   });
 
   /*

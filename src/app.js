@@ -35,7 +35,7 @@
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     initialize: function() {
       _.extend(this.config, window.spiderOakMobile_custom_config);
-      
+
       // Substitute our ajax wrapper for backbone's internal .ajax() calls:
       Backbone.ajax = this.ajax;
       if (! this.dollarAjax) {

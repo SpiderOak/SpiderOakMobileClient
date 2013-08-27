@@ -100,6 +100,10 @@ Building and testing the project is normally done via the Grunt tasks below.
 
 See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/Home#wiki-Running_Testing_and_Debugging) of the wiki home page for more info.
 
+#### Brand Customization
+
+This package includes a simple build-time customization facility, described in [White label App Customization](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/White-label-App-Customization).
+
 ## Binary Releases
 
 The SpiderOak mobile client Android production release is available via

@@ -32,22 +32,17 @@
   // };
 
   _.extend(spiderOakApp, {
-    // @TODO: Establish distinct config file and fetch settings from it.
-    // Retained values will be held in local storage, and local changes
-    // will supercede these default values.
-    config: {
-      server: {value: "spideroak.com", retain: 1},
-      // If set, alternateAjax callable will be used by SpiderOakApp.ajax
-      // instead of $.ajax:
-      alternateAjax: {value: null, retain: 0}
-    },
+    config: window.spiderOakMobile_config,     // Supplemented in initialize.
     initialize: function() {
+      _.extend(this.config, window.spiderOakMobile_custom_config);
+
       // Substitute our ajax wrapper for backbone's internal .ajax() calls:
       Backbone.ajax = this.ajax;
       if (! this.dollarAjax) {
         this.dollarAjax = $.ajax;
       }
       $.ajax = this.ajax;
+
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
       if (window.Modernizr.overflowscrolling) {
         window.iScroll = function(options) {
@@ -278,8 +273,8 @@
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
-      spiderOakApp.mainView.setTitle("SpiderOak");
-
+      spiderOakApp.mainView.setTitle(spiderOakApp.settings.get("app_label")
+                                     .get("value"));
       // Instantiate the favorites and populate from localStorage
       // trailing slash of weirdness
       var favorites = window.store.get("favorites-");

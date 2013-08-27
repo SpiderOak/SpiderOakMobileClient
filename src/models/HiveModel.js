@@ -15,7 +15,8 @@
     },
     parse: function(resp, xhr) {
       if (resp.syncfolder) {
-        resp.syncfolder.name = "SpiderOak Hive";
+        resp.syncfolder.name = (spiderOakApp.settings.get("app_label")
+                                .get("value") + " Hive");
         return resp.syncfolder;
       }
       else {

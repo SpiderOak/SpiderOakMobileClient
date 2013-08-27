@@ -5,7 +5,8 @@
     path = require('path'),
     et = require('elementtree'),
     shell = require('shelljs'),
-    configPath = path.join('.', 'www', 'config.xml');
+    projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    configPath = path.join(projectRootDir, 'www', 'config.xml');
 
   var doc = new et.ElementTree(et.XML(fs.readFileSync(configPath, 'utf-8')));
   doc.getroot().attrib.version =

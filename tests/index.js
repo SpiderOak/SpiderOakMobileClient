@@ -85,40 +85,40 @@ describe('Application setup', function() {
   });
 
   describe('spiderOakApp.ajax', function() {
-    beforeEach(function() {
-      // Snapshot previous alternateAjax value:
-      this.wasAlternateAjax = window.spiderOakApp.settings.get("alternateAjax")
-        .get("value");
-      window.spiderOakApp.initialize();
-      this.realAjax = $.ajax;
-      $.ajax = sinon.spy();
-      this.alternateAjax = sinon.spy();
-    });
-    afterEach(function() {
-      $.ajax = this.realAjax;
-      delete this.realAjax;
-      delete this.alternateAjax;
-      // Restore previous alternateAjax value:
-      window.spiderOakApp.settings.get("alternateAjax")
-        .set("value", this.wasAlternateAjax);
-      delete this.wasAlternateAjax;
-    });
-    // it('should use the real $.ajax when not substituted', function() {
+    // beforeEach(function() {
+    //   // Snapshot previous alternateAjax value:
+    //   this.wasAlternateAjax = window.spiderOakApp.settings.get("alternateAjax")
+    //     .get("value");
+    //   window.spiderOakApp.initialize();
+    //   this.realAjax = $.ajax;
+    //   $.ajax = sinon.spy();
+    //   this.alternateAjax = sinon.spy();
+    // });
+    // afterEach(function() {
+    //   $.ajax = this.realAjax;
+    //   delete this.realAjax;
+    //   delete this.alternateAjax;
+    //   // Restore previous alternateAjax value:
+    //   window.spiderOakApp.settings.get("alternateAjax")
+    //     .set("value", this.wasAlternateAjax);
+    //   delete this.wasAlternateAjax;
+    // });
+    // // it('should use the real $.ajax when not substituted', function() {
+    // //   $.ajax.should.not.have.been.called;
+    // //   this.alternateAjax.should.not.have.been.called;
+    // //   window.spiderOakApp.ajax({});
+    // //   $.ajax.should.have.been.called.once;
+    // //   this.alternateAjax.should.not.have.been.called;
+    // // });
+    // it('should use the alternate ajax when substituted', function() {
     //   $.ajax.should.not.have.been.called;
     //   this.alternateAjax.should.not.have.been.called;
+    //   window.spiderOakApp.settings.get("alternateAjax").set("value",
+    //                                                         this.alternateAjax);
     //   window.spiderOakApp.ajax({});
-    //   $.ajax.should.have.been.called.once;
-    //   this.alternateAjax.should.not.have.been.called;
+    //   $.ajax.should.not.have.been.called;
+    //   this.alternateAjax.should.have.been.called.once;
     // });
-    it('should use the alternate ajax when substituted', function() {
-      $.ajax.should.not.have.been.called;
-      this.alternateAjax.should.not.have.been.called;
-      window.spiderOakApp.settings.get("alternateAjax").set("value",
-                                                            this.alternateAjax);
-      window.spiderOakApp.ajax({});
-      $.ajax.should.not.have.been.called;
-      this.alternateAjax.should.have.been.called.once;
-    });
   });
 
   describe('utilities', function() {

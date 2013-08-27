@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.spideroak.android" version="2.0.2-1-gfc53785" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.spideroak.android" version="2.0.2-19-g568eba2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>SpiderOak</name>
     <description>
         SpiderOak Mobile Client.
@@ -19,4 +19,5 @@
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <access origin="*" />
+    <content src="index.html" />
 </widget>

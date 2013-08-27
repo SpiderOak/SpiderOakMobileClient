@@ -95,7 +95,7 @@
         $hiveRef.closest("li").addClass("current");
         var options = {
           id: this.hiveModel.cid,
-          title: "SpiderOak Hive", // Hardcoded for now?
+          title: spiderOakApp.settings.get("app_label").get("value") + " Hive",
           model: this.hiveModel
         };
         if (!refresh) {

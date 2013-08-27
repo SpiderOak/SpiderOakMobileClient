@@ -24,7 +24,10 @@
 
   function copyFile(from, to) {
     var readStream = fs.createReadStream(from);
-    readStream.pipe(fs.createWriteStream(to));
+    var writeStream = fs.createWriteStream(to);
+    // Occupy event queue until write 'end' so process doesn't exit 'til done:
+    writeStream.on('end', function (event) {});
+    readStream.pipe(writeStream);
   }
 
   if (fs.existsSync(res)) {

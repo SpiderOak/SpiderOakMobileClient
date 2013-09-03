@@ -87,6 +87,7 @@ describe('Application setup', function() {
   describe('spiderOakApp.ajax', function() {
     beforeEach(function() {
       // Snapshot previous alternateAjax value:
+      spiderOakApp.initialize();
       this.realAjax = spiderOakApp.dollarAjax;
       spiderOakApp.dollarAjax = sinon.spy();
     });

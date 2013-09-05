@@ -225,7 +225,9 @@
     },
     setOnline: function(event) {
       if (!this.networkAvailable) {
-        spiderOakApp.menuSheetView.render(true);
+        if (spiderOakApp.menuSheetView) {
+          spiderOakApp.menuSheetView.render(true);
+        }
       }
       this.networkAvailable = true;
     },

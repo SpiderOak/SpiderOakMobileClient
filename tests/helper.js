@@ -9,7 +9,7 @@ var helper = {
     /** Clear local storage, stashing prior values for later resumption. */
     suspendLocalStorage: function() {
       var holder = {};
-      for (i in window.localStorage) {
+      for (var i in window.localStorage) {
         holder[i] = window.localStorage[i];
       }
       window.localStorage.clear();
@@ -23,7 +23,7 @@ var helper = {
       }
       var holder = helper.localStorageStack.pop();
       window.localStorage.clear();
-      for (i in holder) {
+      for (var i in holder) {
         window.localStorage[i] = holder[i];
       }
     }

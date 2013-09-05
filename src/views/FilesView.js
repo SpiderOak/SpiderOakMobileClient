@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      s           = window.s,
       store       = window.store;
 
   spiderOakApp.FilesListView = Backbone.View.extend({

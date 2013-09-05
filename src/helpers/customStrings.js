@@ -23,6 +23,7 @@
         return (typeof got !== "string") ? stringKey : got;
       },
       fetchStringTables: function () {
+        window.customizeStrings.stringsTable = {};
         var app, custom, key, i, it;
         var consolidate = function () {
           // Actually do the consolidation only when we've collected everything.

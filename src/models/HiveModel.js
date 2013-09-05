@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.HiveModel = spiderOakApp.FolderModel.extend({
     defaults: {
@@ -15,8 +16,7 @@
     },
     parse: function(resp, xhr) {
       if (resp.syncfolder) {
-        resp.syncfolder.name = (spiderOakApp.settings.get("app_label")
-                                .get("value") + " Hive");
+        resp.syncfolder.name = s("SpiderOak Hive");
         return resp.syncfolder;
       }
       else {

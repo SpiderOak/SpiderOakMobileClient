@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      s           = window.s,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
     timeout: 180000, // two minutes
@@ -273,8 +274,7 @@
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
       }
-      spiderOakApp.mainView.setTitle(spiderOakApp.settings.get("app_label")
-                                     .get("value"));
+      spiderOakApp.mainView.setTitle(s("SpiderOak"));
       // Instantiate the favorites and populate from localStorage
       // trailing slash of weirdness
       var favorites = window.store.get("favorites-");

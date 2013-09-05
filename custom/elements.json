@@ -11,10 +11,17 @@
       "Platforms": ["Android", "iOS"]
     },
     {
-      "FileName": "customAppStrings.js",
+      "FileName": "customAppStrings.json",
       "TargetFolder": "./assets/www",
       "Format": "Javascript",
       "Purpose": "Build-specific application string mappings",
+      "Platforms": ["Android", "iOS"]
+    },
+    {
+      "FileName": "index.html",
+      "TargetFolder": "./assets/www",
+      "Format": "HTML",
+      "Purpose": "Build-specific application entry form",
       "Platforms": ["Android", "iOS"]
     },
     {

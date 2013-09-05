@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.HiveView = Backbone.View.extend({
     events: {
@@ -28,7 +29,8 @@
       this.$el.html(
         _.template(
           "<li><a href='#' class='hivefolder'>" +
-            "<i class='icon-hive-black'></i> SpiderOak Hive</a></li>"
+            "<i class='icon-hive-black'></i>" + s("SpiderOak Hive") +
+            "</a></li>"
         )
       );
       this.$("a").data("model", this.model);
@@ -39,7 +41,7 @@
       spiderOakApp.mainView.closeMenu(event);
       var options = {
         id: this.model.cid,
-        title: spiderOakApp.settings.get("app_label").get("value") + " Hive",
+        title: s("SpiderOak Hive"),
         model: this.model
       };
       $("#menusheet ul li").removeClass("current");

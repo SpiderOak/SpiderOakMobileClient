@@ -74,6 +74,7 @@ module.exports = function(grunt) {
           'src/helpers/multilingualchars.js',
           'src/helpers/basicauth.js',
           'src/helpers/bindmine.js',
+          'src/helpers/customStrings.js',
           'src/effects/FastSlideEffect.js',
           'src/models/AccountModel.js',
           'src/models/StorageBarModel.js',

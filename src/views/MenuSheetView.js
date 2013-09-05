@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.MenuSheetView = Backbone.View.extend({
     el: "#menusheet",
@@ -185,7 +186,7 @@
     },
     about_tapHandler: function(event) {
       spiderOakApp.mainView.closeMenu(event);
-      spiderOakApp.mainView.setTitle("About SpiderOak");
+      spiderOakApp.mainView.setTitle("About " + s("SpiderOak"));
       $("#menusheet ul li").removeClass("current");
       $(".about").closest("li").addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {

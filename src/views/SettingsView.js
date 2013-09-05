@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.SettingsView = Backbone.View.extend({
     destructionPolicy: "never",
@@ -48,11 +49,13 @@
     },
     feedback_tapHandler: function() {
       // @FIXME: This is a bit Android-centric
-      var subject = "Feedback on SpiderOak Android app version " +
-        spiderOakApp.version;
+      var platform = (($.os.android)?"Android":"iOS");
+      var subject = ("Feedback on " + s("SpiderOak") + platform +
+                     " app version " + spiderOakApp.version);
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
-      extras[spiderOakApp.fileViewer.EXTRA_EMAIL] = "Android@spideroak.com";
+      extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
+        platform + "@" + s("spideroak.com");
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,
         type: "text/plain",
@@ -329,7 +332,8 @@
               spiderOakApp.navigator.popView();
             }
             navigator.notification.alert(
-              newServer + " is not the host of a valid SpiderOak service." +
+              newServer + " is not the host of a valid " +
+                s("SpiderOak") + " service." +
                 " The server is unchanged.",
               null,
               "Validation error",

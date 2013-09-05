@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.AboutView = Backbone.View.extend({
     destructionPolicy: "never",
@@ -41,8 +42,8 @@
     },
     emailLink_tapHandler: function(event) {
       // @FIXME: This is a bit Android-centric
-      var subject = "Feedback on SpiderOak " + this.settings.platform +
-        " app version " + spiderOakApp.version;
+      var subject = "Feedback on " + s("SpiderOak") + " " +
+            this.settings.platform + " app version " + spiderOakApp.version;
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] = this.settings.platform +
@@ -133,7 +134,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("About SpiderOak");
+        spiderOakApp.mainView.setTitle("About " + s("SpiderOak"));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);

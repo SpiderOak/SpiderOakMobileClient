@@ -11,6 +11,13 @@
       "Platforms": ["Android", "iOS"]
     },
     {
+      "FileName": "customAppStrings.js",
+      "TargetFolder": "./assets/www",
+      "Format": "Javascript",
+      "Purpose": "Build-specific application string mappings",
+      "Platforms": ["Android", "iOS"]
+    },
+    {
       "FileName": "brand_logo.png",
       "TargetFolder": "./assets/www/img",
       "Format": "512 x 512 PNG image",

@@ -194,6 +194,7 @@
           .setAccountBasicAuth(credentials[0], credentials[1]);
         spiderOakApp.onLoginSuccess();
         spiderOakApp.loginView.dismiss();
+        spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
         spiderOakApp.dialogView.hide();
         return;

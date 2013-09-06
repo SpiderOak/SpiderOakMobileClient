@@ -29,7 +29,7 @@
       this.$el.html(
         _.template(
           "<li><a href='#' class='hivefolder'>" +
-            "<i class='icon-hive-black'></i>" + s("SpiderOak Hive") +
+            "<i class='"+s("icon-hive-black")+"'></i>" + s("SpiderOak Hive") +
             "</a></li>"
         )
       );

@@ -18,13 +18,6 @@
       "Platforms": ["Android", "iOS"]
     },
     {
-      "FileName": "index.html",
-      "TargetFolder": "./assets/www",
-      "Format": "HTML",
-      "Purpose": "Build-specific application entry form",
-      "Platforms": ["Android", "iOS"]
-    },
-    {
       "FileName": "brand_logo.png",
       "TargetFolder": "./assets/www/img",
       "Format": "512 x 512 PNG image",
@@ -38,7 +31,6 @@
       "Purpose": "Menu-sheet 'back' button icon",
       "Platforms": ["Android", "iOS"]
     },
-
     {
       "SourceFileName": "cordova_android_96.png",
       "TargetFileName": "icon.png",
@@ -79,7 +71,6 @@
       "Purpose": "Android application home-screen XHDPI icon",
       "Platforms": ["Android"]
     },
-
     {
       "SourceFileName": "cordova_ios_57.png",
       "TargetFileName": "icon.png",

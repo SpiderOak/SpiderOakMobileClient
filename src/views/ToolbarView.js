@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.ToolbarView = Backbone.View.extend({
     el: "#toolbar",

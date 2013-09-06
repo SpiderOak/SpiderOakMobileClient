@@ -110,6 +110,32 @@ describe('Application setup', function() {
       spiderOakApp.settings.remove("alternateAjax");
     });
   });
+  describe('String customizations', function() {
+    beforeEach(function(){
+      window.customizeStrings.fetchStringTables();
+    });
+    afterEach(function(){
+      window.customizeStrings.fetchStringTables();
+    });
+    it('should leave arbitrary strings unchanged', function() {
+      this.testString = "testString";
+      this.result = window.s(this.testString);
+      this.result.should.equal(this.testString);
+    });
+    it('should leave official strings unchanged', function() {
+      this.testString = "SpiderOak";
+      this.result = window.s(this.testString);
+      this.result.should.equal(this.testString);
+    });
+    it('should change official strings that have custom versions', function() {
+      this.testString = "SpiderOak";
+      this.alternateResult = "AcmeSync";
+      window.customizeStrings.stringsTable[this.testString] =
+        this.alternateResult;
+      this.result = window.s(this.testString);
+      this.result.should.equal(this.alternateResult);
+    });
+  });
 
   describe('utilities', function() {
     /**

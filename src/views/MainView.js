@@ -20,7 +20,6 @@
     initialize: function() {
       window.bindMine(this);
       $('.page').on('tap',this.closeMenu);
-      this.setTitle(s("SpiderOak"));
     },
     render: function() {
       this.showBackButton(false);

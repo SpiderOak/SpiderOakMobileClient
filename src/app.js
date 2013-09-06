@@ -198,6 +198,7 @@
         spiderOakApp.dialogView.hide();
         return;
       }
+      spiderOakApp.mainView.setTitle(s("SpiderOak"));
       $(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
       $(".splash").hide();
 

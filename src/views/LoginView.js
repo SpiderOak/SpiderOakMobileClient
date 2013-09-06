@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   spiderOakApp.LoginView = Backbone.View.extend({
     el: "#login",
@@ -90,10 +91,13 @@
         }
         else if (status === 418) {
           msg = ("We apologize, but you must first complete your account" +
-            " setup using the SpiderOak desktop software.  This is necessary" +
-            " so that proper cryptographic keys can be generated to" +
-            " keep your data private.  Please open SpiderOak on your" +
-            " computer to continue.  Thank you. -- The SpiderOak Team");
+                 " setup using the " +
+                 s("SpiderOak") + " desktop software.  This is necessary" +
+                 " so that proper cryptographic keys can be generated to" +
+                 " keep your data private.  Please open " +
+                 s("SpiderOak") + " on your" +
+                 " computer to continue.  Thank you. -- The " +
+                 s("SpiderOak") + "Team");
         }
         else {
           msg = ("Temporary server failure. Please try again later (" +

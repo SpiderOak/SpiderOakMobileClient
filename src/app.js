@@ -34,6 +34,15 @@
 
   _.extend(spiderOakApp, {
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
+    ready: function() {
+      // Start listening for important app-level events
+      document.addEventListener("deviceready", this.onDeviceReady, false);
+      document.addEventListener("loginSuccess", this.onLoginSuccess, false);
+      document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
+      document.addEventListener("resume", this.onResume, false);
+      document.addEventListener("offline", this.setOffline, false);
+      document.addEventListener("online", this.setOnline, false);
+    },
     initialize: function() {
       _.extend(this.config, window.spiderOakMobile_custom_config);
 
@@ -85,7 +94,7 @@
 
       this.version = "0.0.0"; // lame default
       // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
-      $.ajax({
+      this.dollarAjax({
         url: "./config.xml",
         dataType: "xml",
         success: function(config){
@@ -93,13 +102,6 @@
         }.bind(this)
       });
 
-      // Start listening for important app-level events
-      document.addEventListener("deviceready", this.onDeviceReady, false);
-      document.addEventListener("loginSuccess", this.onLoginSuccess, false);
-      document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
-      document.addEventListener("resume", this.onResume, false);
-      document.addEventListener("offline", this.setOffline, false);
-      document.addEventListener("online", this.setOnline, false);
       // Hax for Android 2.x not groking :active
       $(document).on("touchstart", "a", function(event) {
         var $this = $(this);
@@ -205,6 +207,7 @@
     },
     backDisabled: true,
     onDeviceReady: function() {
+      window.spiderOakApp.initialize();
       document.addEventListener(
         "backbutton",
         spiderOakApp.onBackKeyDown,
@@ -223,7 +226,9 @@
     },
     setOnline: function(event) {
       if (!this.networkAvailable) {
-        spiderOakApp.menuSheetView.render(true);
+        if (spiderOakApp.menuSheetView) {
+          spiderOakApp.menuSheetView.render(true);
+        }
       }
       this.networkAvailable = true;
     },

@@ -78,7 +78,7 @@ describe('Application setup', function() {
     });
 
     it('should bind deviceready', function() {
-      window.spiderOakApp.initialize();
+      window.spiderOakApp.ready();
       helper.trigger(window.document,'deviceready');
       window.spiderOakApp.onDeviceReady.called.should.equal(true);
     });

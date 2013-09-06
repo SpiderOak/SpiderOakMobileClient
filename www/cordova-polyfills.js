@@ -33,4 +33,11 @@ if (! window.cordova) {
         };
   }
 
+  // Simulate onDeviceReady
+  window.setTimeout(function(){
+    var e = window.document.createEvent('Event');
+    e.initEvent("deviceready", true, true);
+    window.document.dispatchEvent(e);
+  },300);
+
 }

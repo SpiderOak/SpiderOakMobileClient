@@ -25,6 +25,7 @@
     </li>
   </ul>
   {{?}}
+  {{? ! spiderOakApp.settings.get("inhibitAdvancedLogin").get("value")}}
   <ul><li class="sep">Primary Server</li></ul>
   <ul style="font-size:80%;">
     <li>
@@ -35,6 +36,7 @@
       </a>
     </li>
   </ul>
+  {{?}}
   <ul><li class="sep">Version</li></ul>
   <ul style="font-size:80%;">
     <li style="padding: 15px 10px 25px 10px;">

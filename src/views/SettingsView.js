@@ -32,7 +32,7 @@
       this.settingsInfo.firstname = this.settingsInfo.firstname || "";
       this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
-               {server: spiderOakApp.settings.get("server").get("value")});
+               {server: spiderOakApp.settings.getValue("server")});
       this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,

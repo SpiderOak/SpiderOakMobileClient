@@ -14,7 +14,7 @@
     model: spiderOakApp.ShareRoomModel,
     initialize: function() {
       this.url = ("https://" +
-                  spiderOakApp.settings.get("server").get("value") +
+                  spiderOakApp.settings.getValue("server") +
                   "/share/");
     },
     hasByAttributes: function(share_id, room_key) {

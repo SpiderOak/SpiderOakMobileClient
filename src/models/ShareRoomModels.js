@@ -28,7 +28,7 @@
     },
     getWebURL: function () {
       return ("https://" +
-              spiderOakApp.settings.get("server").get("value") +
+              spiderOakApp.settings.getValue("server") +
               "/browse/share/" +
               this.get("share_id") +
               "/" +

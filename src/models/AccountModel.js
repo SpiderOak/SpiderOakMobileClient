@@ -262,13 +262,13 @@
       }
     };
   };
-  /** Maintain passwords for protected share rooms, per account.
+  /** Maintain passwords for protected ShareRooms, per account.
    *
    * Make it easy to track obtained passwords within a login session, and
    * also easy to expunge ones when they prove to be obsolete.  Currently,
    * the records are not retained across application sessions.
    *
-   * Removing a share room wipes the password record for that share room,
+   * Removing a ShareRoom wipes the password record for that ShareRoom,
    * in the context of the current account.
    *
    * ShareRoom password records obtained while not authenticated are

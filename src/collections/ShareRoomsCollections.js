@@ -56,7 +56,7 @@
       spiderOakApp.visitingPubSharesAnon = null;
     },
     /**
-     * Fetch public share rooms according to the recorded collection of
+     * Fetch public ShareRooms according to the recorded collection of
      * those being visited.
      */
     fetch: function (options) {

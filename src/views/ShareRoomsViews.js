@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  /** A model-less view of the public share rooms and account share rooms.
+  /** A model-less view of the public ShareRooms and account ShareRooms.
    *
    */
   spiderOakApp.ShareRoomsRootView = Backbone.View.extend({
@@ -36,7 +36,7 @@
         hScrollbar: false
       });
 
-      // Load the public and "my" share rooms simultaneously (quasi-async)
+      // Load the public and "my" ShareRooms simultaneously (quasi-async)
       window.setTimeout(function(){
         this.loadMyShareRooms();
       }.bind(this), 10);
@@ -69,7 +69,7 @@
           spiderOakApp.accountModel.get("mySharesListURL");
       this.myShareRooms.urlBase =
           spiderOakApp.accountModel.get("mySharesRootURL");
-      // Avoid trying to fetch account's share rooms when not logged in:
+      // Avoid trying to fetch account's ShareRooms when not logged in:
       if (this.myShareRooms.url) {
         this.myShareRoomsListView = new spiderOakApp.MyShareRoomsListView({
           collection: this.myShareRooms,
@@ -705,13 +705,13 @@
      *
      * Given a valid password, we:
      * - Present a success toast
-     * - Register the password in the share room model
-     * - Proceed to the share room contents
+     * - Register the password in the ShareRoom model
+     * - Proceed to the ShareRoom contents
      *
      * If invalid:
      * - We present a failure toast
      * - Ensure the model's password is zeroed
-     * - Return to the share rooms views - the share will remain
+     * - Return to the ShareRooms views - the share will remain
      */
     form_submitHandler: function(event) {
       var password = this.$("[name=pwrd]").val();

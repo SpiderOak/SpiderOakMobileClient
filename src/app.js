@@ -224,7 +224,7 @@
       // @FIXME: This seems cludgey
       if (window.cssLoaded) navigator.splashscreen.hide();
       // @TODO: Instantiate any plugins
-      spiderOakApp.fileViewer = window.cordova &&
+      spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
         window.cordova.require("cordova/plugin/fileviewerplugin");
     },
     setOnline: function(event) {

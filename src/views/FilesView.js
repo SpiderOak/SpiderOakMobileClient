@@ -313,7 +313,7 @@
       };
 
       // Try technique for contents of storage first, and if that fails
-      // with result code 405, use url for contents of share rooms.
+      // with result code 405, use url for contents of ShareRooms.
       var url = model.composedUrl(true);
       var protohost = url.split("/").slice(0,3).join("/") + "/";
       window.spiderOakApp.ajax({
@@ -329,7 +329,7 @@
         },
         error: function (xhr, errorType, error) {
           if (xhr.status === 405 && url.split("/")[3] === "share") {
-            // Handle as share room contents, which don't allow "POST":
+            // Handle as ShareRoom contents, which don't allow "POST":
             doView(url);
           }
           else {

@@ -23,7 +23,7 @@
       // spiderOakApp.addShareRoomView =
       //     new spiderOakApp.AddShareRoomView().render();
       window.bindMine(this);
-      this.name = "Share Rooms";
+      this.name = "ShareRooms";
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
@@ -256,7 +256,7 @@
   });
 
   spiderOakApp.AddShareRoomView = Backbone.View.extend({
-    name: "Add Public Share Room",
+    name: "Add Public ShareRoom",
     className: "addShareRoom",
     events: {
       "submit form": "form_submitHandler",
@@ -607,7 +607,7 @@
         }
       }.bind(this);
       navigator.notification.confirm(
-        "Remove this Share Room?",
+        "Remove this ShareRoom?",
         removeShare,
         "Remove?",
         "OK,Cancel"

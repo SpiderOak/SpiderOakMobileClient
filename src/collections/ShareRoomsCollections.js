@@ -34,7 +34,7 @@
       var got = ShareRoomsCollection.prototype.initialize.call(this);
       this.on("add", this.addHandler);
       this.on("remove", this.removeHandler);
-      /** A hash of the public share rooms being visited, mapped to their
+      /** A hash of the public ShareRooms being visited, mapped to their
        * local storage retention election. Retain is 0 or 1 for compactness.
        * {"<b32(share_id)>/<room_key>": <retain?>, ...}
        */
@@ -126,7 +126,7 @@
       } catch (e) {
         if (e instanceof SyntaxError) {
           console.log("Removing malformed locally stored" +
-                      " Public Share Room records: " +
+                      " Public ShareRoom records: " +
                       setting.get("value"));
           this.removeRetainedRecords(anonymous);
           return {};

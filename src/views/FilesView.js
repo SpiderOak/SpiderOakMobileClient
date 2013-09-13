@@ -315,7 +315,7 @@
       // Try technique for contents of storage first, and if that fails
       // with result code 405, use url for contents of ShareRooms.
       var url = model.composedUrl(true);
-      var protohost = url.split("/").slice(0,3).join("/") + "/";
+      var protohost = url.split("/").slice(0,3).join("/");
       window.spiderOakApp.ajax({
         type: "POST",
         url: url,

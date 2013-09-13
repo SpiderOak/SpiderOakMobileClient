@@ -15,6 +15,8 @@
 
     /** Get setting value, defaulting the value if not present.
      *
+     * If no default is passed in, the undefined value will be used.
+     *
      * @param (string) setting id
      * @param (object) default value
      */
@@ -25,6 +27,22 @@
       }
       else {
         return defaultValue;
+      }
+    },
+    /** Get setting value.
+     *
+     * We throw a ReferenceError if no such specified setting is present. Use
+     * .getOrDefault() if you want to do an exception-safe fetch.
+     *
+     * @param (string) setting id
+     */
+    getValue: function (id) {
+      var setting = this.get(id);
+      if (setting) {
+        return setting.get("value");
+      }
+      else {
+        throw new ReferenceError("Setting " + id + " is not defined");
       }
     },
     /** Set an existing setting, or create it with indicated value.

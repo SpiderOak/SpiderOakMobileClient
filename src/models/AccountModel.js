@@ -68,7 +68,7 @@
            * and aren't neede to reestablish basic auth based on them.
            */
           server = (optionalHost ||
-                    spiderOakApp.settings.get("server").get("value")),
+                    spiderOakApp.settings.getValue("server")),
           login_url_start = "https://" + server + "/browse/login";
 
       login_url = login_url || login_url_start;

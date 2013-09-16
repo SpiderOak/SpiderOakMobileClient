@@ -286,7 +286,7 @@ module.exports = function(grunt) {
           variable  : 'tmpl',
           requirejs : false
         },
-        src  : ['tpl/**/*.html'],
+        src  : ['tpl/**/*.html', 'custom/brand/tpl/**/*.html'],
         dest : 'www/js/SpiderOak-templates.js'
       }
     }

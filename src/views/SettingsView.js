@@ -55,6 +55,7 @@
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
+        window.spiderOakApp.settings.getValue("contactEmail") ||
         platform + "@" + s("spideroak.com");
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,

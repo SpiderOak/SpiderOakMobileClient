@@ -25,8 +25,8 @@
       }
     },
     composedUrl: function(bare) {
-      var urlTail = encodeURI(this.get("device_path"));
-      var urlHead = this.url.replace("s\/","") + this.get("device_encoded");
+      var urlTail = this.get("url");
+      var urlHead = this.url;
       if (bare) {
         urlHead = urlHead && urlHead.split("?")[0];
         urlTail = urlTail && urlTail.split("?")[0];

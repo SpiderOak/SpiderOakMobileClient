@@ -46,8 +46,9 @@
             this.settings.platform + " app version " + spiderOakApp.version;
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
-      extras[spiderOakApp.fileViewer.EXTRA_EMAIL] = this.settings.platform +
-        "@spideroak.com";
+      extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
+        window.spiderOakApp.settings.getValue("contactEmail") ||
+        this.settings.platform + "@spideroak.com";
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,
         type: "text/plain",

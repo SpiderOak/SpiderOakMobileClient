@@ -75,7 +75,7 @@
               });
               fileTransfer.download(
                 options.from,
-                fileEntry.fullPath,
+                encodeURI(fileEntry.fullPath),
                 successCallback,
                 errorCallback,
                 false,

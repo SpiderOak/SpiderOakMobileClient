@@ -371,11 +371,10 @@
         );
         return; // return early
       }
+      // Keep .shared path simple.. as they are not intentially stored.
+      // @TODO: Clean this up periodically?
       path = "Download/SpiderOak/.shared/" +
-        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.composedUrl(true)
-          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
-          .replace(new RegExp(model.get("url")), "");
+        (spiderOakApp.accountModel.get("b32username") || "anonymous") + "/";
       this.downloadFile(model, path, function(fileEntry) {
         spiderOakApp.dialogView.hide();
         this.shareViaIntent(fileEntry.fullPath);

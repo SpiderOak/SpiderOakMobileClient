@@ -50,14 +50,14 @@
       var row = results.rows.item(i);
       var fileInfo = window.fileHelper.fileTypeFromExtension(row.name);
 //      var path = row.localpath.replace(
-//        /^.*\/\.favorites/, "Download/SpiderOak/.favorites"
+//        /^.*\/\.favorites/, "Download/" + window.s("SpiderOak") + "/.favorites"
 //      );
       var b32username = "";
       if (row.source && /\/storage\/[2-7A-Z]*\//.test(row.source)) {
         b32username = row.source
                             .replace(/^.*\/storage\/([2-7A-Z]*)\/.*/,"$1");
       }
-      var path = "Download/SpiderOak/.favorites/" +
+      var path = "Download/" + window.s("SpiderOak") + "/.favorites/" +
         (b32username || "anonymous") +
         row.fullpath
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")

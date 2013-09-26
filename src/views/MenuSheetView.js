@@ -78,6 +78,7 @@
       return this;
     },
     devicesReady: function(event, refresh) {
+      $("#subviews > .folderViewLoading").remove();
       this.devicesAreComplete = true;
       $(".devices-sep").show();
       if (this.hiveIsComplete &&
@@ -86,6 +87,7 @@
       }
     },
     hiveReady: function(event, refresh) {
+      $("#subviews > .folderViewLoading").remove();
       this.hiveIsComplete = true;
       if (this.hiveModel.get("hasHive")) {
         // Push the hive
@@ -125,6 +127,7 @@
       }
     },
     pushFirstDevice: function() {
+      $("#subviews > .folderViewLoading").remove();
       var $firstDevice = this.$(".devices").find("li a").first();
       var firstDeviceModel = _.first(this.devicesCollection.models);
       if (firstDeviceModel) {
@@ -143,6 +146,7 @@
       }
     },
     sharerooms_tapHandler: function(event) {
+      $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle("ShareRooms");
       $("#menusheet ul li").removeClass("current");
@@ -164,6 +168,7 @@
       }
     },
     settings_tapHandler: function(event) {
+      $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle("Settings");
       $("#menusheet ul li").removeClass("current");
@@ -185,6 +190,7 @@
       }
     },
     about_tapHandler: function(event) {
+      $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle("About " + s("SpiderOak"));
       $("#menusheet ul li").removeClass("current");
@@ -214,6 +220,7 @@
       // ...
     },
     recents_tapHandler: function(event) {
+      $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
       $(".recents").closest("li").addClass("current");
@@ -236,6 +243,7 @@
       }
     },
     favorites_tapHandler: function(event) {
+      $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
       $(".favorites").closest("li").addClass("current");
@@ -267,12 +275,18 @@
                 return;
               }
               spiderOakApp.accountModel.logout();
+              $("#subviews").html(
+                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
+                "<li class=\"sep\">Loading...</li></ul>");
             }.bind(spiderOakApp),
             'Sign out'
           );
         }.bind(this),50);
       }
       else {
+        $("#subviews").html(
+          "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
+          "<li class=\"sep\">Loading...</li></ul>");
         $(document).trigger("logoutSuccess");
       }
     },

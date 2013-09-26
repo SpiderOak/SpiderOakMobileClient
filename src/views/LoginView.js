@@ -121,6 +121,7 @@
     },
     shareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
+      $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.setTitle("ShareRooms");
       $(".sharerooms").closest("li").addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {

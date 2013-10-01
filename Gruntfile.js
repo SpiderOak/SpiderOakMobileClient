@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     },
     shell: {
       debug_ios: {
-        command: 'cordova -d run ios',
+        command: 'cordova emulate ios',
         options: {
           failOnError: true,
           stdout: true

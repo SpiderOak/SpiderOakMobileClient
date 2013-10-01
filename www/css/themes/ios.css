@@ -2,29 +2,82 @@
  * This file should have css that will be used for ios
  */
 body {
-  background-color: #fff;
-  font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+  background-color: rgb(248, 248, 248);
+  font-family: "Helvetica Neue";
+  font-weight: lighter;
+  font-size: 95%;
+}
+
+.login {
+  z-index: 99;
+}
+
+.modal {
+  z-index: 10000;
+}
+
+.app {
+  background-color: rgb(248, 248, 248);
 }
 
 .nav {
-	height: 44px;
-	background-color: #000;
+  position: relative;
+  height: 44px;
+  background-color: rgb(248, 248, 248);
+  /*border-bottom: 1px solid rgb(200, 199, 204) !important;*/
+  font-weight: 500;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  z-index: 100;
 }
 
 .nav .menu-btn,
 .nav .back-btn {
-  color: white;
+  color: rgb(21, 125, 251);
   display: block;
   position: absolute;
   left: 0;
   width: 44px;
-  height:44px;
-  z-index: 99;
+  height:43px;
+  line-height: 44px;
+  padding: 0 10px;
+  z-index: 3;
+  font-size: 130%;
+  font-family: 'SpiderOakIcons';
+  font-weight: 100;
+}
+
+.nav .menu-btn:before {
+  content:'\f0c9';
+}
+
+.nav .back-btn:before {
+  content: '\e02f';
 }
 
 .nav .menu-btn.active,
-.nav .back-btn.active {
-  background-color: #333;
+.nav .back-btn.active,
+.nav .clear-recents-btn.active,
+.nav .add-sharerooms-btn.active,
+.nav .refresh-favorites-btn.active  {
+  color: #222;
+}
+
+.nav .clear-recents-btn,
+.nav .add-sharerooms-btn,
+.nav .refresh-favorites-btn {
+  color: rgb(21, 125, 251);
+  font-size: 110%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  text-align: center;
+  padding: 13px 13px 8px 13px;
+  display: block;
+}
+
+.nav .clear-recents-btn {
+  font-size: 100%;
 }
 
 .nav .title {
@@ -33,16 +86,64 @@ body {
   position: relative;
   left: 0;
   top: 5px;
-	width: 100%;
-	text-align: center;
-  margin: 0;
-	padding: 0 45px;
+  width: 100%;
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  font-size: 1.5em;
-  color: #999;
+  font-size: 120%;
+  color: rgb(0, 0, 0);
   white-space: nowrap;
+  line-height: 34px;
+}
+
+.menu {
+  background-color: #333;
+}
+
+.menu ul li {
+  background-color: #333;
+  border-color: #666;
+  color: #e4e4e4;
+}
+
+.menu ul li a {
+  background-color: #333;
+  border-color: #666;
+  color: #e4e4e4;
+}
+
+.menu ul li a.active {
+  background-color: #444;
+  color: #e4e4e4;
+}
+
+.menu ul li.sep {
+  background-color: #333;
+  color: #666;
+}
+
+.menu ul li.current a {
+  background-color: #444;
+}
+
+.storagebar {
+  color: #333;
+  border-top: 1px solid #999;
+  background-color: #e4e4e4;
+}
+
+.storagebar .bar-graph {
+  background-color: #ccc;
+}
+
+.storagebar .bar-graph .inner {
+  background-color: #999;
+}
+
+.storagebar .devices-info {
+  font-size: 80%;
+  padding: 3px 10px;
 }
 
 .page {
@@ -51,10 +152,23 @@ body {
   right: 0;
   bottom: 0;
   top: 44px;
-  background-color: #e4e4e4;
+  background-color: #fff;
 }
 
 .scroll {
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.modal .context-popup {
+  background-color: #eee;
+  width: 275px;
+  margin: 10% auto 0 auto;
+  max-height: 90%;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  overflow-y: hidden;
+}
+
+.login {
+  z-index: 1000;
 }

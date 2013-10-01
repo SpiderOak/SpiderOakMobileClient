@@ -41,9 +41,9 @@
         $title.html(title);
         return;
       }
-      $title.animate({opacity:0},50,"linear",function(){
+      $title.animate({opacity:0},150,"linear",function(){
         $title.html(title);
-        $title.animate({opacity:1},50,"linear");
+        $title.animate({opacity:1},150,"linear");
       });
     },
     menuButton_handler: function(event) {
@@ -66,7 +66,7 @@
     },
     openMenu: function(event) {
       $(document).trigger("menuOpening");
-      var duration = ($.os.android) ? 200 : 300;
+      var duration = 200;
       $('#main').animate({
         translate3d: '270px,0,0'
       },duration,'ease-in-out');
@@ -74,7 +74,7 @@
     },
     closeMenu: function(event) {
       $(document).trigger("menuClosing");
-      var duration = ($.os.android) ? 200 : 300;
+      var duration = 200;
       if ($("#main").hasClass("open") || window.inAction) {
         $('#main').animate({
           translate3d: '0,0,0'

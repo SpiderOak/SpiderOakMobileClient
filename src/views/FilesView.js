@@ -412,7 +412,7 @@
           spiderOakApp.dialogView.hide();
 
           if (model.get("openInternally")) {
-            window.open(encodeURI(fileEntry.fullPath),"_blank","location=no");
+            window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
           } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,

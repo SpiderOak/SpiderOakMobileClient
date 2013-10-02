@@ -3,13 +3,18 @@
  */
 body {
   background-color: rgb(248, 248, 248);
-  font-family: "Helvetica Neue";
-  font-weight: lighter;
-  font-size: 95%;
+  font-family: -apple-system-font;
+  font-size: 100%;
+}
+
+.page {
+  background-color: #e4e4e4 !important;
 }
 
 .login {
-  z-index: 99;
+  position: absolute;
+  background-color: #e4e4e4;
+  z-index: 101;
 }
 
 .modal {
@@ -25,7 +30,8 @@ body {
   height: 44px;
   background-color: rgb(248, 248, 248);
   /*border-bottom: 1px solid rgb(200, 199, 204) !important;*/
-  font-weight: 500;
+  font-family: -apple-system-font;
+  font-weight: bold;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   z-index: 100;
 }
@@ -43,7 +49,6 @@ body {
   z-index: 3;
   font-size: 130%;
   font-family: 'SpiderOakIcons';
-  font-weight: 100;
 }
 
 .nav .menu-btn:before {
@@ -59,7 +64,7 @@ body {
 .nav .clear-recents-btn.active,
 .nav .add-sharerooms-btn.active,
 .nav .refresh-favorites-btn.active  {
-  color: #222;
+  color: rgba(21, 125, 251, 0.3);
 }
 
 .nav .clear-recents-btn,
@@ -97,6 +102,18 @@ body {
   line-height: 34px;
 }
 
+ul li {
+  background-color: rgb(248, 248, 248);
+}
+
+ul li.sep {
+  background-color: #ccc;
+}
+
+ul li.sep {
+  color: #222;
+}
+
 .menu {
   background-color: #333;
 }
@@ -129,7 +146,7 @@ body {
 
 .storagebar {
   color: #333;
-  border-top: 1px solid #999;
+  border-top: 1px solid rgb(200, 199, 204);
   background-color: #e4e4e4;
 }
 
@@ -169,6 +186,132 @@ body {
   overflow-y: hidden;
 }
 
-.login {
-  z-index: 1000;
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+textarea, select {
+  position: relative;
+  background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+  padding: 0;
+  display: block;
+  margin: 0;
+  width: 100%;
+  font: normal 100% -apple-system-font;
+  outline: 0 none;
+}
+
+input[type="text"],
+input[type="password"] {
+  position: relative;
+  padding: 13px 10px;
+  margin: 0;
+  border: none;
+  border-top: 1px solid rgb(200, 199, 204);
+  border-bottom: 1px solid rgb(200, 199, 204);
+  background-color: rgb(248, 248, 248);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+input[type=checkbox] {
+  border: none;
+  outline: 0 none;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: inset 0px 0px 0px 1px #e6e6e6;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 1px;
+  display: inline-block;
+  width: 52px;
+  height: 31px;
+  position: relative;
+  cursor: pointer;
+  transition: all .2s ease-out;
+  margin: 0px;
+  transform: scale(1);
+  -webkit-transform: scale(1); /* Adjust size here */
+}
+
+input[type=checkbox]:checked {
+  box-shadow: inset 0px 0px 0px 20px orange;
+}
+
+input[type=checkbox]:after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  background-color: #fff;
+  transition: all 0.1s ease-in;
+}
+
+input[type="checkbox"]:checked:after {
+  left: 22px;
+}
+
+.checkswitch-wrapper {
+  margin: 10px 0;
+  padding: 0 10px 10px 20px;
+}
+
+.checkswitch {
+  float: right;
+}
+
+.checkswitch-wrapper > label {
+  padding: 7px 20px !important;
+}
+
+.login-form .spacer5 {
+  height: 0;
+}
+
+form[name=login-form] input[type="password"],
+input[name=roomkey] {
+  border-top: 0;
+}
+
+a.button,
+button {
+  display: block;
+  margin: 5px 0;
+  padding: 12px 40px;
+  border-top: 1px solid rgb(200, 199, 204);
+  border-bottom: 1px solid rgb(200, 199, 204);
+  border-radius: 1px;
+  text-decoration: none;
+  text-align: center;
+  background-color: rgb(248, 248, 248);
+  color: rgb(21, 125, 251);
+  font-size: 100%;
+  font-weight: bold;
+}
+
+a.button.secondary {
+  font-weight: normal;
+}
+
+a.button.active {
+  outline: 0;
+  color: rgba(21, 125, 251, 0.3);
+}
+
+.learn-more {
+  margin-top: 40px;
+  font-size: 80%;
+  font-weight: bold;
+  color: rgb(21, 125, 251);
+}
+
+.learn-more:active {
+  color: rgba(21, 125, 251, 0.3);
 }

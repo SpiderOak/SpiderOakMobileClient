@@ -2,7 +2,8 @@
  * This file should have css that will be used for ios
  */
 body {
-  background-color: rgb(248, 248, 248);
+  /*background-color: rgb(248, 248, 248);*/
+  background-color: #e4e4e4;
   font-family: -apple-system-font;
   font-size: 100%;
 }
@@ -12,6 +13,8 @@ body {
 }
 
 .login {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   position: absolute;
   background-color: #e4e4e4;
   z-index: 101;
@@ -19,6 +22,14 @@ body {
 
 .modal {
   z-index: 10000;
+  color: #000;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal .wait-dialog,
+.modal .progress-dialog {
+  color: #000;
+  background-color: #fff;
 }
 
 .app {
@@ -28,7 +39,8 @@ body {
 .nav {
   position: relative;
   height: 44px;
-  background-color: rgb(248, 248, 248);
+  background-color: #e4e4e4;
+  /*background-color: rgb(248, 248, 248);*/
   /*border-bottom: 1px solid rgb(200, 199, 204) !important;*/
   font-family: -apple-system-font;
   font-weight: bold;
@@ -107,11 +119,9 @@ ul li {
 }
 
 ul li.sep {
-  background-color: #ccc;
-}
-
-ul li.sep {
-  color: #222;
+  background-color: rgb(248, 248, 248);
+  color: #000;
+  font-weight: bold;
 }
 
 .menu {
@@ -195,10 +205,11 @@ input[type="email"],
 input[type="url"],
 textarea, select {
   position: relative;
+  box-sizing: border-box;
   background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
   padding: 0;
-  display: block;
   margin: 0;
+  display: block;
   width: 100%;
   font: normal 100% -apple-system-font;
   outline: 0 none;
@@ -314,4 +325,17 @@ a.button.active {
 
 .learn-more:active {
   color: rgba(21, 125, 251, 0.3);
+}
+
+.learn-about-spideroak,
+.rememberme-warning {
+  background-color: rgb(248, 248, 248);
+}
+
+.meter { 
+  background: #e4e4e4;
+}
+
+.meter > span {
+  background-color: rgb(0,0,0);
 }

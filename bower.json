@@ -2,7 +2,7 @@
   "name": "SpiderOakMobile",
   "version": "2.0.1",
   "dependencies": {
-    "backbone": "~0.9.10",
+    "backbone": "~1.0.0",
     "underscore": "latest",
     "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.js",

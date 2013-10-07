@@ -12,6 +12,9 @@
 
   spiderOakApp.DialogView = Backbone.View.extend({
     className: "modal",
+    events: {
+      "tap .cancel-btn a": "cancel_tapHandler"
+    },
     initialize: function() {
       window.bindMine(this);
       var supportsOrientationChange = "onorientationchange" in window;
@@ -28,6 +31,7 @@
       options.title = options.title || "Please wait";
       options.subtitle = options.subtitle || "";
       this.$el.html(window.tmpl["waitDialog"](options));
+      if (options.showCancel && $.os.ios) $(".cancel-btn").show();
       this.$el.show();
     },
     showNotifyErrorResponse: function(response, options) {
@@ -52,6 +56,10 @@
         this.hide();
       }.bind(this), options.duration);
     },
+    cancel_tapHandler: function(event) {
+      event.preventDefault();
+      $(document).trigger("backbutton");
+    },
     hide: function() {
       $(window).off(this.orientationEvent);
       this.$el.hide();
@@ -63,6 +71,7 @@
       options.subtitle = options.subtitle || "";
       options.start = options.start || 0;
       this.$el.html(window.tmpl["progressDialog"](options));
+      if (options.showCancel && $.os.ios) $(".cancel-btn").show();
       this.$el.show();
     },
     updateProgress: function(progressPercent) {
@@ -72,7 +81,7 @@
       $(window).on(this.orientationEvent, function() {
         // alert("The rotation is " + window.orientation + " and the resolution is " + screen.width + " x " + screen.height);
         if (window.orientation === -90 || window.orientation === 90) {
-          view.$el.css({"margin-top":"0", "max-height":"275px"});
+          view.$el.css({"margin-top":"0", "max-height":"290px"});
           window.setTimeout(function(){
             view.scroller.refresh();
           },10);
@@ -86,7 +95,7 @@
       }, false);
       this.$el.html(view.render().el);
       if (window.orientation === -90 || window.orientation === 90) {
-        view.$el.css({"margin-top":"0", "max-height":"275px"});
+        view.$el.css({"margin-top":"0", "max-height":"290px"});
       }
       window.setTimeout(function(){
         view.scroller.refresh();

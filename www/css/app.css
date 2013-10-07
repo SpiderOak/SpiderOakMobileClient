@@ -531,6 +531,21 @@ ul li a .hiddenItem:after {
   -webkit-transform:scale(.3);
 }
 
+.cancel-btn a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 44px;
+  border-top: 1px solid #333;
+  line-height: 44px;
+}
+
+.cancel-btn a.active {
+  background-color: #333;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
 .fileDetails-container {
   padding-bottom: 50px;
 }

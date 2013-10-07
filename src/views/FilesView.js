@@ -97,7 +97,8 @@
       spiderOakApp.dialogView.showProgress({
         title: "Downloading",
         subtitle: model.get("name"),
-        start: 0
+        start: 0,
+        showCancel: true
       });
       var downloadOptions = {
         fileName: model.get("name"),
@@ -404,7 +405,8 @@
       spiderOakApp.dialogView.showProgress({
         title: "Downloading",
         subtitle: this.model.get("name"),
-        start: 0
+        start: 0,
+        showCancel: true
       });
       spiderOakApp.downloader.downloadFile(
         downloadOptions,

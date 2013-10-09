@@ -1,5 +1,5 @@
 /**
- * FileView.js
+ * FilesView.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -87,7 +87,8 @@
           subViews.close();
         }
       });
-    }
+    },
+    which: "FilesListView"
   });
 
   spiderOakApp.FileView = Backbone.View.extend({
@@ -640,7 +641,8 @@
         }.bind(this),
         "Favorites"
       );
-    }
+    },
+    which: "FileView"
   });
 
   spiderOakApp.FilesListItemView = spiderOakApp.FileView.extend({
@@ -774,7 +776,8 @@
     close: function() {
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FilesListItemView"
   });
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
@@ -876,7 +879,8 @@
       }
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FileItemDetailsView"
   });
 
   spiderOakApp.FileItemDetailsToolbarView = Backbone.View.extend({
@@ -915,7 +919,8 @@
       spiderOakApp.toolbarView.hide();
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FileItemDetailsToolbarView"
   });
 
   spiderOakApp.FileItemVersionsListView = spiderOakApp.FilesListView.extend({
@@ -943,7 +948,8 @@
     close: function() {
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FileItemVersionsListView"
   });
 
   spiderOakApp.FilesVersionsItemView = spiderOakApp.FilesListItemView.extend({
@@ -961,7 +967,8 @@
       // }
       this.$("a").data("model",this.model);
       return this;
-    }
+    },
+    which: "FilesVersionsItemView"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

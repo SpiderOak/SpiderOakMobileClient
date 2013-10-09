@@ -10,6 +10,16 @@ describe('FilesView', function() {
   });
   describe('Instantiation', function() {
     beforeEach(function() {
+      var filesObj = {dirs: [["test folder/", "test%20folder/"],
+                             ["tmp/", "tmp/"]],
+                      files: [{ctime: 1359167989,
+                               etime: 1359167998,
+                               mtime: 1359167946,
+                               name: "filename.pdf",
+                               size: 255434,
+                               url: "filename.pdf",
+                               versions: 2
+                              }]};
       this.server.respondWith(
         "GET",
         "https://spideroak.com/storage/" + this.b32username +
@@ -17,10 +27,7 @@ describe('FilesView', function() {
         [
           200,
           {"Content-Type": "test/html"},
-          '{"dirs": [["test folder/", "test%20folder/"], ["tmp/", "tmp/"] ],'+
-            ' "files": [{"ctime": 1359167989, "etime": 1359167998, '+
-            '"mtime": 1359167946, "name": "filename.pdf", "size": 255434, '+
-            '"url": "filename.pdf", "versions": 2 } ] }'
+          JSON.stringify(filesObj)
         ]
       );
       this.filesCollection = new spiderOakApp.FilesCollection();

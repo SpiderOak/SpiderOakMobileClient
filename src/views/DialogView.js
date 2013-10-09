@@ -100,6 +100,13 @@
       window.setTimeout(function(){
         view.scroller.refresh();
       },10);
+      if ($.os.ios) {
+        // the stupid -50% is to keep it centered on iPad
+        view.$el.css({"-webkit-transform":"translate3d(-50%,100%,0)"});
+        this.$el.show();
+        view.$el.animate({"-webkit-transform":"translate3d(-50%,0,0)"}, 100);
+        return;
+      }
       this.$el.show();
     },
     close: function(){

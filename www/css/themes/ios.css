@@ -28,10 +28,12 @@ body {
   z-index: 10000;
   color: #000;
   background-color: rgba(0,0,0,0.4);
+  overflow: hidden;
 }
 
 .modal .wait-dialog,
 .modal .progress-dialog {
+  top: 35%;
   color: #000;
   background-color: rgb(248, 248, 248);
   border-radius: 8px;
@@ -139,6 +141,13 @@ ul li {
   background-color: rgb(248, 248, 248);
 }
 
+ul li a.folder {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAaCAYAAADbhS54AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RkUwNzBCREJCQUIwMTFFMDk0QkU4MjlCQzZDMkM3MDQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RkUwNzBCRENCQUIwMTFFMDk0QkU4MjlCQzZDMkM3MDQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGRTA3MEJEOUJBQjAxMUUwOTRCRTgyOUJDNkMyQzcwNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGRTA3MEJEQUJBQjAxMUUwOTRCRTgyOUJDNkMyQzcwNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pr4pXUUAAAEmSURBVHjazNaxrkRAFAbgmbkewSNIhFYlaiERLZF4PA29QmhFoafxBl6AxrlLYrNrV+69ezPmnGrGSeTLbzIHBQCyV1VVMM8z8TyPEsEl7YuyLKGu630LonHsDYq0bUvyPAehiRVFAU3TvDRWnMjk2DiOp02RybE4jqmiKOhw2xnDiGP7AhuOPW4w4djxwRFHKX3BZVkGl8OOuMfJsFfXddxx7Kzx02ddcWmawuWw3+D6vueGY/99wbIs1yeWJAkMw3DaV1WVRFHEZWRJn6I0TSNhGHKbo9InKF3XSRAEXIe79FeUYRjE933ufxwMI+oJhgl1h2FDrfV1u0DRobbEZFlGh9pgrutS0zRRoe5nzHEcalkWGtTTPWbb9gqBaZqEo9b6FmAAq7ewXOMrjpsAAAAASUVORK5CYII=');
+  background-position: 98% center;
+  background-repeat: no-repeat;
+  background-size: 19px 13px;
+}
+
 ul li.sep {
   background-color: rgb(248, 248, 248);
   color: #000;
@@ -210,16 +219,22 @@ ul li.sep {
 
 .modal .context-popup {
   position: absolute;
-  left: 2.5%;
-  bottom: 10px;
+  bottom: 0;
+  left: 50%;
   background-color: rgb(248, 248, 248);
-  width: 95%;
-  max-width: 610px;
+  width: 100%;
+  max-width: 620px;
   margin: 0 auto 0 auto;
   max-height: 95%;
-  border-radius: 4px;
+  border-radius: 0;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
   overflow-y: hidden;
+  text-align: center;
+  -webkit-transform: translate3d(-50%,100%,0);
+}
+
+.modal .context-popup a {
+  /* ... */
 }
 
 input[type="text"],
@@ -232,7 +247,6 @@ input[type="url"],
 textarea, select {
   position: relative;
   box-sizing: border-box;
-  background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
   padding: 0;
   margin: 0;
   display: block;

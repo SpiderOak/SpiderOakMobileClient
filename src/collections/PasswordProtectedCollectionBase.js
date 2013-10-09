@@ -15,7 +15,8 @@
    * the presence of a password in the object, and temporarily adjust the
    * app's basic authentication accordingly.
    */
-  spiderOakApp.PasswordProtectedCollectionBase = Backbone.Collection.extend({
+  var cb = spiderOakApp.CollectionBase;
+  spiderOakApp.PasswordProtectedCollectionBase = cb.extend({
     sync: function (method, model, options) {
       if (this.getPassword()) {
         /* Temporarily set basic auth for the item password, and restore
@@ -26,24 +27,15 @@
           this.getPassword()  // The salient thing is the password.
         );
         try {
-          return Backbone.Collection.prototype.sync.apply(this, arguments);
+          return cb.prototype.sync.apply(this, arguments);
         }
         finally {
           bam.resumeAccountBasicAuth();
         }
       }
       else {
-        return Backbone.Collection.prototype.sync.apply(this, arguments);
+        return cb.prototype.sync.apply(this, arguments);
       }
-    },
-    fetch: function(options) {
-      /* For backwards compat with backbone until v 0.9.10 */
-      // Add options.reset = true unless it's already, explicitly false.
-      options = options || {};
-      if (! options.hasOwnProperty("reset")) {
-        options.reset = true;
-      }
-      Backbone.Collection.prototype.fetch.call(this, options);
     },
     setPassword: function (password) {
       if (this.getPassword() !== password) {
@@ -60,7 +52,7 @@
     },
     clear: function () {
       this.removePassword();
-      Backbone.Collection.prototype.clear.call(this);
+      cb.prototype.clear.call(this);
     },
     which: "PasswordProtectedCollectionBase"
   });

@@ -10,15 +10,18 @@ On revisiting the issue, we still see test failures (details below). Investigati
 
 * 2013-10-08
 
-  Ok, identified the problem causing failure of .addOne to be called on
-  total fetch of a collection.  Per the backbone
+  Identified the .addOne() test failure problem from the backbone
+  0.9.10 => 1.0.0 upgrade.  Per the backbone
   [http://backbonejs.org/#changelog Change Log] documentation for the 1.0.0
   version, collection update now does a .set rather than a .reset.
 
-  There's a quick workaround, which is to pass {reset: true} in the fetch
-  options, but that may not be a good long term solution.  I'll check that
-  in, for starters, and look at how we might adjust our procedures to use
-  the new approach.
+  We are keying our additions on update on seeing a 'reset' event.  No new
+  event seems to be replacing it.  The backbone change provides for
+  explicitly raising 'reset' on fetch by including it in the options passed
+  to fetch.  It looks like the cleanest way to do that is to have an
+  application-specific CollectionsBase with a fetch that passes that in to
+  the Backbone.Collections.fetch, and extend all our apps collections from
+  that base.
 
 * 2013-10-07
 

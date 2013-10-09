@@ -89,6 +89,7 @@ module.exports = function(grunt) {
           'src/models/ShareRoomModels.js',
           'src/models/SettingsModels.js',
           'src/models/SpiderOakFolderModel.js',
+          'src/collections/CollectionBase.js',
           'src/collections/PasswordProtectedCollectionBase.js',
           'src/collections/FoldersCollection.js',
           'src/collections/FilesCollection.js',

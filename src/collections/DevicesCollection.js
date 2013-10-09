@@ -11,6 +11,14 @@
 
   spiderOakApp.DevicesCollection = Backbone.Collection.extend({
     model: spiderOakApp.DeviceModel,
+    fetch: function(options) {
+      // Add options.reset = true unless it's already, explicitly false.
+      options = options || {};
+      if (! options.hasOwnProperty("reset")) {
+        options.reset = true;
+      }
+      Backbone.Collection.prototype.fetch.call(this, options);
+    },
     parse: function(resp, xhr) {
       // window.console.log(JSON.stringify(resp));
       var devices = resp.devices;

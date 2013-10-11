@@ -144,7 +144,7 @@ describe('AccountModel', function() {
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(
              // The first space is replaced with a "+" due to uri encoding (?)
-             this.asciiNonControls.replace(/ /, "+")
+             this.asciiNonControls.replace(/ /g, "+")
            );
          });
       it('should set a known HTML auth for a particular password with' +
@@ -179,7 +179,7 @@ describe('AccountModel', function() {
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(
              // The first space is replaced with a "+" due to uri encoding (?)
-             this.amalgamPassword.replace(/ /, "+")
+             this.amalgamPassword.replace(/ /g, "+")
            );
          });
       it('should set a known HTML auth for a particular password with' +

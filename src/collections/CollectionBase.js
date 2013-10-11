@@ -13,16 +13,13 @@
       $           = window.$;
 
   spiderOakApp.CollectionBase = Backbone.Collection.extend({
-    /** For backwards compat with backbone up to v 0.9.10 */
-    fetch: function(options) {
-      // Add options.reset = true unless it's already, explicitly false.
-      options = options || {};
-      if (! options.hasOwnProperty("reset")) {
-        options.reset = true;
-      }
-      Backbone.Collection.prototype.fetch.call(this, options);
+    set: function(models, options) {
+      var got = Backbone.Collection.prototype.set.call(this, models, options);
+      this.trigger("complete");
+      return got;
     },
-    which: "Collection (so)"
+
+    which: "CollectionBase"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

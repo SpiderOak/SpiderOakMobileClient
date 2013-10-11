@@ -16,7 +16,7 @@
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "all", this.render, this );
 
       this.subViews = [];
@@ -76,6 +76,9 @@
         );
       }
       this.collection.each(this.addOne, this);
+      this.$el.trigger("complete");
+    },
+    triggerComplete: function() {
       this.$el.trigger("complete");
     },
     close: function() {
@@ -928,7 +931,7 @@
     initialize: function() {
       window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "all", this.render, this );
 
       this.subViews = [];
@@ -943,6 +946,9 @@
     addAll: function() {
       this.$el.empty();
       this.collection.each(this.addOne, this);
+      this.$el.trigger("complete");
+    },
+    triggerComplete: function() {
       this.$el.trigger("complete");
     },
     close: function() {

@@ -145,7 +145,7 @@
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "change", this.render, this );
       this.collection.on( "remove", this.render, this );
 
@@ -177,6 +177,9 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     close: function(){
       this.remove();
       this.unbind();
@@ -202,7 +205,7 @@
 
       window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "change", this.render, this );
       this.collection.on( "remove", this.render, this );
 
@@ -233,6 +236,9 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
       this.scroller.refresh();
+    },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
     },
     addPublicShare: function(event) {
       // spiderOakApp.addShareRoomView.show();

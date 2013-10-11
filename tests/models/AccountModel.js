@@ -26,7 +26,7 @@ describe('AccountModel', function() {
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
+          /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
           [200, {"Content-Type": "text/html"},
            "location:https://spideroak.com/storage/" +
            this.b32username +
@@ -40,8 +40,8 @@ describe('AccountModel', function() {
         this.server.requests[0].method.should.equal("POST");
       });
       it('should use the expected login start url', function() {
-        this.server.requests[0].url
-            .should.equal("https://spideroak.com/browse/login");
+        this.server.requests[0].url.
+          should.match(/https:\/\/spideroak.com\/browse\/login(\?.*)?/);
       });
       // @TODO: There must be a better way to check query parameters?
       it('should pass the username as query data', function() {
@@ -101,7 +101,7 @@ describe('AccountModel', function() {
         }.bind(this);
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
+          /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
           [200, {"Content-Type": "text/html"},
            "location:https://spideroak.com/storage/" +
            this.b32username +
@@ -207,7 +207,7 @@ describe('AccountModel', function() {
            // The server responds affirmatively to the case-altered username:
            this.server.respondWith(
              "POST",
-             "https://spideroak.com/browse/login",
+             /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
              [200, {"Content-Type": "text/html"},
               "location:https://spideroak.com/storage/" +
               this.b32username +
@@ -234,7 +234,7 @@ describe('AccountModel', function() {
            // The server responds affirmatively to the case-altered username:
            this.server.respondWith(
              "POST",
-             "https://spideroak.com/browse/login",
+             /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
              [200, {"Content-Type": "text/html"},
               "location:https://spideroak.com/storage/" +
               this.blueb32username +
@@ -271,7 +271,7 @@ describe('AccountModel', function() {
         document.addEventListener("loginSuccess", this.successSpy, false);
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
+          /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
           [200, {"Content-Type": "text/html"},
            "location:https://spideroak.com/storage/" +
            this.b32username +
@@ -296,7 +296,7 @@ describe('AccountModel', function() {
                                   function(){}, function(){});
           this.server.respondWith(
             "POST",
-            "https://spideroak.com/browse/login",
+            /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
             [
               200,
               {"Content-Type": "text/html"},
@@ -333,7 +333,7 @@ describe('AccountModel', function() {
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
+          /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
           [
             200,
             {"Content-Type": "text/html"},
@@ -344,7 +344,9 @@ describe('AccountModel', function() {
         );
         this.server.respondWith(
           "POST",
-          "https://alternate-dc.spideroak.com/" + this.b32username + "/login",
+          RegExp("https://alternate-dc.spideroak.com/" +
+                 this.b32username +
+                 "/login(\\?.*)?"),
           [
             200,
             {"Content-Type": "text/html"},
@@ -381,7 +383,9 @@ describe('AccountModel', function() {
           [
             200,
             {"Content-Type": "text/html"},
-            "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"
+            "login:https://alternate-dc.spideroak.com/" +
+              this.b32username +
+              "/login"
           ]
         );
         this.accountModel.login(this.username, this.password,
@@ -399,7 +403,7 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
+          /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
           [200, {"Content-Type": "text/html"},
            "location:https://spideroak.com/storage/" +
            this.b32username +
@@ -407,7 +411,9 @@ describe('AccountModel', function() {
         );
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/storage/" + this.b32username + "/logout",
+          RegExp("https://spideroak.com/storage/" +
+                 this.b32username +
+                 "/logout(\\?.*)?"),
           [200, {"Content-Type": "text/html"},
            "the response page"]
         );
@@ -451,7 +457,7 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
+          /https:\/\/spideroak.com\/browse\/login(\?.*)?/,
           [200, {"Content-Type": "text/html"},
            "location:https://spideroak.com/storage/" +
            this.b32username +
@@ -459,7 +465,9 @@ describe('AccountModel', function() {
         );
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/storage/" + this.b32username + "/logout",
+          RegExp("https://spideroak.com/storage/" +
+                 this.b32username +
+                 "/logout(\\?.*)?"),
           [200, {"Content-Type": "text/html"},
            "the response page"]
         );

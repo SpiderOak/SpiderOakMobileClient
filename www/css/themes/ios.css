@@ -6,6 +6,7 @@ body {
   background-color: #e4e4e4;
   font-family: -apple-system-font;
   font-size: 100%;
+  -webkit-user-select: none;
 }
 
 .page {
@@ -137,12 +138,22 @@ body {
   line-height: 34px;
 }
 
+#subviews:after,
+.menu:after {
+  content: '';
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  bottom: -1px;
+}
+
 ul li {
+  -webkit-user-select: none;
   background-color: rgb(248, 248, 248);
 }
 
 ul li a.folder {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAaCAYAAADbhS54AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RkUwNzBCREJCQUIwMTFFMDk0QkU4MjlCQzZDMkM3MDQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RkUwNzBCRENCQUIwMTFFMDk0QkU4MjlCQzZDMkM3MDQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGRTA3MEJEOUJBQjAxMUUwOTRCRTgyOUJDNkMyQzcwNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGRTA3MEJEQUJBQjAxMUUwOTRCRTgyOUJDNkMyQzcwNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pr4pXUUAAAEmSURBVHjazNaxrkRAFAbgmbkewSNIhFYlaiERLZF4PA29QmhFoafxBl6AxrlLYrNrV+69ezPmnGrGSeTLbzIHBQCyV1VVMM8z8TyPEsEl7YuyLKGu630LonHsDYq0bUvyPAehiRVFAU3TvDRWnMjk2DiOp02RybE4jqmiKOhw2xnDiGP7AhuOPW4w4djxwRFHKX3BZVkGl8OOuMfJsFfXddxx7Kzx02ddcWmawuWw3+D6vueGY/99wbIs1yeWJAkMw3DaV1WVRFHEZWRJn6I0TSNhGHKbo9InKF3XSRAEXIe79FeUYRjE933ufxwMI+oJhgl1h2FDrfV1u0DRobbEZFlGh9pgrutS0zRRoe5nzHEcalkWGtTTPWbb9gqBaZqEo9b6FmAAq7ewXOMrjpsAAAAASUVORK5CYII=');
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAaCAYAAADbhS54AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEMTg5RUQwMzI4RDExMUUzOTc0MUMxOTNDQTVCQUU5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpEMTg5RUQwNDI4RDExMUUzOTc0MUMxOTNDQTVCQUU5NCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQxODlFRDAxMjhEMTExRTM5NzQxQzE5M0NBNUJBRTk0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQxODlFRDAyMjhEMTExRTM5NzQxQzE5M0NBNUJBRTk0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Ut1dfAAAASdJREFUeNrM1z2KhTAQAOBJ1iN4BEG0FQtvIIitP+DxLKK9IGgrFvbaeAMvoI3u6pLFt+vC27eYzFQJCfIxyQyRbNsGPOq6ZsuygOd5EUgOhQ+qqmJN0/Apk42jFyjoug6KomAyYaQsS9a27eWibdvSjpVO0/TroszM0SRJIk3T0OGOO4YRR/kAG46eJ5hw5NxgeaRpysZx/NxACHzfY5omBEEQCcvYVeau4H3fQ57nTDjsmWPdcVmWMeGwZ3DDMNyGo//9wLqu4jN2LoKr0HUd4ji+pQiUV1GGYUAYhrdVpvIKSkS7UP6KsiwLfN+//cVBMaIeYJhQXzBsqD3ePhooOtSRMVVV0aEOmOu6keM4qFAPz57zn5Js1I/32I6b51k6ao93AQYAz7O+p3RyBmQAAAAASUVORK5CYII=');
   background-position: 98% center;
   background-repeat: no-repeat;
   background-size: 19px 13px;
@@ -225,7 +236,7 @@ ul li.sep {
   width: 100%;
   max-width: 620px;
   margin: 0 auto 0 auto;
-  max-height: 95%;
+  max-height: 94%;
   border-radius: 0;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
   overflow-y: hidden;
@@ -233,8 +244,25 @@ ul li.sep {
   -webkit-transform: translate3d(-50%,100%,0);
 }
 
-.modal .context-popup a {
-  /* ... */
+.modal .context-popup li {
+  line-height: 26px;
+}
+
+.modal .context-popup li:last-child {
+  display: block;
+}
+.modal .context-popup .cancel-btn {
+  color: red;
+}
+
+.modal .title {
+  padding: 0 10px;
+  margin: 15px 0 0 0;
+}
+
+.modal .subtitle {
+  padding: 0 10px;
+  margin: 10px 0;
 }
 
 input[type="text"],

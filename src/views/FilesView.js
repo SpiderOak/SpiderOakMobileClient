@@ -700,12 +700,14 @@
         return;
       }
       var items = [
-          {className: "open", description: "Open"},
           {className: "details", description: "Details"},
           {className: "send-link", description: "Send link"},
-          {className: "save", description: "Save file"},
           {className: "share", description: "Share file"}
       ];
+      if ($.os.android) {
+        items.unshift({className: "open", description: "Open"});
+        items.push({className: "save", description: "Save file"});
+      }
       if (this.model.get("isFavorite")) {
         items.push({
           className: "refresh-favorite", description: "Refresh favorite"

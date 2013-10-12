@@ -475,6 +475,10 @@ ul li a .hiddenItem:after {
   text-align: center;
 }
 
+.modal .context-popup li:last-child {
+  display: none;
+}
+
 .meter { 
   height: 15px;  /* Can be anything */
   position: relative;

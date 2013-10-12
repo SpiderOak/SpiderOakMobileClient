@@ -81,13 +81,13 @@
       $(window).on(this.orientationEvent, function() {
         // alert("The rotation is " + window.orientation + " and the resolution is " + screen.width + " x " + screen.height);
         if (window.orientation === -90 || window.orientation === 90) {
-          view.$el.css({"margin-top":"0", "max-height":"290px"});
+          view.$el.css({"margin-top":"0", "max-height":"300px"});
           window.setTimeout(function(){
             view.scroller.refresh();
           },10);
         }
         else {
-          view.$el.css({"margin-top":"10%", "max-height":"90%"});
+          view.$el.css({"margin-top":"10%", "max-height":"94%"});
           window.setTimeout(function(){
             view.scroller.refresh();
           },10);
@@ -95,19 +95,21 @@
       }, false);
       this.$el.html(view.render().el);
       if (window.orientation === -90 || window.orientation === 90) {
-        view.$el.css({"margin-top":"0", "max-height":"290px"});
+        view.$el.css({"margin-top":"0", "max-height":"300px"});
       }
       window.setTimeout(function(){
         view.scroller.refresh();
       },10);
       if ($.os.ios) {
         // the stupid -50% is to keep it centered on iPad
+        var _this = this;
         view.$el.css({"-webkit-transform":"translate3d(-50%,100%,0)"});
         this.$el.show();
-        view.$el.animate({"-webkit-transform":"translate3d(-50%,0,0)"}, 100);
-        return;
+        view.$el.animate(
+          {"-webkit-transform":"translate3d(-50%,0,0)"}, 150, 'ease-in-out');
+      } else {
+        this.$el.show();
       }
-      this.$el.show();
     },
     close: function(){
       this.remove();

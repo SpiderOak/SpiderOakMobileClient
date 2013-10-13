@@ -1,6 +1,7 @@
 /*jshint expr:true */
 describe('DevicesView', function() {
   beforeEach(function() {
+    spiderOakApp.initialize();
     this.server = sinon.fakeServer.create();
     this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // nibbler b32 of "testusername"
     this.server.respondWith(

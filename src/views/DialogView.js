@@ -134,7 +134,7 @@
     },
     render: function() {
       this.$el.html(
-        window.tmpl["androidContextPopup"]({
+        window.tmpl["contextPopup"]({
           items: this.options.items
         })
       );

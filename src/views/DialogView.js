@@ -75,6 +75,11 @@
       this.$el.show();
     },
     updateProgress: function(progressPercent) {
+      console.log(progressPercent);
+      progressPercent = progressPercent * (($.os.ios) ? 2 : 1.5); // WHY?!
+      if (progressPercent > 100) {
+        progressPercent = 100;
+      }
       this.$(".meter .progress").animate({"width":progressPercent+"%"});
     },
     showDialogView: function(view) {

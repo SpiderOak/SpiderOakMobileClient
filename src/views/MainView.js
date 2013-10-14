@@ -42,18 +42,18 @@
         return;
       }
       if (action == "pop") {
-        $title.animate({opacity:0,"-webkit-transform":"translate(20%,0)"},150,"linear",function(){
+        $title.animate({opacity:0,"-webkit-transform":"translate(20%,0)"},100,"linear",function(){
           $title.css({"-webkit-transform":"translate(-20%,0)"});
           $title.html(title);
-          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},150,"linear");
+          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},100,"linear");
         });
         return;
       }
       if (action == "push") {
-        $title.animate({opacity:0,"-webkit-transform":"translate(-20%,0)"},150,"linear",function(){
+        $title.animate({opacity:0,"-webkit-transform":"translate(-20%,0)"},100,"linear",function(){
           $title.css({"-webkit-transform":"translate(20%,0)"});
           $title.html(title);
-          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},150,"linear");
+          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},100,"linear");
         });
         return;
       }

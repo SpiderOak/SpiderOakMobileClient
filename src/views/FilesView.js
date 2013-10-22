@@ -414,7 +414,8 @@
           spiderOakApp.dialogView.hide();
 
           if (model.get("openInternally")) {
-            window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+            // window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+            spiderOakApp.downloader.openInternally(fileEntry.fullPath);
           } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
@@ -484,6 +485,7 @@
       );
     },
     viewFavorite: function(path) {
+      var _this = this;
       var model = this.model;
       window.requestFileSystem(
         window.LocalFileSystem.PERSISTENT,
@@ -493,32 +495,37 @@
             path,
             {},
             function viewFavoriteGotFS(fileEntry) {
-              spiderOakApp.fileViewer.view({
-                  action: spiderOakApp.fileViewer.ACTION_VIEW,
-                  url: encodeURI(fileEntry.fullPath),
-                  type: model.get("type")
-                },
-                function() {
-                  // Add the file to the recents collection (view or fave)
-                  var recentModels = spiderOakApp.recentsCollection.models;
-                  var matchingModels = _.filter(recentModels, function(recent){
-                    return recent.composedUrl(true) === model.composedUrl(true);
-                  });
-                  if (matchingModels.length > 1) {
-//                    console.log("Multiple duplicates detected...");
+              if (model.get("openInternally")) {
+                // window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+                spiderOakApp.downloader.openInternally(fileEntry.fullPath);
+              } else {
+                spiderOakApp.fileViewer.view({
+                    action: spiderOakApp.fileViewer.ACTION_VIEW,
+                    url: encodeURI(fileEntry.fullPath),
+                    type: model.get("type")
+                  },
+                  function() {
+                    // Add the file to the recents collection (view or fave)
+                    var recentModels = spiderOakApp.recentsCollection.models;
+                    var matchingModels = _.filter(recentModels, function(recent){
+                      return recent.composedUrl(true) === model.composedUrl(true);
+                    });
+                    if (matchingModels.length > 1) {
+  //                    console.log("Multiple duplicates detected...");
+                    }
+                    spiderOakApp.recentsCollection.remove(matchingModels[0]);
+                    spiderOakApp.recentsCollection.add(model);
+                  },
+                  function(error) { // @FIXME: Real error handling...
+                    navigator.notification.alert(
+                      "Cannot find an app to view files of this type.",
+                      null,
+                      "File error",
+                      "OK"
+                    );
                   }
-                  spiderOakApp.recentsCollection.remove(matchingModels[0]);
-                  spiderOakApp.recentsCollection.add(model);
-                },
-                function(error) { // @FIXME: Real error handling...
-                  navigator.notification.alert(
-                    "Cannot find an app to view files of this type.",
-                    null,
-                    "File error",
-                    "OK"
-                  );
-                }
-              );
+                );
+              }
             },
             function(error) {
               console.log(JSON.stringify(error));

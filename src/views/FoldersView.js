@@ -83,7 +83,6 @@
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
-      console.log(event);
       if (event.toView === this) {
         spiderOakApp.mainView.setTitle(this.model.get("name"),event.action);
         if (!!spiderOakApp.navigator.viewsStack[0] &&

@@ -13,6 +13,7 @@
       $           = window.$;
 
   spiderOakApp.CollectionBase = Backbone.Collection.extend({
+    model: spiderOakApp.ModelBase,
     set: function(models, options) {
       var got = Backbone.Collection.prototype.set.call(this, models, options);
       this.trigger("complete");

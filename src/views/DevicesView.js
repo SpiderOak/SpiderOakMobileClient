@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.DevicesListView = Backbone.View.extend({
+  spiderOakApp.DevicesListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.views = [];
       window.bindMine(this);
@@ -61,7 +61,7 @@
     }
   });
 
-  spiderOakApp.DeviceItemView = Backbone.View.extend({
+  spiderOakApp.DeviceItemView = spiderOakApp.ViewBase.extend({
     tagName: "li",
     className: "",
     events: {

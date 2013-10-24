@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.FavoritesView = Backbone.View.extend({
+  spiderOakApp.FavoritesView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     initialize: function() {
       window.bindMine(this);
@@ -86,7 +86,7 @@
     }
   });
 
-  spiderOakApp.RefreshAllFavoritesButtonView = Backbone.View.extend({
+  spiderOakApp.RefreshAllFavoritesButtonView = spiderOakApp.ViewBase.extend({
     events: {
       "tap a": "a_tapHandler"
     },
@@ -110,7 +110,7 @@
     }
   });
 
-  spiderOakApp.FavoritesListView = Backbone.View.extend({
+  spiderOakApp.FavoritesListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       window.bindMine(this);
       // "add" might not be in use in read-only version

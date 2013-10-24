@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.MenuSheetView = Backbone.View.extend({
+  spiderOakApp.MenuSheetView = spiderOakApp.ViewBase.extend({
     el: "#menusheet",
     events: {
       "tap .logout": "logout_tapHandler",

@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.StorageBarView = Backbone.View.extend({
+  spiderOakApp.StorageBarView = spiderOakApp.ViewBase.extend({
     el: "#storagebar",
     initialize: function() {
       window.bindMine(this);

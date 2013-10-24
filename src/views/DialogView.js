@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.DialogView = Backbone.View.extend({
+  spiderOakApp.DialogView = spiderOakApp.ViewBase.extend({
     className: "modal",
     initialize: function() {
       window.bindMine(this);
@@ -106,7 +106,7 @@
   });
   spiderOakApp.dialogView = new spiderOakApp.DialogView().render();
 
-  spiderOakApp.ContextPopup = Backbone.View.extend({
+  spiderOakApp.ContextPopup = spiderOakApp.ViewBase.extend({
     className: "context-popup",
     events: {
       "tap a": "a_tapHandler"

@@ -13,7 +13,7 @@
   /** A model-less view of the public ShareRooms and account ShareRooms.
    *
    */
-  spiderOakApp.ShareRoomsRootView = Backbone.View.extend({
+  spiderOakApp.ShareRoomsRootView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     initialize: function() {
       spiderOakApp.shareRoomsCollection =
@@ -136,7 +136,7 @@
     which: "ShareRoomsRootView"
   });
 
-  spiderOakApp.MyShareRoomsListView = Backbone.View.extend({
+  spiderOakApp.MyShareRoomsListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.subViews = [];
 
@@ -193,7 +193,7 @@
     which: "MyShareRoomsListView"
   });
 
-  spiderOakApp.PublicShareRoomsListView = Backbone.View.extend({
+  spiderOakApp.PublicShareRoomsListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.subViews = [];
       if (this.options.scroller) {
@@ -261,7 +261,7 @@
     which: "PublicShareRoomsListView"
   });
 
-  spiderOakApp.AddShareRoomView = Backbone.View.extend({
+  spiderOakApp.AddShareRoomView = spiderOakApp.ViewBase.extend({
     name: "Add Public ShareRoom",
     className: "addShareRoom",
     events: {
@@ -350,7 +350,7 @@
     which: "AddShareRoomView"
   });
 
-  spiderOakApp.PublicShareRoomsAddButton = Backbone.View.extend({
+  spiderOakApp.PublicShareRoomsAddButton = spiderOakApp.ViewBase.extend({
     events: {
       "tap a": "a_tapHandler"
     },
@@ -374,7 +374,7 @@
     which: "PublicShareRoomsAddButton"
   });
 
-  spiderOakApp.ShareRoomItemView = Backbone.View.extend({
+  spiderOakApp.ShareRoomItemView = spiderOakApp.ViewBase.extend({
     templateID: "shareRoomItemViewTemplate",
     detailsTemplateID: "shareItemDetailsViewTemplate",
     tagName: "li",
@@ -668,7 +668,7 @@
     which: "ShareItemDetailsView"
   });
 
-  spiderOakApp.GetShareRoomPasswordView = Backbone.View.extend({
+  spiderOakApp.GetShareRoomPasswordView = spiderOakApp.ViewBase.extend({
     name: "Get ShareRoom Password",
     templateID: "getShareRoomPasswordTemplate",
     events: {

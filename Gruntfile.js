@@ -98,6 +98,7 @@ module.exports = function(grunt) {
           'src/collections/FavoritesCollection.js',
           'src/collections/RecentsCollection.js',
           'src/collections/ShareRoomsCollections.js',
+          'src/views/ViewBase.js',
           'src/views/AboutView.js',
           'src/collections/SettingsCollections.js',
           'src/views/FilesView.js',

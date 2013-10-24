@@ -11,7 +11,7 @@
       s           = window.s,
       store       = window.store;
 
-  spiderOakApp.FilesListView = Backbone.View.extend({
+  spiderOakApp.FilesListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       window.bindMine(this);
       // "add" might not be in use in read-only version
@@ -94,7 +94,7 @@
     which: "FilesListView"
   });
 
-  spiderOakApp.FileView = Backbone.View.extend({
+  spiderOakApp.FileView = spiderOakApp.ViewBase.extend({
     downloadFile: function(model, path, successCallback) {
       // Download the file to the PERSISTENT file system
       // @FIXME: This might be better moved to a method in the model
@@ -886,7 +886,7 @@
     which: "FileItemDetailsView"
   });
 
-  spiderOakApp.FileItemDetailsToolbarView = Backbone.View.extend({
+  spiderOakApp.FileItemDetailsToolbarView = spiderOakApp.ViewBase.extend({
     events: {
       "tap .file-share-button.enabled": "shareFile_tapHandler",
       "tap .file-save-button.enabled": "saveFile_tapHandler",

@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.HiveView = Backbone.View.extend({
+  spiderOakApp.HiveView = spiderOakApp.ViewBase.extend({
     events: {
       "tap a": "a_tapHandler"
     },

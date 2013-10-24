@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.RecentsView = Backbone.View.extend({
+  spiderOakApp.RecentsView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     initialize: function() {
       window.bindMine(this);
@@ -86,7 +86,7 @@
     }
   });
 
- spiderOakApp.RecentsListView = Backbone.View.extend({
+ spiderOakApp.RecentsListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       window.bindMine(this);
       // "add" might not be in use in read-only version
@@ -128,7 +128,7 @@
   });
 
   // <a class="clear-recents-btn"><i class="icon-history"></i></a>
-  spiderOakApp.RecentsClearRecentsButton = Backbone.View.extend({
+  spiderOakApp.RecentsClearRecentsButton = spiderOakApp.ViewBase.extend({
     events: {
       "tap a": "a_tapHandler"
     },

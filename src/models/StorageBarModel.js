@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.StorageBarModel = Backbone.Model.extend({
+  spiderOakApp.StorageBarModel = spiderOakApp.ModelBase.extend({
     parse: function(resp, xhr) {
       var stats = resp.stats;
       var size = resp.stats.size_for_robots;

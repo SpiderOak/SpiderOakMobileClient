@@ -1,5 +1,5 @@
 /**
- * FileView.js
+ * FilesView.js
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";
@@ -11,12 +11,12 @@
       s           = window.s,
       store       = window.store;
 
-  spiderOakApp.FilesListView = Backbone.View.extend({
+  spiderOakApp.FilesListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "all", this.render, this );
 
       this.subViews = [];
@@ -78,6 +78,9 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     close: function() {
       this.remove();
       this.unbind();
@@ -87,10 +90,11 @@
           subViews.close();
         }
       });
-    }
+    },
+    which: "FilesListView"
   });
 
-  spiderOakApp.FileView = Backbone.View.extend({
+  spiderOakApp.FileView = spiderOakApp.ViewBase.extend({
     downloadFile: function(model, path, successCallback) {
       // Download the file to the PERSISTENT file system
       // @FIXME: This might be better moved to a method in the model
@@ -640,7 +644,8 @@
         }.bind(this),
         "Favorites"
       );
-    }
+    },
+    which: "FileView"
   });
 
   spiderOakApp.FilesListItemView = spiderOakApp.FileView.extend({
@@ -774,7 +779,8 @@
     close: function() {
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FilesListItemView"
   });
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
@@ -876,10 +882,11 @@
       }
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FileItemDetailsView"
   });
 
-  spiderOakApp.FileItemDetailsToolbarView = Backbone.View.extend({
+  spiderOakApp.FileItemDetailsToolbarView = spiderOakApp.ViewBase.extend({
     events: {
       "tap .file-share-button.enabled": "shareFile_tapHandler",
       "tap .file-save-button.enabled": "saveFile_tapHandler",
@@ -915,7 +922,8 @@
       spiderOakApp.toolbarView.hide();
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FileItemDetailsToolbarView"
   });
 
   spiderOakApp.FileItemVersionsListView = spiderOakApp.FilesListView.extend({
@@ -923,7 +931,7 @@
     initialize: function() {
       window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "all", this.render, this );
 
       this.subViews = [];
@@ -940,10 +948,14 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     close: function() {
       this.remove();
       this.unbind();
-    }
+    },
+    which: "FileItemVersionsListView"
   });
 
   spiderOakApp.FilesVersionsItemView = spiderOakApp.FilesListItemView.extend({
@@ -961,7 +973,8 @@
       // }
       this.$("a").data("model",this.model);
       return this;
-    }
+    },
+    which: "FilesVersionsItemView"
   });
 
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

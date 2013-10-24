@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.SettingsCollection = Backbone.Collection.extend({
+  spiderOakApp.SettingsCollection = spiderOakApp.CollectionBase.extend({
     retentionPrefix: "spiderOakApp_settings_",
     model: spiderOakApp.SettingModel,
 

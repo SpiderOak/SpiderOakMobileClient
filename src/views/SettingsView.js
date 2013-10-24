@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.SettingsView = Backbone.View.extend({
+  spiderOakApp.SettingsView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     events: {
       "tap .send-feedback": "feedback_tapHandler",
@@ -158,7 +158,7 @@
     }
   });
 
-  spiderOakApp.SettingsAccountView = Backbone.View.extend({
+  spiderOakApp.SettingsAccountView = spiderOakApp.ViewBase.extend({
     // Derive from this and define your particular rendering.
     templateID: "settingsAccountViewTemplate",
     viewTitle: "Account",
@@ -222,7 +222,7 @@
     }
   });
 
-  spiderOakApp.SettingsServerView = Backbone.View.extend({
+  spiderOakApp.SettingsServerView = spiderOakApp.ViewBase.extend({
     name: "Server Address",
     templateID: "settingsServerViewTemplate",
     events: {

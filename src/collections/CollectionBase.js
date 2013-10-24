@@ -1,5 +1,5 @@
 /**
- * Collection.js
+ * CollectionBase.js
  *
  * Application-specific tailorings of Backbone.Collection go here.
  *

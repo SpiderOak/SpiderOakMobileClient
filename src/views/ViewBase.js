@@ -1,5 +1,8 @@
- /**
+/**
  * ViewBase.js
+ *
+ * Application-specific tailorings of Backbone.View go here.
+ *
  */
 (function (spiderOakApp, window, undefined) {
   "use strict";

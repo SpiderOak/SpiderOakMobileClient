@@ -122,20 +122,17 @@ body {
 }
 
 .nav .title {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  position: relative;
-  left: 0;
-  top: 5px;
-  width: 100%;
+  position: absolute;
+  width: auto;
+  left: 40px;
+  right: 40px;
   text-align: center;
+  line-height: 44px;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
-  font-size: 120%;
-  color: rgb(0, 0, 0);
   white-space: nowrap;
-  line-height: 34px;
+  padding: 0;
+  color: rgb(0, 0, 0);
 }
 
 #subviews:after,

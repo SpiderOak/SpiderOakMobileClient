@@ -415,6 +415,9 @@
 
           if (model.get("openInternally")) {
             // window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+            spiderOakApp.navigator.pushView(spiderOakApp.FilePreviewView,
+                {model: model},
+                spiderOakApp.defaultEffect);
             spiderOakApp.downloader.openInternally(fileEntry.fullPath);
           } else {
             spiderOakApp.fileViewer.view({
@@ -497,7 +500,7 @@
             function viewFavoriteGotFS(fileEntry) {
               if (model.get("openInternally")) {
                 // window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
-                spiderOakApp.downloader.openInternally(fileEntry.fullPath);
+                // spiderOakApp.downloader.openInternally(fileEntry.fullPath);
               } else {
                 spiderOakApp.fileViewer.view({
                     action: spiderOakApp.fileViewer.ACTION_VIEW,

@@ -16,6 +16,7 @@
       "tap .send-feedback": "feedback_tapHandler",
       "tap .account-settings": "accountSettings_tapHandler",
       "tap .server": "server_tapHandler",
+      "tap .logout": "logout_tapHandler",
       "change #settings-rememberme": "rememberMe_changeHandler"
     },
     initialize: function() {
@@ -23,6 +24,7 @@
       this.on("viewActivate", this.viewActivate);
       this.on("viewDeactivate", this.viewDeactivate);
       $(document).on("settingChanged", this.render);
+      $(document).on("logoutSuccess", this.render);
       spiderOakApp.navigator.on("viewChanging", this.viewChanging);
     },
     render: function() {
@@ -117,6 +119,31 @@
         {},
         spiderOakApp.defaultEffect
       );
+    },
+    logout_tapHandler: function(event) {
+      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+        window.setTimeout(function(){
+          navigator.notification.confirm(
+            'Are you sure you want to sign out?',
+            function (button) {
+              if (button !== 1) {
+                return;
+              }
+              spiderOakApp.accountModel.logout();
+              $("#subviews").html(
+                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
+                "<li class=\"sep\">Loading...</li></ul>");
+            }.bind(spiderOakApp),
+            'Sign out'
+          );
+        }.bind(this),50);
+      }
+      else {
+        $("#subviews").html(
+          "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
+          "<li class=\"sep\">Loading...</li></ul>");
+        $(document).trigger("logoutSuccess");
+      }
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {

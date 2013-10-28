@@ -35,15 +35,31 @@
         this.$('.back-btn').hide();
       }
     },
-    setTitle: function(title) {
+    setTitle: function(title,action) {
       var $title = this.$('.nav .title');
       if ($.os.android) {
         $title.html(title);
         return;
       }
-      $title.animate({opacity:0},50,"linear",function(){
+      if (action == "pop") {
+        $title.animate({opacity:0,"-webkit-transform":"translate(30%,0)"},100,"linear",function(){
+          $title.css({"-webkit-transform":"translate(-30%,0)"});
+          $title.html(title);
+          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},100,"linear");
+        });
+        return;
+      }
+      if (action == "push") {
+        $title.animate({opacity:0,"-webkit-transform":"translate(-30%,0)"},100,"linear",function(){
+          $title.css({"-webkit-transform":"translate(30%,0)"});
+          $title.html(title);
+          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},100,"linear");
+        });
+        return;
+      }
+      $title.animate({opacity:0},150,"linear",function(){
         $title.html(title);
-        $title.animate({opacity:1},50,"linear");
+        $title.animate({opacity:1},150,"linear");
       });
     },
     menuButton_handler: function(event) {
@@ -66,7 +82,7 @@
     },
     openMenu: function(event) {
       $(document).trigger("menuOpening");
-      var duration = ($.os.android) ? 200 : 300;
+      var duration = 200;
       $('#main').animate({
         translate3d: '270px,0,0'
       },duration,'ease-in-out');
@@ -74,7 +90,7 @@
     },
     closeMenu: function(event) {
       $(document).trigger("menuClosing");
-      var duration = ($.os.android) ? 200 : 300;
+      var duration = 200;
       if ($("#main").hasClass("open") || window.inAction) {
         $('#main').animate({
           translate3d: '0,0,0'

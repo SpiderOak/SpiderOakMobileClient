@@ -75,7 +75,8 @@
               });
               fileTransfer.download(
                 options.from,
-                encodeURI(fileEntry.fullPath),
+                // encodeURI(fileEntry.fullPath),
+                fileEntry.fullPath,
                 successCallback,
                 errorCallback,
                 false,
@@ -90,6 +91,40 @@
         errorCallback,
         options.fsType
       );
+    };
+
+  FileDownloadHelper.prototype.openInternally =
+    function(path) {
+      var options1 = {
+        src: path,
+        top: 64,
+        left: 0,
+        bottom: 0,
+        scalesPageToFit: true,
+        backgroundColor: "#FFF"
+      };
+
+      var slideInFromRight = { animation: {
+        type: "slideInFromRight",
+        duration: 100
+      }};
+
+      var slideOutToRight = { animation: {
+        type: "slideOutToRight",
+        duration: 100
+      }};
+
+      var fail = function() { console.log("fail"); };
+
+      window.wizViewManager.create("view1", options1, function() {
+        window.wizViewManager.show("view1", slideInFromRight, function(arg) {
+          $(".back-btn").one("tap", function(){
+            window.wizViewManager.hide("view1", slideOutToRight, function(){
+              // ...
+            }, function() { console.log("fail hide"); });
+          });
+        }, function() { console.log("fail show"); });
+      }, function() { console.log("fail create"); });
     };
 
   FileDownloadHelper.prototype.fileExists =

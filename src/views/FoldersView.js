@@ -84,7 +84,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(this.model.get("name"));
+        spiderOakApp.mainView.setTitle(this.model.get("name"),event.action);
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);

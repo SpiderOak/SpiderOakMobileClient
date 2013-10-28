@@ -221,8 +221,10 @@
         spiderOakApp.onMenuKeyDown,
         false
       );
-      // @FIXME: This seems cludgey
-      if (window.cssLoaded) navigator.splashscreen.hide();
+      if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
+        $(".app").css({"top":"20px"}); // status bar hax
+      }
+      //window.navigator.splashscreen.hide();
       // @TODO: Instantiate any plugins
       spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
         window.cordova.require("cordova/plugin/fileviewerplugin");

@@ -97,7 +97,8 @@
       spiderOakApp.dialogView.showProgress({
         title: "Downloading",
         subtitle: model.get("name"),
-        start: 0
+        start: 0,
+        showCancel: true
       });
       var downloadOptions = {
         fileName: model.get("name"),
@@ -404,7 +405,8 @@
       spiderOakApp.dialogView.showProgress({
         title: "Downloading",
         subtitle: this.model.get("name"),
-        start: 0
+        start: 0,
+        showCancel: true
       });
       spiderOakApp.downloader.downloadFile(
         downloadOptions,
@@ -412,7 +414,11 @@
           spiderOakApp.dialogView.hide();
 
           if (model.get("openInternally")) {
-            window.open(encodeURI(fileEntry.fullPath),"_blank","location=no");
+            // window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+            spiderOakApp.navigator.pushView(spiderOakApp.FilePreviewView,
+                {model: model},
+                spiderOakApp.defaultEffect);
+            spiderOakApp.downloader.openInternally(fileEntry.fullPath);
           } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
@@ -482,6 +488,7 @@
       );
     },
     viewFavorite: function(path) {
+      var _this = this;
       var model = this.model;
       window.requestFileSystem(
         window.LocalFileSystem.PERSISTENT,
@@ -491,32 +498,37 @@
             path,
             {},
             function viewFavoriteGotFS(fileEntry) {
-              spiderOakApp.fileViewer.view({
-                  action: spiderOakApp.fileViewer.ACTION_VIEW,
-                  url: encodeURI(fileEntry.fullPath),
-                  type: model.get("type")
-                },
-                function() {
-                  // Add the file to the recents collection (view or fave)
-                  var recentModels = spiderOakApp.recentsCollection.models;
-                  var matchingModels = _.filter(recentModels, function(recent){
-                    return recent.composedUrl(true) === model.composedUrl(true);
-                  });
-                  if (matchingModels.length > 1) {
-//                    console.log("Multiple duplicates detected...");
+              if (model.get("openInternally")) {
+                // window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+                // spiderOakApp.downloader.openInternally(fileEntry.fullPath);
+              } else {
+                spiderOakApp.fileViewer.view({
+                    action: spiderOakApp.fileViewer.ACTION_VIEW,
+                    url: encodeURI(fileEntry.fullPath),
+                    type: model.get("type")
+                  },
+                  function() {
+                    // Add the file to the recents collection (view or fave)
+                    var recentModels = spiderOakApp.recentsCollection.models;
+                    var matchingModels = _.filter(recentModels, function(recent){
+                      return recent.composedUrl(true) === model.composedUrl(true);
+                    });
+                    if (matchingModels.length > 1) {
+  //                    console.log("Multiple duplicates detected...");
+                    }
+                    spiderOakApp.recentsCollection.remove(matchingModels[0]);
+                    spiderOakApp.recentsCollection.add(model);
+                  },
+                  function(error) { // @FIXME: Real error handling...
+                    navigator.notification.alert(
+                      "Cannot find an app to view files of this type.",
+                      null,
+                      "File error",
+                      "OK"
+                    );
                   }
-                  spiderOakApp.recentsCollection.remove(matchingModels[0]);
-                  spiderOakApp.recentsCollection.add(model);
-                },
-                function(error) { // @FIXME: Real error handling...
-                  navigator.notification.alert(
-                    "Cannot find an app to view files of this type.",
-                    null,
-                    "File error",
-                    "OK"
-                  );
-                }
-              );
+                );
+              }
             },
             function(error) {
               console.log(JSON.stringify(error));
@@ -698,12 +710,14 @@
         return;
       }
       var items = [
-          {className: "open", description: "Open"},
           {className: "details", description: "Details"},
           {className: "send-link", description: "Send link"},
-          {className: "save", description: "Save file"},
           {className: "share", description: "Share file"}
       ];
+      if ($.os.android) {
+        items.unshift({className: "open", description: "Open"});
+        items.push({className: "save", description: "Save file"});
+      }
       if (this.model.get("isFavorite")) {
         items.push({
           className: "refresh-favorite", description: "Refresh favorite"

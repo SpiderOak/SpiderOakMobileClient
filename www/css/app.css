@@ -106,7 +106,6 @@ body {
   right: 0;
   bottom: 0;
   top: 0;
-  width: 100%;
   overflow: hidden;
   background-color: #eee;
 }
@@ -117,6 +116,10 @@ body {
   display: block;
   width: 100px;
   margin: 10px auto;
+}
+
+.spacer5 {
+  height: 5px;
 }
 
 .learn-more {
@@ -136,6 +139,7 @@ body {
   right:0;
   overflow: auto;
   background-color: #eee;
+  z-index: 110;
 }
 
 .about-spideroak-content {
@@ -471,6 +475,10 @@ ul li a .hiddenItem:after {
   text-align: center;
 }
 
+.modal .context-popup li:last-child {
+  display: none;
+}
+
 .meter { 
   height: 15px;  /* Can be anything */
   position: relative;
@@ -525,6 +533,21 @@ ul li a .hiddenItem:after {
   -webkit-animation-iteration-count:infinite;
   -webkit-animation-direction:linear;
   -webkit-transform:scale(.3);
+}
+
+.cancel-btn a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 44px;
+  border-top: 1px solid #333;
+  line-height: 44px;
+}
+
+.cancel-btn a.active {
+  background-color: #333;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .fileDetails-container {

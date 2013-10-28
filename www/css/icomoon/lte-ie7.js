@@ -52,10 +52,12 @@ window.onload = function() {
 			'icon-libreoffice' : '&#xe02b;',
 			'icon-unlocked' : '&#xe02c;',
 			'icon-lock' : '&#xe02d;',
-			'icon-hive-black' : '&#xe02e;'
+			'icon-hive-black' : '&#xe02e;',
+			'icon-arrow-left-2' : '&#xe02f;',
+			'icon-reorder' : '&#xf0c9;'
 		},
 		els = document.getElementsByTagName('*'),
-		i, attr, html, c, el;
+		i, attr, c, el;
 	for (i = 0; ; i += 1) {
 		el = els[i];
 		if(!el) {

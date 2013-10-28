@@ -18,6 +18,9 @@
         _.extend(file, window.fileHelper
           .fileTypeFromExtension(file.name)
         );
+        if ($.os.ios) {
+          file.openInternally = true;
+        }
       });
       return resp.files;
     },

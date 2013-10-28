@@ -15,13 +15,22 @@
     <li>
       <span style="float:left;color:#666;">Remember me</span>
       <div class="checkswitch">
-        <input type="checkbox" id="settings-rememberme" name="settings-rememberme"
+        <input type="checkbox"
+               id="settings-rememberme"
+               name="settings-rememberme"
           {{?spiderOakApp.accountModel.get("rememberme")}}checked='true'{{?}} />
         <label for="settings-rememberme">
           <span data-off="No" data-on="Yes"></span>
         </label>
       </div>
       <div class="clearfix"></div>
+    </li>
+  </ul>
+  <ul>
+    <li><a class="logout">Log Out</a></li>
+    <li class="logout-warning">
+      Logging out while <strong>Remember Me</strong> is active will clear
+      your data from this device.
     </li>
   </ul>
   {{?}}

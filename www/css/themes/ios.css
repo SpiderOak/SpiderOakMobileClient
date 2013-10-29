@@ -25,6 +25,10 @@ body {
   margin: 0 auto;
 }
 
+.login-form .button.logout {
+  color: red;
+}
+
 .modal {
   z-index: 10000;
   color: #000;

@@ -8,6 +8,15 @@ On revisiting the issue, we still see test failures (details below). Investigati
 
 == Current situation details ==
 
+* 2013-10-29
+
+  I think I've tracked down the last of the 'reset' => 'set' related
+  problems, and successfully migrated to backbone 1.1.
+
+  I'm retaining details about the ongoing mocha-phantomjs upgrade obstacle
+  to our project wiki, and will remove this document from the project after
+  committing this final (for now, at least) note.
+
 * 2013-10-08
 
   Identified the .addOne() test failure problem from the backbone

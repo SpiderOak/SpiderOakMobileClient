@@ -120,11 +120,11 @@
       var touch = {};
       var pxMultiplier = 1;
       var threshold = 80;
-      $(document).on("touchstart", "#nav", function(event){
+      $(document).on("touchstart", "#nav:not(.noDrag)", function(event){
         touch.x1 = event.touches[0].pageX;
         touch.y1 = event.touches[0].pageY;
       });
-      $(document).on("touchmove", "#nav", function(event) {
+      $(document).on("touchmove", "#nav:not(.noDrag)", function(event) {
         window.inAction = true;
         if (event.touches.length == 1 ) {
           touch.dx = event.touches[0].pageX - touch.x1; // right, left
@@ -146,7 +146,7 @@
           }
         }
       });
-      $(document).on("touchend touchcancel", "#nav", function(event) {
+      $(document).on("touchend touchcancel", "#nav:not(.noDrag)", function(event) {
         if (window.inAction) {
           var d = touch.dx * pxMultiplier;
           if (touch.dx > 0 && !$("#main").hasClass("open")) {

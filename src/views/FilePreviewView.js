@@ -52,9 +52,11 @@
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
+      $("#nav").addClass("noDrag");
     },
     viewDeactivate: function(event) {
       //this.close();
+      $("#nav").removeClass("noDrag");
     },
     remove: function() {
       this.close();

@@ -306,8 +306,9 @@ module.exports = function(grunt) {
   grunt.registerTask('min', ['uglify']); // polyfil
 
   // Build tasks
-  grunt.registerTask('debug','Create a debug build', function(platform) {
-    grunt.task.run('jshint', 'dot', 'concat', 'shell:mochadot');
+  grunt.registerTask('debug','Create a debug build', function(platform, test) {
+    test = test || 'dot';
+    grunt.task.run('jshint', 'dot', 'concat', 'shell:mocha'+test);
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('beta','Create a beta build', function(platform) {

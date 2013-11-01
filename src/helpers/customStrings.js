@@ -8,7 +8,7 @@
 
   window.customizeStrings = function () {
     return {
-      /** Customize strings
+      /** Customize string
        *
        * @return (string} The result of doing a lookup against the tables
        * defined in www/customAppStrings.json and www/appStrings.json, in
@@ -24,24 +24,37 @@
       },
       fetchStringTables: function () {
         window.customizeStrings.stringsTable = {};
-        var app, custom, key, i, it;
+        var tables = {app: {}, custom: {}};
+        var key, i, it;
         var consolidate = function () {
           // Actually do the consolidation only when we've collected everything.
           var populate = function (value, key) {
             window.customizeStrings.stringsTable[key] = value;
           };
-          if (app && custom) {
-            // Do app first, so custom entries take precedence:
-            $.map(app, populate);
-            $.map(custom, populate);
-          }
+          // Do app first, so custom entries take precedence:
+          $.map(tables.app, populate);
+          $.map(tables.custom, populate);
         };
-        $.getJSON("appStrings.json", function(data) {
-          app = data; consolidate();
-        });
-        $.getJSON("customAppStrings.json", function(data) {
-          custom = data; consolidate();
-        });
+        var loadStringsJSON = function(fileURL, tableName) {
+          return $.ajax({dataType: "json",
+                         url: fileURL,
+                         data: null,
+                         success: function(data) {
+                           tables[tableName] = data;
+                           consolidate();
+                         },
+                         error: function(xhr, status, err) {
+                           console.log("*** customizeStrings: '" +
+                                       fileURL +
+                                       "' - " +
+                                       status +
+                                       ": " +
+                                       err);
+                         }
+               });
+        };
+        loadStringsJSON("appStrings.json", "app");
+        loadStringsJSON("customAppStrings.json", "custom");
       },
       stringsTable: {}
     };

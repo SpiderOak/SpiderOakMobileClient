@@ -201,7 +201,7 @@
       }
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
       $(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
-      $(".remember-me").html(s("Keep me logged in"));
+      $(".remember-me").html(s("Stay logged in"));
       $(".splash").hide();
 
       if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {

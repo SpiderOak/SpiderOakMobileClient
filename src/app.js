@@ -226,8 +226,9 @@
       }
       //window.navigator.splashscreen.hide();
       // @TODO: Instantiate any plugins
-      spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
-        window.cordova.require("cordova/plugin/fileviewerplugin");
+      // spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
+      //   window.cordova.require("cordova/plugin/fileviewerplugin");
+      spiderOakApp.fileViewer = window.FileViewerPlugin;
     },
     setOnline: function(event) {
       if (!this.networkAvailable) {

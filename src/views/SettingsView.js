@@ -65,7 +65,6 @@
         extras: extras
       };
       if ($.os.ios) {
-        console.log("CLICKITY!");
         window.location.href = "mailto:"+
             extras[spiderOakApp.fileViewer.EXTRA_EMAIL]+
             "?subject="+

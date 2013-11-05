@@ -119,6 +119,19 @@ body {
   margin: 10px auto;
 }
 
+.login-form .button.logout {
+  margin-bottom: 20px;
+}
+
+.login-form .logoutText {
+  text-align: center;
+  padding: 10px;
+}
+
+.spacer5 {
+  height: 5px;
+}
+
 .learn-more {
   width: 60%;
   text-align: center;

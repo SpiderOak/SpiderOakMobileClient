@@ -2,8 +2,66 @@
  * This file should have css that will be used for ios
  */
 body {
-  background-color: #fff;
-  font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+  /*background-color: rgb(248, 248, 248);*/
+  background-color: #e4e4e4;
+  font-family: -apple-system-font;
+  font-size: 100%;
+  -webkit-user-select: none;
+}
+
+.page {
+  background-color: #e4e4e4 !important;
+}
+
+.login {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  background-color: #e4e4e4;
+  z-index: 101;
+}
+
+.login-logo {
+  margin: 0 auto;
+}
+
+.login-form .button.logout {
+  color: red;
+}
+
+.modal {
+  z-index: 10000;
+  color: #000;
+  background-color: rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.modal .wait-dialog,
+.modal .progress-dialog {
+  top: 35%;
+  color: #000;
+  background-color: rgb(248, 248, 248);
+  border-radius: 8px;
+}
+
+.cancel-btn a {
+  color: rgb(21, 125, 251);
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+  height: 44px;
+  border-top: 1px solid rgb(200, 199, 204);
+  line-height: 44px;
+}
+
+.cancel-btn a.active {
+  background-color: #e4e4e4;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.app {
+  background-color: rgb(248, 248, 248);
 }
 
 .nav {

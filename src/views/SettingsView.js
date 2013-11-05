@@ -326,7 +326,10 @@
 
           // We use xhr.status because xhr is a consistent parameter for both
           // success and failure callbacks:
-          if (xhr.status !== 403) {
+          if ((xhr.status !== 403) ||
+              // Proper SpiderOak servers include X-SpiderOak-API header
+              // on 403 responses:
+              (! xhr.getResponseHeader("X-SpiderOak-API"))) {
             // Host is not a SpiderOak service provider - fail:
             spiderOakApp.dialogView.hide();
             if (spiderOakApp.navigator.viewsStack.length > 0) {

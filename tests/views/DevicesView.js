@@ -51,15 +51,15 @@ describe('DevicesView', function() {
         collection: this.devicesCollection,
         el: $("<ul id='devices' class='edgetoedge'></ul>")
       }).render();
-      sinon.spy(this.view,'addOne');
+      sinon.spy(this.devicesCollection,'set');
       this.server.respond();
     });
     it('should create a list element', function() {
       this.view.el.nodeName.should.equal("UL");
     });
     describe('Methods', function() {
-      it('should call addOne', function() {
-        this.view.addOne.should.have.been.called;
+      it('should call collection set', function() {
+        this.devicesCollection.set.should.have.been.called;
       });
     });
     describe('List items', function() {

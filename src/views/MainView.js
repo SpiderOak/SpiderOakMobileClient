@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.MainView = Backbone.View.extend({
+  spiderOakApp.MainView = spiderOakApp.ViewBase.extend({
     el: "#main",
     events: {
       // Use touchend to work around a bug in ICS

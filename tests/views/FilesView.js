@@ -10,6 +10,16 @@ describe('FilesView', function() {
   });
   describe('Instantiation', function() {
     beforeEach(function() {
+      var filesObj = {dirs: [["test folder/", "test%20folder/"],
+                             ["tmp/", "tmp/"]],
+                      files: [{ctime: 1359167989,
+                               etime: 1359167998,
+                               mtime: 1359167946,
+                               name: "filename.pdf",
+                               size: 255434,
+                               url: "filename.pdf",
+                               versions: 2
+                              }]};
       this.server.respondWith(
         "GET",
         "https://spideroak.com/storage/" + this.b32username +
@@ -17,10 +27,7 @@ describe('FilesView', function() {
         [
           200,
           {"Content-Type": "test/html"},
-          '{"dirs": [["test folder/", "test%20folder/"], ["tmp/", "tmp/"] ],'+
-            ' "files": [{"ctime": 1359167989, "etime": 1359167998, '+
-            '"mtime": 1359167946, "name": "filename.pdf", "size": 255434, '+
-            '"url": "filename.pdf", "versions": 2 } ] }'
+          JSON.stringify(filesObj)
         ]
       );
       this.filesCollection = new spiderOakApp.FilesCollection();
@@ -30,7 +37,7 @@ describe('FilesView', function() {
         collection: this.filesCollection,
         el: $("<ul id='files'></ul>")
       }).render();
-      sinon.spy(this.view,'addOne');
+      sinon.spy(this.filesCollection,'set');
       this.completeSpy = sinon.spy();
       this.view.$el.on("complete", this.completeSpy);
       this.server.respond();
@@ -39,8 +46,8 @@ describe('FilesView', function() {
       this.view.el.nodeName.should.equal("UL");
     });
     describe('Methods', function() {
-      it('should call addOne', function() {
-        this.view.addOne.should.have.been.called;
+      it('should call collection set', function() {
+        this.filesCollection.set.should.have.been.called;
       });
     });
     describe('List items', function() {

@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.FavoritesCollection = Backbone.Collection.extend({
+  spiderOakApp.FavoritesCollection = spiderOakApp.CollectionBase.extend({
     model: spiderOakApp.FavoriteModel,
     comparator: function(object) {
       return object.get("name");

@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.FolderView = Backbone.View.extend({
+  spiderOakApp.FolderView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     initialize: function() {
       window.bindMine(this);
@@ -122,12 +122,12 @@
     which: "FolderView"
   });
 
-  spiderOakApp.FoldersListView = Backbone.View.extend({
+  spiderOakApp.FoldersListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "all", this.render, this );
 
       this.subViews = [];
@@ -175,6 +175,9 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     close: function(){
       this.remove();
       this.unbind();
@@ -188,7 +191,7 @@
     which: "FoldersListView"
   });
 
-  spiderOakApp.FoldersListItemView = Backbone.View.extend({
+  spiderOakApp.FoldersListItemView = spiderOakApp.ViewBase.extend({
     tagName: "li",
     events: {
       "tap a": "a_tapHandler"

@@ -73,7 +73,7 @@
       }
 
       window.iconType = (window.Modernizr.svg) ? "svg" : "png";
-      
+
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({

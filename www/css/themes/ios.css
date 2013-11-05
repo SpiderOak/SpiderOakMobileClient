@@ -139,6 +139,19 @@ body {
   color: rgb(0, 0, 0);
 }
 
+.bg-icon {
+  background-size: contain;
+  background-repeat:no-repeat;
+}
+
+.bg-pos-zero {
+  background-position: 0 0;
+}
+
+.bg-pos-center {
+  background-position: center center;
+}
+
 #subviews:after,
 .menu:after {
   content: '';

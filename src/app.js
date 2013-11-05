@@ -318,7 +318,7 @@
         return;
       }
       if ($(".nav .back-btn").is(":visible")) {
-        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         return;
       }
       navigator.app.exitApp();
@@ -335,7 +335,8 @@
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
-    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : null),
+    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect()),
+    defaultPopEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect({direction:'right'})),
     b32nibbler: new window.Nibbler({dataBits: 8,
                                     codeBits: 5,
                                     keyString:

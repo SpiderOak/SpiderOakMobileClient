@@ -303,7 +303,7 @@
       spiderOakApp.settings.setOrCreate("shareroomsRemembering", remember, 1);
 
       if (! shareId || ! roomKey) {
-        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         return;
       }
 
@@ -331,7 +331,7 @@
           }
         });
       }
-      spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+      spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
     },
     addShareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
@@ -737,7 +737,7 @@
           model: this.model
         };
         if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+          spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         }
         var folderView = new spiderOakApp.FolderView(options);
         spiderOakApp.navigator.pushView(
@@ -753,7 +753,7 @@
           title: "<i class='icon-warning'></i> Invalid password"
         });
         if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+          spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         }
       }.bind(this);
 

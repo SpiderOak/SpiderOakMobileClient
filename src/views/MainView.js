@@ -42,18 +42,18 @@
         return;
       }
       if (action == "pop") {
-        $title.animate({opacity:0,"-webkit-transform":"translate(30%,0)"},100,"ease-in",function(){
+        $title.animate({opacity:0,"-webkit-transform":"translate(30%,0)"},125,"linear",function(){
           $title.css({"-webkit-transform":"translate(-30%,0)"});
           $title.html(title);
-          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},100,"ease-out");
+          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
         });
         return;
       }
       if (action == "push") {
-        $title.animate({opacity:0,"-webkit-transform":"translate(-30%,0)"},100,"ease-in",function(){
+        $title.animate({opacity:0,"-webkit-transform":"translate(-30%,0)"},125,"linear",function(){
           $title.css({"-webkit-transform":"translate(30%,0)"});
           $title.html(title);
-          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},100,"ease-out");
+          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
         });
         return;
       }
@@ -77,7 +77,7 @@
         return;
       }
       if (!spiderOakApp.backDisabled) {
-        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
       }
     },
     openMenu: function(event) {

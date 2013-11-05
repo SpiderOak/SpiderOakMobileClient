@@ -31,7 +31,8 @@
           var populate = function (value, key) {
             window.customizeStrings.stringsTable[key] = value;
           };
-          // Do app first, so custom entries take precedence:
+          // Depend on tables.app and tables.custom being iterable; do app
+          // first, so custom entries prevail when both are present:
           $.map(tables.app, populate);
           $.map(tables.custom, populate);
         };
@@ -40,8 +41,10 @@
                          url: fileURL,
                          data: null,
                          success: function(data) {
-                           tables[tableName] = data;
-                           consolidate();
+                           if (data) {
+                             tables[tableName] = data;
+                             consolidate();
+                           }
                          },
                          error: function(xhr, status, err) {
                            console.log("*** customizeStrings: '" +

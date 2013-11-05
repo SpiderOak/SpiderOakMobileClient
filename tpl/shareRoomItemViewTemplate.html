@@ -1,10 +1,7 @@
 <a href='#share' {{?it.preliminary}} class="preliminary" {{?}}>
-  <div class="icon">
-    <i class='icon-cloud-upload'></i>
-  </div>
+  <div class="icon" style="background-image:url('img/spideroak-icons/shareroom{{?it.password_required}}_locked{{?}}.png'); background-size: contain; background-repeat:no-repeat; background-position: 0 0;"></div>
   {{? it.password_required}}
     <div class="foldername">
-      <i class="icon-lock" style="color:#999;font-size:80%;"></i>
       <em>
         {{=it.share_id}} / {{=it.room_key}}
       </em>
@@ -12,9 +9,7 @@
   {{??}}
     <div class="foldername">
       {{ if (it.name) { }}
-        {{?it.password}}
-        <i class="icon-unlocked" style="color:#999;font-size:80%;"></i>
-        {{?}} {{=it.name}}
+        {{=it.name}}
       {{ } else if (it.beenSituated) { }}
       <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
       <em>{{=it.share_id}} / {{=it.room_key}}</em>

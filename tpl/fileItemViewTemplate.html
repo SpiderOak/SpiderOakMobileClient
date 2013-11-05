@@ -1,5 +1,5 @@
 <a>
-  <div class="icon"><i class="icon-{{=it.icon}}"></i></div>
+  <div class="icon" style="background-image:url('img/spideroak-icons/{{=iconType}}/{{=it.icon}}.{{=iconType}}'); background-size: contain; background-repeat:no-repeat; background-position: 0 0;"></div>
   <div class="filename">{{=it.name}}</div>
   <div class="subtext darkgray">
     <div class="file-info">
@@ -10,5 +10,5 @@
     </div>
     <div class="clearfix"></div>
   </div>
-  <div class="rightButton{{?it.isFavorite}} favorite{{?}}"><i class="icon-star-2 innershadow"></i></div>
+  <div class="rightButton{{?it.isFavorite}} favorite{{?}}" style="background-image:url('img/spideroak-icons/star{{?it.isFavorite}}_filled{{?}}.png'); background-size: contain; background-repeat:no-repeat; background-position: center center;"></div>
 </a>

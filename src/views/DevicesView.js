@@ -71,14 +71,7 @@
       _.bindAll(this, "render");
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          "<a href='#storage'>" +
-          "<i class='icon-<%= icon %>'></i> <%= name %>" +
-          "</a>",
-          this.model.toJSON()
-        )
-      );
+      this.$el.html(window.tmpl["deviceViewTemplate"](this.model.toJSON()));
       this.$("a").data("model", this.model);
       return this;
     },

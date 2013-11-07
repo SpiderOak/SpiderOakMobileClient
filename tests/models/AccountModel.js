@@ -14,6 +14,13 @@ describe('AccountModel', function() {
       this.username = "testusername";
       this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // "testusername" nibbler b32
       this.password = "testpassword";
+      this.loginURL = "https://spideroak.com/browse/login";
+      this.loginAltURL = ("https://alternate-dc.spideroak.com/" +
+                          this.b32username +
+                          "/login");
+      this.loginLocation = ("location:https://spideroak.com/storage/" +
+                            this.b32username +
+                            "/login");
     });
 
     afterEach(function() {
@@ -26,11 +33,8 @@ describe('AccountModel', function() {
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
-          [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/" +
-           this.b32username +
-           "/login"]
+          this.loginURL,
+          [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.accountModel.login(this.username, this.password,
                                 this.successSpy, this.errorSpy);
@@ -41,7 +45,7 @@ describe('AccountModel', function() {
       });
       it('should use the expected login start url', function() {
         this.server.requests[0].url
-            .should.equal("https://spideroak.com/browse/login");
+            .should.equal(this.loginURL);
       });
       // @TODO: There must be a better way to check query parameters?
       it('should pass the username as query data', function() {
@@ -101,11 +105,8 @@ describe('AccountModel', function() {
         }.bind(this);
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
-          [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/" +
-           this.b32username +
-           "/login"]
+          this.loginURL,
+          [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
       });
       afterEach(function() {
@@ -207,11 +208,8 @@ describe('AccountModel', function() {
            // The server responds affirmatively to the case-altered username:
            this.server.respondWith(
              "POST",
-             "https://spideroak.com/browse/login",
-             [200, {"Content-Type": "text/html"},
-              "location:https://spideroak.com/storage/" +
-              this.b32username +
-              "/login"]
+             this.loginURL,
+             [200, {"Content-Type": "text/html"}, this.loginLocation]
            );
            this.accountModel.login(this.usernameUpCased, this.password,
                                    this.successSpy, this.errorSpy);
@@ -234,7 +232,7 @@ describe('AccountModel', function() {
            // The server responds affirmatively to the case-altered username:
            this.server.respondWith(
              "POST",
-             "https://spideroak.com/browse/login",
+             this.loginURL,
              [200, {"Content-Type": "text/html"},
               "location:https://spideroak.com/storage/" +
               this.blueb32username +
@@ -271,11 +269,8 @@ describe('AccountModel', function() {
         document.addEventListener("loginSuccess", this.successSpy, false);
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
-          [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/" +
-           this.b32username +
-           "/login"]
+          this.loginURL,
+          [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.accountModel.login(this.username, this.password,
                                 function(){}, function(){});
@@ -296,14 +291,8 @@ describe('AccountModel', function() {
                                   function(){}, function(){});
           this.server.respondWith(
             "POST",
-            "https://spideroak.com/browse/login",
-            [
-              200,
-              {"Content-Type": "text/html"},
-              "location:https://spideroak.com/storage/" +
-                  this.b32username +
-                  "/login"
-            ]
+            this.loginURL,
+            [200, {"Content-Type": "text/html"}, this.loginLocation]
           );
           this.server.respond();
           this.accountModel.basicAuthManager.setAccountBasicAuth
@@ -333,18 +322,12 @@ describe('AccountModel', function() {
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
-          [
-            200,
-            {"Content-Type": "text/html"},
-            "login:https://alternate-dc.spideroak.com/" +
-              this.b32username +
-              "/login"
-          ]
+          this.loginURL,
+          [200, {"Content-Type": "text/html"}, "login:" + this.loginAltURL]
         );
         this.server.respondWith(
           "POST",
-          "https://alternate-dc.spideroak.com/" + this.b32username + "/login",
+          this.loginAltURL,
           [
             200,
             {"Content-Type": "text/html"},
@@ -370,6 +353,75 @@ describe('AccountModel', function() {
         });
     });
 
+    describe('interrupt in-process login', function() {
+      beforeEach(function(){
+        this.successSpy = sinon.spy();
+        this.errorSpy = sinon.spy();
+
+        /* In order to contrive for login interruptions at specific point
+         * in the recursive login process, we instrument the fakeServer
+         * responder so we can invoke login interruption at the key points.
+         */
+
+        /* Set this to URL *after* which responder will interrupt login process:
+         */
+        this.responderInterruptAfterURL = "set this to desired URL";
+        var responder = function (request) {
+          if (this.responderInterruptAfterURL === request.url) {
+            this.accountModel.interruptLogin();
+          };
+          if (request.url === this.loginURL) {
+            request.respond(
+              200,
+              {"Content-Type": "text/html"},
+              "login:" + this.loginAltURL);
+          }
+          else if (request.url === (this.loginAltURL)) {
+            request.respond(
+              200,
+              {"Content-Type": "text/html"},
+              this.loginLocation
+            );
+          }
+          // Provide for logout:
+          else if (request.url === ("https://spideroak.com/storage/" +
+                                    this.b32username + "/logout")) {
+            request.respond(
+              200, {"Content-Type": "text/html"}, "the response page"
+            );
+          }
+          else {
+            request.respond(
+              404,
+              {"Content-Type": "text/plain"},
+              'Not found'
+            );
+          }
+        }.bind(this);
+        this.server.respondWith(responder);
+      });
+      afterEach:(function() {
+        this.responderInterruptAfterURL = false;
+      });
+      it('non-interrupted login should work as usual', function() {
+        this.accountModel.getLoginState().should.equal(false);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
+        this.responderInterruptAfterURL = false;
+        this.server.respond();
+        this.accountModel.getLoginState().should.equal(true);
+      });
+      it('interrupting should work in the early login process', function() {
+        this.accountModel.getLoginState().should.equal(false);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
+        this.responderInterruptAfterURL = this.loginURL;
+        this.server.respond();
+        // We're doing a multi-stage login:
+        this.accountModel.getLoginState().should.equal(false);
+      });
+    });
+
     // rare but possible?
     describe('unsuccessful alternate login', function() {
       beforeEach(function(){
@@ -378,11 +430,7 @@ describe('AccountModel', function() {
         this.server.respondWith(
           "POST",
           "https://spideroak.com/storage/"+this.b32username+"/login",
-          [
-            200,
-            {"Content-Type": "text/html"},
-            "login:https://alternate-dc.spideroak.com/"+this.b32username+"/login"
-          ]
+          [200, {"Content-Type": "text/html"}, "login:" + this.loginAltURL]
         );
         this.accountModel.login(this.username, this.password,
                                 this.successSpy, this.errorSpy);
@@ -399,11 +447,8 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
-          [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/" +
-           this.b32username +
-           "/login"]
+          this.loginURL,
+          [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.server.respondWith(
           "POST",
@@ -451,11 +496,8 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/browse/login",
-          [200, {"Content-Type": "text/html"},
-           "location:https://spideroak.com/storage/" +
-           this.b32username +
-           "/login"]
+          this.loginURL,
+          [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.server.respondWith(
           "POST",

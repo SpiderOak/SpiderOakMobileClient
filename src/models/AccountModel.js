@@ -17,7 +17,8 @@
       response_parse_regex: /^(login|location):(.+)$/m,
       storage_web_url: "",      // Irrelevant to mobile client for now.
 
-      isLoggedIn: false,
+      state: false,
+      interrupting: false,
       loginname: "",
       b32username: "",
       basicAuthCredentials: "",
@@ -32,6 +33,44 @@
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
       this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager(this);
+    },
+    /** Report status login of login process, including intermediate state.
+     *
+     * @returns (boolean) false: not logged in
+     * @returns (boolean) true: logged in
+     * @returns (string) "in-process": login dance is happening
+     * @returns (string) "interrupting": login dance is being interrupted
+     *
+     * @see setState
+     */
+    getLoginState: function() {
+      return this.get("state");
+    },
+    /** Set status of login process. Intended for internal use only.
+     *
+     * @see getState
+     */
+    setLoginState: function(state) {
+      this.set("state", state);
+    },
+
+    doInterruption: function() {
+      var status = this.getLoginState();
+      if (status === true) {
+        // logged in - logout, clearing stuff in the process:
+        this.logout();
+        return "interrupting";
+      }
+      else if ((status === "in-process") || (status === "interrupting")) {
+        // Not actually logged in, just clear stuff:
+        this.loggedOut();
+        return "interrupting";
+      }
+      else {
+        console.log("AccountModel.login(): unexpected interruption state");
+        this.loggedOut();
+        return "interrupting";
+      }
     },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
@@ -61,6 +100,13 @@
         return;
       }
 
+      if (this.getLoginState() === "interrupting") {
+        return this.doInterruption();
+      }
+      else {
+        this.setLoginState("in-process");
+      }
+
       var _self = this,
           /** A BasicAuth suspending and resuming utility.
            *
@@ -70,8 +116,9 @@
           server = (optionalHost ||
                     spiderOakApp.settings.getValue("server")),
           login_url_start = "https://" + server + "/browse/login";
-
       login_url = login_url || login_url_start;
+
+
       spiderOakApp.ajax({
         type: "POST",
         url: login_url,
@@ -80,6 +127,7 @@
           username: username,
           password: password
         },
+
         /** Handle server login success.
          *
          * We may refuse the success, because while the server is tolerant
@@ -87,6 +135,7 @@
          */
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
+
           /** Register settings according to a successful login.
            *
            * @param {string} login_url - the actual login location. Eg:
@@ -137,10 +186,12 @@
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
             // Trigger the login complete event so other views can react
-            _self.set("isLoggedIn", true);
+            _self.setLoginState(true);
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
+
+
           if (where && where[1] === "login") {
             // Try again at indicated data center and/or path:
             if (where[2].charAt(0) === "/") {
@@ -153,8 +204,12 @@
               login_url = where[2];
             }
             // Recurse, with adjusted login_url:
-            _self.login(username, password, successCallback, errorCallback,
-                        login_url, optionalHost);
+            if ((_self.login(username, password,
+                             successCallback, errorCallback,
+                             login_url, optionalHost) === "interrupting") &&
+                errorCallback) {
+              errorCallback(0, "interrupted", xhr);
+            }
           }
           else if (where && where[1] === "location") {
             var destination = login_url;
@@ -168,9 +223,32 @@
           }
         },
         error: function(xhr, errorType, error) {
+          _self.setLoginState(false);
           errorCallback(xhr.status, "authentication failed", xhr);
         }
       });
+    },
+
+    /** Interrupt in-process login, or logout if logged in.
+     *
+     * @return (boolean) true if login is in process, or was logged-in.
+     */
+    interruptLogin: function() {
+      var status = this.getLoginState();
+      if (status === "in-process") {
+        this.setLoginState("interrupting");
+        return true;
+      }
+      else if (status === "interrupting") {
+        return true;
+      }
+      else if (status === true) {
+        this.logout();
+        return true;
+      }
+      else {
+        return false;
+      }
     },
     /** Do server logout and local zeroing of credentials, etc.
      *
@@ -182,7 +260,7 @@
       this.basicAuthManager.clear();
       spiderOakApp.settings.remove("rememberedAccount");
       spiderOakApp.settings.saveRetainedSettings();
-      if (this.get("isLoggedIn")) {
+      if (this.getLoginState() === true) {
         // @TODO: Clear keychain credentials
         // Post to the logout URL to get the session cookie expired:
         var logout_url = (this.get('logout_url_preface') +

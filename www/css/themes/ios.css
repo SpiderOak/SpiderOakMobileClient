@@ -4,7 +4,7 @@
 body {
   /*background-color: rgb(248, 248, 248);*/
   background-color: #e4e4e4;
-  font-family: -apple-system-font;
+  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
   font-size: 100%;
   -webkit-user-select: none;
 }
@@ -70,7 +70,7 @@ body {
   background-color: #e4e4e4;
   /*background-color: rgb(248, 248, 248);*/
   /*border-bottom: 1px solid rgb(200, 199, 204) !important;*/
-  font-family: -apple-system-font;
+  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
   font-weight: bold;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   z-index: 100;
@@ -281,7 +281,7 @@ textarea, select {
   margin: 0;
   display: block;
   width: 100%;
-  font: normal 100% -apple-system-font;
+  font: normal 100% -apple-system-font, "HelveticaNueue", "Helvetica";
   outline: 0 none;
 }
 

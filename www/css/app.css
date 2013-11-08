@@ -34,6 +34,21 @@ body {
   background-color: #333;
 }
 
+.menu .menu-icon {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.menu .menu-label {
+  position: absolute;
+  left: 50px;
+  top: 5px;
+  line-height: 43px;
+}
+
 .storagebar {
   color: #ccc;
   border-top: 1px solid #999;

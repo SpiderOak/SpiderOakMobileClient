@@ -168,33 +168,33 @@ ul li.sep {
 }
 
 .menu {
-  background-color: #333;
+  background-color: #fff;
 }
 
 .menu ul li {
-  background-color: #333;
+  background-color: #fff;
   border-color: #666;
-  color: #e4e4e4;
+  color: #333;
 }
 
 .menu ul li a {
-  background-color: #333;
-  border-color: #666;
-  color: #e4e4e4;
+  background-color: #fff;
+  border-color: #999;
+  color: #333;
 }
 
 .menu ul li a.active {
-  background-color: #444;
-  color: #e4e4e4;
+  background-color: #efefef;
+  color: #333;
 }
 
 .menu ul li.sep {
-  background-color: #333;
-  color: #666;
+  background-color: #fff;
+  color: #000;
 }
 
 .menu ul li.current a {
-  background-color: #444;
+  background-color: #efefef;
 }
 
 .storagebar {

@@ -18,7 +18,7 @@
         <i class="icon-info"></i> About {{= s("SpiderOak") }}</a>
     </li>
     {{? ! spiderOakApp.settings.getValue("inhibitAdvancedLogin") &&
-        ! spiderOakApp.accountModel.get("isLoggedIn")}}
+        (spiderOakApp.accountModel.getLoginState() !== true)}}
     <li><a class="logout"><i class="icon-exit"></i>Log In</a></li>
     {{?}}
   </ul>

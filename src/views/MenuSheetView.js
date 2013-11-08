@@ -35,7 +35,7 @@
       this.$el.html(window.tmpl["menusheetTemplate"]());
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
-      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+      if (spiderOakApp.accountModel.getLoginState() === true) {
         // Hive
         this.hiveModel = new spiderOakApp.HiveModel();
         this.hiveModel.url =

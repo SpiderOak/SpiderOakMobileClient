@@ -48,6 +48,7 @@
     },
     /** Set status of login process. Intended for internal use only.
      *
+     * In addition to setting the state, we notice start and finish trigger the 
      * @see getState
      */
     setLoginState: function(state) {

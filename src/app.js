@@ -39,6 +39,10 @@
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
+      document.addEventListener("loginStartChange",
+                                this.onLoginStartChange, false);
+      document.addEventListener("loginConcludeChange",
+                                this.onLoginConcludeChange, false);
       document.addEventListener("resume", this.onResume, false);
       document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
@@ -310,6 +314,10 @@
       event.preventDefault();
       if ($(".modal").is(":visible") ||
           $(".learn-about-spideroak").is(":visible")) {
+        return;
+      }
+      if (spiderOakApp.accountModel.getLoginState() === "in-process") {
+        spiderOakApp.accountModel.interruptLogin();
         return;
       }
       // @FIXME: Extend this logic a bit... it's a bit simplistic

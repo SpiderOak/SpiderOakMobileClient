@@ -366,9 +366,15 @@ describe('AccountModel', function() {
         /* Set this to URL on which responder will interrupt login process:
          */
         this.responderInterruptAfterURL = "set this to desired URL";
+        /* To affirm that login state is "in-process" while login is happening,
+           set .responderInterruptAfterURL === "test getLoginState" */
+        this.responderLoginState = [];
         var responder = function (request) {
           if (this.responderInterruptAfterURL === request.url) {
             this.accountModel.interruptLogin();
+          }
+          else if (this.responderInterruptAfterURL === "test getLoginState") {
+            this.responderLoginState.push(this.accountModel.getLoginState());
           };
           if (request.url === this.loginURL) {
             request.respond(
@@ -411,6 +417,17 @@ describe('AccountModel', function() {
         this.server.respond();
         this.accountModel.getLoginState().should.equal(true);
       });
+      // it('getLoginState() should be "in-process" during login', function() {
+      //   this.accountModel.getLoginState().should.equal(false);
+      //   this.accountModel.login(this.username, this.password,
+      //                           this.successSpy, this.errorSpy);
+      //   this.responderInterruptAfterURL = "test getLoginState";
+      //   this.server.respond();
+      //   console.log(this.responderLoginState);
+      //   this.responderLoginState.map(function (state) {
+      //     state.should.equal("in-process");
+      //   });
+      // });
       it('interrupting should work in the early login process', function() {
         this.accountModel.getLoginState().should.equal(false);
         this.accountModel.login(this.username, this.password,

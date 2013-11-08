@@ -63,7 +63,9 @@
       }
       $title.animate({opacity:0},150,"linear",function(){
         $title.html(title);
-        $title.animate({opacity:1},150,"linear");
+        window.setTimeout(function(){
+          $title.animate({opacity:1},150,"linear");
+        },0);
       });
     },
     menuButton_handler: function(event) {

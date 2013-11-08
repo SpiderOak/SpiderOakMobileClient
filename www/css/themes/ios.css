@@ -169,6 +169,7 @@ ul li.sep {
 
 .menu {
   background-color: #fff;
+  bottom: 40px;
 }
 
 .menu ul li {
@@ -200,15 +201,22 @@ ul li.sep {
 .storagebar {
   color: #333;
   border-top: 1px solid rgb(200, 199, 204);
-  background-color: #e4e4e4;
+  background-color: #efefef;
+  width: 270px;
+  padding: 0;
+  height: 40px;
+  font-size: 110%;
 }
 
 .storagebar .bar-graph {
-  background-color: #ccc;
+  background-color: #000;
+  width: 270px;
+  height: 3px;
 }
 
 .storagebar .bar-graph .inner {
-  background-color: #999;
+  background-color: rgb(21, 125, 251);
+  height: 3px;
 }
 
 .storagebar .devices-info {

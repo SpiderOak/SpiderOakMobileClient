@@ -363,7 +363,7 @@ describe('AccountModel', function() {
          * responder so we can invoke login interruption at the key points.
          */
 
-        /* Set this to URL *after* which responder will interrupt login process:
+        /* Set this to URL on which responder will interrupt login process:
          */
         this.responderInterruptAfterURL = "set this to desired URL";
         var responder = function (request) {

@@ -12,7 +12,7 @@ describe('AccountModel', function() {
     beforeEach(function(){
       this.server = sinon.fakeServer.create();
       this.username = "testusername";
-      this.b32username = "ORSXG5DVONSXE3TBNVSQ"; // "testusername" nibbler b32
+      this.b32username = window.spiderOakApp.b32nibbler.encode(this.username);
       this.password = "testpassword";
       this.loginURL = "https://spideroak.com/browse/login";
       this.loginAltURL = ("https://alternate-dc.spideroak.com/" +
@@ -224,8 +224,8 @@ describe('AccountModel', function() {
     describe('different login and content-URL username', function(){
       beforeEach(function() {
            this.blueLoginName = "test1@some.where.local";
-           // spiderOakApp.b32nibbler.encode("some_test_user_123") ===>
-           this.blueb32username = "ONXW2ZK7ORSXG5C7OVZWK4S7GEZDG";
+           this.blueb32username = window.spiderOakApp.b32nibbler.encode(
+             "some_test_user_123");
            sinon.spy(this.accountModel.basicAuthManager,'setAccountBasicAuth');
            this.successSpy = sinon.spy();
            this.errorSpy = sinon.spy();
@@ -370,19 +370,23 @@ describe('AccountModel', function() {
            set .responderInterruptAfterURL === "test getLoginState" */
         this.responderLoginState = [];
         var responder = function (request) {
+          function accumulateLoginTestState() {
+            if (this.responderInterruptAfterURL === "test getLoginState") {
+              this.responderLoginState.push(this.accountModel.getLoginState());
+            };
+          }
           if (this.responderInterruptAfterURL === request.url) {
             this.accountModel.interruptLogin();
           }
-          else if (this.responderInterruptAfterURL === "test getLoginState") {
-            this.responderLoginState.push(this.accountModel.getLoginState());
-          };
           if (request.url === this.loginURL) {
+            accumulateLoginTestState();
             request.respond(
               200,
               {"Content-Type": "text/html"},
               "login:" + this.loginAltURL);
           }
           else if (request.url === (this.loginAltURL)) {
+            accumulateLoginTestState();
             request.respond(
               200,
               {"Content-Type": "text/html"},
@@ -417,17 +421,16 @@ describe('AccountModel', function() {
         this.server.respond();
         this.accountModel.getLoginState().should.equal(true);
       });
-      // it('getLoginState() should be "in-process" during login', function() {
-      //   this.accountModel.getLoginState().should.equal(false);
-      //   this.accountModel.login(this.username, this.password,
-      //                           this.successSpy, this.errorSpy);
-      //   this.responderInterruptAfterURL = "test getLoginState";
-      //   this.server.respond();
-      //   console.log(this.responderLoginState);
-      //   this.responderLoginState.map(function (state) {
-      //     state.should.equal("in-process");
-      //   });
-      // });
+      it('getLoginState() should be "in-process" during login', function() {
+        this.accountModel.getLoginState().should.equal(false);
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy);
+        this.responderInterruptAfterURL = "test getLoginState";
+        this.server.respond();
+        this.responderLoginState.map(function (state) {
+          state.should.equal("in-process");
+        });
+      });
       it('interrupting should work in the early login process', function() {
         this.accountModel.getLoginState().should.equal(false);
         this.accountModel.login(this.username, this.password,

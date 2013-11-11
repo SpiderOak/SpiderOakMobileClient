@@ -215,16 +215,8 @@
     backDisabled: true,
     onDeviceReady: function() {
       window.spiderOakApp.initialize();
-      document.addEventListener(
-        "backbutton",
-        spiderOakApp.onBackKeyDown,
-        false
-      );
-      document.addEventListener(
-        "menubutton",
-        spiderOakApp.onMenuKeyDown,
-        false
-      );
+      $(document).on("backbutton", spiderOakApp.onBackKeyDown);
+      $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
         $(".app").css({"top":"20px"}); // status bar hax
       }

@@ -80,7 +80,10 @@
         account.loggedOut();
         // @TODO: Unblock spinner
         var msg;
-        if (status === 401) {
+        if (status === 0) {
+          msg = "Authentication " + error + ".";
+        }
+        else if (status === 401) {
           msg = "Authentication failed - Unauthorized.";
         }
         else if (status === 403) {

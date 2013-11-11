@@ -311,13 +311,18 @@
       spiderOakApp.loginView.show();
     },
     onBackKeyDown: function(event) {
+      console.log("onBackKeyDown fired"); // XXX DELETEME
       event.preventDefault();
-      if ($(".modal").is(":visible") ||
-          $(".learn-about-spideroak").is(":visible")) {
+      if (spiderOakApp.accountModel.getLoginState() === "in-process") {
+        console.log("onBackKeyDown: interruptLogin"); // XXX DELETEME
+        spiderOakApp.accountModel.interruptLogin();
         return;
       }
-      if (spiderOakApp.accountModel.getLoginState() === "in-process") {
-        spiderOakApp.accountModel.interruptLogin();
+      else {
+        console.log("onBackKeyDown: NO interruptLogin"); // XXX DELETEME
+      }
+      if ($(".modal").is(":visible") ||
+          $(".learn-about-spideroak").is(":visible")) {
         return;
       }
       // @FIXME: Extend this logic a bit... it's a bit simplistic

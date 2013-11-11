@@ -80,8 +80,8 @@
         account.loggedOut();
         // @TODO: Unblock spinner
         var msg;
-        if (status === 0) {
-          msg = "Authentication " + error + ".";
+        if ((status === 0) && (error === "interrupted")) {
+          msg = "Authentication interrupted";
         }
         else if (status === 401) {
           msg = "Authentication failed - Unauthorized.";

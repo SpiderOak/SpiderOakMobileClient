@@ -135,10 +135,6 @@
          * of variations in the username case, the clients should not be.
          */
         success: function(data, status, xhr) {
-          // XXX DELETE:
-          console.log("artificially triggering backubutton");
-          $(document).trigger("backbutton");
-
           var where = data.match(_self.get("response_parse_regex"));
 
           /** Register settings according to a successful login.

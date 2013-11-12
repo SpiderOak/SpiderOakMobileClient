@@ -34,6 +34,21 @@ body {
   background-color: #333;
 }
 
+.menu .menu-icon {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.menu .menu-label {
+  position: absolute;
+  left: 50px;
+  top: 5px;
+  line-height: 43px;
+}
+
 .storagebar {
   color: #ccc;
   border-top: 1px solid #999;
@@ -300,6 +315,19 @@ ul.rounded li:first-child {
   font-size: 140%;
 }
 
+.bg-icon {
+  background-size: contain;
+  background-repeat:no-repeat;
+}
+
+.bg-pos-zero {
+  background-position: 0 0;
+}
+
+.bg-pos-center {
+  background-position: center center;
+}
+
 .menu .icon-history, .menu .icon-file-pdf, .menu .icon-file-word, .menu .icon-file-excel, .menu .icon-file-zip, .menu .icon-file-powerpoint, .menu .icon-file-xml, .menu .icon-file-css, .menu .icon-film, .menu .icon-music, .menu .icon-star, .menu .icon-star-2, .menu .icon-clock, .menu .icon-switch, .menu .icon-tux, .menu .icon-finder, .menu .icon-windows, .menu .icon-image, .menu .icon-menu, .menu .icon-arrow-left, .menu .icon-exit, .menu .icon-folder-open, .menu .icon-folder, .menu .icon-cloud-upload, .menu .icon-remove, .menu .icon-close, .menu .icon-checkmark, .menu .icon-loop, .menu .icon-plus, .menu .icon-minus, .menu .icon-warning, .menu .icon-eye, .menu .icon-link, .menu .icon-share, .menu .icon-download, .menu .icon-redo, .menu .icon-cog, .menu .icon-settings, .menu .icon-file, .menu .icon-info, .menu .icon-checkbox-checked, .menu .icon-checkbox-unchecked, .menu .icon-file-openoffice, .menu .icon-libreoffice, .menu .icon-unlocked, .menu .icon-lock {
   position: relative;
   font-size: 120%;
@@ -385,6 +413,14 @@ ul li a .rightButton {
   padding: 15px 5px 5px 5px;
   font-size: 110%;
   color: #ccc;
+}
+
+ul li:first-child {
+  border-top: none;
+}
+
+ul li:last-child {
+  border-bottom: 1px solid #ddd;
 }
 
 .fileItem:after {

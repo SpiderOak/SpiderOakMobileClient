@@ -6,20 +6,49 @@
   <ul><li class="sep">Sections</li></ul>
   <ul class="sections">
     <li class="current">
-        <a href="#" class="sharerooms">
-          <i class="icon-cloud-upload"></i> ShareRooms
-        </a>
+      <a href="#" class="sharerooms">
+        <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_sharerooms.png');"></div>
+        <div class="menu-label">ShareRooms</div>
+      </a>
     </li>
-    <li><a class="favorites"><i class="icon-star"></i> Favorites</a></li>
-    <li><a class="recents"><i class="icon-clock"></i> Recents</a></li>
-    <li><a class="settings"><i class="icon-cog"></i> Settings</a></li>
-    <li class="sep"></li>
+    <li>
+      <a class="favorites">
+        <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_favorites.png');"></div>
+        <div class="menu-label">Favorites</div>
+      </a>
+    </li>
+    <li>
+      <a class="recents">
+        <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_recents.png');"></div>
+        <div class="menu-label">Recents</div>
+      </a>
+    </li>
+  </ul>
+  <ul><li class="sep" style="font-size:60%;">&nbsp;</li></ul>
+  <ul>
+    <li><a class="settings">
+      <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_settings.png');"></div>
+      <div class="menu-label">Settings</div>
+    </li>
     <li><a class="about">
-        <i class="icon-info"></i> About {{= s("SpiderOak") }}</a>
+      <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_about.png');"></div>
+      <div class="menu-label">About {{= s("SpiderOak") }}</div>
     </li>
-    {{? ! spiderOakApp.settings.getValue("inhibitAdvancedLogin") &&
-        (spiderOakApp.accountModel.getLoginState() !== true)}}
-    <li><a class="logout"><i class="icon-exit"></i>Log In</a></li>
+    {{? ! spiderOakApp.accountModel.get("isLoggedIn") }}
+    <li>
+      <a class="logout">
+        <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_login.png');"></div>
+        <div class="menu-label">Log In</div>
+      </a>
+    </li>
+    {{? (spiderOakApp.accountModel.getLoginState() !== true)}}
+    <li>
+      <a class="logout">
+        <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_login.png');"></div>
+        <div class="menu-label">Log In</div>
+      </a>
+    </li>
     {{?}}
+  {{?}}
   </ul>
 </div>

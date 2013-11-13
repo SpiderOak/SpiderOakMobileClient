@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.MainView = Backbone.View.extend({
+  spiderOakApp.MainView = spiderOakApp.ViewBase.extend({
     el: "#main",
     events: {
       // Use touchend to work around a bug in ICS
@@ -45,7 +45,9 @@
         $title.animate({opacity:0,"-webkit-transform":"translate(30%,0)"},125,"linear",function(){
           $title.css({"-webkit-transform":"translate(-30%,0)"});
           $title.html(title);
-          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
+          window.setTimeout(function(){
+            $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
+          },0);
         });
         return;
       }
@@ -53,13 +55,17 @@
         $title.animate({opacity:0,"-webkit-transform":"translate(-30%,0)"},125,"linear",function(){
           $title.css({"-webkit-transform":"translate(30%,0)"});
           $title.html(title);
-          $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
+          window.setTimeout(function(){
+            $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
+          },0);
         });
         return;
       }
       $title.animate({opacity:0},150,"linear",function(){
         $title.html(title);
-        $title.animate({opacity:1},150,"linear");
+        window.setTimeout(function(){
+          $title.animate({opacity:1},150,"linear");
+        },0);
       });
     },
     menuButton_handler: function(event) {

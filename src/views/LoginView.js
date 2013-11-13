@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.LoginView = Backbone.View.extend({
+  spiderOakApp.LoginView = spiderOakApp.ViewBase.extend({
     el: "#login",
     events: {
       "submit form": "form_submitHandler",
@@ -179,7 +179,7 @@
   });
   spiderOakApp.loginView = new spiderOakApp.LoginView().render();
 
-  spiderOakApp.RememberMeWarningView = Backbone.View.extend({
+  spiderOakApp.RememberMeWarningView = spiderOakApp.ViewBase.extend({
     className: "rememberme-warning",
     destructionPolicy: "never",
     events: {

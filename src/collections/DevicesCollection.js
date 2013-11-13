@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.DevicesCollection = Backbone.Collection.extend({
+  spiderOakApp.DevicesCollection = spiderOakApp.CollectionBase.extend({
     model: spiderOakApp.DeviceModel,
     parse: function(resp, xhr) {
       // window.console.log(JSON.stringify(resp));

@@ -10,7 +10,7 @@
       $           = window.$;
 
   // @TODO Arrange so that base_domain can vary by app configuration.
-  spiderOakApp.AccountModel = Backbone.Model.extend({
+  spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
     defaults: {
       rememberme: false,
       data_center_regex: /(https:\/\/[^\/]+)\//m,

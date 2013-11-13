@@ -15,9 +15,11 @@ describe('AccountModel', function() {
       this.b32username = window.spiderOakApp.b32nibbler.encode(this.username);
       this.password = "testpassword";
       this.loginURL = "https://spideroak.com/browse/login";
+      this.loginURLUnCached = RegExp(this.loginURL + "(\\?.*)?");
       this.loginAltURL = ("https://alternate-dc.spideroak.com/" +
                           this.b32username +
                           "/login");
+      this.loginAltURLUnCached = RegExp(this.loginAltURL + "(\\?.*)?");
       this.loginLocation = ("location:https://spideroak.com/storage/" +
                             this.b32username +
                             "/login");
@@ -33,7 +35,7 @@ describe('AccountModel', function() {
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          this.loginURL,
+          this.loginURLUnCached,
           [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.accountModel.login(this.username, this.password,
@@ -45,7 +47,7 @@ describe('AccountModel', function() {
       });
       it('should use the expected login start url', function() {
         this.server.requests[0].url
-            .should.equal(this.loginURL);
+            .should.match(this.loginURLUnCached);
       });
       // @TODO: There must be a better way to check query parameters?
       it('should pass the username as query data', function() {
@@ -145,7 +147,7 @@ describe('AccountModel', function() {
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(
              // The first space is replaced with a "+" due to uri encoding (?)
-             this.asciiNonControls.replace(/ /, "+")
+             this.asciiNonControls.replace(/ /g, "+")
            );
          });
       it('should set a known HTML auth for a particular password with' +
@@ -180,7 +182,7 @@ describe('AccountModel', function() {
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(
              // The first space is replaced with a "+" due to uri encoding (?)
-             this.amalgamPassword.replace(/ /, "+")
+             this.amalgamPassword.replace(/ /g, "+")
            );
          });
       it('should set a known HTML auth for a particular password with' +
@@ -216,7 +218,7 @@ describe('AccountModel', function() {
            this.server.respond();
            this.successSpy.should.not.have.been.called;
            this.errorSpy.should.have.been.calledOnce;
-           this.errorSpy.should.have.been.calledWith(403);
+           this.errorSpy.should.have.been.calledWith(404);
          }
         );
     });
@@ -233,10 +235,7 @@ describe('AccountModel', function() {
            this.server.respondWith(
              "POST",
              this.loginURL,
-             [200, {"Content-Type": "text/html"},
-              "location:https://spideroak.com/storage/" +
-              this.blueb32username +
-              "/login"]
+             [200, {"Content-Type": "text/html"}, this.loginLocation]
            );
            this.accountModel.login(this.blueLoginName, this.password,
                                    this.successSpy, this.errorSpy);
@@ -322,12 +321,12 @@ describe('AccountModel', function() {
         this.errorSpy = sinon.spy();
         this.server.respondWith(
           "POST",
-          this.loginURL,
+          this.loginURLUnCached,
           [200, {"Content-Type": "text/html"}, "login:" + this.loginAltURL]
         );
         this.server.respondWith(
           "POST",
-          this.loginAltURL,
+          this.loginAltURLUnCached,
           [
             200,
             {"Content-Type": "text/html"},
@@ -467,12 +466,14 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.server.respondWith(
           "POST",
-          this.loginURL,
+          this.loginURLUnCached,
           [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/storage/" + this.b32username + "/logout",
+          RegExp("https://spideroak.com/storage/" +
+                 this.b32username +
+                 "/logout(\\?.*)?"),
           [200, {"Content-Type": "text/html"},
            "the response page"]
         );
@@ -516,12 +517,14 @@ describe('AccountModel', function() {
       beforeEach(function(){
         this.server.respondWith(
           "POST",
-          this.loginURL,
+          this.loginURLUnCached,
           [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.server.respondWith(
           "POST",
-          "https://spideroak.com/storage/" + this.b32username + "/logout",
+          RegExp("https://spideroak.com/storage/" +
+                 this.b32username +
+                 "/logout(\\?.*)?"),
           [200, {"Content-Type": "text/html"},
            "the response page"]
         );

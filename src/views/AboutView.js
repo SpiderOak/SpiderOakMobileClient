@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.AboutView = Backbone.View.extend({
+  spiderOakApp.AboutView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     events: {
       "tap .site-link": "siteLink_tapHandler",

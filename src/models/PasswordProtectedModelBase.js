@@ -16,14 +16,14 @@
    * JSON, and temporarily adjust the app's basic authentication
    * accordingly.
    */
-  spiderOakApp.PasswordProtectedModelBase = Backbone.Model.extend({
+  spiderOakApp.PasswordProtectedModelBase = spiderOakApp.ModelBase.extend({
     defaults: {
       password_required: false,
       password: "",
       preliminary: true         // Until individual records fetched from server.
     },
     initialize: function () {
-      Backbone.Model.prototype.initialize.call(this);
+      spiderOakApp.ModelBase.prototype.initialize.call(this);
       var shareId = this.get("share_id");
       var roomKey = this.get("room_key");
       if (spiderOakApp.accountModel && shareId && roomKey) {
@@ -35,7 +35,7 @@
       }
     },
     composedUrl: function(bare) {
-      var base = Backbone.Model.prototype.composedUrl.call(this);
+      var base = spiderOakApp.ModelBase.prototype.composedUrl.call(this);
       var query = "auth_required_format=json";
       var delim = base.match(/\?/) ? "&" : "?";
       return base + (bare ? "" : (delim + query));
@@ -49,14 +49,14 @@
         // The username is disregarded by the server for content passwords.
         bam.setAlternateBasicAuth("blank", this.getPassword());
         try {
-          return Backbone.Model.prototype.sync.apply(this, arguments);
+          return spiderOakApp.ModelBase.prototype.sync.apply(this, arguments);
         }
         finally {
           bam.resumeAccountBasicAuth();
         }
       }
       else {
-        return Backbone.Model.prototype.sync.apply(this, arguments);
+        return spiderOakApp.ModelBase.prototype.sync.apply(this, arguments);
       }
     },
     parse: function(resp, xhr) {
@@ -75,7 +75,7 @@
     },
     /** Default content-specific parse is default backbone parse. */
     parseSpecific: function(resp, xhr) {
-      return Backbone.Model.prototype.parse.call(this, resp, xhr);
+      return spiderOakApp.ModelBase.prototype.parse.call(this, resp, xhr);
     },
     setPassword: function(password) {
       if (this.getPassword() !== password) {
@@ -121,7 +121,7 @@
     },
     clear: function () {
       this.removePassword();
-      Backbone.Model.prototype.clear.call(this);
+      spiderOakApp.ModelBase.prototype.clear.call(this);
     },
     which: "PasswordProtectedModelBase"
   });

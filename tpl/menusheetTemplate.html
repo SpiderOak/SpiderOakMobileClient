@@ -34,14 +34,7 @@
       <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_about.png');"></div>
       <div class="menu-label">About {{= s("SpiderOak") }}</div>
     </li>
-    {{? ! spiderOakApp.accountModel.get("isLoggedIn") }}
-    <li>
-      <a class="logout">
-        <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_login.png');"></div>
-        <div class="menu-label">Log In</div>
-      </a>
-    </li>
-    {{? (spiderOakApp.accountModel.getLoginState() !== true)}}
+    {{? spiderOakApp.accountModel.getLoginState() !== true}}
     <li>
       <a class="logout">
         <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_login.png');"></div>
@@ -49,6 +42,5 @@
       </a>
     </li>
     {{?}}
-  {{?}}
   </ul>
 </div>

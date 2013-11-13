@@ -107,7 +107,7 @@ describe('AccountModel', function() {
         }.bind(this);
         this.server.respondWith(
           "POST",
-          this.loginURL,
+          this.loginURLUnCached,
           [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
       });
@@ -210,7 +210,7 @@ describe('AccountModel', function() {
            // The server responds affirmatively to the case-altered username:
            this.server.respondWith(
              "POST",
-             this.loginURL,
+             this.loginURLUnCached,
              [200, {"Content-Type": "text/html"}, this.loginLocation]
            );
            this.accountModel.login(this.usernameUpCased, this.password,
@@ -218,7 +218,7 @@ describe('AccountModel', function() {
            this.server.respond();
            this.successSpy.should.not.have.been.called;
            this.errorSpy.should.have.been.calledOnce;
-           this.errorSpy.should.have.been.calledWith(404);
+           this.errorSpy.should.have.been.calledWith(403);
          }
         );
     });
@@ -234,7 +234,7 @@ describe('AccountModel', function() {
            // The server responds affirmatively to the case-altered username:
            this.server.respondWith(
              "POST",
-             this.loginURL,
+             this.loginURLUnCached,
              [200, {"Content-Type": "text/html"}, this.loginLocation]
            );
            this.accountModel.login(this.blueLoginName, this.password,
@@ -268,7 +268,7 @@ describe('AccountModel', function() {
         document.addEventListener("loginSuccess", this.successSpy, false);
         this.server.respondWith(
           "POST",
-          this.loginURL,
+          this.loginURLUnCached,
           [200, {"Content-Type": "text/html"}, this.loginLocation]
         );
         this.accountModel.login(this.username, this.password,
@@ -290,7 +290,7 @@ describe('AccountModel', function() {
                                   function(){}, function(){});
           this.server.respondWith(
             "POST",
-            this.loginURL,
+            this.loginURLUnCached,
             [200, {"Content-Type": "text/html"}, this.loginLocation]
           );
           this.server.respond();
@@ -374,17 +374,18 @@ describe('AccountModel', function() {
               this.responderLoginState.push(this.accountModel.getLoginState());
             };
           }
-          if (this.responderInterruptAfterURL === request.url) {
+          if (request.url.match(RegExp(this.responderInterruptAfterURL +
+                                       "(.*)?"))) {
             this.accountModel.interruptLogin();
           }
-          if (request.url === this.loginURL) {
+          if (request.url.match(this.loginURLUnCached)) {
             accumulateLoginTestState();
             request.respond(
               200,
               {"Content-Type": "text/html"},
               "login:" + this.loginAltURL);
           }
-          else if (request.url === (this.loginAltURL)) {
+          else if (request.url.match(this.loginAltURLUnCached)) {
             accumulateLoginTestState();
             request.respond(
               200,
@@ -393,8 +394,9 @@ describe('AccountModel', function() {
             );
           }
           // Provide for logout:
-          else if (request.url === ("https://spideroak.com/storage/" +
-                                    this.b32username + "/logout")) {
+          else if (request.url.match(
+            RegExp("https://spideroak.com/storage/" +
+                   this.b32username + "/logout(\\?.*)?"))) {
             request.respond(
               200, {"Content-Type": "text/html"}, "the response page"
             );

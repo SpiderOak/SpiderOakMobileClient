@@ -10,10 +10,10 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.MenuSheetView = Backbone.View.extend({
+  spiderOakApp.MenuSheetView = spiderOakApp.ViewBase.extend({
     el: "#menusheet",
     events: {
-      "tap .logout": "logout_tapHandler",
+      "tap .logout": "login_tapHandler",
       "tap .recents": "recents_tapHandler",
       "tap .favorites": "favorites_tapHandler",
       "tap .sharerooms": "sharerooms_tapHandler",
@@ -32,9 +32,7 @@
       $(document).on("online", this.online);
     },
     render: function(refresh) {
-      var inOrOut = {"inorout":
-                     spiderOakApp.accountModel.get("isLoggedIn") ?"Out" :"In"};
-      this.$el.html(window.tmpl["menusheetTemplate"](inOrOut));
+      this.$el.html(window.tmpl["menusheetTemplate"]());
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
       if (spiderOakApp.accountModel.get("isLoggedIn")) {
@@ -265,30 +263,11 @@
         );
       }
     },
-    logout_tapHandler: function(event) {
-      if (spiderOakApp.accountModel.get("isLoggedIn")) {
-        window.setTimeout(function(){
-          navigator.notification.confirm(
-            'Are you sure you want to sign out?',
-            function (button) {
-              if (button !== 1) {
-                return;
-              }
-              spiderOakApp.accountModel.logout();
-              $("#subviews").html(
-                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
-                "<li class=\"sep\">Loading...</li></ul>");
-            }.bind(spiderOakApp),
-            'Sign out'
-          );
-        }.bind(this),50);
-      }
-      else {
-        $("#subviews").html(
-          "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
+    login_tapHandler: function(event) {
+      $("#subviews").html(
+        "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
           "<li class=\"sep\">Loading...</li></ul>");
-        $(document).trigger("logoutSuccess");
-      }
+      $(document).trigger("logoutSuccess");
     },
     offline: function() {
       this.$(".hive").hide();

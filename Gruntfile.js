@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     },
     shell: {
       debug_ios: {
-        command: 'cordova -d run ios',
+        command: 'cordova emulate ios',
         options: {
           failOnError: true,
           stdout: true
@@ -76,6 +76,7 @@ module.exports = function(grunt) {
           'src/helpers/bindmine.js',
           'src/helpers/customStrings.js',
           'src/effects/FastSlideEffect.js',
+          'src/models/ModelBase.js',
           'src/models/AccountModel.js',
           'src/models/StorageBarModel.js',
           'src/models/PasswordProtectedModelBase.js',
@@ -89,6 +90,7 @@ module.exports = function(grunt) {
           'src/models/ShareRoomModels.js',
           'src/models/SettingsModels.js',
           'src/models/SpiderOakFolderModel.js',
+          'src/collections/CollectionBase.js',
           'src/collections/PasswordProtectedCollectionBase.js',
           'src/collections/FoldersCollection.js',
           'src/collections/FilesCollection.js',
@@ -97,9 +99,11 @@ module.exports = function(grunt) {
           'src/collections/FavoritesCollection.js',
           'src/collections/RecentsCollection.js',
           'src/collections/ShareRoomsCollections.js',
+          'src/views/ViewBase.js',
           'src/views/AboutView.js',
           'src/collections/SettingsCollections.js',
           'src/views/FilesView.js',
+          'src/views/FilePreviewView.js',
           'src/views/HiveView.js',
           'src/views/DevicesView.js',
           'src/views/ShareRoomsViews.js',
@@ -306,8 +310,9 @@ module.exports = function(grunt) {
   grunt.registerTask('min', ['uglify']); // polyfil
 
   // Build tasks
-  grunt.registerTask('debug','Create a debug build', function(platform) {
-    grunt.task.run('jshint', 'dot', 'concat', 'shell:mochadot');
+  grunt.registerTask('debug','Create a debug build', function(platform, test) {
+    test = test || 'dot';
+    grunt.task.run('jshint', 'dot', 'concat', 'shell:mocha'+test);
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('beta','Create a beta build', function(platform) {

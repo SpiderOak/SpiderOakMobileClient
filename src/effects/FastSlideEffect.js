@@ -10,9 +10,9 @@
 
     direction:'left',
 
-    fromViewTransitionProps:{duration:0.2, easing:'ease-in-out', delay:0},
+    fromViewTransitionProps:{duration:0.25, easing:'ease-out', delay:0},
 
-    toViewTransitionProps:{duration:0.2, easing:'ease-in-out', delay:0},
+    toViewTransitionProps:{duration:0.25, easing:'ease-out', delay:0},
 
     play:function ($fromView, $toView, callback, context) {
       var timeout,

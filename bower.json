@@ -2,11 +2,11 @@
   "name": "SpiderOakMobile",
   "version": "2.0.1",
   "dependencies": {
-    "backbone": "~0.9.10",
+    "backbone": "~1.1.0",
     "underscore": "latest",
     "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.js",
-    "zepto": "https://github.com/madrobby/zepto/archive/v1.0rc1.zip",
+    "zepto": "https://github.com/madrobby/zepto/archive/v1.0.zip",
     "iscroll": "https://github.com/cubiq/iscroll/archive/v4.2.zip",
     "modernizr": "latest",
     "moment": "~2.0.0",

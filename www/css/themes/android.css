@@ -281,15 +281,15 @@ a.button.active {
 
 .checkswitch input
 {
+    position: relative;
     width:80px;
     height:20px; 
-    background-color:#efefef;
     display: block; 
-    border: 1px solid #ddd;
     -webkit-appearance:none; 
     padding:0px;
     margin:0px;
     border-radius: 0;
+    z-index: 1;
 }
 
 .checkswitch label
@@ -298,6 +298,7 @@ a.button.active {
     margin:0px; 
     width:80px;  
     display: block; 
+    border: 1px solid #ddd;
     height:20px;
     margin-top:-20px;
     margin-left:0px; 
@@ -306,6 +307,7 @@ a.button.active {
     overflow:hidden;
     font-size: 70%;
     text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    z-index: 0;
 }
 
 .checkswitch label span

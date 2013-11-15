@@ -201,7 +201,7 @@
       favorite.url = model.composedUrl(true);
       favorite.isFavorite = true;
 
-      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+      if (spiderOakApp.accountModel.getLoginState() === true) {
         store.set("favoritesConfirmationAccepted-" +
           spiderOakApp.accountModel.get("b32username"), true);
       }

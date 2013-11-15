@@ -718,4 +718,109 @@ background-color:#000000;
 
 }
 
+.passcode-set .title {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #666;
+  font-size: 100%;
+}
+
+.passcode-set .num a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.passcode-set .pinpad {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #666;
+}
+
+.passcode-set .num {
+  -webkit-box-sizing: border-box;
+  display: block;
+  float: left;
+  width: 33.3333333333%;
+  height: 60px;
+  text-align: center;
+}
+
+.passcode-set .num .active {
+  color: #999;
+}
+
+.passcode-set .number {
+  font-size: 200%;
+  line-height: 30px;
+}
+
+.passcode-set .number.shorter {
+  font-size: 130%;
+}
+
+.passcode-set .abc {
+  line-height: 25px;
+}
+
+.passcode-set .passcode {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  -webkit-box-sizing: border-box;
+  border: none;
+  text-align: center;
+  font-size: 500%;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  padding: 20px 0;
+}
+
+.passcode-set .backspace {
+  font-size: 110%;
+}
+
+.passcode-set .num:last-child .number:before {
+  content: "\232B";
+}
+
+@media all and (orientation:landscape) {
+
+  .passcode-set .passcode {
+    top: 0;
+    padding: 0;
+    font-size: 300%;
+    z-index: 0;
+  }
+
+  .passcode-set .pinpad {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    bottom: -10px;
+  }
+
+  .passcode-set .title {
+    display: none;
+  }
+
+  .passcode-set .num {
+    height: 45px;
+  }
+
+  .passcode-set .abc {
+    font-size: 90%;
+  }
+
+  .passcode-set .number {
+    line-height: 20px;
+  }
+}
+
 

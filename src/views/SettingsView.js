@@ -15,6 +15,7 @@
     events: {
       "tap .send-feedback": "feedback_tapHandler",
       "tap .account-settings": "accountSettings_tapHandler",
+      "tap .account-passcode-set": "accountPasscodeSet_tapHandler",
       "tap .server": "server_tapHandler",
       "tap .logout": "logout_tapHandler",
       "change #settings-rememberme": "rememberMe_changeHandler"
@@ -85,6 +86,14 @@
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsAccountView,
         {},
+        spiderOakApp.defaultEffect
+      );
+    },
+    accountPasscodeSet_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeSetView,
+        {}, // Set title here e.g.: {title: "Enter old passcode"}
         spiderOakApp.defaultEffect
       );
     },
@@ -406,6 +415,91 @@
     close: function(){
       this.remove();
       this.unbind();
+    }
+  });
+
+  spiderOakApp.SettingsPasscodeSetView = spiderOakApp.ViewBase.extend({
+    templateID: "passcodeEntryViewTemplate",
+    viewTitle: "Passcode",
+    destructionPolicy: "never",
+    events: {
+      "tap .pinpad .num": "pinpadNum_tapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.title = this.options.title || "Enter a new 4 digit passcode";
+    },
+    render: function() {
+      this.$el.html(window.tmpl[this.templateID]({title: this.title}));
+      return this;
+    },
+    pinpadNum_tapHandler: function(event) {
+      event.preventDefault();
+      var $passcodeInput = this.$(".passcode");
+      var $target = $(event.target);
+      var passcode = $passcodeInput.val();
+      var num = '';
+      if ($target.hasClass("num")) {
+        num = $target.find(".number").text();
+      } else {
+        num = $target.closest(".num").find(".number").text();
+      }
+      if (!num) {
+        // backspace
+        if (!passcode.length) return;
+        passcode = passcode.substr(0, (passcode.length - 1));
+        $passcodeInput.val(passcode);
+        return;
+      }
+      if (passcode.length < 3) {
+        $passcodeInput.val(passcode.toString()+num);
+        // add it and wait for more...
+        return;
+      } else if (passcode.length === 3) {
+        $passcodeInput.val(passcode.toString()+num);
+        // we are done. enable the "next" button
+        console.log($passcodeInput.val());
+      }
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.viewTitle);
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.remove();
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
     }
   });
 

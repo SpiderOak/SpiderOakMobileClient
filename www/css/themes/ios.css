@@ -417,3 +417,11 @@ a.button.active {
 .meter > span {
   background-color: rgb(0,0,0);
 }
+
+.passcode-set .num {
+  color: rgb(21, 125, 251);
+}
+
+.passcode-set .num:last-child {
+  color: #222;
+}

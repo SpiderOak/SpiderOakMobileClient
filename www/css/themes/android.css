@@ -263,6 +263,10 @@ a.button.active {
   overflow-y: hidden;
 }
 
+.modal .context-popup a.cancel-btn {
+  display: none;
+}
+
 .addShareRoom {
   padding: 30px 0;
 }

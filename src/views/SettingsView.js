@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.SettingsView = Backbone.View.extend({
+  spiderOakApp.SettingsView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     events: {
       "tap .send-feedback": "feedback_tapHandler",
@@ -57,13 +57,20 @@
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
-        window.spiderOakApp.settings.getValue("contactEmail") ||
-        platform + "@" + s("spideroak.com");
+        window.spiderOakApp.settings.getOrDefault("contactEmail",
+          platform + "@" + s("spideroak.com"));
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,
         type: "text/plain",
         extras: extras
       };
+      if ($.os.ios) {
+        window.location.href = "mailto:"+
+            extras[spiderOakApp.fileViewer.EXTRA_EMAIL]+
+            "?subject="+
+            extras[spiderOakApp.fileViewer.EXTRA_SUBJECT];
+        return;
+      }
       spiderOakApp.fileViewer.share(
         params,
         function(){
@@ -185,7 +192,7 @@
     }
   });
 
-  spiderOakApp.SettingsAccountView = Backbone.View.extend({
+  spiderOakApp.SettingsAccountView = spiderOakApp.ViewBase.extend({
     // Derive from this and define your particular rendering.
     templateID: "settingsAccountViewTemplate",
     viewTitle: "Account",
@@ -249,7 +256,7 @@
     }
   });
 
-  spiderOakApp.SettingsServerView = Backbone.View.extend({
+  spiderOakApp.SettingsServerView = spiderOakApp.ViewBase.extend({
     name: "Server Address",
     templateID: "settingsServerViewTemplate",
     events: {

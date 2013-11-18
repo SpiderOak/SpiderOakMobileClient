@@ -440,7 +440,9 @@
     },
     render: function() {
       var title = "Enter a new 4 digit passcode";
-      if (this.action === "auth") title = "Enter your current 4 digit passcode";
+      if (this.action === "auth" || this.action === "remove") {
+        title = "Enter your current 4 digit passcode";
+      }
       if (this.action === "confirm") title = "Re-enter your new 4 digit passcode";
       this.$el.html(window.tmpl[this.templateID]({title: title}));
       return this;
@@ -489,7 +491,8 @@
             spiderOakApp.navigator.replaceAll(
               spiderOakApp.SettingsView,
               {},
-              spiderOakApp.defaultPopEffect);
+              spiderOakApp.defaultPopEffect
+            );
           } else {
             spiderOakApp.dialogView.showNotify({
               title: "Error",
@@ -501,13 +504,32 @@
         } else { // action === auth
           // Push to the passcode options screen
           if (spiderOakApp.settings.getValue("passcode") === passcode) {
-            window.setTimeout(function(){
+            if (spiderOakApp.navigator.viewsStack[
+                  spiderOakApp.navigator.viewsStack.length - 2
+                ].instance
+                  instanceof spiderOakApp.SettingsPasscodeView) {
+              if (this.action === "remove") {
+                spiderOakApp.settings.remove("passcode");
+                spiderOakApp.settings.saveRetainedSettings();
+                spiderOakApp.navigator.replaceAll(
+                  spiderOakApp.SettingsView,
+                  {},
+                  spiderOakApp.defaultPopEffect
+                );
+              } else {
+                spiderOakApp.navigator.pushView(
+                  spiderOakApp.SettingsPasscodeEntryView,
+                  {action: "set"},
+                  spiderOakApp.defaultEffect
+                );
+              }
+            } else {
               spiderOakApp.navigator.replaceView(
                 spiderOakApp.SettingsPasscodeView,
                 {},
                 spiderOakApp.defaultEffect
               );
-            },0);
+            }
           } else {
             spiderOakApp.dialogView.showNotify({
               title: "Error",
@@ -562,7 +584,10 @@
     templateID: "settingsPasscodeViewTemplate",
     viewTitle: "Passcode settings",
     destructionPolicy: "never",
-    events: {},
+    events: {
+      "tap .passcode-settings-change":"passcodeSettingsChange_tapHandler",
+      "tap .passcode-settings-off":"passcodeSettingsRemove_tapHandler"
+    },
     initialize: function() {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
@@ -572,6 +597,22 @@
     render: function() {
       this.$el.html(window.tmpl[this.templateID]({}));
       return this;
+    },
+    passcodeSettingsChange_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeEntryView,
+        {action: "auth"},
+        spiderOakApp.defaultEffect
+      );
+    },
+    passcodeSettingsRemove_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeEntryView,
+        {action: "remove"},
+        spiderOakApp.defaultEffect
+      );
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {

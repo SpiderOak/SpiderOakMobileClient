@@ -36,6 +36,7 @@
       this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.getValue("server")});
+      this.settingsInfo.passcode = spiderOakApp.settings.getOrDefault("passcode", "");
       this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -91,9 +92,11 @@
     },
     accountPasscodeSet_tapHandler: function(event) {
       event.preventDefault();
+      var action =
+        (spiderOakApp.settings.getOrDefault("passcode", undefined)) ? "auth" : "set";
       spiderOakApp.navigator.pushView(
-        spiderOakApp.SettingsPasscodeSetView,
-        {}, // Set title here e.g.: {title: "Enter old passcode"}
+        spiderOakApp.SettingsPasscodeEntryView,
+        {action: action},
         spiderOakApp.defaultEffect
       );
     },
@@ -421,9 +424,9 @@
     }
   });
 
-  spiderOakApp.SettingsPasscodeSetView = spiderOakApp.ViewBase.extend({
+  spiderOakApp.SettingsPasscodeEntryView = spiderOakApp.ViewBase.extend({
     templateID: "passcodeEntryViewTemplate",
-    viewTitle: "Passcode",
+    viewTitle: "Enter Passcode",
     destructionPolicy: "never",
     events: {
       "tap .pinpad .num": "pinpadNum_tapHandler"
@@ -433,10 +436,13 @@
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
-      this.title = this.options.title || "Enter a new 4 digit passcode";
+      this.action = this.options.action || "set";
     },
     render: function() {
-      this.$el.html(window.tmpl[this.templateID]({title: this.title}));
+      var title = "Enter a new 4 digit passcode";
+      if (this.action === "auth") title = "Enter your current 4 digit passcode";
+      if (this.action === "confirm") title = "Re-enter your new 4 digit passcode";
+      this.$el.html(window.tmpl[this.templateID]({title: title}));
       return this;
     },
     pinpadNum_tapHandler: function(event) {
@@ -463,9 +469,109 @@
         return;
       } else if (passcode.length === 3) {
         $passcodeInput.val(passcode.toString()+num);
-        // we are done. enable the "next" button
-        console.log($passcodeInput.val());
+        passcode = $passcodeInput.val();
+        // we are done. go to the next screen
+        if (this.action === "set") {
+          spiderOakApp.navigator.pushView(
+            spiderOakApp.SettingsPasscodeEntryView,
+            {action: "confirm", passcode: passcode},
+            spiderOakApp.defaultEffect
+          );
+        } else if (this.action === "confirm") {
+          if (this.options.passcode === passcode) {
+            // Set the passcode in settings
+            spiderOakApp.settings.setOrCreate(
+              "passcode",
+              passcode,
+              true
+            );
+            // Then pop to the settings screen
+            spiderOakApp.navigator.replaceAll(
+              spiderOakApp.SettingsView,
+              {},
+              spiderOakApp.defaultPopEffect);
+          } else {
+            spiderOakApp.dialogView.showNotify({
+              title: "Error",
+              subtitle: "Passcodes do not match. <br>Try again."
+            });
+            // Clear the confirm code so they can try again
+            $passcodeInput.val("");
+          }
+        } else { // action === auth
+          // Push to the passcode options screen
+          if (spiderOakApp.settings.getValue("passcode") === passcode) {
+            window.setTimeout(function(){
+              spiderOakApp.navigator.replaceView(
+                spiderOakApp.SettingsPasscodeView,
+                {},
+                spiderOakApp.defaultEffect
+              );
+            },0);
+          } else {
+            spiderOakApp.dialogView.showNotify({
+              title: "Error",
+              subtitle: "Passcode incorrect. <br>Try again."
+            });
+            // Clear the confirm code so they can try again
+            $passcodeInput.val("");
+          }
+        }
       }
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.viewTitle);
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.remove();
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+    }
+  });
+
+ spiderOakApp.SettingsPasscodeView = spiderOakApp.ViewBase.extend({
+    templateID: "settingsPasscodeViewTemplate",
+    viewTitle: "Passcode settings",
+    destructionPolicy: "never",
+    events: {},
+    initialize: function() {
+      window.bindMine(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      this.$el.html(window.tmpl[this.templateID]({}));
+      return this;
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {

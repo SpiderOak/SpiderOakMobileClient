@@ -102,6 +102,7 @@ body {
 .nav .menu-btn.active,
 .nav .back-btn.active,
 .nav .clear-recents-btn.active,
+.nav .passcode-next-btn.active,
 .nav .add-sharerooms-btn.active,
 .nav .refresh-favorites-btn.active  {
   color: rgba(21, 125, 251, 0.3);
@@ -109,6 +110,7 @@ body {
 
 .nav .clear-recents-btn,
 .nav .add-sharerooms-btn,
+.nav .passcode-next-btn,
 .nav .refresh-favorites-btn {
   color: rgb(21, 125, 251);
   font-size: 110%;
@@ -418,10 +420,19 @@ a.button.active {
   background-color: rgb(0,0,0);
 }
 
+.passcode-set {
+  background-color: rgb(248, 248, 248);
+  height: 100%;
+}
+
 .passcode-set .num {
   color: rgb(21, 125, 251);
 }
 
 .passcode-set .num:last-child {
   color: #222;
+}
+
+.passcode-set .num .active {
+  color: rgba(21, 125, 251, 0.3);
 }

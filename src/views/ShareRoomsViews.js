@@ -742,11 +742,13 @@
           title: this.model.get("name"),
           model: this.model
         };
+        var action = "pushView";
         if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
+          // spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
+          action = "replaceView";
         }
         var folderView = new spiderOakApp.FolderView(options);
-        spiderOakApp.navigator.pushView(
+        spiderOakApp.navigator[action](
           folderView,
           {},
           spiderOakApp.defaultEffect

@@ -40,6 +40,7 @@
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
       document.addEventListener("resume", this.onResume, false);
+      document.addEventListener("pause", this.onPause, false);
       document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
     },
@@ -256,8 +257,17 @@
       );
       spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
+    onPause: function(event) {
+      spiderOakApp.lastPaused = Date.now();
+    },
     onResume: function(event) {
-      // ...
+      var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+      var maxTimeout = spiderOakApp.settings.getOrDefault("maxTimeout", 0);
+      var timeoutInMinutes =
+        Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
+      if (passcode && (timeoutInMinutes >= maxTimeout)) {
+        // Chuck up the passcode screen...
+      }
     },
     onLoginSuccess: function() {
       spiderOakApp.menuSheetView.render();

@@ -54,7 +54,10 @@
       $.ajax = this.ajax;
 
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
-      if (window.Modernizr.overflowscrolling) {
+      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does* have css scrolling
+      if (window.Modernizr.overflowscrolling ||
+          (window.device && (window.device.platform === "Android") &&
+            (parseFloat(window.device.version) >= 4.4))) {
         window.iScroll = function(options) {
           // ...
         };

@@ -33,6 +33,13 @@
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
       this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager(this);
+      if (typeof this.get("isLoggedIn") !== "undefined") {
+        /* Backwards compat, for transition to 2.4 from earlier versions. */
+        if (this.get("isLoggedIn")) {
+          this.set("state", true);
+        }
+        this.unset("isLoggedIn");
+      }
     },
     /** Report status login of login process, including intermediate state.
      *

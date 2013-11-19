@@ -429,7 +429,7 @@
     viewTitle: "Enter Passcode",
     destructionPolicy: "never",
     events: {
-      "tap .pinpad .num": "pinpadNum_tapHandler"
+      "touchstart .pinpad .num": "pinpadNum_tapHandler"
     },
     initialize: function() {
       window.bindMine(this);

@@ -48,8 +48,28 @@
       this.$el.html(window.tmpl["waitDialog"](options));
       this.$(".fadingBarsG").hide();
       this.$el.show();
-      window.setTimeout(function(){
+      window.setTimeout(function() {
         this.hide();
+      }.bind(this), options.duration);
+    },
+    showToast: function(options) {
+      options = options || {};
+      options.title = options.title || "Done"; // terrible default ;)
+      options.duration = options.duration || 1000; // in ms
+      options.onShow = options.onShow || function(){};
+      options.onHide = options.onHide || function(){};
+      this.$el.html(window.tmpl["toastDialog"](options));
+      this.$el.css({
+        backgroundColor: "rgba(0,0,0,0)"
+      });
+      this.$el.show();
+      options.onShow();
+      window.setTimeout(function() {
+        this.hide();
+        options.onHide();
+        this.$el.css({
+          backgroundColor: "rgba(0,0,0,0.7)"
+        });
       }.bind(this), options.duration);
     },
     hide: function() {

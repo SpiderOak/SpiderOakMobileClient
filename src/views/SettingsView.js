@@ -51,6 +51,10 @@
     },
     feedback_tapHandler: function() {
       // @FIXME: This is a bit Android-centric
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       var platform = (($.os.android)?"Android":"iOS");
       var subject = ("Feedback on " + s("SpiderOak") + platform +
                      " app version " + spiderOakApp.version);
@@ -82,6 +86,10 @@
       );
     },
     accountSettings_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsAccountView,
         {},
@@ -118,6 +126,10 @@
       }
     },
     server_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       var settingsServerView = new spiderOakApp.SettingsServerView({
         model: spiderOakApp.settings.get("server")
       });
@@ -128,6 +140,10 @@
       );
     },
     logout_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       if (spiderOakApp.accountModel.get("isLoggedIn")) {
         window.setTimeout(function(){
           navigator.notification.confirm(
@@ -404,6 +420,9 @@
     },
     changeServerButton_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       this.form_submitHandler(event);
     },
     close: function(){

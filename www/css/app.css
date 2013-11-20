@@ -560,6 +560,21 @@ ul li a .hiddenItem:after {
   text-align: center;
 }
 
+.modal .toast-dialog {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  border-radius: 5px;
+  background-color: #000;
+  color: #ccc;
+  text-align: center;
+}
+
+.modal .toast-dialog .title {
+  padding: 10px;
+}
+
 #fadingBarsG{
   position:relative;
   width:83px;

@@ -324,7 +324,19 @@
         spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         return;
       }
-      navigator.app.exitApp();
+      // navigator.app.exitApp();
+      var bindCallback = function(event) {
+        navigator.app.exitApp();
+      };
+      spiderOakApp.dialogView.showToast({
+        title: "Hit back again to exit",
+        onShow: function() {
+          $(document).on("backbutton", bindCallback);
+        },
+        onHide: function() {
+          $(document).off("backbutton", bindCallback);
+        }
+      });
     },
     onMenuKeyDown: function(event) {
       if ($("#main").hasClass("open")) {

@@ -436,3 +436,11 @@ a.button.active {
 .passcode-set .num .active {
   color: rgba(21, 125, 251, 0.3);
 }
+
+.timeout .label {
+  color: inherit;
+}
+
+.timeout .info {
+  color: rgb(21, 125, 251);
+}

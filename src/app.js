@@ -41,6 +41,7 @@
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
       document.addEventListener("resume", this.onResume, false);
       document.addEventListener("pause", this.onPause, false);
+      document.addEventListener("resign", this.onResign, false);
       document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
     },
@@ -199,6 +200,12 @@
         spiderOakApp.accountModel.basicAuthManager
           .setAccountBasicAuth(credentials[0], credentials[1]);
         spiderOakApp.onLoginSuccess();
+        var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+        if (passcode) {
+          this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
+          $(".app").append(this.passcodeAuthEntryView.el);
+          this.passcodeAuthEntryView.render().show();
+        }
         spiderOakApp.loginView.dismiss();
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
@@ -262,14 +269,24 @@
     },
     onPause: function(event) {
       spiderOakApp.lastPaused = Date.now();
+      if ($(".modal").is(":visible")) {
+        // cancel pending doesnloads, etc
+        window.cordova.fireDocumentEvent("backbutton");
+      }
+      spiderOakApp.fileViewer.hide();
     },
     onResume: function(event) {
+      // This isn't quick enough on iOS as it saves a shot of what was on the
+      //    screen when pausing and uses that as a splash screen of sorts.
+      //    We might need to use the splash screen plugin...
       var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
-      var maxTimeout = spiderOakApp.settings.getOrDefault("maxTimeout", 0);
+      var passcodeTimeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
       var timeoutInMinutes =
         Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
-      if (passcode && (timeoutInMinutes >= maxTimeout)) {
-        // Chuck up the passcode screen...
+      if (passcode && (timeoutInMinutes >= passcodeTimeout)) {
+        this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
+        $(".app").append(this.passcodeAuthEntryView.el);
+        this.passcodeAuthEntryView.render().show();
       }
     },
     onLoginSuccess: function() {

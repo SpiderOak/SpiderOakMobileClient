@@ -444,7 +444,10 @@
         title = "Enter your current 4 digit passcode";
       }
       if (this.action === "confirm") title = "Re-enter your new 4 digit passcode";
-      this.$el.html(window.tmpl[this.templateID]({title: title}));
+      this.$el.html(window.tmpl[this.templateID]({
+        title: title,
+        actionBar: false
+      }));
       return this;
     },
     pinpadNum_tapHandler: function(event) {
@@ -586,7 +589,8 @@
     destructionPolicy: "never",
     events: {
       "tap .passcode-settings-change":"passcodeSettingsChange_tapHandler",
-      "tap .passcode-settings-off":"passcodeSettingsRemove_tapHandler"
+      "tap .passcode-settings-off":"passcodeSettingsRemove_tapHandler",
+      "tap .passcode-settings-timeout":"passcodeSettingsTimeout_tapHandler"
     },
     initialize: function() {
       window.bindMine(this);
@@ -595,7 +599,33 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      this.$el.html(window.tmpl[this.templateID]({}));
+      var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var timeoutLabel = "Immediately";
+      switch (timeout) {
+        case 1:
+          timeoutLabel = "After 1 minute";
+          break;
+        case 5:
+          timeoutLabel = "After 5 minutes";
+          break;
+        case 15:
+          timeoutLabel = "After 15 minutes";
+          break;
+        case 60:
+          timeoutLabel = "After 1 hour";
+          break;
+        case 60:
+          timeoutLabel = "After 1 hour";
+          break;
+        case 240:
+          timeoutLabel = "After 4 hours";
+          break;
+        default:
+          timeoutLabel = "Immediately";
+      }
+      this.$el.html(window.tmpl[this.templateID]({
+        timeoutLabel: timeoutLabel
+      }));
       return this;
     },
     passcodeSettingsChange_tapHandler: function(event) {
@@ -613,6 +643,83 @@
         {action: "remove"},
         spiderOakApp.defaultEffect
       );
+    },
+    passcodeSettingsTimeout_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeTimeoutView,
+        {},
+        spiderOakApp.defaultEffect
+      );
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.viewTitle);
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
+      spiderOakApp.backDisabled = false;
+      this.render();
+    },
+    viewDeactivate: function(event) {
+      this.remove();
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+    }
+  });
+
+ spiderOakApp.SettingsPasscodeTimeoutView = spiderOakApp.ViewBase.extend({
+    templateID: "settingsPasscodeTimeoutViewTemplate",
+    viewTitle: "Require passcode",
+    destructionPolicy: "never",
+    events: {
+      "tap a.timeout": "aTimeout_tapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      this.$el.html(window.tmpl[this.templateID]({}));
+      this.$("a[data-timeout='"+timeout+"'] .info")
+        .addClass("icon-checkmark");
+      return this;
+    },
+    aTimeout_tapHandler: function(event) {
+      var $target = $(event.target);
+      $target = $target.tagName === "A" ? $target : $target.closest("a");
+      var timeout = $target.data("timeout");
+      this.$(".info").removeClass("icon-checkmark");
+      $target.find(".info").addClass("icon-checkmark");
+      spiderOakApp.settings.setOrCreate("passcodeTimeout", timeout, true);
+      spiderOakApp.settings.saveRetainedSettings();
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {

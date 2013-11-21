@@ -155,7 +155,8 @@ body {
 }
 
 .learn-about-spideroak,
-.rememberme-warning {
+.rememberme-warning,
+.passcode-auth-entry {
   position: absolute;
   bottom: 0;
   top:0;

@@ -125,6 +125,10 @@
         }
       }
       else {
+        if (spiderOakApp.settings.getOrDefault("passcode")) {
+          spiderOakApp.settings.remove("passcode");
+          spiderOakApp.settings.remove("passcodeTimeout");
+        }
         spiderOakApp.settings.remove("rememberedAccount");
         spiderOakApp.settings.saveRetainedSettings();
       }

@@ -149,6 +149,11 @@
                 return;
               }
               spiderOakApp.accountModel.logout();
+              if (spiderOakApp.settings.getOrDefault("passcode")) {
+                spiderOakApp.settings.remove("passcode");
+                spiderOakApp.settings.remove("passcodeTimeout");
+                spiderOakApp.settings.saveRetainedSettings();
+              }
               $("#subviews").html(
                 "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
                 "<li class=\"sep\">Loading...</li></ul>");
@@ -513,6 +518,7 @@
                   instanceof spiderOakApp.SettingsPasscodeView) {
               if (this.action === "remove") {
                 spiderOakApp.settings.remove("passcode");
+                spiderOakApp.settings.remove("passcodeTimeout");
                 spiderOakApp.settings.saveRetainedSettings();
                 spiderOakApp.navigator.replaceAll(
                   spiderOakApp.SettingsView,

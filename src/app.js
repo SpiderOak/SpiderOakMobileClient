@@ -273,7 +273,6 @@
         // cancel pending doesnloads, etc
         window.cordova.fireDocumentEvent("backbutton");
       }
-      spiderOakApp.fileViewer.hide();
     },
     onResume: function(event) {
       // This isn't quick enough on iOS as it saves a shot of what was on the
@@ -284,6 +283,7 @@
       var timeoutInMinutes =
         Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
       if (passcode && (timeoutInMinutes >= passcodeTimeout)) {
+        spiderOakApp.fileViewer.hide();
         this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
         $(".app").append(this.passcodeAuthEntryView.el);
         this.passcodeAuthEntryView.render().show();

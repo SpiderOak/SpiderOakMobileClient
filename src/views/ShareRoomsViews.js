@@ -341,6 +341,9 @@
     },
     addShareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       this.form_submitHandler(event);
     },
     close: function(){
@@ -365,6 +368,9 @@
     },
     a_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       spiderOakApp.navigator.pushView(
         spiderOakApp.AddShareRoomView,
         {},
@@ -404,9 +410,14 @@
     },
     descend_tapHandler: function(event) {
       var options;
-      event.stopPropagation();
-      event.preventDefault();
       var $target = $(event.target);
+
+      event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
+
+      event.stopPropagation();
 
       if ($target.hasClass("rightButton") ||
           $target.hasClass("icon-close") ||
@@ -519,6 +530,12 @@
     },
     a_longTapHandler: function(event, actionItems) {
       var $target = $(event.target);
+
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
+
       $target = $target.tagName === "A" ? $target : $target.closest("a");
       if ($target.text().trim() === "" ||
           $target.text().trim() === "Loading...") {
@@ -583,6 +600,11 @@
       return spiderOakApp.ShareRoomItemView.prototype.initialize.call(this);
     },
     a_longTapHandler: function(event, actionItems) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
+
       if (! actionItems) {
         actionItems = this.actionItems;
       }
@@ -604,8 +626,12 @@
       this.model.set("remember", 0);
     },
     removePublicShare_tapHandler: function(event) {
-      event.stopPropagation();
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        // Unlikely, but we may change geometries or something.
+        return;
+      }
+      event.stopPropagation();
       var removeShare = function(button) {
         if (button === 1) {
           this.model.removePassword();
@@ -771,6 +797,9 @@
     },
     submitPasswordButton_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       this.form_submitHandler(event);
     },
     close: function() {

@@ -315,6 +315,10 @@ module.exports = function(grunt) {
     grunt.task.run('jshint', 'dot', 'concat', 'shell:mocha'+test);
     grunt.task.run('shell:debug_' + platform);
   });
+  grunt.registerTask('yolo','Create a debug build, but no tests', function(platform) {
+    grunt.task.run('jshint', 'dot', 'concat');
+    grunt.task.run('shell:debug_' + platform);
+  });
   grunt.registerTask('beta','Create a beta build', function(platform) {
     grunt.log.writeln('Placeholder for beta build task');
   });

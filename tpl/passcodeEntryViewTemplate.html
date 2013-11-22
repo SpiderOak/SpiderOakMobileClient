@@ -1,15 +1,15 @@
 <div style="display:{{= it.actionBar ? 'block' : 'none' }}">
   <div id="nav" class="nav">
     <!-- <a class="back-btn"></a> -->
-    <div class="title">Passcode</div>
+    <div class="title">Passcode unlock</div>
   </div>
 </div>
 <div class="passcode-set">
-  <div class="title">
+  <div class="title{{= it.actionBar ? '' : ' settings' }}">
     <div>{{= it.title }}</div>
   </div>
   <div class="code">
-    <input class="passcode" disabled="true" type="password" value="" maxlength="4" />
+    <input class="passcode{{= it.actionBar ? '' : ' settings' }}" disabled="true" type="password" value="" maxlength="4" />
   </div>
   <div class="pinpad">
     <div class="num">

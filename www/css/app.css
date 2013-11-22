@@ -492,6 +492,7 @@ ul li a .hiddenItem:after {
 }
 
 .modal {
+  z-index: 10000;
   display: none;
   position: absolute;
   top: 0;
@@ -747,6 +748,7 @@ background-color:#000000;
   display: block;
   float: left;
   width: 33.3333333333%;
+  max-width: 200px;
   height: 60px;
   text-align: center;
 }
@@ -768,9 +770,17 @@ background-color:#000000;
   line-height: 25px;
 }
 
+.passcode-set .title {
+  top: 49px;
+}
+
+.passcode-set .title.settings {
+  top: 5px;
+}
+
 .passcode-set .passcode {
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 0;
   right: 0;
   -webkit-box-sizing: border-box;
@@ -792,23 +802,36 @@ background-color:#000000;
 
 @media all and (orientation:landscape) {
 
-  .passcode-set .passcode {
-    top: 0;
-    padding: 0;
-    font-size: 300%;
-    z-index: 0;
-  }
-
   .passcode-set .pinpad {
-    position: absolute;
-    left: 0;
+    left: 20%;
+    max-width: 60%;
     right: 0;
     bottom: 0;
     bottom: -10px;
   }
 
+  .passcode-set .passcode {
+    top: 59px;
+  }
+
+  .passcode-set .passcode.settings {
+    top: 20px;
+  }
+
   .passcode-set .title {
-    display: none;
+    top: 49px;
+  }
+
+  .passcode-set .title.settings {
+    top: 5px;
+  }
+
+  .passcode-set .pinpad {
+    left: 20%;
+    max-width: 60%;
+    right: 0;
+    bottom: 0;
+    bottom: -10px;
   }
 
   .passcode-set .num {

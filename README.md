@@ -39,7 +39,6 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
   - `cordova plugins add org.apache.cordova.dialogs@0.2.3`
   - `cordova plugins add org.apache.cordova.file@0.2.4`
   - `cordova plugins add org.apache.cordova.file-transfer@0.3.3`
-  - `cordova plugins add org.apache.cordova.file-transfer@0.3.3`
   - `cordova plugins add org.apache.cordova.inappbrowser@0.2.3`
   - `cordova plugins add org.apache.cordova.network-information@0.2.3`
 - include FileViewerPlugin:

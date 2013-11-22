@@ -33,6 +33,17 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 ### Adding the plugin(s)
 - create a SpiderOakMobileClient project subdirectory named `plugins`
 	- `mkdir plugins`
+- Include the cordova core plugins that we need:
+```
+    cordova plugins add org.apache.cordova.console@0.2.3
+    cordova plugins add org.apache.cordova.device@0.2.3
+    cordova plugins add org.apache.cordova.dialogs@0.2.3
+    cordova plugins add org.apache.cordova.file@0.2.4
+    cordova plugins add org.apache.cordova.file-transfer@0.3.3
+    cordova plugins add org.apache.cordova.file-transfer@0.3.3
+    cordova plugins add org.apache.cordova.inappbrowser@0.2.3
+    cordova plugins add org.apache.cordova.network-information@0.2.3
+```
 - include FileViewerPlugin:
 	- clone the [FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin) somewhere
 	- add the FileViewerPlugin to the project: `cordova plugin add /path/to/FileViewerPlugin`

@@ -79,8 +79,13 @@
         // Clear it out
         account.loggedOut();
         // @TODO: Unblock spinner
-        var msg;
-        if (status === 401) {
+        var msg,
+            silent = false;
+        if ((status === 0) && (error === "interrupted")) {
+          msg = "Authentication interrupted";
+          silent = true;
+        }
+        else if (status === 401) {
           msg = "Authentication failed - Unauthorized.";
         }
         else if (status === 403) {
@@ -106,7 +111,9 @@
 
         spiderOakApp.dialogView.hide();
 
-        navigator.notification.alert(msg, null, "Authentication error", "OK");
+        if (! silent) {
+          navigator.notification.alert(msg, null, "Authentication error", "OK");
+        }
       };
 
       if(document.activeElement) {

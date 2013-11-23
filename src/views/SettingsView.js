@@ -160,7 +160,7 @@
         event.preventDefault();
         return;
       }
-      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+      if (spiderOakApp.accountModel.getLoginState() === true) {
         window.setTimeout(function(){
           navigator.notification.confirm(
             'Are you sure you want to sign out?',
@@ -316,7 +316,7 @@
     getTemplateValues: function() {
       return {
         server: this.model.get("value"),
-        isLoggedIn: spiderOakApp.accountModel.get("isLoggedIn")
+        isLoggedIn: (spiderOakApp.accountModel.getLoginState() === true)
       };
     },
     viewChanging: function(event) {
@@ -363,7 +363,7 @@
         spiderOakApp.navigator.popView();
       }
       else {
-        var didLogout = spiderOakApp.accountModel.get("isLoggedIn");
+        var wasLoggedIn = (spiderOakApp.accountModel.getLoginState() === true);
 
         /** Take suitable action, from handleLoginProbeResult.
          *
@@ -373,7 +373,7 @@
         var concludeServerChangeAttempt = function() {
           spiderOakApp.dialogView.hide();
           var subtitle = "Service host changed to " + newServer;
-          if (didLogout) {
+          if (wasLoggedIn) {
             subtitle += "\nand session logged out";
           }
           this.model.set("value", newServer);
@@ -421,8 +421,8 @@
 
             // (Recheck the login status, to prevent some potential gambits
             // for suborned servers to try.)
-            if (spiderOakApp.accountModel.get("isLoggedIn")) {
-              didLogout = true;
+            if (spiderOakApp.accountModel.getLoginState() === true) {
+              wasLoggedIn = true;
               spiderOakApp.accountModel.logout(concludeServerChangeAttempt);
             }
             else {
@@ -471,7 +471,9 @@
       if (this.action === "auth" || this.action === "remove") {
         title = "Enter your current 4 digit passcode";
       }
-      if (this.action === "confirm") title = "Re-enter your new 4 digit passcode";
+      if (this.action === "confirm") {
+        title = "Re-enter your new 4 digit passcode";
+      }
       this.$el.html(window.tmpl[this.templateID]({
         title: title,
         actionBar: false

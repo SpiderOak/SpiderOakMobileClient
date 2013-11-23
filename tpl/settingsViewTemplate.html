@@ -2,7 +2,7 @@
   <ul>
     <li><a class="send-feedback">Send feedback</a></li>
   </ul>
-  {{?spiderOakApp.accountModel.get("isLoggedIn")}}
+  {{?(spiderOakApp.accountModel.getLoginState() === true)}}
   <ul><li class="sep">Account</li></ul>
   <ul>
     <li>
@@ -61,7 +61,7 @@
       <div class="clearfix"></div>
     </li>
   </ul>
-  {{?spiderOakApp.accountModel.get("isLoggedIn")}}
+  {{?spiderOakApp.accountModel.getLoginState() === true}}
   <form class="login-form">
     <div class="logoutText" style="display:none;">
       Logging out while <strong>Remember Me</strong> is active will clear your data from this device.

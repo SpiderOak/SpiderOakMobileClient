@@ -39,6 +39,10 @@
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
+      document.addEventListener("loginStartChange",
+                                this.onLoginStartChange, false);
+      document.addEventListener("loginConcludeChange",
+                                this.onLoginConcludeChange, false);
       document.addEventListener("resume", this.onResume, false);
       document.addEventListener("pause", this.onPause, false);
       document.addEventListener("resign", this.onResign, false);
@@ -227,16 +231,8 @@
     backDisabled: true,
     onDeviceReady: function() {
       window.spiderOakApp.initialize();
-      document.addEventListener(
-        "backbutton",
-        spiderOakApp.onBackKeyDown,
-        false
-      );
-      document.addEventListener(
-        "menubutton",
-        spiderOakApp.onMenuKeyDown,
-        false
-      );
+      $(document).on("backbutton", spiderOakApp.onBackKeyDown);
+      $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
         $(".app").css({"top":"20px"}); // status bar hax
       }
@@ -343,6 +339,10 @@
     },
     onBackKeyDown: function(event) {
       event.preventDefault();
+      if (spiderOakApp.accountModel.getLoginState() === "in-process") {
+        spiderOakApp.accountModel.interruptLogin();
+        return;
+      }
       if ($(".modal").is(":visible") ||
           $(".learn-about-spideroak").is(":visible")) {
         return;

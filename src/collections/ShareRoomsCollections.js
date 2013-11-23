@@ -40,7 +40,7 @@
        */
       if (! spiderOakApp.visitingPubShares) {
         spiderOakApp.visitingPubShares = this.getRetainedRecords();
-        if (spiderOakApp.accountModel.get("isLoggedIn")) {
+        if (spiderOakApp.accountModel.getLoginState() === true) {
           // Include the records from the anonymous collection, too:
           spiderOakApp.visitingPubSharesAnon = this.getRetainedRecords(true);
         }

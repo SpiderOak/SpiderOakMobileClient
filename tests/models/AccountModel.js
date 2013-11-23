@@ -144,7 +144,9 @@ describe('AccountModel', function() {
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(
              // The first space is replaced with a "+" due to uri encoding (?)
-             this.asciiNonControls.replace(/ /g, "+")
+             //this.asciiNonControls.replace(/ /g, "+")
+             // Zepto 1.0RC1 only escapes first space in sequence:
+             this.asciiNonControls.replace(/ /, "+")
            );
          });
       it('should set a known HTML auth for a particular password with' +
@@ -178,8 +180,9 @@ describe('AccountModel', function() {
                                   .split("&")[1]
                                   .split("=")[1]);
            this.decodedGotPass.should.equal(
-             // The first space is replaced with a "+" due to uri encoding (?)
-             this.amalgamPassword.replace(/ /g, "+")
+             //this.amalgamPassword.replace(/ /g, "+")
+             // Zepto 1.0RC1 only escapes first space in sequence:
+             this.asciiNonControls.replace(/ /, "+")
            );
          });
       it('should set a known HTML auth for a particular password with' +

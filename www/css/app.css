@@ -819,7 +819,7 @@ background-color:#000000;
   }
 
   .passcode-set .passcode.settings {
-    top: 20px;
+    top: 0;
   }
 
   .passcode-set .title {
@@ -851,7 +851,7 @@ background-color:#000000;
   }
 }
 
-@media screen and (min-width : 700px) {
+@media screen and (min-width:700px) {
   .passcode-set .pinpad {
     width: 60%;
     left: 20%;
@@ -867,6 +867,16 @@ background-color:#000000;
 
   .passcode-set .number {
     line-height: 25px;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .passcode-set .passcode {
+    top: 30px;
+  }
+
+  .passcode-set .passcode.settings {
+    top: -10px;
   }
 }
 

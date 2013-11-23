@@ -155,7 +155,8 @@ body {
 }
 
 .learn-about-spideroak,
-.rememberme-warning {
+.rememberme-warning,
+.passcode-auth-entry {
   position: absolute;
   bottom: 0;
   top:0;
@@ -491,6 +492,7 @@ ul li a .hiddenItem:after {
 }
 
 .modal {
+  z-index: 10000;
   display: none;
   position: absolute;
   top: 0;
@@ -731,6 +733,166 @@ background-color:#cccccc;
 background-color:#000000;
 }
 
+}
+
+.passcode-set .title {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #666;
+  font-size: 100%;
+}
+
+.passcode-set .num a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.passcode-set .pinpad {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #666;
+}
+
+.passcode-set .num {
+  -webkit-box-sizing: border-box;
+  display: block;
+  float: left;
+  width: 33.3333333333%;
+  max-width: 200px;
+  height: 60px;
+  text-align: center;
+}
+
+.passcode-set .num .active {
+  color: #999;
+}
+
+.passcode-set .number {
+  font-size: 200%;
+  line-height: 30px;
+}
+
+.passcode-set .number.shorter {
+  font-size: 130%;
+}
+
+.passcode-set .abc {
+  line-height: 25px;
+}
+
+.passcode-set .title {
+  top: 49px;
+}
+
+.passcode-set .title.settings {
+  top: 5px;
+}
+
+.passcode-set .passcode {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  -webkit-box-sizing: border-box;
+  border: none;
+  text-align: center;
+  font-size: 500%;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  padding: 20px 0;
+}
+
+.passcode-set .passcode.settings {
+  top: 0;
+}
+
+.passcode-set .backspace {
+  font-size: 110%;
+}
+
+.passcode-set .num:last-child .number:before {
+  content: "\232B";
+}
+
+@media all and (orientation:landscape) {
+
+  .passcode-set .pinpad {
+    left: 20%;
+    max-width: 60%;
+    right: 0;
+    bottom: 0;
+    bottom: -10px;
+  }
+
+  .passcode-set .passcode {
+    top: 59px;
+  }
+
+  .passcode-set .passcode.settings {
+    top: 0;
+  }
+
+  .passcode-set .title {
+    top: 49px;
+  }
+
+  .passcode-set .title.settings {
+    top: 5px;
+  }
+
+  .passcode-set .pinpad {
+    left: 20%;
+    max-width: 60%;
+    right: 0;
+    bottom: 0;
+    bottom: -10px;
+  }
+
+  .passcode-set .num {
+    height: 45px;
+  }
+
+  .passcode-set .abc {
+    font-size: 90%;
+  }
+
+  .passcode-set .number {
+    line-height: 20px;
+  }
+}
+
+@media screen and (min-width:700px) {
+  .passcode-set .pinpad {
+    width: 60%;
+    left: 20%;
+  }
+
+  .passcode-set .num {
+    height: 60px;
+  }
+
+  .passcode-set .abc {
+    font-size: 90%;
+  }
+
+  .passcode-set .number {
+    line-height: 25px;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .passcode-set .passcode {
+    top: 30px;
+  }
+
+  .passcode-set .passcode.settings {
+    top: -10px;
+  }
 }
 
 

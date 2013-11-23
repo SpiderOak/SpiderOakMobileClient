@@ -40,6 +40,8 @@
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
       document.addEventListener("resume", this.onResume, false);
+      document.addEventListener("pause", this.onPause, false);
+      document.addEventListener("resign", this.onResign, false);
       document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
     },
@@ -54,7 +56,10 @@
       $.ajax = this.ajax;
 
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
-      if (window.Modernizr.overflowscrolling) {
+      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does* have css scrolling
+      if (window.Modernizr.overflowscrolling ||
+          (window.device && (window.device.platform === "Android") &&
+            (parseFloat(window.device.version) >= 4.4))) {
         window.iScroll = function(options) {
           // ...
         };
@@ -195,6 +200,12 @@
         spiderOakApp.accountModel.basicAuthManager
           .setAccountBasicAuth(credentials[0], credentials[1]);
         spiderOakApp.onLoginSuccess();
+        var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+        if (passcode) {
+          this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
+          $(".app").append(this.passcodeAuthEntryView.el);
+          this.passcodeAuthEntryView.render().show();
+        }
         spiderOakApp.loginView.dismiss();
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
@@ -256,8 +267,27 @@
       );
       spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
+    onPause: function(event) {
+      spiderOakApp.lastPaused = Date.now();
+      if ($(".modal").is(":visible")) {
+        // cancel pending doesnloads, etc
+        window.cordova.fireDocumentEvent("backbutton");
+      }
+    },
     onResume: function(event) {
-      // ...
+      // This isn't quick enough on iOS as it saves a shot of what was on the
+      //    screen when pausing and uses that as a splash screen of sorts.
+      //    We might need to use the splash screen plugin...
+      var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+      var passcodeTimeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var timeoutInMinutes =
+        Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
+      if (passcode && (timeoutInMinutes >= passcodeTimeout)) {
+        spiderOakApp.fileViewer.hide();
+        this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
+        $(".app").append(this.passcodeAuthEntryView.el);
+        this.passcodeAuthEntryView.render().show();
+      }
     },
     onLoginSuccess: function() {
       spiderOakApp.menuSheetView.render();

@@ -6,18 +6,8 @@
   "scripts": {
     "test": "grunt test",
     "postinstall": "./node_modules/.bin/bower install",
-    "pluginstall": "cordova plugins add org.apache.cordova.console@0.2.3 \
-    org.apache.cordova.device@0.2.3 org.apache.cordova.dialogs@0.2.3 \
-    org.apache.cordova.file@0.2.4 org.apache.cordova.inappbrowser@0.2.3 \
-    org.apache.cordova.network-information@0.2.3 && cordova plugin add \
-    org.apache.cordova.file-transfer@0.3.3 && \
-    cordova plugin add https://github.com/SpiderOak/FileViewerPlugin.git",
-    "plugremove": "cordova plugins remove org.apache.cordova.console@0.2.3 \
-    org.apache.cordova.device@0.2.3 org.apache.cordova.dialogs@0.2.3 \
-    org.apache.cordova.file@0.2.4 org.apache.cordova.inappbrowser@0.2.3 \
-    org.apache.cordova.network-information@0.2.3 && cordova plugin remove \
-    org.apache.cordova.file-transfer@0.3.3 && \
-    cordova plugin remove https://github.com/SpiderOak/FileViewerPlugin.git"
+    "pluginstall": "cordova plugins add org.apache.cordova.console@0.2.3 org.apache.cordova.device@0.2.3 org.apache.cordova.dialogs@0.2.3 org.apache.cordova.file@0.2.4 org.apache.cordova.inappbrowser@0.2.3 org.apache.cordova.network-information@0.2.3 && cordova plugin add org.apache.cordova.file-transfer@0.3.3 && cordova plugin add https://github.com/SpiderOak/FileViewerPlugin.git",
+    "plugremove": "cordova plugins remove org.apache.cordova.console@0.2.3 org.apache.cordova.device@0.2.3 org.apache.cordova.dialogs@0.2.3 org.apache.cordova.file@0.2.4 org.apache.cordova.inappbrowser@0.2.3 org.apache.cordova.network-information@0.2.3 && cordova plugin remove org.apache.cordova.file-transfer@0.3.3 && cordova plugin remove https://github.com/SpiderOak/FileViewerPlugin.git"
   },
   "repository": {
     "type": "git",

@@ -498,6 +498,16 @@ a.button.active {
   }
 }
 
+@media screen and (max-width:800px) {
+  .passcode-set .passcode {
+    top: 30px;
+  }
+
+  .passcode-set .passcode.settings {
+    top: -10px;
+  }
+}
+
 .timeout .label {
   color: inherit;
 }

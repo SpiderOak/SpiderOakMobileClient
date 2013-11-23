@@ -43,7 +43,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
   - `cordova plugins add org.apache.cordova.network-information@0.2.3`
 - include FileViewerPlugin:
 	- clone the [FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin) somewhere
-	- add the FileViewerPlugin to the project: `cordova plugin add /path/to/FileViewerPlugin`
+	- add the FileViewerPlugin to the project: `cordova plugin add https://github.com/SpiderOak/FileViewerPlugin.git`
 
 ## First test
 

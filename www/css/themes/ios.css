@@ -108,6 +108,10 @@ body {
   color: rgba(21, 125, 251, 0.3);
 }
 
+.nav .icon-btn {
+  display: none;
+}
+
 .nav .clear-recents-btn,
 .nav .add-sharerooms-btn,
 .nav .passcode-next-btn,
@@ -475,7 +479,7 @@ a.button.active {
   }
 }
 
-@media screen and (min-width : 700px) {
+@media screen and (min-width:700px) {
   .passcode-set .pinpad {
     width: 60%;
     left: 20%;

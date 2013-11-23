@@ -26,6 +26,19 @@ body {
   background-position: 0 17.5px, 13px 7.5px;
 }
 
+.nav .icon-btn {
+  color: rgba(0,0,0,0);
+  display: block;
+  position: absolute; 
+  left: 0;
+  padding: 0 3px;
+  background: url('../img/icon.png') no-repeat;
+  width: 48px;
+  height:48px;
+  background-size: 35px;
+  background-position: 13px 7.5px;
+}
+
 .nav .menu-btn.active,
 .nav .back-btn.active,
 .nav .clear-recents-btn.active,

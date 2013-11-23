@@ -792,6 +792,10 @@ background-color:#000000;
   padding: 20px 0;
 }
 
+.passcode-set .passcode.settings {
+  top: 0;
+}
+
 .passcode-set .backspace {
   font-size: 110%;
 }
@@ -844,6 +848,25 @@ background-color:#000000;
 
   .passcode-set .number {
     line-height: 20px;
+  }
+}
+
+@media screen and (min-width : 700px) {
+  .passcode-set .pinpad {
+    width: 60%;
+    left: 20%;
+  }
+
+  .passcode-set .num {
+    height: 60px;
+  }
+
+  .passcode-set .abc {
+    font-size: 90%;
+  }
+
+  .passcode-set .number {
+    line-height: 25px;
   }
 }
 

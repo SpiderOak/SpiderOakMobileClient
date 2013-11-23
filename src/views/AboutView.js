@@ -36,12 +36,19 @@
     },
     siteLink_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       event.stopPropagation();
       window.open($(event.target).data("url"), "_system");
 
     },
     emailLink_tapHandler: function(event) {
       // @FIXME: This is a bit Android-centric
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       var subject = "Feedback on " + s("SpiderOak") + " " +
             this.settings.platform + " app version " + spiderOakApp.version;
       var extras = {};

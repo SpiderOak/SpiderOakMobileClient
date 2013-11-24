@@ -633,22 +633,22 @@
       var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
       var timeoutLabel = "Immediately";
       switch (timeout) {
-        case 1:
+        case "1":
           timeoutLabel = "After 1 minute";
           break;
-        case 5:
+        case "5":
           timeoutLabel = "After 5 minutes";
           break;
-        case 15:
+        case "15":
           timeoutLabel = "After 15 minutes";
           break;
-        case 60:
+        case "60":
           timeoutLabel = "After 1 hour";
           break;
-        case 60:
+        case "60":
           timeoutLabel = "After 1 hour";
           break;
-        case 240:
+        case "240":
           timeoutLabel = "After 4 hours";
           break;
         default:

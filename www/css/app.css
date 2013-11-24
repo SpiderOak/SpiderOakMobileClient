@@ -107,8 +107,9 @@ body {
   bottom: 0;
   top: 0;
   width: 100%;
-  overflow: hidden;
   background-color: #eee;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .login-logo {

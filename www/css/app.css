@@ -867,7 +867,7 @@ background-color:#000000;
   }
 }
 
-@media screen and (min-width:700px) {
+@media all and (min-width:700px) {
   .passcode-set .pinpad {
     width: 60%;
     left: 20%;
@@ -886,7 +886,7 @@ background-color:#000000;
   }
 }
 
-@media screen and (max-width:800px) {
+@media all and (max-width:800px) {
   .passcode-set .passcode {
     top: 30px;
   }

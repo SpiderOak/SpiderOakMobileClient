@@ -1,8 +1,10 @@
 <div class="toolbar-button">
-  <a class="file-share-button{{?!it.disabled}} enabled{{?}}"><i class="icon-share"></i></a>
+  <a class="file-share-button{{?!it.disabled}} enabled{{?}}"><i class="icon-{{=($.os.ios)?'redo':'share'}}"></i></a>
 </div>
 <div class="toolbar-button">
+{{?$.os.android}}
   <a class="file-save-button{{?!it.disabled}} enabled{{?}}"><i class="icon-download"></i></a>
+{{?}}
 </div>
 <div class="toolbar-button">
   <a class="file-send-button{{?!it.disabled}} enabled{{?}}"><i class="icon-link"></i></a>

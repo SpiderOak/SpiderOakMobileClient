@@ -204,6 +204,40 @@ ul li.sep {
   background-color: #efefef;
 }
 
+.toolbar {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background-color: #e4e4e4;
+  border-top: none;
+  font-size: 130%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.toolbar-button {
+  margin: 12px 0;
+  text-align: center;
+  float: left;
+  width: 25%;
+  color: #ccc;
+}
+
+.toolbar-button .enabled {
+  color: #000;
+}
+
+.toolbar-button .favorite {
+  color: orange;
+}
+
+.toolbar-button a.active.enabled {
+  color: #666;
+  text-shadow: 0 0 10px #fff;
+}
+
 .storagebar {
   color: #333;
   border-top: 1px solid rgb(200, 199, 204);

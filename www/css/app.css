@@ -214,6 +214,10 @@ ul li small {
   text-overflow: ellipsis;
 }
 
+ul li.small {
+  font-size: 80%;
+}
+
 ul li a {
   position: relative;
   text-overflow: ellipsis;

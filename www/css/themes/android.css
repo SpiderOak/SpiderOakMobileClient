@@ -166,7 +166,6 @@ div.login-input.focused {
   position: relative;
   border-bottom: solid 1px orange;
   border-left: solid 1px orange;
-  margin: 20px;
   border-right: solid 1px orange;
   overflow: visible;
   max-height: 0.1em;
@@ -377,4 +376,22 @@ a.button.active {
     left:0px; 
     top:0px; 
     bottom:0px;
+}
+
+@media all and (orientation:landscape) {
+  a.button,
+  button {
+    width: 260px;
+    margin: 10px auto;
+  }
+
+  div.login-input {
+    width: 320px;
+    margin: 20px auto;
+  }
+
+  .checkswitch-wrapper {
+    width: 320px;
+    margin: 0 auto;
+  }
 }

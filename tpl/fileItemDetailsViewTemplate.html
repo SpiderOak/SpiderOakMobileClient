@@ -1,18 +1,21 @@
 <div class="fileDetails-container">
+  <ul>
+    <li><strong>{{=it.name}}</strong></li>
+    <li class="small"><div class="label icon bg-icon bg-pos-zero" style="background-image:url('img/spideroak-icons/{{=iconType}}/{{=it.icon}}.{{=iconType}}');padding-left:15px;">{{=it.description}} file</div></li>
+    <li class="small">
+      <div class="label">Size:</div>
+      <div class="info">{{=window.fileHelper.readableFileSize(it.size)}}</div>
+    </li>
+    <li class="small">
+      <div class="label">Created:</div>
+      <div class="info">{{=window.moment(it.ctime+"", "X").format("llll")}}</div>
+    </li>
+    <li class="small">
+      <div class="label">Last Modified:</div>
+      <div class="info">{{=window.moment(it.mtime+"", "X").format("llll")}}</div>
+    </li>
+  </ul>
   <div class="fileDetails">
-    <div><i class="icon-{{=it.icon}} icon-large"></i> {{=it.description}} file</div>
-    <div class="name">{{=it.name}}</div>
-    <div class="section">
-      <div><span class="label">Size:</span>
-        {{=window.fileHelper.readableFileSize(it.size)}}
-      </div>
-      <div><span class="label">Created:</span>
-        {{=window.moment(it.ctime+"", "X").format("llll")}}
-      </div>
-      <div><span class="label">Last Modified:</span>
-        {{=window.moment(it.mtime+"", "X").format("llll")}}
-      </div>
-    </div>
   </div>
   <div class="versions" style="display:none;">
     <ul class="versionsViewLoading loadingVersions">

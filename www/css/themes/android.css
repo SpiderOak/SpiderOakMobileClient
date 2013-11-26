@@ -105,6 +105,10 @@ ul li a.active {
   color: black;
 }
 
+ul li.small {
+  font-size: 80%;
+}
+
 .menu {
   padding: 0 10px;
   width: 250px;

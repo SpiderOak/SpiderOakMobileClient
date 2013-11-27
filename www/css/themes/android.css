@@ -41,16 +41,16 @@ body {
 
 .nav .menu-btn.active,
 .nav .back-btn.active,
+.nav .passcode-cancel-btn.active,
 .nav .clear-recents-btn.active,
-.nav .passcode-next-btn.active,
 .nav .add-sharerooms-btn.active,
 .nav .refresh-favorites-btn.active {
 	background-color: #333;
 }
 
+.nav .passcode-cancel-btn,
 .nav .clear-recents-btn,
 .nav .add-sharerooms-btn,
-.nav .passcode-next-btn,
 .nav .refresh-favorites-btn {
   font-size: 22px;
   position: absolute;

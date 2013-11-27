@@ -129,8 +129,10 @@
         var _this = this;
         view.$el.css({"-webkit-transform":"translate3d(-50%,100%,0)"});
         this.$el.show();
-        view.$el.animate(
-          {"-webkit-transform":"translate3d(-50%,0,0)"}, 150, 'ease-in-out');
+        window.setTimeout(function(){
+          view.$el.animate(
+            {"-webkit-transform":"translate3d(-50%,0,0)"}, 150, 'ease-in-out');
+        },30);
       } else {
         this.$el.show();
       }

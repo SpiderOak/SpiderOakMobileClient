@@ -132,7 +132,7 @@
         window.setTimeout(function(){
           view.$el.animate(
             {"-webkit-transform":"translate3d(-50%,0,0)"}, 150, 'ease-in-out');
-        },30);
+        },50);
       } else {
         this.$el.show();
       }

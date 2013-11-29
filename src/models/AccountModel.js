@@ -13,6 +13,7 @@
   spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
     defaults: {
       rememberme: false,
+      passcodeWasCancelled: "",
       data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
       storage_web_url: "",      // Irrelevant to mobile client for now.
@@ -40,7 +41,12 @@
         }
         this.unset("isLoggedIn");
       }
+      if (this.getLoginState() === true) {
+        // We're being initialized as part of remember-me reconstitution.
+        this.loggedIn();
+      }
     },
+
     /** Report status login of login process, including intermediate state.
      *
      * @returns (boolean) false: not logged in
@@ -61,7 +67,19 @@
     setLoginState: function(state) {
       this.set("state", state);
     },
-
+    loggedIn: function() {
+      this.setLoginState(true);
+      // Establish passcode stuff:
+      if (this.getPasscode()) {
+        this.activatePasscode();
+      }
+      else {
+        this.unsetPasscode();
+        if (this.get("passcodeWasCancelled")) {
+          this.cancelledPasscodeNotification();
+        }
+      }
+    },
     doInterruption: function() {
       var status = this.getLoginState();
       if (status === true) {
@@ -80,6 +98,117 @@
         return "interrupting";
       }
     },
+
+    /* Account Passcode scheme:
+     *
+     * - The account model provides the passcode management interface.
+     * - Accounts can have passcodes and timeouts associated with them
+     *   - per device,
+     *   - preserved across logins.
+     * - During account login, the account activates the passcode in the app
+     *   - and deactivates upon logout.
+     *   - There is never an active passcode when no account is logged in.
+     * - Cancelling passcode from challenge screen, while passcode is active:
+     *   - Logs out active account
+     *   - and removes passcode from account.
+     *   - So user isn't locked out for forgotten passcode,
+     *   - but intruders don't get account access by cancelling.
+     *     - because they still have to log in to the account to access it.
+     *   - notification of cancelled passcode is posted on next login to account
+     */
+    /** Return passcode associated with account. */
+    getPasscode: function () {
+      return spiderOakApp.settings.getOrDefault(
+        this.getPasscodeSettingId("passcode"),
+        undefined
+      );
+    },
+    /** Associate passcode for account, then activate it. */
+    setPasscode: function (passcode) {
+      if (! this.getLoginState) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate(
+        this.getPasscodeSettingId("passcode"),
+        passcode,
+        true
+      );
+      spiderOakApp.settings.saveRetainedSettings();
+      this.activatePasscode();
+    },
+    /** Return passcode timeout associated with account, or 0 if none. */
+    getPasscodeTimeout: function () {
+      return spiderOakApp.settings.getOrDefault(
+        this.getPasscodeSettingId("passcodeTimeout"),
+        0
+      );
+    },
+    /** Associate passcodeTimeout for account, then activate it. */
+    setPasscodeTimeout: function (passcodeTimeout) {
+      if (! this.getLoginState) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate(
+        this.getPasscodeSettingId("passcodeTimeout"),
+        passcodeTimeout,
+        true
+      );
+      spiderOakApp.settings.saveRetainedSettings();
+      this.activatePasscode();
+    },
+    /** Remove this account's passcode, and deactivate it. */
+    unsetPasscode: function () {
+      // Do this whether or not an account login currently is active.
+      this.deactivatePasscode();
+      spiderOakApp.settings.remove(this.getPasscodeSettingId("passcode"));
+      spiderOakApp.settings.remove(
+        this.getPasscodeSettingId("passcodeTimeout"));
+    },
+    /** Activate the account's associated passcode for the current session. */
+    activatePasscode: function () {
+      if (! this.getLoginState) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate("passcode",
+                                        this.getPasscode(),
+                                        false);
+      spiderOakApp.settings.setOrCreate("passcodeTimeout",
+                                        this.getPasscodeTimeout(),
+                                        false);
+    },
+    /** Deactivate the current session's passcode. */
+    deactivatePasscode: function () {
+      if (! this.getLoginState) {
+        return false;
+      }
+      spiderOakApp.settings.remove("passcode");
+      spiderOakApp.settings.remove("passcodeTimeout");
+    },
+    /** Cancel the associated passcode, prepping for notification. */
+    cancelPasscode: function () {
+      if (! this.getLoginState) {
+        return false;
+      }
+      this.unsetPasscode();
+      this.set("passcodeWasCancelled", true);
+    },
+    /** Post notification for cancelled passcode, and clear status. */
+    cancelledPasscodeNotification: function () {
+      if (! this.getLoginState) {
+        return false;
+      }
+      navigator.notification.confirm(
+        "Your account was last logged off due to passcode cancellation. " +
+            " Visit Settings to reestablish your passcode.",
+        function () { this.unset("passcodeWasCancelled"); },
+        "Passcode was cancelled",
+        "OK");
+    },
+    /** Return distinct name for persistent setting. */
+    getPasscodeSettingId: function (which) {
+      return which + "_" + this.get("b32username");
+    },
+
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
      *
@@ -194,7 +323,7 @@
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
             // Trigger the login complete event so other views can react
-            _self.setLoginState(true);
+            _self.loggedIn();
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
@@ -266,6 +395,8 @@
     logout: function(successCallback) {
       // Clear basic auth details:
       this.basicAuthManager.clear();
+      // ... and other app state associated with the account:
+      this.deactivatePasscode();
       spiderOakApp.settings.remove("rememberedAccount");
       spiderOakApp.settings.saveRetainedSettings();
       if (this.getLoginState() === true) {

@@ -13,7 +13,6 @@
   spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
     defaults: {
       rememberme: false,
-      passcodeWasCancelled: "",
       data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
       storage_web_url: "",      // Irrelevant to mobile client for now.
@@ -74,9 +73,10 @@
         this.activatePasscode();
       }
       else {
-        this.unsetPasscode();
-        if (this.get("passcodeWasCancelled")) {
-          this.cancelledPasscodeNotification();
+        if (spiderOakApp.settings.getOrDefault(
+              this.getPasscodeSettingId("passcodeWasCancelled"),
+              false)) {
+          this.passcodeWasCancelledFollowup();
         }
       }
     },
@@ -162,7 +162,8 @@
       this.deactivatePasscode();
       spiderOakApp.settings.remove(this.getPasscodeSettingId("passcode"));
       spiderOakApp.settings.remove(
-        this.getPasscodeSettingId("passcodeTimeout"));
+        this.getPasscodeSettingId("passcodeTimeout")
+      );
     },
     /** Activate the account's associated passcode for the current session. */
     activatePasscode: function () {
@@ -190,17 +191,29 @@
         return false;
       }
       this.unsetPasscode();
-      this.set("passcodeWasCancelled", true);
+      spiderOakApp.settings.setOrCreate(
+        this.getPasscodeSettingId("passcodeWasCancelled"),
+        true,
+        true
+      );
     },
     /** Post notification for cancelled passcode, and clear status. */
-    cancelledPasscodeNotification: function () {
+    passcodeWasCancelledFollowup: function () {
       if (! this.getLoginState) {
+        spiderOakApp.settings.remove(
+          this.getPasscodeSettingId("passcodeWasCancelled")
+        );
+        console.log("AccountModel: unexpected interruption state");
         return false;
       }
-      navigator.notification.confirm(
+      navigator.notification.alert(
         "Your account was last logged off due to passcode cancellation. " +
             " Visit Settings to reestablish your passcode.",
-        function () { this.unset("passcodeWasCancelled"); },
+        function () {
+          spiderOakApp.settings.remove(
+            this.getPasscodeSettingId("passcodeWasCancelled")
+          );
+        }.bind(this),
         "Passcode was cancelled",
         "OK");
     },

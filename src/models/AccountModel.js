@@ -72,12 +72,10 @@
       if (this.getPasscode()) {
         this.activatePasscode();
       }
-      else {
-        if (spiderOakApp.settings.getOrDefault(
-              this.getPasscodeSettingId("passcodeWasCancelled"),
-              false)) {
-          this.passcodeWasCancelledFollowup();
-        }
+      if (spiderOakApp.settings.getOrDefault(
+            this.getPasscodeSettingId("passcodeWasBypassed"),
+            false)) {
+        this.passcodeWasBypassedFollowup();
       }
     },
     doInterruption: function() {
@@ -108,13 +106,12 @@
      * - During account login, the account activates the passcode in the app
      *   - and deactivates upon logout.
      *   - There is never an active passcode when no account is logged in.
-     * - Cancelling passcode from challenge screen, while passcode is active:
+     * - Bypassing passcode from challenge screen, while passcode is active:
      *   - Logs out active account
-     *   - and removes passcode from account.
-     *   - So user isn't locked out for forgotten passcode,
-     *   - but intruders don't get account access by cancelling.
+     *   - Setts account so user gets choice to remove passcode on next login
+     *   - So intruders can't get account access by passcode bypass.
      *     - because they still have to log in to the account to access it.
-     *   - notification of cancelled passcode is posted on next login to account
+     *   - But user can avoid lock-out due to forgotten passcode.
      */
     /** Return passcode associated with account. */
     getPasscode: function () {
@@ -185,37 +182,45 @@
       spiderOakApp.settings.remove("passcode");
       spiderOakApp.settings.remove("passcodeTimeout");
     },
-    /** Cancel the associated passcode, prepping for notification. */
-    cancelPasscode: function () {
+    /** Bypass the passcode, prepping for followup on next login. */
+    bypassPasscode: function () {
       if (! this.getLoginState) {
         return false;
       }
-      this.unsetPasscode();
       spiderOakApp.settings.setOrCreate(
-        this.getPasscodeSettingId("passcodeWasCancelled"),
+        this.getPasscodeSettingId("passcodeWasBypassed"),
         true,
         true
       );
     },
-    /** Post notification for cancelled passcode, and clear status. */
-    passcodeWasCancelledFollowup: function () {
+    /** Post notification for bypassed passcode, and clear status. */
+    passcodeWasBypassedFollowup: function () {
+      spiderOakApp.settings.remove(
+        this.getPasscodeSettingId("passcodeWasBypassed"));
+      spiderOakApp.settings.saveRetainedSettings();
       if (! this.getLoginState) {
-        spiderOakApp.settings.remove(
-          this.getPasscodeSettingId("passcodeWasCancelled")
-        );
-        console.log("AccountModel: unexpected interruption state");
+        console.log("AccountModel: unexpected passcode bypassed state");
         return false;
       }
-      navigator.notification.alert(
-        "Your account was last logged off due to passcode cancellation. " +
-            " Visit Settings to reestablish your passcode.",
-        function () {
-          spiderOakApp.settings.remove(
-            this.getPasscodeSettingId("passcodeWasCancelled")
-          );
+      navigator.notification.confirm(
+        "Your account was logged off on bypass of your passcode. " +
+            " Remove your passcode?",
+        function (ok) {
+          if (ok === 1) {
+            this.unsetPasscode();
+            spiderOakApp.dialogView.showNotify({
+              title: "<i class='icon-info'></i> Passcode removed",
+              subtitle: "Navigate to Settings to establish a new passcode."
+            });
+          }
+          else {
+            spiderOakApp.dialogView.showNotify({
+              title: "<i class='icon-info'></i> Passcode not removed"
+            });
+          }
         }.bind(this),
-        "Passcode was cancelled",
-        "OK");
+        "Passcode was bypassed",
+        "Remove it,Keep it");
     },
     /** Return distinct name for persistent setting. */
     getPasscodeSettingId: function (which) {

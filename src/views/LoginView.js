@@ -44,7 +44,9 @@
     form_submitHandler: function(event) {
       event.preventDefault();
 
-      spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
+      spiderOakApp.dialogView.showWait({
+        showCancel: true, subtitle:"Authenticating"
+      });
 
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();

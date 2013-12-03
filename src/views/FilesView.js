@@ -667,17 +667,47 @@
       this.model.on("change",this.render);
     },
     render: function() {
+      var model = this.model;
       // if (window.Modernizr.overflowscrolling) {
         this.$el.html(
-          window.tmpl["fileItemViewTemplate"](this.model.toJSON())
+          window.tmpl["fileItemViewTemplate"](model.toJSON())
         );
       // }
       // else {
       //   this.$el.html(
-      //     window.tmpl["fileItemViewMinTemplate"](this.model.toJSON())
+      //     window.tmpl["fileItemViewMinTemplate"](model.toJSON())
       //   );
       // }
-      this.$("a").data("model",this.model);
+      this.$("a").data("model",model);
+      // Previews
+      var $icon = this.$(".icon");
+      if (model.get("preview_48")) {
+        var downloadOptions = {
+          fileName: "thumb_" + model.get("name"),
+          from: model.composedUrl(true) + "?preview_48",
+          to: ".caches",
+          fsType: window.LocalFileSystem.TEMPORARY,
+          headers: {
+            "Authorization": (
+              model.getBasicAuth() ||
+                  spiderOakApp.accountModel.get("basicAuthCredentials"))
+          }
+        };
+        spiderOakApp.downloader.downloadFile(
+          downloadOptions,
+          function(fileEntry) {
+            fileEntry.file(function(file){
+              if (file.size > 0) {
+                $icon.html("<img src='"+fileEntry.toURL()+"' style='width:100%;position:absolute;top:0;left:0;' /><div style='clear:both'></div>");
+                $icon.css("background","none");
+              }
+            },function(){});
+          },
+          function(err) {
+            // well, that's cool... do nothing then.
+          }
+        );
+      }
       return this;
     },
     a_tapHandler: function(event) {

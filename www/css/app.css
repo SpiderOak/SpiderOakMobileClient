@@ -824,6 +824,7 @@ background-color:#000000;
   content: "\232B";
 }
 
+
 @media all and (orientation:landscape) {
 
   .passcode-set .pinpad {

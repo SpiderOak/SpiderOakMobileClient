@@ -96,8 +96,117 @@ describe('AccountModel', function() {
              "https://spideroak.com/storage/" + this.b32username + "/");
          }
         );
-    });
 
+    describe('Passcodes', function() {
+      beforeEach(function () {
+        // Enclosing beforeEach's log in to an account, set the passcode, etc.
+        this.accountPasscode = "1234";
+        this.accountPasscodeTimeout = 1;
+        this.settings = window.spiderOakApp.settings;
+        this.accountModel.setPasscode(this.accountPasscode);
+        this.accountModel.setPasscodeTimeout(this.accountPasscodeTimeout);
+        // Serve login:
+        this.server.respondWith(
+          "POST",
+          this.loginURLUnCached,
+          [200, {"Content-Type": "text/html"}, this.loginLocation]
+        );
+        // Serve logout:
+        this.server.respondWith(
+          "POST",
+          RegExp("https://spideroak.com/storage/" +
+                 this.b32username +
+                 "/logout(\\?.*)?"),
+          [200, {"Content-Type": "text/html"},
+           "the response page"]
+        );
+      });
+      afterEach(function () {
+        delete this.accountPasscode;
+        delete this.accountPasscodeTimeout;
+        delete this.settings;
+      });
+      it('Should set app passcode when account passcode is set', function () {
+        this.accountPasscode.should.equal(
+          this.settings.getOrDefault("passcode", "xxxx"));
+      });
+      it('Should set app passcodeTimeout when account one is set', function () {
+        this.accountModel.setPasscodeTimeout(this.accountPasscodeTimeout);
+        this.accountPasscodeTimeout.should.equal(
+          this.settings.getOrDefault("passcodeTimeout", "xxxx"));
+      });
+      it('should unset app passcode when account passcode is unset',
+         function () {
+           chai.expect(this.settings.getOrDefault("passcode")).to.equal(
+             this.accountPasscode);
+           this.accountModel.unsetPasscode();
+           chai.expect(this.settings.getOrDefault("passcode")).to.not.exist;
+           chai.expect(this.settings.getOrDefault("passcodeTimeout"))
+             .to.not.exist;
+         });
+      it('should unset app passcode on logout from account having passcode',
+         function () {
+           chai.expect(this.settings.getOrDefault("passcode")).to.equal(
+             this.accountPasscode);
+           this.accountModel.logout();
+           this.server.respond();
+           chai.expect(this.settings.getOrDefault("passcode")).to.not.exist;
+         });
+      describe('logout and back in', function () {
+        beforeEach(function () {
+          this.accountModel.logout();
+          this.server.respond();
+          this.accountModel.login(this.username, this.password,
+                                  this.successSpy, this.errorSpy);
+          this.server.respond();
+        });          
+        it('should set account passcode and timeout' +
+           ' on re-login to passcoded account',
+           function () {
+             this.accountPasscode.should.equal(
+               this.accountModel.getPasscode()
+             );
+             this.accountPasscodeTimeout.should.equal(
+                 this.accountModel.getPasscodeTimeout()
+             );
+           });
+        it('should set active passcode and timeout' +
+           ' on re-login to passcoded account',
+           function () {
+             this.accountPasscode.should.equal(
+               this.settings.getOrDefault("passcode", "xxxx")
+             );
+             this.accountPasscodeTimeout.should.equal(
+               this.settings.getOrDefault("passcodeTimeout", "xxxx")
+             );
+           });
+      });
+      describe('bypass passcode then logout and back in', function () {
+        beforeEach(function () {
+          this.accountModel.bypassPasscode();
+          this.accountModel.logout();
+          this.server.respond();
+          // Interject stub *after* logout, so we check for folowup after login.
+          this.followupStub = sinon.stub(this.accountModel,
+                                         'passcodeWasBypassedFollowup');
+          this.accountModel.login(this.username, this.password,
+                                  this.successSpy, this.errorSpy);
+          this.server.respond();
+        });
+        afterEach(function () {
+          this.followupStub.restore();
+        });
+        it('should register that passcode was bypassed in account',
+           function () {
+             this.accountModel.passcodeWasBypassed().should.be.true;
+           });
+        it('should do passcode bypass followup on re-login to account' +
+           ' that was passcode-bypassed', function () {
+             this.followupStub.should.have.been.called;
+           });
+      });
+    });
+    });
     describe('passwords with international characters', function() {
       beforeEach(function(){
         this.xhr = sinon.useFakeXMLHttpRequest();
@@ -517,7 +626,7 @@ describe('AccountModel', function() {
       });
       // @TODO: Clear keychain credentials test
       // @TODO: Clear any localStorage test
-   });
+    });
     describe('login after logout', function() {
       beforeEach(function(){
         this.server.respondWith(
@@ -542,11 +651,7 @@ describe('AccountModel', function() {
         this.server.respond();
       });
 
-
-
-      // @TODO: Clear keychain credentials test
       // @TODO: Clear any localStorage test
-   });
+    });
   });
-
 });

@@ -72,9 +72,7 @@
       if (this.getPasscode()) {
         this.activatePasscode();
       }
-      if (spiderOakApp.settings.getOrDefault(
-            this.getPasscodeSettingId("passcodeWasBypassed"),
-            false)) {
+      if (this.passcodeWasBypassed()) {
         this.passcodeWasBypassedFollowup();
       }
     },
@@ -122,7 +120,7 @@
     },
     /** Associate passcode for account, then activate it. */
     setPasscode: function (passcode) {
-      if (! this.getLoginState) {
+      if (! this.getLoginState()) {
         return false;
       }
       spiderOakApp.settings.setOrCreate(
@@ -142,7 +140,7 @@
     },
     /** Associate passcodeTimeout for account, then activate it. */
     setPasscodeTimeout: function (passcodeTimeout) {
-      if (! this.getLoginState) {
+      if (! this.getLoginState()) {
         return false;
       }
       spiderOakApp.settings.setOrCreate(
@@ -161,10 +159,11 @@
       spiderOakApp.settings.remove(
         this.getPasscodeSettingId("passcodeTimeout")
       );
+      spiderOakApp.settings.saveRetainedSettings();
     },
     /** Activate the account's associated passcode for the current session. */
     activatePasscode: function () {
-      if (! this.getLoginState) {
+      if (! this.getLoginState()) {
         return false;
       }
       spiderOakApp.settings.setOrCreate("passcode",
@@ -176,15 +175,16 @@
     },
     /** Deactivate the current session's passcode. */
     deactivatePasscode: function () {
-      if (! this.getLoginState) {
+      if (! this.getLoginState()) {
         return false;
       }
       spiderOakApp.settings.remove("passcode");
       spiderOakApp.settings.remove("passcodeTimeout");
+      spiderOakApp.settings.saveRetainedSettings();
     },
     /** Bypass the passcode, prepping for followup on next login. */
     bypassPasscode: function () {
-      if (! this.getLoginState) {
+      if (! this.getLoginState()) {
         return false;
       }
       spiderOakApp.settings.setOrCreate(
@@ -192,13 +192,20 @@
         true,
         true
       );
+      spiderOakApp.settings.saveRetainedSettings();
+    },
+    passcodeWasBypassed: function () {
+      return spiderOakApp.settings.getOrDefault(
+        this.getPasscodeSettingId("passcodeWasBypassed"),
+        false
+      );
     },
     /** Post notification for bypassed passcode, and clear status. */
     passcodeWasBypassedFollowup: function () {
       spiderOakApp.settings.remove(
         this.getPasscodeSettingId("passcodeWasBypassed"));
       spiderOakApp.settings.saveRetainedSettings();
-      if (! this.getLoginState) {
+      if (! this.getLoginState()) {
         console.log("AccountModel: unexpected passcode bypassed state");
         return false;
       }

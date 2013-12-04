@@ -818,12 +818,14 @@ background-color:#000000;
 
 .passcode-set .backspace {
   font-size: 110%;
+  height: 30px;
 }
 
-.passcode-set .num:last-child .number:before {
-  content: "\232B";
+.passcode-set .num:last-child .number {
+  background: url('../img/spideroak-icons/backspace.png') no-repeat;
+  background-position: center center;
+  background-size: 30px;
 }
-
 
 @media all and (orientation:landscape) {
 

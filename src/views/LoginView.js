@@ -336,7 +336,7 @@
           }
         }.bind(this),
         "Bypass passcode?",
-        "Yes,Cancel");
+        "Yes,No");
     },
     remove: function() {
       this.close();

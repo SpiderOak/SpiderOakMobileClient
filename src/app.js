@@ -206,11 +206,22 @@
         spiderOakApp.accountModel.basicAuthManager
           .setAccountBasicAuth(credentials[0], credentials[1]);
         spiderOakApp.onLoginSuccess();
-        var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+        var passcode = spiderOakApp.settings.getOrDefault("passcode",
+                                                          undefined);
         if (passcode) {
-          this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
-          $(".app").append(this.passcodeAuthEntryView.el);
-          this.passcodeAuthEntryView.render().show();
+          if (! spiderOakApp.accountModel.getLoginState) {
+            // This shouldn't happen:
+            console.log("Unexpected application state: passcode " +
+                        "set without active login - removing it.");
+            // No passcode operation while not logged in
+            spiderOakApp.settings.remove("passcode");
+          }
+          else {
+            this.passcodeAuthEntryView =
+              new spiderOakApp.SettingsPasscodeAuthView();
+            $(".app").append(this.passcodeAuthEntryView.el);
+            this.passcodeAuthEntryView.render().show();
+          }
         }
         spiderOakApp.loginView.dismiss();
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
@@ -277,12 +288,21 @@
       //    screen when pausing and uses that as a splash screen of sorts.
       //    We might need to use the splash screen plugin...
       var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
-      var passcodeTimeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      if (passcode && ! spiderOakApp.accountModel.getLoginState()) {
+        console.log("Unexpected application state: passcode " +
+                    "set without active login - removing it.");
+        spiderOakApp.settings.remove("passcode");
+        return;
+      }
+
+      var passcodeTimeout =
+            spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
       var timeoutInMinutes =
         Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
       if (passcode && (timeoutInMinutes >= passcodeTimeout)) {
         spiderOakApp.fileViewer.hide();
-        this.passcodeAuthEntryView = new spiderOakApp.SettingsPasscodeAuthView();
+        this.passcodeAuthEntryView =
+          new spiderOakApp.SettingsPasscodeAuthView();
         $(".app").append(this.passcodeAuthEntryView.el);
         this.passcodeAuthEntryView.render().show();
       }

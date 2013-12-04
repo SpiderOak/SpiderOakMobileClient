@@ -253,7 +253,8 @@
     viewTitle: "Enter Passcode",
     className: "passcode-auth-entry",
     events: {
-      "touchstart .pinpad .num": "pinpadNum_tapHandler"
+      "touchstart .pinpad .num": "pinpadNum_tapHandler",
+      "tap .passcode-cancel-btn": "a_bypassTapHandler"
     },
     initialize: function() {
       window.bindMine(this);
@@ -322,6 +323,20 @@
           $passcodeInput.val("");
         }
       }
+    },
+    a_bypassTapHandler: function(event) {
+      event.preventDefault();
+      navigator.notification.confirm(
+        "Bypass passcode and log out?",
+        function (ok) {
+          if (ok === 1) {
+            spiderOakApp.accountModel.bypassPasscode();
+            spiderOakApp.accountModel.logout();
+            this.dismiss();
+          }
+        }.bind(this),
+        "Bypass passcode?",
+        "Yes,Cancel");
     },
     remove: function() {
       this.close();

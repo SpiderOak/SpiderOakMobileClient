@@ -36,7 +36,8 @@
       this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.getValue("server")});
-      this.settingsInfo.passcode = spiderOakApp.settings.getOrDefault("passcode", "");
+      this.settingsInfo.passcode =
+        spiderOakApp.settings.getOrDefault("passcode", "");
       this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -101,7 +102,8 @@
     accountPasscodeSet_tapHandler: function(event) {
       event.preventDefault();
       var action =
-        (spiderOakApp.settings.getOrDefault("passcode", undefined)) ? "auth" : "set";
+        (spiderOakApp.settings.getOrDefault("passcode",
+                                            undefined)) ? "auth" : "set";
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsPasscodeEntryView,
         {action: action},
@@ -134,8 +136,7 @@
       }
       else {
         if (spiderOakApp.settings.getOrDefault("passcode")) {
-          spiderOakApp.settings.remove("passcode");
-          spiderOakApp.settings.remove("passcodeTimeout");
+          spiderOakApp.accountModel.unsetPasscode();
         }
         spiderOakApp.settings.remove("rememberedAccount");
         spiderOakApp.settings.saveRetainedSettings();
@@ -169,11 +170,6 @@
                 return;
               }
               spiderOakApp.accountModel.logout();
-              if (spiderOakApp.settings.getOrDefault("passcode")) {
-                spiderOakApp.settings.remove("passcode");
-                spiderOakApp.settings.remove("passcodeTimeout");
-                spiderOakApp.settings.saveRetainedSettings();
-              }
               $("#subviews").html(
                 "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
                 "<li class=\"sep\">Loading...</li></ul>");
@@ -514,12 +510,7 @@
           );
         } else if (this.action === "confirm") {
           if (this.options.passcode === passcode) {
-            // Set the passcode in settings
-            spiderOakApp.settings.setOrCreate(
-              "passcode",
-              passcode,
-              true
-            );
+            spiderOakApp.accountModel.setPasscode(passcode);
             // Then pop to the settings screen
             spiderOakApp.navigator.replaceAll(
               spiderOakApp.SettingsView,
@@ -542,9 +533,7 @@
                 ].instance
                   instanceof spiderOakApp.SettingsPasscodeView) {
               if (this.action === "remove") {
-                spiderOakApp.settings.remove("passcode");
-                spiderOakApp.settings.remove("passcodeTimeout");
-                spiderOakApp.settings.saveRetainedSettings();
+                spiderOakApp.accountModel.unsetPasscode();
                 spiderOakApp.navigator.replaceAll(
                   spiderOakApp.SettingsView,
                   {},
@@ -749,8 +738,7 @@
       var timeout = $target.data("timeout");
       this.$(".info").removeClass("icon-checkmark");
       $target.find(".info").addClass("icon-checkmark");
-      spiderOakApp.settings.setOrCreate("passcodeTimeout", timeout, true);
-      spiderOakApp.settings.saveRetainedSettings();
+      spiderOakApp.accountModel.setPasscodeTimeout(timeout);
     },
     viewChanging: function(event) {
       if (!event.toView || event.toView === this) {

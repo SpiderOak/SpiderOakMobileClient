@@ -222,7 +222,7 @@
           }
           else {
             spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-info'></i> Passcode not removed"
+              title: "<i class='icon-info'></i> Passcode Kept"
             });
           }
         }.bind(this),

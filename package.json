@@ -48,6 +48,7 @@
     "mocha-phantomjs": "~2.0.0",
     "grunt-dot-compiler": "~0.3.14",
     "elementtree": "~0.1.5",
-    "shelljs": "~0.1.4"
+    "shelljs": "~0.1.4",
+    "plist": "0.4.x"
   }
 }

@@ -461,6 +461,8 @@
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
       this.action = this.options.action || "set";
+      this.incorrectAttempts = 0;
+      this.maxIncorrectAttempts = 5;
     },
     render: function() {
       var title = "Enter a new 4 digit passcode";
@@ -554,10 +556,20 @@
               );
             }
           } else {
+            this.incorrectAttempts++;
+            var tooMany = (this.incorrectAttempts >= this.maxIncorrectAttempts);
             spiderOakApp.dialogView.showNotify({
               title: "Error",
-              subtitle: "Passcode incorrect. <br>Try again."
+              subtitle: "Passcode incorrect." +
+                ((tooMany) ? "<br>Too many attempts." : "<br>Try again.") +
+                "<br><br>attempt " + this.incorrectAttempts + " of " +
+                this.maxIncorrectAttempts
             });
+            if (tooMany) {
+              spiderOakApp.accountModel.bypassPasscode();
+              spiderOakApp.accountModel.logout();
+              this.dismiss();
+            }
             // Clear the confirm code so they can try again
             $passcodeInput.val("");
           }

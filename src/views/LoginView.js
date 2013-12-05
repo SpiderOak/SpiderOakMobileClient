@@ -259,6 +259,8 @@
     initialize: function() {
       window.bindMine(this);
       this.action = "auth";
+      this.incorrectAttempts = 0;
+      this.maxIncorrectAttempts = 5;
     },
     render: function() {
       var title = "Enter your 4 digit passcode to unlock";
@@ -315,10 +317,20 @@
         if (spiderOakApp.settings.getValue("passcode") === passcode) {
           this.dismiss();
         } else {
+          this.incorrectAttempts++;
+          var tooMany = (this.incorrectAttempts >= this.maxIncorrectAttempts);
           spiderOakApp.dialogView.showNotify({
             title: "Error",
-            subtitle: "Passcode incorrect. <br>Try again."
+            subtitle: "Passcode incorrect." +
+              ((tooMany) ? "<br>Too many attempts." : "<br>Try again.") +
+              "<br><br>attempt " + this.incorrectAttempts + " of " +
+              this.maxIncorrectAttempts
           });
+          if (tooMany) {
+            spiderOakApp.accountModel.bypassPasscode();
+            spiderOakApp.accountModel.logout();
+            this.dismiss();
+          }
           // Clear the confirm code so they can try again
           $passcodeInput.val("");
         }

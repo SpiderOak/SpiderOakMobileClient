@@ -13,7 +13,7 @@
   /** A model-less view of the public ShareRooms and account ShareRooms.
    *
    */
-  spiderOakApp.ShareRoomsRootView = Backbone.View.extend({
+  spiderOakApp.ShareRoomsRootView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     initialize: function() {
       spiderOakApp.shareRoomsCollection =
@@ -136,7 +136,7 @@
     which: "ShareRoomsRootView"
   });
 
-  spiderOakApp.MyShareRoomsListView = Backbone.View.extend({
+  spiderOakApp.MyShareRoomsListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.subViews = [];
 
@@ -145,7 +145,7 @@
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "change", this.render, this );
       this.collection.on( "remove", this.render, this );
 
@@ -177,6 +177,9 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     close: function(){
       this.remove();
       this.unbind();
@@ -190,7 +193,7 @@
     which: "MyShareRoomsListView"
   });
 
-  spiderOakApp.PublicShareRoomsListView = Backbone.View.extend({
+  spiderOakApp.PublicShareRoomsListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.subViews = [];
       if (this.options.scroller) {
@@ -202,7 +205,7 @@
 
       window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "change", this.render, this );
       this.collection.on( "remove", this.render, this );
 
@@ -234,6 +237,9 @@
       this.$el.trigger("complete");
       this.scroller.refresh();
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     addPublicShare: function(event) {
       // spiderOakApp.addShareRoomView.show();
       spiderOakApp.navigator.pushView(
@@ -255,7 +261,7 @@
     which: "PublicShareRoomsListView"
   });
 
-  spiderOakApp.AddShareRoomView = Backbone.View.extend({
+  spiderOakApp.AddShareRoomView = spiderOakApp.ViewBase.extend({
     name: "Add Public ShareRoom",
     className: "addShareRoom",
     events: {
@@ -303,7 +309,7 @@
       spiderOakApp.settings.setOrCreate("shareroomsRemembering", remember, 1);
 
       if (! shareId || ! roomKey) {
-        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         return;
       }
 
@@ -331,10 +337,13 @@
           }
         });
       }
-      spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+      spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
     },
     addShareRoomsButton_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       this.form_submitHandler(event);
     },
     close: function(){
@@ -344,7 +353,7 @@
     which: "AddShareRoomView"
   });
 
-  spiderOakApp.PublicShareRoomsAddButton = Backbone.View.extend({
+  spiderOakApp.PublicShareRoomsAddButton = spiderOakApp.ViewBase.extend({
     events: {
       "tap a": "a_tapHandler"
     },
@@ -359,6 +368,9 @@
     },
     a_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       spiderOakApp.navigator.pushView(
         spiderOakApp.AddShareRoomView,
         {},
@@ -368,7 +380,7 @@
     which: "PublicShareRoomsAddButton"
   });
 
-  spiderOakApp.ShareRoomItemView = Backbone.View.extend({
+  spiderOakApp.ShareRoomItemView = spiderOakApp.ViewBase.extend({
     templateID: "shareRoomItemViewTemplate",
     detailsTemplateID: "shareItemDetailsViewTemplate",
     tagName: "li",
@@ -398,9 +410,14 @@
     },
     descend_tapHandler: function(event) {
       var options;
-      event.stopPropagation();
-      event.preventDefault();
       var $target = $(event.target);
+
+      event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
+
+      event.stopPropagation();
 
       if ($target.hasClass("rightButton") ||
           $target.hasClass("icon-close") ||
@@ -513,6 +530,12 @@
     },
     a_longTapHandler: function(event, actionItems) {
       var $target = $(event.target);
+
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
+
       $target = $target.tagName === "A" ? $target : $target.closest("a");
       if ($target.text().trim() === "" ||
           $target.text().trim() === "Loading...") {
@@ -577,6 +600,11 @@
       return spiderOakApp.ShareRoomItemView.prototype.initialize.call(this);
     },
     a_longTapHandler: function(event, actionItems) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
+
       if (! actionItems) {
         actionItems = this.actionItems;
       }
@@ -598,8 +626,12 @@
       this.model.set("remember", 0);
     },
     removePublicShare_tapHandler: function(event) {
-      event.stopPropagation();
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        // Unlikely, but we may change geometries or something.
+        return;
+      }
+      event.stopPropagation();
       var removeShare = function(button) {
         if (button === 1) {
           this.model.removePassword();
@@ -662,7 +694,7 @@
     which: "ShareItemDetailsView"
   });
 
-  spiderOakApp.GetShareRoomPasswordView = Backbone.View.extend({
+  spiderOakApp.GetShareRoomPasswordView = spiderOakApp.ViewBase.extend({
     name: "Get ShareRoom Password",
     templateID: "getShareRoomPasswordTemplate",
     events: {
@@ -736,11 +768,13 @@
           title: this.model.get("name"),
           model: this.model
         };
+        var action = "pushView";
         if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+          // spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
+          action = "replaceView";
         }
         var folderView = new spiderOakApp.FolderView(options);
-        spiderOakApp.navigator.pushView(
+        spiderOakApp.navigator[action](
           folderView,
           {},
           spiderOakApp.defaultEffect
@@ -753,7 +787,7 @@
           title: "<i class='icon-warning'></i> Invalid password"
         });
         if (spiderOakApp.navigator.viewsStack.length > 0) {
-          spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+          spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         }
       }.bind(this);
 
@@ -765,6 +799,9 @@
     },
     submitPasswordButton_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       this.form_submitHandler(event);
     },
     close: function() {

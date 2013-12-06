@@ -10,14 +10,15 @@
       $           = window.$;
 
   // @TODO Arrange so that base_domain can vary by app configuration.
-  spiderOakApp.AccountModel = Backbone.Model.extend({
+  spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
     defaults: {
       rememberme: false,
       data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
       storage_web_url: "",      // Irrelevant to mobile client for now.
 
-      isLoggedIn: false,
+      state: false,
+      interrupting: false,
       loginname: "",
       b32username: "",
       basicAuthCredentials: "",
@@ -32,7 +33,207 @@
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
       this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager(this);
+      if (typeof this.get("isLoggedIn") !== "undefined") {
+        /* Backwards compat, for transition to 2.4 from earlier versions. */
+        if (this.get("isLoggedIn")) {
+          this.set("state", true);
+        }
+        this.unset("isLoggedIn");
+      }
+      if (this.getLoginState() === true) {
+        // We're being initialized as part of remember-me reconstitution.
+        this.loggedIn();
+      }
     },
+
+    /** Report status login of login process, including intermediate state.
+     *
+     * @returns (boolean) false: not logged in
+     * @returns (boolean) true: logged in
+     * @returns (string) "in-process": login dance is happening
+     * @returns (string) "interrupting": login dance is being interrupted
+     *
+     * @see setState
+     */
+    getLoginState: function() {
+      return this.get("state");
+    },
+    /** Set status of login process. Intended for internal use only.
+     *
+     * In addition to setting the state, we notice start and finish trigger the 
+     * @see getState
+     */
+    setLoginState: function(state) {
+      this.set("state", state);
+    },
+    loggedIn: function() {
+      this.setLoginState(true);
+      // Establish passcode stuff:
+      if (this.getPasscode()) {
+        this.activatePasscode();
+      }
+      if (this.passcodeWasBypassed()) {
+        this.passcodeWasBypassedFollowup();
+      }
+    },
+    doInterruption: function() {
+      var status = this.getLoginState();
+      if (status === true) {
+        // logged in - logout, clearing stuff in the process:
+        this.logout();
+        return "interrupting";
+      }
+      else if ((status === "in-process") || (status === "interrupting")) {
+        // Not actually logged in, just clear stuff:
+        this.loggedOut();
+        return "interrupting";
+      }
+      else {
+        console.log("AccountModel.login(): unexpected interruption state");
+        this.loggedOut();
+        return "interrupting";
+      }
+    },
+
+    /* Account Passcode scheme:
+     *
+     * - The account model provides the passcode management interface.
+     * - Accounts can have passcodes and timeouts associated with them
+     *   - per device,
+     *   - preserved across logins.
+     * - During account login, the account activates the passcode in the app
+     *   - and deactivates upon logout.
+     *   - There is never an active passcode when no account is logged in.
+     * - Bypassing passcode from challenge screen, while passcode is active:
+     *   - Logs out active account
+     *   - Setts account so user gets choice to remove passcode on next login
+     *   - So intruders can't get account access by passcode bypass.
+     *     - because they still have to log in to the account to access it.
+     *   - But user can avoid lock-out due to forgotten passcode.
+     */
+    /** Return passcode associated with account. */
+    getPasscode: function () {
+      return spiderOakApp.settings.getOrDefault(
+        this.getPasscodeSettingId("passcode"),
+        undefined
+      );
+    },
+    /** Associate passcode for account, then activate it. */
+    setPasscode: function (passcode) {
+      if (! this.getLoginState()) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate(
+        this.getPasscodeSettingId("passcode"),
+        passcode,
+        true
+      );
+      spiderOakApp.settings.saveRetainedSettings();
+      this.activatePasscode();
+    },
+    /** Return passcode timeout associated with account, or 0 if none. */
+    getPasscodeTimeout: function () {
+      return spiderOakApp.settings.getOrDefault(
+        this.getPasscodeSettingId("passcodeTimeout"),
+        0
+      );
+    },
+    /** Associate passcodeTimeout for account, then activate it. */
+    setPasscodeTimeout: function (passcodeTimeout) {
+      if (! this.getLoginState()) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate(
+        this.getPasscodeSettingId("passcodeTimeout"),
+        passcodeTimeout,
+        true
+      );
+      spiderOakApp.settings.saveRetainedSettings();
+      this.activatePasscode();
+    },
+    /** Remove this account's passcode, and deactivate it. */
+    unsetPasscode: function () {
+      // Do this whether or not an account login currently is active.
+      this.deactivatePasscode();
+      spiderOakApp.settings.remove(this.getPasscodeSettingId("passcode"));
+      spiderOakApp.settings.remove(
+        this.getPasscodeSettingId("passcodeTimeout")
+      );
+      spiderOakApp.settings.saveRetainedSettings();
+    },
+    /** Activate the account's associated passcode for the current session. */
+    activatePasscode: function () {
+      if (! this.getLoginState()) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate("passcode",
+                                        this.getPasscode(),
+                                        false);
+      spiderOakApp.settings.setOrCreate("passcodeTimeout",
+                                        this.getPasscodeTimeout(),
+                                        false);
+    },
+    /** Deactivate the current session's passcode. */
+    deactivatePasscode: function () {
+      if (! this.getLoginState()) {
+        return false;
+      }
+      spiderOakApp.settings.remove("passcode");
+      spiderOakApp.settings.remove("passcodeTimeout");
+      spiderOakApp.settings.saveRetainedSettings();
+    },
+    /** Bypass the passcode, prepping for followup on next login. */
+    bypassPasscode: function () {
+      if (! this.getLoginState()) {
+        return false;
+      }
+      spiderOakApp.settings.setOrCreate(
+        this.getPasscodeSettingId("passcodeWasBypassed"),
+        true,
+        true
+      );
+      spiderOakApp.settings.saveRetainedSettings();
+    },
+    passcodeWasBypassed: function () {
+      return spiderOakApp.settings.getOrDefault(
+        this.getPasscodeSettingId("passcodeWasBypassed"),
+        false
+      );
+    },
+    /** Post notification for bypassed passcode, and clear status. */
+    passcodeWasBypassedFollowup: function () {
+      spiderOakApp.settings.remove(
+        this.getPasscodeSettingId("passcodeWasBypassed"));
+      spiderOakApp.settings.saveRetainedSettings();
+      if (! this.getLoginState()) {
+        console.log("AccountModel: unexpected passcode bypassed state");
+        return false;
+      }
+      navigator.notification.confirm(
+        "Your account was logged off on bypass of your passcode. " +
+            " Remove your passcode?",
+        function (ok) {
+          if (ok === 1) {
+            this.unsetPasscode();
+            spiderOakApp.dialogView.showNotify({
+              title: "<i class='icon-info'></i> Passcode removed",
+              subtitle: "Navigate to Settings to establish a new passcode."
+            });
+          }
+          else {
+            spiderOakApp.dialogView.showNotify({
+              title: "<i class='icon-info'></i> Passcode Kept"
+            });
+          }
+        }.bind(this),
+        "Passcode was bypassed",
+        "Remove it,Keep it");
+    },
+    /** Return distinct name for persistent setting. */
+    getPasscodeSettingId: function (which) {
+      return which + "_" + this.get("b32username");
+    },
+
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
      *
@@ -61,6 +262,13 @@
         return;
       }
 
+      if (this.getLoginState() === "interrupting") {
+        return this.doInterruption();
+      }
+      else {
+        this.setLoginState("in-process");
+      }
+
       var _self = this,
           /** A BasicAuth suspending and resuming utility.
            *
@@ -70,8 +278,9 @@
           server = (optionalHost ||
                     spiderOakApp.settings.getValue("server")),
           login_url_start = "https://" + server + "/browse/login";
-
       login_url = login_url || login_url_start;
+
+
       spiderOakApp.ajax({
         type: "POST",
         url: login_url,
@@ -80,6 +289,7 @@
           username: username,
           password: password
         },
+
         /** Handle server login success.
          *
          * We may refuse the success, because while the server is tolerant
@@ -87,6 +297,7 @@
          */
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
+
           /** Register settings according to a successful login.
            *
            * @param {string} login_url - the actual login location. Eg:
@@ -137,10 +348,12 @@
             // Return the data center part of the url:
             var dc = login_url.match(_self.get("data_center_regex"))[1];
             // Trigger the login complete event so other views can react
-            _self.set("isLoggedIn", true);
+            _self.loggedIn();
             $(document).trigger('loginSuccess');
             successCallback(dc + "/");
           }
+
+
           if (where && where[1] === "login") {
             // Try again at indicated data center and/or path:
             if (where[2].charAt(0) === "/") {
@@ -153,8 +366,12 @@
               login_url = where[2];
             }
             // Recurse, with adjusted login_url:
-            _self.login(username, password, successCallback, errorCallback,
-                        login_url, optionalHost);
+            if ((_self.login(username, password,
+                             successCallback, errorCallback,
+                             login_url, optionalHost) === "interrupting") &&
+                errorCallback) {
+              errorCallback(0, "interrupted", xhr);
+            }
           }
           else if (where && where[1] === "location") {
             var destination = login_url;
@@ -168,9 +385,32 @@
           }
         },
         error: function(xhr, errorType, error) {
+          _self.setLoginState(false);
           errorCallback(xhr.status, "authentication failed", xhr);
         }
       });
+    },
+
+    /** Interrupt in-process login, or logout if logged in.
+     *
+     * @return (boolean) true if login is in process, or was logged-in.
+     */
+    interruptLogin: function() {
+      var status = this.getLoginState();
+      if (status === "in-process") {
+        this.setLoginState("interrupting");
+        return true;
+      }
+      else if (status === "interrupting") {
+        return true;
+      }
+      else if (status === true) {
+        this.logout();
+        return true;
+      }
+      else {
+        return false;
+      }
     },
     /** Do server logout and local zeroing of credentials, etc.
      *
@@ -180,9 +420,11 @@
     logout: function(successCallback) {
       // Clear basic auth details:
       this.basicAuthManager.clear();
+      // ... and other app state associated with the account:
+      this.deactivatePasscode();
       spiderOakApp.settings.remove("rememberedAccount");
       spiderOakApp.settings.saveRetainedSettings();
-      if (this.get("isLoggedIn")) {
+      if (this.getLoginState() === true) {
         // @TODO: Clear keychain credentials
         // Post to the logout URL to get the session cookie expired:
         var logout_url = (this.get('logout_url_preface') +

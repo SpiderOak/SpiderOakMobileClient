@@ -22,21 +22,21 @@ describe('FoldersView', function() {
             '"url": "filename.pdf", "versions": 2 } ] }'
         ]
       );
-      this.filesCollection = new spiderOakApp.FoldersCollection();
-      this.filesCollection.url = "https://spideroak.com/storage/" +
+      this.foldersCollection = new spiderOakApp.FoldersCollection();
+      this.foldersCollection.url = "https://spideroak.com/storage/" +
                                     this.b32username + "/Test%20device/test/";
       this.view = new spiderOakApp.FoldersListView({
-        collection: this.filesCollection,
+        collection: this.foldersCollection,
         el: $("<ul id='files'></ul>")
       }).render();
-      sinon.spy(this.view,'addOne');
+      sinon.spy(this.foldersCollection,'set');
       this.completeSpy = sinon.spy();
       this.view.$el.on("complete", this.completeSpy);
       this.server.respond();
     });
     describe('Methods', function() {
-      it('should call addOne', function() {
-        this.view.addOne.should.have.been.called;
+      it('should call collection set', function() {
+        this.foldersCollection.set.should.have.been.called;
       });
     });
     describe('List items', function() {

@@ -151,8 +151,8 @@ describe('Application setup', function() {
        * @returns{object} the model
        */
       beforeEach(function(){
-        this.model = new Backbone.Model();
-        this.model.collection = new Backbone.Collection();
+        this.model = new spiderOakApp.ModelBase();
+        this.model.collection = new spiderOakApp.CollectionBase();
       });
       afterEach(function(){
         delete this.model.collection;

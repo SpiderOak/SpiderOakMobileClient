@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.HiveView = Backbone.View.extend({
+  spiderOakApp.HiveView = spiderOakApp.ViewBase.extend({
     events: {
       "tap a": "a_tapHandler"
     },
@@ -26,13 +26,7 @@
     },
     render: function() {
       this.$el.empty();
-      this.$el.html(
-        _.template(
-          "<li><a href='#' class='hivefolder'>" +
-            "<i class='"+s("icon-hive-black")+"'></i>" + s("SpiderOak Hive") +
-            "</a></li>"
-        )
-      );
+      this.$el.html(window.tmpl["hiveViewTemplate"](this.model.toJSON()));
       this.$("a").data("model", this.model);
       this.$el.trigger("complete");
       return this;

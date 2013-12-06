@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.RecentModel = Backbone.Model.extend({
+  spiderOakApp.RecentModel = spiderOakApp.ModelBase.extend({
     defaults: {
       // ...
     }

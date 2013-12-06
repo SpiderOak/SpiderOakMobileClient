@@ -43,7 +43,7 @@
                        placeholder="Username"
                        tabindex="1" />
           </div>
-          <div style="height:5px;"></div>
+          <div class="spacer5"></div>
           <div class="login-input">
             <input id="pwrd" type="password" name="pwrd"
                        placeholder="Password"
@@ -64,7 +64,7 @@
             <div class="clearfix"></div>
           </div>
           <a class="button loginButton" tabindex="-1">Log in</a>
-          <a class="button shareRoomsButton" tabindex="-1">Go to ShareRooms</a>
+          <a class="button shareRoomsButton secondary" tabindex="-1">Go to ShareRooms</a>
           <input type="submit" style="visibility:hidden" tabindex="-1"/>
         </form>
         <div class="learn-more"><!-- will be populated on load --></div>
@@ -76,7 +76,6 @@
     <!-- Cordova -->
     <script src="cordova.js"></script>
     <script src="cordova-polyfills.js"></script>
-    <script src="FileViewerPlugin.js"></script>
     <!-- Components -->
     <script src="components/underscore/underscore.js"></script>
     <script src="components/backbone/backbone.js"></script>

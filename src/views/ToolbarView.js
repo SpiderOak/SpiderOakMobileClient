@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.ToolbarView = Backbone.View.extend({
+  spiderOakApp.ToolbarView = spiderOakApp.ViewBase.extend({
     el: "#toolbar",
     events: {
       // ...

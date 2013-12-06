@@ -10,13 +10,13 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.DevicesListView = Backbone.View.extend({
+  spiderOakApp.DevicesListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.views = [];
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
-      this.collection.on( "reset", this.addAll, this );
+      this.collection.on( "complete", this.triggerComplete, this );
       this.collection.on( "all", this.render, this );
 
       this.subViews = [];
@@ -46,6 +46,9 @@
       this.$el.empty(); // needed still?
       this.collection.each(this.addOne, this);
     },
+    triggerComplete: function() {
+      this.$el.trigger("complete");
+    },
     close: function(){
       this.remove();
       this.unbind();
@@ -58,7 +61,7 @@
     }
   });
 
-  spiderOakApp.DeviceItemView = Backbone.View.extend({
+  spiderOakApp.DeviceItemView = spiderOakApp.ViewBase.extend({
     tagName: "li",
     className: "",
     events: {
@@ -68,14 +71,7 @@
       _.bindAll(this, "render");
     },
     render: function() {
-      this.$el.html(
-        _.template(
-          "<a href='#storage'>" +
-          "<i class='icon-<%= icon %>'></i> <%= name %>" +
-          "</a>",
-          this.model.toJSON()
-        )
-      );
+      this.$el.html(window.tmpl["deviceViewTemplate"](this.model.toJSON()));
       this.$("a").data("model", this.model);
       return this;
     },

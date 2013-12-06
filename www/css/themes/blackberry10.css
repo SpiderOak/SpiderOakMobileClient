@@ -1,0 +1,416 @@
+/**
+ * This file should have css that will be used for android
+ */
+body {
+    background-color: #eee;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+
+.nav {
+  position: relative;
+  height: 44px;
+  background-color: #ccc;
+  /*background-color: rgb(248, 248, 248);*/
+  /*border-bottom: 1px solid rgb(200, 199, 204) !important;*/
+  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.nav .menu-btn,
+.nav .back-btn {
+  color: #999;
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 44px;
+  height:43px;
+  line-height: 44px;
+  padding: 0 10px;
+  z-index: 3;
+  font-size: 130%;
+  font-family: 'SpiderOakIcons';
+}
+
+.nav .menu-btn:before {
+  content:'\f0c9';
+}
+
+.nav .back-btn:before {
+  content: '\e02f';
+}
+
+.nav .menu-btn.active,
+.nav .back-btn.active,
+.nav .clear-recents-btn.active,
+.nav .passcode-next-btn.active,
+.nav .add-sharerooms-btn.active,
+.nav .refresh-favorites-btn.active  {
+  color: #333;
+}
+
+.nav .icon-btn {
+  display: none;
+}
+
+.nav .clear-recents-btn,
+.nav .add-sharerooms-btn,
+.nav .passcode-next-btn,
+.nav .refresh-favorites-btn {
+  color: #999;
+  font-size: 110%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  text-align: center;
+  padding: 13px 13px 8px 13px;
+  display: block;
+}
+
+.nav .clear-recents-btn {
+  font-size: 100%;
+}
+
+.nav .title {
+  position: absolute;
+  width: auto;
+  left: 40px;
+  right: 40px;
+  text-align: center;
+  line-height: 44px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0;
+  color: rgb(0, 0, 0);
+}
+
+#subviews:after,
+.menu:after {
+  content: '';
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  bottom: -1px;
+}
+
+.page {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 44px;
+  background-color: #e4e4e4;
+}
+
+ul li {
+    font-size: 120%;
+    padding: 13px 10px;
+}
+
+ul li a {
+  padding: 13px 10px;
+  margin: -13px -10px;
+}
+
+ul li a.active {
+  background-image: none;
+  /*background-color: #3366cc;*/
+  background-color: #ccc;
+  color: black;
+}
+
+ul li.small {
+  font-size: 80%;
+}
+
+.menu {
+  background-color: #fff;
+  bottom: 40px;
+}
+
+.menu ul li {
+  background-color: #333;
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.menu ul li a {
+  background-color: #333;
+  border-color: #999;
+  color: #ccc;
+}
+
+.menu ul li a.active {
+  background-color: #666;
+  color: #ccc;
+}
+
+.menu ul li.sep {
+  background-color: #333;
+  color: #fff;
+}
+
+.menu ul li.current a {
+  background-color: #444;
+}
+
+.storagebar {
+  color: #333;
+  border-top: 1px solid #ccc;
+  background-color: #ccc;
+  width: 270px;
+  padding: 0;
+  height: 40px;
+  font-size: 110%;
+}
+
+.storagebar .bar-graph {
+  background-color: #999;
+  width: 270px;
+  height: 3px;
+}
+
+.storagebar .bar-graph .inner {
+  background-color: #000;
+  height: 3px;
+}
+
+.storagebar .devices-info {
+  font-size: 80%;
+  padding: 3px 10px;
+}
+
+ul.rounded {
+  border: none;
+}
+
+ul.rounded li {
+  border: none;
+}
+
+.login {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  background-color: #e4e4e4;
+  z-index: 101;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+textarea, select {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  width: 100%;
+  font: normal 100% "Roboto", Helvetica, Arial, sans-serif;
+  outline: 0 none;
+}
+
+input[type="text"],
+input[type="password"] {
+  -webkit-box-sizing: border-box;
+  position: relative;
+  padding: 10px;
+  margin: 0;
+  border: none;
+  border: 1px solid rgb(200, 199, 204);
+  border-bottom: none;
+  background-color: rgb(248, 248, 248);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#unme,
+#pwrd,
+#shareid,
+#roomkey {
+  border: none;
+  margin: 0;
+  border: 1px solid rgb(200, 199, 204);
+}
+
+#unme,
+#shareid {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none;
+}
+
+#pwrd,
+#roomkey {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#serverInput {
+  border-radius: 5px;
+}
+
+div.login-input {
+  -webkit-box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.spacer5 {
+  height: 0;
+}
+
+a.button,
+button {
+  display: block;
+  margin: 10px 20px;
+  padding: 8px 40px;
+  border-top: 1px solid rgba(255,255,255,0.34);
+  border-right: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.43);
+  border-left: 1px solid rgba(0,0,0,0.04);
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  background: -webkit-linear-gradient(top, #eee 0%, #ccc 100%);
+  background: linear-gradient(to bottom, #eee 0%, #ccc 100%);
+  color: #666;
+}
+
+a.button.active {
+  color: #333;
+  background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);
+  background: linear-gradient(to bottom, #ddd 0%, #bbb 100%);
+  box-shadow: none;
+  outline:0;
+}
+
+.modal .context-popup {
+  background-color: #eee;
+  width: 275px;
+  margin: 10% auto 0 auto;
+  max-height: 90%;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  overflow-y: hidden;
+}
+
+.modal .context-popup a.cancel-btn {
+  display: none;
+}
+
+.addShareRoom {
+  padding: 30px 0;
+}
+
+.checkswitch-wrapper {
+  padding: 20px 20px 10px 20px;
+}
+
+.checkswitch {
+  float: right;
+}
+
+.checkswitch input
+{
+    position: relative;
+    width:80px;
+    height:20px; 
+    display: block; 
+    -webkit-appearance:none; 
+    padding:0px;
+    margin:0px;
+    border-radius: 0;
+    z-index: 1;
+}
+
+.checkswitch label
+{
+    padding:0px;
+    margin:0px; 
+    width:80px;  
+    display: block; 
+    border: 1px solid #ddd;
+    height:20px;
+    margin-top:-20px;
+    margin-left:0px; 
+    position:relative; 
+    text-transform:uppercase;
+    overflow:hidden;
+    font-size: 70%;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    z-index: 0;
+}
+
+.checkswitch label span
+{
+    height:20px; 
+    width:40px;
+    display:block; 
+    line-height:20px; 
+    /*padding-left:5px; 
+    padding-right:5px;*/
+    text-align:center; 
+    -webkit-box-sizing:border-box; 
+    color:white; 
+    /*-webkit-transform:skew(-30deg,0deg);*/
+    position:absolute;
+    top:0px;
+}
+
+.checkswitch input + label span
+{   
+    background-color:rgba(153,153,153,1); 
+    left:-1px;
+}
+
+.checkswitch input:checked + label span
+{
+  background-color: orange;  
+  left:40px; 
+ 
+}
+
+.checkswitch input + label span:before
+{
+    /*-webkit-transform:skew(30deg,0deg);*/
+    display:block; 
+    content:attr(data-off); 
+    left:0px; 
+    right:0px; 
+    top:0px; 
+    bottom:0px;
+    position:absolute; 
+}
+
+.checkswitch input:checked + label span:before
+{   
+    content:attr(data-on); 
+    right:0px; 
+    left:0px; 
+    top:0px; 
+    bottom:0px;
+}
+
+@media all and (orientation:landscape) {
+  a.button,
+  button {
+    margin: 10px 20px;
+  }
+
+  div.login-input {
+    margin: 0 auto;
+  }
+
+  .checkswitch-wrapper {
+    margin: 0 auto;
+  }
+}

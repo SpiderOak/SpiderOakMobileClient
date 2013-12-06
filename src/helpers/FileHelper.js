@@ -9,116 +9,136 @@
   var FILETYPE_WORDDOC = {
       description: "MS Word",
       openInternally: false,
-      icon: "file-word"
+      icon: "doc"
     },
     FILETYPE_EXCEL = {
       description: "MS Excel",
       openInternally: false,
-      icon: "file-excel"
+      icon: "xls"
     },
     FILETYPE_POWERPOINT = {
       description: "MS PowerPoint",
       openInternally: false,
-      icon: "file-powerpoint"
+      icon: "ppt"
     },
     FILETYPE_PDF = {
       type: "application/pdf",
       description: "Adobe PDF",
       openInternally: false,
-      icon: "file-pdf"
+      icon: "pdf"
+    },
+    FILETYPE_ZIP = {
+      description: "Zip Archive",
+      openInternally: false,
+      icon: "zip"
     },
     FILETYPE_ARCHIVE = {
       description: "Archive",
       openInternally: false,
-      icon: "file-zip"
+      icon: "generic"
+    },
+    FILETYPE_RAR = {
+      description: "RAR Archive",
+      openInternally: false,
+      icon: "rar"
     },
     FILETYPE_JPEG = {
       type: "image/jpeg",
       description: "JPEG Image",
       openInternally: false,
-      icon: "image"
+      icon: "jpg"
     },
     FILETYPE_GIF = {
       type: "image/gif",
       description: "GIF Image",
       openInternally: false,
-      icon: "image"
+      icon: "gif"
     },
     FILETYPE_PNG = {
       type: "image/png",
       description: "PNG Image",
       openInternally: false,
-      icon: "image"
+      icon: "png"
+    },
+    FILETYPE_INDD = {
+      description: "In Design",
+      openInternally: false,
+      icon: "indd"
+    },
+    FILETYPE_EPS = {
+      description: "EPS",
+      openInternally: false,
+      icon: "eps"
     },
     FILETYPE_PSD = {
       description: "PSD Image",
       openInternally: false,
-      icon: "image"
+      icon: "psd"
     },
     FILETYPE_MARKDOWN = {
       type: "text/plain",
       description: "Markdown",
       openInternally: false,
-      icon: "file"
+      icon: "document"
     },
     FILETYPE_TEXT = {
       type: "text/plain",
       description: "Plain Text",
       openInternally: false,
-      icon: "file"
+      icon: "txt"
     },
     FILETYPE_HTML = {
       type: "text/html",
       description: "HTML",
       openInternally: false,
-      icon: "file-xml"
+      icon: "htm"
     },
     FILETYPE_XML = {
       type: "text/xml",
       description: "XML",
       openInternally: false,
-      icon: "file-xml"
+      icon: "xml"
     },
     FILETYPE_CSS = {
       description: "CSS",
       openInternally: false,
-      icon: "file-css"
+      icon: "css"
     },
     FILETYPE_JS = {
       description: "JavaScript",
       openInternally: false,
-      icon: "file-css"
+      icon: "js"
     },
     FILETYPE_PHP = {
       type: "text/plain",
       description: "PHP",
       openInternally: false,
-      icon: "file"
+      icon: "document"
     },
     FILETYPE_PAGES = {
       description: "Apple Pages",
       openInternally: false,
-      icon: "file-powerpoint"
+      icon: "document"
     },
     FILETYPE_NUMBERS = {
       description: "Apple Numbers",
       openInternally: false,
-      icon: "file"
+      icon: "spreadsheet"
     },
     FILETYPE_KEYNOTE = {
       description: "Apple Keynote",
       openInternally: false,
-      icon: "file-powerpoint"
+      icon: "presentation"
     },
     FILETYPE_RTF = {
       description: "Rich Text",
       openInternally: false,
-      icon: "file"
+      icon: "rtf"
     },
     FILETYPE_CSV = {
       description: "CSV",
       openInternally: false,
-      icon: "file"
+      icon: "document"
     },
     FILETYPE_VCARD = {
       description: "Vcard",
@@ -128,57 +148,67 @@
     FILETYPE_APK = {
       description: "Android APK",
       openInternally: false,
-      icon: "file"
-    },
-    FILETYPE_EBOOK = {
-      description: "Ebook",
-      openInternally: false,
-      icon: "file"
+      icon: "generic"
     },
     FILETYPE_HEADER = {
       type: "text/plain",
       description: "Header",
       openInternally: false,
-      icon: "file"
+      icon: "document"
     },
     FILETYPE_SOURCE = {
       type: "text/plain",
       description: "Source",
       openInternally: false,
-      icon: "file"
+      icon: "document"
     },
     FILETYPE_JAVA = {
       type: "text/plain",
       description: "Java",
       openInternally: false,
-      icon: "file"
+      icon: "document"
     },
     FILETYPE_ODS = {
       type: "application/vnd.oasis.opendocument.spreadsheet",
       description: "OpenOffice file",
       openInternally: false,
-      icon: "file-openoffice"
+      icon: "spreadsheet"
     },
     FILETYPE_ODT = {
       type: "application/vnd.oasis.opendocument.text",
       description: "OpenOffice file",
       openInternally: false,
-      icon: "file-openoffice"
+      icon: "document"
+    },
+    FILETYPE_MP3 = {
+      description: "MP3 File",
+      openInternally: false,
+      icon: "mp3"
     },
     FILETYPE_SOUND = {
       description: "Sound",
       openInternally: false,
-      icon: "music"
+      icon: "audio"
+    },
+    FILETYPE_MOV = {
+      description: "Video",
+      openInternally: false,
+      icon: "mov"
+    },
+    FILETYPE_AVI = {
+      description: "AVI File",
+      openInternally: false,
+      icon: "avi"
     },
     FILETYPE_VIDEO = {
       description: "Video",
       openInternally: false,
-      icon: "film"
+      icon: "video"
     },
     FILETYPE_UNKNOWN = {
       description: "Unknown",
       openInternally: false,
-      icon: "file"
+      icon: "generic"
     };
 
 
@@ -207,6 +237,12 @@
     }
     else if (fileExtension === "gif") {
         return FILETYPE_GIF;
+    }
+    else if (fileExtension === "indd") {
+        return FILETYPE_INDD;
+    }
+    else if (fileExtension === "eps") {
+        return FILETYPE_EPS;
     }
     else if (fileExtension === "jpg"|| fileExtension === "jpeg") {
         return FILETYPE_JPEG;
@@ -266,14 +302,10 @@
     else if (fileExtension === "java") {
         return FILETYPE_JAVA;
     }
-    else if (fileExtension === "mobi" ||
-            fileExtension === "epub") {
-        return FILETYPE_EBOOK;
-    }
     else if (fileExtension === "html" || fileExtension === "htm") {
        return FILETYPE_HTML;
     }
-    else if (fileExtension === "xml" || fileExtension === "plist") {
+    else if (fileExtension === "xml") {
        return FILETYPE_XML;
     }
     else if (fileExtension === "css") {
@@ -282,23 +314,36 @@
     else if (fileExtension === "js") {
        return FILETYPE_JS;
     }
+    else if (fileExtension === "mp3") {
+      return FILETYPE_MP3;
+    }
     else if (fileExtension === "m4a" ||
-              fileExtension === "mp3" ||
               fileExtension === "wav" ||
+              fileExtension === "aif" ||
               fileExtension === "ogm" ||
               fileExtension === "au") {
        return FILETYPE_SOUND;
     }
+    else if (fileExtension === "mov") {
+      return FILETYPE_MOV;
+    }
+    else if (fileExtension === "avi") {
+      return FILETYPE_AVI;
+    }
     else if (fileExtension === "mp4" ||
               fileExtension === "mpg" ||
-              fileExtension === "avi" ||
               fileExtension === "qt" ||
-              fileExtension === "mkv" ||
-              fileExtension === "mov") {
+              fileExtension === "mkv") {
        return FILETYPE_VIDEO;
     }
-    else if (fileExtension === "zip" || fileExtension === "tar" ||
-          fileExtension === "gz" ||  fileExtension === "rar") {
+    else if (fileExtension === "zip") {
+      return FILETYPE_ZIP;
+    }
+    else if (fileExtension === "rar") {
+      return FILETYPE_RAR;
+    }
+    else if(fileExtension === "tar" ||
+          fileExtension === "gz") {
        return FILETYPE_ARCHIVE;
     }
     return FILETYPE_UNKNOWN;

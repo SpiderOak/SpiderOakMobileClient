@@ -4,9 +4,9 @@
 
 [SpiderOak](http://spideroak.com) is reimplementing its mobile client applications as a central, platform-independent HTML5 / Javascript / CSS core, hybridized with native extensions to fill functionality gaps. This will replace the preceeding, entirely native applications. We see many benefits to the html5 approach, including (if we're diligent) comprehensiblility as well as versatility.
 
-There are many ways that access to our code can be useful. It can serve as guidance to people as examples for using our APIs. It can serve as a basis for implementing idiosyncratic functionality that they need. It can provide the opportunity to contribute to and help grow this useful tool, itself. These and other reasons are why we make the code openly available, and the development process reasonably transparent.
+There are many ways that access to our code can be useful. It can serve as guidance to people as examples for using our APIs. It can serve as a base for implementation of custom functionality that they need. It can provide the opportunity to contribute to and help grow this useful tool, itself. These and other reasons are why we make the code openly available, and the development process reasonably transparent.
 
-Hence the code is officially available as free/open source software, under the terms of [the Apache 2.0 license](https://github.com/SpiderOak/SpiderOakMobileClient/blob/master/LICENSE), and we are conducting our development in a github [public repository](https://github.com/SpiderOak/SpiderOakMobileClient).
+Therefore, the code is officially available as free/open source software, under the terms of [the Apache 2.0 license](https://github.com/SpiderOak/SpiderOakMobileClient/blob/master/LICENSE), and we are conducting our development in a github [public repository](https://github.com/SpiderOak/SpiderOakMobileClient).
 
 It's worth mentioning that this mobile client is extremely important to SpiderOak as a business. We are opening the source in order to make the development effort more immediately useful, in ways described above, as well as to leverage various collaboration opportunities that such openness affords. We will continue to devote core internal development resources to this effort.
 
@@ -29,13 +29,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - cd into the project folder
 - `npm install` to install node_modules and js/css components (`npm install` will also run `bower install`).
 - `cordova platform add ios` and/or `cordova platform add android`
-
-### Adding the plugin(s)
-- create a SpiderOakMobileClient project subdirectory named `plugins`
-	- `mkdir plugins`
-- include FileViewerPlugin:
-	- clone the [FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin) somewhere
-	- add the FileViewerPlugin to the project: `cordova plugin add /path/to/FileViewerPlugin`
+- `npm run pluginstall` to install any plugins needed
 
 ## First test
 

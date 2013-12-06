@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.SettingsCollection = Backbone.Collection.extend({
+  spiderOakApp.SettingsCollection = spiderOakApp.CollectionBase.extend({
     retentionPrefix: "spiderOakApp_settings_",
     model: spiderOakApp.SettingModel,
 
@@ -140,6 +140,15 @@
         }
       });
       window.store.set(this.retentionName(), JSON.stringify(retain));
+    },
+    /** Debugging convenience. */
+    matchingSettings: function(matchExpr) {
+      return _.filter(
+        this.models,
+        function (model) {
+          return model.id.match(matchExpr) ? model : undefined;
+        }
+      );
     },
     removeRetainedSettings: function() {
       window.store.remove(this.retentionName());

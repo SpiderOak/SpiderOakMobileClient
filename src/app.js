@@ -39,7 +39,13 @@
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
+      document.addEventListener("loginStartChange",
+                                this.onLoginStartChange, false);
+      document.addEventListener("loginConcludeChange",
+                                this.onLoginConcludeChange, false);
       document.addEventListener("resume", this.onResume, false);
+      document.addEventListener("pause", this.onPause, false);
+      document.addEventListener("resign", this.onResign, false);
       document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
     },
@@ -74,6 +80,8 @@
         // Set some limits for Android 2.x
         spiderOakApp.maxEntries = 100;
       }
+
+      window.iconType = (window.Modernizr.svg) ? "svg" : "png";
 
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
@@ -198,6 +206,23 @@
         spiderOakApp.accountModel.basicAuthManager
           .setAccountBasicAuth(credentials[0], credentials[1]);
         spiderOakApp.onLoginSuccess();
+        var passcode = spiderOakApp.settings.getOrDefault("passcode",
+                                                          undefined);
+        if (passcode) {
+          if (! spiderOakApp.accountModel.getLoginState) {
+            // This shouldn't happen:
+            console.log("Unexpected application state: passcode " +
+                        "set without active login - removing it.");
+            // No passcode operation while not logged in
+            spiderOakApp.settings.remove("passcode");
+          }
+          else {
+            this.passcodeAuthEntryView =
+              new spiderOakApp.SettingsPasscodeAuthView();
+            $(".app").append(this.passcodeAuthEntryView.el);
+            this.passcodeAuthEntryView.render().show();
+          }
+        }
         spiderOakApp.loginView.dismiss();
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
@@ -217,21 +242,16 @@
     backDisabled: true,
     onDeviceReady: function() {
       window.spiderOakApp.initialize();
-      document.addEventListener(
-        "backbutton",
-        spiderOakApp.onBackKeyDown,
-        false
-      );
-      document.addEventListener(
-        "menubutton",
-        spiderOakApp.onMenuKeyDown,
-        false
-      );
-      // @FIXME: This seems cludgey
-      if (window.cssLoaded) navigator.splashscreen.hide();
+      $(document).on("backbutton", spiderOakApp.onBackKeyDown);
+      $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
+      if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
+        $(".app").css({"top":"20px"}); // status bar hax
+      }
+      //window.navigator.splashscreen.hide();
       // @TODO: Instantiate any plugins
-      spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
-        window.cordova.require("cordova/plugin/fileviewerplugin");
+      // spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
+      //   window.cordova.require("cordova/plugin/fileviewerplugin");
+      spiderOakApp.fileViewer = window.FileViewerPlugin;
     },
     setOnline: function(event) {
       if (!this.networkAvailable) {
@@ -256,8 +276,36 @@
       );
       spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
+    onPause: function(event) {
+      spiderOakApp.lastPaused = Date.now();
+      if ($(".modal").is(":visible")) {
+        // cancel pending doesnloads, etc
+        window.cordova.fireDocumentEvent("backbutton");
+      }
+    },
     onResume: function(event) {
-      // ...
+      // This isn't quick enough on iOS as it saves a shot of what was on the
+      //    screen when pausing and uses that as a splash screen of sorts.
+      //    We might need to use the splash screen plugin...
+      var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+      if (passcode && ! spiderOakApp.accountModel.getLoginState()) {
+        console.log("Unexpected application state: passcode " +
+                    "set without active login - removing it.");
+        spiderOakApp.settings.remove("passcode");
+        return;
+      }
+
+      var passcodeTimeout =
+            spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var timeoutInMinutes =
+        Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
+      if (passcode && (timeoutInMinutes >= passcodeTimeout)) {
+        spiderOakApp.fileViewer.hide();
+        this.passcodeAuthEntryView =
+          new spiderOakApp.SettingsPasscodeAuthView();
+        $(".app").append(this.passcodeAuthEntryView.el);
+        this.passcodeAuthEntryView.render().show();
+      }
     },
     onLoginSuccess: function() {
       spiderOakApp.menuSheetView.render();
@@ -311,6 +359,10 @@
     },
     onBackKeyDown: function(event) {
       event.preventDefault();
+      if (spiderOakApp.accountModel.getLoginState() === "in-process") {
+        spiderOakApp.accountModel.interruptLogin();
+        return;
+      }
       if ($(".modal").is(":visible") ||
           $(".learn-about-spideroak").is(":visible")) {
         return;
@@ -321,7 +373,7 @@
         return;
       }
       if ($(".nav .back-btn").is(":visible")) {
-        spiderOakApp.navigator.popView(spiderOakApp.defaultEffect);
+        spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
         return;
       }
       // navigator.app.exitApp();
@@ -350,7 +402,8 @@
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
-    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : null),
+    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect()),
+    defaultPopEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect({direction:'right'})),
     b32nibbler: new window.Nibbler({dataBits: 8,
                                     codeBits: 5,
                                     keyString:
@@ -385,49 +438,6 @@
       return ajaxFunction(options);
     }
   });
-
-  /*
-   * How a model in our framework determines its' composite URL.
-   *
-   * The URL is a concatenation of model and collection url elements.  Any
-   * prevailing elements that are functions are evaluated, as methods on
-   * the object from which they were obtained, for their result.
-   *
-   * - A head part is taken in this order of precedence:
-   *   - the model's .get("urlBase")
-   *   - or the model's urlBase attribute
-   *   - or the containing collection's .urlBase
-   *   - or the containing collection's .url
-   * - The url part is taken from the model's .get("url").
-   *
-   * @this{model}
-   # @param {boolen} bare - when set, strip any query string
-   */
-  Backbone.Model.prototype.composedUrl = function(bare) {
-    var urlTail = this.get("url");
-    var collection = this.collection;
-    var urlHead = this.get("urlBase") || this.urlBase;
-    var urlHeadObject = urlHead && this;
-    if (! urlHead && collection) {
-      urlHead = (collection.get("urlBase") ||
-                  collection.urlBase ||
-                  collection.url ||
-                  "");
-      urlHeadObject = urlHead && collection;
-    }
-    if (typeof urlHead === "function") {
-      urlHead = urlHead.call(urlHeadObject);
-    }
-    if (typeof urlTail === "function") {
-      urlTail = urlTail.call(this);
-    }
-    if (bare) {
-      urlHead = urlHead && urlHead.split("?")[0];
-      urlTail = urlTail && urlTail.split("?")[0];
-    }
-    var result = (urlHead || "") + (urlTail || "");
-    return result;
-  };
 
   if (! window.cordova || window.cordova.cordovaAbsent) {
     /* Polyfill for file downloader functionality. */

@@ -9,7 +9,7 @@
       _           = window._,
       $           = window.$;
 
-  spiderOakApp.RecentsCollection = Backbone.Collection.extend({
+  spiderOakApp.RecentsCollection = spiderOakApp.CollectionBase.extend({
     model: spiderOakApp.RecentModel
   });
 

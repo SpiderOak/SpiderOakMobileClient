@@ -67,7 +67,7 @@ describe('FileItemVersionsCollection', function() {
     it('should assign the correct additional attributes in the model(s)', function() {
       var model = this.collection.at(0);
       model.get("description").should.equal("Adobe PDF");
-      model.get("icon").should.equal("file-pdf");
+      model.get("icon").should.equal("pdf");
       model.get("openInternally").should.equal(false);
       model.get("type").should.equal("application/pdf");
     });

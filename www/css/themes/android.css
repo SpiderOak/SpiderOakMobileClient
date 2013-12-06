@@ -26,14 +26,29 @@ body {
   background-position: 0 17.5px, 13px 7.5px;
 }
 
+.nav .icon-btn {
+  color: rgba(0,0,0,0);
+  display: block;
+  position: absolute; 
+  left: 0;
+  padding: 0 3px;
+  background: url('../img/icon.png') no-repeat;
+  width: 48px;
+  height:48px;
+  background-size: 35px;
+  background-position: 13px 7.5px;
+}
+
 .nav .menu-btn.active,
 .nav .back-btn.active,
+.nav .passcode-cancel-btn.active,
 .nav .clear-recents-btn.active,
 .nav .add-sharerooms-btn.active,
 .nav .refresh-favorites-btn.active {
 	background-color: #333;
 }
 
+.nav .passcode-cancel-btn,
 .nav .clear-recents-btn,
 .nav .add-sharerooms-btn,
 .nav .refresh-favorites-btn {
@@ -88,6 +103,10 @@ ul li a.active {
   /*background-color: #3366cc;*/
   background-color: #ccc;
   color: black;
+}
+
+ul li.small {
+  font-size: 80%;
 }
 
 .menu {
@@ -147,7 +166,6 @@ div.login-input.focused {
   position: relative;
   border-bottom: solid 1px orange;
   border-left: solid 1px orange;
-  margin: 20px;
   border-right: solid 1px orange;
   overflow: visible;
   max-height: 0.1em;
@@ -263,6 +281,10 @@ a.button.active {
   overflow-y: hidden;
 }
 
+.modal .context-popup a.cancel-btn {
+  display: none;
+}
+
 .addShareRoom {
   padding: 30px 0;
 }
@@ -354,4 +376,22 @@ a.button.active {
     left:0px; 
     top:0px; 
     bottom:0px;
+}
+
+@media all and (orientation:landscape) {
+  a.button,
+  button {
+    width: 260px;
+    margin: 10px auto;
+  }
+
+  div.login-input {
+    width: 320px;
+    margin: 20px auto;
+  }
+
+  .checkswitch-wrapper {
+    width: 320px;
+    margin: 0 auto;
+  }
 }

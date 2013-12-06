@@ -10,11 +10,12 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.SettingsView = Backbone.View.extend({
+  spiderOakApp.SettingsView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     events: {
       "tap .send-feedback": "feedback_tapHandler",
       "tap .account-settings": "accountSettings_tapHandler",
+      "tap .account-passcode-set": "accountPasscodeSet_tapHandler",
       "tap .server": "server_tapHandler",
       "tap .logout": "logout_tapHandler",
       "change #settings-rememberme": "rememberMe_changeHandler"
@@ -35,6 +36,8 @@
       this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.getValue("server")});
+      this.settingsInfo.passcode =
+        spiderOakApp.settings.getOrDefault("passcode", "");
       this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -51,19 +54,30 @@
     },
     feedback_tapHandler: function() {
       // @FIXME: This is a bit Android-centric
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       var platform = (($.os.android)?"Android":"iOS");
       var subject = ("Feedback on " + s("SpiderOak") + platform +
                      " app version " + spiderOakApp.version);
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
-        window.spiderOakApp.settings.getValue("contactEmail") ||
-        platform + "@" + s("spideroak.com");
+        window.spiderOakApp.settings.getOrDefault("contactEmail",
+          platform + "@" + s("spideroak.com"));
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,
         type: "text/plain",
         extras: extras
       };
+      if ($.os.ios) {
+        window.location.href = "mailto:"+
+            extras[spiderOakApp.fileViewer.EXTRA_EMAIL]+
+            "?subject="+
+            extras[spiderOakApp.fileViewer.EXTRA_SUBJECT];
+        return;
+      }
       spiderOakApp.fileViewer.share(
         params,
         function(){
@@ -75,9 +89,24 @@
       );
     },
     accountSettings_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsAccountView,
         {},
+        spiderOakApp.defaultEffect
+      );
+    },
+    accountPasscodeSet_tapHandler: function(event) {
+      event.preventDefault();
+      var action =
+        (spiderOakApp.settings.getOrDefault("passcode",
+                                            undefined)) ? "auth" : "set";
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeEntryView,
+        {action: action},
         spiderOakApp.defaultEffect
       );
     },
@@ -106,11 +135,18 @@
         }
       }
       else {
+        if (spiderOakApp.settings.getOrDefault("passcode")) {
+          spiderOakApp.accountModel.unsetPasscode();
+        }
         spiderOakApp.settings.remove("rememberedAccount");
         spiderOakApp.settings.saveRetainedSettings();
       }
     },
     server_tapHandler: function(event) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       var settingsServerView = new spiderOakApp.SettingsServerView({
         model: spiderOakApp.settings.get("server")
       });
@@ -121,7 +157,11 @@
       );
     },
     logout_tapHandler: function(event) {
-      if (spiderOakApp.accountModel.get("isLoggedIn")) {
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
+      if (spiderOakApp.accountModel.getLoginState() === true) {
         window.setTimeout(function(){
           navigator.notification.confirm(
             'Are you sure you want to sign out?',
@@ -185,7 +225,7 @@
     }
   });
 
-  spiderOakApp.SettingsAccountView = Backbone.View.extend({
+  spiderOakApp.SettingsAccountView = spiderOakApp.ViewBase.extend({
     // Derive from this and define your particular rendering.
     templateID: "settingsAccountViewTemplate",
     viewTitle: "Account",
@@ -249,7 +289,7 @@
     }
   });
 
-  spiderOakApp.SettingsServerView = Backbone.View.extend({
+  spiderOakApp.SettingsServerView = spiderOakApp.ViewBase.extend({
     name: "Server Address",
     templateID: "settingsServerViewTemplate",
     events: {
@@ -272,7 +312,7 @@
     getTemplateValues: function() {
       return {
         server: this.model.get("value"),
-        isLoggedIn: spiderOakApp.accountModel.get("isLoggedIn")
+        isLoggedIn: (spiderOakApp.accountModel.getLoginState() === true)
       };
     },
     viewChanging: function(event) {
@@ -319,7 +359,7 @@
         spiderOakApp.navigator.popView();
       }
       else {
-        var didLogout = spiderOakApp.accountModel.get("isLoggedIn");
+        var wasLoggedIn = (spiderOakApp.accountModel.getLoginState() === true);
 
         /** Take suitable action, from handleLoginProbeResult.
          *
@@ -329,7 +369,7 @@
         var concludeServerChangeAttempt = function() {
           spiderOakApp.dialogView.hide();
           var subtitle = "Service host changed to " + newServer;
-          if (didLogout) {
+          if (wasLoggedIn) {
             subtitle += "\nand session logged out";
           }
           this.model.set("value", newServer);
@@ -377,8 +417,8 @@
 
             // (Recheck the login status, to prevent some potential gambits
             // for suborned servers to try.)
-            if (spiderOakApp.accountModel.get("isLoggedIn")) {
-              didLogout = true;
+            if (spiderOakApp.accountModel.getLoginState() === true) {
+              wasLoggedIn = true;
               spiderOakApp.accountModel.logout(concludeServerChangeAttempt);
             }
             else {
@@ -397,11 +437,357 @@
     },
     changeServerButton_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       this.form_submitHandler(event);
     },
     close: function(){
       this.remove();
       this.unbind();
+    }
+  });
+
+  spiderOakApp.SettingsPasscodeEntryView = spiderOakApp.ViewBase.extend({
+    templateID: "passcodeEntryViewTemplate",
+    viewTitle: "Enter Passcode",
+    destructionPolicy: "never",
+    events: {
+      "touchstart .pinpad .num": "pinpadNum_tapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+      this.action = this.options.action || "set";
+      this.incorrectAttempts = 0;
+      this.maxIncorrectAttempts = 5;
+    },
+    render: function() {
+      var title = "Enter a new 4 digit passcode";
+      if (this.action === "auth" || this.action === "remove") {
+        title = "Enter your current 4 digit passcode";
+      }
+      if (this.action === "confirm") {
+        title = "Re-enter your new 4 digit passcode";
+      }
+      this.$el.html(window.tmpl[this.templateID]({
+        title: title,
+        actionBar: false
+      }));
+      return this;
+    },
+    pinpadNum_tapHandler: function(event) {
+      event.preventDefault();
+      var $passcodeInput = this.$(".passcode");
+      var $target = $(event.target);
+      var passcode = $passcodeInput.val();
+      var num = '';
+      if ($target.hasClass("num")) {
+        num = $target.find(".number").text();
+      } else {
+        num = $target.closest(".num").find(".number").text();
+      }
+      if (!num) {
+        // backspace
+        if (!passcode.length) return;
+        passcode = passcode.substr(0, (passcode.length - 1));
+        $passcodeInput.val(passcode);
+        return;
+      }
+      if (passcode.length < 3) {
+        $passcodeInput.val(passcode.toString()+num);
+        // add it and wait for more...
+        return;
+      } else if (passcode.length === 3) {
+        $passcodeInput.val(passcode.toString()+num);
+        passcode = $passcodeInput.val();
+        // we are done. go to the next screen
+        if (this.action === "set") {
+          spiderOakApp.navigator.pushView(
+            spiderOakApp.SettingsPasscodeEntryView,
+            {action: "confirm", passcode: passcode},
+            spiderOakApp.defaultEffect
+          );
+        } else if (this.action === "confirm") {
+          if (this.options.passcode === passcode) {
+            spiderOakApp.accountModel.setPasscode(passcode);
+            // Then pop to the settings screen
+            spiderOakApp.navigator.replaceAll(
+              spiderOakApp.SettingsView,
+              {},
+              spiderOakApp.defaultPopEffect
+            );
+          } else {
+            spiderOakApp.dialogView.showNotify({
+              title: "Error",
+              subtitle: "Passcodes do not match. <br>Try again."
+            });
+            // Clear the confirm code so they can try again
+            $passcodeInput.val("");
+          }
+        } else { // action === auth
+          // Push to the passcode options screen
+          if (spiderOakApp.settings.getValue("passcode") === passcode) {
+            if (spiderOakApp.navigator.viewsStack[
+                  spiderOakApp.navigator.viewsStack.length - 2
+                ].instance
+                  instanceof spiderOakApp.SettingsPasscodeView) {
+              if (this.action === "remove") {
+                spiderOakApp.accountModel.unsetPasscode();
+                spiderOakApp.navigator.replaceAll(
+                  spiderOakApp.SettingsView,
+                  {},
+                  spiderOakApp.defaultPopEffect
+                );
+              } else {
+                spiderOakApp.navigator.pushView(
+                  spiderOakApp.SettingsPasscodeEntryView,
+                  {action: "set"},
+                  spiderOakApp.defaultEffect
+                );
+              }
+            } else {
+              spiderOakApp.navigator.replaceView(
+                spiderOakApp.SettingsPasscodeView,
+                {},
+                spiderOakApp.defaultEffect
+              );
+            }
+          } else {
+            this.incorrectAttempts++;
+            var tooMany = (this.incorrectAttempts >= this.maxIncorrectAttempts);
+            spiderOakApp.dialogView.showNotify({
+              title: "Error",
+              subtitle: "Passcode incorrect." +
+                ((tooMany) ? "<br>Too many attempts." : "<br>Try again.") +
+                "<br><br>attempt " + this.incorrectAttempts + " of " +
+                this.maxIncorrectAttempts
+            });
+            if (tooMany) {
+              spiderOakApp.accountModel.bypassPasscode();
+              spiderOakApp.accountModel.logout();
+              this.dismiss();
+            }
+            // Clear the confirm code so they can try again
+            $passcodeInput.val("");
+          }
+        }
+      }
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.viewTitle);
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.remove();
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+    }
+  });
+
+ spiderOakApp.SettingsPasscodeView = spiderOakApp.ViewBase.extend({
+    templateID: "settingsPasscodeViewTemplate",
+    viewTitle: "Passcode settings",
+    destructionPolicy: "never",
+    events: {
+      "tap .passcode-settings-change":"passcodeSettingsChange_tapHandler",
+      "tap .passcode-settings-off":"passcodeSettingsRemove_tapHandler",
+      "tap .passcode-settings-timeout":"passcodeSettingsTimeout_tapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var timeoutLabel = "Immediately";
+      switch (timeout) {
+        case "1":
+          timeoutLabel = "After 1 minute";
+          break;
+        case "5":
+          timeoutLabel = "After 5 minutes";
+          break;
+        case "15":
+          timeoutLabel = "After 15 minutes";
+          break;
+        case "60":
+          timeoutLabel = "After 1 hour";
+          break;
+        case "60":
+          timeoutLabel = "After 1 hour";
+          break;
+        case "240":
+          timeoutLabel = "After 4 hours";
+          break;
+        default:
+          timeoutLabel = "Immediately";
+      }
+      this.$el.html(window.tmpl[this.templateID]({
+        timeoutLabel: timeoutLabel
+      }));
+      return this;
+    },
+    passcodeSettingsChange_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeEntryView,
+        {action: "auth"},
+        spiderOakApp.defaultEffect
+      );
+    },
+    passcodeSettingsRemove_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeEntryView,
+        {action: "remove"},
+        spiderOakApp.defaultEffect
+      );
+    },
+    passcodeSettingsTimeout_tapHandler: function(event) {
+      event.preventDefault();
+      spiderOakApp.navigator.pushView(
+        spiderOakApp.SettingsPasscodeTimeoutView,
+        {},
+        spiderOakApp.defaultEffect
+      );
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.viewTitle);
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
+      spiderOakApp.backDisabled = false;
+      this.render();
+    },
+    viewDeactivate: function(event) {
+      this.remove();
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+    }
+  });
+
+ spiderOakApp.SettingsPasscodeTimeoutView = spiderOakApp.ViewBase.extend({
+    templateID: "settingsPasscodeTimeoutViewTemplate",
+    viewTitle: "Require passcode",
+    destructionPolicy: "never",
+    events: {
+      "tap a.timeout": "aTimeout_tapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.on("viewActivate",this.viewActivate);
+      this.on("viewDeactivate",this.viewDeactivate);
+      spiderOakApp.navigator.on("viewChanging",this.viewChanging);
+    },
+    render: function() {
+      var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      this.$el.html(window.tmpl[this.templateID]({}));
+      this.$("a[data-timeout='"+timeout+"'] .info")
+        .addClass("icon-checkmark");
+      return this;
+    },
+    aTimeout_tapHandler: function(event) {
+      var $target = $(event.target);
+      $target = $target.tagName === "A" ? $target : $target.closest("a");
+      var timeout = $target.data("timeout");
+      this.$(".info").removeClass("icon-checkmark");
+      $target.find(".info").addClass("icon-checkmark");
+      spiderOakApp.accountModel.setPasscodeTimeout(timeout);
+    },
+    viewChanging: function(event) {
+      if (!event.toView || event.toView === this) {
+        spiderOakApp.backDisabled = true;
+      }
+      if (event.toView === this) {
+        spiderOakApp.mainView.setTitle(this.viewTitle);
+        if (!!spiderOakApp.navigator.viewsStack[0] &&
+              spiderOakApp.navigator.viewsStack[0].instance === this) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else if (!spiderOakApp.navigator.viewsStack[0] ||
+            spiderOakApp.navigator.viewsStack.length === 0) {
+          spiderOakApp.mainView.showBackButton(false);
+        }
+        else {
+          spiderOakApp.mainView.showBackButton(true);
+        }
+      }
+    },
+    viewActivate: function(event) {
+      if (spiderOakApp.navigator.viewsStack[0].instance === this) {
+        spiderOakApp.mainView.showBackButton(false);
+      }
+      spiderOakApp.backDisabled = false;
+    },
+    viewDeactivate: function(event) {
+      this.remove();
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
     }
   });
 

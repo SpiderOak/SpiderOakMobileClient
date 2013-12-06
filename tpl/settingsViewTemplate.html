@@ -2,9 +2,9 @@
   <ul>
     <li><a class="send-feedback">Send feedback</a></li>
   </ul>
-  {{?spiderOakApp.accountModel.get("isLoggedIn")}}
+  {{?(spiderOakApp.accountModel.getLoginState() === true)}}
   <ul><li class="sep">Account</li></ul>
-  <ul style="font-size:80%;">
+  <ul>
     <li>
       <a class="account-settings">
         <div class="label">Name</div>
@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
       </a>
     </li>
-    <li style="padding: 15px 10px 25px 10px;">
+    <li>
       <span style="float:left;color:#666;">{{= s("Stay logged in") }}</span>
       <div class="checkswitch">
         <input type="checkbox"
@@ -25,6 +25,13 @@
       </div>
       <div class="clearfix"></div>
     </li>
+    <li>
+      <a class="account-passcode-set">
+        <div class="label">Passcode</div>
+        <div class="info">{{= it.passcode ? "On" : "Off" }}</div>
+        <div class="clearfix"></div>
+      </a>
+    </li>
   </ul>
   <!-- <ul>
     <li><a class="logout">Log Out</a></li>
@@ -36,7 +43,7 @@
   {{?}}
   {{? ! spiderOakApp.settings.getValue("inhibitAdvancedLogin")}}
   <ul><li class="sep">Primary Server</li></ul>
-  <ul style="font-size:80%;">
+  <ul>
     <li>
       <a class="server">
         <div class="label">Server</div>
@@ -47,14 +54,14 @@
   </ul>
   {{?}}
   <ul><li class="sep">Version</li></ul>
-  <ul style="font-size:80%;">
+  <ul>
     <li style="padding: 15px 10px 25px 10px;">
       <div class="label">Version</div>
       <div class="info">{{=spiderOakApp.version}}</div>
       <div class="clearfix"></div>
     </li>
   </ul>
-  {{?spiderOakApp.accountModel.get("isLoggedIn")}}
+  {{?spiderOakApp.accountModel.getLoginState() === true}}
   <form class="login-form">
     <div class="logoutText" style="display:none;">
       Logging out while <strong>Remember Me</strong> is active will clear your data from this device.

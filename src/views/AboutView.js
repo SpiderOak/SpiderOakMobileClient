@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.AboutView = Backbone.View.extend({
+  spiderOakApp.AboutView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
     events: {
       "tap .site-link": "siteLink_tapHandler",
@@ -36,24 +36,38 @@
     },
     siteLink_tapHandler: function(event) {
       event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
       event.stopPropagation();
       window.open($(event.target).data("url"), "_system");
 
     },
     emailLink_tapHandler: function(event) {
       // @FIXME: This is a bit Android-centric
+      if ($("#main").hasClass("open")) {
+        event.preventDefault();
+        return;
+      }
       var subject = "Feedback on " + s("SpiderOak") + " " +
             this.settings.platform + " app version " + spiderOakApp.version;
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
-        window.spiderOakApp.settings.getValue("contactEmail") ||
-        this.settings.platform + "@spideroak.com";
+        window.spiderOakApp.settings.getOrDefault("contactEmail",
+          this.settings.platform + "@spideroak.com");
       var params = {
         action: spiderOakApp.fileViewer.ACTION_SEND,
         type: "text/plain",
         extras: extras
       };
+      if ($.os.ios) {
+        window.location.href = "mailto:"+
+            extras[spiderOakApp.fileViewer.EXTRA_EMAIL]+
+            "?subject="+
+            extras[spiderOakApp.fileViewer.EXTRA_SUBJECT];
+        return;
+      }
       spiderOakApp.fileViewer.share(
         params,
         function(){

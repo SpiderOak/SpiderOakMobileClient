@@ -19,7 +19,9 @@
     { file: 'cordova_ios_57.png', dest: 'icon.png' },
     { file: 'cordova_ios_114.png', dest: 'icon@2x.png' },
     { file: 'cordova_ios_72.png', dest: 'icon-72.png' },
-    { file: 'cordova_ios_144.png', dest: 'icon-72@2x.png' }
+    { file: 'cordova_ios_120.png', dest: 'icon-120.png' },
+    { file: 'cordova_ios_144.png', dest: 'icon-144@2x.png' },
+    { file: 'cordova_ios_152.png', dest: 'icon-52@2x.png' }
   ];
 
   function copyFile(from, to) {

@@ -10,7 +10,7 @@
       $           = window.$,
       s           = window.s;
 
-  spiderOakApp.LoginView = Backbone.View.extend({
+  spiderOakApp.LoginView = spiderOakApp.ViewBase.extend({
     el: "#login",
     events: {
       "submit form": "form_submitHandler",
@@ -79,8 +79,13 @@
         // Clear it out
         account.loggedOut();
         // @TODO: Unblock spinner
-        var msg;
-        if (status === 401) {
+        var msg,
+            silent = false;
+        if ((status === 0) && (error === "interrupted")) {
+          msg = "Authentication interrupted";
+          silent = true;
+        }
+        else if (status === 401) {
           msg = "Authentication failed - Unauthorized.";
         }
         else if (status === 403) {
@@ -106,7 +111,9 @@
 
         spiderOakApp.dialogView.hide();
 
-        navigator.notification.alert(msg, null, "Authentication error", "OK");
+        if (! silent) {
+          navigator.notification.alert(msg, null, "Authentication error", "OK");
+        }
       };
 
       if(document.activeElement) {
@@ -176,7 +183,7 @@
   });
   spiderOakApp.loginView = new spiderOakApp.LoginView().render();
 
-  spiderOakApp.RememberMeWarningView = Backbone.View.extend({
+  spiderOakApp.RememberMeWarningView = spiderOakApp.ViewBase.extend({
     className: "rememberme-warning",
     destructionPolicy: "never",
     events: {
@@ -238,6 +245,119 @@
     close: function() {
       // Clean up our subviews
       this.scroller.destroy();
+    }
+  });
+
+  // Wasn't sure where else to put this?
+  spiderOakApp.SettingsPasscodeAuthView = spiderOakApp.ViewBase.extend({
+    viewTitle: "Enter Passcode",
+    className: "passcode-auth-entry",
+    events: {
+      "touchstart .pinpad .num": "pinpadNum_tapHandler",
+      "tap .passcode-cancel-btn": "a_bypassTapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.action = "auth";
+      this.incorrectAttempts = 0;
+      this.maxIncorrectAttempts = 5;
+    },
+    render: function() {
+      var title = "Enter your 4 digit passcode to unlock";
+      this.$el.html(window.tmpl["passcodeEntryViewTemplate"]({
+        title: title,
+        actionBar: true
+      }));
+      this.$el.css("-webkit-transform","translate3d(0,100%,0)");
+      return this;
+    },
+    show: function() {
+      // THERE CAN BE ONLY ONE!!
+      if ($(".main").hasClass("passcodeActive")) {
+        return;
+      }
+      $(".main").addClass("passcodeActive");
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+    },
+    dismiss: function(event) {
+      this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
+        duration: 100,
+        complete: function() {
+          $(".main").removeClass("passcodeActive");
+          this.remove();
+        }.bind(this)
+      });
+    },
+    // This is WET-ter than it could be
+    pinpadNum_tapHandler: function(event) {
+      event.preventDefault();
+      var $passcodeInput = this.$(".passcode");
+      var $target = $(event.target);
+      var passcode = $passcodeInput.val();
+      var num = '';
+      if ($target.hasClass("num")) {
+        num = $target.find(".number").text();
+      } else {
+        num = $target.closest(".num").find(".number").text();
+      }
+      if (!num) {
+        // backspace
+        if (!passcode.length) return;
+        passcode = passcode.substr(0, (passcode.length - 1));
+        $passcodeInput.val(passcode);
+        return;
+      }
+      if (passcode.length < 3) {
+        $passcodeInput.val(passcode.toString()+num);
+        // add it and wait for more...
+        return;
+      } else if (passcode.length === 3) {
+        $passcodeInput.val(passcode.toString()+num);
+        passcode = $passcodeInput.val();
+        if (spiderOakApp.settings.getValue("passcode") === passcode) {
+          this.dismiss();
+        } else {
+          this.incorrectAttempts++;
+          var tooMany = (this.incorrectAttempts >= this.maxIncorrectAttempts);
+          spiderOakApp.dialogView.showNotify({
+            title: "Error",
+            subtitle: "Passcode incorrect." +
+              ((tooMany) ? "<br>Too many attempts." : "<br>Try again.") +
+              "<br><br>attempt " + this.incorrectAttempts + " of " +
+              this.maxIncorrectAttempts
+          });
+          if (tooMany) {
+            spiderOakApp.accountModel.bypassPasscode();
+            spiderOakApp.accountModel.logout();
+            this.dismiss();
+          }
+          // Clear the confirm code so they can try again
+          $passcodeInput.val("");
+        }
+      }
+    },
+    a_bypassTapHandler: function(event) {
+      event.preventDefault();
+      navigator.notification.confirm(
+        "Bypass passcode and log out?",
+        function (ok) {
+          if (ok === 1) {
+            spiderOakApp.accountModel.bypassPasscode();
+            spiderOakApp.accountModel.logout();
+            this.dismiss();
+          }
+        }.bind(this),
+        "Bypass passcode?",
+        "Yes,No");
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
     }
   });
 

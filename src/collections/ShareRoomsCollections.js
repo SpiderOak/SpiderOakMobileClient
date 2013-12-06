@@ -40,7 +40,7 @@
        */
       if (! spiderOakApp.visitingPubShares) {
         spiderOakApp.visitingPubShares = this.getRetainedRecords();
-        if (spiderOakApp.accountModel.get("isLoggedIn")) {
+        if (spiderOakApp.accountModel.getLoginState() === true) {
           // Include the records from the anonymous collection, too:
           spiderOakApp.visitingPubSharesAnon = this.getRetainedRecords(true);
         }
@@ -177,10 +177,10 @@
         return ShareRoomsCollection.prototype.initialize.call(this);
       }
       finally {
-        this.on("reset", this.resetHandler, this);
+        this.on("complete", this.completeHandler, this);
       }
     },
-    resetHandler: function(options) {
+    completeHandler: function(options) {
       this.each(function (model) {
         // Don't pass the options we get - they're for the collection.
         model.fetch();

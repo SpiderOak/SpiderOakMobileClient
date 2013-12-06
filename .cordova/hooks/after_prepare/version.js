@@ -34,7 +34,6 @@
       )
     );
     var package = config.getroot().attrib.id.split(".");
-    var version = config.getroot().attrib.version;
     package.pop();
     package.push(projectName);
     infoPlist['CFBundleIdentifier'] = package.join(".");

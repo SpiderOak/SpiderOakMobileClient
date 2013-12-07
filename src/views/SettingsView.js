@@ -527,7 +527,7 @@
           }
         } else { // action === auth
           // Push to the passcode options screen
-          if (spiderOakApp.settings.getValue("passcode") === passcode) {
+          if (spiderOakApp.accountModel.getPasscode() === passcode) {
             if (spiderOakApp.navigator.viewsStack[
                   spiderOakApp.navigator.viewsStack.length - 2
                 ].instance

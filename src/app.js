@@ -206,15 +206,12 @@
         spiderOakApp.accountModel.basicAuthManager
           .setAccountBasicAuth(credentials[0], credentials[1]);
         spiderOakApp.onLoginSuccess();
-        var passcode = spiderOakApp.settings.getOrDefault("passcode",
-                                                          undefined);
+        var passcode = spiderOakApp.accountModel.getPasscode();
         if (passcode) {
           if (! spiderOakApp.accountModel.getLoginState) {
             // This shouldn't happen:
             console.log("Unexpected application state: passcode " +
                         "set without active login - removing it.");
-            // No passcode operation while not logged in
-            spiderOakApp.settings.remove("passcode");
           }
           else {
             this.passcodeAuthEntryView =
@@ -287,16 +284,14 @@
       // This isn't quick enough on iOS as it saves a shot of what was on the
       //    screen when pausing and uses that as a splash screen of sorts.
       //    We might need to use the splash screen plugin...
-      var passcode = spiderOakApp.settings.getOrDefault("passcode", undefined);
+      var passcode = spiderOakApp.accountModel.getPasscode();
       if (passcode && ! spiderOakApp.accountModel.getLoginState()) {
         console.log("Unexpected application state: passcode " +
-                    "set without active login - removing it.");
-        spiderOakApp.settings.remove("passcode");
+                    "set without active login.");
         return;
       }
 
-      var passcodeTimeout =
-            spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var passcodeTimeout = spiderOakApp.accountModel.getPasscodeTimeout();
       var timeoutInMinutes =
         Math.floor(((Date.now() - spiderOakApp.lastPaused) / 1000) / 60);
       if (passcode && (timeoutInMinutes >= passcodeTimeout)) {

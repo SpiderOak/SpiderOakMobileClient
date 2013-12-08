@@ -36,8 +36,7 @@
       this.settingsInfo.lastname = this.settingsInfo.lastname || "";
       _.extend(this.settingsInfo,
                {server: spiderOakApp.settings.getValue("server")});
-      this.settingsInfo.passcode =
-        spiderOakApp.settings.getOrDefault("passcode", "");
+      this.settingsInfo.passcode = spiderOakApp.accountModel.getPasscode();
       this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
@@ -102,8 +101,7 @@
     accountPasscodeSet_tapHandler: function(event) {
       event.preventDefault();
       var action =
-        (spiderOakApp.settings.getOrDefault("passcode",
-                                            undefined)) ? "auth" : "set";
+        (spiderOakApp.accountModel.getPasscode()) ? "auth" : "set";
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsPasscodeEntryView,
         {action: action},
@@ -135,7 +133,7 @@
         }
       }
       else {
-        if (spiderOakApp.settings.getOrDefault("passcode")) {
+        if (spiderOakApp.accountModel.getPasscode()) {
           spiderOakApp.accountModel.unsetPasscode();
         }
         spiderOakApp.settings.remove("rememberedAccount");
@@ -529,7 +527,7 @@
           }
         } else { // action === auth
           // Push to the passcode options screen
-          if (spiderOakApp.settings.getValue("passcode") === passcode) {
+          if (spiderOakApp.accountModel.getPasscode() === passcode) {
             if (spiderOakApp.navigator.viewsStack[
                   spiderOakApp.navigator.viewsStack.length - 2
                 ].instance
@@ -631,25 +629,22 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var timeout = spiderOakApp.accountModel.getPasscodeTimeout();
       var timeoutLabel = "Immediately";
       switch (timeout) {
-        case "1":
+        case 1:
           timeoutLabel = "After 1 minute";
           break;
-        case "5":
+        case 5:
           timeoutLabel = "After 5 minutes";
           break;
-        case "15":
+        case 15:
           timeoutLabel = "After 15 minutes";
           break;
-        case "60":
+        case 60:
           timeoutLabel = "After 1 hour";
           break;
-        case "60":
-          timeoutLabel = "After 1 hour";
-          break;
-        case "240":
+        case 240:
           timeoutLabel = "After 4 hours";
           break;
         default:
@@ -738,7 +733,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      var timeout = spiderOakApp.settings.getOrDefault("passcodeTimeout", 0);
+      var timeout = spiderOakApp.accountModel.getPasscodeTimeout();
       this.$el.html(window.tmpl[this.templateID]({}));
       this.$("a[data-timeout='"+timeout+"'] .info")
         .addClass("icon-checkmark");

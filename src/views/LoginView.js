@@ -314,7 +314,7 @@
       } else if (passcode.length === 3) {
         $passcodeInput.val(passcode.toString()+num);
         passcode = $passcodeInput.val();
-        if (spiderOakApp.settings.getValue("passcode") === passcode) {
+        if (spiderOakApp.accountModel.getPasscode() === passcode) {
           this.dismiss();
         } else {
           this.incorrectAttempts++;

@@ -68,10 +68,6 @@
     },
     loggedIn: function() {
       this.setLoginState(true);
-      // Establish passcode stuff:
-      if (this.getPasscode()) {
-        this.activatePasscode();
-      }
       if (this.passcodeWasBypassed()) {
         this.passcodeWasBypassedFollowup();
       }
@@ -129,7 +125,6 @@
         true
       );
       spiderOakApp.settings.saveRetainedSettings();
-      this.activatePasscode();
     },
     /** Return passcode timeout associated with account, or 0 if none. */
     getPasscodeTimeout: function () {
@@ -149,37 +144,14 @@
         true
       );
       spiderOakApp.settings.saveRetainedSettings();
-      this.activatePasscode();
     },
     /** Remove this account's passcode, and deactivate it. */
     unsetPasscode: function () {
       // Do this whether or not an account login currently is active.
-      this.deactivatePasscode();
       spiderOakApp.settings.remove(this.getPasscodeSettingId("passcode"));
       spiderOakApp.settings.remove(
         this.getPasscodeSettingId("passcodeTimeout")
       );
-      spiderOakApp.settings.saveRetainedSettings();
-    },
-    /** Activate the account's associated passcode for the current session. */
-    activatePasscode: function () {
-      if (! this.getLoginState()) {
-        return false;
-      }
-      spiderOakApp.settings.setOrCreate("passcode",
-                                        this.getPasscode(),
-                                        false);
-      spiderOakApp.settings.setOrCreate("passcodeTimeout",
-                                        this.getPasscodeTimeout(),
-                                        false);
-    },
-    /** Deactivate the current session's passcode. */
-    deactivatePasscode: function () {
-      if (! this.getLoginState()) {
-        return false;
-      }
-      spiderOakApp.settings.remove("passcode");
-      spiderOakApp.settings.remove("passcodeTimeout");
       spiderOakApp.settings.saveRetainedSettings();
     },
     /** Bypass the passcode, prepping for followup on next login. */
@@ -420,8 +392,6 @@
     logout: function(successCallback) {
       // Clear basic auth details:
       this.basicAuthManager.clear();
-      // ... and other app state associated with the account:
-      this.deactivatePasscode();
       spiderOakApp.settings.remove("rememberedAccount");
       spiderOakApp.settings.saveRetainedSettings();
       if (this.getLoginState() === true) {

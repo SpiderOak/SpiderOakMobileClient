@@ -777,6 +777,10 @@ background-color:#000000;
   color: #999;
 }
 
+.passcode-set .num .active .number {
+  text-shadow: 0 0 20px #999;
+}
+
 .passcode-set .number {
   font-size: 200%;
   line-height: 30px;

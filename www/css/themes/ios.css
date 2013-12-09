@@ -472,7 +472,11 @@ a.button.active {
 }
 
 .passcode-set .num .active {
-  color: rgba(21, 125, 251, 0.3);
+  color: rgb(21, 125, 251);
+}
+
+.passcode-set .num .active .number {
+  text-shadow: 0 0 20px rgb(21, 125, 251);
 }
 
 .passcode-set .title {

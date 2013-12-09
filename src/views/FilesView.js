@@ -696,12 +696,19 @@
         spiderOakApp.downloader.downloadFile(
           downloadOptions,
           function(fileEntry) {
-            fileEntry.file(function(file){
-              if (file.size > 0) {
-                $icon.html("<img src='"+fileEntry.toURL()+"' style='width:100%;position:absolute;top:0;left:0;' /><div style='clear:both'></div>");
-                $icon.css("background","none");
-              }
-            },function(){});
+            if (fileEntry.file) {
+              fileEntry.file(function(file){
+                if (file.size > 0) {
+                  $icon.html("<img src='"+fileEntry.toURL()+"' style='" +
+                             "width:100%;position:absolute;top:0;left:0;'"+
+                             "/><div style='clear:both'></div>");
+                  $icon.css("background","none");
+                }
+              },function(){});
+            }
+            // If there's no fileEntry.file, then we're in a situation
+            // (like desktop browser) that lacks our Cordova FileDownloader
+            // plugin.
           },
           function(err) {
             // well, that's cool... do nothing then.

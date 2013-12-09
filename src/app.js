@@ -469,9 +469,6 @@
                                                        successCallback,
                                                        errorCallback) {
         console.log("fake downloadFile");
-        spiderOakApp.dialogView.showWait({
-          title: "Debugging mode: Contents not dowloaded"
-        });
         var dummyFileEntry = {fullPath: "/sdcard" + downloadOptions.to,
                               name: downloadOptions.fileName};
         return successCallback(dummyFileEntry);

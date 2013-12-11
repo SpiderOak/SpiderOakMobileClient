@@ -474,7 +474,13 @@
         title: title,
         actionBar: false
       }));
+      $(document).one("pause",this.popView);
       return this;
+    },
+    popView: function(event) {
+      if (_.last(spiderOakApp.navigator.viewsStack).instance === this) {
+        spiderOakApp.navigator.replaceAll(spiderOakApp.SettingsView, {}, spiderOakApp.noEffect);
+      }
     },
     pinpadNum_tapHandler: function(event) {
       event.preventDefault();
@@ -603,6 +609,7 @@
       this.remove();
     },
     remove: function() {
+      $(document).off("pause", this.popView);
       this.close();
       this.$el.remove();
       this.stopListening();

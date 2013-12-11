@@ -60,7 +60,8 @@
       $.ajax = this.ajax;
 
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
-      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does* have css scrolling
+      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does*
+      // have css scrolling
       if (window.Modernizr.overflowscrolling ||
           (window.device && (window.device.platform === "Android") &&
             (parseFloat(window.device.version) >= 4.4))) {
@@ -208,10 +209,11 @@
         spiderOakApp.onLoginSuccess();
         var passcode = spiderOakApp.accountModel.getPasscode();
         if (passcode) {
-          if (! spiderOakApp.accountModel.getLoginState) {
+          if (! spiderOakApp.accountModel.getLoginState()) {
             // This shouldn't happen:
             console.log("Unexpected application state: passcode " +
-                        "set without active login - removing it.");
+                        "set without active login - ignoring it.");
+            passcode = undefined;
           }
           else {
             this.passcodeAuthEntryView =
@@ -231,9 +233,7 @@
       $(".remember-me").html(s("Stay logged in"));
       $(".splash").hide();
 
-      if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
-        spiderOakApp.migrateFavorites();
-      }
+      spiderOakApp.doDataMigrations(spiderOakApp.version);
 
     },
     backDisabled: true,

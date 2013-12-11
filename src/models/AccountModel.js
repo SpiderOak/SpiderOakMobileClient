@@ -33,16 +33,22 @@
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
       this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager(this);
+      this.doAccountModelDataMigration();
+      if (this.getLoginState() === true) {
+        // We're being initialized as part of remember-me reconstitution.
+        this.loggedIn();
+      }
+    },
+    /** Perform revisions of associated data, to bring to current format. */
+    doAccountModelDataMigration: function () {
+      var storedVersion = this.dataVersion || "0.0.0";
+
       if (typeof this.get("isLoggedIn") !== "undefined") {
-        /* Backwards compat, for transition to 2.4 from earlier versions. */
+        /* For transitions from 2.0.3 and prior. */
         if (this.get("isLoggedIn")) {
           this.set("state", true);
         }
         this.unset("isLoggedIn");
-      }
-      if (this.getLoginState() === true) {
-        // We're being initialized as part of remember-me reconstitution.
-        this.loggedIn();
       }
     },
 

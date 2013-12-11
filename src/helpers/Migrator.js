@@ -135,4 +135,22 @@
     );
   };
 
+  spiderOakApp.doDataMigrations = function (currentVersion) {
+    var storedVersion = window.store.get("dataVersion") || "0.0.0",
+        semver = window.semver;
+
+    if (semver.gt(currentVersion, storedVersion)) {
+      // The app version is more recent than the version which stored the data.
+      if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
+        // This is the first favorites migration.
+        spiderOakApp.migrateFavorites();
+      }
+      if (semver.lt(storedVersion, "2.0.3") && $.os.android) {
+        // Do second, pre-2.0.3 favorites migration - just manipulate
+      }
+    }
+
+    window.store.set("dataVersion", currentVersion);
+  };
+
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

@@ -209,7 +209,7 @@
         spiderOakApp.onLoginSuccess();
         var passcode = spiderOakApp.accountModel.getPasscode();
         if (passcode) {
-          if (! spiderOakApp.accountModel.getLoginState) {
+          if (! spiderOakApp.accountModel.getLoginState()) {
             // This shouldn't happen:
             console.log("Unexpected application state: passcode " +
                         "set without active login - removing it.");

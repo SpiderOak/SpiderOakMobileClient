@@ -291,7 +291,7 @@ describe('AccountModel', function() {
     });
 
     describe('case-altered username', function(){
-      it('client should fail login with case-altered username',
+      it('client should allow login with case-altered username',
          function() {
            this.usernameUpCased = this.username.toUpperCase();
            this.successSpy = sinon.spy();
@@ -305,9 +305,10 @@ describe('AccountModel', function() {
            this.accountModel.login(this.usernameUpCased, this.password,
                                    this.successSpy, this.errorSpy);
            this.server.respond();
-           this.successSpy.should.not.have.been.called;
-           this.errorSpy.should.have.been.calledOnce;
-           this.errorSpy.should.have.been.calledWith(403);
+           this.successSpy.should.have.been.called;
+           this.errorSpy.should.not.have.been.called;
+           // If we were practicing case sensitivity, it should be with 403.
+           //this.errorSpy.should.have.been.calledWith(403);
          }
         );
     });

@@ -69,6 +69,7 @@
     },
     viewDeactivate: function(event) {
       this.refreshAllFavoritesButtonView.remove();
+      this.close();
     },
     remove: function() {
       this.close();
@@ -122,6 +123,12 @@
       this.subViews = [];
     },
     render: function() {
+      _.each(this.subViews, function(subViews){
+        if (subViews.close){
+          subViews.close();
+        }
+      });
+      this.subViews = [];
       this.addAll();
       return this;
     },
@@ -172,7 +179,7 @@
     close: function(){
       this.remove();
       this.unbind();
-      $(document).off("refreshAllFavorites");
+      $(document).off("refreshAllFavorites", this.refreshAllFavorites);
       // handle other unbinding needs, here
       _.each(this.subViews, function(subViews){
         if (subViews.close){

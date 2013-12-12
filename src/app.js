@@ -338,6 +338,34 @@
       favorites = favorites || [];
       spiderOakApp.favoritesCollection.reset(favorites);
 
+      // THIS IS A MIGRATION FOR PRE-3.0.0 FAVOURITES
+      var processed = false;
+      _.forEach(spiderOakApp.favoritesCollection.models, function(model) {
+        if (model.get("faveVersion")) {
+          return;
+        }
+        var hiveRegex = new RegExp(
+          spiderOakApp.accountModel.get("b32username") + "\/.*\/SpiderOak(\\s|%20)Hive"
+        );
+        var newUrl = model.get("url").replace(
+          hiveRegex,spiderOakApp.accountModel.get("b32username")+"\/s"
+        );
+        model.set("url", newUrl);
+        model.set("faveVersion", spiderOakApp.version);
+        model.set(
+          "icon",
+          window.fileHelper.fileTypeFromExtension(model.get("url"))
+        );
+        processed = true;
+      });
+      if (processed) {
+        window.store.set(
+          "favorites-" + spiderOakApp.accountModel.get("b32username"),
+          spiderOakApp.favoritesCollection.toJSON()
+        );
+      }
+
+
       spiderOakApp.recentsCollection.reset();
       if (spiderOakApp.storageBarView) {
         spiderOakApp.storageBarView.empty();

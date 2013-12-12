@@ -323,21 +323,6 @@
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
 
-      // Fresh new recents collection
-      spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
-      spiderOakApp.dialogView.hide();
-    },
-    onLogoutSuccess: function() {
-      if (spiderOakApp.navigator.viewsStack.length > 0) {
-        spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
-      }
-      spiderOakApp.mainView.setTitle(s("SpiderOak"));
-      // Instantiate the favorites and populate from localStorage
-      // trailing slash of weirdness
-      var favorites = window.store.get("favorites-");
-      favorites = favorites || [];
-      spiderOakApp.favoritesCollection.reset(favorites);
-
       // THIS IS A MIGRATION FOR PRE-3.0.0 FAVOURITES
       var processed = false;
       _.forEach(spiderOakApp.favoritesCollection.models, function(model) {
@@ -354,7 +339,7 @@
         model.set("faveVersion", spiderOakApp.version);
         model.set(
           "icon",
-          window.fileHelper.fileTypeFromExtension(model.get("url"))
+          window.fileHelper.fileTypeFromExtension(model.get("url")).icon
         );
         processed = true;
       });
@@ -365,6 +350,20 @@
         );
       }
 
+      // Fresh new recents collection
+      spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
+      spiderOakApp.dialogView.hide();
+    },
+    onLogoutSuccess: function() {
+      if (spiderOakApp.navigator.viewsStack.length > 0) {
+        spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
+      }
+      spiderOakApp.mainView.setTitle(s("SpiderOak"));
+      // Instantiate the favorites and populate from localStorage
+      // trailing slash of weirdness
+      var favorites = window.store.get("favorites-");
+      favorites = favorites || [];
+      spiderOakApp.favoritesCollection.reset(favorites);
 
       spiderOakApp.recentsCollection.reset();
       if (spiderOakApp.storageBarView) {

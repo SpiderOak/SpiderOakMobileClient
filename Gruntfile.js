@@ -199,6 +199,12 @@ module.exports = function(grunt) {
         ],
         dest: 'www/components/store.js/store.min.js'
       },
+      semver: {
+        src: [
+          'node_modules/semver/semver.browser.js'
+        ],
+        dest: 'www/components/semver/semver.browser.js'
+      },
       moment: {
         src: [
           'components/moment/moment.js'

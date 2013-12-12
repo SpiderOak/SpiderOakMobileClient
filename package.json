@@ -30,7 +30,9 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+    "semver": "2.2.1"
+  },
   "devDependencies": {
     "bower": "0.9.x",
     "grunt-cli": "0.1.x",

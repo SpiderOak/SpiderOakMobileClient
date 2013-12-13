@@ -370,6 +370,7 @@
           if (wasLoggedIn) {
             subtitle += "\nand session logged out";
           }
+          // Set the app's actual server setting, which is our model:
           this.model.set("value", newServer);
           spiderOakApp.dialogView.showNotify({
             title: "<i class='icon-info'></i> Server changed",

@@ -405,6 +405,10 @@ describe('AccountModel', function() {
       });
     });
 
+    // @TODO Test unsuccessful server addr change - should not change anything
+    // @TODO Test successful server addr change, sans current account
+    // @TODO Test successful server addr change, with current account - logs out
+
     describe('successful alternate login', function() {
       beforeEach(function(){
         this.successSpy = sinon.spy();
@@ -602,7 +606,6 @@ describe('AccountModel', function() {
         this.accountModel.get("mySharesListURL").should.equal("");
         this.accountModel.get("webRootURL").should.equal("");
       });
-      // @TODO: Clear keychain credentials test
       // @TODO: Clear any localStorage test
     });
     describe('login after logout', function() {

@@ -21,6 +21,10 @@
         <span class="label">RoomKey:</span>
         {{=it.room_key }}
       </div>
+      <div>
+        <span class="label">URL:</span>
+        https:\/\/{{=spiderOakApp.settings.get("server").get("value")}}{{=it.browse_url}}/
+      </div>
       {{? it.name}}
       <div>
         <span class="label">Owner:</span>

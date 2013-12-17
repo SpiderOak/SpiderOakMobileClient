@@ -25,7 +25,8 @@
       $(document).on("blur", "#login input", this.input_blurHandler);
     },
     render: function() {
-      // @FIXME: This will actually be set by the users choice...
+      $(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
+      $(".remember-me").html(s("Stay logged in"));
       if (this.$(".switch").hasClass("on")) {
         this.$(".switch input[type=checkbox]").attr("checked",true);
       }

@@ -137,6 +137,7 @@
           spiderOakApp.accountModel.unsetPasscode();
         }
         spiderOakApp.settings.remove("rememberedAccount");
+        spiderOakApp.accountModel.set("rememberme",rememberme);
         spiderOakApp.settings.saveRetainedSettings();
       }
     },

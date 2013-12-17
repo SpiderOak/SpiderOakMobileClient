@@ -225,7 +225,6 @@
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
         spiderOakApp.dialogView.hide();
-        return;
       }
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
       $(".splash").hide();

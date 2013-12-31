@@ -306,7 +306,10 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint', 'dot', 'concat', 'shell:mochadot']);
   // Custom tasks
-  grunt.registerTask('test', ['jshint', 'dot', 'concat', 'shell:mochaspec']);
+  grunt.registerTask('test', 'Do mocha test; default = spec', function(which) {
+    grunt.task.run('jshint', 'dot', 'concat');
+    grunt.task.run('shell:mocha' + (which || 'spec'));
+  });
   grunt.registerTask('min', ['uglify']); // polyfil
 
   // Build tasks

@@ -756,7 +756,8 @@
       var items = [
           {className: "details", description: "Details"},
           {className: "send-link", description: "Send link"},
-          {className: "share", description: "Share file"}
+          {className: "share", description: "Share file" +
+                                                (($.os.ios)?" / Open in":"")}
       ];
       if ($.os.android) {
         items.unshift({className: "open", description: "Open"});

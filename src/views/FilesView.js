@@ -593,6 +593,13 @@
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
       callback = callback || function(fileEntry) {
+        if (model.get("path") !== path) {
+          model.set("path", path);
+          window.store.set(
+            "favorites-" + spiderOakApp.accountModel.get("b32username"),
+            spiderOakApp.favoritesCollection.toJSON()
+          );
+        }
         spiderOakApp.dialogView.hide();
       };
       this.downloadFile(model, path, callback);
@@ -749,7 +756,8 @@
       var items = [
           {className: "details", description: "Details"},
           {className: "send-link", description: "Send link"},
-          {className: "share", description: "Share file"}
+          {className: "share", description: "Share file" +
+                                                (($.os.ios)?" / Open in":"")}
       ];
       if ($.os.android) {
         items.unshift({className: "open", description: "Open"});

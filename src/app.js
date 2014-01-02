@@ -226,11 +226,8 @@
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
         spiderOakApp.dialogView.hide();
-        return;
       }
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
-      $(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
-      $(".remember-me").html(s("Stay logged in"));
       $(".splash").hide();
 
       spiderOakApp.doDataMigrations(spiderOakApp.version);
@@ -323,6 +320,34 @@
       spiderOakApp.favoritesCollection =
         new spiderOakApp.FavoritesCollection(favorites);
 
+      // THIS IS A MIGRATION FOR PRE-3.0.0 FAVOURITES
+      var processed = false;
+      _.forEach(spiderOakApp.favoritesCollection.models, function(model) {
+        if (model.get("faveVersion")) {
+          return;
+        }
+        var hiveRegex = new RegExp(
+          spiderOakApp.accountModel.get("b32username") +
+            "\/.*\/SpiderOak(\\s|%20)Hive"
+        );
+        var newUrl = model.get("url").replace(
+          hiveRegex,spiderOakApp.accountModel.get("b32username")+"\/s"
+        );
+        model.set("url", newUrl);
+        model.set("faveVersion", spiderOakApp.version);
+        model.set(
+          "icon",
+          window.fileHelper.fileTypeFromExtension(model.get("url")).icon
+        );
+        processed = true;
+      });
+      if (processed) {
+        window.store.set(
+          "favorites-" + spiderOakApp.accountModel.get("b32username"),
+          spiderOakApp.favoritesCollection.toJSON()
+        );
+      }
+
       // Fresh new recents collection
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
       spiderOakApp.dialogView.hide();
@@ -397,8 +422,12 @@
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
-    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect()),
-    defaultPopEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect({direction:'right'})),
+    defaultEffect: (($.os.android) ?
+                    new window.BackStack.NoEffect() :
+                    new spiderOakApp.FastSlideEffect()),
+    defaultPopEffect: (($.os.android) ?
+                       new window.BackStack.NoEffect() :
+                       new spiderOakApp.FastSlideEffect({direction:'right'})),
     b32nibbler: new window.Nibbler({dataBits: 8,
                                     codeBits: 5,
                                     keyString:

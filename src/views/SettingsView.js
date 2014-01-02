@@ -137,6 +137,7 @@
           spiderOakApp.accountModel.unsetPasscode();
         }
         spiderOakApp.settings.remove("rememberedAccount");
+        spiderOakApp.accountModel.set("rememberme",rememberme);
         spiderOakApp.settings.saveRetainedSettings();
       }
     },
@@ -370,6 +371,7 @@
           if (wasLoggedIn) {
             subtitle += "\nand session logged out";
           }
+          // Set the app's actual server setting, which is our model:
           this.model.set("value", newServer);
           spiderOakApp.dialogView.showNotify({
             title: "<i class='icon-info'></i> Server changed",
@@ -474,7 +476,13 @@
         title: title,
         actionBar: false
       }));
+      $(document).one("pause",this.popView);
       return this;
+    },
+    popView: function(event) {
+      if (_.last(spiderOakApp.navigator.viewsStack).instance === this) {
+        spiderOakApp.navigator.replaceAll(spiderOakApp.SettingsView, {}, spiderOakApp.noEffect);
+      }
     },
     pinpadNum_tapHandler: function(event) {
       event.preventDefault();
@@ -603,6 +611,7 @@
       this.remove();
     },
     remove: function() {
+      $(document).off("pause", this.popView);
       this.close();
       this.$el.remove();
       this.stopListening();

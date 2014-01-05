@@ -216,10 +216,10 @@
      * @param {string} successCallback - gets data, status code, xhr
      * @param {string} errorCallback - gets status code, status text, xhr
      * @param {string} login_url Optional explicit login location
-     * @param {string} login_optionalHost Optional explicit login domain
+     * @param {string} probeHost Optional explicit login domain, for trial that will not have actual login effect
      */
     login: function(username, password, successCallback, errorCallback,
-                    login_url, optionalHost) {
+                    login_url, probeHost) {
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
@@ -237,17 +237,12 @@
       if (this.getLoginState() === "interrupting") {
         return this.doInterruption();
       }
-      else {
+      else if (! probeHost) {
         this.setLoginState("in-process");
       }
 
       var _self = this,
-          /** A BasicAuth suspending and resuming utility.
-           *
-           * Once instantiated with current credentials, they're stashed,
-           * and aren't neede to reestablish basic auth based on them.
-           */
-          server = (optionalHost ||
+          server = (probeHost ||
                     spiderOakApp.settings.getValue("server")),
           login_url_start = "https://" + server + "/browse/login";
       login_url = login_url || login_url_start;
@@ -262,11 +257,7 @@
           password: password
         },
 
-        /** Handle server login success.
-         *
-         * We may refuse the success, because while the server is tolerant
-         * of variations in the username case, the clients should not be.
-         */
+        /** Handle server login success. */
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
 
@@ -282,14 +273,6 @@
             var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
             var storageHost = splat.slice(0, splat.length-3).join("/");
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
-
-            if ((gotUsername !== username) &&
-                (gotUsername.toLowerCase() === username.toLowerCase())) {
-              // The server allows authentication with alphabetic case
-              // variations in username case, but we do not.
-              errorCallback(403, "authentication failed", xhr);
-              return;
-            }
 
             _self.set("login_url_preface", "https://" + server + "/storage/");
             _self.set("login_url_start", "https://" + server + "/browse/login");
@@ -340,7 +323,7 @@
             // Recurse, with adjusted login_url:
             if ((_self.login(username, password,
                              successCallback, errorCallback,
-                             login_url, optionalHost) === "interrupting") &&
+                             login_url, probeHost) === "interrupting") &&
                 errorCallback) {
               errorCallback(0, "interrupted", xhr);
             }
@@ -350,14 +333,18 @@
             if (destination === login_url_start) {
               destination = where[2];
             }
-            loginSuccess(destination, data.slice("location:".length));
+            if (! probeHost) {
+              loginSuccess(destination, data.slice("location:".length));
+            }
           }
           else {
             errorCallback(0, "unexpected server response", xhr);
           }
         },
         error: function(xhr, errorType, error) {
-          _self.setLoginState(false);
+          if (! probeHost) {
+            _self.setLoginState(false);
+          }
           errorCallback(xhr.status, "authentication failed", xhr);
         }
       });

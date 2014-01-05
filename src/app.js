@@ -60,7 +60,8 @@
       $.ajax = this.ajax;
 
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
-      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does* have css scrolling
+      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does*
+      // have css scrolling
       if (window.Modernizr.overflowscrolling ||
           (window.device && (window.device.platform === "Android") &&
             (parseFloat(window.device.version) >= 4.4))) {
@@ -208,7 +209,7 @@
         spiderOakApp.onLoginSuccess();
         var passcode = spiderOakApp.accountModel.getPasscode();
         if (passcode) {
-          if (! spiderOakApp.accountModel.getLoginState) {
+          if (! spiderOakApp.accountModel.getLoginState()) {
             // This shouldn't happen:
             console.log("Unexpected application state: passcode " +
                         "set without active login - removing it.");
@@ -224,17 +225,13 @@
         spiderOakApp.mainView.setTitle(s("SpiderOak"));
         $(".splash").hide();
         spiderOakApp.dialogView.hide();
-        return;
       }
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
-      $(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
-      $(".remember-me").html(s("Stay logged in"));
       $(".splash").hide();
 
       if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
         spiderOakApp.migrateFavorites();
       }
-
     },
     backDisabled: true,
     onDeviceReady: function() {
@@ -330,7 +327,8 @@
           return;
         }
         var hiveRegex = new RegExp(
-          spiderOakApp.accountModel.get("b32username") + "\/.*\/SpiderOak(\\s|%20)Hive"
+          spiderOakApp.accountModel.get("b32username") +
+            "\/.*\/SpiderOak(\\s|%20)Hive"
         );
         var newUrl = model.get("url").replace(
           hiveRegex,spiderOakApp.accountModel.get("b32username")+"\/s"
@@ -424,8 +422,12 @@
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
-    defaultEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect()),
-    defaultPopEffect: (($.os.android) ? new window.BackStack.NoEffect() : new spiderOakApp.FastSlideEffect({direction:'right'})),
+    defaultEffect: (($.os.android) ?
+                    new window.BackStack.NoEffect() :
+                    new spiderOakApp.FastSlideEffect()),
+    defaultPopEffect: (($.os.android) ?
+                       new window.BackStack.NoEffect() :
+                       new spiderOakApp.FastSlideEffect({direction:'right'})),
     b32nibbler: new window.Nibbler({dataBits: 8,
                                     codeBits: 5,
                                     keyString:

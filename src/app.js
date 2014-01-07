@@ -37,6 +37,7 @@
     ready: function() {
       // Start listening for important app-level events
       document.addEventListener("deviceready", this.onDeviceReady, false);
+      document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
       document.addEventListener("logoutSuccess", this.onLogoutSuccess, false);
       document.addEventListener("loginStartChange",
@@ -104,13 +105,19 @@
       // Benefit of the doubt
       this.networkAvailable = true;
 
-      this.version = "0.0.0"; // lame default
+      // Until this.version gets proper setting from config.xml - if it does:
+      this.version = "0.0.1";
       // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
       this.dollarAjax({
         url: "./config.xml",
         dataType: "xml",
         success: function(config){
-          this.version = $(config).find("widget").attr("version") || "";
+          var version = $(config).find("widget").attr("version") || "";
+          // config.xml is bogus findable during testing:
+          if (version) {
+            this.version = version;
+          }
+          $(document).trigger("versionready");
         }.bind(this)
       });
 
@@ -229,9 +236,6 @@
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
       $(".splash").hide();
 
-      if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
-        spiderOakApp.migrateFavorites();
-      }
     },
     backDisabled: true,
     onDeviceReady: function() {
@@ -246,6 +250,24 @@
       // spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
       //   window.cordova.require("cordova/plugin/fileviewerplugin");
       spiderOakApp.fileViewer = window.FileViewerPlugin;
+    },
+    onVersionReady: function () {
+      var storedVersion = window.store.get("dataVersion") || "0.0.0",
+          semver = window.semver;
+
+      if (semver.gt(spiderOakApp.version, storedVersion)) {
+        // Include data migrations that need to happen on version increments.
+
+        //console.log("onVersionReady: current version greater than stored");
+        if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
+          spiderOakApp.migrateFavorites();
+        }
+      }
+      else {
+        //console.log("onVersionReady: data version already current.");
+      }
+
+      window.store.set("dataVersion", spiderOakApp.version);
     },
     setOnline: function(event) {
       if (!this.networkAvailable) {

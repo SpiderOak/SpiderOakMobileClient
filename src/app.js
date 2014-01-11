@@ -11,7 +11,7 @@
       s           = window.s,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
-    timeout: 180000, // two minutes
+    timeout: 300000, // five minutes
     // timeout: 3000, // three seconds
     error: function(collection, response, options) {
       console.log("Default error handler thrown:");

@@ -18,6 +18,6 @@
     <preference name="UIWebViewBounce" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="none" />
-    <access origin="*" />
+    <access origin="*.spideroak.com" />
     <content src="index.html" />
 </widget>

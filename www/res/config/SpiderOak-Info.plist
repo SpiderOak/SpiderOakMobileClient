@@ -14,11 +14,11 @@
     <dict>
       <key>CFBundleIconFiles</key>
       <array>
-        <string>cordova_ios_120</string>
+        <string>icon-120.png</string>
         <string>icon.png</string>
         <string>icon@2x.png</string>
-        <string>Icon-72@2x.png</string>
-        <string>Icon-72.png</string>
+        <string>icon-72@2x.png</string>
+        <string>icon-72.png</string>
       </array>
       <key>UIPrerenderedIcon</key>
       <true/>
@@ -30,14 +30,14 @@
     <dict>
       <key>CFBundleIconFiles</key>
       <array>
-        <string>cordova_ios_152</string>
-        <string>cordova_ios_76</string>
-        <string>cordova_ios_144</string>
-        <string>cordova_ios_120</string>
+        <string>icon-52@2x.png</string>
+        <string>icon-76.png</string>
+        <string>icon-144@2x.png</string>
+        <string>icon-120.png</string>
         <string>icon.png</string>
         <string>icon@2x.png</string>
-        <string>Icon-72@2x.png</string>
-        <string>Icon-72.png</string>
+        <string>icon-72@2x.png</string>
+        <string>icon-72.png</string>
       </array>
       <key>UIPrerenderedIcon</key>
       <true/>

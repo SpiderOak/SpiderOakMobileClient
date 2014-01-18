@@ -278,6 +278,9 @@
       this.networkAvailable = true;
     },
     setOffline: function(event) {
+      if (!this.networkAvailable) { // already false
+        return;
+      }
       this.networkAvailable = false;
       var onConfirm = function() {
         // modally block the UI

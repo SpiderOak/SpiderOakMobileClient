@@ -120,9 +120,18 @@
       return this;
     },
     show: function() {
-      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, {
+        duration: 100,
+        complete: function() {
+          window.StatusBar.styleDefault();
+          var bgcolor = (($.os.ios)?"#e4e4e4":"#000000");
+          $("body").css("background-color",bgcolor);
+        }
+      });
     },
     dismiss: function(event) {
+      window.StatusBar.styleLightContent();
+      $("body").css("background-color","#f59f35");
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
         complete: function() {

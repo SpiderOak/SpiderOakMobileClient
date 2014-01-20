@@ -2,7 +2,7 @@
  * This file should have css that will be used for android
  */
 body {
-    background-color: #eee;
+    background-color: #f59f35;
     font-family: "Roboto", Helvetica, Arial, sans-serif;
 }
 
@@ -150,12 +150,16 @@ ul.rounded li {
   border: none;
 }
 
+.login-title {
+  padding-bottom: 20px;
+}
+
 div.login-input {
   position: relative;
-  border-bottom: solid 1px #ccc;
-  border-left: solid 1px #ccc;
+  border-bottom: solid 1px #fff;
+  border-left: solid 1px #fff;
   margin: 20px;
-  border-right: solid 1px #ccc;
+  border-right: solid 1px #fff;
   overflow: visible;
   max-height: 0.1em;
   display: block;
@@ -164,9 +168,9 @@ div.login-input {
 
 div.login-input.focused {
   position: relative;
-  border-bottom: solid 1px orange;
-  border-left: solid 1px orange;
-  border-right: solid 1px orange;
+  border-bottom: solid 1px #996633;
+  border-left: solid 1px #996633;
+  border-right: solid 1px #996633;
   overflow: visible;
   max-height: 0.1em;
   display: block;
@@ -186,6 +190,7 @@ div.login-input input {
   bottom: 20px;
   margin: -5px 5px;
   font-size: 110%;
+  color: #fff;
 }
 
 #pwrd:focus,
@@ -270,6 +275,22 @@ a.button.active {
   background-color: orange;
   box-shadow: 0 0 2px 4px orange;
   outline:0;
+}
+
+.login ::-webkit-input-placeholder {
+  color: #fff;
+  text-shadow: #e8ebee 0 1px 0;
+}
+
+.login .button {
+  -webkit-tap-highlight-color: #fff;
+  background-color: #fff;
+  color: #333;
+}
+
+.login .button.active {
+  background-color: #e4e4e4;
+  color: #111;
 }
 
 .modal .context-popup {

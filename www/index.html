@@ -34,9 +34,9 @@
       <!-- Login view needs to be ready as early as possible... 
         might not want it in a template -->
       <div id="login" class="login">
-        <!-- @FIXME: inline styles are fail -->
-        <img src="img/brand_logo.png" class="login-logo" />
         <form name="login-form" class="login-form">
+          <img src="img/logo-spideroak-orange.png" class="login-logo" />
+          <div class="login-title">log in to your account</div>
           <div class="login-input">
             <input id="unme" type="text" name="unme"
                        autocorrect="off" autocapitalize="off" 
@@ -49,24 +49,16 @@
                        placeholder="Password"
                        tabindex="2" />
           </div>
-          <div class="checkswitch-wrapper">
-            <div class="checkswitch">
-              <input type="checkbox" id="rememberme" name="rememberme"
+          <div class="stayloggedin">
+            <div class="circle switch"><i class="icon-checkmark"></i></div>
+            <input type="checkbox" id="rememberme" name="rememberme"
                   tabindex="-1" />
-              <label for="rememberme">
-                <span data-off="No" data-on="Yes"></span>
-              </label>
-            </div>
-            <label
-               style="float:right; padding:0 20px; color:#666; font-size: 90%;">
-              <span class="remember-me"><!--will be populated on load--></span>
-            </label>
-            <div class="clearfix"></div>
+            <div class="remember-me"><!--will be populated on load--></div>
           </div>
           <a class="button loginButton" tabindex="-1">Log in</a>
-          <a class="button shareRoomsButton secondary" tabindex="-1">Go to ShareRooms</a>
           <input type="submit" style="visibility:hidden" tabindex="-1"/>
         </form>
+        <div class="settings-and-shares shareRoomsButton">Settings and ShareRooms &raquo;</div>
         <div class="learn-more"><!-- will be populated on load --></div>
       </div>
     </div>

@@ -3,7 +3,7 @@
  */
 body {
   /*background-color: rgb(248, 248, 248);*/
-  background-color: #e4e4e4;
+  background-color: #f59f35;
   font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
   font-size: 100%;
   -webkit-user-select: none;
@@ -17,12 +17,8 @@ body {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
-  background-color: #e4e4e4;
+  background-color: #fff;
   z-index: 101;
-}
-
-.login-logo {
-  margin: 0 auto;
 }
 
 .login-form .button.logout {
@@ -363,7 +359,7 @@ input[type=checkbox] {
   transition: all .2s ease-out;
   margin: 0px;
   transform: scale(1);
-  -webkit-transform: scale(1); /* Adjust size here */
+  -webkit-transform: scale(1);  Adjust size here 
 }
 
 input[type=checkbox]:checked {
@@ -404,6 +400,12 @@ input[type="checkbox"]:checked:after {
   height: 0;
 }
 
+.login .login-form input,
+.login .login-form .button {
+  background-color: rgba(248,248,248,0.8);
+  border-color: #999;
+}
+
 form[name=login-form] input[type="password"],
 input[name=roomkey] {
   border-top: 0;
@@ -434,15 +436,15 @@ a.button.active {
   color: rgba(21, 125, 251, 0.3);
 }
 
-.learn-more {
-  margin-top: 30px;
+.learn-more,
+.settings-and-shares {
   font-size: 80%;
   font-weight: bold;
-  color: rgb(21, 125, 251);
+  margin: 5 auto -10px auto;
 }
 
 .learn-more:active {
-  color: rgba(21, 125, 251, 0.3);
+  color: #bf671f;
 }
 
 .learn-about-spideroak,

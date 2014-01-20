@@ -126,12 +126,29 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.login .login-title {
+  color: #fff;
+  font-weight: bold;
+  font-variant: small-caps;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 140%;
+}
+
+.login .login-form {
+  background: -webkit-linear-gradient(top, rgb(245,159,53) 0%, rgb(243,122,39) 100%);
+}
+
+.login a.button {
+  color: #666;
+}
+
 .login-logo {
   position: relative;
   top: 0;
   display: block;
-  width: 100px;
-  margin: 10px auto;
+  width: 120px;
+  margin: 0 auto;
 }
 
 .login-form .button.logout {
@@ -143,16 +160,54 @@ body {
   padding: 10px;
 }
 
+.login-form .stayloggedin {
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  height: 44px;
+  line-height: 44px;
+}
+
+.stayloggedin {
+  height: 44px;
+  margin: 10px 0;
+}
+
+.stayloggedin .remember-me {
+  display: inline-block;
+}
+
+.stayloggedin .circle {
+  color: rgba(243,122,39,0.2);
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  line-height: 30px;
+  margin-right: 10px;
+}
+
+.stayloggedin .circle.on {
+  color: rgb(243,122,39);
+}
+
+#rememberme {
+  display:none;
+}
+
 .spacer5 {
   height: 5px;
 }
 
-.learn-more {
+.learn-more,
+.settings-and-shares {
   width: 60%;
   text-align: center;
   font-size: 80%;
-  margin: -10px auto;
+  margin: 0 auto;
   padding: 10px;
+  color: #e97d25;
 }
 
 .learn-about-spideroak,

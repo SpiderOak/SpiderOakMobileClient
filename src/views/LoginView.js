@@ -49,7 +49,7 @@
 
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
-      var rememberme = $("#rememberme").is(":checked");
+      var rememberme = $("#rememberme").attr("checked") === "true";
 
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
@@ -147,6 +147,9 @@
         );
       }
       this.dismiss();
+      window.setTimeout(function() {
+        window.spiderOakApp.mainView.openMenu();
+      }, 130);
     },
     switch_tapHandler: function(event) {
       var $this = null;
@@ -156,8 +159,9 @@
       else {
         $this = $(event.target).closest(".switch");
       }
-      var $checkbox = $this.find("input[type=checkbox]");
-      $checkbox.attr("checked",!$checkbox.is(":checked"));
+      var $checkbox = this.$("input[type=checkbox]");
+      var checked = ($checkbox.attr("checked") === "true");
+      $checkbox.attr("checked",!checked);
       $this.toggleClass("on");
     },
     learnMore_tapHandler: function(event) {
@@ -167,6 +171,10 @@
     },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {
+        if (window.StatusBar && $.os.ios) {
+          window.StatusBar.styleDefault();
+          $("body").css("background-color","#e4e4e4");
+        }
         this.$("input").attr("disabled", true);
         this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, 100);
         this.$el.addClass("dismissed");
@@ -176,6 +184,12 @@
     },
     show: function() {
       if (this.$el.hasClass("dismissed")) {
+        if (window.StatusBar && $.os.ios) {
+          window.setTimeout(function() {
+            window.StatusBar.styleLightContent();
+            $("body").css("background-color","#f59f35");
+          }, 100);
+        }
         this.$("input").removeAttr("disabled");
         this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
         this.$el.removeClass("dismissed");

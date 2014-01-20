@@ -120,9 +120,21 @@
       return this;
     },
     show: function() {
-      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, {
+        duration: 100,
+        complete: function() {
+          if (window.StatusBar && $.os.ios) {
+            window.StatusBar.styleDefault();
+            $("body").css("background-color","#e4e4e4");
+          }
+        }
+      });
     },
     dismiss: function(event) {
+      if (window.StatusBar && $.os.ios) {
+        window.StatusBar.styleLightContent();
+        $("body").css("background-color","#f59f35");
+      }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
         complete: function() {

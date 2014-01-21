@@ -102,9 +102,12 @@ This package includes a simple build-time customization facility, described in [
 
 The SpiderOak mobile client Android production release is available via
 
-*  [the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android)
+* [the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android)
 * [the Amazon App store](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I)
-* Our [recent builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent), as installable .apks.  (If your device does have access to one of the above App stores, they will offer upgrades when they have newer versions than the ones that you install from these ShareRoom .apk files.)
+* Our [recent Android builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent), as installable .apks.  (If your device does have access to one of the above App stores, they will offer upgrades when they have newer versions than the ones that you install from these ShareRoom .apk files.)
+* You can clone this project and, if you also have Googles Android developer SDK installed, install your own, ad hoc builds onto Android devices.
 
+The iOS production release
 
-The current iOS app store release is a native implementation.  We will be replacing with one based on this hybrid HTML5 client after some other work.
+* is available [in the Apple App Store](https://itunes.apple.com/us/app/spideroak/id360584371).
+* Apple doesn't provide for alternative stores or side loading, but you can clone this project project onto a Mac and, provided you have Apple's (free) developer environment installed, install your own, ad hoc builds onto iOS devices.

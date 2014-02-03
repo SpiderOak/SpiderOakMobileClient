@@ -16,3 +16,5 @@ merges/ios/css/platform.css
 merges/android/css/platform.css
 www/js/SpiderOak-templates.js
 plugins/android.json
+www/css/*.css
+www/css/themes/*.css

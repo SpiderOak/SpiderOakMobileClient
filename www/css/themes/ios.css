@@ -1,316 +1,339 @@
-/**
- * This file should have css that will be used for ios
- */
-body {
-  /*background-color: rgb(248, 248, 248);*/
-  background-color: #f59f35;
-  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
-  font-size: 100%;
-  -webkit-user-select: none;
+.hidden {
+  display: none;
 }
-
-.page {
-  background-color: #e4e4e4 !important;
+.clearfix {
+  clear: both;
 }
-
-.login {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+.innershadow {
+  text-shadow: 0 1px 0 #ffffff, 0 -1px 0 #999999;
+}
+#fadingBarsG {
+  position: relative;
+  width: 83px;
+  height: 10px;
+  margin: 20px auto;
+}
+.fadingBarsG {
   position: absolute;
+  top: 0;
+  background-color: #cccccc;
+  width: 10px;
+  height: 10px;
+  -webkit-animation-name: bounce_fadingBarsG;
+  -webkit-animation-duration: 1.9s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: linear;
+  -webkit-transform: scale(0.3);
+}
+#fadingBarsG_1 {
+  left: 0;
+  -webkit-animation-delay: 0.36s;
+}
+#fadingBarsG_2 {
+  left: 10px;
+  -webkit-animation-delay: 0.55s;
+}
+#fadingBarsG_3 {
+  left: 21px;
+  -webkit-animation-delay: 0.74s;
+}
+#fadingBarsG_4 {
+  left: 31px;
+  -webkit-animation-delay: 0.93s;
+}
+#fadingBarsG_5 {
+  left: 42px;
+  -webkit-animation-delay: 1.12s;
+}
+#fadingBarsG_6 {
+  left: 52px;
+  -webkit-animation-delay: 1.31s;
+}
+#fadingBarsG_7 {
+  left: 62px;
+  -webkit-animation-delay: 1.5s;
+}
+#fadingBarsG_8 {
+  left: 73px;
+  -webkit-animation-delay: 1.69s;
+}
+@-webkit-keyframes bounce_fadingBarsG {
+  0% {
+    -webkit-transform: scale(1);
+    background-color: #cccccc;
+  }
+  100% {
+    -webkit-transform: scale(0.3);
+    background-color: #000000;
+  }
+}
+.scroll {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+body {
+  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
+}
+.app {
+  background-color: #f8f8f8;
+}
+.login {
   background-color: #fff;
   z-index: 101;
 }
-
+.login .login-form input,
+.login .login-form .button {
+  background-color: rgba(248, 248, 248, 0.8);
+  border-color: #999;
+}
+.login .login-form input[type="password"] {
+  border-top: 0;
+}
 .login-form .button.logout {
   color: red;
 }
-
-.modal {
-  z-index: 10000;
-  color: #000;
-  background-color: rgba(0,0,0,0.4);
-  overflow: hidden;
+.login-form input[name=roomkey] {
+  border-top: 0;
 }
-
+.login-form .spacer5 {
+  height: 0;
+}
 .modal .wait-dialog,
 .modal .progress-dialog {
-  top: 35%;
-  color: #000;
-  background-color: rgb(248, 248, 248);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
   border-radius: 8px;
+  top: 35%;
+  color: #000000;
+  background-color: #f8f8f8;
 }
-
+.meter {
+  background: #e4e4e4;
+}
+.meter > span {
+  background-color: #000000;
+}
 .cancel-btn a {
-  color: rgb(21, 125, 251);
+  color: #157dfb;
   font-weight: bold;
-  text-decoration: none;
-  display: block;
-  height: 44px;
-  border-top: 1px solid rgb(200, 199, 204);
-  line-height: 44px;
+  border-top: 1px solid #c8c7cc;
 }
-
 .cancel-btn a.active {
-  background-color: #e4e4e4;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-topleft: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  background-color: #e4e4e4;
 }
-
-.app {
-  background-color: rgb(248, 248, 248);
-}
-
 .nav {
   position: relative;
   height: 44px;
   background-color: #e4e4e4;
-  /*background-color: rgb(248, 248, 248);*/
-  /*border-bottom: 1px solid rgb(200, 199, 204) !important;*/
   font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
   font-weight: bold;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   z-index: 100;
 }
-
-.nav .menu-btn,
-.nav .back-btn {
-  color: rgb(21, 125, 251);
-  display: block;
+.nav .title {
   position: absolute;
+  top: auto;
+  right: 40px;
+  bottom: auto;
+  left: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: auto;
+  text-align: center;
+  line-height: 44px;
+  padding: 0;
+  color: #000000;
+}
+.nav .back-btn,
+.nav .menu-btn {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: auto;
   left: 0;
+  color: #157dfb;
+  display: block;
   width: 44px;
-  height:43px;
+  height: 43px;
   line-height: 44px;
   padding: 0 10px;
-  z-index: 3;
   font-size: 130%;
   font-family: 'SpiderOakIcons';
+  z-index: 3;
 }
-
+.nav .back-btn:before,
 .nav .menu-btn:before {
-  content:'\f0c9';
-}
-
-.nav .back-btn:before {
   content: '\e02f';
 }
-
+.nav .menu-btn:before {
+  content: '\f0c9';
+}
 .nav .menu-btn.active,
 .nav .back-btn.active,
 .nav .passcode-cancel-btn.active,
 .nav .clear-recents-btn.active,
 .nav .add-sharerooms-btn.active,
-.nav .refresh-favorites-btn.active  {
-  color: rgba(21, 125, 251, 0.3);
+.nav .refresh-favorites-btn.active {
+  color: rgba(21, 125, 251, 0.30000000000000004);
 }
-
 .nav .icon-btn {
   display: none;
 }
-
 .nav .passcode-cancel-btn,
 .nav .clear-recents-btn,
 .nav .add-sharerooms-btn,
 .nav .refresh-favorites-btn {
-  color: rgb(21, 125, 251);
-  font-size: 110%;
   position: absolute;
-  right: 0;
   top: 0;
-  margin: 0;
+  right: 0;
+  bottom: auto;
+  left: auto;
+  color: #157dfb;
+  font-size: 110%;
   text-align: center;
   padding: 13px 13px 8px 13px;
   display: block;
 }
-
 .nav .clear-recents-btn {
   font-size: 100%;
 }
-
-.nav .title {
-  position: absolute;
-  width: auto;
-  left: 40px;
-  right: 40px;
-  text-align: center;
-  line-height: 44px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 0;
-  color: rgb(0, 0, 0);
-}
-
 #subviews:after,
 .menu:after {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: -1px;
+  left: auto;
   content: '';
   height: 1px;
   width: 1px;
-  position: absolute;
-  bottom: -1px;
 }
-
+.storagebar {
+  color: #333333;
+}
 ul li {
-  -webkit-user-select: none;
-  background-color: rgb(248, 248, 248);
-  border-top: 1px solid #ddd;
+  background-color: #f8f8f8;
 }
-
-ul li a.folder {
+ul li a .folder {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAaCAYAAADbhS54AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEMTg5RUQwMzI4RDExMUUzOTc0MUMxOTNDQTVCQUU5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpEMTg5RUQwNDI4RDExMUUzOTc0MUMxOTNDQTVCQUU5NCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQxODlFRDAxMjhEMTExRTM5NzQxQzE5M0NBNUJBRTk0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQxODlFRDAyMjhEMTExRTM5NzQxQzE5M0NBNUJBRTk0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Ut1dfAAAASdJREFUeNrM1z2KhTAQAOBJ1iN4BEG0FQtvIIitP+DxLKK9IGgrFvbaeAMvoI3u6pLFt+vC27eYzFQJCfIxyQyRbNsGPOq6ZsuygOd5EUgOhQ+qqmJN0/Apk42jFyjoug6KomAyYaQsS9a27eWibdvSjpVO0/TroszM0SRJIk3T0OGOO4YRR/kAG46eJ5hw5NxgeaRpysZx/NxACHzfY5omBEEQCcvYVeau4H3fQ57nTDjsmWPdcVmWMeGwZ3DDMNyGo//9wLqu4jN2LoKr0HUd4ji+pQiUV1GGYUAYhrdVpvIKSkS7UP6KsiwLfN+//cVBMaIeYJhQXzBsqD3ePhooOtSRMVVV0aEOmOu6keM4qFAPz57zn5Js1I/32I6b51k6ao93AQYAz7O+p3RyBmQAAAAASUVORK5CYII=');
   background-position: 98% center;
   background-repeat: no-repeat;
   background-size: 19px 13px;
 }
-
 ul li.sep {
-  background-color: rgb(248, 248, 248);
-  color: #000;
+  background-color: #f8f8f8;
+  color: #000000;
   font-weight: bold;
+  border-bottom: 1px solid #cccccc;
 }
-
 .menu {
-  background-color: #fff;
+  background-color: #ffffff;
   bottom: 40px;
 }
-
 .menu ul li {
-  background-color: #fff;
+  color: #333333;
   border-color: #666;
-  color: #333;
 }
-
 .menu ul li a {
-  background-color: #fff;
-  border-color: #999;
-  color: #333;
+  background-color: #ffffff;
+  border-color: #999999;
+  color: inherit;
 }
-
 .menu ul li a.active {
+  color: #333333;
   background-color: #efefef;
-  color: #333;
 }
-
 .menu ul li.sep {
-  background-color: #fff;
-  color: #000;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
 }
-
 .menu ul li.current a {
   background-color: #efefef;
 }
-
+.menu ul li.current a.active {
+  color: #222222;
+}
 .toolbar {
-  display: none;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 48px;
-  background-color: #e4e4e4;
   border-top: none;
-  font-size: 130%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
-
-.toolbar-button {
-  margin: 12px 0;
-  text-align: center;
-  float: left;
-  width: 25%;
+.toolbar .toolbar-button {
   color: #ccc;
 }
-
-.toolbar-button .enabled {
+.toolbar .toolbar-button .enabled {
   color: #000;
 }
-
-.toolbar-button .favorite {
-  color: orange;
+.toolbar .toolbar-button .favorite {
+  color: #f59f35;
 }
-
-.toolbar-button a.active.enabled {
+.toolbar .toolbar-button a.active.enabled {
   color: #666;
-  text-shadow: 0 0 10px #fff;
 }
-
 .storagebar {
-  color: #333;
-  border-top: 1px solid rgb(200, 199, 204);
-  background-color: #efefef;
+  border-top: 1px solid #c8c7cc;
+  background-color: #e4e4e4;
   width: 270px;
   padding: 0;
   height: 40px;
   font-size: 110%;
 }
-
 .storagebar .bar-graph {
   background-color: #000;
   width: 270px;
   height: 3px;
 }
-
 .storagebar .bar-graph .inner {
-  background-color: rgb(21, 125, 251);
+  background-color: #157dfb;
   height: 3px;
 }
-
-.storagebar .devices-info {
-  font-size: 80%;
-  padding: 3px 10px;
+.modal .title {
+  padding: 0 10px;
+  margin: 15px 0 0 0;
 }
-
-.page {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 44px;
-  background-color: #fff;
+.modal .subtitle {
+  padding: 0 10px;
+  margin: 10px 0;
 }
-
-.scroll {
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
 .modal .context-popup {
   position: absolute;
+  top: auto;
+  right: auto;
   bottom: 0;
   left: 50%;
-  background-color: rgb(248, 248, 248);
+  background-color: #f8f8f8;
   width: 100%;
   max-width: 620px;
   margin: 0 auto 0 auto;
   max-height: 94%;
   border-radius: 0;
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
   overflow-y: hidden;
   text-align: center;
-  -webkit-transform: translate(-50%,100%);
-}
-
-.modal .context-popup li {
-  line-height: 26px;
-}
-
-.modal .context-popup li:last-child {
-  display: block;
+  -webkit-transform: translate(-50%, 100%);
 }
 .modal .context-popup .cancel-btn {
   color: red;
 }
-
-.modal .title {
-  padding: 0 10px;
-  margin: 15px 0 0 0;
+.modal .context-popup li {
+  line-height: 26px;
 }
-
-.modal .subtitle {
-  padding: 0 10px;
-  margin: 10px 0;
+.modal .context-popup li:last-child {
+  display: block;
 }
-
 input[type="text"],
 input[type="password"],
 input[type="tel"],
@@ -318,9 +341,11 @@ input[type="number"],
 input[type="search"],
 input[type="email"],
 input[type="url"],
-textarea, select {
+textarea,
+select {
   position: relative;
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   padding: 0;
   margin: 0;
   display: block;
@@ -328,20 +353,16 @@ textarea, select {
   font: normal 100% -apple-system-font, "HelveticaNueue", "Helvetica";
   outline: 0 none;
 }
-
 input[type="text"],
 input[type="password"] {
-  position: relative;
   padding: 13px 10px;
-  margin: 0;
   border: none;
-  border-top: 1px solid rgb(200, 199, 204);
-  border-bottom: 1px solid rgb(200, 199, 204);
-  background-color: rgb(248, 248, 248);
+  border-top: 1px solid #c8c7cc;
+  border-bottom: 1px solid #c8c7cc;
+  background-color: #f8f8f8;
   border-radius: 0;
   box-shadow: none;
 }
-
 input[type=checkbox] {
   border: none;
   outline: 0 none;
@@ -356,16 +377,17 @@ input[type=checkbox] {
   height: 31px;
   position: relative;
   cursor: pointer;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
   margin: 0px;
   transform: scale(1);
-  -webkit-transform: scale(1);  Adjust size here 
+  -webkit-transform: scale(1);
 }
-
 input[type=checkbox]:checked {
-  box-shadow: inset 0px 0px 0px 20px orange;
+  box-shadow: inset 0px 0px 0px 20px #f59f35;
 }
-
+input[type=checkbox]:checked:after {
+  left: 22px;
+}
 input[type=checkbox]:after {
   content: '';
   position: absolute;
@@ -373,127 +395,120 @@ input[type=checkbox]:after {
   height: 28px;
   border-radius: 15px;
   border: none;
-  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.30000000000000004);
   cursor: pointer;
   background-color: #fff;
   transition: all 0.1s ease-in;
 }
-
-input[type="checkbox"]:checked:after {
-  left: 22px;
-}
-
 .checkswitch-wrapper {
   margin: 10px 0;
   padding: 0 10px 10px 20px;
 }
-
-.checkswitch {
-  float: right;
-}
-
 .checkswitch-wrapper > label {
   padding: 7px 20px !important;
 }
-
-.login-form .spacer5 {
-  height: 0;
+.checkswitch {
+  float: right;
 }
-
-.login .login-form input,
-.login .login-form .button {
-  background-color: rgba(248,248,248,0.8);
-  border-color: #999;
-}
-
-form[name=login-form] input[type="password"],
-input[name=roomkey] {
-  border-top: 0;
-}
-
-a.button,
-button {
+.button {
   display: block;
   margin: 5px 0;
   padding: 12px 40px;
-  border-top: 1px solid rgb(200, 199, 204);
-  border-bottom: 1px solid rgb(200, 199, 204);
+  border-top: 1px solid #c8c7cc;
+  border-bottom: 1px solid #c8c7cc;
   border-radius: 1px;
   text-decoration: none;
   text-align: center;
-  background-color: rgb(248, 248, 248);
-  color: rgb(21, 125, 251);
+  background-color: #f8f8f8;
+  color: #157dfb;
   font-size: 100%;
   font-weight: bold;
 }
-
-a.button.secondary {
+.button .secondary {
   font-weight: normal;
 }
-
-a.button.active {
+.button .active {
   outline: 0;
-  color: rgba(21, 125, 251, 0.3);
+  color: rgba(21, 125, 251, 0.30000000000000004);
 }
-
 .learn-more,
 .settings-and-shares {
   font-size: 80%;
   font-weight: bold;
   margin: 5 auto -10px auto;
 }
-
-.learn-more:active {
-  color: #bf671f;
+.learn-more:active,
+.settings-and-shares:active {
+  color: #de7a00;
 }
-
 .learn-about-spideroak,
 .rememberme-warning {
-  background-color: rgb(248, 248, 248);
+  background-color: #f8f8f8;
 }
-
-.meter { 
-  background: #e4e4e4;
-}
-
-.meter > span {
-  background-color: rgb(0,0,0);
-}
-
 .passcode-set {
-  background-color: rgb(248, 248, 248);
+  background-color: #f8f8f8;
+  color: #157dfb;
   height: 100%;
 }
-
-.passcode-set .num {
-  color: rgb(21, 125, 251);
+@media all and (min-width: 700px) {
+  .passcode-set .abc {
+    font-size: 90%;
+  }
 }
-
-.passcode-set .num:last-child {
-  color: #222;
-}
-
 .passcode-set .num .active {
-  color: rgba(21, 125, 251, 0.3);
+  color: rgba(21, 125, 251, 0.30000000000000004);
 }
-
+@media all and (min-width: 700px) {
+  .passcode-set .num {
+    height: 60px;
+  }
+}
+@media all and (min-width: 700px) {
+  .passcode-set .number {
+    line-height: 25px;
+  }
+}
 .passcode-set .title {
   top: 49px;
 }
-
 .passcode-set .title.settings {
   top: 5px;
 }
-
+@media all and (orientation: landscape) {
+  .passcode-set .title.settings {
+    top: 5px;
+  }
+}
 .passcode-set .passcode {
   top: 40px;
 }
-
 .passcode-set .passcode.settings {
   top: 0;
 }
-
-@media all and (orientation:landscape) {
+@media all and (orientation: landscape) {
+  .passcode-set .passcode.settings {
+    top: 20px;
+  }
+}
+@media all and (max-width: 800px) {
+  .passcode-set .passcode.settings {
+    top: -10px;
+  }
+}
+@media all and (orientation: landscape) {
+  .passcode-set .passcode {
+    top: 59px;
+  }
+}
+@media all and (max-width: 800px) {
+  .passcode-set .passcode {
+    top: 30px;
+  }
+}
+.passcode-set .pinpad {
+  color: #157dfb;
+}
+@media all and (orientation: landscape) {
   .passcode-set .pinpad {
     left: 20%;
     width: 60%;
@@ -501,53 +516,16 @@ a.button.active {
     bottom: 0;
     bottom: -10px;
   }
-
-  .passcode-set .passcode {
-    top: 59px;
-  }
-
-  .passcode-set .passcode.settings {
-    top: 20px;
-  }
-
-  .passcode-set .title.settings {
-    top: 5px;
-  }
 }
-
-@media all and (min-width:700px) {
+@media all and (min-width: 700px) {
   .passcode-set .pinpad {
     width: 60%;
     left: 20%;
   }
-
-  .passcode-set .num {
-    height: 60px;
-  }
-
-  .passcode-set .abc {
-    font-size: 90%;
-  }
-
-  .passcode-set .number {
-    line-height: 25px;
-  }
 }
-
-@media all and (max-width:800px) {
-  .passcode-set .passcode {
-    top: 30px;
-  }
-
-  .passcode-set .passcode.settings {
-    top: -10px;
-  }
-}
-
 .timeout .label {
   color: inherit;
 }
-
 .timeout .info {
-  color: rgb(21, 125, 251);
+  color: #157dfb;
 }

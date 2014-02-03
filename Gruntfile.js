@@ -239,6 +239,19 @@ module.exports = function(grunt) {
         dest: 'merges/ios/css/platform.css'
       }
     },
+    less: {
+      production: {
+        options: {
+          paths: ["www/css/less"],
+          cleancss: false
+        },
+        files: {
+          "www/css/app.css": "www/css/less/app.less",
+          "www/css/themes/ios.css": "www/css/less/themes/ios.less",
+          "www/css/themes/android.css": "www/css/less/themes/android.less"
+        }
+      }
+    },
     watch: {
       files: [
         '<%= jshint.files %>',
@@ -306,11 +319,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-dot-compiler');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'dot', 'concat', 'shell:mochadot']);
+  grunt.registerTask('default', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot']);
   // Custom tasks
   grunt.registerTask('test', 'Do mocha test; default = spec', function(which) {
     grunt.task.run('jshint', 'dot', 'concat');
@@ -321,11 +335,11 @@ module.exports = function(grunt) {
   // Build tasks
   grunt.registerTask('debug','Create a debug build', function(platform, test) {
     test = test || 'dot';
-    grunt.task.run('jshint', 'dot', 'concat', 'shell:mocha'+test);
+    grunt.task.run('jshint', 'dot', 'less', 'concat', 'shell:mocha'+test);
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('yolo','Create a debug build, but no tests', function(platform) {
-    grunt.task.run('jshint', 'dot', 'concat');
+    grunt.task.run('jshint', 'dot', 'less', 'concat');
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('beta','Create a beta build', function(platform) {
@@ -336,7 +350,7 @@ module.exports = function(grunt) {
   });
 
   // deprecated
-  grunt.registerTask('debug_ios', ['jshint', 'dot', 'concat', 'shell:mochadot', 'shell:debug_ios']);
-  grunt.registerTask('debug_android', ['jshint', 'dot', 'concat', 'shell:mochadot', 'shell:debug_android']);
+  grunt.registerTask('debug_ios', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot', 'shell:debug_ios']);
+  grunt.registerTask('debug_android', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot', 'shell:debug_android']);
 
 };

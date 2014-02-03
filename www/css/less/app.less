@@ -1,0 +1,775 @@
+// Imports
+@import "lib.less";
+
+// Styles
+body {
+  .userSelect;
+  background-color: @highlightColor;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: none;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+  color: @textColor;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.splash {
+  .positionAbsolute;
+  background-color: @mainBackground;
+}
+
+.app {
+  .positionAbsolute(0,0,0,0);
+  overflow: hidden;
+  background-color: @appBackground;
+}
+
+.main {
+  .positionAbsolute(0,0,0,0);
+  overflow: hidden;
+  background-color: @mainBackground;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.page {
+  .translate3d;
+  .positionAbsolute(44px,0,0,0);
+  background-color: @pageBackground;
+
+  > div {
+    overflow: auto !important;
+  }
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 44px;
+  width: 270px;
+  background-color: @appBackground;
+
+  .icon-history,
+  .icon-file-pdf,
+  .icon-file-word,
+  .icon-file-excel,
+  .icon-file-zip,
+  .icon-file-powerpoint,
+  .icon-file-xml,
+  .icon-file-css,
+  .icon-film,
+  .icon-music,
+  .icon-star,
+  .icon-star-2,
+  .icon-clock,
+  .icon-switch,
+  .icon-tux,
+  .icon-finder,
+  .icon-windows,
+  .icon-image,
+  .icon-menu,
+  .icon-arrow-left,
+  .icon-exit,
+  .icon-folder-open,
+  .icon-folder,
+  .icon-cloud-upload,
+  .icon-remove,
+  .icon-close,
+  .icon-checkmark,
+  .icon-loop,
+  .icon-plus,
+  .icon-minus,
+  .icon-warning,
+  .icon-eye,
+  .icon-link,
+  .icon-share,
+  .icon-download,
+  .icon-redo,
+  .icon-cog,
+  .icon-settings,
+  .icon-file,
+  .icon-info,
+  .icon-checkbox-checked,
+  .icon-checkbox-unchecked,
+  .icon-file-openoffice,
+  .icon-libreoffice,
+  .icon-unlocked,
+  .icon-lock {
+    position: relative;
+    font-size: 120%;
+    top: 3px;
+    margin-right: 10px;
+  }
+
+  .icon-hive-black {
+    position: relative;
+    font-size: 140%;
+    top: 5px;
+    margin-right: 5px;
+  }
+
+  .menu-icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .menu-label {
+    position: absolute;
+    top: 5px;
+    left: 50px;
+    line-height: 43px;
+  }
+
+  ul {
+    li {
+      background-color: @menuLiBackgroundColor;
+      border-color: @menuLiBorderColor;
+
+      a {
+        height: 30px;
+
+        &.active {
+          background-color: @menuLiActiveBackgroundColor;
+          color: @menuLiActiveTextColor;
+        }
+      }
+
+      .sep {
+        background-color: @menuSepBackgroundColor;
+        color: @menuSepTextColor;
+      }
+    }
+  }
+}
+
+.nav {
+  color: @navTextColor;
+}
+
+.storagebar {
+  color: @storageBarColor;
+  border-top: 1px solid (@storageBarColor - #333);
+  background-color: (@storageBarColor - #666);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  height: 30px;
+  padding: 5px;
+
+  .devices-info {
+    font-size: 80%;
+    padding: 3px 10px;
+  }
+
+  .bar-graph {
+    width: 260px;
+    height: 10px;
+    background-color: (@storageBarColor - #ccc);
+
+    .inner {
+      background-color: (@storageBarColor - #333);
+      width: 0;
+      height: 10px;
+    }
+  }
+}
+
+.login {
+  .positionAbsolute;
+  .scrollable;
+  background-color: @mainBackground;
+
+  .login-title {
+    color: (@mainBackground + #111);
+    font-weight: bold;
+    font-variant: small-caps;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 140%;
+  }
+
+  .login-logo {
+    position: relative;
+    top: 0;
+    display: block;
+    width: 120px;
+    margin: 0 auto;
+  }
+
+  .login-form {
+    .twoStepLinearGradient(@loginOrange; @darkLoginOrange);
+
+    .logoutText {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .button {
+      color: shade(@darkLoginOrange, 75%);
+
+      &.logout {
+        margin-bottom: 20px;
+      }
+    }
+
+    .stayloggedin {
+      text-align: center;
+      color: @loginTextColor;
+      font-weight: bold;
+      height: 44px;
+      line-height: 44px;
+      margin: 10px 0;
+
+      .remember-me {
+        display: inline-block;
+      }
+
+      #rememberme {
+        .hidden;
+      }
+
+      .circle {
+        color: fadeout(@darkLoginOrange, 80);
+        display: inline-block;
+        background-color: @loginTextColor;
+        .uniformBorderRadius(50%);
+        width: 28px;
+        height: 28px;
+        line-height: 30px;
+        margin-right: 10px;
+
+        &.on {
+          color: darken(@loginOrange, 8.5%);
+        }
+      }
+    }
+  }
+}
+
+.spacer5 {
+  height: 5px;
+}
+
+.learn-more,
+.settings-and-shares {
+  width: 60%;
+  text-align: center;
+  font-size: 80%;
+  margin: 0 auto;
+  padding: 10px;
+  color: @darkLoginOrange;
+}
+
+.learn-about-spideroak,
+.rememberme-warning,
+.passcode-auth-entry {
+  .positionAbsolute;
+  overflow: auto;
+  background-color: @mainBackground;
+  z-index: 110;
+}
+
+.about-spideroak-content {
+  padding: 10px;
+  font-size: 90%;
+
+  .email-link,
+  .site-link {
+    color: @linkColor;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  border-width: 0 0 0 1px;
+
+  li {
+    .ellipsis;
+    border-top: 1px solid @liBorderColor;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+
+    &:last-child {
+      border-bottom: 1px solid @liBorderColor;
+    }
+
+    &:first-child {
+      border-top: none;
+    }
+
+    &.small {
+      font-size: 80%;
+    }
+
+    &.sep {
+      font-size: 90%;
+      padding: 2px 10px;
+      background-color: @menuSepBackgroundColor;
+      color: @menuSepTextColor;
+      border: none;
+    }
+
+    a {
+      .ellipsis;
+      position: relative;
+      display: block;
+      padding: 10px;
+      margin: -10px;
+      height: 30px;
+
+      &.active {
+        background-image: none;
+        background-color: @liActiveBackgroundColor;
+      }
+
+      .icon {
+        .positionAbsolute(10px, auto, auto, 5px);
+        width: 20px;
+        height: 30px;
+        padding: 5px;
+        font-size: 120%;
+        color: #333;  // @TODO: What should this be?
+      }
+
+      .rightButton {
+        .positionAbsolute(0, 5px, auto, auto);
+        width: 20px;
+        height: 30px;
+        padding: 15px 5px 5px 5px;
+        font-size: 110%;
+        color: @liButtonColor;
+      }
+
+      .filename {
+        .positionAbsolute(5px, 40px, auto, 45px);
+        .ellipsis;
+      }
+
+      .foldername {
+        .positionAbsolute(17px, 40px, auto, 45px);
+        .ellipsis;
+      }
+
+      .subtext {
+        .positionAbsolute(30px, 40px, auto, 45px);
+        .ellipsis;
+        font-size: 70%;
+
+        .file-modified {
+          float: right;
+        }
+
+        .file-info {
+          float: left;
+        }
+      }
+
+      .hiddenItem {
+        .hidden;
+      }
+
+      .hiddenItem:after {
+        content: "Loading...";
+      }
+    }
+
+    .label {
+      .ellipsis;
+      float: left;
+      color: @liLabelColor;
+      width: 33%;
+    }
+
+    .info {
+      .ellipsis;
+      float: right;
+      text-align: right;
+      width: 66%;
+    }
+  }
+}
+
+.folderViewLoading,
+.mySharesViewLoading,
+.versionsViewLoading,
+.publicSharesViewLoading {
+
+  .sep {
+    background-color: @sepBackgroundColor;
+    color: @sepTextColor;
+  }
+
+  li {
+    text-align: center;
+  }
+}
+
+.icon-large {
+  font-size: 140%;
+}
+
+.bg-icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.bg-pos-zero {
+  background-position: 0 0;
+}
+
+.bg-pos-center {
+  background-position: center center;
+}
+
+.folderViewLoading,
+.mySharesViewLoading,
+.versionsViewLoading,
+.publicSharesViewLoading {
+  .hidden;
+}
+
+.folderViewLoading.loadingFolders,
+.folderViewLoading.loadingFiles,
+.versionsViewLoading.loadingVersions,
+.mySharesViewLoading.loadingMyShares,
+.publicSharesViewLoading.loadingPublicShares {
+  display: block;
+}
+
+.fileItem:after {
+  .positionAbsolute(10px, 10px, auto, auto);
+  font-family: 'SpiderOakIcons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  content: "\e00b";
+  color: #ccc; // @TODO: What should this be?
+}
+
+.rightButton.favorite {
+  color: @highlightColor;
+}
+
+.favorite:after {
+  color: @highlightColor;
+}
+
+.passwordRequired {
+  font-style: italic;
+}
+
+.modal {
+  z-index: 10000;
+  display: none;
+  .positionAbsolute;
+  background-color: @modalBackgroundColor;
+  overflow: hidden;
+
+  .title,
+  .progress-dialog {
+    .subtitle {
+      .ellipsis;
+      padding: 0 10px;
+    }
+  }
+
+  .progress-dialog {
+    .positionAbsolute(30%, 15%, auto, 15%);
+    .uniformBorderRadius(5px);
+    background-color: @dialogBackgroundColor;
+    color: @dialogTextColor;
+    text-align: center;
+  }
+
+  .context-popup li:last-child {
+    .hidden;
+  }
+
+  .wait-dialog {
+    .positionAbsolute(30%, 15%, auto, 15%);
+    .dialog;
+  }
+
+  .toast-dialog {
+    .positionAbsolute(auto, 10%, 10%, 10%);
+    .dialog;
+
+    .title {
+      padding: 10px;
+    }
+  }
+
+  // Local dialog mixin
+  .dialog() {
+    .uniformBorderRadius(5px);
+    background-color: @dialogBackgroundColor;
+    color: @dialogTextColor;
+    text-align: center;
+  }
+}
+
+.cancel-btn {
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 44px;
+    border-top: 1px solid @cancelButtonBorderColor;
+    line-height: 44px;
+
+    .active {
+      .borderRadius(0, 0, 5px, 5px);
+      background-color: @cancelButtonBorderColor;
+    }
+  }
+}
+
+.meter {
+  .uniformBorderRadius(5px);
+  position: relative;
+  height: 15px;  // Can be anything...
+  margin: 20px;
+  background: @meterBackgroundColor;
+  padding: 0px;
+
+  > span {
+    .uniformBorderRadius(5px);
+    position: relative;
+    display: block;
+    height: 100%;
+    background-color: @meterSpanBackgroundColor;
+    overflow: hidden;
+  }
+}
+
+.fileDetails-container {
+  padding-bottom: 50px;
+}
+
+.fileDetails {
+  padding: 10px;
+  line-height: 120%;
+
+  .icon-large {
+    display: inline-block;
+    width: 30px;
+  }
+
+  .name {
+    width: 100%;
+    word-wrap: break-word;
+    line-height: 100%;
+    margin: 10px 0;
+  }
+
+  .section {
+    font-size: 80%;
+    border-top: 1px solid #999; // @TODO: Is this needed?
+  }
+
+  .label {
+    display: inline-block;
+    width: 100px;
+  }
+
+  blockquote {
+    line-height: 1.2em;
+    margin-top: 0.1em;
+    margin-bottom: 0.2em;
+  }
+}
+
+// A lot of choices here, perhaps these need to be relative (darken, lighten, etc)
+.toolbar {
+  .hidden;
+  .positionAbsolute(auto, 0, 0, 0);
+  height: 48px;
+  background-color: @toolbarBackgroundColor;
+  border-top: 1px solid (@toolbarBackgroundColor - #111);
+  font-size: 130%;
+
+  .toolbar-button {
+    margin: 12px 0;
+    text-align: center;
+    float: left;
+    width: 25%;
+    color: @toolbarBackgroundColor; 
+
+    .enabled {
+      color: #666; // @TODO: What should this be?
+    }
+
+    .favorite {
+      color: @highlightColor;
+    }
+
+    a {
+
+      .active {
+
+        &.enabled {
+          color: #333; // @TODO: What should this be?
+          text-shadow: 0 0 10px #fff; // @TODO: What should this be?
+        }
+      }
+    }
+  }
+}
+
+.passcode-set {
+
+  .title {
+    .positionAbsolute(49px, 0, auto, 0);
+    text-align: center;
+    color: @passcodeSetColor;
+    font-size: 100%;
+
+    @media all and (orientation:landscape) {
+      top: 49px;
+    }
+
+    .settings {
+      top: 5px;
+      
+      @media all and (orientation:landscape) {
+        top: 5px;
+      }
+    }
+  }
+
+  .abc {
+    line-height: 25px;
+
+    @media all and (orientation:landscape) {
+      font-size: 90%;
+    }
+
+    @media all and (min-width:700px) {
+      font-size: 90%;
+    }
+  }
+
+  .num {
+    -webkit-box-sizing: border-box;
+    display: block;
+    float: left;
+    width: 33.3333333333%;
+    max-width: 200px;
+    height: 60px;
+    text-align: center;
+    
+    @media all and (orientation:landscape) {
+      height: 45px;
+    }
+
+    @media all and (min-width:700px) {
+      height: 60px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .active {
+      color: (@passcodeSetColor + #333);
+    }
+
+    &:last-child {
+
+      .number {
+        background: url('../img/spideroak-icons/backspace.png') no-repeat;
+        background-position: center center;
+        background-size: 30px;
+      }
+
+      @media all and (min-width:700px) {
+        line-height: 25px;
+      }
+    }
+  }
+
+  .pinpad {
+    .positionAbsolute(auto, 0, 0, 0);
+    color: @passcodeSetColor;
+
+    @media all and (orientation:landscape) {
+      left: 20%;
+      max-width: 60%;
+      right: 0;
+      bottom: -10px;
+    }
+
+    @media all and (min-width:700px) {
+      width: 60%;
+      left: 20%;
+    }
+  }
+
+  .number {
+    font-size: 200%;
+    line-height: 30px;
+
+    @media all and (orientation:landscape) {
+      line-height: 20px;
+    }
+
+    &.shorter {
+      font-size: 130%;
+    }
+  }
+
+  .passcode {
+    .positionAbsolute(40px, 0, auto, 0);
+    -webkit-box-sizing: border-box;
+    border: none;
+    text-align: center;
+    font-size: 500%;
+    width: 100%;
+    background-color: @clearColor;
+    padding: 20px 0;
+
+    @media all and (orientation:landscape) {
+      top: 59px;
+    }
+
+    @media all and (max-width:800px) {
+      top: 30px;
+    }
+
+    &.settings {
+      top: 0;
+
+      @media all and (max-width:800px) {
+        top: -10px;
+      }
+    }
+  }
+
+  .backspace {
+    font-size: 110%;
+    height: 30px;
+  }
+}
+
+
+
+

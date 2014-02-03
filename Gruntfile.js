@@ -248,7 +248,8 @@ module.exports = function(grunt) {
         files: {
           "www/css/app.css": "www/css/less/app.less",
           "www/css/themes/ios.css": "www/css/less/themes/ios.less",
-          "www/css/themes/android.css": "www/css/less/themes/android.less"
+          "www/css/themes/android.css": "www/css/less/themes/android.less",
+          "www/css/themes/blackberry10.css": "www/css/less/themes/blackberry10.less"
         }
       }
     },

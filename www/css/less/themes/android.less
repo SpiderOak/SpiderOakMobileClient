@@ -128,7 +128,7 @@ ul {
       color: #fff;
 
       &.current {
-        border-left: 5px solid orange;
+        border-left: 5px solid @highlightColor;
         margin-left: -5px;
       }
 
@@ -261,10 +261,10 @@ input[type="password"]:focus {
 
   &.focused {
     position: relative;
-    border-bottom: solid 1px orange;
-    border-left: solid 1px orange;
+    border-bottom: solid 1px @highlightColor;
+    border-left: solid 1px @highlightColor;
     margin: 20px;
-    border-right: solid 1px orange;
+    border-right: solid 1px @highlightColor;
     overflow: visible;
     max-height: 0.1em;
     display: block;
@@ -288,7 +288,7 @@ input[type="password"]:focus {
 }
 
 .button {
-  -webkit-tap-highlight-color: orange;
+  -webkit-tap-highlight-color: @highlightColor;
   display: block;
   margin: 10px 20px;
   padding: 8px 40px;

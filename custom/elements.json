@@ -8,14 +8,28 @@
       "TargetFolder": "./assets/www",
       "Format": "Javascript",
       "Purpose": "Build-specific configuration settings",
-      "Platforms": ["Android", "iOS"]
+      "Platforms": ["Android"]
+    },
+    {
+      "FileName": "custom_config.js",
+      "TargetFolder": "../www",
+      "Format": "Javascript",
+      "Purpose": "Build-specific configuration settings",
+      "Platforms": ["iOS"]
     },
     {
       "FileName": "customAppStrings.json",
       "TargetFolder": "./assets/www",
       "Format": "Javascript",
       "Purpose": "Build-specific application string mappings",
-      "Platforms": ["Android", "iOS"]
+      "Platforms": ["Android"]
+    },
+    {
+      "FileName": "customAppStrings.json",
+      "TargetFolder": "../www",
+      "Format": "Javascript",
+      "Purpose": "Build-specific application string mappings",
+      "Platforms": ["iOS"]
     },
     {
       "FileName": "brand_logo.png",
@@ -25,11 +39,18 @@
       "Platforms": ["Android"]
     },
     {
+      "FileName": "brand_logo.png",
+      "TargetFolder": "../www/img",
+      "Format": "512 x 512 PNG image",
+      "Purpose": "Full-size company logo",
+      "Platforms": ["iOS"]
+    },
+    {
       "FileName": "icon.png",
       "TargetFolder": "./assets/www/img",
       "Format": "57 x 57 PNG image",
       "Purpose": "Menu-sheet 'back' button icon",
-      "Platforms": ["Android", "iOS"]
+      "Platforms": ["Android"]
     },
     {
       "SourceFileName": "cordova_android_96.png",

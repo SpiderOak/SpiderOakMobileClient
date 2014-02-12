@@ -125,7 +125,7 @@
         complete: function() {
           if (window.StatusBar && $.os.ios) {
             window.StatusBar.styleDefault();
-            $("body").css("background-color","#e4e4e4");
+            $("body").css("background-color",s("#e4e4e4"));
           }
         }
       });
@@ -133,7 +133,7 @@
     dismiss: function(event) {
       if (window.StatusBar && $.os.ios) {
         window.StatusBar.styleLightContent();
-        $("body").css("background-color","#f59f35");
+        $("body").css("background-color",s("#f59f35"));
       }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,

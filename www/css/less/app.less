@@ -1,5 +1,6 @@
 // Imports
 @import "lib.less";
+@import "../../../custom/brand/brand.less";
 
 // Styles
 body {
@@ -19,9 +20,23 @@ a {
   color: inherit;
 }
 
+// Needs to be early so splash version overrides
+.login-logo {
+  position: relative;
+  top: 0;
+  display: block;
+  width: 120px;
+  margin: 0 auto;
+}
+
 .splash {
   .positionAbsolute;
-  background-color: @mainBackground;
+  .twoStepLinearGradient(@loginOrange; @darkLoginOrange);
+  z-index: 101;
+
+  .login-logo {
+    top: 20px;
+  }
 }
 
 .app {
@@ -197,14 +212,6 @@ a {
     text-align: center;
     margin-bottom: 10px;
     font-size: 140%;
-  }
-
-  .login-logo {
-    position: relative;
-    top: 0;
-    display: block;
-    width: 120px;
-    margin: 0 auto;
   }
 
   .login-form {

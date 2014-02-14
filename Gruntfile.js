@@ -14,15 +14,29 @@ module.exports = function(grunt) {
         ' */\n\n'
     },
     shell: {
+      install_ios: {
+        command: './node_modules/.bin/cordova -d platform add ios',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
+      },
+      install_android: {
+        command: './node_modules/.bin/cordova -d platform add android',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
+      },
       debug_ios: {
-        command: 'cordova emulate ios',
+        command: './node_modules/.bin/cordova -d emulate ios',
         options: {
           failOnError: true,
           stdout: true
         }
       },
       debug_android: {
-        command: 'cordova -d run android',
+        command: './node_modules/.bin/cordova -d run android',
         options: {
           failOnError: true,
           stdout: true

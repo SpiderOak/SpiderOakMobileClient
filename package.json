@@ -42,6 +42,7 @@
     "grunt-contrib-jshint": "~0.4.3",
     "grunt-contrib-watch": "~0.3.1",
     "grunt-contrib-concat": "~0.2.0",
+    "grunt-contrib-less": "~0.9.0",
     "grunt-shell": "0.2.x",
     "mocha": "~1.8.1",
     "chai": "~1.8.0",

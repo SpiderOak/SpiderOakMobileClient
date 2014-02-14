@@ -1,0 +1,499 @@
+// Imports
+@import "lib.less";
+@import "../../../../custom/brand/brand.less";
+
+// Variables
+@textColor: #222;
+@navTitleTextColor: #999;
+@pageBackground: #e4e4e4;
+@liActiveBackgroundColor: #ccc;
+@liBorderColor: #333;
+@menuLiBackgroundColor: #333;
+@menuLiBorderColor: #666;
+@menuLiActiveBackgroundColor: #ccc;
+@menuLiActiveTextColor: #000;
+@menuSepBackgroundColor: #333;
+@menuSepTextColor: #ccc;
+@buttonBackgroundColor: #ccc;
+@buttonTextColor: #333;
+@shadowColor: fadeOut(#000, 60);
+
+// Mixins
+
+// Styles
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+
+.nav {
+  height: 48px !important;
+  background-color: #111;
+
+  .menu-btn,
+  .back-btn {
+    .positionAbsolute(auto, auto, auto, 0);
+    color: #000;
+    display: block;
+    padding: 0 3px;
+    background: url('../img/ic_ab_back_holo_dark.png') no-repeat,
+      url('../img/icon.png') no-repeat;
+    width: 48px;
+    height:48px;
+    background-size: 16px, 35px;
+    background-position: 0 17.5px, 13px 7.5px;
+  }
+
+  .icon-btn {
+    .positionAbsolute(auto, auto, auto, 0);
+    color: #000;
+    display: block;
+    padding: 0 3px;
+    background: url('../img/icon.png') no-repeat;
+    width: 48px;
+    height:48px;
+    background-size: 35px;
+    background-position: 13px 7.5px;
+  }
+
+  .menu-btn.active,
+  .back-btn.active,
+  .passcode-cancel-btn.active,
+  .clear-recents-btn.active,
+  .add-sharerooms-btn.active,
+  .refresh-favorites-btn.active {
+    background-color: #333;
+  }
+
+  .passcode-cancel-btn,
+  .clear-recents-btn,
+  .add-sharerooms-btn,
+  .refresh-favorites-btn {
+    .positionAbsolute(0, 0, auto, auto);
+    font-size: 22px;
+    margin: 0;
+    color: #ccc;
+    text-align: center;
+    padding: 13px 13px 8px 13px;
+    display: block;
+    color: @navTitleTextColor;
+  }
+
+  .title {
+    .ellipsis;
+    display: block;
+    width: 250px;
+    padding: 10px;
+    position: absolute;
+    left: 45px;
+    font-size: 130%;
+    color: @navTitleTextColor;
+  }
+}
+
+.page {
+  .positionAbsolute(48px, 0, 0, 0);
+}
+
+.addShareRoom {
+  padding: 30px 0;
+}
+
+ul {
+
+  li {
+    font-size: 120%;
+    padding: 13px 10px;
+
+    a {
+      padding: 13px 10px;
+      margin: -13px -10px;
+    }
+
+    .small {
+      font-size: 80%;
+    }
+  }
+}
+
+.menu {
+  padding: 0 10px;
+  width: 250px;
+
+  ul {
+
+    li {
+      padding-top: 20px;
+      background-color: @menuLiBackgroundColor;
+      border: none;
+      color: #fff;
+
+      &.current {
+        border-left: 5px solid @highlightColor;
+        margin-left: -5px;
+      }
+
+      &.sep {
+        padding: 2px 10px;
+        background-color: @menuSepBackgroundColor;
+        border-bottom: 2px solid @menuLiBorderColor;
+        color: @menuSepTextColor;
+      }
+
+      a {
+        color: inherit;
+
+        &.active {
+          background-color: @menuLiActiveBackgroundColor;
+          color: @menuLiActiveTextColor;
+        }
+      }
+    }
+  }
+}
+
+.login {
+
+  ::-webkit-input-placeholder {
+    color: #fff;
+    text-shadow: #e8ebee 0 1px 0;
+  }
+
+  .button {
+    -webkit-tap-highlight-color: #fff;
+    background-color: #fff;
+    color: #333;
+
+    &.active {
+      background-color: #e4e4e4;
+      color: #111;
+    }
+  }
+
+  .login-input {
+    border-bottom: solid 1px #fff;
+    border-left: solid 1px #fff;
+    border-right: solid 1px #fff;
+
+    &.focused {
+      border-bottom: solid 1px darken(@darkLoginOrange, 10%);
+      border-left: solid 1px darken(@darkLoginOrange, 10%);
+      border-right: solid 1px darken(@darkLoginOrange, 10%);
+    }
+
+    input {
+      color: #fff;
+    }
+  }
+}
+
+.login-title {
+  padding-bottom: 20px;
+}
+
+.login-input {
+  position: relative;
+  margin: 20px;
+  border-bottom: solid 1px #ccc;
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+  overflow: visible;
+  max-height: 0.1em;
+  display: block;
+  padding: 2px 17px 2px 2px;
+
+  &.focused {
+    border-bottom: solid 1px @highlightColor;
+    border-left: solid 1px @highlightColor;
+    border-right: solid 1px @highlightColor;
+  }
+
+  input {
+    -webkit-user-modify: read-write-plaintext-only;
+    -webkit-tap-highlight-color: rgba(0,0,0,0); 
+    width: 100%;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    outline: 0 none !important;
+    border: none;
+    background: transparent;
+    display: block;
+    position: relative;
+    bottom: 20px;
+    margin: -5px 5px;
+    font-size: 110%;
+    color: #333;
+  }
+
+  @media all and (orientation:landscape) {
+    width: 320px;
+    margin: 20px auto;
+  }
+}
+
+#pwrd:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  -webkit-user-modify: read-write-plaintext-only;
+  -webkit-user-select: auto;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  width: 100%;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  outline: 0 none !important;
+  border: none;
+  background: transparent;
+  display: block;
+  position: relative;
+  bottom: 20px;
+  margin: -5px 5px;
+  font-size: 110%;
+}
+
+.right-input {
+  position: relative;
+  border-bottom: solid 1px #ccc;
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+  float: right;
+  margin: 20px;
+  overflow: visible;
+  max-height: 0.1em;
+  display: block;
+  padding: 2px 17px 2px 2px;
+
+  &.focused {
+    position: relative;
+    border-bottom: solid 1px @highlightColor;
+    border-left: solid 1px @highlightColor;
+    margin: 20px;
+    border-right: solid 1px @highlightColor;
+    overflow: visible;
+    max-height: 0.1em;
+    display: block;
+    padding: 2px 17px 2px 2px;
+  }
+
+  input {
+    -webkit-user-modify: read-write-plaintext-only;
+    -webkit-tap-highlight-color: rgba(0,0,0,0); 
+    width: 100%;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    outline: 0 none !important;
+    border: none;
+    background: transparent;
+    display: block;
+    position: relative;
+    bottom: 20px;
+    margin: -5px 5px;
+    font-size: 110%;
+  }
+}
+
+.button {
+  -webkit-tap-highlight-color: @highlightColor;
+  display: block;
+  margin: 10px 20px;
+  padding: 8px 40px;
+  border-top: 1px solid fadeOut(#fff, 66);
+  border-right: 1px solid fadeOut(#000, 99.6);
+  border-bottom: 1px solid fadeOut(#000, 57);
+  border-left: 1px solid fadeOut(#000, 99.6);
+  border-radius: 1px;
+  text-decoration: none;
+  text-align: center;
+  background-color: @buttonBackgroundColor;
+  color: @buttonTextColor;
+
+  &.active {
+    background-color: @highlightColor;
+    box-shadow: 0 0 2px 4px @highlightColor;
+    outline:0;
+  }
+
+  @media all and (orientation:landscape) {
+    width: 260px;
+    margin: 10px auto;
+  }
+}
+
+.modal {
+
+  .context-popup {
+    background-color: #eee;
+    width: 275px;
+    margin: 10% auto 0 auto;
+    max-height: 90%;
+    box-shadow: 3px 3px 10px @shadowColor;
+    overflow-y: hidden;
+
+    a {
+
+      .cancel-btn {
+        display: none;
+      }
+    }
+  }
+}
+
+/*
+.checkswitch-wrapper {
+  padding: 0 20px 10px 20px;
+
+  .checkswitch {
+    float: right;
+
+    input {
+      position: relative;
+      width: 80px;
+      height: 20px; 
+      display: block; 
+      -webkit-appearance: none; 
+      padding: 0px;
+      margin: 0px;
+      border-radius: 0;
+      z-index: 1;
+
+      &:checked + label {
+
+        span {
+          background-color: orange;  
+          left:40px;
+
+          &:before {   
+            .positionAbsolute;
+            content:attr(data-on);
+          }
+        }
+      }
+    }
+
+    input + label {
+
+      span {   
+        background-color: rgb(153,153,153); 
+        left: -1px;
+
+        &:before {
+          .positionAbsolute;
+          display: block;
+          content: attr(data-off); 
+        }
+      }
+    }
+
+    label {
+      padding: 0px;
+      margin: 0px; 
+      width: 80px;  
+      display: block; 
+      border: 1px solid #ddd;
+      height: 20px;
+      margin-top: -20px;
+      margin-left: 0px; 
+      position: relative; 
+      text-transform: uppercase;
+      overflow: hidden;
+      font-size: 70%;
+      text-shadow: 0 1px 2px @shadowColor;
+      z-index: 0;
+
+      span {
+        .positionAbsolute(0, auto, auto, auto);
+        height: 20px; 
+        width: 40px;
+        display: block; 
+        line-height: 20px; 
+        text-align: center; 
+        -webkit-box-sizing: border-box; 
+        color: white;
+      }
+    }
+  }
+
+  @media all and (orientation:landscape) {
+    width: 320px;
+    margin: 0 auto;
+  }
+}
+*/
+
+.checkswitch-wrapper {
+  padding: 0 20px 10px 20px;
+
+  @media all and (orientation:landscape) {
+    width: 320px;
+    margin: 0 auto;
+  }
+}
+
+.checkswitch {
+  float: right;
+
+  input {
+    position: relative;
+    width: 80px;
+    height: 20px; 
+    display: block; 
+    -webkit-appearance: none; 
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    z-index: 1;
+  }
+
+  label {
+    padding: 0px;
+    margin: 0px; 
+    width: 80px;  
+    display: block; 
+    border: 1px solid #ddd;
+    height: 20px;
+    margin-top: -20px;
+    margin-left: 0; 
+    position: relative; 
+    text-transform: uppercase;
+    overflow: hidden;
+    font-size: 70%;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    z-index: 0;
+
+    span {
+      height: 20px; 
+      width: 40px;
+      display: block; 
+      line-height: 20px; 
+      text-align: center; 
+      -webkit-box-sizing: border-box; 
+      color: white; 
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  input + label span {   
+    background-color: rgb(153, 153, 153); 
+    left: -1px;
+  }
+
+  input:checked + label span {
+    background-color: @highlightColor;  
+    left: 40px;
+  }
+
+  input + label span:before {
+    display: block; 
+    content: attr(data-off); 
+    left: 0; 
+    right: 0; 
+    top: 0; 
+    bottom: 0;
+    position: absolute; 
+  }
+
+  input:checked + label span:before {   
+    content: attr(data-on); 
+    right: 0; 
+    left: 0; 
+    top: 0; 
+    bottom: 0;
+  }
+}
+

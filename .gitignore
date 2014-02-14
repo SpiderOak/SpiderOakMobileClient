@@ -1,7 +1,7 @@
 www/components/**/*
-components/**/*
+bower_components/**/*
 !www/components/.gitignore
-!components/.gitignore
+!bower_components/.gitignore
 node_modules
 platforms/ios
 platforms/android

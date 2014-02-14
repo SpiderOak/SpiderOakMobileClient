@@ -126,6 +126,7 @@ module.exports = function(grunt) {
           'src/views/RecentsView.js',
           'src/views/FavoritesView.js',
           'src/views/LoginView.js',
+          'src/views/PreliminaryView.js',
           'src/views/MainView.js',
           'src/views/ToolbarView.js',
           'src/views/StorageView.js',

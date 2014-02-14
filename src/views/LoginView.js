@@ -14,10 +14,10 @@
     el: "#login",
     events: {
       "submit form": "form_submitHandler",
-      "tap .shareRoomsButton": "shareRoomsButton_tapHandler",
+      "tap .menu-btn": "menuBtn_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
       "tap .switch": "switch_tapHandler",
-      "tap .learn-more": "learnMore_tapHandler"
+      "tap .cancel-btn": "cancelBtn_tapHandler"
     },
     initialize: function() {
       window.bindMine(this);
@@ -127,7 +127,7 @@
       event.preventDefault();
       this.form_submitHandler(event);
     },
-    shareRoomsButton_tapHandler: function(event) {
+    menuBtn_tapHandler: function(event) {
       event.preventDefault();
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.setTitle("ShareRooms");
@@ -164,10 +164,11 @@
       $checkbox.attr("checked",!checked);
       $this.toggleClass("on");
     },
-    learnMore_tapHandler: function(event) {
-      var learnMoreView = new spiderOakApp.LearnAboutView();
-      $(".app").append(learnMoreView.$el);
-      learnMoreView.render().show();
+    cancelBtn_tapHandler: function(event) {
+      window.store.set("showPreliminary", true);
+      spiderOakApp.preliminaryView = new spiderOakApp.PreliminaryView();
+      $(".app").append(spiderOakApp.preliminaryView.$el);
+      spiderOakApp.preliminaryView.render().show();
     },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {

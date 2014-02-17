@@ -29,6 +29,50 @@ a {
   margin: 0 auto;
 }
 
+.preliminary {
+  .twoStepLinearGradient(@loginOrange; @darkLoginOrange);
+  .positionAbsolute;
+  .scrollable;
+  -webkit-transform: translate3d(0,-100%,0);
+  z-index: 102;
+
+  .login-logo {
+    position: relative;
+    top: 0;
+    display: block;
+    width: 180px;
+    margin: 0 auto;
+  }
+
+  .need-cta {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 180%;
+    text-align: center;
+    width: 100%;
+
+    small {
+      display: block;
+      margin: 20px 0;
+    }
+
+    a {
+      
+      &.active {
+        color: #fff;
+      }
+    }
+  }
+
+  .learn-more {
+    color: #fff;
+    margin: 20px auto;
+  }
+
+  .button {
+    color: shade(@darkLoginOrange, 75%);
+  }
+}
+
 .splash {
   .positionAbsolute;
   .twoStepLinearGradient(@loginOrange; @darkLoginOrange);
@@ -203,7 +247,27 @@ a {
 .login {
   .positionAbsolute;
   .scrollable;
-  background-color: @mainBackground;
+  .twoStepLinearGradient(@loginOrange; @darkLoginOrange);
+
+  .menu-btn {
+    .positionAbsolute(15px, auto, auto, 15px);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 150%;
+
+    &.active {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .cancel-btn {
+    .positionAbsolute(15px, 15px, auto, auto);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 120%;
+
+    &.active {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
 
   .login-title {
     color: (@mainBackground + #111);
@@ -215,7 +279,6 @@ a {
   }
 
   .login-form {
-    .twoStepLinearGradient(@loginOrange; @darkLoginOrange);
 
     .logoutText {
       text-align: center;
@@ -268,9 +331,8 @@ a {
   height: 5px;
 }
 
-.learn-more,
-.settings-and-shares {
-  width: 60%;
+.learn-more {
+  width: 90%;
   text-align: center;
   font-size: 80%;
   margin: 0 auto;

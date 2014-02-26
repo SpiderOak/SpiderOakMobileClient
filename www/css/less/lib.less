@@ -1,0 +1,181 @@
+// Variables
+@highlightColor: #f59f35;
+@appBackground: #333;
+@mainBackground: #eee;
+@loginOrange: @highlightColor;
+@darkLoginOrange: saturate(darken(@loginOrange, 15%), 30%);
+@loginTextColor: #fff;
+@pageBackground: #e4e4e4;
+@storageBarColor: #ccc;
+@modalBackgroundColor: fadeout(#000, 30);
+@dialogBackgroundColor: #000;
+@dialogTextColor: #ccc;
+@meterBackgroundColor: #333;
+@meterSpanBackgroundColor: #666;
+@textColor: #222;
+@linkColor: #666;
+@navTextColor: #fff;
+@menuLiBackgroundColor: #ccc;
+@menuLiBorderColor: #333;
+@menuLiActiveBackgroundColor: #666;
+@menuLiActiveTextColor: #ccc;
+@menuSepBackgroundColor: #333;
+@menuSepTextColor: #fff;
+@liButtonColor: #ccc;
+@liLabelColor: #666;
+@liBorderColor: #ccc;
+@liActiveBackgroundColor: #ccc;
+@sepBackgroundColor: #ccc;
+@sepTextColor: #222;
+@cancelButtonBorderColor: #333;
+@cancelButtonActiveBackgroundColor: @cancelButtonBorderColor;
+@passcodeSetColor: #666;
+@clearColor: rgba(0,0,0,0);
+@toolbarBackgroundColor: #ccc;
+
+// Global mixins
+.userSelect() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.positionAbsolute(@top: 0; @right: 0; @bottom: 0; @left: 0) {
+  position: absolute;
+  top: @top;
+  right: @right;
+  bottom: @bottom;
+  left: @left;
+}
+
+.translate3d(@x: 0; @y: 0; @z: 0) {
+  -webkit-transform: translate3d(@x, @y, @z);
+  -moz-transform: translate3d(@x, @y, @z);
+  -ms-transform: translate3d(@x, @y, @z);
+  transform: translate3d(@x, @y, @z);
+}
+
+.scrollable() {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.twoStepLinearGradient(@topColor; @bottomColor) {
+  background-image: -o-linear-gradient(top, @topColor 0%, @bottomColor 100%);
+  background-image: -moz-linear-gradient(top, @topColor 0%, @bottomColor 100%);
+  background-image: -webkit-linear-gradient(top, @topColor 0%, @bottomColor 100%);
+  background-image: -ms-linear-gradient(top, @topColor 0%, @bottomColor 100%);
+  background-image: linear-gradient(top, @topColor 0%, @bottomColor 100%);
+}
+
+.uniformBorderRadius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.borderRadius(@topLeft: 0; @topRight: 0; @bottomLeft: 0; @bottomRight: 0) {
+  -webkit-border-top-left-radius: @topLeft;
+  -webkit-border-top-right-radius: @topRight;
+  -webkit-border-bottom-right-radius: @bottomRight;
+  -webkit-border-bottom-left-radius: @bottomLeft;
+  -moz-border-radius-topleft: @topLeft;
+  -moz-border-radius-topright: @topRight;
+  -moz-border-radius-bottomright: @bottomRight;
+  -moz-border-radius-bottomleft: @bottomLeft;
+  border-top-left-radius: @topLeft;
+  border-top-right-radius: @topRight;
+  border-bottom-right-radius: @bottomRight;
+  border-bottom-left-radius: @bottomLeft;
+}
+
+.ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.hidden {
+  display: none;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.innershadow {
+  text-shadow: 0 1px 0 white, 0 -1px 0 #999;
+}
+
+// Fading bars from css wait dialogs site
+#fadingBarsG {
+  position: relative;
+  width: 83px;
+  height: 10px;
+  margin: 20px auto;
+}
+
+.fadingBarsG{
+  position: absolute;
+  top: 0;
+  background-color: #cccccc;
+  width: 10px;
+  height: 10px;
+  -webkit-animation-name: bounce_fadingBarsG;
+  -webkit-animation-duration: 1.9s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: linear;
+  -webkit-transform: scale(.3);
+}
+
+#fadingBarsG_1{
+  left:0;
+  -webkit-animation-delay:0.36s;
+}
+
+#fadingBarsG_2{
+  left:10px;
+  -webkit-animation-delay:0.55s;
+}
+
+#fadingBarsG_3{
+  left:21px;
+  -webkit-animation-delay:0.74s;
+}
+
+#fadingBarsG_4{
+  left:31px;
+  -webkit-animation-delay:0.93s;
+}
+
+#fadingBarsG_5{
+  left:42px;
+  -webkit-animation-delay:1.12s;
+}
+
+#fadingBarsG_6{
+  left:52px;
+  -webkit-animation-delay:1.31s;
+}
+
+#fadingBarsG_7{
+  left:62px;
+  -webkit-animation-delay:1.5s;
+}
+
+#fadingBarsG_8{
+  left:73px;
+  -webkit-animation-delay:1.69s;
+}
+
+@-webkit-keyframes bounce_fadingBarsG{
+  0% {
+    -webkit-transform:scale(1);
+    background-color:#cccccc;
+  }
+  100% {
+  -webkit-transform:scale(.3);
+  background-color:#000000;
+  }
+}

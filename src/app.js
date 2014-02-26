@@ -105,6 +105,11 @@
       // Benefit of the doubt
       this.networkAvailable = true;
 
+      // Determine if we should be showing the preliminary screen
+      spiderOakApp.showPreliminary = (!!window.store.get("showPreliminary") ||
+          (!window.store.get("dataVersion") ||
+          !window.store.get("spiderOakApp_settings_plain")));
+
       // Until this.version gets proper setting from config.xml - if it does:
       this.version = "0.0.1";
       // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
@@ -236,6 +241,15 @@
         spiderOakApp.dialogView.hide();
       }
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
+
+      // Show preliminary view, if relevant
+      if (spiderOakApp.showPreliminary) {
+        window.store.set("showPreliminary", true); // set till explicity dismissed
+        spiderOakApp.preliminaryView = new spiderOakApp.PreliminaryView();
+        $(".app").append(spiderOakApp.preliminaryView.$el);
+        spiderOakApp.preliminaryView.render();
+        spiderOakApp.preliminaryView.$el.css({"-webkit-transform":"translate3d(0,0,0)"});
+      }
       $(".splash").hide();
 
     },

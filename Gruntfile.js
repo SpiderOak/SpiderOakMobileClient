@@ -14,15 +14,29 @@ module.exports = function(grunt) {
         ' */\n\n'
     },
     shell: {
+      install_ios: {
+        command: './node_modules/.bin/cordova -d platform add ios',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
+      },
+      install_android: {
+        command: './node_modules/.bin/cordova -d platform add android',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
+      },
       debug_ios: {
-        command: 'cordova emulate ios',
+        command: './node_modules/.bin/cordova -d emulate ios',
         options: {
           failOnError: true,
           stdout: true
         }
       },
       debug_android: {
-        command: 'cordova -d run android',
+        command: './node_modules/.bin/cordova -d run android',
         options: {
           failOnError: true,
           stdout: true
@@ -112,6 +126,7 @@ module.exports = function(grunt) {
           'src/views/RecentsView.js',
           'src/views/FavoritesView.js',
           'src/views/LoginView.js',
+          'src/views/PreliminaryView.js',
           'src/views/MainView.js',
           'src/views/ToolbarView.js',
           'src/views/StorageView.js',
@@ -134,68 +149,68 @@ module.exports = function(grunt) {
       },
       zepto: {
         src: [
-          'components/zepto/src/zepto.js',
-          'components/zepto/src/ajax.js',
-          'components/zepto/src/assets.js',
-          'components/zepto/src/data.js',
-          'components/zepto/src/detect.js',
-          'components/zepto/src/event.js',
-          'components/zepto/src/form.js',
-          'components/zepto/src/fx.js',
-          'components/zepto/src/fx_methods.js',
-          'components/zepto/src/gesture.js',
-          'components/zepto/src/polyfill.js',
-          'components/zepto/src/selector.js',
-          'components/zepto/src/stack.js',
-          'components/zepto/src/touch.js'
+          'bower_components/zepto/src/zepto.js',
+          'bower_components/zepto/src/ajax.js',
+          'bower_components/zepto/src/assets.js',
+          'bower_components/zepto/src/data.js',
+          'bower_components/zepto/src/detect.js',
+          'bower_components/zepto/src/event.js',
+          'bower_components/zepto/src/form.js',
+          'bower_components/zepto/src/fx.js',
+          'bower_components/zepto/src/fx_methods.js',
+          'bower_components/zepto/src/gesture.js',
+          'bower_components/zepto/src/polyfill.js',
+          'bower_components/zepto/src/selector.js',
+          'bower_components/zepto/src/stack.js',
+          'bower_components/zepto/src/touch.js'
         ],
         dest: 'www/components/zepto/zepto.js'
       },
       underscore: {
         src: [
-          'components/underscore/underscore.js'
+          'bower_components/underscore/underscore.js'
         ],
         dest: 'www/components/underscore/underscore.js'
       },
       backbone: {
         src: [
-          'components/backbone/backbone.js'
+          'bower_components/backbone/backbone.js'
         ],
         dest: 'www/components/backbone/backbone.js'
       },
       backstack: {
         src: [
-          'components/backstack/backstack.js'
+          'bower_components/backstack/backstack.js'
         ],
         dest: 'www/components/backstack/backstack.js'
       },
       nibbler: {
         src: [
-          'components/Nibbler.min/index.js'
+          'bower_components/Nibbler.min/index.js'
         ],
         dest: 'www/components/Nibbler.min/index.js'
       },
       iscroll: {
         src: [
-          'components/iscroll/src/iscroll-lite.js'
+          'bower_components/iscroll/src/iscroll-lite.js'
         ],
         dest: 'www/components/iscroll/src/iscroll-lite.js'
       },
       modernizr: {
         src: [
-          'components/modernizr/modernizr.js'
+          'bower_components/modernizr/modernizr.js'
         ],
         dest: 'www/components/modernizr/modernizr.js'
       },
       modernizrScrollDetect: {
         src: [
-          'components/modernizr/feature-detects/css-overflow-scrolling.js'
+          'bower_components/modernizr/feature-detects/css-overflow-scrolling.js'
         ],
         dest: 'www/components/modernizr/feature-detects/css-overflow-scrolling.js'
       },
       store: {
         src: [
-          'components/store.js/store.min.js'
+          'bower_components/store.js/store.min.js'
         ],
         dest: 'www/components/store.js/store.min.js'
       },
@@ -207,7 +222,7 @@ module.exports = function(grunt) {
       },
       moment: {
         src: [
-          'components/moment/moment.js'
+          'bower_components/moment/moment.js'
         ],
         dest: 'www/components/moment/moment.js'
       },
@@ -237,6 +252,20 @@ module.exports = function(grunt) {
           'www/css/themes/ios.css'
         ],
         dest: 'merges/ios/css/platform.css'
+      }
+    },
+    less: {
+      production: {
+        options: {
+          paths: ["www/css/less"],
+          cleancss: false
+        },
+        files: {
+          "www/css/app.css": "www/css/less/app.less",
+          "www/css/themes/ios.css": "www/css/less/themes/ios.less",
+          "www/css/themes/android.css": "www/css/less/themes/android.less",
+          "www/css/themes/blackberry10.css": "www/css/less/themes/blackberry10.less"
+        }
       }
     },
     watch: {
@@ -285,7 +314,7 @@ module.exports = function(grunt) {
       },
       zepto: {
         src: [
-          'www/components/zepto/zepto.js'
+          'www/bower_components/zepto/zepto.js'
         ],
         dest: 'www/components/zepto/zepto.min.js'
       }
@@ -306,11 +335,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-dot-compiler');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'dot', 'concat', 'shell:mochadot']);
+  grunt.registerTask('default', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot']);
   // Custom tasks
   grunt.registerTask('test', 'Do mocha test; default = spec', function(which) {
     grunt.task.run('jshint', 'dot', 'concat');
@@ -321,11 +351,11 @@ module.exports = function(grunt) {
   // Build tasks
   grunt.registerTask('debug','Create a debug build', function(platform, test) {
     test = test || 'dot';
-    grunt.task.run('jshint', 'dot', 'concat', 'shell:mocha'+test);
+    grunt.task.run('jshint', 'dot', 'less', 'concat', 'shell:mocha'+test);
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('yolo','Create a debug build, but no tests', function(platform) {
-    grunt.task.run('jshint', 'dot', 'concat');
+    grunt.task.run('jshint', 'dot', 'less', 'concat');
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('beta','Create a beta build', function(platform) {
@@ -336,7 +366,7 @@ module.exports = function(grunt) {
   });
 
   // deprecated
-  grunt.registerTask('debug_ios', ['jshint', 'dot', 'concat', 'shell:mochadot', 'shell:debug_ios']);
-  grunt.registerTask('debug_android', ['jshint', 'dot', 'concat', 'shell:mochadot', 'shell:debug_android']);
+  grunt.registerTask('debug_ios', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot', 'shell:debug_ios']);
+  grunt.registerTask('debug_android', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot', 'shell:debug_android']);
 
 };

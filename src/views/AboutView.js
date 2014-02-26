@@ -125,7 +125,7 @@
         complete: function() {
           if (window.StatusBar && $.os.ios) {
             window.StatusBar.styleDefault();
-            $("body").css("background-color","#e4e4e4");
+            $("body").css("background-color",s("#e4e4e4"));
           }
         }
       });
@@ -133,7 +133,7 @@
     dismiss: function(event) {
       if (window.StatusBar && $.os.ios) {
         window.StatusBar.styleLightContent();
-        $("body").css("background-color","#f59f35");
+        $("body").css("background-color",s("#f59f35"));
       }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
@@ -183,6 +183,60 @@
     },
     viewDeactivate: function(event) {
       this.remove();
+    }
+  });
+
+ spiderOakApp.AboutNewAccountView = spiderOakApp.AboutView.extend({
+    className: "learn-about-spideroak",
+    events: {
+      "touchend .back-btn": "dismiss",
+      "tap .site-link": "siteLink_tapHandler",
+      "tap .email-link": "emailLink_tapHandler"
+    },
+    initialize: function() {
+      window.bindMine(this);
+      this.settings = {
+        actionBar: true,
+        offScreen: true,
+        platform: (($.os.android)?"Android":"iOS")
+      };
+      $(document).one("backbutton", this.dismiss);
+    },
+    render: function() {
+      this.$el.html(
+        window.tmpl['needAnAccountViewTemplate'](this.settings)
+      );
+      this.$el.css("-webkit-transform","translate3d(0,100%,0)");
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
+
+      return this;
+    },
+    show: function() {
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, {
+        duration: 100,
+        complete: function() {
+          if (window.StatusBar && $.os.ios) {
+            window.StatusBar.styleDefault();
+            $("body").css("background-color",s("#e4e4e4"));
+          }
+        }
+      });
+    },
+    dismiss: function(event) {
+      if (window.StatusBar && $.os.ios) {
+        window.StatusBar.styleLightContent();
+        $("body").css("background-color",s("#f59f35"));
+      }
+      this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
+        duration: 100,
+        complete: function() {
+          this.remove();
+        }.bind(this)
+      });
     }
   });
 

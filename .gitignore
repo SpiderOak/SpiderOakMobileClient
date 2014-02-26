@@ -1,7 +1,7 @@
 www/components/**/*
-components/**/*
+bower_components/**/*
 !www/components/.gitignore
-!components/.gitignore
+!bower_components/.gitignore
 node_modules
 platforms/ios
 platforms/android
@@ -16,3 +16,5 @@ merges/ios/css/platform.css
 merges/android/css/platform.css
 www/js/SpiderOak-templates.js
 plugins/android.json
+www/css/*.css
+www/css/themes/*.css

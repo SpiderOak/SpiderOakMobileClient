@@ -97,7 +97,7 @@
       "TargetFileName": "icon.png",
       "TargetFolder": "./Resources/icons",
       "Format": "57 x 57 PNG image",
-      "Purpose": "iPhone application home-screen icon",
+      "Purpose": "iOS application home-screen icon",
       "Platforms": ["iOS"]
     },
     {
@@ -105,7 +105,7 @@
       "TargetFileName": "icon@2x.png",
       "TargetFolder": "./Resources/icons",
       "Format": "114 x 114 PNG image",
-      "Purpose": "iPhone retina display application home-screen icon",
+      "Purpose": "iOS retina display application home-screen icon",
       "Platforms": ["iOS"]
     },
     {
@@ -113,7 +113,39 @@
       "TargetFileName": "icon-72.png",
       "TargetFolder": "./Resources/icons",
       "Format": "72 x 72 PNG image",
-      "Purpose": "iPad application home-screen icon",
+      "Purpose": "iOS application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_76.png",
+      "TargetFileName": "icon-76.png",
+      "TargetFolder": "./Resources/icons",
+      "Format": "76 x 76 PNG image",
+      "Purpose": "iOS application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_120.png",
+      "TargetFileName": "icon-120.png",
+      "TargetFolder": "./Resources/icons",
+      "Format": "120 x 120 PNG image",
+      "Purpose": "iOS application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_114.png",
+      "TargetFileName": "icon-52@2x.png",
+      "TargetFolder": "./Resources/icons",
+      "Format": "114 x 114 PNG image",
+      "Purpose": "iOS retina application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "cordova_ios_144.png",
+      "TargetFileName": "icon-144@2x.png",
+      "TargetFolder": "./Resources/icons",
+      "Format": "144 x 144 PNG image",
+      "Purpose": "iOS retina application home-screen icon",
       "Platforms": ["iOS"]
     },
     {
@@ -121,7 +153,63 @@
       "TargetFileName": "icon-72@2x.png",
       "TargetFolder": "./Resources/icons",
       "Format": "144 x 144 PNG image",
-      "Purpose": "iPad retina display application home-screen icon",
+      "Purpose": "iOS retina display application home-screen icon",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default-568h@2x~iphone.png",
+      "TargetFileName": "Default-568h@2x~iphone.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "640 x 1136 PNG image",
+      "Purpose": "iPhone 5 (tall) splash screen",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default-Landscape@2x~ipad.png",
+      "TargetFileName": "Default-Landscape@2x~ipad.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "2048 x 1496 PNG image",
+      "Purpose": "iPad retina landscape splash screen",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default-Landscape~ipad.png",
+      "TargetFileName": "Default-Landscape~ipad.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "1024 × 748 PNG image",
+      "Purpose": "iPad landscape splash screen",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default-Portrait@2x~ipad.png",
+      "TargetFileName": "Default-Portrait@2x~ipad.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "1536 × 2008 PNG image",
+      "Purpose": "iPad retina portrait splash screen",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default-Portrait~ipad.png",
+      "TargetFileName": "Default-Portrait~ipad.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "768 × 1004 PNG image",
+      "Purpose": "iPad portrait splash screen",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default@2x~iphone.png",
+      "TargetFileName": "Default@2x~iphone.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "640 × 960 PNG image",
+      "Purpose": "iPhone retina portrait splash screen",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "Default~iphone.png",
+      "TargetFileName": "Default~iphone.png",
+      "TargetFolder": "./Resources/splash",
+      "Format": "320 × 480 PNG image",
+      "Purpose": "iPhone splash screen",
       "Platforms": ["iOS"]
     }
   ]

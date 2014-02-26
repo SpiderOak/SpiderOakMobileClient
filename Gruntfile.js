@@ -9,7 +9,8 @@ module.exports = function(grunt) {
         '<%= grunt.template.today("yyyy-mm-dd") %>' + '\n' +
         '<%= pkg.homepage ? "* " + pkg.homepage : "" %>' + '\n' +
         ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' + '\n' +
-        ' * License: <%= _.pluck(pkg.licenses, "type").join(", ") %> (<%= _.pluck(pkg.licenses, "url").join(", ") %>)' + '\n' +
+        ' * License: <%= _.pluck(pkg.licenses, "type").join(", ") %> ' +
+        '(<%= _.pluck(pkg.licenses, "url").join(", ") %>)' + '\n' +
         ' * GENERATED FILE. DO NOT EDIT.' + '\n' +
         ' */\n\n'
     },
@@ -257,7 +258,7 @@ module.exports = function(grunt) {
     less: {
       production: {
         options: {
-          paths: ["www/css/less"],
+          paths: ["www/css/less", "custom/brand"],
           cleancss: false
         },
         files: {
@@ -366,7 +367,9 @@ module.exports = function(grunt) {
   });
 
   // deprecated
-  grunt.registerTask('debug_ios', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot', 'shell:debug_ios']);
-  grunt.registerTask('debug_android', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot', 'shell:debug_android']);
+  grunt.registerTask('debug_ios', ['jshint', 'dot', 'less', 'concat',
+        'shell:mochadot', 'shell:debug_ios']);
+  grunt.registerTask('debug_android', ['jshint', 'dot', 'less',
+        'concat', 'shell:mochadot', 'shell:debug_android']);
 
 };

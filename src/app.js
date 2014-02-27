@@ -289,9 +289,9 @@
     checkConfigsLoaded: function () {
       var configLoaded = typeof window.spiderOakMobile_config == "object",
           customConfigLoaded = (typeof window.spiderOakMobile_custom_config ==
-                                "object");
+                                "object"),
+          msg = "";
       if (! (configLoaded && customConfigLoaded)) {
-        var msg = "";
         if (! configLoaded) {
           msg += " standard config";
         }

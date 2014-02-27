@@ -292,15 +292,16 @@
           standardServer = settings.getValue("standardServer");
       if (inhibitAdvanced && (server !== standardServer)) {
         navigator.notification.confirm(
-          "Advanced login has moved to the SpiderOak Blue app, and we must" +
+          "Advanced login has moved to the 'SpiderOak Blue' app, and we must" +
             " switch this app from the alternate, " + server +
-            ", to the standard server, " + standardServer + ". This dialog" +
-            " will appear at app startup until you authorize the change.",
+            ", to the standard server, " + standardServer + ". To continue" +
+            " using this functionality, please download the 'SpiderOak Blue' app" +
+            " This dialog will appear at app startup until you authorize the change.",
           function (choice) {
             if (choice === 1) {
               spiderOakApp.settings.get("server").set("value", standardServer);
               spiderOakApp.dialogView.showToast({
-                title: "Server changed from alternate to standard",
+                title: "Server changed to spideroak.com",
                 duration: 2000
               });
             }

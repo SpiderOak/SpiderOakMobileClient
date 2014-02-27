@@ -46,6 +46,20 @@
       "Platforms": ["iOS"]
     },
     {
+      "FileName": "menu_hive.png",
+      "TargetFolder": "./assets/www/img/spideroak-icons/menu",
+      "Format": "80 x 80 PNG image",
+      "Purpose": "Hive menu logo",
+      "Platforms": ["Android"]
+    },
+    {
+      "FileName": "menu_hive.png",
+      "TargetFolder": "../www/img/spideroak-icons/menu",
+      "Format": "80 x 80 PNG image",
+      "Purpose": "Hive menu logo",
+      "Platforms": ["iOS"]
+    },
+    {
       "FileName": "icon.png",
       "TargetFolder": "./assets/www/img",
       "Format": "57 x 57 PNG image",

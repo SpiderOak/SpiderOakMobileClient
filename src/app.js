@@ -196,6 +196,8 @@
         }
       });
 
+      spiderOakApp.checkAlternateServerAllowed();
+
       // If rememberedAccount is set, reconstitute account from serialized
       // state:
       // 1. check remember me state, if on...
@@ -282,6 +284,38 @@
       }
 
       window.store.set("dataVersion", spiderOakApp.version);
+    },
+    checkAlternateServerAllowed: function() {
+      var settings = spiderOakApp.settings,
+          inhibitAdvanced = settings.getValue("inhibitAdvancedLogin"),
+          server = settings.getValue("server"),
+          standardServer = settings.getValue("standardServer");
+      if (inhibitAdvanced && (server !== standardServer)) {
+        navigator.notification.confirm(
+          "Advanced login has moved to the 'SpiderOak Blue' app, and we must" +
+            " switch this app from the alternate, " + server +
+            ", to the standard server, " + standardServer + ". To continue" +
+            " using this functionality, please download the 'SpiderOak Blue' app" +
+            " This dialog will appear at app startup until you authorize the change.",
+          function (choice) {
+            if (choice === 1) {
+              spiderOakApp.settings.get("server").set("value", standardServer);
+              spiderOakApp.dialogView.showToast({
+                title: "Server changed to spideroak.com",
+                duration: 2000
+              });
+            }
+            else {
+              spiderOakApp.dialogView.showToast({
+                title: "Alternate server retained",
+                duration: 2000
+              });
+            }
+          },
+          'Non-standard server',
+          ['OK, switch now', 'No, maybe later']
+        );
+      }
     },
     setOnline: function(event) {
       if (!this.networkAvailable) {

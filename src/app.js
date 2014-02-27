@@ -312,7 +312,7 @@
             }
           },
           'Non-standard server',
-          'Ok - now, No - later'
+          ['OK, switch now', 'No, maybe later']
         );
       }
     },

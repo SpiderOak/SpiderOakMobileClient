@@ -301,11 +301,11 @@
           }
           msg = "Developer: Failed to load" + msg + " custom config";
         }
-      }
-      console.log(msg);
-      if (spiderOakApp.version.split("-").length > 2) {
-        // Developer version - be noisy!
-        navigator.notification.alert(msg);
+        console.log(msg);
+        if (spiderOakApp.version.split("-").length > 2) {
+          // Developer version - be noisy!
+          navigator.notification.alert(msg);
+        }
       }
     },
     checkAlternateServerAllowed: function() {

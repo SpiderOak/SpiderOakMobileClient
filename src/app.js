@@ -284,6 +284,29 @@
       }
 
       window.store.set("dataVersion", spiderOakApp.version);
+      spiderOakApp.checkConfigsLoaded();
+    },
+    checkConfigsLoaded: function () {
+      var configLoaded = typeof window.spiderOakMobile_config == "object",
+          customConfigLoaded = (typeof window.spiderOakMobile_custom_config ==
+                                "object");
+      if (! (configLoaded && customConfigLoaded)) {
+        var msg = "";
+        if (! configLoaded) {
+          msg += " standard config";
+        }
+        if (! customConfigLoaded) {
+          if (msg !== "") {
+            msg += " AND";
+          }
+          msg = "Developer: Failed to load" + msg + " custom config";
+        }
+      }
+      console.log(msg);
+      if (spiderOakApp.version.split("-").length > 2) {
+        // Developer version - be noisy!
+        navigator.notification.alert(msg);
+      }
     },
     checkAlternateServerAllowed: function() {
       var settings = spiderOakApp.settings,

@@ -1,7 +1,9 @@
 {
-  "SpiderOak": "AcmeSync",
-  "SpiderOak Hive": "AcmeSync Hive",
-  "spideroak.com": "acmesync.com",
+  "SpiderOak": "SpiderOak Blue",
+  "SpiderOak Hive": "SpiderOakBlue Hive",
+  "spideroak.com": "spideroak.com",
+  "#f59f35": "#5ac5f1",
+  "#e4e4e4": "#e4e4e4",
 
   "<end>": null
 }

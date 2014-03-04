@@ -9,5 +9,7 @@ window.spiderOakMobile_config = {
   standardServer: {value: "spideroak.com", retain: 0},
   // inhibitAdvancedLogin: is changing the server allowed?
   inhibitAdvancedLogin: {value: true, retain: 0},
+  // showPreliminary: to show, or not, the pre login account screen
+  showPreliminary: {value: true, retain: 0},
   alternateAjax: window.$.ajax
 };

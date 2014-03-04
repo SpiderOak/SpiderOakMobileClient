@@ -106,9 +106,19 @@
       this.networkAvailable = true;
 
       // Determine if we should be showing the preliminary screen
-      spiderOakApp.showPreliminary = (!!window.store.get("showPreliminary") ||
-          (!window.store.get("dataVersion") ||
-          !window.store.get("spiderOakApp_settings_plain")));
+      // First check if it's already been set by a custom_config.js
+      var showPreliminary = spiderOakApp.settings.getOrDefault("showPreliminary");
+      if (showPreliminary !== undefined) {
+        spiderOakApp.showPreliminary = showPreliminary;
+        if (showPreliminary === false) $(".login .cancel-btn").hide();
+      } else {
+        spiderOakApp.showPreliminary =
+          spiderOakApp.settings.getOrDefault("showPreliminary") ||
+          !!window.store.get("showPreliminary" ||
+              (!window.store.get("dataVersion") ||
+               !window.store.get("spiderOakApp_settings_plain")));
+        console.log(showPreliminary);
+      }
 
       // Until this.version gets proper setting from config.xml - if it does:
       this.version = "0.0.1";

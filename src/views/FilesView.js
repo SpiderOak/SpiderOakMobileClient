@@ -592,17 +592,44 @@
         model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
           .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
-      callback = callback || function(fileEntry) {
-        if (model.get("path") !== path) {
-          model.set("path", path);
-          window.store.set(
-            "favorites-" + spiderOakApp.accountModel.get("b32username"),
-            spiderOakApp.favoritesCollection.toJSON()
-          );
-        }
-        spiderOakApp.dialogView.hide();
+      var _callback = function(fileEntry) {
+        callback = callback || function(fileEntry) {
+          if (model.get("path") !== path) {
+            model.set("path", path);
+            window.store.set(
+              "favorites-" + spiderOakApp.accountModel.get("b32username"),
+              spiderOakApp.favoritesCollection.toJSON()
+            );
+          }
+          spiderOakApp.dialogView.hide();
+        };
+        // Update the model
+        $.ajax({
+          type: "GET",
+          url: model.composedUrl(true) + "?format=version_info",
+          headers: {
+            "Authorization": (
+              model.getBasicAuth() ||
+              spiderOakApp.accountModel.get("basicAuthCredentials"))
+          },
+          success: function(data, status, xhr) {
+            // Since we are fetching the version info, the most recent version
+            // is what we are after
+            var updatedModelData = _.last(data);
+            model.set({
+              mtime: updatedModelData.mtime,
+              size: updatedModelData.size
+            });
+          },
+          error: function(xhr, errorType, error) {
+            // This error is not super important since it only stops updating 
+            // of the UI
+            console.log(error);
+          }
+        });
+        callback(fileEntry);
       };
-      this.downloadFile(model, path, callback);
+      this.downloadFile(model, path, _callback);
     },
     removeFavorite: function() {
       // Confirmation dialog

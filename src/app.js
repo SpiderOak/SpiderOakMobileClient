@@ -105,19 +105,19 @@
       // Benefit of the doubt
       this.networkAvailable = true;
 
-      // Determine if we should be showing the preliminary screen
-      // First check if it's already been set by a custom_config.js
-      var showPreliminary = spiderOakApp.settings.getOrDefault("showPreliminary");
-      if (showPreliminary !== undefined) {
-        spiderOakApp.showPreliminary = showPreliminary;
-        if (showPreliminary === false) $(".login .cancel-btn").hide();
-      } else {
-        spiderOakApp.showPreliminary =
-          spiderOakApp.settings.getOrDefault("showPreliminary") ||
-          !!window.store.get("showPreliminary" ||
-              (!window.store.get("dataVersion") ||
-               !window.store.get("spiderOakApp_settings_plain")));
-        console.log(showPreliminary);
+      // If showPreliminary is flagged false at the config level, then hide
+      // the cancel button
+      if (spiderOakApp.settings.getOrDefault("showPreliminary") === false) {
+        $(".login .cancel-btn").hide();
+      }
+      // Determine if we should be showing the preliminary screen at all
+      spiderOakApp.showPreliminary =
+        spiderOakApp.settings.getOrDefault("showPreliminary") ||
+        window.store.get("showPreliminary");
+      // Don't show the preliminary screen if we were planning to but this
+      // is an upgrade
+      if (!!window.store.get("dataVersion") && spiderOakApp.showPreliminary) {
+        spiderOakApp.showPreliminary = false;
       }
 
       // Until this.version gets proper setting from config.xml - if it does:

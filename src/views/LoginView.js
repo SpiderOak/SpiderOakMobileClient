@@ -170,6 +170,29 @@
       $(".app").append(spiderOakApp.preliminaryView.$el);
       spiderOakApp.preliminaryView.render().show();
     },
+    setInitialServer: function() {
+      $("#subviews > .folderViewLoading").remove();
+      $(".menu ul li").removeClass("current");
+      $(".settings").closest("li").addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+      this.dismiss();
+      window.setTimeout(function() {
+        $("a.server").trigger("tap");
+      }, 200);
+    },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {
         if (window.StatusBar && $.os.ios) {

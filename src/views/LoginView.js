@@ -44,7 +44,17 @@
     },
     form_submitHandler: function(event) {
       event.preventDefault();
-
+      if (!spiderOakApp.settings.getOrDefault("server")) {
+        if (window.navigator.notification.alert) {
+          window.navigator.notification.alert(
+              "Before using the app, you must set your server in the settings",
+              function() {
+                spiderOakApp.loginView.setInitialServer();
+              },
+              "Important note");
+        }
+        return;
+      }
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
       var username = $("#unme").val().trim();
@@ -170,6 +180,29 @@
       $(".app").append(spiderOakApp.preliminaryView.$el);
       spiderOakApp.preliminaryView.render().show();
     },
+    setInitialServer: function() {
+      $("#subviews > .folderViewLoading").remove();
+      $(".menu ul li").removeClass("current");
+      $(".settings").closest("li").addClass("current");
+      if (spiderOakApp.navigator.viewsStack.length === 0) {
+        spiderOakApp.navigator.pushView(
+          spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+      else {
+        spiderOakApp.navigator.replaceAll(
+          spiderOakApp.SettingsView,
+          {},
+          spiderOakApp.noEffect
+        );
+      }
+      this.dismiss();
+      window.setTimeout(function() {
+        $("a.server").trigger("tap");
+      }, 200);
+    },
     dismiss: function() {
       if (!this.$el.hasClass("dismissed")) {
         if (window.StatusBar && $.os.ios) {
@@ -194,6 +227,16 @@
         this.$("input").removeAttr("disabled");
         this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
         this.$el.removeClass("dismissed");
+        //if (!spiderOakApp.settings.getOrDefault("server")) {
+        //  if (window.navigator.notification.alert) {
+        //    window.navigator.notification.alert(
+        //        "Before using the app, you must set your server in the settings",
+        //        function() {
+        //          spiderOakApp.loginView.setInitialServer();
+        //        },
+        //        "Important note");
+        //  }
+        //}
       }
     }
   });

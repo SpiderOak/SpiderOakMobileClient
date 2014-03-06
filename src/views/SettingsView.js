@@ -368,7 +368,7 @@
         var concludeServerChangeAttempt = function() {
           spiderOakApp.dialogView.hide();
           var subtitle = "Service host changed to " + newServer;
-          if (wasLoggedIn) {
+          if (wasLoggedIn && wasServer) {
             subtitle += "\nand session logged out";
           }
           // Set the app's actual server setting, which is our model:
@@ -417,9 +417,12 @@
 
             // (Recheck the login status, to prevent some potential gambits
             // for suborned servers to try.)
-            if (spiderOakApp.accountModel.getLoginState() === true) {
+            if (wasServer === "" || spiderOakApp.accountModel.getLoginState() === true) {
               wasLoggedIn = true;
               spiderOakApp.accountModel.logout(concludeServerChangeAttempt);
+              $("#subviews").html(
+                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
+                "<li class=\"sep\">Loading...</li></ul>");
             }
             else {
               concludeServerChangeAttempt();

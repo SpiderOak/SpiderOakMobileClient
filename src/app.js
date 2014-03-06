@@ -261,7 +261,16 @@
         spiderOakApp.preliminaryView.$el.css({"-webkit-transform":"translate3d(0,0,0)"});
       }
       $(".splash").hide();
-
+      if (!spiderOakApp.settings.getOrDefault("server")) {
+        if (window.navigator.notification.alert) {
+          window.navigator.notification.alert(
+              "Before using the app, you must set your server in the settings",
+              function() {
+                spiderOakApp.loginView.setInitialServer();
+              },
+              "Important note");
+        }
+      }
     },
     backDisabled: true,
     onDeviceReady: function() {
@@ -461,6 +470,7 @@
     onLogoutSuccess: function() {
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
+        spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.mainView.setTitle(s("SpiderOak"));
       // Instantiate the favorites and populate from localStorage

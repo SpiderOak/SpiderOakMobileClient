@@ -44,7 +44,17 @@
     },
     form_submitHandler: function(event) {
       event.preventDefault();
-
+      if (!spiderOakApp.settings.getOrDefault("server")) {
+        if (window.navigator.notification.alert) {
+          window.navigator.notification.alert(
+              "Before using the app, you must set your server in the settings",
+              function() {
+                spiderOakApp.loginView.setInitialServer();
+              },
+              "Important note");
+        }
+        return;
+      }
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
       var username = $("#unme").val().trim();
@@ -217,6 +227,16 @@
         this.$("input").removeAttr("disabled");
         this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
         this.$el.removeClass("dismissed");
+        //if (!spiderOakApp.settings.getOrDefault("server")) {
+        //  if (window.navigator.notification.alert) {
+        //    window.navigator.notification.alert(
+        //        "Before using the app, you must set your server in the settings",
+        //        function() {
+        //          spiderOakApp.loginView.setInitialServer();
+        //        },
+        //        "Important note");
+        //  }
+        //}
       }
     }
   });

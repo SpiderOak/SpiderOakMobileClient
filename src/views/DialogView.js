@@ -95,7 +95,7 @@
       this.$el.show();
     },
     updateProgress: function(progressPercent) {
-      progressPercent = progressPercent * 2; // WHY?! GAH!!
+      if ($.os.ios) progressPercent = progressPercent * 2; // WHY?! GAH!!
       if (progressPercent > 100) {
         progressPercent = 100;
       }

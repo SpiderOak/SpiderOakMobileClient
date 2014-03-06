@@ -69,7 +69,6 @@
     },
     viewDeactivate: function(event) {
       this.refreshAllFavoritesButtonView.remove();
-      this.close();
     },
     remove: function() {
       this.close();
@@ -150,6 +149,7 @@
       this.$el.trigger("complete");
     },
     refreshAllFavorites: function(event) {
+      event.stopImmediatePropagation();
       navigator.notification.confirm(
         "Do you want to refresh all of your favorites? This will re-download" +
           " the latest versions.",

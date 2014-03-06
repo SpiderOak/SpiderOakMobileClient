@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 (function(require, console) {
-  var projectName = 'SpiderOak',
+  var projectName = 'SpiderOakBlue',
     fs = require('fs'),
     path = require('path'),
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
@@ -14,7 +14,7 @@
   }
 
   var androidConfigFile = "AndroidManifest.xml";
-  var iosConfigFile = "SpiderOak-Info.plist";
+  var iosConfigFileSuffix = "-Info.plist";
 
   if (fs.existsSync(res)) {
     // Android
@@ -29,8 +29,8 @@
       console.log("[hooks] copying ios SpiderOak-Info.plist...");
       // iOS
       copyFile(
-        path.join(res, iosConfigFile),
-        path.join(iOSDest, iosConfigFile)
+        path.join(res, "SpiderOak"+iosConfigFileSuffix),
+        path.join(iOSDest, projectName+iosConfigFileSuffix)
       );
     }
   }

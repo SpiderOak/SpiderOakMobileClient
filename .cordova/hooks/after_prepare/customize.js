@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 (function(require, console) {
-  var projectName = 'SpiderOak',
+  var projectName = 'SpiderOakBlue',
       fs = require('fs'),
       path = require('path'),
       projectRootDir = path.resolve(__dirname, '..', '..', '..'),

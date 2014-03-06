@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 (function(require) {
-  var projectName = 'SpiderOak',
+  var projectName = 'SpiderOakBlue',
     fs = require('fs'),
     path = require('path'),
     res = path.join('.', 'merges', 'ios', 'res', 'screen'),

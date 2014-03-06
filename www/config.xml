@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.spideroak.android" version="2.0.3-beta.2-10-g8830df0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>SpiderOak</name>
+<widget id="com.spideroakblue.android" version="2.9.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>SpiderOakBlue</name>
     <description>
-        SpiderOak Mobile Client.
+        SpiderOak Blue Mobile Client.
     </description>
     <author email="tommy@devgeeks.org" href="http://www.spideroak.com">
-        SpiderOak
+        SpiderOak Blue
     </author>
     <icon height="512" src="res/icon/cordova_512.png" width="512" />
     <feature name="http://api.phonegap.com/1.0/device" />

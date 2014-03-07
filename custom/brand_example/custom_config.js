@@ -11,6 +11,6 @@ window.spiderOakMobile_custom_config = {
   showPreliminary: {value: false, retain: 0},
   server: {value: "", retain: 1},
   inhibitAdvancedLogin: {value: false, retain: 0},
-  contactEmail: {value: "blueinfo@spideroak.com", retain: 0}
+  contactEmail: {value: "support@spideroakblue.com", retain: 0}
 };
 

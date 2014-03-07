@@ -575,7 +575,7 @@
 
   spiderOakApp.PublicShareRoomItemView = spiderOakApp.ShareRoomItemView.extend({
     templateID: "shareRoomItemViewTemplate",
-    detailsTemplateID: "pubshareItemDetailsViewTemplate",
+    detailsTemplateID: "shareItemDetailsViewTemplate",
     events: _.extend(
       {},
       spiderOakApp.ShareRoomItemView.prototype.events,

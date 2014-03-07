@@ -26,13 +26,15 @@
       this.set("url", id);
       this.url = this.composedUrl(false); // Include the query string.
     },
-    getWebURL: function () {
-      return ("https://" +
-              spiderOakApp.settings.getValue("server") +
-              "/browse/share/" +
-              this.get("share_id") +
-              "/" +
-              this.get("room_key"));
+    getWebURL: function (pathOnly) {
+      var path = ("/browse/share/" +
+                  this.get("share_id") +
+                  "/" +
+                  this.get("room_key"));
+      if (pathOnly) {
+        return path;
+      }
+      return "https://" + spiderOakApp.settings.getValue("server") + path;
     },
     which: "ShareRoomModel"
   });
@@ -64,8 +66,8 @@
       var stats = resp.stats;
       var got = {
         password_required: false,
-        browse_url: resp.browse_url,
         dirs: resp.dirs,
+        browse_url: this.getWebURL(true),
         name: stats.room_name,
         owner_firstname: stats.firstname,
         owner_lastname: stats.lastname,

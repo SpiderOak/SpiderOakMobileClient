@@ -19,6 +19,16 @@
       <div class="label">RoomKey:</div>
       <div class="info">{{=it.room_key}}</div>
     </li>
+    {{? it.owner_lastname || it.owner_firstname }}
+    <li class="small">
+      <div>
+        <div class="label">Owner:</div>
+        <div class="info">
+          {{=it.owner_firstname }} {{=it.owner_lastname }}
+        </div>
+      </div>
+    </li>
+    {{?}}
     {{? it.number_of_folders}}
     <li class="small">
       <div class="label">Folders:</div>
@@ -29,6 +39,18 @@
     <li class="small">
       <div class="label">Files:</div>
       <div class="info">{{=it.number_of_files}}</div>
+    </li>
+    {{?}}
+    {{? typeof it.remember !== "undefined" }}
+    <li class="small">
+      <div class="label">Remembering:</div>
+      <div class="info">
+        {{? it.remember}}
+        Yes
+        {{??}}
+        No
+        {{?}}
+      </div>
     </li>
     {{?}}
   </ul>

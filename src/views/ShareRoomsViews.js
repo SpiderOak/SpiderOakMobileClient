@@ -651,7 +651,8 @@
   spiderOakApp.ShareItemDetailsView = spiderOakApp.FileView.extend({
     destructionPolicy: "never",
     events: {
-      "tap .file-send-button": "sendLink"
+      "tap .file-send-button": "sendLink",
+      "tap .site-link": "siteLink_tapHandler"
     },
     initialize: function(options) {
       window.bindMine(this);
@@ -682,6 +683,15 @@
     viewActivate: function(event) {
       spiderOakApp.backDisabled = false;
       spiderOakApp.mainView.showBackButton(true);
+    },
+    siteLink_tapHandler: function(event) {
+      event.preventDefault();
+      if ($("#main").hasClass("open")) {
+        return;
+      }
+      event.stopPropagation();
+      window.open($(event.target).data("url"), "_system");
+
     },
     viewDeactivate: function(event) {
       // this.close();

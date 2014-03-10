@@ -4,6 +4,10 @@
     <li class="sep">
       <em> Password required </em>
     </li>
+    {{?? it.password}}
+    <li class="sep">
+      <em> Password provided </em>
+    </li>
     {{?}}
     <li>
       <span class="name"><strong>{{=it.name}}</strong></span>

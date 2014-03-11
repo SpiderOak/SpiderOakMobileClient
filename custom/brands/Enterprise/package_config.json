@@ -1,0 +1,4 @@
+whatsthis: "/* SpiderOak Enterprise (blue-label) package configuration. */",
+
+name: "SpiderOak Enterpris",
+identifier: "com.spideroak.Enterprise"

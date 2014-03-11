@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "grunt test",
-    "postinstall": "./node_modules/.bin/bower install",
+    "postinstall": "./node_modules/.bin/bower install && grunt brand:-init",
     "pluginstall": "./node_modules/.bin/cordova plugins add org.apache.cordova.console@0.2.3 org.apache.cordova.device@0.2.3 org.apache.cordova.dialogs@0.2.3 org.apache.cordova.file@0.2.4 org.apache.cordova.inappbrowser@0.2.3 org.apache.cordova.network-information@0.2.3 org.apache.cordova.statusbar && ./node_modules/.bin/cordova plugin add org.apache.cordova.file-transfer@0.3.3 && ./node_modules/.bin/cordova plugin add https://github.com/SpiderOak/FileViewerPlugin.git",
     "plugremove": "./node_modules/.bin/cordova plugins remove org.apache.cordova.console@0.2.3 org.apache.cordova.device@0.2.3 org.apache.cordova.dialogs@0.2.3 org.apache.cordova.file@0.2.4 org.apache.cordova.inappbrowser@0.2.3 org.apache.cordova.network-information@0.2.3 org.apache.cordova.statusbar && ./node_modules/.bin/cordova plugin remove org.apache.cordova.file-transfer@0.3.3 && ./node_modules/.bin/cordova plugin remove https://github.com/SpiderOak/FileViewerPlugin.git"
   },
@@ -43,7 +43,8 @@
     "grunt-contrib-watch": "~0.3.1",
     "grunt-contrib-concat": "~0.2.0",
     "grunt-contrib-less": "~0.9.0",
-    "grunt-shell": "0.2.x",
+    "grunt-shell": "~0.5.x",
+    "grunt-bump": "~0.0.x",
     "mocha": "~1.8.1",
     "chai": "~1.8.0",
     "sinon": "~1.7.3",

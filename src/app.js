@@ -263,6 +263,9 @@
         spiderOakApp.preliminaryView.$el.css({"-webkit-transform":"translate3d(0,0,0)"});
       }
       $(".splash").hide();
+      spiderOakApp.loginView.$(".learn-more").html(
+          "Learn more about " + s("SpiderOak") + " &raquo;"
+      );
     },
     backDisabled: true,
     onDeviceReady: function() {

@@ -338,7 +338,12 @@
             }
           }
           else {
-            errorCallback(0, "unexpected server response", xhr);
+            if (username === "") {
+              errorCallback(403, "Authentication failed", xhr);
+            }
+            else {
+              errorCallback(0, "unexpected server response", xhr);
+            }
           }
         },
         error: function(xhr, errorType, error) {

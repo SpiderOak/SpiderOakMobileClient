@@ -63,13 +63,12 @@ a {
     }
   }
 
-  .learn-more {
-    color: #fff;
-    margin: 20px auto;
-  }
-
   .button {
     color: shade(@darkLoginOrange, 75%);
+  }
+
+  .learn-more {
+    display: block;
   }
 }
 
@@ -331,13 +330,19 @@ a {
   height: 5px;
 }
 
+.advanced-login-settings,
 .learn-more {
+  .hidden;
   width: 90%;
   text-align: center;
   font-size: 80%;
   margin: 0 auto;
   padding: 10px;
-  color: @darkLoginOrange;
+  color: #fff;
+}
+
+.advanced-login-settings {
+  margin: 0 auto;
 }
 
 .learn-about-spideroak,

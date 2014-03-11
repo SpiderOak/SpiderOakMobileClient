@@ -109,6 +109,8 @@
       // the cancel button
       if (spiderOakApp.settings.getOrDefault("showPreliminary") === false) {
         $(".login .cancel-btn").hide();
+        spiderOakApp.loginView.$(".learn-more").show();
+        spiderOakApp.loginView.$(".advanced-login-settings").show();
       }
       // Determine if we should be showing the preliminary screen at all
       spiderOakApp.showPreliminary =
@@ -261,16 +263,6 @@
         spiderOakApp.preliminaryView.$el.css({"-webkit-transform":"translate3d(0,0,0)"});
       }
       $(".splash").hide();
-      if (!spiderOakApp.settings.getOrDefault("server")) {
-        if (window.navigator.notification.alert) {
-          window.navigator.notification.alert(
-              "Before using the app, you must set your server in the settings",
-              function() {
-                spiderOakApp.loginView.setInitialServer();
-              },
-              "Important note");
-        }
-      }
     },
     backDisabled: true,
     onDeviceReady: function() {

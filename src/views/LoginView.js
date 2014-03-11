@@ -17,6 +17,8 @@
       "tap .menu-btn": "menuBtn_tapHandler",
       "tap .loginButton": "loginButton_tapHandler",
       "tap .switch": "switch_tapHandler",
+      "tap .learn-more": "learnMore_tapHandler",
+      "tap .advanced-login-settings": "advancedLoginSettings_tapHandler",
       "tap .cancel-btn": "cancelBtn_tapHandler"
     },
     initialize: function() {
@@ -174,6 +176,14 @@
       $checkbox.attr("checked",!checked);
       $this.toggleClass("on");
     },
+    learnMore_tapHandler: function(event) {
+      var learnMoreView = new spiderOakApp.LearnAboutView();
+      $(".app").append(learnMoreView.$el);
+      learnMoreView.render().show();
+    },
+    advancedLoginSettings_tapHandler: function(event) {
+      this.setInitialServer();
+    },
     cancelBtn_tapHandler: function(event) {
       window.store.set("showPreliminary", true);
       spiderOakApp.preliminaryView = new spiderOakApp.PreliminaryView();
@@ -227,16 +237,6 @@
         this.$("input").removeAttr("disabled");
         this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
         this.$el.removeClass("dismissed");
-        //if (!spiderOakApp.settings.getOrDefault("server")) {
-        //  if (window.navigator.notification.alert) {
-        //    window.navigator.notification.alert(
-        //        "Before using the app, you must set your server in the settings",
-        //        function() {
-        //          spiderOakApp.loginView.setInitialServer();
-        //        },
-        //        "Important note");
-        //  }
-        //}
       }
     }
   });

@@ -15,7 +15,7 @@
     destructionPolicy: "never",
     events: {
       "tap .loginButton": "loginButton_tapHandler",
-      "tap .need-cta": "needCta_tapHandler",
+      "tap .need-cta a": "needCta_tapHandler",
       "tap .learn-more": "learnMore_tapHandler"
     },
     initialize: function() {

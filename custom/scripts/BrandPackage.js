@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
+/** Establish project packaging parameters according to brand specificaiton.
+ *
+ * Without any arguments, we indicate the current brand link and the
+ * available brands.
+ *
+ * With one argument, we establish the indicated brand directory as the
+ * current one and, if the brand directory has changed, we set the <repo>/custom/brand symlink, apply the brand specification file, <repo>/custom/brand/brand_config.json
+ *
+ * @param {string} The name of the brand directory, in <repo>/custom/brands/
+ */
+
 (function(require, console) {
   var projectName = 'SpiderOak',
 

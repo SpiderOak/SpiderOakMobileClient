@@ -758,7 +758,6 @@
     form_submitHandler: function(event) {
       var passwordField = this.$("[name=pwrd]"),
           password = passwordField.val();
-      passwordField.val("");
       this.model.setPassword(password);
 
       spiderOakApp.dialogView.showWait({
@@ -794,6 +793,7 @@
       }.bind(this);
 
       var handleInvalidPassword = function() {
+        passwordField.val("");
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
           title: "<i class='icon-warning'></i> Invalid password"

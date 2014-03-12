@@ -61,7 +61,6 @@
 
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
-      $("#pwrd").val("");
       var rememberme = $("#rememberme").attr("checked") === "true";
 
       var success = function(apiRoot) {
@@ -90,13 +89,15 @@
         }
       }.bind(this);
       var error = function(status, error) {
-        // Clear it out
+        // Clear it out, and zero the password:
         account.loggedOut();
-        // @TODO: Unblock spinner
         var msg,
-            silent = false;
+            silent = false,
+            dontClearPassword = false;
+
         if ((status === 0) && (error === "interrupted")) {
           msg = "Authentication interrupted";
+          dontClearPassword = true;
           silent = true;
         }
         else if (status === 401) {
@@ -121,9 +122,13 @@
         else {
           msg = ("Temporary server failure. Please try again later (" +
                  status + ")");
+          dontClearPassword = true;
         }
 
         spiderOakApp.dialogView.hide();
+        if (! dontClearPassword) {
+          $("#pwrd").val("");
+        }
 
         if (! silent) {
           navigator.notification.alert(msg, null, "Authentication error", "OK");

@@ -61,6 +61,7 @@
 
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
+      $("#pwrd").val("");
       var rememberme = $("#rememberme").attr("checked") === "true";
 
       var success = function(apiRoot) {

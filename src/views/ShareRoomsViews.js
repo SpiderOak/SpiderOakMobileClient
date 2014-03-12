@@ -756,7 +756,9 @@
      * - Return to the ShareRooms views - the share will remain
      */
     form_submitHandler: function(event) {
-      var password = this.$("[name=pwrd]").val();
+      var passwordField = this.$("[name=pwrd]"),
+          password = passwordField.val();
+      passwordField.val("");
       this.model.setPassword(password);
 
       spiderOakApp.dialogView.showWait({

@@ -9,7 +9,7 @@
 window.spiderOakMobile_custom_config = {
   app_label: {value: "SpiderOak Blue", retain: 1},
   showPreliminary: {value: false, retain: 0},
-  server: {value: "", retain: 1},
+  server: {value: "spideroak.com", retain: 1},
   inhibitAdvancedLogin: {value: false, retain: 0},
   contactEmail: {value: "support@spideroakblue.com", retain: 0}
 };

@@ -190,10 +190,11 @@
       }
       var model = this.model;
       // Start by getting the folder path
-      var path = "Download/" + s("SpiderOak") + "/.favorites/" +
+      var path = "Download/" + s("SpiderOak").replace(/ /g,'') + "/.favorites/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp("%3A"), "")
           .replace(new RegExp(model.get("url")), "");
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
@@ -378,7 +379,7 @@
       }
       // Keep .shared path simple.. as they are not intentially stored.
       // @TODO: Clean this up periodically?
-      path = "Download/" + s("SpiderOak") + "/.shared/" +
+      path = "Download/" + s("SpiderOak").replace(/ /g,'') + "/.shared/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") + "/";
       this.downloadFile(model, path, function(fileEntry) {
         spiderOakApp.dialogView.hide();
@@ -587,10 +588,11 @@
     refreshFavorite: function(callback) {
       var model = this.model;
       // @FIXME: This should be in a function and be based on platform
-      var path = "Download/" + s("SpiderOak") + "/.favorites/" +
+      var path = "Download/" + s("SpiderOak").replace(/ /g,'') + "/.favorites/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") +
         model.composedUrl(true)
           .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
+          .replace(new RegExp("%3A"), "")
           .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
       var _callback = function(fileEntry) {
         callback = callback || function(fileEntry) {

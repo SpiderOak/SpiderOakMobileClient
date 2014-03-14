@@ -604,9 +604,11 @@
           spiderOakApp.dialogView.hide();
         };
         // Update the model
+        var fullUrl = model.composedUrl(true);
+        var url = fullUrl.substr(0, fullUrl.lastIndexOf("/") + 1);
         $.ajax({
           type: "GET",
-          url: model.composedUrl(true) + "?format=version_info",
+          url: url,
           headers: {
             "Authorization": (
               model.getBasicAuth() ||
@@ -615,7 +617,9 @@
           success: function(data, status, xhr) {
             // Since we are fetching the version info, the most recent version
             // is what we are after
-            var updatedModelData = _.last(data);
+            var updatedModelData = _.find(data.files, function(file) {
+              return file.url == model.get("encodedUrl");
+            });
             model.set({
               mtime: updatedModelData.mtime,
               size: updatedModelData.size

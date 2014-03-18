@@ -12,10 +12,15 @@
  * - apply the brand specification file, <repo>/custom/brand/brand_config.json
  * - reestablish the Cordova platforms
  *
- * Special significance is attributed to the first (only) argument being
- * `-'. It is for priming brand configuration, establishing the default
- * value (`SpiderOak`) if no brand setting is established, but otherwise
- * doing nothing.
+ * There are two special brand-name arguments:
+ *
+ * -  "dash" for priming brand configuration. Establishes the default
+ *    value (`SpiderOak`) iff no brand setting is established, but otherwise
+ *    doing nothing. Thus we can use it as part of 'npm install' actions, to
+ *    establish an initial setting.
+ *
+ * !  "bang" to redo the processing for the current setting. Useful if the
+ *    processign was disrupted, or changes made to the relevant templates.
  *
  * @param {string} The name of the brand directory, in <repo>/custom/brands/, or `-' for initializing
  */
@@ -64,15 +69,15 @@ function main(executive, scriptName, brandName) {
       brandName = wasCurrent;
     }
     else if (brandName === wasCurrent) {
-      console.log("Brand %s is already current, no change", brandName);
+      console.log("Brand is already current, no change: %s", brandName);
       process.exit(0);
     }
-    if (! setCurrentBrandByName(brandName)) {
+    if (! establishBrandByName(brandName)) {
       process.exit(1);
     }
     else {
-      adjustPackagByBrand();
-      reestablishCordovaPlatforms();
+      var disposition = refreshing ? "Reestablished" : "Set";
+      console.log("%s package brand: %s", disposition, brandName);
     }
   }
   process.exit(0);
@@ -95,11 +100,14 @@ function report() {
 function prime() {
   var current = getCurrentBrandName();
   if (current) {
-    console.log("Already established brand: %s", current);
+    console.log("No change to already established brand: %s", current);
     return false;
   }
   else {
-    return setCurrentBrandByName(defaultBrandName);
+    if (establishBrandByName(defaultBrandName)) {
+      console.log("Established default package brand: %s", brandName);
+      return true;
+    }
   }
 }
 function adjustPackagByBrand() {
@@ -121,7 +129,7 @@ function getCurrentBrandName() {
 /** Set the package's brand.
  * @param {string} brandName name of brand dir in custom/brands/
  * @returns {boolean} true if successful, false if not. */
-function setCurrentBrandByName(brandName) {
+function establishBrandByName(brandName) {
   var brandPath = path.join(brandsDir, brandName),
       relpath = path.join('brands', brandName);
   if (! fs.existsSync(brandPath)) {
@@ -138,7 +146,8 @@ function setCurrentBrandByName(brandName) {
       throw new Error("Brand link creation botched");
     }
     else {
-      console.log("Set package to brand: %s", brandName);
+      adjustPackagByBrand();
+      reestablishCordovaPlatforms();
       return true;
     }
   }

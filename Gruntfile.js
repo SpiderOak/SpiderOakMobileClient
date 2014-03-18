@@ -60,7 +60,7 @@ module.exports = function(grunt) {
       },
       brand: {
         command: function (name) {
-          return 'echo ' + name;
+          return './custom/scripts/BrandPackage.js ' + name;
         },
         options: {
           failOnError: true,

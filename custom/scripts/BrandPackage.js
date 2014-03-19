@@ -32,11 +32,12 @@ var defaultBrandName = 'SpiderOak',
 /* Internal program setup: */
 var fs = require('fs'),
     path = require('path'),
+    errnos = require('errno-codes'),
     projectRootDir = path.resolve(__dirname, '..', '..'),
     projectCustomDir = path.resolve(__dirname, '..');
     brandsDir = path.join(projectRootDir, 'custom', 'brands'),
-    brandSymlink = path.join(projectRootDir, 'custom', 'brand'),
-    brandConfigFilePath = path.join(brandSymlink, 'brand_config.json'),
+    brandSymlinkLocation = path.join(projectRootDir, 'custom', 'brand'),
+    brandConfigFilePath = path.join(brandSymlinkLocation, 'brand_config.json'),
     // platformDestinations resolves later - requires specified brand:
     platformDestinations = {};
 
@@ -59,8 +60,8 @@ function main(executive, scriptName, brandName) {
   }
   else if (priming) {
     if (prime()) {
-      adjustPackagByBrand();
-      reestablishCordovaPlatforms();
+      adjustManifestsToBrand();
+      recreateCordovaPlatforms();
     }
   }
   else {
@@ -76,7 +77,7 @@ function main(executive, scriptName, brandName) {
       process.exit(1);
     }
     else {
-      var disposition = refreshing ? "Reestablished" : "Set";
+      var disposition = refreshing ? "Reestablishing" : "Set";
       console.log("%s package brand: %s", disposition, brandName);
     }
   }
@@ -105,30 +106,41 @@ function prime() {
   }
   else {
     if (establishBrandByName(defaultBrandName)) {
-      console.log("Established default package brand: %s", brandName);
+      console.log("Establishing default package brand: %s", defaultBrandName);
       return true;
     }
   }
-}
-function adjustPackagByBrand() {
-}
-function reestablishCordovaPlatforms() {
 }
 
 /** Get the package's current brand, by name.
  * @returns {string} the name of the brand dir in custom/brands, if valid, or
  * @returns {boolean} false if link points at a non-existent target, or
- * @returns {undefined} undefined if not set. */
+ * @returns {undefined} undefined if not set. 
+ */
 function getCurrentBrandName() {
   var got, exc;
-  try { got = fs.readlinkSync(brandSymlink); }
+  try { got = fs.readlinkSync(brandSymlinkLocation); }
   catch (exc) { return undefined; };
-  return (fs.existsSync(path.resolve(path.dirname(brandSymlink), got)) &&
+  return (fs.existsSync(path.resolve(path.dirname(
+    brandSymlinkLocation), got)) &&
           path.basename(got));
 }
 /** Set the package's brand.
+ *
+ * This includes:
+ *
+ * - assert the custom/brand@ link to the indicated custom/brands/name dir,
+ *
+ * in the case of error:
+ *   - apply suitable handling and bail
+ *
+ * or, on successful linking:
+ *   - massaging of the manifest templates with the brand-specific values, and
+ *   - recreation of the various platforms, which will incorporate the results.
+ *
  * @param {string} brandName name of brand dir in custom/brands/
- * @returns {boolean} true if successful, false if not. */
+ * @returns {boolean} true if successful, false if not.
+ */
 function establishBrandByName(brandName) {
   var brandPath = path.join(brandsDir, brandName),
       relpath = path.join('brands', brandName);
@@ -137,17 +149,28 @@ function establishBrandByName(brandName) {
     return false;
   }
   else {
+    // We had to wait until validated brand name to set platform destinations:
     setPlatformDestinations(brandName);
-    if (fs.existsSync(brandSymlink)) {
-      fs.unlinkSync(brandSymlink);
+    debugger;
+    try {
+      fs.readlinkSync(brandSymlinkLocation);
+      fs.unlinkSync(brandSymlinkLocation);
     }
-    fs.symlinkSync(relpath, brandSymlink);
-    if (! fs.readlinkSync(brandSymlink)) {
-      throw new Error("Brand link creation botched");
+    catch (err) {
+      if (err.errno === errnos.EINVAL.errno) {
+        // Exists, but not a symlink
+        console.log("File or directory blocking brand symlink, " +
+                    "please remove it: %s", brandSymlinkLocation);
+        process.exit(1);
+      }
+    }
+    fs.symlinkSync(relpath, brandSymlinkLocation);
+    if (! fs.readlinkSync(brandSymlinkLocation)) {
+      throw new Error("Brand link creation failed");
     }
     else {
-      adjustPackagByBrand();
-      reestablishCordovaPlatforms();
+      adjustManifestsToBrand();
+      recreateCordovaPlatforms();
       return true;
     }
   }
@@ -163,6 +186,11 @@ function setPlatformDestinations (brandName) {
     android: path.join(projectRootDir, 'platforms', 'android'),
     ios: path.join(projectRootDir, 'platforms', 'ios', brandName)
   };
+}
+
+function adjustManifestsToBrand() {
+}
+function recreateCordovaPlatforms() {
 }
 
 /** Copy optional customization elements to the indicated platform dir.

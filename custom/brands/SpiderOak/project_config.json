@@ -1,0 +1,5 @@
+whatsthis: "/* SpiderOak Orange-label package configuration. */",
+
+name: "SpiderOak",
+projectName: "SpiderOak",
+identifier: "com.spideroak.SpiderOak"

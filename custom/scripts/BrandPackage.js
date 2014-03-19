@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/** Establish project packaging parameters according to brand specificaiton.
+/** Configure project packaging according to brand-specific parameters.
  *
  * Without any arguments, we indicate the current brand link and the
  * available brands.
@@ -34,10 +34,11 @@ var fs = require('fs'),
     path = require('path'),
     errnos = require('errno-codes'),
     projectRootDir = path.resolve(__dirname, '..', '..'),
-    projectCustomDir = path.resolve(__dirname, '..');
+    projectCustomDir = path.resolve(__dirname, '..'),
     brandsDir = path.join(projectRootDir, 'custom', 'brands'),
     brandSymlinkLocation = path.join(projectRootDir, 'custom', 'brand'),
-    brandConfigFilePath = path.join(brandSymlinkLocation, 'brand_config.json'),
+    projectConfigFilePath = path.join(brandSymlinkLocation,
+                                      'project_config.json'),
     // platformDestinations resolves later - requires specified brand:
     platformDestinations = {};
 
@@ -67,7 +68,13 @@ function main(executive, scriptName, brandName) {
   else {
     var wasCurrent = getCurrentBrandName();
     if (refreshing) {
-      brandName = wasCurrent;
+      if (! wasCurrent) {
+        console.log("No current brand to reestablish.");
+        process.exit(1);
+      }
+      else {
+        brandName = wasCurrent;
+      }
     }
     else if (brandName === wasCurrent) {
       console.log("Brand is already current, no change: %s", brandName);
@@ -151,7 +158,6 @@ function establishBrandByName(brandName) {
   else {
     // We had to wait until validated brand name to set platform destinations:
     setPlatformDestinations(brandName);
-    debugger;
     try {
       fs.readlinkSync(brandSymlinkLocation);
       fs.unlinkSync(brandSymlinkLocation);

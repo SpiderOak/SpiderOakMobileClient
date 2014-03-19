@@ -1,4 +1,5 @@
 whatsthis: "/* SpiderOak Blue-label package configuration. */",
 
 name: "SpiderOak Blue",
-identifier: "com.spideroak.blue"
+projectName: "SpiderOakBlue",
+identifier: "com.spideroakblue.android"

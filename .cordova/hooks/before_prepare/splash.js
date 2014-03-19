@@ -3,9 +3,13 @@
   var projectName = 'SpiderOak',
     fs = require('fs'),
     path = require('path'),
-    res = path.join('.', 'merges', 'ios', 'res', 'screen'),
-    iOSDest = path
-      .join('.', 'platforms', 'ios', projectName, 'Resources', 'splash');
+    projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    projectConfigFilePath = path.join(projectRootDir,
+                                      'custom', 'brand', 'project_config.json'),
+    projectName = require(projectConfigFilePath).projectName,
+    res = path.join(projectConfigFilePath, 'merges', 'ios', 'res', 'screen'),
+    iOSDest = path.join(projectConfigFilePath, 'platforms', 'ios',
+                        projectName, 'Resources', 'splash');
 
   var iOSSplashes = [
     { file: 'iphone_portrait.png', dest: 'Default~iphone.png' },

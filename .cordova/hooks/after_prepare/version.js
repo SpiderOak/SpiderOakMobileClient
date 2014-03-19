@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 (function(require, console) {
-  var projectName = 'SpiderOak',
+  var
     fs = require('fs'),
     path = require('path'),
     et = require('elementtree'),
     plist = require('plist'),
     shell = require('shelljs'),
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    projectConfigFilePath = path.join(projectRootDir,
+                                      'custom', 'brand', 'project_config.json'),
+    projectName = require(projectConfigFilePath).projectName,
     genericConfigFile = path.join(
       projectRootDir,
       'www',

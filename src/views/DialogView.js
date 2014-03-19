@@ -31,7 +31,7 @@
       options.title = options.title || "Please wait";
       options.subtitle = options.subtitle || "";
       this.$el.html(window.tmpl["waitDialog"](options));
-      if (options.showCancel && $.os.ios) $(".cancel-btn").show();
+      if (options.showCancel && $.os.ios) this.$(".cancel-btn").show();
       this.$el.show();
     },
     showNotifyErrorResponse: function(response, options) {
@@ -91,7 +91,7 @@
       options.subtitle = options.subtitle || "";
       options.start = options.start || 0;
       this.$el.html(window.tmpl["progressDialog"](options));
-      if (options.showCancel && $.os.ios) $(".cancel-btn").show();
+      if (options.showCancel && $.os.ios) this.$(".cancel-btn").show();
       this.$el.show();
     },
     updateProgress: function(progressPercent) {

@@ -1,5 +1,7 @@
-whatsthis: "/* SpiderOak Blue-label package configuration. */",
+{
+  "whatsthis": "/* SpiderOak Blue-label package configuration. */",
 
-name: "SpiderOak Blue",
-projectName: "SpiderOakBlue",
-identifier: "com.spideroakblue.android"
+  "projectName": "SpiderOakBlue",
+  "brandName": "SpiderOak Blue",
+  "identifier": "com.spideroakblue.android"
+}

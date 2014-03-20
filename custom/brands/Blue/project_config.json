@@ -1,7 +1,8 @@
 {
-  "whatsthis": "/* SpiderOak Blue-label package configuration. */",
+  "whatsthis": "/* SpiderOak Blue-label project configuration. */",
 
   "projectName": "SpiderOakBlue",
   "brandName": "SpiderOak Blue",
-  "identifier": "com.spideroakblue.android"
+  "identifier": "com.spideroakblue.android",
+  "description": "SpiderOak Blue Mobile Client"
 }

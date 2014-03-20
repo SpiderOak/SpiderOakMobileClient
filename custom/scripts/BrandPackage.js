@@ -39,6 +39,7 @@ var fs = require('fs'),
     brandSymlinkLocation = path.join(projectRootDir, 'custom', 'brand'),
     projectConfigFilePath = path.join(brandSymlinkLocation,
                                       'project_config.json'),
+    configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json");
     // platformDestinations resolves later - requires specified brand:
     platformDestinations = {};
 
@@ -53,23 +54,19 @@ function main(executive, scriptName, brandName) {
       priming = (brandName === "-"),
       refreshing = (brandName === "!");
 
-  console.log("[hooks] BrandPackage %s",
-              path.relative(projectRootDir, scriptName));
+  blather(relativeToProjectRoot(scriptName));
 
   if (reporting) {
     report()
   }
   else if (priming) {
-    if (prime()) {
-      adjustManifestsToBrand();
-      recreateCordovaPlatforms();
-    }
+    prime();
   }
   else {
     var wasCurrent = getCurrentBrandName();
     if (refreshing) {
       if (! wasCurrent) {
-        console.log("No current brand to reestablish.");
+        blather("No current brand to reestablish.");
         process.exit(1);
       }
       else {
@@ -77,15 +74,11 @@ function main(executive, scriptName, brandName) {
       }
     }
     else if (brandName === wasCurrent) {
-      console.log("Brand is already current, no change: %s", brandName);
+      blather("Brand is already current, no change: " + brandName);
       process.exit(0);
     }
-    if (! establishBrandByName(brandName)) {
+    if (! establishBrandByName(brandName, refreshing)) {
       process.exit(1);
-    }
-    else {
-      var disposition = refreshing ? "Reestablishing" : "Set";
-      console.log("%s package brand: %s", disposition, brandName);
     }
   }
   process.exit(0);
@@ -94,10 +87,10 @@ function main(executive, scriptName, brandName) {
 /** Print the current brand dir and the available choices. */
 function report() {
   var current = getCurrentBrandName();
-  console.log("Current brand: %s",
-              current ||
-              ((typeof current === "undefined") ? "<no link>" : "<bad link>"));
-  console.log("Available brands: %s", fs.readdirSync(brandsDir).join(", "));
+  blather("Current brand: " +
+          current ||
+          ((typeof current === "undefined") ? "<no link>" : "<bad link>"));
+  blather("Available brands: " + fs.readdirSync(brandsDir).join(", "));
 }
 /** Only if no brand currently established, set to the default one.
  *
@@ -108,12 +101,12 @@ function report() {
 function prime() {
   var current = getCurrentBrandName();
   if (current) {
-    console.log("No change to already established brand: %s", current);
+    blather("No change to already established brand: " + current);
     return false;
   }
   else {
     if (establishBrandByName(defaultBrandName)) {
-      console.log("Establishing default package brand: %s", defaultBrandName);
+      blather("Establishing default package brand: " + defaultBrandName);
       return true;
     }
   }
@@ -122,7 +115,7 @@ function prime() {
 /** Get the package's current brand, by name.
  * @returns {string} the name of the brand dir in custom/brands, if valid, or
  * @returns {boolean} false if link points at a non-existent target, or
- * @returns {undefined} undefined if not set. 
+ * @returns {undefined} undefined if not set.
  */
 function getCurrentBrandName() {
   var got, exc;
@@ -148,15 +141,15 @@ function getCurrentBrandName() {
  * @param {string} brandName name of brand dir in custom/brands/
  * @returns {boolean} true if successful, false if not.
  */
-function establishBrandByName(brandName) {
+function establishBrandByName(brandName, doingRefresh) {
   var brandPath = path.join(brandsDir, brandName),
       relpath = path.join('brands', brandName);
   if (! fs.existsSync(brandPath)) {
-    console.log("No such brand dir %s", brandPath);
+    blather("No such brand dir %s" + brandPath);
     return false;
   }
   else {
-    // We had to wait until validated brand name to set platform destinations:
+    // Validated brand name was neceesary before setting platform destinations:
     setPlatformDestinations(brandName);
     try {
       fs.readlinkSync(brandSymlinkLocation);
@@ -165,18 +158,20 @@ function establishBrandByName(brandName) {
     catch (err) {
       if (err.errno === errnos.EINVAL.errno) {
         // Exists, but not a symlink
-        console.log("File or directory blocking brand symlink, " +
-                    "please remove it: %s", brandSymlinkLocation);
+        blather("File or directory blocking brand symlink, " +
+                    "please remove it: " + brandSymlinkLocation);
         process.exit(1);
       }
     }
+    var disposition = doingRefresh ? "Reestablishing" : "Set";
+    blather(disposition + " package brand: " + brandName);
     fs.symlinkSync(relpath, brandSymlinkLocation);
     if (! fs.readlinkSync(brandSymlinkLocation)) {
       throw new Error("Brand link creation failed");
     }
     else {
       adjustManifestsToBrand();
-      recreateCordovaPlatforms();
+      createCordovaPlatforms();
       return true;
     }
   }
@@ -194,51 +189,36 @@ function setPlatformDestinations (brandName) {
   };
 }
 
+/** Produce various platform manifests including brand-specific values.
+ *
+ * > .cordova/config.json - fabricate entirely, identifier, projectName
+ * > www/config.xml - substitute values in .template:
+ *       projectName, description, name
+ * > www/res/config/AndroidManifest.xml - substitute values in .template:
+ *       identifier, projectName
+ * > www/res/config/SpiderOak-Info.plist - substitute values in .template:
+ *       identifier
+ */
 function adjustManifestsToBrand() {
+  var projectConfig = require(path.join(brandSymlinkLocation,
+                                        "project_config.json"));
+  fabricateConfigDotJson(projectConfig);
 }
-function recreateCordovaPlatforms() {
+function fabricateConfigDotJson(projectConfig) {
+  var data = {id: projectConfig.identifier, name: projectConfig.projectName};
+  fs.writeFileSync(configDotJsonPath, JSON.stringify(data) + "\n",
+                   {mode: 0644});
+  blather("Fabricated " + relativeToProjectRoot(configDotJsonPath));
+}
+/** Create platforms per changed configs, removing existing ones if present. */
+function createCordovaPlatforms() {
 }
 
-/** Copy optional customization elements to the indicated platform dir.
- *
- * @return true if item was present and copied, false otherwise.
- * @param {string} sourceFileName The file being copied from
- * @param {string} targetFileName The file being copied to
- * @param {string} targetPath The target path relative to platfom dir root
- * @param {string} platform The name of the target platform (case insensitive)
- */
-function doCopyIfPresent(sourceFileName, targetFileName,
-                         targetPath, platform) {
-  var platformLC = platform.toLowerCase();
-  if (! platformDestinations.hasOwnProperty(platformLC)) {
-    throw new Error("[hooks] Unrecognized customization platform '%s'",
-                    platform);
-  }
-  var fromPath = path.join(customElementsDir, sourceFileName);
-  var destPath = path.join(platformDestinations[platformLC],
-                           path.join.apply({}, targetPath.split("/")),
-                           targetFileName);
-  // Copy if optional item is present.
-  if (fs.existsSync(fromPath)) {
-    if (! fs.existsSync(path.dirname(destPath))) {
-      console.log("[hooks] Skipping missing %s destination dir" +
-                  " for item %s: %s",
-                  platform, item.FileName, path.dirname(destPath));
-      return false;
-    }
-    var readStream = fs.createReadStream(fromPath);
-    var writeStream = fs.createWriteStream(destPath);
-    // Occupy event queue until write 'end' so process doesn't exit 'til done:
-    writeStream.on('end', function (event) {
-      // console.log() seems to be ineffective in an event handler?
-      //console.log("[hooks] %s written.", destPath);
-    });
-    //console.log("[hooks] Copying custom platform %s element %s to: %s",
-    //            platform, sourceFileName, destPath);
-    readStream.pipe(writeStream);
-    return true;
-  }
-  return false;
+function relativeToProjectRoot(thePath) {
+  return path.relative(projectRootDir, thePath);
+}
+function blather(message) {
+  console.log("[BrandPackage] %s", message)
 }
 
 if (require.main === module) {

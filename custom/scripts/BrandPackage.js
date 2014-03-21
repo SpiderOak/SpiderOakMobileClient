@@ -32,9 +32,12 @@ var defaultBrandName = 'SpiderOak',
 /* Internal program setup: */
 var fs = require('fs'),
     path = require('path'),
+    et = require('elementtree'),
     errnos = require('errno-codes'),
     projectRootDir = path.resolve(__dirname, '..', '..'),
     projectCustomDir = path.resolve(__dirname, '..'),
+    brandElementsConfigPath = path.join(projectCustomDir,
+                                        "brand_elements.json"),
     brandsDir = path.join(projectRootDir, 'custom', 'brands'),
     brandSymlinkLocation = path.join(projectRootDir, 'custom', 'brand'),
     projectConfigFilePath = path.join(brandSymlinkLocation,
@@ -201,8 +204,64 @@ function setPlatformDestinations (brandName) {
  */
 function adjustManifestsToBrand() {
   var projectConfig = require(path.join(brandSymlinkLocation,
-                                        "project_config.json"));
+                                        "project_config.json")),
+      brandElementsConfig = require(brandElementsConfigPath),
+      i;
   fabricateConfigDotJson(projectConfig);
+  for (i in brandElementsConfig) {
+    var relpath = brandElementsConfig[i][0],
+        elementsSpec = brandElementsConfig[i][1],
+        confResultFile = path.join(projectRootDir,
+                                   path.join.apply({}, relpath.split("/"))),
+        confResultFileTemplate = confResultFile + ".template";
+    fabricateConfigFromTemplate(confResultFile, confResultFileTemplate,
+                                projectConfig, elementsSpec);
+  }
+}
+/** Create project config file from template, brand values, and elements spec.
+ *
+ * Each elements spec is a list containing two or three items:
+ * 1. Name of projectConfig value to substitute
+ * 2. Element tree path to tag within template XML structure
+ * 3. Optional tag attribute to receive the value.
+ * When no tag attribute is specified, the tag itself receives the value.
+ *
+ * Errors are thrown if specified projectConfig attributes or template tags
+ * or tag attributes are not found.
+ *
+ * @param {string} resultPath to the output file
+ * @param {string} templatePath to the input file
+ * @param {object} projectConfig with the fields and brand-specific values
+ * @param {object} elementsSpec identifying the changes - see above for details
+ */
+function fabricateConfigFromTemplate(resultPath, templatePath,
+                                     projectConfig, elementsSpec) {
+  var data = fs.readFileSync(templatePath).toString(),
+      subject = et.parse(data),
+      i, field, tagPath, attrName;
+
+  for (i in elementsSpec) {
+    var curSpec = elementsSpec[i],
+        field = curSpec[0],
+        tagPath = curSpec[1],
+        attrName = curSpec[2],
+        tag, value;
+    tag = subject.find(tagPath);
+    if (! tag) {
+      throw Error("failed to find tag path " + tagPath + " in " +
+                  relativeToProjectRoot(templatePath));
+    }
+    value = projectConfig[field];
+    if (attrName) {
+      tag.set(attrName, value);
+    }
+    else {
+      tag.text = value;
+    }
+  }
+  fs.writeFileSync(resultPath, subject.write({indent: true}), {mode: "0644"});
+  blather("Fabricated project configuration file " +
+          relativeToProjectRoot(resultPath));
 }
 function fabricateConfigDotJson(projectConfig) {
   var data = {id: projectConfig.identifier, name: projectConfig.projectName};

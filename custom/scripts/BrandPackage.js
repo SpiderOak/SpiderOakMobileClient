@@ -32,7 +32,6 @@ var defaultBrandName = 'SpiderOak',
 /* Internal program setup: */
 var fs = require('fs'),
     path = require('path'),
-    et = require('elementtree'),
     errnos = require('errno-codes'),
     projectRootDir = path.resolve(__dirname, '..', '..'),
     projectCustomDir = path.resolve(__dirname, '..'),
@@ -222,7 +221,7 @@ function adjustManifestsToBrand() {
  *
  * Each elements spec is a list containing two or three items:
  * 1. Name of projectConfig value to substitute
- * 2. Element tree path to tag within template XML structure
+ * 2. Path to tag within template structure - XPath for XML, plist for .plist
  * 3. Optional tag attribute to receive the value.
  * When no tag attribute is specified, the tag itself receives the value.
  *
@@ -236,33 +235,53 @@ function adjustManifestsToBrand() {
  */
 function fabricateConfigFromTemplate(resultPath, templatePath,
                                      projectConfig, elementsSpec) {
-  var data = fs.readFileSync(templatePath).toString(),
-      subject = et.parse(data),
-      i, field, tagPath, attrName;
+  var ext = path.extname(resultPath);
+
+  if (ext === ".plist") {
+    subject = new PlistTemplateTransformer(templatePath, resultPath);
+  }
+  else {
+    subject = new XMLTemplateTransformer(templatePath, resultPath);
+  }
 
   for (i in elementsSpec) {
     var curSpec = elementsSpec[i],
         field = curSpec[0],
         tagPath = curSpec[1],
         attrName = curSpec[2],
-        tag, value;
-    tag = subject.find(tagPath);
-    if (! tag) {
-      throw Error("failed to find tag path " + tagPath + " in " +
-                  relativeToProjectRoot(templatePath));
-    }
-    value = projectConfig[field];
-    if (attrName) {
-      tag.set(attrName, value);
-    }
-    else {
-      tag.text = value;
-    }
+        value = projectConfig[field];
+
+    subject.replace(value, tagPath, attrName);
   }
-  fs.writeFileSync(resultPath, subject.write({indent: true}), {mode: "0644"});
+  fs.writeFileSync(resultPath, subject, {mode: "0644"});
   blather("Fabricated project configuration file " +
           relativeToProjectRoot(resultPath));
 }
+
+function PlistTemplateTransformer(templatePath, resultPath) {
+  this.plist = require('plist');
+  this.subject = this.plist.parseFileSync(templatePath, 'utf-8');
+}
+PlistTemplateTransformer.prototype.replace = function(value, tagPath, attr) {
+  // We don't implement attr replacement in plist transformer.
+  this.subject[tagPath] = value;
+};
+PlistTemplateTransformer.prototype.toString = function() {
+  return this.plist.build(this.subject);
+};
+function XMLTemplateTransformer(templatePath, resultPath) {
+  var et = require('elementtree');
+  this.templatePath = templatePath;
+  this.subject = et.parse(fs.readFileSync(templatePath, 'utf-8').toString());
+}
+XMLTemplateTransformer.prototype.replace = function(value, tagPath, attr) {
+  var tag = this.subject.find(tagPath);
+  attr ? tag.set(attr, value) : tag.text = value;
+};
+XMLTemplateTransformer.prototype.toString = function() {
+  return this.subject.write({indent: true});
+};
+
 function fabricateConfigDotJson(projectConfig) {
   var data = {id: projectConfig.identifier, name: projectConfig.projectName};
   fs.writeFileSync(configDotJsonPath, JSON.stringify(data) + "\n",

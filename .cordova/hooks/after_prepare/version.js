@@ -40,7 +40,7 @@
         'assets',
         'www',
         'config.xml'
-    )
+    ),
     version = shell.exec('git describe --tags', {silent:true}).output.trim();
 
   if (fs.existsSync(iOSConfigFilePath)) {

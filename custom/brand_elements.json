@@ -1,15 +1,15 @@
 [["www/config.xml",
-  [["identifier",    ".", "id"],
-   ["projectName",   "./name"],
-   ["description",   "./description"]]
+  [["identifier",        ".", "id"],
+   ["projectName",       "./name"],
+   ["description",       "./description"]]
  ],
 
  ["www/res/config/AndroidManifest.xml",
-  [["identifier",    ".", "package"],
-   ["projectName",   "./application/activity", "android:name"]]
+  [["androidIdentifier", ".", "package"],
+   ["projectName",       "./application/activity", "android:name"]]
  ],
 
  ["www/res/config/SpiderOak-Info.plist",
-  [["identifier",   "dict/string[@this='CFBundleIdentifier']"]]
+  [["iosIdentifier",     "CFBundleIdentifier"]]
  ]
 ]

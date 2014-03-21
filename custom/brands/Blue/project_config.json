@@ -3,6 +3,8 @@
 
   "projectName": "SpiderOakBlue",
   "brandName": "SpiderOak Blue",
-  "identifier": "com.spideroakblue.android",
+  "identifier": "com.spideroakblue.mobile",
+  "androidIdentifier": "com.spideroakblue.android",
+  "iosIdentifier": "com.spideroakblue.SpiderOak",
   "description": "SpiderOak Blue Mobile Client."
 }

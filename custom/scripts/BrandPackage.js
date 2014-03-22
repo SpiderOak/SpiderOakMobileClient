@@ -42,7 +42,8 @@ var fs = require('fs'),
     projectConfigFilePath = path.join(brandSymlinkLocation,
                                       'project_config.json'),
     configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json"),
-    platformsDir = path.join(projectRootDir, "platforms");
+    platformsDir = path.join(projectRootDir, "platforms"),
+    defaultPlatforms = "ios android";
 
 /** Driver, for when this module is run as a script.
  *
@@ -257,7 +258,7 @@ function createCordovaPlatforms() {
   platforms = platforms.join(" ");
 
   if (platforms === "") {
-    platforms = "ios android";
+    platforms = defaultPlatforms;
   }
   else {
     removeCmd = "cordova platform remove " + platforms;

@@ -107,8 +107,8 @@ function prime() {
     return false;
   }
   else {
+    blather("Establishing default package brand: " + defaultBrandName);
     if (establishBrandByName(defaultBrandName)) {
-      blather("Establishing default package brand: " + defaultBrandName);
       return true;
     }
   }
@@ -238,7 +238,7 @@ function fabricateConfigFromTemplate(resultPath, templatePath,
     subject.replace(value, tagPath, attrName);
   }
   fs.writeFileSync(resultPath, subject, {mode: "0644"});
-  blather("Fabricated project configuration file " +
+  blather("Fabricated project config file " +
           relativeToProjectRoot(resultPath));
 }
 
@@ -259,6 +259,7 @@ function createCordovaPlatforms() {
 
   if (platforms === "") {
     platforms = defaultPlatforms;
+    init = true;
   }
   else {
     removeCmd = "cordova platform remove " + platforms;
@@ -270,7 +271,7 @@ function createCordovaPlatforms() {
     }
   }
   addCmd = "cordova platform add " + platforms;
-  blather((init ? "Creating" : "Recreating") +
+  blather((init ? "Creating initial" : "Recreating") +
           " cordova platforms: " + addCmd);
   code = shell.exec(addCmd).code;
   if (code !== 0) {

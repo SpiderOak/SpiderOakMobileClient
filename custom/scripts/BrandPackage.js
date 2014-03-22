@@ -41,9 +41,8 @@ var fs = require('fs'),
     brandSymlinkLocation = path.join(projectRootDir, 'custom', 'brand'),
     projectConfigFilePath = path.join(brandSymlinkLocation,
                                       'project_config.json'),
-    configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json");
-    // platformDestinations resolves later - requires specified brand:
-    platformDestinations = {};
+    configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json"),
+    platformsDir = path.join(projectRootDir, "platforms");
 
 /** Driver, for when this module is run as a script.
  *
@@ -151,8 +150,6 @@ function establishBrandByName(brandName, doingRefresh) {
     return false;
   }
   else {
-    // Validated brand name was neceesary before setting platform destinations:
-    setPlatformDestinations(brandName);
     try {
       fs.readlinkSync(brandSymlinkLocation);
       fs.unlinkSync(brandSymlinkLocation);
@@ -174,21 +171,10 @@ function establishBrandByName(brandName, doingRefresh) {
     else {
       adjustManifestsToBrand();
       createCordovaPlatforms();
+      blather("Done.");
       return true;
     }
   }
-}
-/** Fill in platformDestinations using brand name.
- *
- * The filled-in information is necessary for manifest placements.
- *
- * @param {string} brandName name of brand dir in custom/brands/
- */
-function setPlatformDestinations (brandName) {
-  platformDestinations = {
-    android: path.join(projectRootDir, 'platforms', 'android'),
-    ios: path.join(projectRootDir, 'platforms', 'ios', brandName)
-  };
 }
 
 /** Produce various platform manifests including brand-specific values.
@@ -235,14 +221,11 @@ function adjustManifestsToBrand() {
  */
 function fabricateConfigFromTemplate(resultPath, templatePath,
                                      projectConfig, elementsSpec) {
-  var ext = path.extname(resultPath);
-
-  if (ext === ".plist") {
-    subject = new PlistTemplateTransformer(templatePath, resultPath);
-  }
-  else {
-    subject = new XMLTemplateTransformer(templatePath, resultPath);
-  }
+  var ext = path.extname(resultPath),
+      transformer = ((ext === ".plist") ?
+                     PlistTemplateTransformer :
+                     XMLTemplateTransformer),
+      subject = new transformer(templatePath, resultPath);
 
   for (i in elementsSpec) {
     var curSpec = elementsSpec[i],
@@ -256,6 +239,43 @@ function fabricateConfigFromTemplate(resultPath, templatePath,
   fs.writeFileSync(resultPath, subject, {mode: "0644"});
   blather("Fabricated project configuration file " +
           relativeToProjectRoot(resultPath));
+}
+
+/** Create platforms per changed configs, removing existing ones if present. 
+ * We just remove all the existing platforms and then recreate them.
+ */
+function createCordovaPlatforms() {
+  var shell = require('shelljs'),
+      platforms = fs.readdirSync(platformsDir),
+      init = false,
+      removeCmd, addCmd, code;
+
+  debugger;
+  platforms = platforms.filter(function(fname) {
+    return (fname[0] !== '.') ? fname : false;
+  });
+  platforms = platforms.join(" ");
+
+  if (platforms === "") {
+    platforms = "ios android";
+  }
+  else {
+    removeCmd = "cordova platform remove " + platforms;
+    blather("Removing existing cordova platforms: " + removeCmd);
+    code = shell.exec(removeCmd).code;
+    if (code !== 0) {
+      blather("Platforms remove failed (" + code + "): " + addCmd);
+      process.exit(1)
+    }
+  }
+  addCmd = "cordova platform add " + platforms;
+  blather((init ? "Creating" : "Recreating") +
+          " cordova platforms: " + addCmd);
+  code = shell.exec(addCmd).code;
+  if (code !== 0) {
+    blather("Platforms add failed (" + code + "): " + addCmd);
+    process.exit(1)
+  }
 }
 
 function PlistTemplateTransformer(templatePath, resultPath) {
@@ -287,9 +307,6 @@ function fabricateConfigDotJson(projectConfig) {
   fs.writeFileSync(configDotJsonPath, JSON.stringify(data) + "\n",
                    {mode: 0644});
   blather("Fabricated " + relativeToProjectRoot(configDotJsonPath));
-}
-/** Create platforms per changed configs, removing existing ones if present. */
-function createCordovaPlatforms() {
 }
 
 function relativeToProjectRoot(thePath) {

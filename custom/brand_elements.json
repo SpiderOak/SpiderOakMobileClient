@@ -1,7 +1,7 @@
 [
   {"subject": "www/config.xml",
    "transforms": [{"field": "androidIdentifier",
-                   "tagPath": ".", 
+                   "tagPath": ".",
                    "attribute": "id"},
                   {"field": "projectName",
                    "tagPath": "./name"},
@@ -9,7 +9,7 @@
                    "tagPath": "./description"}]
   },
   {"subject": "www/res/config/AndroidManifest.xml",
-   "transforms": [{"field": "androidIdentifier", 
+   "transforms": [{"field": "androidIdentifier",
                    "tagPath": ".",
                    "attribute": "package"},
                   {"field": "projectName",

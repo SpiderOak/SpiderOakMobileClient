@@ -5,7 +5,7 @@
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
     projectConfigFilePath = path.join(projectRootDir,
                                       'custom', 'brand', 'project_config.json'),
-    projectName = require(projectRootDir).projectName,
+    projectName = require(projectConfigFilePath).projectName,
     res = path.join(projectRootDir, 'merges', 'ios', 'res', 'screen'),
     iOSDest = path.join(projectRootDir, 'platforms', 'ios',
                         projectName, 'Resources', 'splash');

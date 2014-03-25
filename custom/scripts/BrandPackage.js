@@ -184,7 +184,11 @@ function establishBrandByName(brandName, doingRefresh, skipPlatforms) {
     }
     else {
       adjustManifestsToBrand();
-      if (! skipPlatforms) {
+      if (skipPlatforms) {
+        blather("Skipping Cordova platform reconfiguration.");
+        blather("This can Mess You Up - don't forget to rectify!!");
+      }
+      else {
         createCordovaPlatforms();
       }
       blather("Done.");

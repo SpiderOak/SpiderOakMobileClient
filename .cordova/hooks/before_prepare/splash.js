@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 (function(require) {
-  var projectName = 'SpiderOak',
-    fs = require('fs'),
+  var fs = require('fs'),
     path = require('path'),
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
     projectConfigFilePath = path.join(projectRootDir,
                                       'custom', 'brand', 'project_config.json'),
-    projectName = require(projectConfigFilePath).projectName,
-    res = path.join(projectConfigFilePath, 'merges', 'ios', 'res', 'screen'),
-    iOSDest = path.join(projectConfigFilePath, 'platforms', 'ios',
+    projectName = require(projectRootDir).projectName,
+    res = path.join(projectRootDir, 'merges', 'ios', 'res', 'screen'),
+    iOSDest = path.join(projectRootDir, 'platforms', 'ios',
                         projectName, 'Resources', 'splash');
 
   var iOSSplashes = [

@@ -43,6 +43,7 @@ var fs = require('fs'),
                                       'project_config.json'),
     configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json"),
     platformsDir = path.join(projectRootDir, "platforms"),
+    localCordova = path.join(projectRootDir, "node_modules", ".bin", "cordova");
     defaultPlatforms = "ios android";
 
 /** Driver, for when this module is run as a script.
@@ -262,7 +263,7 @@ function createCordovaPlatforms() {
     init = true;
   }
   else {
-    removeCmd = "cordova platform remove " + platforms;
+    removeCmd = localCordova + " platform remove " + platforms;
     blather("Removing existing cordova platforms: " + removeCmd);
     code = shell.exec(removeCmd).code;
     if (code !== 0) {
@@ -270,7 +271,7 @@ function createCordovaPlatforms() {
       process.exit(1)
     }
   }
-  addCmd = "cordova platform add " + platforms;
+  addCmd = localCordova + " platform add " + platforms;
   blather((init ? "Creating initial" : "Recreating") +
           " cordova platforms: " + addCmd);
   code = shell.exec(addCmd).code;

@@ -22,6 +22,11 @@
  * !  "bang" to redo the processing for the current setting. Useful if the
  *    processign was disrupted, or changes made to the relevant templates.
  *
+ * Lastly, an easter-egg for developers of this script:
+ *
+ * - prefix a brand-name argument with a "," to skip removeal and re-creation 
+ *   of the cordova platforms.
+ *
  * @param {string} The name of the brand directory, in <repo>/custom/brands/, or `-' for initializing
  */
 
@@ -55,9 +60,14 @@ var fs = require('fs'),
 function main(executive, scriptName, brandName) {
   var reporting = (! brandName),
       priming = (brandName === "-"),
-      refreshing = (brandName === "!");
+      refreshing = (brandName === "!"),
+      skipPlatforms = (brandName && (brandName[0] === ","));
 
   blather(relativeToProjectRoot(scriptName));
+
+  if (skipPlatforms) {
+    brandName = brandName.substring(1, brandName.length);
+  }
 
   if (reporting) {
     report()
@@ -80,7 +90,7 @@ function main(executive, scriptName, brandName) {
       blather("Brand is already current, no change: " + brandName);
       process.exit(0);
     }
-    if (! establishBrandByName(brandName, refreshing)) {
+    if (! establishBrandByName(brandName, refreshing, skipPlatforms)) {
       process.exit(1);
     }
   }
@@ -142,9 +152,11 @@ function getCurrentBrandName() {
  *   - recreation of the various platforms, which will incorporate the results.
  *
  * @param {string} brandName name of brand dir in custom/brands/
+ * @param {bool} doingRefresh when reasserting the current brand
+ * @param {bool} skipPlatforms when cordova platforms reassert is inhibited
  * @returns {boolean} true if successful, false if not.
  */
-function establishBrandByName(brandName, doingRefresh) {
+function establishBrandByName(brandName, doingRefresh, skipPlatforms) {
   var brandPath = path.join(brandsDir, brandName),
       relpath = path.join('brands', brandName);
   if (! fs.existsSync(brandPath)) {
@@ -172,7 +184,9 @@ function establishBrandByName(brandName, doingRefresh) {
     }
     else {
       adjustManifestsToBrand();
-      createCordovaPlatforms();
+      if (! skipPlatforms) {
+        createCordovaPlatforms();
+      }
       blather("Done.");
       return true;
     }
@@ -196,13 +210,13 @@ function adjustManifestsToBrand() {
       i;
   fabricateConfigDotJson(projectConfig);
   for (i in brandElementsConfig) {
-    var relpath = brandElementsConfig[i][0],
-        elementsSpec = brandElementsConfig[i][1],
+    var relpath = brandElementsConfig[i].subject,
+        transforms = brandElementsConfig[i].transforms,
         confResultFile = path.join(projectRootDir,
                                    path.join.apply({}, relpath.split("/"))),
         confResultFileTemplate = confResultFile + ".template";
     fabricateConfigFromTemplate(confResultFile, confResultFileTemplate,
-                                projectConfig, elementsSpec);
+                                projectConfig, transforms);
   }
 }
 /** Create project config file from template, brand values, and elements spec.
@@ -219,21 +233,21 @@ function adjustManifestsToBrand() {
  * @param {string} resultPath to the output file
  * @param {string} templatePath to the input file
  * @param {object} projectConfig with the fields and brand-specific values
- * @param {object} elementsSpec identifying the changes - see above for details
+ * @param {object} transforms identifying the changes - see above for details
  */
 function fabricateConfigFromTemplate(resultPath, templatePath,
-                                     projectConfig, elementsSpec) {
+                                     projectConfig, transforms) {
   var ext = path.extname(resultPath),
       transformer = ((ext === ".plist") ?
                      PlistTemplateTransformer :
                      XMLTemplateTransformer),
       subject = new transformer(templatePath, resultPath);
 
-  for (i in elementsSpec) {
-    var curSpec = elementsSpec[i],
-        field = curSpec[0],
-        tagPath = curSpec[1],
-        attrName = curSpec[2],
+  for (i in transforms) {
+    var curSpec = transforms[i],
+        field = curSpec.field,
+        tagPath = curSpec.tagPath,
+        attrName = curSpec.attribute,
         value = projectConfig[field];
 
     subject.replace(value, tagPath, attrName);

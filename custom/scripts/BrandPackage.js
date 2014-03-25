@@ -24,7 +24,7 @@
  *
  * Lastly, an easter-egg for developers of this script:
  *
- * - prefix a brand-name argument with a "," to skip removeal and re-creation 
+ * - prefix a brand-name argument with a "," to skip removal+re-creation 
  *   of the cordova platforms.
  *
  * @param {string} The name of the brand directory, in <repo>/custom/brands/, or `-' for initializing

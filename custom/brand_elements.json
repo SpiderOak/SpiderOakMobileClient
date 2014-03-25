@@ -1,5 +1,5 @@
 [["www/config.xml",
-  [["identifier",        ".", "id"],
+  [["androidIdentifier", ".", "id"],
    ["projectName",       "./name"],
    ["description",       "./description"]]
  ],

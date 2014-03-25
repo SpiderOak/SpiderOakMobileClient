@@ -1,23 +1,44 @@
 [
-  {"subject": "www/config.xml",
-   "transforms": [{"field": "androidIdentifier",
-                   "tagPath": ".",
-                   "attribute": "id"},
-                  {"field": "projectName",
-                   "tagPath": "./name"},
-                  {"field": "description",
-                   "tagPath": "./description"}]
+  {
+    "subject": "www/config.xml",
+    "transforms": [
+      {
+        "field": "androidIdentifier",
+        "tagPath": ".",
+        "attribute": "id"
+      },
+      {
+        "field": "projectName",
+        "tagPath": "./name"
+      },
+      {
+        "field": "description",
+        "tagPath": "./description"
+      }
+    ]
   },
-  {"subject": "www/res/config/AndroidManifest.xml",
-   "transforms": [{"field": "androidIdentifier",
-                   "tagPath": ".",
-                   "attribute": "package"},
-                  {"field": "projectName",
-                   "tagPath": "./application/activity",
-                   "attribute": "android:name"}]
+  {
+    "subject": "www/res/config/AndroidManifest.xml",
+    "transforms": [
+      {
+        "field": "androidIdentifier",
+        "tagPath": ".",
+        "attribute": "package"
+      },
+      {
+        "field": "projectName",
+        "tagPath": "./application/activity",
+        "attribute": "android:name"
+      }
+    ]
   },
-  {"subject": "www/res/config/SpiderOak-Info.plist",
-   "transforms": [{"field": "iosIdentifier",
-                   "tagPath": "CFBundleIdentifier"}]
+  {
+    "subject": "www/res/config/SpiderOak-Info.plist",
+    "transforms": [
+      {
+        "field": "iosIdentifier",
+        "tagPath": "CFBundleIdentifier"
+      }
+    ]
   }
 ]

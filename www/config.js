@@ -1,5 +1,5 @@
 /* Default configuration settings.  Do not change!
- * Use custom_config.js for custom overrides.
+ * Use brand-specific custom_config.js for custom overrides.
  */
 
 window.spiderOakMobile_config = {

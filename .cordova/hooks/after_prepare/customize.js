@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 (function(require, console) {
-  var projectName = 'SpiderOak',
-      fs = require('fs'),
+  var fs = require('fs'),
       path = require('path'),
       projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+      projectConfigFilePath = path.join(
+        projectRootDir, 'custom', 'brand', 'project_config.json'),
+      projectName = require(projectConfigFilePath).projectName,
       elementsFilePath = path.join(projectRootDir, 'custom', 'elements.json'),
       // require throws error if file is not found:
       elements = require(elementsFilePath),

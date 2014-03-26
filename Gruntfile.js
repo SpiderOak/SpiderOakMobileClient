@@ -14,6 +14,21 @@ module.exports = function(grunt) {
         ' * GENERATED FILE. DO NOT EDIT.' + '\n' +
         ' */\n\n'
     },
+    bump: {
+      options: {
+        files: ['package.json', 'bower_config.json'],
+        updateConfigs: ['pkg', 'bower_config'],
+        commit: false,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['package.json'], // '-a' for all files
+        createTag: false,
+        tagName: 'v%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: false,
+        pushTo: 'upstream',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
+      }
+    },
     shell: {
       install_ios: {
         command: './node_modules/.bin/cordova -d platform add ios',
@@ -38,6 +53,15 @@ module.exports = function(grunt) {
       },
       debug_android: {
         command: './node_modules/.bin/cordova -d run android',
+        options: {
+          failOnError: true,
+          stdout: true
+        }
+      },
+      brand: {
+        command: function (name) {
+          return './custom/scripts/BrandPackage.js ' + name;
+        },
         options: {
           failOnError: true,
           stdout: true
@@ -261,12 +285,12 @@ module.exports = function(grunt) {
           paths: ["www/css/less", "custom/brand"],
           cleancss: false
         },
-        files: {
+        files: [{
           "www/css/app.css": "www/css/less/app.less",
           "www/css/themes/ios.css": "www/css/less/themes/ios.less",
           "www/css/themes/android.css": "www/css/less/themes/android.less",
           "www/css/themes/blackberry10.css": "www/css/less/themes/blackberry10.less"
-        }
+        }]
       }
     },
     watch: {
@@ -350,6 +374,10 @@ module.exports = function(grunt) {
   grunt.registerTask('min', ['uglify']); // polyfil
 
   // Build tasks
+  grunt.registerTask('brand','Configure package brand', function(name) {
+    name = name || '';
+    grunt.task.run('shell:brand:' + name);
+  });
   grunt.registerTask('debug','Create a debug build', function(platform, test) {
     test = test || 'dot';
     grunt.task.run('jshint', 'dot', 'less', 'concat', 'shell:mocha'+test);

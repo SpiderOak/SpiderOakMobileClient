@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 (function(require) {
-  var projectName = 'SpiderOak',
+  var
     fs = require('fs'),
     path = require('path'),
     res = path.join('.', 'www', 'res', 'icon'),
-    androidDest = path.join('.', 'platforms', 'android', 'res'),
-    iOSDest = path
-      .join('.', 'platforms', 'ios', projectName, 'Resources', 'icons');
+    projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    projectConfigFilePath = path.join(projectRootDir,
+                                      'custom', 'brand', 'project_config.json'),
+    projectName = require(projectConfigFilePath).projectName,
+    androidDest = path.join(projectRootDir, 'platforms', 'android', 'res'),
+    iOSDest = path.join(
+      projectRootDir, 'platforms', 'ios', projectName, 'Resources', 'icons');
 
   var androidIcons = [
     { file: 'cordova_android_96.png', dest: 'drawable' },

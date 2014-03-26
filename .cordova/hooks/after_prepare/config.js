@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 (function(require, console) {
-  var projectName = 'SpiderOak',
+  var
     fs = require('fs'),
     path = require('path'),
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    projectConfigFilePath = path.join(projectRootDir,
+                                      'custom', 'brand', 'project_config.json'),
+    projectName = require(projectConfigFilePath).projectName,
     res = path.join(projectRootDir, 'www', 'res', 'config'),
     androidDest = path.join(projectRootDir, 'platforms', 'android'),
     iOSDest = path.join(projectRootDir, 'platforms', 'ios', projectName);

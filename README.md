@@ -27,8 +27,11 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 
 - clone the project
 - cd into the project folder
-- `npm install` to install node_modules and js/css components (`npm install` will also run `bower install`).
-- `cordova platform add ios` and/or `cordova platform add android`
+- `npm install`, which
+  - installs node_modules and js/css components,
+  - runs `bower install`, which installs some other stuff,
+  - configures the project for the default brand ("SpiderOak"),
+  - adds the default cordova platforms - android and ios.
 - `npm run pluginstall` to install any plugins needed
 
 ## First test

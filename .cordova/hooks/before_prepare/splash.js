@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 (function(require) {
-  var projectName = 'SpiderOak',
-    fs = require('fs'),
+  var fs = require('fs'),
     path = require('path'),
-    res = path.join('.', 'merges', 'ios', 'res', 'screen'),
-    iOSDest = path
-      .join('.', 'platforms', 'ios', projectName, 'Resources', 'splash');
+    projectRootDir = path.resolve(__dirname, '..', '..', '..'),
+    projectConfigFilePath = path.join(projectRootDir,
+                                      'custom', 'brand', 'project_config.json'),
+    projectName = require(projectConfigFilePath).projectName,
+    res = path.join(projectRootDir, 'merges', 'ios', 'res', 'screen'),
+    iOSDest = path.join(projectRootDir, 'platforms', 'ios',
+                        projectName, 'Resources', 'splash');
 
   var iOSSplashes = [
     { file: 'iphone_portrait.png', dest: 'Default~iphone.png' },

@@ -362,6 +362,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-dot-compiler');
 
   // Default task.

@@ -44,7 +44,6 @@
     "grunt-contrib-concat": "~0.2.0",
     "grunt-contrib-less": "~0.9.0",
     "grunt-shell": "~0.5.x",
-    "grunt-bump": "~0.0.x",
     "mocha": "~1.8.1",
     "chai": "~1.8.0",
     "sinon": "~1.7.3",

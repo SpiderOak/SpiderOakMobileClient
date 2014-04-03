@@ -103,14 +103,25 @@ This package includes a simple build-time customization facility, described in [
 
 ## Binary Releases
 
-The SpiderOak mobile client Android production release is available via
+The SpiderOak mobile client Android production release is available, via:
 
-* [the Google Play store](https://play.google.com/store/apps/details?id=com.spideroak.android)
-* [the Amazon App store](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I)
-* Our [recent Android builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent), as installable .apks.  (If your device does have access to one of the above App stores, they will offer upgrades when they have newer versions than the ones that you install from these ShareRoom .apk files.)
-* You can clone this project and, if you also have Googles Android developer SDK installed, install your own, ad hoc builds onto Android devices.
+| Platform |    Venue        | Version |    For users...                    |
+|:--------:|:---------------:|:-------:|:--------------------------------- |
+| iOS      | Apple App Store | [Orange](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I) | Regular users |
+| iOS      | Apple App Store | Blue | _Pending store approval,_ Users with enterprise-specific servers |
+| Android  | Google Play     | [Orange](https://play.google.com/store/apps/details?id=com.spideroak.android) | Regular users |
+| Android  | Google Play     | [Blue](https://play.google.com/store/apps/details?id=com.spideroakblue.android) | Users with enterprise-specific servers |
+| Android  | Amazon App Store | [Orange](https://play.google.com/store/apps/details?id=com.spideroak.android) | Regular users |
+| Android  | Amazon App Store | [Orange](https://play.google.com/store/apps/details?id=com.spideroak.android) | Regular users |
+| Android  | Amazon App Store | Blue | _Not yet released,_ Users with enterprise-specific servers |
+| Android  | SpiderOak ShareRoom | [Orange](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ a recent release - see notes below |
+| Android  | SpiderOak ShareRoom | [Blue](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ Enterprise version - see notes below |
+| All  | _This repository_ | All | Build and install it yourself |
 
-The iOS production release
-
-* is available [in the Apple App Store](https://itunes.apple.com/us/app/spideroak/id360584371).
-* Apple doesn't provide for alternative stores or side loading, but you can clone this project project onto a Mac and, provided you have Apple's (free) developer environment installed, install your own, ad hoc builds onto iOS devices.
+* Regarding android side-loadable .apk files, from our [recent Android builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent)
+  * You need to understand how to do sideloading in order to use this option.
+  * If you do sideload one of these apks, subsequent use of the above online stores will recognize and present you with updates, when newer versions are available.
+  * In the absence of any app stores, once you have the app installed, add the Recent releases ShareRoom, so you can fetch new copies easily, when they're available!
+* Regarding building your own:
+  * Apple doesn't provide for alternative stores or side loading, but you can clone this project project onto a Mac and, provided you have Apple's (free) developer environment installed, install your own, ad hoc builds onto iOS devices.
+  * For Android, on various Unix-like platforms you can build and install with Googles Android developer SDK installed

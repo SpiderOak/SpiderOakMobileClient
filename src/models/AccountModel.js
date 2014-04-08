@@ -439,12 +439,40 @@
       },
       /** Reestablish basic auth based on stashed credentials. */
       resumeAccountBasicAuth: function () {
+        spiderOakApp.dialogView.showNotify({
+          title: ("Resuming - Username: '" + accountUsername +
+                  "', Password: " + (accountPassword !== ""))
+        });
         if ((accountUsername !== "") || (accountPassword !== "")) {
           currentAuthString =
             window.makeBasicAuthString(accountUsername, accountPassword);
+          if ((accountUsername === "") || (accountPassword === "")) {
+                spiderOakApp.dialogView.showNotify({
+                  title: ("Weird: empty username '" + accountUsername +
+                          "' OR password (" + (accountPassword === "") + ")")
+                });
+          }
         }
         else {
-          currentAuthString = "";
+          navigator.notification.confirm(
+            ("Ditching preserved authentication due to empty " +
+             "username and password"),
+            function(ok){
+              if (ok === 1) {
+                currentAuthString = "";
+                spiderOakApp.dialogView.showNotify({
+                  title: "Cleared"
+                });
+              }
+              else {
+                spiderOakApp.dialogView.showNotify({
+                  title: "Retained"
+                });
+              }
+            },
+            'Stored Auth Change Nag',
+            ['OK', 'Retain']
+          );
         }
       },
       /** Establish basic auth per alternate creds, keeping stashed around. */
@@ -462,7 +490,24 @@
                 window.makeBasicAuthString(accountUsername, accountPassword));
       },
       clear: function () {
-        accountUsername = accountPassword = currentAuthString = "";
+          navigator.notification.confirm(
+            "Clear of preserved authentication called",
+            function(ok){
+              if (ok === 1) {
+                accountUsername = accountPassword = currentAuthString = "";
+                spiderOakApp.dialogView.showNotify({
+                  title: "Cleared"
+                });
+              }
+              else {
+                spiderOakApp.dialogView.showNotify({
+                  title: "Retained"
+                });
+              }
+            },
+            'Stored Auth Change Nag',
+            ['OK', 'Retain']
+          );
       }
     };
   };

@@ -28,7 +28,7 @@
       "FileName": "brandSpecificInitialization.js",
       "TargetFolder": "../www",
       "Format": "Javascript",
-      "Purpose": "Build-specific configuration settings",
+      "Purpose": "Brand-specific initialization actions.",
       "Platforms": ["iOS"]
     },
     {

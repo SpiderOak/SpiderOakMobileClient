@@ -18,6 +18,20 @@
       "Platforms": ["iOS"]
     },
     {
+      "FileName": "brandSpecificInitialization.js",
+      "TargetFolder": "./assets/www",
+      "Format": "Javascript",
+      "Purpose": "Brand-specific initialization actions.",
+      "Platforms": ["Android"]
+    },
+    {
+      "FileName": "brandSpecificInitialization.js",
+      "TargetFolder": "../www",
+      "Format": "Javascript",
+      "Purpose": "Brand-specific initialization actions.",
+      "Platforms": ["iOS"]
+    },
+    {
       "FileName": "customAppStrings.json",
       "TargetFolder": "./assets/www",
       "Format": "Javascript",

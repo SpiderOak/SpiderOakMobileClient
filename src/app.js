@@ -269,6 +269,7 @@
     },
     backDisabled: true,
     onDeviceReady: function() {
+      window.spiderOakApp.brandSpecificInitialization();
       window.spiderOakApp.initialize();
       $(document).on("backbutton", spiderOakApp.onBackKeyDown);
       $(document).on("menubutton", spiderOakApp.onMenuKeyDown);

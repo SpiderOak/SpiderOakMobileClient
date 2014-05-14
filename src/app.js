@@ -113,13 +113,12 @@
         spiderOakApp.loginView.$(".advanced-login-settings").show();
       }
       // Determine if we should be showing the preliminary screen at all
-      spiderOakApp.showPreliminary =
-        spiderOakApp.settings.getOrDefault("showPreliminary") ||
-        window.store.get("showPreliminary");
-      // Don't show the preliminary screen if we were planning to but this
-      // is an upgrade
-      if (!!window.store.get("dataVersion") && spiderOakApp.showPreliminary) {
-        spiderOakApp.showPreliminary = false;
+      spiderOakApp.showPreliminary = false;
+      if (spiderOakApp.settings.getOrDefault("showPreliminary")) {
+        spiderOakApp.showPreliminary = true;
+        if (window.store.get("showPreliminary") !== undefined) {
+          spiderOakApp.showPreliminary = !!window.store.get("showPreliminary");
+        }
       }
 
       // Until this.version gets proper setting from config.xml - if it does:
@@ -276,10 +275,6 @@
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
         $(".app").css({"top":"20px"}); // status bar hax
       }
-      //window.navigator.splashscreen.hide();
-      // @TODO: Instantiate any plugins
-      // spiderOakApp.fileViewer = window.cordova && window.cordova.require &&
-      //   window.cordova.require("cordova/plugin/fileviewerplugin");
       spiderOakApp.fileViewer = window.FileViewerPlugin;
     },
     onVersionReady: function () {

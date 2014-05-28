@@ -7,7 +7,8 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      $           = window.$;
+      $           = window.$,
+      s           = window.s;
 
   // @TODO Arrange so that base_domain can vary by app configuration.
   spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
@@ -252,6 +253,9 @@
         type: "POST",
         url: login_url,
         cache: false,
+        headers: {
+          "X-SpiderOak-Mobile-Client": s("SpiderOak")
+        },
         data: {
           username: username,
           password: password

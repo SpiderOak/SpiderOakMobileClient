@@ -518,10 +518,16 @@
       });
     },
     onMenuKeyDown: function(event) {
+      // The menu button is flakey in some versions of Android 
+      // and deprecated as of Android 3.0
+      if (window.Modernizr.overflowscrolling ||
+          (window.device && (window.device.platform === "Android") &&
+            (parseFloat(window.device.version) >= 3.0))) {
+        return;
+      }
       if ($("#main").hasClass("open")) {
         spiderOakApp.mainView.closeMenu();
-      }
-      else {
+      } else {
         spiderOakApp.mainView.openMenu();
       }
     },

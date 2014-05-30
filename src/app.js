@@ -359,13 +359,14 @@
       this.networkAvailable = true;
     },
     setOffline: function(event) {
-      if (!this.networkAvailable) { // already false
+      if (!this.networkAvailable || window.spiderOakApp.inOfflineConfirm) {
         return;
       }
       this.networkAvailable = false;
       var onConfirm = function() {
-        // modally block the UI
+        window.spiderOakApp.inOfflineConfirm = false;
       };
+      window.spiderOakApp.inOfflineConfirm = true;
       navigator.notification.confirm(
         "Sorry. You should still be able to access your favorites, but " +
           "Logging in and access to files or folders requires " +

@@ -52,6 +52,20 @@ body {
     background-position: 0 17.5px, 13px 7.5px;
   }
 
+  .menu-btn {
+    .positionAbsolute(auto, auto, auto, 0);
+    color: #000;
+    display: block;
+    padding: 0 3px;
+    background: url('../img/ic_drawer.png') no-repeat,
+      url('../img/icon.png') no-repeat;
+    width: 48px;
+    height:48px;
+    background-size: 16px, 35px;
+    background-position: 0 17.5px, 13px 7.5px;
+    transition: background-position .2s ease-out;
+  }
+
   .icon-btn {
     .positionAbsolute(auto, auto, auto, 0);
     color: #000;
@@ -96,6 +110,29 @@ body {
     left: 45px;
     font-size: 130%;
     color: @navTitleTextColor;
+  }
+}
+
+.main {
+  
+  &.open {
+    
+    .nav {
+      
+      .menu-btn {
+        .positionAbsolute(auto, auto, auto, 0);
+        color: #000;
+        display: block;
+        padding: 0 3px;
+        background: url('../img/ic_drawer.png') no-repeat,
+        url('../img/icon.png') no-repeat;
+        width: 48px;
+        height:48px;
+        background-size: 16px, 35px;
+        background-position: -6.5px 17.5px, 13px 7.5px;
+        transition: background-position .2s ease-out;
+      }
+    }
   }
 }
 

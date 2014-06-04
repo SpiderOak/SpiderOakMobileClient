@@ -6,5 +6,6 @@
   "identifier": "com.spideroak.mobile",
   "androidIdentifier": "com.spideroak.android",
   "iosIdentifier": "com.spideroak.SpiderOak",
-  "description": "SpiderOak Mobile Client."
+  "description": "SpiderOak Mobile Client.",
+  "customPlugins": []
 }

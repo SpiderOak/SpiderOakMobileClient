@@ -32,7 +32,8 @@
 
 /* App defaults configuration: */
 var defaultBrandName = 'SpiderOak',
-    defaultBrandIdentifier = "com.spideroak.spideroak";
+    defaultBrandIdentifier = "com.spideroak.spideroak",
+    shell = require('shelljs');
 
 /* Internal program setup: */
 var fs = require('fs'),
@@ -90,12 +91,14 @@ function main(executive, scriptName, brandName) {
       blather("Brand is already current, no change: " + brandName);
       process.exit(0);
     }
+    removeBrandPluginsByCurrentConfig();
     if (! establishBrandByName(brandName, refreshing, skipPlatforms)) {
       process.exit(1);
     }
   }
   process.exit(0);
 }
+
 
 /** Print the current brand dir and the available choices. */
 function report() {
@@ -137,6 +140,19 @@ function getCurrentBrandName() {
   return (fs.existsSync(path.resolve(path.dirname(
     brandSymlinkLocation), got)) &&
           path.basename(got));
+}
+/** Get the project configuration from the currently prevailing brand dir.
+ * @returns {object} the js object derived from the project config json
+ * @returns {boolean} false if link points at a non-existent target, or
+ * @returns {undefined} undefined if not set.
+ */
+function getCurrentBrandProjectConfig() {
+  var got, exc;
+  try { got = fs.readlinkSync(brandSymlinkLocation); }
+  catch (exc) { return undefined; };
+  return (fs.existsSync(path.resolve(projectConfigFilePath)) &&
+          // Use fs.realpathSync() to work around require module cache:
+          require(fs.realpathSync(projectConfigFilePath)));
 }
 /** Set the package's brand.
  *
@@ -184,9 +200,10 @@ function establishBrandByName(brandName, doingRefresh, skipPlatforms) {
     }
     else {
       adjustManifestsToBrand();
+      addBrandPluginsByCurrentConfig();
       if (skipPlatforms) {
         blather("Skipping Cordova platform reconfiguration.");
-        blather("This can Mess You Up - re-run with '!' argument to rectify!!");
+        blather("WARNING: This will Mess You Up. Resolve by 'grunt brand:!'.");
       }
       else {
         createCordovaPlatforms();
@@ -195,6 +212,66 @@ function establishBrandByName(brandName, doingRefresh, skipPlatforms) {
       return true;
     }
   }
+}
+
+
+/** Remove brand-specific plugins, according to current brand project config.
+ *
+ * The specific plugin ids are found as the second element of each pair
+ * listed in the customPlugins value.
+ */
+function removeBrandPluginsByCurrentConfig() {
+  var config = getCurrentBrandProjectConfig(),
+      customPlugins = config.customPlugins,
+      pluginIds = (customPlugins &&
+                   customPlugins.map(function (pair) {
+                     return pair[1]; }));
+
+  if (! pluginIds || (pluginIds.length === 0)) {
+    blather("No prior brand (" + config.projectName +
+            ") plugins from prior brand to remove.");
+  } else {
+    var removeCmd = localCordova + " plugins remove " + pluginIds.join(" ");
+    blather("Removing prior brand (" + config.projectName +
+            ") cordova plugins: " + removeCmd);
+    code = shell.exec(removeCmd).code;
+    if (code !== 0) {
+      blather("Plugins remove failed (" + code + "): " + removeCmd);
+      process.exit(1)
+    }
+    return true;
+  }
+}
+
+
+/** Situate brand-specific plugins, according to current brand project config.
+ *
+ * The specific plugin paths, suitable for 'cordova plugins add', are found
+ * as the first element of each pair listed in the customPlugins value.
+ */
+function addBrandPluginsByCurrentConfig() {
+  var config = getCurrentBrandProjectConfig(),
+      customPlugins = config.customPlugins,
+      pluginPaths = (customPlugins &&
+                     customPlugins.map(function (pair) {
+                       return pair[0]; }));
+
+  if (! pluginPaths || (pluginPaths.length === 0)) {
+    blather("No new brand (" + config.projectName + ") plugins to add.");
+  } else {
+    blather("Adding " + pluginPaths.length + " new brand (" +
+            config.projectName + ") plugins...");
+    for (var i in pluginPaths) {
+      var addCmd = localCordova + " plugins add " + pluginPaths[i];
+      blather(addCmd + "...");
+      code = shell.exec(addCmd).code;
+      if (code !== 0) {
+        blather("Plugins add failed (" + code + ") - quitting.");
+        process.exit(1)
+      }
+    }
+  }
+  return true;
 }
 
 /** Produce various platform manifests including brand-specific values.
@@ -208,8 +285,7 @@ function establishBrandByName(brandName, doingRefresh, skipPlatforms) {
  *       identifier
  */
 function adjustManifestsToBrand() {
-  var projectConfig = require(path.join(brandSymlinkLocation,
-                                        "project_config.json")),
+  var projectConfig = getCurrentBrandProjectConfig(),
       brandElementsConfig = require(brandElementsConfigPath),
       i;
   fabricateConfigDotJson(projectConfig);
@@ -261,12 +337,11 @@ function fabricateConfigFromTemplate(resultPath, templatePath,
           relativeToProjectRoot(resultPath));
 }
 
-/** Create platforms per changed configs, removing existing ones if present. 
+/** Create platforms per changed configs, removing existing ones if present.
  * We just remove all the existing platforms and then recreate them.
  */
 function createCordovaPlatforms() {
-  var shell = require('shelljs'),
-      platforms = fs.readdirSync(platformsDir),
+  var platforms = fs.readdirSync(platformsDir),
       init = false,
       removeCmd, addCmd, code;
 

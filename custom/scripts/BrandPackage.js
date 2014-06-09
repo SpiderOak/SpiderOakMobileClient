@@ -106,7 +106,10 @@ function report() {
   blather("Current brand: " +
           current ||
           ((typeof current === "undefined") ? "<no link>" : "<bad link>"));
-  blather("Available brands: " + fs.readdirSync(brandsDir).join(", "));
+  blather("Available brands: " +
+          fs.readdirSync(brandsDir)
+          .filter(function (name) {if (name[0] !== '.') { return name; }})
+          .join(", "));
 }
 /** Only if no brand currently established, set to the default one.
  *

@@ -686,6 +686,16 @@
           this.model.unset("path");
           this.model.set("isFavorite", false);
           this.model.unset("favoriteModel");
+          // Add the file to the recents collection (view or fave)
+          var recentModels = spiderOakApp.recentsCollection.models;
+          var matchingModels = _.filter(recentModels, function(recent){
+            return recent.composedUrl(true) === model.composedUrl(true);
+          });
+          if (matchingModels.length > 1) {
+            // console.log("Multiple duplicates detected...");
+          }
+          spiderOakApp.recentsCollection.remove(matchingModels[0]);
+          spiderOakApp.recentsCollection.add(model);
         }.bind(this),
         "Favorites"
       );

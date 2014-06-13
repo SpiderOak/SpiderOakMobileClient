@@ -252,11 +252,10 @@ describe('AccountModel', function() {
            );
          });
       it('should convey ascii non-control plus btoa-breaking UTF8 password' +
-         ' characters mostly unsulled',
+         ' characters mostly unsullied',
          function() {
            // Include a bunch of spaces, since the first is treated specially.
-           this.amalgamPassword = "שָׁלוֹם";
-           this.amalgamPassword = "  ";
+           this.amalgamPassword = "  שָׁלוֹם  ";
            for (var i=32; i<=127;i++) {
              this.amalgamPassword += String.fromCharCode(i);
            }

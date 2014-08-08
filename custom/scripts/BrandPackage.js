@@ -48,8 +48,9 @@ var fs = require('fs'),
                                       'project_config.json'),
     configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json"),
     platformsDir = path.join(projectRootDir, "platforms"),
-    localCordova = path.join(projectRootDir, "node_modules", ".bin", "cordova");
-    defaultPlatforms = "ios android@3.5.1 --usenpm";
+    localCordova = path.join(projectRootDir, "node_modules", ".bin",
+                             "cordova");
+    thePlatforms = "ios@3.5.0 android@3.5.1 --usenpm";
 
 /** Driver, for when this module is run as a script.
  *
@@ -261,27 +262,26 @@ function fabricateConfigFromTemplate(resultPath, templatePath,
           relativeToProjectRoot(resultPath));
 }
 
-/** Create platforms per changed configs, removing existing ones if present. 
- * We just remove all the existing platforms and then recreate them.
+/** Create platforms per changed configs, removing existing ones if present.
+ * We just remove all the existing platforms and then recreate the ones
+ * in designatedPlatforms.
  */
 function createCordovaPlatforms() {
   var shell = require('shelljs'),
-      platforms = fs.readdirSync(platformsDir),
+      existingPlatforms = fs.readdirSync(platformsDir),
       init = false,
       removeCmd, addCmd, code;
 
-  debugger;
-  platforms = platforms.filter(function(fname) {
+  existingPlatforms = existingPlatforms.filter(function(fname) {
     return (fname[0] !== '.') ? fname : false;
   });
-  platforms = platforms.join(" ");
+  existingPlatforms = existingPlatforms.join(" ");
 
-  if (platforms === "") {
-    platforms = defaultPlatforms;
+  if (existingPlatforms === "") {
     init = true;
   }
   else {
-    removeCmd = localCordova + " platform remove " + platforms;
+    removeCmd = localCordova + " platform remove " + existingPlatforms;
     blather("Removing existing cordova platforms: " + removeCmd);
     code = shell.exec(removeCmd).code;
     if (code !== 0) {
@@ -289,7 +289,7 @@ function createCordovaPlatforms() {
       process.exit(1)
     }
   }
-  addCmd = localCordova + " platform add " + platforms;
+  addCmd = localCordova + " platform add " + thePlatforms;
   blather((init ? "Creating initial" : "Recreating") +
           " cordova platforms: " + addCmd);
   code = shell.exec(addCmd).code;

@@ -38,7 +38,8 @@ module.exports = function(grunt) {
         }
       },
       install_android: {
-        command: './node_modules/.bin/cordova -d platform add android',
+        command:
+          './node_modules/.bin/cordova -d platform add android@3.5.1 --usenpm',
         options: {
           failOnError: true,
           stdout: true

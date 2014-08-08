@@ -49,7 +49,7 @@ var fs = require('fs'),
     configDotJsonPath = path.join(projectRootDir, ".cordova", "config.json"),
     platformsDir = path.join(projectRootDir, "platforms"),
     localCordova = path.join(projectRootDir, "node_modules", ".bin", "cordova");
-    defaultPlatforms = "ios android";
+    defaultPlatforms = "ios android@3.5.1 --usenpm";
 
 /** Driver, for when this module is run as a script.
  *

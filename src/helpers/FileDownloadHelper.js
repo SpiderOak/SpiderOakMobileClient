@@ -76,7 +76,8 @@
               fileTransfer.download(
                 options.from,
                 // encodeURI(fileEntry.fullPath),
-                fileEntry.fullPath,
+                //fileEntry.fullPath,
+                fileEntry.toURL(),
                 successCallback,
                 errorCallback,
                 false,

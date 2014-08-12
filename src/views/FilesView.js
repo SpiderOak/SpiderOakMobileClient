@@ -210,7 +210,7 @@
       }
       spiderOakApp.accountModel.set("favoritesConfirmationAccepted", true);
       this.downloadFile(model, path, function(fileEntry) {
-        console.log(fileEntry.fullPath);
+        console.log(fileEntry.toURL());
         spiderOakApp.dialogView.hide();
         // Add file model (with added local path) to the Favorites Collection
         var favoriteModel = new spiderOakApp.FavoriteModel(favorite);
@@ -361,7 +361,7 @@
               path,
               {},
               function shareFavoriteGotFS(fileEntry) {
-                this.shareViaIntent(fileEntry.fullPath);
+                this.shareViaIntent(fileEntry.toURL());
               }.bind(this)
             );
           }.bind(this),
@@ -382,7 +382,7 @@
         (spiderOakApp.accountModel.get("b32username") || "anonymous") + "/";
       this.downloadFile(model, path, function(fileEntry) {
         spiderOakApp.dialogView.hide();
-        this.shareViaIntent(fileEntry.fullPath);
+        this.shareViaIntent(fileEntry.toURL());
       }.bind(this));
     },
     view: function() {
@@ -418,11 +418,11 @@
           spiderOakApp.dialogView.hide();
 
           if (model.get("openInternally")) {
-            window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+            window.open(encodeURI(fileEntry.toURL()),"_blank","location=no,enableViewportScale=yes");
           } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
-                url: fileEntry.fullPath,
+                url: fileEntry.toURL(),
                 type: model.get("type")
               },
               function() {
@@ -446,7 +446,7 @@
                     if (button !== 1) {
                       return;
                     }
-                    window.open(encodeURI(fileEntry.fullPath),"_blank","location=no");
+                    window.open(encodeURI(fileEntry.toURL()),"_blank","location=no");
                   }.bind(this),
                   "File error",
                   "Yes,No"
@@ -499,11 +499,11 @@
             {},
             function viewFavoriteGotFS(fileEntry) {
               if (model.get("openInternally")) {
-                window.open(encodeURI(fileEntry.fullPath),"_blank","location=no,enableViewportScale=yes");
+                window.open(encodeURI(fileEntry.toURL()),"_blank","location=no,enableViewportScale=yes");
               } else {
                 spiderOakApp.fileViewer.view({
                     action: spiderOakApp.fileViewer.ACTION_VIEW,
-                    url: fileEntry.fullPath, // encodeURI(fileEntry.fullPath),
+                    url: fileEntry.toURL(), // encodeURI(fileEntry.fullPath),
                     type: model.get("type")
                   },
                   function() {

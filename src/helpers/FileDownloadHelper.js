@@ -55,16 +55,22 @@
 
   FileDownloadHelper.prototype.downloadFile =
     function(options, successCallback, errorCallback) {
+      var _this = this,
+          path;
+
       options = options || {};
       if (!options.from || !options.to) {
         errorCallback("Missing arguments");
       }
+      path = this.pathForFS(options.to);
+
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
-      this.createPath(
-        options.to,
+
+      _this.createPath(
+        path,
         function pathCreateSuccess(dirEntry) {
           dirEntry.getFile(
-            options.fileName,
+            _this.nameForFS(options.fileName),
             {create: true, exclusive: false},
             function gotFile(fileEntry) {
               var fileTransfer = new window.FileTransfer();
@@ -137,6 +143,7 @@
   FileDownloadHelper.prototype.deleteFile =
     function(options, successCallback, errorCallback) {
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
+      options.path = this.pathForFS(options.path);
       window.requestFileSystem(
         options.fsType,
         0,
@@ -156,5 +163,91 @@
         errorCallback
       );
     };
+
+  /** Transform file names to uniquely escape offending ":" colon characters.
+   *
+   * We also change names that include the filler char, ",", to prevent any
+   * possibility of collisions between transformed names.
+   *
+   * We translate sequences of ":"s to a particular number of ","s, each
+   * resulting sequence bracketed by "_" underscores.  We also transform
+   * sequences of included commas so they're guaranteed to be of a
+   * different number than any translated sequences of ":" colons.
+   *
+   * We use odd and even numbers for distinct partitioning of the map spaces:
+   *
+   *   - Sequences of "," chars are converted to "_" bracketed sequences of
+   *     ","s with an odd number of characters: 1=>1, 2=>3, 3=>5, 4=>7...
+   *     Ie, n commas yields the ordinally nth odd number of commas, aka
+   *     (2 x n) - 1.
+   *   - Sequences of ":" chars are converted to an "_" bracketed sequence
+   *     with *double* the number of ","s as there were ":"s.  That is, n
+   *     colons yields the nth even number of commas.
+   *   - The "_" bracketing is necessary to distinguish the mappings for
+   *     original names that contain, eg, ":," versus ",:".
+   *
+   * (I believe this scheme can be easily generalized to partitioning for a
+   * list of any N chars. It's likely, though, that incremental extension
+   * would invalidate existing mappings, requiring favorites
+   * migration. If/when we discover the need to accommodate more/another
+   * char, it may be worth pondering about possibility of an easy,
+   * churn-free, incrementally extensible scheme.)
+   */
+  var filler = ",",
+      subjectCharsRegExp = new RegExp("[:" + filler + "]"),
+      placeHolder = "\f",
+      placeHolderRegExp = new RegExp(placeHolder, "g");
+  FileDownloadHelper.prototype.nameForFS = function(name) {
+
+    return name.replace(/:/g, "%3A");
+
+    function replacer(subject, theChar, offset) {
+      var doLengthsObj, doLengthsList,
+          charsStr, charsRegExp, substitute,
+          matchRegExp = new RegExp(theChar + "+", "g");
+      // Use object to get unique lengths of comma subsequences:
+      doLengthsObj = {};
+      _.map(subject.match(matchRegExp), function (matched) {
+        doLengthsObj[matched.length] = true;
+      });
+      // Derive list of unique lengths of char subsequences, ordered from
+      // largest to smallest so we always do complete contiguous sequences:
+      doLengthsList = _.map(Object.keys(doLengthsObj),
+                         function (s) {
+                           return parseInt(s, 10); }).sort().reverse();
+      _.map(doLengthsList, function (charsLength) {
+        charsStr = new Array(charsLength + 1).join(theChar);
+        charsRegExp = new RegExp(charsStr, "g");
+        substitute = ("_" +
+                      // Use place-holder so we don't replace the replacements:
+                      new Array((2 * charsLength) + offset).join(placeHolder) +
+                      "_");
+        subject = subject.replace(charsRegExp, substitute);
+      });
+      // Return with the intended substitution instead of the placeholder:
+      return subject.replace(placeHolderRegExp, filler);
+    }
+
+    if (name.match(subjectCharsRegExp)) {
+      name = replacer(name, filler, 0);
+      return replacer(name, ":", 1);
+    } else {
+      return name;
+    }
+  };
+
+  /** Filter bad fs chars from path, while preserving protocol portion. */
+  FileDownloadHelper.prototype.pathForFS = function(path) {
+    if (! path) {
+      return path;
+    } else if (path.match(/^[^/]+:/)) {
+      var splat = path.split(":"),
+          proto = splat[0] + ":",
+          rest = this.fileNameToFSName(splat[1]);
+      return proto + rest;
+    } else {
+      return this.nameForFS(path);
+    }
+  };
 
 })(window);

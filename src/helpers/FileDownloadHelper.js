@@ -199,7 +199,9 @@
       placeHolderRegExp = new RegExp(placeHolder, "g");
   FileDownloadHelper.prototype.nameForFS = function(name) {
 
-    return name.replace(/:/g, "%3A");
+
+    // NOTE that this could be more simply using a "".replace() function param.
+
 
     function replacer(subject, theChar, offset) {
       var doLengthsObj, doLengthsList,

@@ -613,7 +613,10 @@
                                                        errorCallback) {
         console.log("fake downloadFile");
         var dummyFileEntry = {fullPath: "/sdcard" + downloadOptions.to,
-                              name: downloadOptions.fileName};
+                              name: downloadOptions.fileName,
+                              toURL: function() {
+                                return downloadOptions.from; }
+                             };
         return successCallback(dummyFileEntry);
       };
     }

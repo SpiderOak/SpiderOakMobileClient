@@ -164,75 +164,14 @@
       );
     };
 
-  /** Transform file names to uniquely escape offending ":" colon characters.
+  /** Transform file names to escape the filesystem-incompible character.
    *
-   * We also change names that include the filler char, ",", to prevent any
-   * possibility of collisions between transformed names.
-   *
-   * We translate sequences of ":"s to a particular number of ","s, each
-   * resulting sequence bracketed by "_" underscores.  We also transform
-   * sequences of included commas so they're guaranteed to be of a
-   * different number than any translated sequences of ":" colons.
-   *
-   * We use odd and even numbers for distinct partitioning of the map spaces:
-   *
-   *   - Sequences of "," chars are converted to "_" bracketed sequences of
-   *     ","s with an odd number of characters: 1=>1, 2=>3, 3=>5, 4=>7...
-   *     Ie, n commas yields the ordinally nth odd number of commas, aka
-   *     (2 x n) - 1.
-   *   - Sequences of ":" chars are converted to an "_" bracketed sequence
-   *     with *double* the number of ","s as there were ":"s.  That is, n
-   *     colons yields the nth even number of commas.
-   *   - The "_" bracketing is necessary to distinguish the mappings for
-   *     original names that contain, eg, ":," versus ",:".
-   *
-   * (I believe this scheme can be easily generalized to partitioning for a
-   * list of any N chars. It's likely, though, that incremental extension
-   * would invalidate existing mappings, requiring favorites
-   * migration. If/when we discover the need to accommodate more/another
-   * char, it may be worth pondering about possibility of an easy,
-   * churn-free, incrementally extensible scheme.)
+   * The characters are expressed in the variable fsSensitiveCharsRegExp.
    */
-  var filler = ",",
-      subjectCharsRegExp = new RegExp("[:" + filler + "]"),
-      placeHolder = "\f",
-      placeHolderRegExp = new RegExp(placeHolder, "g");
+  var fsSensitiveCharsRegExp = /:/;
   FileDownloadHelper.prototype.nameForFS = function(name) {
-
-
-    // NOTE that this could be more simply using a "".replace() function param.
-
-
-    function replacer(subject, theChar, offset) {
-      var doLengthsObj, doLengthsList,
-          charsStr, charsRegExp, substitute,
-          matchRegExp = new RegExp(theChar + "+", "g");
-      // Use object to get unique lengths of comma subsequences:
-      doLengthsObj = {};
-      _.map(subject.match(matchRegExp), function (matched) {
-        doLengthsObj[matched.length] = true;
-      });
-      // Derive list of unique lengths of char subsequences, ordered from
-      // largest to smallest so we always do complete contiguous sequences:
-      doLengthsList = _.map(Object.keys(doLengthsObj),
-                         function (s) {
-                           return parseInt(s, 10); }).sort().reverse();
-      _.map(doLengthsList, function (charsLength) {
-        charsStr = new Array(charsLength + 1).join(theChar);
-        charsRegExp = new RegExp(charsStr, "g");
-        substitute = ("_" +
-                      // Use place-holder so we don't replace the replacements:
-                      new Array((2 * charsLength) + offset).join(placeHolder) +
-                      "_");
-        subject = subject.replace(charsRegExp, substitute);
-      });
-      // Return with the intended substitution instead of the placeholder:
-      return subject.replace(placeHolderRegExp, filler);
-    }
-
-    if (name.match(subjectCharsRegExp)) {
-      name = replacer(name, filler, 0);
-      return replacer(name, ":", 1);
+    if (name.match(fsSensitiveCharsRegExp)) {
+      return encodeURIComponent(name);
     } else {
       return name;
     }
@@ -251,5 +190,6 @@
       return this.nameForFS(path);
     }
   };
+
 
 })(window);

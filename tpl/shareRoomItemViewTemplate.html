@@ -9,7 +9,7 @@
   {{??}}
     <div class="foldername">
       {{ if (it.name) { }}
-        {{=it.name}}
+        {{=_.escape(it.name)}}
       {{ } else if (it.beenSituated) { }}
       <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
       <em>{{=it.share_id}} / {{=it.room_key}}</em>

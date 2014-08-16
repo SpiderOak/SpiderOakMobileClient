@@ -10,8 +10,13 @@
     </li>
     {{?}}
     <li>
-      <span class="name"><strong>{{=it.name}}</strong></span>
+      <span class="name"><strong>{{=_.escape(it.name)}}</strong></span>
     </li>
+    {{? it.description}}
+    <li class="small">
+      <div class="label bg-pos-zero">{{=_.escape(it.description)}}</div>
+    </li>
+    {{?}}
   </ul>
   <ul>
     <li class="sep">Details</li>

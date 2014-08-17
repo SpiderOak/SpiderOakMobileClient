@@ -168,7 +168,7 @@
    *
    * The characters are expressed in the variable fsSensitiveCharsRegExp.
    */
-  var fsSensitiveCharsRegExp = /:/;
+  var fsSensitiveCharsRegExp = /[:%]/;
   FileDownloadHelper.prototype.nameForFS = function(name) {
     if (name.match(fsSensitiveCharsRegExp)) {
       return encodeURIComponent(name);

@@ -166,7 +166,12 @@
 
   /** Transform file names to escape the filesystem-incompible character.
    *
-   * The characters are expressed in the variable fsSensitiveCharsRegExp.
+   * See fsSensitiveCharsRegExp for characters which trigger
+   * transformation.  We have to transform filenames that include the '%'
+   * percent character, as well as ones containing ':', in order to
+   * preclude collisions between filenames that already contain characters
+   * that result from URI encoding, and filenames transformed to include
+   * URI-encoding characters.
    */
   var fsSensitiveCharsRegExp = /[:%]/;
   FileDownloadHelper.prototype.nameForFS = function(name) {

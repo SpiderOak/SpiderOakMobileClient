@@ -54,10 +54,47 @@
       _.extend(this.config, window.spiderOakMobile_custom_config);
 
       // Substitute our ajax wrapper for backbone's internal .ajax() calls:
+
       Backbone.ajax = this.ajax;
+
       if (! this.dollarAjax) {
         this.dollarAjax = $.ajax;
       }
+
+      if (! this.cordovaHTTPAjax && window.cordovaHTTP) {
+        /** Adapt regular ajax call and response to cordovaHTTP. */
+        this.cordovaHTTPAjax = function cordovaHTTPAjax(options) {
+          var url = options.url || null,
+              headers = options.headers || {},
+              type = options.type || 'GET',
+              dataType = options.dataType || 'json',
+              timeout = options.timeout || 0,
+              data = options.data || {},
+              success = options.success || function(){},
+              error = options.error || function(){};
+
+          if (!url) options.error(null, 'fail', 'No URL provided');
+
+          var win = function win(response) {
+            if (/^login:|^location:/.test(response.data)) {
+              // Special provision for SpiderOak's broken Web API response:
+              options.success(response.data, response.status, null);
+              } else {
+                options.success(JSON.parse(response.data),
+                                response.status,
+                                null);
+              }
+          };
+
+          var fail = function(response) {
+            options.error(response, response.status, response.error);
+          };
+
+          window.cordovaHTTP[options.type.toLowerCase()](url, data, headers,
+                                                         win, fail);
+        };
+      }
+
       $.ajax = this.ajax;
 
       // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
@@ -136,6 +173,7 @@
           $(document).trigger("versionready");
         }.bind(this)
       });
+
 
       // Hax for Android 2.x not groking :active
       $(document).on("touchstart", "a", function(event) {
@@ -548,9 +586,17 @@
                                       "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
                                     pad: ""
                                    }),
-    /** spiderOakApp.ajax() consolidates basicauth and alternate ajax functions.
+    /** spiderOakApp.aja() consolidates basicauth and alternate ajax functions.
      *
-     * We include the 'Basic' 'Authorization' options header if we find a
+     * We use an ajax handler in this order of precedence:
+     *
+     * 1. Prefer "alternateAjax" function designated in settings, if any.
+     * 2. Otherwise, use cordovaHTTPAjax, which depends on window.cordovaHTTP 
+     *    being present.
+     * 3. Otherwise, use $.ajax.
+     * 4. There is no 4.
+     *
+     * We include the 'Basic' 'Authorization' options header if we find
      * credentials in (in order of precedence):
      *
      * 1. The options parameter, in the form of a 'credentials' attribute
@@ -571,7 +617,8 @@
                            spiderOakApp.settings.getOrDefault("alternateAjax",
                                                               null)) ||
                           // In case this is called before this.initialize()
-                          ((spiderOakApp && spiderOakApp.dollarAjax) ||
+                          ((spiderOakApp && spiderOakApp.cordovaHTTPAjax) ||
+                           (spiderOakApp && spiderOakApp.dollarAjax) ||
                            $.ajax));
       return ajaxFunction(options);
     }

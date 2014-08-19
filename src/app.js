@@ -591,8 +591,8 @@
      * We use an ajax handler in this order of precedence:
      *
      * 1. Prefer "alternateAjax" function designated in settings, if any.
-     * 2. Otherwise, use cordovaHTTPAjax, which depends on window.cordovaHTTP 
-     *    being present.
+     * 2. Otherwise, use cordovaHTTPAjax - it depends on the cordovaHTTP 
+     *    plugin.
      * 3. Otherwise, use $.ajax.
      * 4. There is no 4.
      *

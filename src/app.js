@@ -586,7 +586,7 @@
                                       "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
                                     pad: ""
                                    }),
-    /** spiderOakApp.aja() consolidates basicauth and alternate ajax functions.
+    /** spiderOakApp.ajax() select ajax handler and includes basicauth.
      *
      * We use an ajax handler in this order of precedence:
      *
@@ -603,7 +603,7 @@
      *    having a value of an object with 'username' and 'password' fields, or
      * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a 
      *
-     * #param {object} options like $.ajax(options)
+     * @param {object} options like $.ajax(options)
      */
     ajax: function (options) {
       var authString =

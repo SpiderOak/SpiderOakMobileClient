@@ -45,6 +45,10 @@
       $(event.target).closest("div.login-input").removeClass("focused");
     },
     form_submitHandler: function(event) {
+      var username = $("#unme").val().trim(),
+          b32username = spiderOakApp.b32nibbler.encode(username),
+          hasAcceptedId = "hasAcceptedNonZK-" + b32username,
+          _this = this;
       event.preventDefault();
       if (!spiderOakApp.settings.getOrDefault("server")) {
         if (window.navigator.notification.alert) {
@@ -57,6 +61,20 @@
         }
         return;
       }
+      if (!window.store.get(hasAcceptedId)) {
+        _this.nonZKWarningView = new spiderOakApp.NonZKWarningView({
+          proceed: function() {
+            window.store.set(hasAcceptedId, true);
+            _this.authenticate(event);
+          }
+        });
+        $(".app").append(_this.nonZKWarningView.el);
+        _this.nonZKWarningView.render().show();
+      } else {
+        _this.authenticate(event);
+      }
+    },
+    authenticate: function(event) {
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
       var username = $("#unme").val().trim();
@@ -131,7 +149,8 @@
         }
 
         if (! silent) {
-          navigator.notification.alert(msg, null, "Authentication error", "OK");
+          navigator.notification.alert(msg, null,
+                                       "Authentication error", "OK");
         }
       };
 
@@ -288,6 +307,60 @@
       if (this.options && this.options.checkBox) {
         this.options.checkBox.prop("checked",false);
       }
+      this.dismiss();
+    },
+    show: function() {
+      this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
+    },
+    dismiss: function(event) {
+      this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
+        duration: 100,
+        complete: function() {
+          this.remove();
+        }.bind(this)
+      });
+    },
+    remove: function() {
+      this.close();
+      this.$el.remove();
+      this.stopListening();
+      return this;
+    },
+    close: function() {
+      // Clean up our subviews
+      this.scroller.destroy();
+    }
+  });
+
+  spiderOakApp.NonZKWarningView = spiderOakApp.ViewBase.extend({
+    className: "nonzk-warning",
+    destructionPolicy: "never",
+    events: {
+      "tap .continue": "continue_tapHandler",
+      "tap .never-mind": "nevermind_tapHandler"
+    },
+    initialize: function() {
+      this.proceed = this.options["proceed"];
+      window.bindMine(this);
+    },
+    render: function() {
+      this.$el.html(window.tmpl["nonZKWarningViewTemplate"]());
+      this.$el.css("-webkit-transform","translate3d(0,100%,0)");
+      this.scroller = new window.iScroll(this.el, {
+        bounce: !$.os.android,
+        vScrollbar: !$.os.android,
+        hScrollbar: false
+      });
+
+      return this;
+    },
+    continue_tapHandler: function(event) {
+      this.dismiss();
+      this.proceed();
+    },
+    nevermind_tapHandler: function(event) {
+      // Clear the password and return to the login screen.
+      $("#pwrd").val("");
       this.dismiss();
     },
     show: function() {

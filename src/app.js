@@ -51,6 +51,7 @@
       document.addEventListener("online", this.setOnline, false);
     },
     initialize: function() {
+      var _this = this;
       _.extend(this.config, window.spiderOakMobile_custom_config);
 
       // Substitute our ajax wrapper for backbone's internal .ajax() calls:
@@ -63,36 +64,46 @@
 
       if (! this.cordovaHTTPAjax && window.cordovaHTTP) {
         /** Adapt regular ajax call and response to cordovaHTTP. */
-        this.cordovaHTTPAjax = function cordovaHTTPAjax(options) {
-          var url = options.url || null,
-              headers = options.headers || {},
-              type = options.type || 'GET',
-              dataType = options.dataType || 'json',
-              timeout = options.timeout || 0,
-              data = options.data || {},
-              success = options.success || function(){},
-              error = options.error || function(){};
+        window.cordovaHTTP.enableSSLPinning(true, function() {
+          window.console.log('certificate pinning enabled');
+          _this.cordovaHTTPAjax = function cordovaHTTPAjax(options) {
+            var url = options.url || null,
+                headers = options.headers || {},
+                type = options.type || 'GET',
+                dataType = options.dataType || 'json',
+                timeout = options.timeout || 0,
+                data = options.data || {},
+                success = options.success || function(){},
+                error = options.error || function(){};
 
-          if (!url) options.error(null, 'fail', 'No URL provided');
+            if (!url) options.error(null, 'fail', 'No URL provided');
+            // window.console.log('using cordovaHTTPAjax');
 
-          var win = function win(response) {
-            if (/^login:|^location:/.test(response.data)) {
+            var win = function win(response) {
               // Special provision for SpiderOak's broken Web API response:
-              options.success(response.data, response.status, null);
+              //   'login:' for the login dance,
+              //   'location:' also for the login dance, and
+              //   '/' for sharing links
+              if (/^login:|^location:|^\//.test(response.data)) {
+                options.success(response.data, response.status, null);
               } else {
                 options.success(JSON.parse(response.data),
-                                response.status,
-                                null);
+                                  response.status,
+                                  null);
               }
-          };
+            };
 
-          var fail = function(response) {
-            options.error(response, response.status, response.error);
-          };
+            var fail = function(response) {
+              window.console.log(response);
+              options.error(response, response.status, response.error);
+            };
 
-          window.cordovaHTTP[options.type.toLowerCase()](url, data, headers,
-                                                         win, fail);
-        };
+            window.cordovaHTTP[options.type.toLowerCase()](url, data, headers,
+                                                           win, fail);
+          };
+        }, function() {
+          console.log('Error. Enabling cert pinning failed');
+        });
       }
 
       $.ajax = this.ajax;

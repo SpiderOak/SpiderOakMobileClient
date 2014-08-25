@@ -64,46 +64,42 @@
 
       if (! this.cordovaHTTPAjax && window.cordovaHTTP) {
         /** Adapt regular ajax call and response to cordovaHTTP. */
-        window.cordovaHTTP.enableSSLPinning(true, function() {
-          window.console.log('certificate pinning enabled');
-          _this.cordovaHTTPAjax = function cordovaHTTPAjax(options) {
-            var url = options.url || null,
-                headers = options.headers || {},
-                type = options.type || 'GET',
-                dataType = options.dataType || 'json',
-                timeout = options.timeout || 0,
-                data = options.data || {},
-                success = options.success || function(){},
-                error = options.error || function(){};
+        window.console.log('certificate pinning enabled');
+        _this.cordovaHTTPAjax = function cordovaHTTPAjax(options) {
+          var url = options.url || null,
+              headers = options.headers || {},
+              type = options.type || 'GET',
+              dataType = options.dataType || 'json',
+              timeout = options.timeout || 0,
+              data = options.data || {},
+              success = options.success || function(){},
+              error = options.error || function(){};
 
-            if (!url) options.error(null, 'fail', 'No URL provided');
-            // window.console.log('using cordovaHTTPAjax');
+          if (!url) options.error(null, 'fail', 'No URL provided');
+          // window.console.log('using cordovaHTTPAjax');
 
-            var win = function win(response) {
-              // Special provision for SpiderOak's broken Web API response:
-              //   'login:' for the login dance,
-              //   'location:' also for the login dance, and
-              //   '/' for sharing links
-              if (/^login:|^location:|^\//.test(response.data)) {
-                options.success(response.data, response.status, null);
-              } else {
-                options.success(JSON.parse(response.data),
-                                  response.status,
-                                  null);
-              }
-            };
-
-            var fail = function(response) {
-              window.console.log(response);
-              options.error(response, response.status, response.error);
-            };
-
-            window.cordovaHTTP[options.type.toLowerCase()](url, data, headers,
-                                                           win, fail);
+          var win = function win(response) {
+            // Special provision for SpiderOak's broken Web API response:
+            //   'login:' for the login dance,
+            //   'location:' also for the login dance, and
+            //   '/' for sharing links
+            if (/^login:|^location:|^\//.test(response.data)) {
+              options.success(response.data, response.status, null);
+            } else {
+              options.success(JSON.parse(response.data),
+                                response.status,
+                                null);
+            }
           };
-        }, function() {
-          console.log('Error. Enabling cert pinning failed');
-        });
+
+          var fail = function(response) {
+            window.console.log(response);
+            options.error(response, response.status, response.error);
+          };
+
+          window.cordovaHTTP[options.type.toLowerCase()](url, data, headers,
+                                                         win, fail);
+        };
       }
 
       $.ajax = this.ajax;
@@ -316,15 +312,26 @@
       );
     },
     backDisabled: true,
-    onDeviceReady: function() {
+    finishDeviceReady: function() {
       window.spiderOakApp.brandSpecificInitialization();
       window.spiderOakApp.initialize();
+      spiderOakApp.fileViewer = window.FileViewerPlugin;
+    },
+    onDeviceReady: function() {
       $(document).on("backbutton", spiderOakApp.onBackKeyDown);
       $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
         $(".app").css({"top":"20px"}); // status bar hax
       }
-      spiderOakApp.fileViewer = window.FileViewerPlugin;
+      if (window.cordovaHTTP) {
+        window.cordovaHTTP.enableSSLPinning(true, function() {
+          window.spiderOakApp.finishDeviceReady();
+        }, function() {
+          console.log('Error. Enabling cert pinning failed');
+        });
+      } else {
+        window.spiderOakApp.finishDeviceReady();
+      }
     },
     onVersionReady: function () {
       var storedVersion = window.store.get("dataVersion") || "0.0.0",

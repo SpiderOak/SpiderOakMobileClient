@@ -11,5 +11,5 @@ window.spiderOakMobile_config = {
   inhibitAdvancedLogin: {value: true, retain: 0},
   // showPreliminary: to show, or not, the pre login account screen
   showPreliminary: {value: true, retain: 0},
-  alternateAjax: window.$.ajax
+  enableNonZKWarning: {value: false, retain: 0}
 };

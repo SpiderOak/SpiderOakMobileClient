@@ -111,8 +111,10 @@
         fsType: window.LocalFileSystem.PERSISTENT,
         onprogress: function onprogress(progressEvent) {
           if (progressEvent.lengthComputable) {
+            var percentMultiplier = (($.os.android)?1:0.5);
             var percentComplete =
-                  ((progressEvent.loaded / 2) / progressEvent.total) * 100;
+                  ((progressEvent.loaded * percentMultiplier) / progressEvent.total) * 100;
+                  // ((progressEvent.loaded) / progressEvent.total) * 100;
             percentComplete = percentComplete <= 100 ? percentComplete : 100;
             spiderOakApp.dialogView.updateProgress(percentComplete);
           }
@@ -394,8 +396,10 @@
         fsType: window.LocalFileSystem.TEMPORARY,
         onprogress: function onprogress(progressEvent) {
           if (progressEvent.lengthComputable) {
+            var percentMultiplier = (($.os.android)?1:0.5);
             var percentComplete =
-                  ((progressEvent.loaded / 2) / progressEvent.total) * 100;
+                  ((progressEvent.loaded * percentMultiplier) / progressEvent.total) * 100;
+                  // ((progressEvent.loaded) / progressEvent.total) * 100;
             percentComplete = percentComplete <= 100 ? percentComplete : 100;
             spiderOakApp.dialogView.updateProgress(percentComplete);
           }

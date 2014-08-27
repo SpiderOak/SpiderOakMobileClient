@@ -16,6 +16,7 @@
     <preference name="fullscreen" value="false" />
     <preference name="keepRunning" value="true" />
     <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <access origin="*" />

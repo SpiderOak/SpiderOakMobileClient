@@ -344,6 +344,9 @@
         if (!window.store.get("favoritesMigrationHasRun") && $.os.android) {
           spiderOakApp.migrateFavorites();
         }
+        if (!window.store.get("favoritesPercentMigrationHasRun")) {
+          //spiderOakApp.migratePercentFavorites();
+        }
       }
       else {
         //console.log("onVersionReady: data version already current.");

@@ -135,4 +135,81 @@
     );
   };
 
+  /** Adjust filenames containing "%" per FileDownloadHelper.nameForFS(). */
+  spiderOakApp.migratePercentFavorites = function() {
+    var errPreface = "migratePercentFavorites error";
+
+    function processFavs() {
+      window.requestFileSystem(
+        window.LocalFileSystem.PERSISTENT, 0,
+        processFavsFS,
+        function (evt) {
+          console.log(errPreface + " (" + evt.target.error.code + ")" +
+                      " - failed to get file system");
+        });
+    }
+    function processFavsFS(fileSystem) {
+      fileSystem.root.getDirectory(
+        spiderOakApp.favoritesCollection.basePath(),
+        {create: true, exclusive: false},
+        readAndProcessFavsDirectory,
+        function (ferr) {
+          console.log(errPreface + " (" + ferr.code + ")" +
+                      " - failed to get root favorites directory");
+        });
+    }
+    function readAndProcessFavsDirectory(dirEntry) {
+      var directoryReader;
+      directoryReader = dirEntry.createReader();
+      directoryReader.readEntries(
+        function (entries) {
+          processFavsDirectoryContents(dirEntry, entries);
+        },
+        function (ferr) {
+          console.log(errPreface + " (" + ferr.code + ")" +
+                      " - failed to read directory " + dirEntry.name);
+        });
+    }
+    function moveIt(entry, container) {
+      var toName = spiderOakApp.downloader.nameForFS(entry.name);
+      // The move fails for a target name like "char%253Aentity.txt".
+      // It doesn't fail for target name lke "XXXchar%3Aentity.txt". Why?
+      //toName = "XXX" + entry.name;
+      entry.moveTo(
+        container,
+        toName,
+        null,
+        function (ferr) {
+          console.log(errPreface + " (" + ferr.code + ") -" +
+                      " failed to move from '" + entry.name + " to '" +
+                      toName + "' in '" + container.nativeURL + "'");
+        });
+    }
+    function processFavsDirectoryContents(container, entries) {
+      var entry;
+      // Order directory entries from longest to shortest name:
+      entries.sort(function (a, b) {
+        if (a.name.length < b.name.length) { return 1; }
+        else if (a.name.length === b.name.length) { return 0; }
+        else { return -1; }
+      });
+      for (var i in entries) {
+        entry = entries[i];
+        if (entry.isDirectory) {
+          readAndProcessFavsDirectory(entry);
+        }
+        if (entry.name.match("%")) {
+          moveIt(entry, container);
+        }
+      }
+    }
+
+    console.log("Running favorites '%' percent-name migration");
+
+    processFavs();
+
+    // @XXX - uncomment after testing a bunch of times:
+    //window.store.set("favoritesPercentMigrationHasRun", true);
+  };
+
 })(window.spiderOakApp = window.spiderOakApp || {}, window);

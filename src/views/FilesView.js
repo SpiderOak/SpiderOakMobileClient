@@ -398,7 +398,8 @@
           if (progressEvent.lengthComputable) {
             var percentMultiplier = (($.os.android)?1:0.5);
             var percentComplete =
-                  ((progressEvent.loaded * percentMultiplier) / progressEvent.total) * 100;
+                  ((progressEvent.loaded * percentMultiplier) /
+                    progressEvent.total) * 100;
                   // ((progressEvent.loaded) / progressEvent.total) * 100;
             percentComplete = percentComplete <= 100 ? percentComplete : 100;
             spiderOakApp.dialogView.updateProgress(percentComplete);
@@ -422,7 +423,8 @@
           spiderOakApp.dialogView.hide();
 
           if (model.get("openInternally")) {
-            window.open(encodeURI(fileEntry.toURL()),"_blank","location=no,enableViewportScale=yes");
+            window.open(encodeURI(fileEntry.toURL()),"_blank",
+              "location=no,enableViewportScale=yes");
           } else {
             spiderOakApp.fileViewer.view({
                 action: spiderOakApp.fileViewer.ACTION_VIEW,
@@ -445,12 +447,14 @@
               function(error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
                 navigator.notification.confirm(
-                  "Cannot find an app to view files of this type. Would you like to try and open it anyway?",
+                  "Cannot find an app to view files of this type. Would you " +
+                  "like to try and open it anyway?",
                   function(button) {
                     if (button !== 1) {
                       return;
                     }
-                    window.open(encodeURI(fileEntry.toURL()),"_blank","location=no");
+                    window.open(encodeURI(fileEntry.toURL()),"_blank",
+                      "location=no");
                   }.bind(this),
                   "File error",
                   "Yes,No"
@@ -503,7 +507,8 @@
             {},
             function viewFavoriteGotFS(fileEntry) {
               if (model.get("openInternally")) {
-                window.open(encodeURI(fileEntry.toURL()),"_blank","location=no,enableViewportScale=yes");
+                window.open(encodeURI(fileEntry.toURL()),"_blank",
+                  "location=no,enableViewportScale=yes");
               } else {
                 spiderOakApp.fileViewer.view({
                     action: spiderOakApp.fileViewer.ACTION_VIEW,

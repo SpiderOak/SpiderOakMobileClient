@@ -625,9 +625,14 @@
               return file.url == model.get("encodedUrl");
             });
             model.set({
+              preview_48: updatedModelData.preview_48 || undefined,
               mtime: updatedModelData.mtime,
               size: updatedModelData.size
             });
+            window.store.set(
+              "favorites-" + spiderOakApp.accountModel.get("b32username"),
+              spiderOakApp.favoritesCollection.toJSON()
+            );
           },
           error: function(xhr, errorType, error) {
             // This error is not super important since it only stops updating 

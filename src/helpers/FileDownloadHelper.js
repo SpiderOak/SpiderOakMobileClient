@@ -79,10 +79,12 @@
                 fileTransfer.abort();
                 errorCallback("File transfer aborted");
               });
+              var cacheBuster = "cb=" + Date.now();
+              if (!/\?/.test(options.from)) {
+                cacheBuster = "?" + cacheBuster;
+              }
               fileTransfer.download(
-                options.from,
-                // encodeURI(fileEntry.fullPath),
-                //fileEntry.fullPath,
+                options.from + cacheBuster,
                 fileEntry.toURL(),
                 successCallback,
                 errorCallback,

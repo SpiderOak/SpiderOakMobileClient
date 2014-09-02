@@ -188,13 +188,17 @@
   FileDownloadHelper.prototype.pathForFS = function(path) {
     if (! path) {
       return path;
-    } else if (path.match(/^[^/]+:/)) {
-      var splat = path.split(":"),
-          proto = splat[0] + ":",
-          rest = this.fileNameToFSName(splat[1]);
-      return proto + rest;
     } else {
-      return this.nameForFS(path);
+      var splat =  path.split("/"),
+          hasProto = splat[0].match(":"),
+          proto = hasProto ? splat[0] : "",
+          rest = splat.slice(hasProto ? 1 : 0, splat.length),
+          nameForFS = this.nameForFS,
+          got = [];
+      rest.forEach(function (element) {
+        got.push(nameForFS(element));
+      });
+      return proto + got.join("/");
     }
   };
 

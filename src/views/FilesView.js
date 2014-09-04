@@ -503,7 +503,7 @@
         0,
         function viewFavoriteGetFS(fileSystem) {
           fileSystem.root.getFile(
-            path,
+            spiderOakApp.downloader.pathForFS(path),
             {},
             function viewFavoriteGotFS(fileEntry) {
               if (model.get("openInternally")) {

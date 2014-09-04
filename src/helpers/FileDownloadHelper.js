@@ -175,10 +175,9 @@
    * that result from URI encoding, and filenames transformed to include
    * URI-encoding characters.
    */
-  var fsSensitiveCharsRegExp = /[:%]/;
   FileDownloadHelper.prototype.nameForFS = function(name) {
-    if (name.match(fsSensitiveCharsRegExp)) {
-      return encodeURIComponent(name);
+    if (/:/.test(name)) {
+      return name.replace(/:/g, "%3A");
     } else {
       return name;
     }

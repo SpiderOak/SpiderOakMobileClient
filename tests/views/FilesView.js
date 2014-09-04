@@ -83,14 +83,9 @@ describe('FilesView', function() {
        function() {
          this.downloader.nameForFS("with:colon").should.not.match(/:/);
        });
-    it('should transform filenames with "%" percent chars',
+    it('should not transform filenames that lack  ":"',
        function() {
-         var withPercent = "with%percent";
-         this.downloader.nameForFS(withPercent).should.not.equal(withPercent);
-       });
-    it('should not transform filenames that lack "%" and ":"',
-       function() {
-         var lotsaPunc = "with !@# $^& *()|? cursing (-;";
+         var lotsaPunc = "with !@# $%^& *()|? cursing (-;";
          this.downloader.nameForFS(lotsaPunc).should.equal(lotsaPunc);
        });
   });

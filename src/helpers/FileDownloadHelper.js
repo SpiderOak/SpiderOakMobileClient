@@ -166,15 +166,7 @@
       );
     };
 
-  /** Transform file names to escape the filesystem-incompible character.
-   *
-   * See fsSensitiveCharsRegExp for characters which trigger
-   * transformation.  We have to transform filenames that include the '%'
-   * percent character, as well as ones containing ':', in order to
-   * preclude collisions between filenames that already contain characters
-   * that result from URI encoding, and filenames transformed to include
-   * URI-encoding characters.
-   */
+  /** Massage file names to escape the filesystem-incompible character ':'. */
   FileDownloadHelper.prototype.nameForFS = function(name) {
     if (/:/.test(name)) {
       return name.replace(/:/g, "%3A");
@@ -183,7 +175,7 @@
     }
   };
 
-  /** Filter bad fs chars from path, while preserving protocol portion. */
+  /** Filter bad fs char from path, while preserving protocol portion. */
   FileDownloadHelper.prototype.pathForFS = function(path) {
     if (! path) {
       return path;

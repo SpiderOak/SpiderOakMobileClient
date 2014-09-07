@@ -406,8 +406,35 @@ describe('AccountModel', function() {
 
     // @TODO Test unsuccessful server addr change - should not change anything
     // @TODO Test successful server addr change, sans current account
-    // @TODO Test successful server addr change, with current account - logs out
+    // @TODO Test successful server change, with current account - logs out
 
+    describe('Server probe', function() {
+      beforeEach(function(){
+        this.dollarAjaxStub = sinon.stub(window.spiderOakApp, "dollarAjax");
+        this.mainAjaxStub = sinon.stub(window.spiderOakApp, "ajax");
+      });
+      afterEach(function() {
+        window.spiderOakApp.dollarAjax.restore();
+        window.spiderOakApp.ajax.restore();
+      });
+      it('Should use .dollarAjax for server probe, rather than .ajax',
+         function () {
+        this.accountModel.login(this.username, this.password,
+                                this.successSpy, this.errorSpy,
+                                this.login_url,
+                                "stub.probe.host");
+           this.dollarAjaxStub.should.have.been.called;
+           this.mainAjaxStub.should.not.have.been.called;
+         });
+      it('Should use .ajax for regular login, rather than .dollarAjax',
+         function () {
+           this.accountModel.login(this.username, this.password,
+                                   this.successSpy, this.errorSpy,
+                                   this.login_url);
+           this.dollarAjaxStub.should.not.have.been.called;
+           this.mainAjaxStub.should.have.been.called;
+         });
+    });
     describe('successful alternate login', function() {
       beforeEach(function(){
         this.successSpy = sinon.spy();

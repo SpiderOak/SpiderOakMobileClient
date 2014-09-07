@@ -3,16 +3,16 @@
   {{? it.password_required}}
     <div class="foldername">
       <em>
-        {{=it.share_id}} / {{=it.room_key}}
+        {{!it.share_id}} / {{!it.room_key}}
       </em>
     </div>
   {{??}}
     <div class="foldername">
       {{ if (it.name) { }}
-        {{=it.name}}
+        {{!it.name}}
       {{ } else if (it.beenSituated) { }}
       <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
-      <em>{{=it.share_id}} / {{=it.room_key}}</em>
+      <em>{{!it.share_id}} / {{!it.room_key}}</em>
       {{ } else { }}
          <span style='color:#999;'>Loading...</span>
       {{ } }}

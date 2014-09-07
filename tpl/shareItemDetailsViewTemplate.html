@@ -10,25 +10,30 @@
     </li>
     {{?}}
     <li>
-      <span class="name"><strong>{{=it.name}}</strong></span>
+      <span class="name"><strong>{{!it.name}}</strong></span>
     </li>
+    {{? it.description}}
+    <li class="small">
+      <div class="label bg-pos-zero">{{!it.description}}</div>
+    </li>
+    {{?}}
   </ul>
   <ul>
     <li class="sep">Details</li>
     <li class="small">
       <div class="label">ShareID:</div>
-      <div class="info">{{=it.share_id}}</div>
+      <div class="info">{{!it.share_id}}</div>
     </li>
     <li class="small">
       <div class="label">RoomKey:</div>
-      <div class="info">{{=it.room_key}}</div>
+      <div class="info">{{!it.room_key}}</div>
     </li>
     {{? it.owner_lastname || it.owner_firstname }}
     <li class="small">
       <div>
         <div class="label">Owner:</div>
         <div class="info">
-          {{=it.owner_firstname }} {{=it.owner_lastname }}
+          {{!it.owner_firstname }} {{!it.owner_lastname }}
         </div>
       </div>
     </li>

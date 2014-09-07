@@ -221,6 +221,8 @@
      */
     login: function(username, password, successCallback, errorCallback,
                     login_url, probeHost) {
+      var ajax = probeHost ? spiderOakApp.dollarAjax : spiderOakApp.ajax;
+
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
@@ -249,7 +251,7 @@
       login_url = login_url || login_url_start;
 
 
-      spiderOakApp.ajax({
+      ajax({
         type: "POST",
         url: login_url,
         cache: false,

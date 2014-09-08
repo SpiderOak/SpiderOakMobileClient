@@ -47,9 +47,15 @@
     form_submitHandler: function(event) {
       event.preventDefault();
       var username = $("#unme").val().trim(),
+          password = $("#pwrd").val(),
           b32username = spiderOakApp.b32nibbler.encode(username),
           hasAcceptedId = "hasAcceptedNonZK-" + b32username,
           _this = this;
+      if (!username || !password) {
+        navigator.notification.alert("Missing username or password", null,
+                                       "Authentication error", "OK");
+        return;
+      }
       if (!spiderOakApp.settings.getOrDefault("server")) {
         if (window.navigator.notification.alert) {
           window.navigator.notification.alert(
@@ -62,6 +68,9 @@
         return;
       }
       if (!window.store.get(hasAcceptedId)) {
+        if(document.activeElement) {
+          document.activeElement.blur();
+        }
         _this.nonZKWarningView = new spiderOakApp.NonZKWarningView({
           proceed: function() {
             window.store.set(hasAcceptedId, true);
@@ -78,11 +87,6 @@
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").attr("checked") === "true";
-      if (!username || !password) {
-        navigator.notification.alert("Missing username or password", null,
-                                       "Authentication error", "OK");
-        return;
-      }
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot

@@ -75,17 +75,16 @@
       }
     },
     authenticate: function(event) {
-      if (!username || !password) {
-        navigator.notification.alert("Missing username or password", null,
-                                       "Authentication error", "OK");
-        return;
-      }
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").attr("checked") === "true";
-
+      if (!username || !password) {
+        navigator.notification.alert("Missing username or password", null,
+                                       "Authentication error", "OK");
+        return;
+      }
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
         // Navigate away...

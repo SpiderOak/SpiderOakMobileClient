@@ -45,11 +45,11 @@
       $(event.target).closest("div.login-input").removeClass("focused");
     },
     form_submitHandler: function(event) {
+      event.preventDefault();
       var username = $("#unme").val().trim(),
           b32username = spiderOakApp.b32nibbler.encode(username),
           hasAcceptedId = "hasAcceptedNonZK-" + b32username,
           _this = this;
-      event.preventDefault();
       if (!spiderOakApp.settings.getOrDefault("server")) {
         if (window.navigator.notification.alert) {
           window.navigator.notification.alert(
@@ -75,6 +75,11 @@
       }
     },
     authenticate: function(event) {
+      if (!username || !password) {
+        navigator.notification.alert("Missing username or password", null,
+                                       "Authentication error", "OK");
+        return;
+      }
       spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
 
       var username = $("#unme").val().trim();

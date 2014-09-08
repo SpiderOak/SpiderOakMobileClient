@@ -75,8 +75,6 @@
       }
     },
     authenticate: function(event) {
-      spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
-
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").attr("checked") === "true";
@@ -85,6 +83,7 @@
                                        "Authentication error", "OK");
         return;
       }
+      spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
         // Navigate away...

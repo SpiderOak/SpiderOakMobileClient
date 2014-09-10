@@ -192,12 +192,8 @@
       }
       var model = this.model;
       // Start by getting the folder path
-      var path = "Download/" + s("SpiderOak") + "/.favorites/" +
-        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.composedUrl(true)
-          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
-          .replace(new RegExp(model.get("url")), "");
-      var favorite = model.toJSON();
+      var path = spiderOakApp.favoritesCollection.favPathForModel(model),
+          favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
       favorite.url = model.composedUrl(true);
@@ -665,10 +661,36 @@
               this.model.get("name")
           };
           // this.$(".rightButton").removeClass("favorite");
+          var removeFileSuccess = function() {
+            var model;
+            model = this.model.get("favoriteModel") || this.model;
+            spiderOakApp.favoritesCollection.remove(model);
+            // Persist Favorites Collection to localStorage
+            window.store.set(
+              "favorites-" + spiderOakApp.accountModel.get("b32username"),
+              spiderOakApp.favoritesCollection.toJSON()
+            );
+            // Put the model back to unfavorited state
+            this.model.unset("path");
+            this.model.set("isFavorite", false);
+            this.model.unset("favoriteModel");
+            // Add the file to the recents collection (view or fave)
+            var recentModels = spiderOakApp.recentsCollection.models;
+            var matchingModels = _.filter(recentModels, function(recent){
+              return recent.composedUrl(true) === model.composedUrl(true);
+            });
+            if (matchingModels.length > 1) {
+              // console.log("Multiple duplicates detected...");
+            }
+            spiderOakApp.recentsCollection.remove(matchingModels[0]);
+            spiderOakApp.recentsCollection.add(this.model);
+            console.log("and favorite removed.");
+          }.bind(this);
           spiderOakApp.downloader.deleteFile(
             options,
             function(entry) {
               console.log("File deleted");
+              removeFileSuccess();
             },
             function(error) { // @FIXME: Real error handling...
               navigator.notification.alert(
@@ -680,36 +702,6 @@
               );
             }
           );
-          // Remove model from the Favorites Collection
-          // First determine if this.model is a file model or a favorite model
-          var model = null;
-          if (this.model.get("favoriteModel")) {
-            model = this.model.get("favoriteModel");
-          }
-          else {
-            model = this.model;
-          }
-          // ...then remove it
-          spiderOakApp.favoritesCollection.remove(model);
-          // Persist Favorites Collection to localStorage
-          window.store.set(
-            "favorites-" + spiderOakApp.accountModel.get("b32username"),
-            spiderOakApp.favoritesCollection.toJSON()
-          );
-          // Put the model back to unfavorited state
-          this.model.unset("path");
-          this.model.set("isFavorite", false);
-          this.model.unset("favoriteModel");
-          // Add the file to the recents collection (view or fave)
-          var recentModels = spiderOakApp.recentsCollection.models;
-          var matchingModels = _.filter(recentModels, function(recent){
-            return recent.composedUrl(true) === model.composedUrl(true);
-          });
-          if (matchingModels.length > 1) {
-            // console.log("Multiple duplicates detected...");
-          }
-          spiderOakApp.recentsCollection.remove(matchingModels[0]);
-          spiderOakApp.recentsCollection.add(model);
         }.bind(this),
         "Favorites"
       );

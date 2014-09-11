@@ -644,39 +644,19 @@
           }
           // If file exists in PERSISTENT file system, delete it
           // @FIXME: Check if the file exists first?
+          // @FIXME: File deletion is reponsibility of favorites collection.
           var options = {
             fsType: window.LocalFileSystem.PERSISTENT,
             path: this.model.get("path") +
               this.model.get("name")
           };
           // this.$(".rightButton").removeClass("favorite");
-          var removeFileSuccess = function() {
-            var model;
-            model = this.model.get("favoriteModel") || this.model;
-            spiderOakApp.favoritesCollection.remove(model);
-            spiderOakApp.favoritesCollection.store(model);
-            // Put the model back to unfavorited state
-            this.model.unset("path");
-            this.model.set("isFavorite", false);
-            this.model.unset("favoriteModel");
-            // Add the file to the recents collection (view or fave)
-            var recentModels = spiderOakApp.recentsCollection.models;
-            var matchingModels = _.filter(recentModels, function(recent){
-              return recent.composedUrl(true) === model.composedUrl(true);
-            });
-            if (matchingModels.length > 1) {
-              // console.log("Multiple duplicates detected...");
-            }
-            spiderOakApp.recentsCollection.remove(matchingModels[0]);
-            spiderOakApp.recentsCollection.add(this.model);
-            console.log("and favorite removed.");
-          }.bind(this);
           spiderOakApp.downloader.deleteFile(
             options,
             function(entry) {
               console.log("File deleted");
-              removeFileSuccess();
-            },
+              spiderOakApp.favoritesCollection.removeFavoriteness(this.model);
+            }.bind(this),
             function(error) { // @FIXME: Real error handling...
               navigator.notification.alert(
                 "Error removing favorite from device (error code: " +

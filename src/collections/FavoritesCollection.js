@@ -14,6 +14,13 @@
     comparator: function(object) {
       return object.get("name");
     },
+    /** Persist locally. */
+    store: function() {
+      window.store.set(
+        "favorites-" + spiderOakApp.accountModel.get("b32username"),
+        this.toJSON()
+      );
+    },
     favPathForModel: function(model) {
       var base = "Download/" + window.s("SpiderOak") + "/.favorites/" +
             (spiderOakApp.accountModel.get("b32username") || "anonymous"),

@@ -505,10 +505,7 @@
         processed = true;
       });
       if (processed) {
-        window.store.set(
-          "favorites-" + spiderOakApp.accountModel.get("b32username"),
-          spiderOakApp.favoritesCollection.toJSON()
-        );
+        spiderOakApp.favoritesCollection.store();
       }
 
       // Fresh new recents collection

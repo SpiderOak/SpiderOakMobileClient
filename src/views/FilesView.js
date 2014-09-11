@@ -217,12 +217,7 @@
         );
         console.log("adding: " + favorite.name);
         // this.$(".rightButton").addClass("favorite");
-        // Persist Favorites Collection to localStorage
-        // window.store.set(
-        window.store.set(
-          "favorites-" + spiderOakApp.accountModel.get("b32username"),
-          spiderOakApp.favoritesCollection.toJSON()
-        );
+        spiderOakApp.favoritesCollection.store();
         model.set("path", favorite.path);
         model.set("isFavorite", true);
         model.set("favoriteModel", favoriteModel);
@@ -601,10 +596,7 @@
         callback = callback || function(fileEntry) {
           if (model.get("path") !== path) {
             model.set("path", path);
-            window.store.set(
-              "favorites-" + spiderOakApp.accountModel.get("b32username"),
-              spiderOakApp.favoritesCollection.toJSON()
-            );
+            spiderOakApp.favoritesCollection.store();
           }
           spiderOakApp.dialogView.hide();
         };
@@ -630,10 +622,7 @@
               mtime: updatedModelData.mtime,
               size: updatedModelData.size
             });
-            window.store.set(
-              "favorites-" + spiderOakApp.accountModel.get("b32username"),
-              spiderOakApp.favoritesCollection.toJSON()
-            );
+            spiderOakApp.favoritesCollection.store();
           },
           error: function(xhr, errorType, error) {
             // This error is not super important since it only stops updating 
@@ -665,11 +654,7 @@
             var model;
             model = this.model.get("favoriteModel") || this.model;
             spiderOakApp.favoritesCollection.remove(model);
-            // Persist Favorites Collection to localStorage
-            window.store.set(
-              "favorites-" + spiderOakApp.accountModel.get("b32username"),
-              spiderOakApp.favoritesCollection.toJSON()
-            );
+            spiderOakApp.favoritesCollection.store(model);
             // Put the model back to unfavorited state
             this.model.unset("path");
             this.model.set("isFavorite", false);

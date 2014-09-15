@@ -5,5 +5,5 @@
  */
 
 window.spiderOakMobile_custom_config = {
-  inhibitAdvancedLogin: {value: false, retain: 0}
+  inhibitAdvancedLogin: {value: true, retain: 1}
 };

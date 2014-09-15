@@ -420,12 +420,17 @@ ul {
       }
 
       .rightButton {
-        .positionAbsolute(0, 5px, auto, auto);
+        .positionAbsolute(0, 0, auto, auto);
         width: 20px;
-        height: 30px;
-        padding: 15px 5px 5px 5px;
+        height: 100%;
+        padding: 0 10px;
         font-size: 110%;
+        background-size: 30px;
         color: @liButtonColor;
+
+        &.removePublicShare {
+          padding: 15px 10px;
+        }
       }
 
       .filename {
@@ -682,7 +687,7 @@ ul {
   font-size: 130%;
 
   .toolbar-button {
-    margin: 12px 0;
+    margin: 0;
     text-align: center;
     float: left;
     width: 25%;
@@ -697,6 +702,9 @@ ul {
     }
 
     a {
+
+      display: block;
+      padding: 12px 0;
 
       .active {
 

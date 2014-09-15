@@ -1,9 +1,9 @@
 <a>
   <div class="icon bg-icon bg-pos-zero" style="background-image:url('img/spideroak-icons/{{=iconType}}/{{=it.icon}}.{{=iconType}}');"></div>
-  <div class="filename">{{=_.escape(it.name)}}</div>
+  <div class="filename">{{!it.name}}</div>
   <div class="subtext darkgray">
     <div class="file-info">
-      {{=_.escape(it.description)}}, {{=window.fileHelper.readableFileSize(it.size)}}
+      {{!it.description}}, {{=window.fileHelper.readableFileSize(it.size)}}
     </div>
     <div class="file-modified">
       {{=window.moment(it.mtime+"", "X").fromNow()}}

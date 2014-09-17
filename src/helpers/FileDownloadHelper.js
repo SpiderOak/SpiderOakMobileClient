@@ -159,4 +159,27 @@
       );
     };
 
+  FileDownloadHelper.prototype.deleteDirectoryRecursively =
+    function(options, successCallback, errorCallback) {
+      options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
+      window.requestFileSystem(
+        options.fsType,
+        0,
+        function gotFS(fileSystem) {
+          fileSystem.root.getDirectory(
+            options.path,
+            {},
+            function gotDirectory(dirEntry) {
+              dirEntry.removeRecursively(
+                successCallback,
+                errorCallback
+              );
+            },
+            errorCallback
+          );
+        },
+        errorCallback
+      );
+    };
+
 })(window);

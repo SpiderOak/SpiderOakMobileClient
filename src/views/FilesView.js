@@ -635,6 +635,7 @@
       this.downloadFile(model, path, _callback);
     },
     removeFavorite: function() {
+      var _this = this;
       // Confirmation dialog
       navigator.notification.confirm(
         "Do you want to remove this file from your favorites?",
@@ -644,30 +645,42 @@
           }
           // If file exists in PERSISTENT file system, delete it
           // @FIXME: Check if the file exists first?
-          // @FIXME: File deletion is reponsibility of favorites collection.
+          // @FIXME: Del may better be reponsibility of favorites collection.
           var options = {
             fsType: window.LocalFileSystem.PERSISTENT,
-            path: this.model.get("path") +
-              this.model.get("name")
+            path: _this.model.get("path") +
+              _this.model.get("name")
           };
-          // this.$(".rightButton").removeClass("favorite");
+          // _this.$(".rightButton").removeClass("favorite");
+          // Remove favoritness regardless of file disposition, so
+          // mishandling of the file doesn't screw the user.
+          spiderOakApp.favoritesCollection.removeFavoriteness(_this.model);
+
+          var deletedSuccess = function (entry) {
+            console.log("Formerly-favorite contents removed");
+          };
           spiderOakApp.downloader.deleteFile(
             options,
-            function(entry) {
-              console.log("File deleted");
-              spiderOakApp.favoritesCollection.removeFavoriteness(this.model);
-            }.bind(this),
-            function(error) { // @FIXME: Real error handling...
-              navigator.notification.alert(
-                "Error removing favorite from device (error code: " +
-                  error.code + ")",
-                null,
-                "Error",
-                "OK"
-              );
-            }
-          );
-        }.bind(this),
+            deletedSuccess,
+            function(error) {
+              // Until 3.1.1, favorites created in Recents were created as
+              // directories containing the identically named file, so if
+              // file deletion fails, we try deleting as a directory, and
+              // really fail if that also doesn't work.
+              spiderOakApp.downloader.deleteDirectoryRecursively(
+                options,
+                deletedSuccess,
+                function(error) { // @FIXME: Real error handling...
+                  navigator.notification.alert(
+                    "Error removing favorite from device (error code: " +
+                      error.code + ")",
+                    null,
+                    "Error",
+                    "OK"
+                  );
+                });
+            });
+        },
         "Favorites"
       );
     },

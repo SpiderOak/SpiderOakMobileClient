@@ -14,6 +14,7 @@
         android: path.join(projectRootDir, 'platforms', 'android'),
         ios: path.join(projectRootDir, 'platforms', 'ios', projectName)
       },
+      targetActions = {},
       platform;
 
   console.log("[hooks] Applying customizations from %s",
@@ -59,7 +60,20 @@
       return true;
     }
     return false;
-  }
+  };
+
+  function doAction(action, sourceDir, sourceName, platform) {
+    if (! targetActions.hasOwnProperty(action)) {
+      throw new Error("[hooks] customize: unknown targetAction '" +
+                      action + "'");
+    } else {
+      return targetActions[action](action, sourceDir, sourceName, platform);
+    }
+  };
+  targetActions.iOSaddCertificate = iOSaddCertAction;
+  function iOSaddCertAction (action, sourceDir, sourceName, platform) {
+    console.log("[hooks] STUB Action %s on %s", action, sourceName);
+  };
 
   /** Return an array of files in dir matching target.
    *
@@ -92,19 +106,26 @@
                             (item.GetCustomElementsFrom ||
                              elements.GetCustomElementsFrom).split('/')));
     item.Platforms.forEach(function (platform) {
-      if (item.TargetFolder) {
+      if (! item.TargetFolder && ! item.TargetAction) {
+        throw new Error("[hooks] Entry '%s' must have either a TargetFolder" +
+                        " or TargetAction", JSON.stringify(item));
+      } else {
         var got = sourceName;
         matchesInDir(sourceName, customElementsDir).forEach(
           function (fromName) {
-            var toName = targetName || fromName;
-            doCopyIfPresent(fromName, toName, item.TargetFolder, platform);
+            if (item.TargetFolder) {
+              var toName = targetName || fromName;
+              doCopyIfPresent(fromName,
+                              toName,
+                              item.TargetFolder,
+                              platform);
+            } else if (item.TargetAction) {
+              doAction(item.TargetAction,
+                       customElementsDir,
+                       fromName,
+                       platform);
+            };
           });
-      } else if (item.TargetAction) {
-        //doActionIfPresent(customElementsDir, sourceName,
-        //                  item.TargetFolder, platform);
-      } else {
-        throw new Error("[hooks] Entry '%s' must have either a TargetFolder" +
-                        " or TargetAction", JSON.stringify(item));
       };
     });
   }

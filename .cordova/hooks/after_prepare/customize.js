@@ -8,21 +8,16 @@
         projectRootDir, 'custom', 'brand', 'project_config.json'),
       projectName = require(projectConfigFilePath).projectName,
       elementsFilePath = path.join(projectRootDir, 'custom', 'elements.json'),
-      // require throws error if file is not found:
       elements = require(elementsFilePath),
       elementsNum = 0,
       platformDestinations = {
         android: path.join(projectRootDir, 'platforms', 'android'),
         ios: path.join(projectRootDir, 'platforms', 'ios', projectName)
       },
-      customElementsDir =
-        path.join(projectRootDir,
-                  path.join.apply({},
-                                  // Split+path.join for platform independence:
-                                  elements.GetCustomElementsFrom.split('/'))),
       platform;
 
-  console.log("[hooks] Applying customizations from %s", elementsFilePath);
+  console.log("[hooks] Applying customizations from %s",
+              path.relative(projectRootDir, elementsFilePath));
 
   /** Copy optional customization elements to the indicated platform dir.
    *
@@ -30,14 +25,14 @@
    * @param {string} sourceFileName The file being copied from
    * @param {string} targetFileName The file being copied to
    * @param {string} targetPath The target path relative to platfom dir root
-   * @param {string} platform The name of the target platform (case insensitive)
+   * @param {string} platform The name of target platform (case insensitive)
    */
   function doCopyIfPresent(sourceFileName, targetFileName,
                            targetPath, platform) {
     var platformLC = platform.toLowerCase();
     if (! platformDestinations.hasOwnProperty(platformLC)) {
-      throw new Error("[hooks] Unrecognized customization platform '%s'",
-                      platform);
+      throw new Error("[hooks] Unrecognized customization platform '" +
+                      platform + "'");
     }
     var fromPath = path.join(customElementsDir, sourceFileName);
     var destPath = path.join(platformDestinations[platformLC],
@@ -53,30 +48,64 @@
       }
       var readStream = fs.createReadStream(fromPath);
       var writeStream = fs.createWriteStream(destPath);
-      // Occupy event queue until write 'end' so process doesn't exit 'til done:
+      // Occupy event queue until write end so process doesn't exit 'til done:
       writeStream.on('end', function (event) {
-        // console.log() seems to be ineffective in an event handler?
         //console.log("[hooks] %s written.", destPath);
       });
-      //console.log("[hooks] Copying custom platform %s element %s to: %s",
-      //            platform, sourceFileName, destPath);
+      console.log("[hooks] (%s) %s => %s",
+                  platform, sourceFileName,
+                  path.relative(projectRootDir, destPath));
       readStream.pipe(writeStream);
       return true;
     }
     return false;
   }
 
+  /** Return an array of files in dir matching target.
+   *
+   * If the target name starts with "^", it's treated as a regexp.
+   *
+   * @param{string} dir within which to seek matches
+   * @param{string} target name to match a filename in dir
+   */
+  function matchesInDir(target, dir) {
+    var entries = fs.readdirSync(dir) || [],
+        asRegexp = target.charAt(0) === "^",
+        got = entries.filter(function (name) {
+          return asRegexp ? name.match(target) : (name === target);
+        });
+    return got;
+  };
+
   /* Iterate the custom element entries, copying elements found in the
    * CustomElements folder to locations indicated, relative to the
    * projectRootDir. */
   for (var i in elements.Items) {
     var item = elements.Items[i],
-        sourceFileName = item.SourceFileName || item.FileName,
-        targetFileName = item.TargetFileName || item.FileName;
-    for (var p in item.Platforms) {
-      platform = item.Platforms[p];
-      doCopyIfPresent(sourceFileName, targetFileName,
-                      item.TargetFolder, platform);
-    }
+        sourceName = item.SourceFileName,
+        targetName = item.TargetFileName,
+        customElementsDir =
+          path.join(
+            projectRootDir,
+            path.join.apply({},
+                            // Split+.join for platform independence:
+                            (item.GetCustomElementsFrom ||
+                             elements.GetCustomElementsFrom).split('/')));
+    item.Platforms.forEach(function (platform) {
+      if (item.TargetFolder) {
+        var got = sourceName;
+        matchesInDir(sourceName, customElementsDir).forEach(
+          function (fromName) {
+            var toName = targetName || fromName;
+            doCopyIfPresent(fromName, toName, item.TargetFolder, platform);
+          });
+      } else if (item.TargetAction) {
+        //doActionIfPresent(customElementsDir, sourceName,
+        //                  item.TargetFolder, platform);
+      } else {
+        throw new Error("[hooks] Entry '%s' must have either a TargetFolder" +
+                        " or TargetAction", JSON.stringify(item));
+      };
+    });
   }
 })(require, console);

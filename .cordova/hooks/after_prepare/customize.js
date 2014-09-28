@@ -14,11 +14,39 @@
         android: path.join(projectRootDir, 'platforms', 'android'),
         ios: path.join(projectRootDir, 'platforms', 'ios', projectName)
       },
+      platformDispositions = {},
       targetActions = {},
       platform;
 
-  console.log("[hooks] Applying customizations from %s",
+  console.log("[customize hook] Applying customizations from %s",
               path.relative(projectRootDir, elementsFilePath));
+
+  /** Fill in platformDispositions.
+   *
+   * For each platform in platformDispositions, each disposition is one of:
+   *
+   * - 'ready'
+   * - 'absent' - platform directory not present
+   * - 'done' - [NOT YET IMPLEMENTED] prevent repeating on multiple passes
+   *
+   * Also, log a message for platforms we'll be skipping, due to disposition.
+   */
+  function determineDispositions() {
+    var platform, location;
+    for (platform in platformDestinations) {
+      if (platformDestinations.hasOwnProperty(platform)) {
+        location = platformDestinations[platform];
+        if (! fs.existsSync(location)) {
+          platformDispositions[platform] = 'absent';
+          console.log("[customize hook] skipping not-yet existent " +
+                      " platform " + platform);
+        } else {
+          platformDispositions[platform] = 'ready';
+        }
+      }
+    };
+  };
+  determineDispositions();
 
   /** Copy optional customization elements to the indicated platform dir.
    *
@@ -32,7 +60,7 @@
                            targetPath, platform) {
     var platformLC = platform.toLowerCase();
     if (! platformDestinations.hasOwnProperty(platformLC)) {
-      throw new Error("[hooks] Unrecognized customization platform '" +
+      throw new Error("[customize hook] Unrecognized customization platform '" +
                       platform + "'");
     }
     var fromPath = path.join(customElementsDir, sourceFileName);
@@ -42,7 +70,7 @@
     // Copy if optional item is present.
     if (fs.existsSync(fromPath)) {
       if (! fs.existsSync(path.dirname(destPath))) {
-        console.log("[hooks] Skipping missing %s destination dir" +
+        console.log("[customize hook] Skipping missing %s destination dir" +
                     " for item %s: %s",
                     platform, item.FileName, path.dirname(destPath));
         return false;
@@ -51,9 +79,9 @@
       var writeStream = fs.createWriteStream(destPath);
       // Occupy event queue until write end so process doesn't exit 'til done:
       writeStream.on('end', function (event) {
-        //console.log("[hooks] %s written.", destPath);
+        //console.log("[customize hook] %s written.", destPath);
       });
-      console.log("[hooks] (%s) %s => %s",
+      console.log("[customize hook] (%s) %s => %s",
                   platform, sourceFileName,
                   path.relative(projectRootDir, destPath));
       readStream.pipe(writeStream);
@@ -64,15 +92,15 @@
 
   function doAction(action, sourceDir, sourceName, platform) {
     if (! targetActions.hasOwnProperty(action)) {
-      throw new Error("[hooks] customize: unknown targetAction '" +
-                      action + "'");
+      throw new Error("[customize hook]  unknown targetAction" +
+                      " '" + action + "'");
     } else {
       return targetActions[action](action, sourceDir, sourceName, platform);
     }
   };
   targetActions.iOSaddCertificate = iOSaddCertAction;
   function iOSaddCertAction (action, sourceDir, sourceName, platform) {
-    console.log("[hooks] STUB Action %s on %s", action, sourceName);
+    console.log("[customize hook] STUB Action %s on %s", action, sourceName);
   };
 
   /** Return an array of files in dir matching target.
@@ -106,8 +134,11 @@
                             (item.GetCustomElementsFrom ||
                              elements.GetCustomElementsFrom).split('/')));
     item.Platforms.forEach(function (platform) {
+      if (platformDispositions[platform.toLowerCase()] !== 'ready') {
+        return;
+      };
       if (! item.TargetFolder && ! item.TargetAction) {
-        throw new Error("[hooks] Entry '%s' must have either a TargetFolder" +
+        throw new Error("[customize hook] Entry '%s' must have either a TargetFolder" +
                         " or TargetAction", JSON.stringify(item));
       } else {
         var got = sourceName;

@@ -2,11 +2,13 @@
 
 (function(require, console) {
   var fs = require('fs'),
+      xcode = require('xcode'),
       path = require('path'),
       projectRootDir = path.resolve(__dirname, '..', '..', '..'),
       projectConfigFilePath = path.join(
         projectRootDir, 'custom', 'brand', 'project_config.json'),
       projectName = require(projectConfigFilePath).projectName,
+      iosProjectObject,
       elementsFilePath = path.join(projectRootDir, 'custom', 'elements.json'),
       elements = require(elementsFilePath),
       elementsNum = 0,
@@ -48,7 +50,15 @@
   };
   determineDispositions();
 
+  if (platformDispositions['ios'] === 'ready') {
+    iosProjectObject = xcode.project(platformDestinations['ios'] +
+                                     ".xcodeproj/project.pbxproj");
+    iosProjectObject.parseSync();
+  };
+
   /** Copy optional customization elements to the indicated platform dir.
+   *
+   * We fail if the source item is present but the target directory is not.
    *
    * @return true if item was present and copied, false otherwise.
    * @param {string} sourceFileName The file being copied from
@@ -60,8 +70,8 @@
                            targetPath, platform) {
     var platformLC = platform.toLowerCase();
     if (! platformDestinations.hasOwnProperty(platformLC)) {
-      throw new Error("[customize hook] Unrecognized customization platform '" +
-                      platform + "'");
+      throw new Error("[customize hook] Unrecognized customization platform" +
+                      " '" + platform + "'");
     }
     var fromPath = path.join(customElementsDir, sourceFileName);
     var destPath = path.join(platformDestinations[platformLC],
@@ -70,10 +80,9 @@
     // Copy if optional item is present.
     if (fs.existsSync(fromPath)) {
       if (! fs.existsSync(path.dirname(destPath))) {
-        console.log("[customize hook] Skipping missing %s destination dir" +
-                    " for item %s: %s",
-                    platform, item.FileName, path.dirname(destPath));
-        return false;
+        throw new Error("[customize hook] Copy failed due to missing " +
+                        platform + " destination directory for item " +
+                        item.FileName + ": " + path.dirname(destPath));
       }
       var readStream = fs.createReadStream(fromPath);
       var writeStream = fs.createWriteStream(destPath);
@@ -86,13 +95,16 @@
                   path.relative(projectRootDir, destPath));
       readStream.pipe(writeStream);
       return true;
+    } else {
+      console.log("[customize hook] (%s) %s is absent (%s).",
+                  platform, sourceFileName, fromPath);
     }
     return false;
   };
 
   function doAction(action, sourceDir, sourceName, platform) {
     if (! targetActions.hasOwnProperty(action)) {
-      throw new Error("[customize hook]  unknown targetAction" +
+      throw new Error("[customize hook] Unknown targetAction" +
                       " '" + action + "'");
     } else {
       return targetActions[action](action, sourceDir, sourceName, platform);
@@ -100,7 +112,12 @@
   };
   targetActions.iOSaddCertificate = iOSaddCertAction;
   function iOSaddCertAction (action, sourceDir, sourceName, platform) {
-    console.log("[customize hook] STUB Action %s on %s", action, sourceName);
+    var resourcePath = path.join(sourceDir, sourceName);
+    doCopyIfPresent(path.join(sourceDir, sourceName), sourceName,
+                    platformDestinations['ios'], 'ios');
+    iosProjectObject.addResourceFile(resourcePath);
+    console.log("[customize hook] Did %s: %s",
+                action, path.relative(projectRootDir, resourcePath));
   };
 
   /** Return an array of files in dir matching target.
@@ -126,13 +143,13 @@
     var item = elements.Items[i],
         sourceName = item.SourceFileName,
         targetName = item.TargetFileName,
+        getCustomElementsFrom =
+          path.join.apply({},
+                          // Split+.join for platform independence:
+                          (item.GetCustomElementsFrom ||
+                           elements.GetCustomElementsFrom).split('/')),
         customElementsDir =
-          path.join(
-            projectRootDir,
-            path.join.apply({},
-                            // Split+.join for platform independence:
-                            (item.GetCustomElementsFrom ||
-                             elements.GetCustomElementsFrom).split('/')));
+          path.join(projectRootDir, getCustomElementsFrom);
     item.Platforms.forEach(function (platform) {
       if (platformDispositions[platform.toLowerCase()] !== 'ready') {
         return;
@@ -152,7 +169,7 @@
                               platform);
             } else if (item.TargetAction) {
               doAction(item.TargetAction,
-                       customElementsDir,
+                       getCustomElementsFrom,
                        fromName,
                        platform);
             };

@@ -66,14 +66,14 @@
    * @param {string} targetPath The target path relative to platfom dir root
    * @param {string} platform The name of target platform (case insensitive)
    */
-  function doCopyIfPresent(sourceFileName, targetFileName,
+  function doCopyIfPresent(sourceDir, sourceFileName, targetFileName,
                            targetPath, platform) {
     var platformLC = platform.toLowerCase();
     if (! platformDestinations.hasOwnProperty(platformLC)) {
       throw new Error("[customize hook] Unrecognized customization platform" +
                       " '" + platform + "'");
     }
-    var fromPath = path.join(customElementsDir, sourceFileName);
+    var fromPath = path.join(sourceDir, sourceFileName);
     var destPath = path.join(platformDestinations[platformLC],
                              path.join.apply({}, targetPath.split("/")),
                              targetFileName);
@@ -82,7 +82,7 @@
       if (! fs.existsSync(path.dirname(destPath))) {
         throw new Error("[customize hook] Copy failed due to missing " +
                         platform + " destination directory for item " +
-                        item.FileName + ": " + path.dirname(destPath));
+                        sourceFileName + ": " + path.dirname(destPath));
       }
       var readStream = fs.createReadStream(fromPath);
       var writeStream = fs.createWriteStream(destPath);
@@ -102,19 +102,28 @@
     return false;
   };
 
-  function doAction(action, sourceDir, sourceName, platform) {
+  function doAction(action, sourceDir, sourceName, targetName, platform) {
     if (! targetActions.hasOwnProperty(action)) {
       throw new Error("[customize hook] Unknown targetAction" +
                       " '" + action + "'");
     } else {
-      return targetActions[action](action, sourceDir, sourceName, platform);
+      return targetActions[action](action,
+                                   sourceDir,
+                                   sourceName,
+                                   targetName,
+                                   platform);
     }
   };
   targetActions.iOSaddCertificate = iOSaddCertAction;
-  function iOSaddCertAction (action, sourceDir, sourceName, platform) {
+  function iOSaddCertAction(action, sourceDir, sourceName, targetName,
+                            platform) {
     var resourcePath = path.join(sourceDir, sourceName);
-    doCopyIfPresent(path.join(sourceDir, sourceName), sourceName,
-                    platformDestinations['ios'], 'ios');
+    doCopyIfPresent(sourceDir,
+                    sourceName,
+                    sourceName,
+                    "",
+                    'ios');
+    console.log("[customize hook] %s %s", action, sourceName);
     iosProjectObject.addResourceFile(resourcePath);
     console.log("[customize hook] Did %s: %s",
                 action, path.relative(projectRootDir, resourcePath));
@@ -155,22 +164,25 @@
         return;
       };
       if (! item.TargetFolder && ! item.TargetAction) {
-        throw new Error("[customize hook] Entry '%s' must have either a TargetFolder" +
-                        " or TargetAction", JSON.stringify(item));
+        throw new Error("[customize hook] Entry '%s' must have either a" +
+                        " TargetFolder or TargetAction",
+                        JSON.stringify(item));
       } else {
         var got = sourceName;
         matchesInDir(sourceName, customElementsDir).forEach(
           function (fromName) {
+            var toName = targetName || fromName;
             if (item.TargetFolder) {
-              var toName = targetName || fromName;
-              doCopyIfPresent(fromName,
+              doCopyIfPresent(customElementsDir,
+                              fromName,
                               toName,
                               item.TargetFolder,
                               platform);
             } else if (item.TargetAction) {
               doAction(item.TargetAction,
-                       getCustomElementsFrom,
+                       customElementsDir,
                        fromName,
+                       toName,
                        platform);
             };
           });

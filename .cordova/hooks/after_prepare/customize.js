@@ -60,7 +60,7 @@
    *
    * We fail if the source item is present but the target directory is not.
    *
-   * @return true if item was present and copied, false otherwise.
+   * @return target path if item was present and copied, false otherwise.
    * @param {string} sourceFileName The file being copied from
    * @param {string} targetFileName The file being copied to
    * @param {string} targetPath The target path relative to platfom dir root
@@ -94,7 +94,7 @@
                   platform, sourceFileName,
                   path.relative(projectRootDir, destPath));
       readStream.pipe(writeStream);
-      return true;
+      return destPath;
     } else {
       console.log("[customize hook] (%s) %s is absent (%s).",
                   platform, sourceFileName, fromPath);
@@ -117,16 +117,15 @@
   targetActions.iOSaddCertificate = iOSaddCertAction;
   function iOSaddCertAction(action, sourceDir, sourceName, targetName,
                             platform) {
-    var resourcePath = path.join(sourceDir, sourceName);
-    doCopyIfPresent(sourceDir,
-                    sourceName,
-                    sourceName,
-                    "",
-                    'ios');
-    console.log("[customize hook] %s %s", action, sourceName);
-    iosProjectObject.addResourceFile(resourcePath);
+    var resourcePath = path.join(sourceDir, sourceName),
+        destPath, projFile;
+    destPath = doCopyIfPresent(sourceDir, sourceName, sourceName, "",
+                                   'ios');
+    projFile = iosProjectObject.addResourceFile(destPath);
     console.log("[customize hook] Did %s: %s",
                 action, path.relative(projectRootDir, resourcePath));
+    fs.writeFileSync(iosProjectObject.filepath, iosProjectObject.writeSync());
+    return projFile;
   };
 
   /** Return an array of files in dir matching target.

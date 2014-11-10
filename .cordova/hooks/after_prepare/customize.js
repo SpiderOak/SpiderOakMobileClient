@@ -50,12 +50,6 @@
   };
   determineDispositions();
 
-  if (platformDispositions['ios'] === 'ready') {
-    iosProjectObject = xcode.project(platformDestinations['ios'] +
-                                     ".xcodeproj/project.pbxproj");
-    iosProjectObject.parseSync();
-  };
-
   /** Copy optional customization elements to the indicated platform dir.
    *
    * We fail if the source item is present but the target directory is not.
@@ -118,7 +112,10 @@
   function iOSaddCertAction(action, sourceDir, sourceName, targetName,
                             platform) {
     var resourcePath = path.join(sourceDir, sourceName),
+        iosProjectObject = xcode.project(platformDestinations['ios'] +
+                                         ".xcodeproj/project.pbxproj"),
         destPath, projFile;
+    iosProjectObject.parseSync();
     destPath = doCopyIfPresent(sourceDir, sourceName, sourceName, "",
                                    'ios');
     projFile = iosProjectObject.addResourceFile(destPath);

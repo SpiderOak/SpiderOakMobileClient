@@ -1,3 +1,4 @@
+/**/gitignore-*
 www/components/**/*
 bower_components/**/*
 !www/components/.gitignore

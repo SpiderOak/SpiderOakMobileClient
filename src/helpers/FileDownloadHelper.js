@@ -215,6 +215,5 @@
         errorCallback
       );
     };
->>>>>>> 18fc3399025cf9bccfd63f28baae54858c0a430c
 
 })(window);

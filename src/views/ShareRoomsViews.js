@@ -663,7 +663,7 @@
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
     render: function() {
-      // Why is this.model.toJSON() being extended with nothing? 
+      // Why is this.model.toJSON() being extended with nothing?
       this.$el.html(
         window.tmpl[this.templateID](_.extend(this.model.toJSON()))
       );
@@ -732,7 +732,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Server Address");
+        spiderOakApp.mainView.setTitle("ShareRoom Password");
         spiderOakApp.mainView.showBackButton(true);
       }
     },

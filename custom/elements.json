@@ -4,77 +4,107 @@
   "Items":
   [
     {
-      "FileName": "custom_config.js",
+      "SourceFileName": "custom_config.js",
       "TargetFolder": "./assets/www",
       "Format": "Javascript",
       "Purpose": "Build-specific configuration settings",
       "Platforms": ["Android"]
     },
     {
-      "FileName": "custom_config.js",
+      "SourceFileName": "custom_config.js",
       "TargetFolder": "../www",
       "Format": "Javascript",
       "Purpose": "Build-specific configuration settings",
       "Platforms": ["iOS"]
     },
     {
-      "FileName": "brandSpecificInitialization.js",
+      "SourceFileName": "brandSpecificInitialization.js",
       "TargetFolder": "./assets/www",
       "Format": "Javascript",
       "Purpose": "Brand-specific initialization actions.",
       "Platforms": ["Android"]
     },
     {
-      "FileName": "brandSpecificInitialization.js",
+      "SourceFileName": "brandSpecificInitialization.js",
       "TargetFolder": "../www",
       "Format": "Javascript",
       "Purpose": "Brand-specific initialization actions.",
       "Platforms": ["iOS"]
     },
     {
-      "FileName": "customAppStrings.json",
-      "TargetFolder": "./assets/www",
+      "SourceFileName": "customAppStrings.json",
+      "TargetFolder": "assets/www",
       "Format": "Javascript",
       "Purpose": "Build-specific application string mappings",
       "Platforms": ["Android"]
     },
     {
-      "FileName": "customAppStrings.json",
+      "SourceFileName": "customAppStrings.json",
       "TargetFolder": "../www",
       "Format": "Javascript",
       "Purpose": "Build-specific application string mappings",
       "Platforms": ["iOS"]
     },
     {
-      "FileName": "brand_logo.png",
+      "SourceFileName": "^.*\\.cer$",
+      "GetCustomElementsFrom": "./certificates",
+      "TargetFolder": "assets",
+      "Format": "X.509 SSL certificate",
+      "Purpose": "Project-wide server certificates, for cert pinning",
+      "Platforms": ["Android"]
+    },
+    {
+      "SourceFileName": "^.*\\.cer$",
+      "TargetFolder": "assets",
+      "Format": "X.509 SSL certificate",
+      "Purpose": "Brand-specific server certificates, for cert pinning",
+      "Platforms": ["Android"]
+    },
+    {
+      "SourceFileName": "^.*\\.cer$",
+      "GetCustomElementsFrom": "./certificates",
+      "TargetAction": "iOSaddCertificate",
+      "Format": "X.509 SSL certificate",
+      "Purpose": "Project-wide server certificates, for cert pinning",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "^.*\\.cer$",
+      "TargetAction": "iOSaddCertificate",
+      "Format": "X.509 SSL certificate",
+      "Purpose": "Brand-specific server certificates, for cert pinning",
+      "Platforms": ["iOS"]
+    },
+    {
+      "SourceFileName": "brand_logo.png",
       "TargetFolder": "./assets/www/img",
       "Format": "512 x 512 PNG image",
       "Purpose": "Full-size company logo",
       "Platforms": ["Android"]
     },
     {
-      "FileName": "brand_logo.png",
+      "SourceFileName": "brand_logo.png",
       "TargetFolder": "../www/img",
       "Format": "512 x 512 PNG image",
       "Purpose": "Full-size company logo",
       "Platforms": ["iOS"]
     },
     {
-      "FileName": "menu_hive.png",
+      "SourceFileName": "menu_hive.png",
       "TargetFolder": "./assets/www/img/spideroak-icons/menu",
       "Format": "80 x 80 PNG image",
       "Purpose": "Hive menu logo",
       "Platforms": ["Android"]
     },
     {
-      "FileName": "menu_hive.png",
+      "SourceFileName": "menu_hive.png",
       "TargetFolder": "../www/img/spideroak-icons/menu",
       "Format": "80 x 80 PNG image",
       "Purpose": "Hive menu logo",
       "Platforms": ["iOS"]
     },
     {
-      "FileName": "icon.png",
+      "SourceFileName": "icon.png",
       "TargetFolder": "./assets/www/img",
       "Format": "57 x 57 PNG image",
       "Purpose": "Menu-sheet 'back' button icon",
@@ -177,56 +207,14 @@
       "Platforms": ["iOS"]
     },
     {
-      "SourceFileName": "Default-568h@2x~iphone.png",
-      "TargetFileName": "Default-568h@2x~iphone.png",
+      "SourceFileName": "^Default.*~iphone.png$",
       "TargetFolder": "./Resources/splash",
       "Format": "splash PNG image",
       "Purpose": "iOS application splash screen",
       "Platforms": ["iOS"]
     },
     {
-      "SourceFileName": "Default-Landscape@2x~ipad.png",
-      "TargetFileName": "Default-Landscape@2x~ipad.png",
-      "TargetFolder": "./Resources/splash",
-      "Format": "splash PNG image",
-      "Purpose": "iOS application splash screen",
-      "Platforms": ["iOS"]
-    },
-    {
-      "SourceFileName": "Default-Landscape~ipad.png",
-      "TargetFileName": "Default-Landscape~ipad.png",
-      "TargetFolder": "./Resources/splash",
-      "Format": "splash PNG image",
-      "Purpose": "iOS application splash screen",
-      "Platforms": ["iOS"]
-    },
-    {
-      "SourceFileName": "Default-Portrait@2x~ipad.png",
-      "TargetFileName": "Default-Portrait@2x~ipad.png",
-      "TargetFolder": "./Resources/splash",
-      "Format": "splash PNG image",
-      "Purpose": "iOS application splash screen",
-      "Platforms": ["iOS"]
-    },
-    {
-      "SourceFileName": "Default-Portrait~ipad.png",
-      "TargetFileName": "Default-Portrait~ipad.png",
-      "TargetFolder": "./Resources/splash",
-      "Format": "splash PNG image",
-      "Purpose": "iOS application splash screen",
-      "Platforms": ["iOS"]
-    },
-    {
-      "SourceFileName": "Default@2x~iphone.png",
-      "TargetFileName": "Default@2x~iphone.png",
-      "TargetFolder": "./Resources/splash",
-      "Format": "splash PNG image",
-      "Purpose": "iOS application splash screen",
-      "Platforms": ["iOS"]
-    },
-    {
-      "SourceFileName": "Default~iphone.png",
-      "TargetFileName": "Default~iphone.png",
+      "SourceFileName": "^Default.*~ipad.png$",
       "TargetFolder": "./Resources/splash",
       "Format": "splash PNG image",
       "Purpose": "iOS application splash screen",

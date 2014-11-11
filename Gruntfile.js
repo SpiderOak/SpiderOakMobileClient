@@ -14,21 +14,6 @@ module.exports = function(grunt) {
         ' * GENERATED FILE. DO NOT EDIT.' + '\n' +
         ' */\n\n'
     },
-    bump: {
-      options: {
-        files: ['package.json', 'bower_config.json'],
-        updateConfigs: ['pkg', 'bower_config'],
-        commit: false,
-        commitMessage: 'Release v%VERSION%',
-        commitFiles: ['package.json'], // '-a' for all files
-        createTag: false,
-        tagName: 'v%VERSION%',
-        tagMessage: 'Version %VERSION%',
-        push: false,
-        pushTo: 'upstream',
-        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
-      }
-    },
     shell: {
       install_ios: {
         command: './node_modules/.bin/cordova -d platform add ios',

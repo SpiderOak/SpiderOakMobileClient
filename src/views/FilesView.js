@@ -192,12 +192,8 @@
       }
       var model = this.model;
       // Start by getting the folder path
-      var path = (spiderOakApp.favoritesCollection.basePath() +
-                  model.composedUrl(true)
-                  .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"),
-                           "/$1/$2/")
-                  .replace(new RegExp(model.get("url")), ""));
-      var favorite = model.toJSON();
+      var path = spiderOakApp.favoritesCollection.favPathForModel(model),
+          favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
       favorite.url = model.composedUrl(true);
@@ -221,12 +217,7 @@
         );
         console.log("adding: " + favorite.name);
         // this.$(".rightButton").addClass("favorite");
-        // Persist Favorites Collection to localStorage
-        // window.store.set(
-        window.store.set(
-          "favorites-" + spiderOakApp.accountModel.get("b32username"),
-          spiderOakApp.favoritesCollection.toJSON()
-        );
+        spiderOakApp.favoritesCollection.store();
         model.set("path", favorite.path);
         model.set("isFavorite", true);
         model.set("favoriteModel", favoriteModel);
@@ -606,10 +597,7 @@
         callback = callback || function(fileEntry) {
           if (model.get("path") !== path) {
             model.set("path", path);
-            window.store.set(
-              "favorites-" + spiderOakApp.accountModel.get("b32username"),
-              spiderOakApp.favoritesCollection.toJSON()
-            );
+            spiderOakApp.favoritesCollection.store();
           }
           spiderOakApp.dialogView.hide();
         };
@@ -635,10 +623,7 @@
               mtime: updatedModelData.mtime,
               size: updatedModelData.size
             });
-            window.store.set(
-              "favorites-" + spiderOakApp.accountModel.get("b32username"),
-              spiderOakApp.favoritesCollection.toJSON()
-            );
+            spiderOakApp.favoritesCollection.store();
           },
           error: function(xhr, errorType, error) {
             // This error is not super important since it only stops updating 
@@ -651,6 +636,7 @@
       this.downloadFile(model, path, _callback);
     },
     removeFavorite: function() {
+      var _this = this;
       // Confirmation dialog
       navigator.notification.confirm(
         "Do you want to remove this file from your favorites?",
@@ -660,58 +646,42 @@
           }
           // If file exists in PERSISTENT file system, delete it
           // @FIXME: Check if the file exists first?
+          // @FIXME: Del may better be reponsibility of favorites collection.
           var options = {
             fsType: window.LocalFileSystem.PERSISTENT,
-            path: this.model.get("path") +
-              this.model.get("name")
+            path: _this.model.get("path") +
+              _this.model.get("name")
           };
-          // this.$(".rightButton").removeClass("favorite");
+          // _this.$(".rightButton").removeClass("favorite");
+          // Remove favoritness regardless of file disposition, so
+          // mishandling of the file doesn't screw the user.
+          spiderOakApp.favoritesCollection.removeFavoriteness(_this.model);
+
+          var deletedSuccess = function (entry) {
+            console.log("Formerly-favorite contents removed");
+          };
           spiderOakApp.downloader.deleteFile(
             options,
-            function(entry) {
-              console.log("File deleted");
-            },
-            function(error) { // @FIXME: Real error handling...
-              navigator.notification.alert(
-                "Error removing favorite from device (error code: " +
-                  error.code + ")",
-                null,
-                "Error",
-                "OK"
-              );
-            }
-          );
-          // Remove model from the Favorites Collection
-          // First determine if this.model is a file model or a favorite model
-          var model = null;
-          if (this.model.get("favoriteModel")) {
-            model = this.model.get("favoriteModel");
-          }
-          else {
-            model = this.model;
-          }
-          // ...then remove it
-          spiderOakApp.favoritesCollection.remove(model);
-          // Persist Favorites Collection to localStorage
-          window.store.set(
-            "favorites-" + spiderOakApp.accountModel.get("b32username"),
-            spiderOakApp.favoritesCollection.toJSON()
-          );
-          // Put the model back to unfavorited state
-          this.model.unset("path");
-          this.model.set("isFavorite", false);
-          this.model.unset("favoriteModel");
-          // Add the file to the recents collection (view or fave)
-          var recentModels = spiderOakApp.recentsCollection.models;
-          var matchingModels = _.filter(recentModels, function(recent){
-            return recent.composedUrl(true) === model.composedUrl(true);
-          });
-          if (matchingModels.length > 1) {
-            // console.log("Multiple duplicates detected...");
-          }
-          spiderOakApp.recentsCollection.remove(matchingModels[0]);
-          spiderOakApp.recentsCollection.add(model);
-        }.bind(this),
+            deletedSuccess,
+            function(error) {
+              // Until 3.1.1, favorites created in Recents were created as
+              // directories containing the identically named file, so if
+              // file deletion fails, we try deleting as a directory, and
+              // really fail if that also doesn't work.
+              spiderOakApp.downloader.deleteDirectoryRecursively(
+                options,
+                deletedSuccess,
+                function(error) { // @FIXME: Real error handling...
+                  navigator.notification.alert(
+                    "Error removing favorite from device (error code: " +
+                      error.code + ")",
+                    null,
+                    "Error",
+                    "OK"
+                  );
+                });
+            });
+        },
         "Favorites"
       );
     },

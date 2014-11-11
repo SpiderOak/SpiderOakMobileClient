@@ -55,16 +55,22 @@
 
   FileDownloadHelper.prototype.downloadFile =
     function(options, successCallback, errorCallback) {
+      var _this = this,
+          path;
+
       options = options || {};
       if (!options.from || !options.to) {
         errorCallback("Missing arguments");
       }
+      path = this.pathForFS(options.to);
+
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
-      this.createPath(
-        options.to,
+
+      _this.createPath(
+        path,
         function pathCreateSuccess(dirEntry) {
           dirEntry.getFile(
-            options.fileName,
+            _this.nameForFS(options.fileName),
             {create: true, exclusive: false},
             function gotFile(fileEntry) {
               var fileTransfer = new window.FileTransfer();
@@ -139,6 +145,7 @@
   FileDownloadHelper.prototype.deleteFile =
     function(options, successCallback, errorCallback) {
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
+      options.path = this.pathForFS(options.path);
       window.requestFileSystem(
         options.fsType,
         0,
@@ -158,5 +165,33 @@
         errorCallback
       );
     };
+
+  /** Massage file names to escape the filesystem-incompible character ':'. */
+  FileDownloadHelper.prototype.nameForFS = function(name) {
+    if (/:/.test(name)) {
+      return name.replace(/:/g, "%3A");
+    } else {
+      return name;
+    }
+  };
+
+  /** Filter bad fs char from path, while preserving protocol portion. */
+  FileDownloadHelper.prototype.pathForFS = function(path) {
+    if (! path) {
+      return path;
+    } else {
+      var splat =  path.split("/"),
+          hasProto = splat[0].match(":"),
+          proto = hasProto ? splat[0] : "",
+          rest = splat.slice(hasProto ? 1 : 0, splat.length),
+          nameForFS = this.nameForFS,
+          got = [];
+      rest.forEach(function (element) {
+        got.push(nameForFS(element));
+      });
+      return proto + got.join("/");
+    }
+  };
+
 
 })(window);

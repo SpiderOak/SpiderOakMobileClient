@@ -74,4 +74,19 @@ describe('FilesView', function() {
       );
     });
   });
+  describe('File names sanitizing', function() {
+    beforeEach(function(){
+      window.spiderOakApp.initialize();
+      this.downloader = window.spiderOakApp.downloader;
+    });
+    it('should transform filenames with ":" colons to contain no colons',
+       function() {
+         this.downloader.nameForFS("with:colon").should.not.match(/:/);
+       });
+    it('should not transform filenames that lack  ":"',
+       function() {
+         var lotsaPunc = "with !@# $%^& *()|? cursing (-;";
+         this.downloader.nameForFS(lotsaPunc).should.equal(lotsaPunc);
+       });
+  });
 });

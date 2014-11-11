@@ -192,11 +192,11 @@
       }
       var model = this.model;
       // Start by getting the folder path
-      var path = "Download/" + s("SpiderOak") + "/.favorites/" +
-        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.composedUrl(true)
-          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
-          .replace(new RegExp(model.get("url")), "");
+      var path = (spiderOakApp.favoritesCollection.basePath() +
+                  model.composedUrl(true)
+                  .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"),
+                           "/$1/$2/")
+                  .replace(new RegExp(model.get("url")), ""));
       var favorite = model.toJSON();
       favorite.path = decodeURI(path);
       favorite.encodedUrl = favorite.url;
@@ -503,7 +503,7 @@
         0,
         function viewFavoriteGetFS(fileSystem) {
           fileSystem.root.getFile(
-            path,
+            spiderOakApp.downloader.pathForFS(path),
             {},
             function viewFavoriteGotFS(fileEntry) {
               if (model.get("openInternally")) {
@@ -596,11 +596,12 @@
     refreshFavorite: function(callback) {
       var model = this.model;
       // @FIXME: This should be in a function and be based on platform
-      var path = "Download/" + s("SpiderOak") + "/.favorites/" +
-        (spiderOakApp.accountModel.get("b32username") || "anonymous") +
-        model.composedUrl(true)
-          .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"), "/$1/$2/")
-          .replace(new RegExp(model.get("encodedUrl") || model.get("url")), "");
+      var path = (spiderOakApp.favoritesCollection.basePath() +
+                  model.composedUrl(true)
+                  .replace(new RegExp("^.*(share|storage)\/([A-Z2-7]*)\/"),
+                           "/$1/$2/")
+                  .replace(new RegExp(model.get("encodedUrl") ||
+                                      model.get("url")), ""));
       var _callback = function(fileEntry) {
         callback = callback || function(fileEntry) {
           if (model.get("path") !== path) {

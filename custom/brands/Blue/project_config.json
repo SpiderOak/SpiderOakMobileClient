@@ -6,5 +6,6 @@
   "identifier": "com.spideroakblue.mobile",
   "androidIdentifier": "com.spideroakblue.android",
   "iosIdentifier": "com.spideroakblue.SpiderOak",
-  "description": "SpiderOak Blue Mobile Client."
+  "description": "SpiderOak Blue Mobile Client.",
+  "customPlugins": []
 }

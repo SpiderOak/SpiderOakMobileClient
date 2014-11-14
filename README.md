@@ -99,7 +99,9 @@ See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/S
 
 #### Brand Customization
 
-This package includes a simple build-time customization facility, described in [White label App Customization](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/White-label-App-Customization).
+The build context is organized so you can configure your clone for brand-specific features, across all the build platforms. See [White label App Customization](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/White-label-App-Customization) for details.
+
+Additionally, files in your clone with names that start with "gitignore-" are exempted from git scrutiny (gitignored). This is handy for, eg, situating server-specific certificates that don't have their own brand configuration, without danger of inadvertently artifact checkin.
 
 ## Binary Releases
 

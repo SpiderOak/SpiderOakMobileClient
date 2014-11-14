@@ -240,8 +240,7 @@ function removeBrandPluginsByCurrentConfig() {
             ") cordova plugins: " + removeCmd);
     code = shell.exec(removeCmd).code;
     if (code !== 0) {
-      blather("Plugins remove failed (" + code + "): " + removeCmd);
-      process.exit(1)
+      blather("Ignoring plugins remove failure (" + code + "): " + removeCmd);
     }
     return true;
   }

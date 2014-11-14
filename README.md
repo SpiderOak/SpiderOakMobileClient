@@ -101,7 +101,7 @@ See the [Running, Testing, and Debugging section](https://github.com/SpiderOak/S
 
 The build context is organized so you can configure your clone for brand-specific features, across all the build platforms. See [White label App Customization](https://github.com/SpiderOak/SpiderOakMobileClient/wiki/White-label-App-Customization) for details.
 
-Additionally, files in your clone with names that start with "gitignore-" are exempted from git scrutiny (gitignored). This is handy for, eg, situating server-specific certificates that don't have their own brand configuration, without danger of inadvertently artifact checkin.
+Additionally, files in your clone with names that start with "gitignore-" are exempted from git scrutiny (gitignored). This is handy for, eg, situating server-specific certificates that don't have their own brand configuration, without danger of inadvertently checking them in.
 
 ## Binary Releases
 

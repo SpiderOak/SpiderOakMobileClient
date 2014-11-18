@@ -51,7 +51,7 @@ var fs = require('fs'),
     platformsDir = path.join(projectRootDir, "platforms"),
     localCordova = path.join(projectRootDir, "node_modules", ".bin",
                              "cordova");
-    thePlatforms = "ios android@3.5.1 --usenpm";
+    thePlatforms = "ios android";
 
 /** Driver, for when this module is run as a script.
  *

@@ -192,7 +192,7 @@
     },
     {
       "SourceFileName": "cordova_ios_152.png",
-      "TargetFileName": "icon-52@2x.png",
+      "TargetFileName": "icon-76@2x.png",
       "TargetFolder": "./Resources/icons",
       "Format": "104 x 104 PNG image",
       "Purpose": "iOS application home-screen icon",

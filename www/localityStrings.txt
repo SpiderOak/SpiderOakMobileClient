@@ -13,7 +13,7 @@
 "File transfer aborted"
 "Please wait"
 "Network timeout"
-"status"
+"status:"
 "Done"
 "Favorites"
 "Do you want to refresh all of your favorites? This will re-download the latest versions."

@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.LoginView = spiderOakApp.ViewBase.extend({
@@ -27,7 +28,8 @@
       $(document).on("blur", "#login input", this.input_blurHandler);
     },
     render: function() {
-      this.$(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
+      this.$(".learn-more").html(qq("Learn more about") + " " +
+                                 s("SpiderOak") + " &raquo;");
       this.$(".remember-me").html(s("Stay logged in"));
       if (this.$(".switch").hasClass("on")) {
         this.$(".switch input[type=checkbox]").attr("checked",true);
@@ -52,18 +54,21 @@
           hasAcceptedId = "hasAcceptedNonZK-" + b32username,
           _this = this;
       if (!username || !password) {
-        navigator.notification.alert("Missing username or password", null,
-                                       "Authentication error", "OK");
+        navigator.notification.alert(qq("Missing username or password"),
+                                     null,
+                                     qq("Authentication error"),
+                                     qq("OK"));
         return;
       }
       if (!spiderOakApp.settings.getOrDefault("server")) {
         if (window.navigator.notification.alert) {
           window.navigator.notification.alert(
-              "Before using the app, you must set your server in the settings",
-              function() {
-                spiderOakApp.loginView.setInitialServer();
-              },
-              "Important note");
+            qq("Before using the app, you must set your server " +
+               "in the settings"),
+            function() {
+              spiderOakApp.loginView.setInitialServer();
+            },
+            qq("Important note"));
         }
         return;
       }
@@ -87,7 +92,7 @@
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").attr("checked") === "true";
-      spiderOakApp.dialogView.showWait({subtitle:"Authenticating"});
+      spiderOakApp.dialogView.showWait({subtitle:qq("Authenticating")});
       var success = function(apiRoot) {
         // @TODO: Do something with the apiRoot
         // Navigate away...
@@ -121,32 +126,33 @@
             dontClearPassword = false;
 
         if ((status === 0) && (error === "interrupted")) {
-          msg = "Authentication interrupted";
+          msg = qq("Authentication interrupted");
           dontClearPassword = true;
           silent = true;
         }
         else if (status === 401) {
-          msg = "Authentication failed - Unauthorized.";
+          msg = qq("Authentication failed - Unauthorized.");
         }
         else if (status === 403) {
-          msg = "Authentication failed - Incorrect username or password.";
+          msg = qq("Authentication failed - Incorrect username or password.");
         }
         else if (status === 404) {
-          msg = "Incorrect ShareID or RoomKey.";
+          msg = qq("Incorrect ShareID or RoomKey.");
         }
         else if (status === 418) {
-          msg = ("We apologize, but you must first complete your account" +
-                 " setup using the " +
-                 s("SpiderOak") + " desktop software.  This is necessary" +
-                 " so that proper cryptographic keys can be generated to" +
-                 " keep your data private.  Please open " +
-                 s("SpiderOak") + " on your" +
-                 " computer to continue.  Thank you. -- The " +
-                 s("SpiderOak") + "Team");
+          msg = (qq("We apologize, but you must first complete your account" +
+                    " setup using the")
+                 + " " + s("SpiderOak") + " " +
+                 qq("desktop software.  This is necessary" +
+                    " so that proper cryptographic keys can be generated to" +
+                    " keep your data private.  Please open") +
+                 s("SpiderOak") + " " +
+                 qq("on your computer to continue.  Thank you. -- The") +
+                 " " + s("SpiderOak") + qq("Team"));
         }
         else {
-          msg = ("Temporary server failure. Please try again later (" +
-                 status + ")");
+          msg = (qq("Temporary server failure. Please try again later") +
+                 " (" + status + ").");
           dontClearPassword = true;
         }
 
@@ -157,7 +163,8 @@
 
         if (! silent) {
           navigator.notification.alert(msg, null,
-                                       "Authentication error", "OK");
+                                       qq("Authentication error"),
+                                       qq("OK"));
         }
       };
 
@@ -395,7 +402,7 @@
 
   // Wasn't sure where else to put this?
   spiderOakApp.SettingsPasscodeAuthView = spiderOakApp.ViewBase.extend({
-    viewTitle: "Enter Passcode",
+    viewTitle: qq("Enter Passcode"),
     className: "passcode-auth-entry",
     events: {
       "touchstart .pinpad .num": "pinpadNum_tapHandler",
@@ -408,7 +415,7 @@
       this.maxIncorrectAttempts = 5;
     },
     render: function() {
-      var title = "Enter your 4 digit passcode to unlock";
+      var title = qq("Enter your 4 digit passcode to unlock");
       this.$el.html(window.tmpl["passcodeEntryViewTemplate"]({
         title: title,
         actionBar: true
@@ -465,10 +472,13 @@
           this.incorrectAttempts++;
           var tooMany = (this.incorrectAttempts >= this.maxIncorrectAttempts);
           spiderOakApp.dialogView.showNotify({
-            title: "Error",
-            subtitle: "Passcode incorrect." +
-              ((tooMany) ? "<br>Too many attempts." : "<br>Try again.") +
-              "<br><br>attempt " + this.incorrectAttempts + " of " +
+            title: qq("Error"),
+            subtitle: qq("Passcode incorrect.") +
+              ((tooMany) ?
+               "<br>" + qq("Too many attempts.") :
+               "<br>" + qq("Try again.")) +
+              "<br><br>" + qq("attempt") + " " +
+              this.incorrectAttempts + " " + qq("of") + " " +
               this.maxIncorrectAttempts
           });
           if (tooMany) {
@@ -484,7 +494,7 @@
     a_bypassTapHandler: function(event) {
       event.preventDefault();
       navigator.notification.confirm(
-        "Bypass passcode and log out?",
+        qq("Bypass passcode and log out?"),
         function (ok) {
           if (ok === 1) {
             spiderOakApp.accountModel.bypassPasscode();
@@ -492,8 +502,8 @@
             this.dismiss();
           }
         }.bind(this),
-        "Bypass passcode?",
-        "Yes,No");
+        qq("Bypass passcode?"),
+        qq("Yes") + "," + qq("No"));
     },
     remove: function() {
       this.close();

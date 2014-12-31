@@ -9,6 +9,7 @@
       _           = window._,
       $           = window.$,
       s           = window.s,
+      qq          = window.qq,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
     timeout: 300000, // five minutes
@@ -308,7 +309,7 @@
       }
       $(".splash").hide();
       spiderOakApp.loginView.$(".learn-more").html(
-          "Learn more about " + s("SpiderOak") + " &raquo;"
+        qq("Learn more about") + " " + s("SpiderOak") + " &raquo;"
       );
     },
     backDisabled: true,
@@ -381,28 +382,31 @@
           standardServer = settings.getValue("standardServer");
       if (inhibitAdvanced && (server !== standardServer)) {
         navigator.notification.confirm(
-          "Advanced login has moved to the 'SpiderOak Blue' app, and we must" +
-            " switch this app from the alternate, " + server +
-            ", to the standard server, " + standardServer + ". To continue" +
-            " using this functionality, please download the 'SpiderOak Blue' app" +
-            " This dialog will appear at app startup until you authorize the change.",
+          qq("Advanced login has moved to the 'SpiderOak Blue' app," +
+             "and we must switch this app from the alternate") + ", " +
+            server + ", " +
+            qq("to the standard server") + ", " +
+            standardServer + ". " +
+            qq("To continue using this functionality, please download the " +
+               "'SpiderOak Blue' app. This dialog will appear at app " +
+               "start until you authorize the change."),
           function (choice) {
             if (choice === 1) {
               spiderOakApp.settings.get("server").set("value", standardServer);
               spiderOakApp.dialogView.showToast({
-                title: "Server changed to spideroak.com",
+                title: qq("Server changed to") + " " + standardServer,
                 duration: 2000
               });
             }
             else {
               spiderOakApp.dialogView.showToast({
-                title: "Alternate server retained",
+                title: qq("Alternate server retained"),
                 duration: 2000
               });
             }
           },
-          'Non-standard server',
-          ['OK, switch now', 'No, maybe later']
+          qq("Non-standard server"),
+          [qq("OK, switch now"), qq("No, maybe later")]
         );
       }
     },
@@ -424,12 +428,12 @@
       };
       window.spiderOakApp.inOfflineConfirm = true;
       navigator.notification.confirm(
-        "Sorry. You should still be able to access your favorites, but " +
-          "Logging in and access to files or folders requires " +
-          "a network connection.",
+        qq("Sorry. You should still be able to access your favorites, but " +
+           "logging in and access to files or folders requires " +
+           "a network connection."),
         onConfirm,
-        'Network error',
-        'OK'
+        qq("Network error"),
+        qq("OK")
       );
       spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },

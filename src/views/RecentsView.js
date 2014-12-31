@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.RecentsView = spiderOakApp.ViewBase.extend({
@@ -55,7 +56,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Recents");
+        spiderOakApp.mainView.setTitle(qq("Recents"));
         spiderOakApp.mainView.showBackButton(false);
       }
     },
@@ -148,9 +149,9 @@
         // Get confirmation
         window.setTimeout(function(){
           navigator.notification.confirm(
-            'Are you sure you want to clear your recent history?',
+            qq("Are you sure you want to clear your recent history?"),
             this.clearRecentsConfirmed,
-            'Clear Recents'
+            qq("Clear Recents")
           );
         }.bind(this), 50);
       }

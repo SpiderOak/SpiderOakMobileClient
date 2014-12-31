@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.PreliminaryView = spiderOakApp.ViewBase.extend({
@@ -25,7 +26,8 @@
       this.$el.html(
         window.tmpl['preliminaryViewTemplate']({})
       );
-      $(".learn-more").html("Learn more about " + s("SpiderOak") + " &raquo;");
+      $(".learn-more").html(qq("Learn more about") + " " + s("SpiderOak") +
+                            " &raquo;");
       return this;
     },
     loginButton_tapHandler: function(event) {

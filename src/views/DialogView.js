@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.DialogView = spiderOakApp.ViewBase.extend({
@@ -28,7 +29,7 @@
     },
     showWait: function(options) {
       options = options || {};
-      options.title = options.title || "Please wait";
+      options.title = options.title || qq("Please wait");
       options.subtitle = options.subtitle || "";
       this.$el.html(window.tmpl["waitDialog"](options));
       if (options.showCancel && $.os.ios) this.$(".cancel-btn").show();
@@ -40,13 +41,14 @@
       options.duration = options.duration || 4000;
       options.subtitle = ((options.subtitle && (options.subtitle + ": ")) ||
                           "");
-      options.subtitle += (response.statusText || "Network timeout " +
-                           "<br>(status: " + (response.status || 0) + ")");
+      options.subtitle += (response.statusText || qq("Network timeout") +
+                           "<br>(" + qq("status:") +
+                           (response.status || 0) + ")");
       return this.showNotify(options);
     },
     showNotify: function(options) {
       options = options || {};
-      options.title = options.title || "Done"; // terrible default ;)
+      options.title = options.title || qq("Done"); // terrible default ;)
       options.subtitle = options.subtitle || "";
       options.duration = options.duration || 2000; // in ms
       this.$el.html(window.tmpl["waitDialog"](options));
@@ -58,7 +60,7 @@
     },
     showToast: function(options) {
       options = options || {};
-      options.title = options.title || "Done"; // terrible default ;)
+      options.title = options.title || qq("Done"); // terrible default ;)
       options.duration = options.duration || 1000; // in ms
       options.onShow = options.onShow || function(){};
       options.onHide = options.onHide || function(){};
@@ -87,7 +89,7 @@
     },
     showProgress: function(options) {
       options = options || {};
-      options.title = options.title || "Please wait";
+      options.title = options.title || qq("Please wait");
       options.subtitle = options.subtitle || "";
       options.start = options.start || 0;
       this.$el.html(window.tmpl["progressDialog"](options));

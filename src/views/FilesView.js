@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s,
       store       = window.store;
 
@@ -69,8 +70,8 @@
       this.fileCounter = 1;
       if (this.collection.length > spiderOakApp.maxEntries) {
         this.$el.append(
-          "<li class='sep'><i class='icon-warning'></i>" +
-          " Too many files. Displaying first " +
+          "<li class='sep'><i class='icon-warning'></i> " +
+            qq("Too many files. Displaying first") + " " +
           spiderOakApp.maxEntries +
           ".</li>"
         );
@@ -99,7 +100,7 @@
       // Download the file to the PERSISTENT file system
       // @FIXME: This might be better moved to a method in the model
       spiderOakApp.dialogView.showProgress({
-        title: "Downloading",
+        title: qq("Downloading"),
         subtitle: model.get("name"),
         start: 0,
         showCancel: true
@@ -179,10 +180,10 @@
       }
       else {
         navigator.notification.confirm(
-          "Do you want to add this file to your favorites? This will " +
-              " download the contents to your device.",
+          qq("Do you want to add this file to your favorites? This will " +
+             " download the contents to your device."),
           this.saveFavoriteConfirmed,
-          "Favorites"
+          qq("Favorites")
         );
       }
     },
@@ -261,10 +262,10 @@
         function(error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
-            "Cannot find an app to handle files of this type.",
+            qq("Cannot find an app to handle files of this type."),
             null,
-            "File error",
-            "OK"
+            qq("File error"),
+            qq("OK")
           );
         }
       );
@@ -276,8 +277,9 @@
       var doView = function (url) {
         // @FIXME: This is a bit Android-centric
         spiderOakApp.dialogView.hide();
-        var text = "I want to share this link to " + model.get("name") +
-            " with you:\n\n  " + url;
+        var text = (qq("I want to share this link to") + " " +
+                    model.get("name") + " " +
+                    qq("with you") + ":\n\n  " + url);
         var extras = {};
         extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
         var params = {
@@ -301,10 +303,10 @@
           },
           function(error) { // @FIXME: Real error handling...
             navigator.notification.alert(
-              "Error sending this link. Try agains later.",
+              qq("Error sending this link. Try again later."),
               null,
-              "File error",
-              "OK"
+              qq("File error"),
+              qq("OK")
             );
           }
         );
@@ -332,9 +334,10 @@
           }
           else {
             spiderOakApp.dialogView.showNotify({
-              title: "Link fetch failed",
-              subtitle: ("Access to link " + url + " failed: " +
-                         xhr.statusText + " (" + xhr.status + ")")
+              title: qq("Link fetch failed"),
+              subtitle: (qq("Access to link") + " " + url + " " +
+                         qq("failed") +
+                         ": " + xhr.statusText + " (" + xhr.status + ")")
             });
           }
         }
@@ -360,10 +363,10 @@
           }.bind(this),
           function errorSharingFileByPath(error) { // @FIXME: Real error handling...
             navigator.notification.alert(
-              "Error sharing file. Error code " + error.code,
+              qq("Error sharing file. Error code") + " " + error.code,
               null,
-              "File error",
-              "OK"
+              qq("File error"),
+              qq("OK")
             );
           }
         );
@@ -403,7 +406,7 @@
         }
       };
       spiderOakApp.dialogView.showProgress({
-        title: "Downloading",
+        title: qq("Downloading"),
         subtitle: this.model.get("name"),
         start: 0,
         showCancel: true
@@ -438,8 +441,8 @@
               function(error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
                 navigator.notification.confirm(
-                  "Cannot find an app to view files of this type. Would you " +
-                  "like to try and open it anyway?",
+                  qq("Cannot find an app to view files of this type.") + " " +
+                    qq("Would you like to try and open it anyway?"),
                   function(button) {
                     if (button !== 1) {
                       return;
@@ -447,8 +450,8 @@
                     window.open(encodeURI(fileEntry.toURL()),"_blank",
                       "location=no");
                   }.bind(this),
-                  "File error",
-                  "Yes,No"
+                  qq("File error"),
+                  qq("Yes") + "," + qq("No")
                 );
               }
             );
@@ -509,9 +512,12 @@
                   function() {
                     // Add the file to the recents collection (view or fave)
                     var recentModels = spiderOakApp.recentsCollection.models;
-                    var matchingModels = _.filter(recentModels, function(recent){
-                      return recent.composedUrl(true) === model.composedUrl(true);
-                    });
+                    var matchingModels = _.filter(
+                      recentModels,
+                      function(recent){
+                        return recent.composedUrl(true) ===
+                          model.composedUrl(true);
+                      });
                     if (matchingModels.length > 1) {
   //                    console.log("Multiple duplicates detected...");
                     }
@@ -520,10 +526,10 @@
                   },
                   function(error) { // @FIXME: Real error handling...
                     navigator.notification.alert(
-                      "Cannot find an app to view files of this type.",
+                      qq("Cannot find an app to view files of this type."),
                       null,
-                      "File error",
-                      "OK"
+                      qq("File error"),
+                      qq("OK")
                     );
                   }
                 );
@@ -532,20 +538,20 @@
             function(error) {
               console.log(JSON.stringify(error));
               navigator.notification.alert(
-                "Error viewing file.",
+                qq("Error viewing file."),
                 null,
-                "File error",
-                "OK"
+                qq("File error"),
+                qq("OK")
               );
             }
           );
         },
         function errorViewingFileByPath(error) { // @FIXME: Real error handling...
           navigator.notification.alert(
-            "Error viewing file. Error code " + error.code,
+            qq("Error viewing file.") + qq("Error code") + " " + error.code,
             null,
-            "File error",
-            "OK"
+            qq("File error"),
+            qq("OK")
           );
         }
       );
@@ -556,7 +562,7 @@
       // Start by getting the folder path
       var path = "Download/";
       navigator.notification.confirm(
-        "Do you want to save this file to your device?",
+        qq("Do you want to save this file to your device?"),
         function(button) {
           if (button !== 1) {
             return;
@@ -574,14 +580,15 @@
             spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
             navigator.notification.alert(
-              fileEntry.name + " saved to " + path + fileEntry.name,
+              fileEntry.name + " " + qq("saved to") + " " + path +
+                fileEntry.name,
               null,
-              "Success",
-              "OK"
+              qq("Success"),
+              qq("OK")
             );
           }.bind(this));
         }.bind(this),
-        "Save file"
+        qq("Save file")
       );
     },
     refreshFavorite: function(callback) {
@@ -639,7 +646,7 @@
       var _this = this;
       // Confirmation dialog
       navigator.notification.confirm(
-        "Do you want to remove this file from your favorites?",
+        qq("Do you want to remove this file from your favorites?"),
         function(button) {
           if (button !== 1) {
             return;
@@ -682,7 +689,7 @@
                 });
             });
         },
-        "Favorites"
+        qq("Favorites")
       );
     },
     which: "FileView"
@@ -791,15 +798,15 @@
       }
       if (this.model.get("isFavorite")) {
         items.push({
-          className: "refresh-favorite", description: "Refresh favorite"
+          className: "refresh-favorite", description: qq("Refresh favorite")
         });
         items.push({
-          className: "un-favorite", description: "Remove from favorites"
+          className: "un-favorite", description: qq("Remove from favorites")
         });
       }
       else {
         items.push({
-          className: "favorite", description: "Add to favorites"
+          className: "favorite", description: qq("Add to favorites")
         });
       }
       var menuView = new spiderOakApp.ContextPopup({
@@ -907,7 +914,7 @@
         }).render();
         this.$(".versions").prepend(this.versionsView.el);
         this.$(".versions").prepend(
-          "<ul><li class='sep'>Previous versions</li></ul>"
+          "<ul><li class='sep'>" + qq("Previous versions") + "</li></ul>"
         );
         var scroller = this.scroller;
         this.versionsView.$el.one("complete", function(event) {

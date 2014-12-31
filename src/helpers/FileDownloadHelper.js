@@ -7,6 +7,7 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
+      qq          = window.qq,
       $           = window.$;
 
   var FileDownloadHelper = window.FileDownloadHelper = function() {
@@ -77,7 +78,7 @@
               fileTransfer.onprogress = options.onprogress || function(){};
               $(document).one("backbutton", function(event) {
                 fileTransfer.abort();
-                errorCallback("File transfer aborted");
+                errorCallback(qq("File transfer aborted"));
               });
               var cacheBuster = "cb=" + Date.now();
               if (!/\?/.test(options.from)) {

@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.SettingsView = spiderOakApp.ViewBase.extend({
@@ -58,8 +59,8 @@
         return;
       }
       var platform = (($.os.android)?"Android":"iOS");
-      var subject = ("Feedback on " + s("SpiderOak") + platform +
-                     " app version " + spiderOakApp.version);
+      var subject = (qq("Feedback on") + " " + s("SpiderOak") + platform +
+                     " " + qq("app version") + " " + spiderOakApp.version);
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
@@ -160,24 +161,24 @@
       if (spiderOakApp.accountModel.getLoginState() === true) {
         window.setTimeout(function(){
           navigator.notification.confirm(
-            'Are you sure you want to sign out?',
+            qq("Are you sure you want to sign out?"),
             function (button) {
               if (button !== 1) {
                 return;
               }
               spiderOakApp.accountModel.logout();
               $("#subviews").html(
-                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
-                "<li class=\"sep\">Loading...</li></ul>");
+                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">"+
+                  "<li class=\"sep\">" + qq("Loading...") + "</li></ul>");
             }.bind(spiderOakApp),
-            'Sign out'
+            qq("Sign out")
           );
         }.bind(this),50);
       }
       else {
         $("#subviews").html(
           "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
-          "<li class=\"sep\">Loading...</li></ul>");
+            "<li class=\"sep\">" + qq("Loading...") + "</li></ul>");
         $(document).trigger("logoutSuccess");
       }
     },
@@ -186,7 +187,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Settings");
+        spiderOakApp.mainView.setTitle(qq("Settings"));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -224,7 +225,7 @@
   spiderOakApp.SettingsAccountView = spiderOakApp.ViewBase.extend({
     // Derive from this and define your particular rendering.
     templateID: "settingsAccountViewTemplate",
-    viewTitle: "Account",
+    viewTitle: qq("Account"),
     destructionPolicy: "never",
     initialize: function() {
       window.bindMine(this);
@@ -286,7 +287,7 @@
   });
 
   spiderOakApp.SettingsServerView = spiderOakApp.ViewBase.extend({
-    name: "Server Address",
+    name: qq("Server Address"),
     templateID: "settingsServerViewTemplate",
     events: {
       "submit form": "form_submitHandler",
@@ -316,7 +317,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Server Address");
+        spiderOakApp.mainView.setTitle(qq("Server Address"));
         spiderOakApp.mainView.showBackButton(true);
       }
     },
@@ -339,7 +340,7 @@
      */
     form_submitHandler: function(event) {
       spiderOakApp.dialogView.showWait({
-        title: "Validating"
+        title: qq("Validating")
       });
       var newServer = window.encodeUTF8(this.$("[name=server]").val().trim()),
           wasServer = this.model.get("value");
@@ -349,8 +350,9 @@
       if (newServer === wasServer) {
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "<i class='icon-info'></i> Unchanged",
-          subtitle: "The specified address is\nalready current"
+          title: "<i class='icon-info'></i>" + qq("Unchanged"),
+          subtitle: (qq("The specified address is") +
+                     "\n" + qq("already current"))
         });
         spiderOakApp.navigator.popView();
       }
@@ -364,14 +366,14 @@
          */
         var concludeServerChangeAttempt = function() {
           spiderOakApp.dialogView.hide();
-          var subtitle = "Service host changed to " + newServer;
+          var subtitle = qq("Service host changed to") + " " + newServer;
           if (wasLoggedIn && wasServer) {
-            subtitle += "\nand session logged out";
+            subtitle += "\n" + qq("and session logged out");
           }
           // Set the app's actual server setting, which is our model:
           this.model.set("value", newServer);
           spiderOakApp.dialogView.showNotify({
-            title: "<i class='icon-info'></i> Server changed",
+            title: "<i class='icon-info'></i>" + qq("Server changed"),
             subtitle: subtitle
           });
           if (spiderOakApp.navigator.viewsStack.length > 0) {
@@ -400,12 +402,12 @@
               spiderOakApp.navigator.popView();
             }
             navigator.notification.alert(
-              newServer + " is not the host of a valid " +
-                s("SpiderOak") + " service." +
-                " The server is unchanged.",
+              newServer + " " + qq("is not the host of a valid") + " " +
+                s("SpiderOak") + " " + qq("service.") + " " +
+                qq("The server is unchanged."),
               null,
-              "Validation error",
-              "OK"
+              qq("Validation error"),
+              qq("OK")
             );
           }
 
@@ -418,8 +420,8 @@
               wasLoggedIn = true;
               spiderOakApp.accountModel.logout(concludeServerChangeAttempt);
               $("#subviews").html(
-                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
-                "<li class=\"sep\">Loading...</li></ul>");
+                "<ul class=\"folderViewLoading loadingFolders loadingFiles\">"+
+                  "<li class=\"sep\">" + qq("Loading...") + "</li></ul>");
             }
             else {
               concludeServerChangeAttempt();
@@ -450,7 +452,7 @@
 
   spiderOakApp.SettingsPasscodeEntryView = spiderOakApp.ViewBase.extend({
     templateID: "passcodeEntryViewTemplate",
-    viewTitle: "Enter Passcode",
+    viewTitle: qq("Enter Passcode"),
     destructionPolicy: "never",
     events: {
       "touchstart .pinpad .num": "pinpadNum_tapHandler"
@@ -465,12 +467,12 @@
       this.maxIncorrectAttempts = 5;
     },
     render: function() {
-      var title = "Enter a new 4 digit passcode";
+      var title = qq("Enter a new 4 digit passcode");
       if (this.action === "auth" || this.action === "remove") {
-        title = "Enter your current 4 digit passcode";
+        title = qq("Enter your current 4 digit passcode");
       }
       if (this.action === "confirm") {
-        title = "Re-enter your new 4 digit passcode";
+        title = qq("Re-enter your new 4 digit passcode");
       }
       this.$el.html(window.tmpl[this.templateID]({
         title: title,
@@ -481,7 +483,9 @@
     },
     popView: function(event) {
       if (_.last(spiderOakApp.navigator.viewsStack).instance === this) {
-        spiderOakApp.navigator.replaceAll(spiderOakApp.SettingsView, {}, spiderOakApp.noEffect);
+        spiderOakApp.navigator.replaceAll(spiderOakApp.SettingsView,
+                                          {},
+                                          spiderOakApp.noEffect);
       }
     },
     pinpadNum_tapHandler: function(event) {
@@ -527,8 +531,9 @@
             );
           } else {
             spiderOakApp.dialogView.showNotify({
-              title: "Error",
-              subtitle: "Passcodes do not match. <br>Try again."
+              title: qq("Error"),
+              subtitle: (qq("Passcodes do not match.") + "<br>" +
+                         qq("Try again."))
             });
             // Clear the confirm code so they can try again
             $passcodeInput.val("");
@@ -563,12 +568,16 @@
             }
           } else {
             this.incorrectAttempts++;
-            var tooMany = (this.incorrectAttempts >= this.maxIncorrectAttempts);
+            var tooMany = (this.incorrectAttempts >=
+                           this.maxIncorrectAttempts);
             spiderOakApp.dialogView.showNotify({
-              title: "Error",
-              subtitle: "Passcode incorrect." +
-                ((tooMany) ? "<br>Too many attempts." : "<br>Try again.") +
-                "<br><br>attempt " + this.incorrectAttempts + " of " +
+              title: qq("Error"),
+              subtitle: qq("Passcode incorrect.") +
+                (((tooMany) ?
+                  ("<br>" + qq("Too many attempts.")) :
+                  "<br>Try again.")) +
+                "<br><br>" + qq("attempt") + " " + this.incorrectAttempts +
+                " " + qq("of") + " " +
                 this.maxIncorrectAttempts
             });
             if (tooMany) {
@@ -624,7 +633,7 @@
 
  spiderOakApp.SettingsPasscodeView = spiderOakApp.ViewBase.extend({
     templateID: "settingsPasscodeViewTemplate",
-    viewTitle: "Passcode settings",
+   viewTitle: qq("Passcode settings"),
     destructionPolicy: "never",
     events: {
       "tap .passcode-settings-change":"passcodeSettingsChange_tapHandler",
@@ -639,25 +648,25 @@
     },
     render: function() {
       var timeout = spiderOakApp.accountModel.getPasscodeTimeout();
-      var timeoutLabel = "Immediately";
+      var timeoutLabel = qq("Immediately");
       switch (timeout) {
         case 1:
-          timeoutLabel = "After 1 minute";
+          timeoutLabel = qq("After 1 minute");
           break;
         case 5:
-          timeoutLabel = "After 5 minutes";
+          timeoutLabel = qq("After 5 minutes");
           break;
         case 15:
-          timeoutLabel = "After 15 minutes";
+          timeoutLabel = qq("After 15 minutes");
           break;
         case 60:
-          timeoutLabel = "After 1 hour";
+          timeoutLabel = qq("After 1 hour");
           break;
         case 240:
-          timeoutLabel = "After 4 hours";
+          timeoutLabel = qq("After 4 hours");
           break;
         default:
-          timeoutLabel = "Immediately";
+          timeoutLabel = qq("Immediately");
       }
       this.$el.html(window.tmpl[this.templateID]({
         timeoutLabel: timeoutLabel
@@ -730,7 +739,7 @@
 
  spiderOakApp.SettingsPasscodeTimeoutView = spiderOakApp.ViewBase.extend({
     templateID: "settingsPasscodeTimeoutViewTemplate",
-    viewTitle: "Require passcode",
+   viewTitle: qq("Require passcode"),
     destructionPolicy: "never",
     events: {
       "tap a.timeout": "aTimeout_tapHandler"

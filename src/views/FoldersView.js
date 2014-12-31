@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.FolderView = spiderOakApp.ViewBase.extend({
@@ -166,9 +167,9 @@
       this.folderCounter = 1;
       if (this.collection.length > spiderOakApp.maxEntries) {
         this.$el.append(
-          "<li class='sep'><i class='icon-warning'></i>" +
-          " Too many folders. Displaying first " +
-          spiderOakApp.maxEntries +
+          "<li class='sep'><i class='icon-warning'></i> " +
+            qq("Too many folders. Displaying first") + " " +
+            spiderOakApp.maxEntries +
           ".</li>"
         );
       }

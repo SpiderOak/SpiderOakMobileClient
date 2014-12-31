@@ -238,6 +238,12 @@ module.exports = function(grunt) {
         ],
         dest: 'www/components/moment/moment.js'
       },
+      html10n: {
+        src: [
+          'bower_components/html10n/l10n.js'
+        ],
+        dest: 'www/components/html10n/l10n.js'
+      },
       defaultcss: {
         options: {
           banner: '<%= meta.banner %>'

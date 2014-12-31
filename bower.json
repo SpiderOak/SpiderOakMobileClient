@@ -10,6 +10,7 @@
     "iscroll": "https://github.com/cubiq/iscroll/archive/v4.2.zip",
     "modernizr": "2.6.3",
     "moment": "~2.0.0",
+    "html10n": "https://github.com/marcelklehr/html10n.js.git",
     "store.js": "1.3.x"
   }
 }

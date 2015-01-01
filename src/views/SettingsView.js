@@ -59,8 +59,10 @@
         return;
       }
       var platform = (($.os.android)?"Android":"iOS");
-      var subject = (qq("Feedback on") + " " + s("SpiderOak") + platform +
-                     " " + qq("app version") + " " + spiderOakApp.version);
+      var subject = qq("Feedback on {{SpiderOak}} {{platform}} app version {{version}}",
+                       {SpiderOak: s("SpiderOak"),
+                        platform: platform,
+                        version: spiderOakApp.version});
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
@@ -351,8 +353,7 @@
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
           title: "<i class='icon-info'></i>" + qq("Unchanged"),
-          subtitle: (qq("The specified address is") +
-                     "\n" + qq("already current"))
+          subtitle: (qq("The specified address is\nalready current"))
         });
         spiderOakApp.navigator.popView();
       }
@@ -366,7 +367,8 @@
          */
         var concludeServerChangeAttempt = function() {
           spiderOakApp.dialogView.hide();
-          var subtitle = qq("Service host changed to") + " " + newServer;
+          var subtitle = qq("Service host changed to {{server}}",
+                            {server: newServer});
           if (wasLoggedIn && wasServer) {
             subtitle += "\n" + qq("and session logged out");
           }
@@ -402,9 +404,8 @@
               spiderOakApp.navigator.popView();
             }
             navigator.notification.alert(
-              newServer + " " + qq("is not the host of a valid") + " " +
-                s("SpiderOak") + " " + qq("service.") + " " +
-                qq("The server is unchanged."),
+              qq("{{server}} is not the host of a valid {{SpiderOak}} service. The server is unchanged.",
+                 {server: newServer, SpiderOak: s("SpiderOak")}),
               null,
               qq("Validation error"),
               qq("OK")
@@ -575,10 +576,10 @@
               subtitle: qq("Passcode incorrect.") +
                 (((tooMany) ?
                   ("<br>" + qq("Too many attempts.")) :
-                  "<br>Try again.")) +
-                "<br><br>" + qq("attempt") + " " + this.incorrectAttempts +
-                " " + qq("of") + " " +
-                this.maxIncorrectAttempts
+                  "<br>" + qq("Try again.")) +
+                "<br><br>" + qq("Attempt {{incorrects}} of {{maxIncorrects}}",
+                              {incorrects: this.incorrectAttempts,
+                               maxIncorrects: this.maxIncorrectAttempts}))
             });
             if (tooMany) {
               spiderOakApp.accountModel.bypassPasscode();

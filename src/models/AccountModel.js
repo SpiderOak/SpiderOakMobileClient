@@ -227,9 +227,7 @@
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
-          qq("Sorry! You should still be able to access your favorites, " +
-             "but logging in and access to files or folders requires a " +
-             "network connection."),
+          qq("Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."),
           function(){},
           qq("Network error"),
           qq("OK")

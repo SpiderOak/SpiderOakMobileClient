@@ -71,9 +71,9 @@
       if (this.collection.length > spiderOakApp.maxEntries) {
         this.$el.append(
           "<li class='sep'><i class='icon-warning'></i> " +
-            qq("Too many files. Displaying first") + " " +
-          spiderOakApp.maxEntries +
-          ".</li>"
+            qq("Too many files. Displaying first {{numEntries}}",
+               {numEntries: spiderOakApp.maxEntries}) +
+            ".</li>"
         );
       }
       this.collection.each(this.addOne, this);
@@ -180,8 +180,7 @@
       }
       else {
         navigator.notification.confirm(
-          qq("Do you want to add this file to your favorites? This will " +
-             " download the contents to your device."),
+          qq("Do you want to add this file to your favorites? This will download the contents to your device."),
           this.saveFavoriteConfirmed,
           qq("Favorites")
         );
@@ -272,14 +271,14 @@
     },
     sendLink: function() {
       var model = this.model;
-      spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
+      spiderOakApp.dialogView.showWait({subtitle:qq("Retrieving link")});
 
       var doView = function (url) {
         // @FIXME: This is a bit Android-centric
         spiderOakApp.dialogView.hide();
-        var text = (qq("I want to share this link to") + " " +
-                    model.get("name") + " " +
-                    qq("with you") + ":\n\n  " + url);
+        var text = (qq("I want to share this link to {{modelName}} with you:",
+                       {modelName: model.get("name")}) +
+                    "\n\n  " + url);
         var extras = {};
         extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
         var params = {
@@ -335,9 +334,8 @@
           else {
             spiderOakApp.dialogView.showNotify({
               title: qq("Link fetch failed"),
-              subtitle: (qq("Access to link") + " " + url + " " +
-                         qq("failed") +
-                         ": " + xhr.statusText + " (" + xhr.status + ")")
+              subtitle: qq("Access to link {{url}} failed: {{statusText}} ({{statusCode}})",
+                           {url: url, text: xhr.statusText, code: xhr.status})
             });
           }
         }
@@ -361,9 +359,11 @@
               }.bind(this)
             );
           }.bind(this),
-          function errorSharingFileByPath(error) { // @FIXME: Real error handling...
+          // @FIXME: Real error handling...
+          function errorSharingFileByPath(error) {
             navigator.notification.alert(
-              qq("Error sharing file. Error code") + " " + error.code,
+              qq("Error sharing file. Error code {{code}}",
+                 {code: error.code}),
               null,
               qq("File error"),
               qq("OK")
@@ -441,8 +441,7 @@
               function(error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
                 navigator.notification.confirm(
-                  qq("Cannot find an app to view files of this type.") + " " +
-                    qq("Would you like to try and open it anyway?"),
+                  qq("Cannot find an app to view files of this type. Would you like to try and open it anyway?"),
                   function(button) {
                     if (button !== 1) {
                       return;
@@ -451,7 +450,7 @@
                       "location=no");
                   }.bind(this),
                   qq("File error"),
-                  qq("Yes") + "," + qq("No")
+                  [qq("Yes"), qq("No")]
                 );
               }
             );
@@ -548,7 +547,8 @@
         },
         function errorViewingFileByPath(error) { // @FIXME: Real error handling...
           navigator.notification.alert(
-            qq("Error viewing file.") + qq("Error code") + " " + error.code,
+            qq("Error viewing file. Error code {{code}}",
+               {code: error.code}),
             null,
             qq("File error"),
             qq("OK")
@@ -580,8 +580,8 @@
             spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
             navigator.notification.alert(
-              fileEntry.name + " " + qq("saved to") + " " + path +
-                fileEntry.name,
+              qq("{{name}} saved to {{path}}{{name}}",
+                 {name: fileEntry.name, path: path}),
               null,
               qq("Success"),
               qq("OK")

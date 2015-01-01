@@ -152,8 +152,7 @@
     refreshAllFavorites: function(event) {
       event.stopImmediatePropagation();
       navigator.notification.confirm(
-        qq("Do you want to refresh all of your favorites? " +
-           "This will re-download the latest versions."),
+        qq("Do you want to refresh all of your favorites? This will re-download the latest versions."),
         function(button) {
           if (button !== 1) {
             return;

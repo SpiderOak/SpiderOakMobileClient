@@ -37,12 +37,13 @@
     },
     showNotifyErrorResponse: function(response, options) {
       options = options ? _.clone(options) : {};
-      options.title = options.title || "<i class='icon-warning'></i> Error";
+      options.title = options.title || ("<i class='icon-warning'></i>" +
+                                        qq("Error"));
       options.duration = options.duration || 4000;
       options.subtitle = ((options.subtitle && (options.subtitle + ": ")) ||
                           "");
       options.subtitle += (response.statusText || qq("Network timeout") +
-                           "<br>(" + qq("status:") +
+                           "<br>(" + qq("status") + ": " +
                            (response.status || 0) + ")");
       return this.showNotify(options);
     },

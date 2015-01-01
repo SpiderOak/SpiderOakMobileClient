@@ -318,8 +318,8 @@
         spiderOakApp.dialogView.showNotify({
           title: "<i class='icon-warning'></i>" +
             qq("ShareRoom already present"),
-          subtitle: (qq("Public ShareRoom") + " " + shareId + "/" +
-                     roomKey + " " + qq("is already being visited."))
+          subtitle: qq("Public ShareRoom {{shareid}}/{{roomkey}} is already being visited.",
+                       {shareid: shareId, roomkey: roomKey})
         });
       }
       else {
@@ -333,8 +333,8 @@
               response,
               {
                 title: "<i class='icon-warning'></i>" + qq("Not found"),
-                subtitle: (qq("No such ShareRoom") + " " + shareId +
-                           " / " + roomKey)
+                subtitle: qq("ShareRoom {{shareid}}/{{roomkey}} not found.",
+                             {shareid: shareId, roomkey: roomKey})
               });
           }
         });
@@ -493,8 +493,9 @@
       var name = model.get("name");
       var alternate = model.get("share_id") + "/" + model.get("room_key");
       var text = (qq("I want to share this link with you:") +
-                  "\n\n" + qq("ShareRoom:") + " " + (name || alternate) +
-                  "\n" + qq("Link:") + " " + model.getWebURL());
+                  "\n\n" + qq("ShareRoom: {{name}}",
+                              {name: (name || alternate)}) +
+                  "\n" + qq("Link: {{url}}", {url: model.getWebURL()}));
       if (model.get("password_required") || model.get("password")) {
         text += "\n\n" + qq("(Access requires an additional password.)");
       }
@@ -522,7 +523,7 @@
         function(error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
-            qq("Error sending this link. Try again later."),
+            qq("Error sending this link. Please try later."),
             null,
             qq("File error"),
             qq("OK")
@@ -644,7 +645,7 @@
         qq("Remove this ShareRoom?"),
         removeShare,
         qq("Remove?"),
-        qq("OK") + "," + qq("Cancel")
+        [qq("OK"), qq("Cancel")]
       );
     },
     which: "PublicShareRoomItemView"

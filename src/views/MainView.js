@@ -8,7 +8,6 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
-      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.MainView = spiderOakApp.ViewBase.extend({

@@ -28,8 +28,10 @@
       $(document).on("blur", "#login input", this.input_blurHandler);
     },
     render: function() {
-      this.$(".learn-more").html(qq("Learn more about") + " " +
-                                 s("SpiderOak") + " &raquo;");
+      this.$(".learn-more").html(
+        qq("Learn more about {{SpiderOak}}&raquo;",
+           {SpiderOak: s("SpiderOak")})
+      );
       this.$(".remember-me").html(s("Stay logged in"));
       if (this.$(".switch").hasClass("on")) {
         this.$(".switch input[type=checkbox]").attr("checked",true);
@@ -63,8 +65,7 @@
       if (!spiderOakApp.settings.getOrDefault("server")) {
         if (window.navigator.notification.alert) {
           window.navigator.notification.alert(
-            qq("Before using the app, you must set your server " +
-               "in the settings"),
+            qq("Before using the app, you must set your server in the settings"),
             function() {
               spiderOakApp.loginView.setInitialServer();
             },
@@ -140,19 +141,13 @@
           msg = qq("Incorrect ShareID or RoomKey.");
         }
         else if (status === 418) {
-          msg = (qq("We apologize, but you must first complete your account" +
-                    " setup using the")
-                 + " " + s("SpiderOak") + " " +
-                 qq("desktop software.  This is necessary" +
-                    " so that proper cryptographic keys can be generated to" +
-                    " keep your data private.  Please open") +
-                 s("SpiderOak") + " " +
-                 qq("on your computer to continue.  Thank you. -- The") +
-                 " " + s("SpiderOak") + qq("Team"));
+          // SpiderOak uses "teapot" to signal incomplete account - no devices.
+          msg = qq("We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team",
+                   {SpiderOak: s("SpiderOak")});
         }
         else {
-          msg = (qq("Temporary server failure. Please try again later") +
-                 " (" + status + ").");
+          msg = qq("Temporary server failure ({{status}}). Please try again later.",
+                   {status: status});
           dontClearPassword = true;
         }
 
@@ -477,9 +472,9 @@
               ((tooMany) ?
                "<br>" + qq("Too many attempts.") :
                "<br>" + qq("Try again.")) +
-              "<br><br>" + qq("attempt") + " " +
-              this.incorrectAttempts + " " + qq("of") + " " +
-              this.maxIncorrectAttempts
+              "<br><br>" + qq("Attempt {{incorrects}} of {{maxIncorrects}}",
+                              {incorrects: this.incorrectAttempts,
+                               maxIncorrects: this.maxIncorrectAttempts})
           });
           if (tooMany) {
             spiderOakApp.accountModel.bypassPasscode();
@@ -503,7 +498,7 @@
           }
         }.bind(this),
         qq("Bypass passcode?"),
-        qq("Yes") + "," + qq("No"));
+        [qq("Yes"), qq("No")]);
     },
     remove: function() {
       this.close();

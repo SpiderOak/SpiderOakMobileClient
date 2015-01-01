@@ -26,8 +26,10 @@
       this.$el.html(
         window.tmpl['preliminaryViewTemplate']({})
       );
-      $(".learn-more").html(qq("Learn more about") + " " + s("SpiderOak") +
-                            " &raquo;");
+      $(".learn-more").html(
+        qq("Learn more about {{SpiderOak}}&raquo;",
+           {SpiderOak: s("SpiderOak")})
+      );
       return this;
     },
     loginButton_tapHandler: function(event) {

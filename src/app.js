@@ -37,6 +37,7 @@
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     ready: function() {
       // Start listening for important app-level events
+      window.localizer.prepareHtml10n();
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);

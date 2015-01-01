@@ -43,7 +43,7 @@
   "Cannot find an app to handle files of this type."
   : "Cannot find an app to handle files of this type.",
   "Retrieving link": "Retrieving link",
-  "File error"
+  "File error": "File error",
   "I want to share this link to {{modelName}} with you:"
   : "I want to share this link to {{modelName}} with you:",
   "Error sending this link. Try again later."
@@ -174,8 +174,8 @@
   "Remove this ShareRoom?": "Remove this ShareRoom?",
   "Remove?": "Remove?",
   "ShareRoom Password": "ShareRoom Password",
-  "Invalid password": "Invalid password",
-}
+  "Invalid password": "Invalid password"
+},
 "fr": {
   "test": "Ceci est un test",
   "test.title": "cliquez-moi!"

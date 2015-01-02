@@ -16,20 +16,18 @@
                  required
                  class="input-block-level"
                  autocorrect="off" autocapitalize="off" 
-                 placeholder="Server"
+                 placeholder="{{= qq('Server')}}"
                  value="{{!it.server}}" />
         </div>
       <!-- </div> -->
       <div class="clearfix"></div>
     </div>
     <div>
-      <a class="button changeServerButton" tabindex="-1">Submit</a>
+      <a class="button changeServerButton" tabindex="-1" data-l10n-id="Submit">Submit</a>
     </div>
     <input type="submit" style="visibility:hidden" />
   </form>
   {{?it.isLoggedIn}}
-  <div align="center">
-    Note: changing the server address will log the current session out.
-  </div>
+  <div align="center" data-l10n-id="Note: changing the server address will log the current session out.">Note: changing the server address will log the current session out.</div>
   {{?}}
 </div>

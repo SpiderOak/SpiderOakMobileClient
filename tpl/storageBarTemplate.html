@@ -2,9 +2,10 @@
   <div class="inner" style="width:{{=it.percentUsed}}%;"></div>
 </div>
 <div class="devices-info">
-  <div style="float:left;">
-    {{=it.devices}} device{{= ((it.devices > 1) ? "s" : "") }}
+  <div style="float:left;" data-l10n-args="{'devices': it.devices}" data-l10n-id="devices: [[devices]]">
+     "devices: [[devices]]"
   </div>
-  <div style="float:right;">{{=it.backupsize}} / {{=it.size}} GB</div>
+  <div style="float:right;" data-l10n-args="{'backupsize': it.backupsize, 'size': it.size}" data-l10n-id="[[backupsize]] / [[size]] GB">
+    "[[backupsize]] / [[size]] GB"
   <div class="clear"></div>
 </div>

@@ -3,24 +3,24 @@
   <ul class="hive"></ul>
   <ul class="devices-sep" style="display:none;"><li class="sep">Devices</li></ul>
   <ul class="devices"></ul>
-  <ul><li class="sep">Sections</li></ul>
+  <ul><li class="sep" data-l10n-id="Sections">Sections</li></ul>
   <ul class="sections">
     <li class="current">
       <a href="#" class="sharerooms">
         <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_sharerooms.png');"></div>
-        <div class="menu-label">ShareRooms</div>
+        <div class="menu-label" data-l10n-id="ShareRooms">ShareRooms</div>
       </a>
     </li>
     <li>
       <a class="favorites">
         <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_favorites.png');"></div>
-        <div class="menu-label">Favorites</div>
+        <div class="menu-label" data-l10n-id="Favorites">Favorites</div>
       </a>
     </li>
     <li>
       <a class="recents">
         <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_recents.png');"></div>
-        <div class="menu-label">Recents</div>
+        <div class="menu-label" data-l10n-id="Recents">Recents</div>
       </a>
     </li>
   </ul>
@@ -28,17 +28,17 @@
   <ul>
     <li><a class="settings">
       <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_settings.png');"></div>
-      <div class="menu-label">Settings</div>
+      <div class="menu-label" data-l10n-id="Settings">Settings</div>
     </li>
     <li><a class="about">
       <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_about.png');"></div>
-      <div class="menu-label">About {{= s("SpiderOak") }}</div>
+      <div class="menu-label" data-l10n-args="{'SpiderOak': s('SpiderOak')}" data-l10n-id="About [[SpiderOak]]">About [[SpiderOak]]</div>
     </li>
     {{? spiderOakApp.accountModel.getLoginState() !== true}}
     <li>
       <a class="logout">
         <div class="bg-icon pg-pos-center menu-icon" style="background-image:url('img/spideroak-icons/menu/menu_login.png');"></div>
-        <div class="menu-label">Log In</div>
+        <div class="menu-label" data-l10n-id="Log In">Log In</div>
       </a>
     </li>
     {{?}}

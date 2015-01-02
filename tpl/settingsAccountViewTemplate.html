@@ -9,7 +9,7 @@
                spiderOakApp.accountModel.get("b32username")
           ) !== it.loginname) { }}
     <li>
-      <div class="label">Login name</div>
+      <div class="label" data-l10n-id="Login name">Login name</div>
       <div class="info">
         {{!it.loginname}}
       </div>
@@ -17,7 +17,7 @@
     </li>
     {{ } }}
     <li>
-      <div class="label">Username</div>
+      <div class="label" data-l10n-id="Username">Username</div>
       <div class="info">
         {{!spiderOakApp.b32nibbler.decode(
           spiderOakApp.accountModel.get("b32username")
@@ -26,21 +26,21 @@
       <div class="clearfix"></div>
     </li>
     <li>
-      <div class="label">Used</div>
+      <div class="label" data-l10n-id="Used">Used</div>
       <div class="info">
         {{=it.backupsize}}
       </div>
       <div class="clearfix"></div>
     </li>
     <li>
-      <div class="label">Total</div>
-      <div class="info">
-        {{=it.size}} GB
+      <div class="label" data-l10n-id="Total">Total</div>
+      <div class="info" data-l10n-args="{'size': it.size}" data-l10n-id="[[size]] GB">
+        [[size]] GB
       </div>
       <div class="clearfix"></div>
     </li>
     <li>
-      <div class="label">Devices</div>
+      <div class="label" data-l10n-id="Devices">Devices</div>
       <div class="info">
         {{=spiderOakApp.menuSheetView.devicesCollection.length}}
       </div>

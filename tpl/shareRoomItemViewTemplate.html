@@ -11,10 +11,10 @@
       {{ if (it.name) { }}
         {{!it.name}}
       {{ } else if (it.beenSituated) { }}
-      <span title="Fetch failed, try later" style="color:#999"> &asymp; </span>
+      <span title="{{= qq('Fetch failed, try later')}}" style="color:#999"> &asymp; </span>
       <em>{{!it.share_id}} / {{!it.room_key}}</em>
       {{ } else { }}
-         <span style='color:#999;'>Loading...</span>
+         <span style='color:#999;' data-l10n-id="Loading...">Loading...</span>
       {{ } }}
     </div>
   {{?}}

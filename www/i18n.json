@@ -174,7 +174,141 @@
   "Remove this ShareRoom?": "Remove this ShareRoom?",
   "Remove?": "Remove?",
   "ShareRoom Password": "ShareRoom Password",
-  "Invalid password": "Invalid password"
+  "Invalid password": "Invalid password",
+
+  "#START: tpl/aboutSpiderOakViewTemplate.html": "",
+  "The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients."
+  : "The {{SpiderOak}} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.",
+  "However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link."
+  : "However - you don’t have to be a {{SpiderOak}} user to enjoy the benefits of our {{platform}} application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.",
+  "About [[SpiderOak]]": "About {{SpiderOak}}",
+  "If you would like to learn more about [[SpiderOak]], please visit"
+  : "If you would like to learn more about {{SpiderOak}}, please visit",
+  "and download the [[SpiderOak]] client to get started with your FREE 2 GB account."
+  : "and download the {{SpiderOak}} client to get started with your FREE 2 GB account.",
+  "Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to"
+  : "Thank you for using {{SpiderOak}} and please don’t hesitate to send comments or questions to",
+
+  "#START:tpl/addShareRoomTemplate.html":"",
+  "Remember ShareRoom": "Remember ShareRoom",
+
+  "#START:tpl/contextPopup.html":"",
+  "Cancel": "Cancel",
+
+  "#START:tpl/fileItemDetailsViewTemplate.html":"",
+  "Size:": "Size:",
+  "Created:": "Created:",
+  "Last Modified:": "Last Modified:",
+
+  "#START:tpl/getShareRoomPasswordTemplate.html":"",
+  "Password": "Password",
+  "Submit Password": "Submit Password",
+
+  "#START:tpl/menusheetTemplate.html":"",
+  "Sections": "Sections",
+  "ShareRooms": "ShareRooms",
+  "Favorites": "Favorites",
+  "Recents": "Recents",
+  "Settings": "Settings",
+  "Log In": "Log In",
+
+  "#START:tpl/needAnAccountViewTemplate.html":"",
+  "Need an account?": "Need an account?",
+  "The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients."
+  : "The {{SpiderOak} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.",
+  "Please go to": "Please go to",
+  "to signup and then you can return to the SpiderOak mobile app for use.": "to signup and then you can return to the SpiderOak mobile app for use.",
+  "Live Privately,": "Live Privately,",
+  "The SpiderOak Team": "The SpiderOak Team",
+
+  "#START:tpl/nonZKWarningViewTemplate.html":"",
+  "Not 'Zero-Knowledge'": "Not 'Zero-Knowledge'",
+  "If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased."
+  : "If you login with this mobile client, or via the website, your password will exist in the {{SpiderOak}} server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.",
+  "If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the [[SpiderOak]] desktop client."
+  : "If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the {{SpiderOak}} desktop client.",
+  "Continue logging in": "Continue logging in",
+  "Don't login now": "Don't login now",
+
+  "#START:tpl/passcodeEntryViewTemplate.html":"",
+  "Passcode unlock": "Passcode unlock",
+
+  "#START:tpl/preliminaryViewTemplate.html":"",
+  "Learn more about SpiderOak &raquo;": "Learn more about SpiderOak &raquo;",
+  "Need an account?<br>Find out how Â»": "Need an account?<br>Find out how Â»",
+  "or": "or",
+  ">Log in &raquo;": ">Log in &raquo;",
+
+  "#START:tpl/progressDialog.html":"",
+  "Cancel": "Cancel",
+
+  "#START:tpl/rememberMeWarningViewTemplate.html":"",
+  "Please note": "Please note",
+  "The &ldquo;[[Stay logged in]]&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;[[Stay logged in]]&rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings."
+  : "The &ldquo;{{Stay logged in}}&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;{{Stay logged in}}&rdquo; function will enable access to the data stored within {{SpiderOak}} in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings.",
+  "OK, I understand": "OK, I understand",
+  "Forget it, forget me": "Forget it, forget me",
+
+  "#START:tpl/settingsAccountViewTemplate.html":"",
+  "Login name": "Login name",
+  "Username": "Username",
+  "Used": "Used",
+  "Total": "Total",
+  "[[size]] GB": "{{size}} GB",
+  "Devices": "Devices",
+
+  "#START:tpl/settingsPasscodeTimeoutViewTemplate.html": "",
+  "Shorter times are more secure": "Shorter times are more secure",
+
+  "#START:tpl/settingsPasscodeViewTemplate.html": "",
+  "Turn Passcode Off": "Turn Passcode Off",
+  "Change Passcode": "Change Passcode",
+  "Timeout": "Timeout",
+  "Require Passcode": "Require Passcode",
+
+  "#START:tpl/settingsServerViewTemplate.html": "",
+  "Server": "Server",
+  "Submit": "Submit",
+  "Note: changing the server address will log the current session out."
+  : "Note: changing the server address will log the current session out.",
+
+  "#START:tpl/settingsViewTemplate.html": "",
+  "Send feedback": "Send feedback",
+  "Account": "Account",
+  "Name": "Name",
+  "Passcode": "Passcode",
+  "On": "On",
+  "Off": "Off",
+  "Primary Server": "Primary Server",
+  "Server": "Server",
+  "Version": "Version",
+  "Version": "Version",
+  "Logging out while <strong>Remember Me</strong> is active will clear your data from this device."
+  : "Logging out while <strong>Remember Me</strong> is active will clear your data from this device.",
+  "Logout": "Logout",
+
+  "#START:tpl/shareItemDetailsViewTemplate.html": "",
+  "Password required": "Password required",
+  "Password provided": "Password provided",
+  "Details": "Details",
+  "Owner:": "Owner:",
+  "Folders:": "Folders:",
+  "Files:": "Files:",
+  "Remembering:": "Remembering:",
+  "URL": "URL",
+
+  "#START:tpl/shareRoomItemViewTemplate.html": "",
+  "Fetch failed, try later": "Fetch failed, try later",
+
+  "#START:tpl/shareRoomsRootViewTemplate.html": "",
+  "My Shares": "My Shares",
+  "Public Shares": "Public Shares",
+
+  "#START:tpl/storageBarTemplate.html": "",
+  "devices: [[devices]]": "devices: {{devices}}",
+  "[[backupsize]] / [[size]] GB": "{{backupsize}} / {{size}} GB",
+
+  "#END:": "no trailing comma"
 },
 "fr": {
   "test": "Ceci est un test",

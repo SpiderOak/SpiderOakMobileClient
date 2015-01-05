@@ -26,6 +26,7 @@
   "About {{SpiderOak}}": "About {{SpiderOak}}",
 
   "#START:views/DialogView.js":"",
+  "Error": "Error",
   "Please wait": "Please wait",
   "Network timeout": "Network timeout",
   "status": "status",
@@ -91,8 +92,8 @@
   "Incorrect ShareID or RoomKey.": "Incorrect ShareID or RoomKey.",
   "We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team"
   : "We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team",
-  "Temporary server failure. Please try again later"
-  : "Temporary server failure. Please try again later",
+  "Temporary server failure ({{status}}). Please try again later."
+  : "Temporary server failure ({{status}}). Please try again later.",
   "Enter Passcode": "Enter Passcode",
   "Enter your 4 digit passcode to unlock"
   : "Enter your 4 digit passcode to unlock",

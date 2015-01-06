@@ -23,11 +23,11 @@
       <div class="clearfix"></div>
     </div>
     <div>
-      <a class="button changeServerButton" tabindex="-1" data-l10n-id="Submit">Submit</a>
+      <a class="button changeServerButton" tabindex="-1">{{= qq("Submit")}}</a>
     </div>
     <input type="submit" style="visibility:hidden" />
   </form>
   {{?it.isLoggedIn}}
-  <div align="center" data-l10n-id="Note: changing the server address will log the current session out.">Note: changing the server address will log the current session out.</div>
+  <div align="center">{{= qq("Note: changing the server address will log the current session out.")}}</div>
   {{?}}
 </div>

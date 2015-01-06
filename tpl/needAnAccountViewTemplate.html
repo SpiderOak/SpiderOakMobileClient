@@ -2,19 +2,16 @@
   <div style="display:{{= it.actionBar ? 'block' : 'none' }}">
     <div id="nav" class="nav">
       <a class="back-btn"></a>
-      <div class="title" data-l10n-id="Need an account?">Need an account?</div>
+      <div class="title">{{= qq("Need an account?")}}</div>
     </div>
   </div>
   <div class="about-spideroak-content">
-    <p data-l10n-args="{'SpiderOak': s('SpiderOak'),'platform':it.platform}" data-l10n-id="The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.">The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.</p>
+    <p>{{= qq("The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.", {'SpiderOak': s('SpiderOak'),'platform':it.platform})}}</p>
     <p>
       <span>In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer.</span>
       {{? !$.os.ios }}
-      <span data-l10n-id="Please go to">Please go to</span>
-      <a href="#spideroak" data-url="https:\/\/{{= s('spideroak.com') }}"
-         class="site-link" style="white-space: nowrap;">https:\/\/{{= s('spideroak.com') }}</a>
-      <span data-l10n-id="to signup and then you can return to the SpiderOak mobile app for use.">to signup and then you can return to the SpiderOak mobile app for use.</span>{{? }}</p>
-    <p data-l10n-id="Live Privately,">Live Privately,<br>
-      <span data-l10n-id="The SpiderOak Team">The SpiderOak Team</span></p>
+      <span> {{= qq("Please go to <a href='#spideroak' data-url='https:\/\/[[sourl]] class='site-link' style='white-space: nowrap;'>https:\/\/[[sourl]]</a> and follow the instructions to establish your account.", {"sourl": s("spideroak.com")})}}</span>{{? }}</p>
+    <p><span>{{= qq("Live Privately,")}}</span><br>
+      <span>{{= qq("The SpiderOak Team")}}</span></p>
   </div>
 </div>

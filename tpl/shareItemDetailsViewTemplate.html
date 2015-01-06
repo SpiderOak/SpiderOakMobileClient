@@ -2,11 +2,11 @@
   <ul>
     {{? it.password_required}}
     <li class="sep">
-      <em data-l10n-id="Password required">Password required</em>
+      <em>{{= qq("Password required")}}</em>
     </li>
     {{?? it.password}}
     <li class="sep">
-      <em data-l10n-id="Password provided">Password provided</em>
+      <em>{{= qq("Password provided")}}</em>
     </li>
     {{?}}
     <li>
@@ -19,7 +19,7 @@
     {{?}}
   </ul>
   <ul>
-    <li class="sep" data-l10n-id="Details">Details</li>
+    <li class="sep">{{= qq("Details")}}</li>
     <li class="small">
       <div class="label">ShareID:</div>
       <div class="info">{{!it.share_id}}</div>
@@ -31,7 +31,7 @@
     {{? it.owner_lastname || it.owner_firstname }}
     <li class="small">
       <div>
-        <div class="label" data-l10n-id="Owner:">Owner:</div>
+        <div class="label">{{= qq("Owner:")}}</div>
         <div class="info">
           {{!it.owner_firstname }} {{!it.owner_lastname }}
         </div>
@@ -40,31 +40,31 @@
     {{?}}
     {{? it.number_of_folders}}
     <li class="small">
-      <div class="label" data-l10n-id="Folders:">Folders:</div>
+      <div class="label">{{= qq("Folders:")}}</div>
       <div class="info">{{=it.number_of_folders}}</div>
     </li>
     {{?}}
     {{? it.number_of_files}}
     <li class="small">
-      <div class="label" data-l10n-id="Files:">Files:</div>
+      <div class="label">{{= qq("Files:")}}</div>
       <div class="info">{{=it.number_of_files}}</div>
     </li>
     {{?}}
     {{? typeof it.remember !== "undefined" }}
     <li class="small">
-      <div class="label" data-l10n-id="Remembering:">Remembering:</div>
+      <div class="label">{{= qq("Remembering:")}}</div>
       <div class="info">
         {{? it.remember}}
-        <span data-l10n-id="Yes">Yes</span>
+        <span>{{= qq("Yes")}}</span>
         {{??}}
-        <span data-l10n-id="No">No</span>
+        <span>{{= qq("No")}}</span>
         {{?}}
       </div>
     </li>
     {{?}}
   </ul>
   <ul>
-    <li class="sep" data-l10n-id="URL">URL</li>
+    <li class="sep">{{= qq("URL")}}</li>
     <li class="small" style="font-size:80%;">
       <a href="#shareroom" data-url='https:\/\/{{=spiderOakApp.settings.get("server").get("value")}}{{=it.browse_url}}/' class="site-link" style="white-space: nowrap;">
       https:\/\/{{=spiderOakApp.settings.get("server").get("value")}}{{=it.browse_url}}/

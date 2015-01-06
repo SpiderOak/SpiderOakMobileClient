@@ -177,19 +177,18 @@
   "Invalid password": "Invalid password",
 
   "#START: tpl/aboutSpiderOakViewTemplate.html": "",
+  "About {{SpiderOak}}": "About {{SpiderOak}}",
   "The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients."
   : "The {{SpiderOak}} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.",
-  "However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link."
-  : "However - you don’t have to be a {{SpiderOak}} user to enjoy the benefits of our {{platform}} application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.",
-  "About [[SpiderOak]]": "About {{SpiderOak}}",
-  "If you would like to learn more about [[SpiderOak]], please visit"
-  : "If you would like to learn more about {{SpiderOak}}, please visit",
-  "and download the [[SpiderOak]] client to get started with your FREE 2 GB account."
-  : "and download the {{SpiderOak}} client to get started with your FREE 2 GB account.",
-  "Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to"
-  : "Thank you for using {{SpiderOak}} and please don’t hesitate to send comments or questions to",
+  "However - you donâ€™t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link."
+  : "However - you donâ€™t have to be a {{SpiderOak}} user to enjoy the benefits of our {{platform}} application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.",
+  "If you would like to learn more about [[SpiderOak]], please visit <a href='#spideroak' data-url='https:\/\/[[sourl]]' class='site-link' style='white-space: nowrap;'>https:\/\/[[sourl]]</a> and download the [[SpiderOak]] client to get started with your FREE 2 GB account."
+  : "If you would like to learn more about {{SpiderOak}}, please visit <a href='#spideroak' data-url='https:\/\/{{sourl}}' class='site-link' style='white-space: nowrap;'>https:\/\/{{sourl}}</a> and download the {{SpiderOak}} client to get started with your FREE 2 GB account.",
+  "Thank you for using [[SpiderOak]] and please donâ€™t hesitate to send comments or questions to"
+  : "Thank you for using {{SpiderOak}} and please donâ€™t hesitate to send comments or questions to",
 
   "#START:tpl/addShareRoomTemplate.html":"",
+  "Add ShareRoom": "Add ShareRoom",
   "Remember ShareRoom": "Remember ShareRoom",
 
   "#START:tpl/contextPopup.html":"",
@@ -210,14 +209,13 @@
   "Favorites": "Favorites",
   "Recents": "Recents",
   "Settings": "Settings",
+  "About [[SpiderOak]]": "About {{SpiderOak}}",
   "Log In": "Log In",
 
   "#START:tpl/needAnAccountViewTemplate.html":"",
   "Need an account?": "Need an account?",
-  "The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients."
-  : "The {{SpiderOak} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.",
-  "Please go to": "Please go to",
-  "to signup and then you can return to the SpiderOak mobile app for use.": "to signup and then you can return to the SpiderOak mobile app for use.",
+  "Please go to <a href='#spideroak' data-url='https:\/\/[[sourl]] class='site-link' style='white-space: nowrap;'>https:\/\/[[sourl]]</a> and follow the instructions to establish your account."
+  : "Please go to <a href='#spideroak' data-url='https:\/\/{{sourl}} class='site-link' style='white-space: nowrap;'>https:\/\/{{sourl}}</a> and follow the instructions to establish your account.",
   "Live Privately,": "Live Privately,",
   "The SpiderOak Team": "The SpiderOak Team",
 
@@ -237,7 +235,7 @@
   "Learn more about SpiderOak &raquo;": "Learn more about SpiderOak &raquo;",
   "Need an account?<br>Find out how Â»": "Need an account?<br>Find out how Â»",
   "or": "or",
-  ">Log in &raquo;": ">Log in &raquo;",
+  "Log in &raquo;": "Log in &raquo;",
 
   "#START:tpl/progressDialog.html":"",
   "Cancel": "Cancel",

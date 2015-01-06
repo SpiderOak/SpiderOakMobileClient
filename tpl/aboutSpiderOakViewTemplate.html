@@ -2,23 +2,24 @@
   <div style="display:{{= it.actionBar ? 'block' : 'none' }}">
     <div id="nav" class="nav">
       <a class="back-btn"></a>
-      <div class="title"
-           data-l10n-args="{'SpiderOak': s('SpiderOak')}"
-           data-l10n-id="About [[SpiderOak]]"></div>
+      <div class="title">
+        {{= qq("About [[SpiderOak]]", {"SpiderOak": s("SpiderOak")})}}
+      </div>
     </div>
   </div>
   <div class="about-spideroak-content">
-    <p data-l10n-args="{'SpiderOak': s('SpiderOak'),'platform':it.platform}" data-l10n-id="The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.">The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.</p>
-    <p data-l10n-args="{'SpiderOak': s('SpiderOak'),'platform':it.platform}" data-l10n-id="However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.">However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.</p>
+    <p >{{= qq("The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.", {"SpiderOak": s("SpiderOak"),"platform":it.platform})}}</p>
+    <p >{{= qq("However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.", {"SpiderOak": s("SpiderOak"),"platform":it.platform})}}</p>
     {{? (!$.os.ios) }}
     <p>
-      <span data-l10n-args="{'SpiderOak': s('SpiderOak')}" data-l10n-id="If you would like to learn more about [[SpiderOak]], please visit">If you would like to learn more about [[SpiderOak]], please visit</span>
-      <a href="#spideroak" data-url="https:\/\/{{= s('spideroak.com') }}" class="site-link" style="white-space: nowrap;">https:\/\/{{= s('spideroak.com') }}</a>
-      <span data-l10n-args="{'SpiderOak': s('SpiderOak')}" data-l10n-id="and download the [[SpiderOak]] client to get started with your FREE 2 GB account.">and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</span>
+      {{= qq("If you would like to learn more about [[SpiderOak]], please visit <a href='#spideroak' data-url='https:\/\/[[sourl]]' class='site-link' style='white-space: nowrap;'>https:\/\/[[sourl]]</a> and download the [[SpiderOak]] client to get started with your FREE 2 GB account.",
+      {"SpiderOak": s("SpiderOak"), "sourl": s("spideroak.com")})}}
     </p>
     {{?}}
     <p>
-      <span data-l10n-args="{'SpiderOak': s('SpiderOak')}" data-l10n-id="Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to">Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to</span>
+      <span>{{= qq("Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to",
+        {"SpiderOak": s("SpiderOak")})}}</span>
+      <span> </span>
       <a href="#email-feedback" class="email-link">{{= it.platform }}@{{= s("spideroak.com") }}</a>.</p>
   </div>
 </div>

@@ -3,15 +3,15 @@
     <li><strong>{{!it.name}}</strong></li>
     <li class="small"><div class="label icon bg-icon bg-pos-zero" style="background-image:url('img/spideroak-icons/{{=iconType}}/{{=it.icon}}.{{=iconType}}');padding-left:20px;width:160px;">{{!it.description}}</div></li>
     <li class="small">
-      <div class="label" data-l10n-id="Size:">Size:</div>
+      <div class="label">{{= qq("Size:")}}</div>
       <div class="info">{{=window.fileHelper.readableFileSize(it.size)}}</div>
     </li>
     <li class="small">
-      <div class="label" data-l10n-id="Created:">Created:</div>
+      <div class="label">{{= qq("Created:")}}</div>
       <div class="info">{{=window.moment(it.ctime+"", "X").format("llll")}}</div>
     </li>
     <li class="small">
-      <div class="label" data-l10n-id="Last Modified:">Last Modified:</div>
+      <div class="label">{{= qq("Last Modified:")}}</div>
       <div class="info">{{=window.moment(it.mtime+"", "X").format("llll")}}</div>
     </li>
   </ul>
@@ -19,7 +19,7 @@
   </div>
   <div class="versions" style="display:none;">
     <ul class="versionsViewLoading loadingVersions">
-      <li data-l10n-id="Loading...">Loading...</li>
+      <li>{{= qq("Loading...")}}</li>
     </ul>
   </div>
 </div>

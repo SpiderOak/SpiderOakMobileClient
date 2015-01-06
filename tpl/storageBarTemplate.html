@@ -2,7 +2,7 @@
   <div class="inner" style="width:{{=it.percentUsed}}%;"></div>
 </div>
 <div class="devices-info">
-  <div style="float:left;">{{= qq("devices: [[devices]]")}}</div>
+  <div style="float:left;">{{= qq("devices: [[devices]]", {'devices': it.devices})}}</div>
   <div style="float:right;">{{= qq("[[backupsize]] / [[size]] GB", {'backupsize': it.backupsize, 'size': it.size})}}<div class="clear"></div></div>
 
   

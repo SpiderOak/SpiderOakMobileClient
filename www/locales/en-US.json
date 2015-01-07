@@ -242,8 +242,9 @@
 
     "#START:tpl/rememberMeWarningViewTemplate.html":"",
     "Please note": "Please note",
-    "The &ldquo;[[Stay logged in]]&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;[[Stay logged in]]&rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings."
-    : "The &ldquo;{{Stay logged in}}&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;{{Stay logged in}}&rdquo; function will enable access to the data stored within {{SpiderOak}} in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings.",
+    "Stay logged in": "Stay logged in",
+    "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings."
+    : "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within {{SpiderOak}} in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings.",
     "OK, I understand": "OK, I understand",
     "Forget it, forget me": "Forget it, forget me",
 

@@ -32,7 +32,7 @@
         qq("Learn more about {{SpiderOak}}&raquo;",
            {SpiderOak: s("SpiderOak")})
       );
-      this.$(".remember-me").html(s("Stay logged in"));
+      this.$(".remember-me").html(qq("Stay logged in"));
       if (this.$(".switch").hasClass("on")) {
         this.$(".switch input[type=checkbox]").attr("checked",true);
       }

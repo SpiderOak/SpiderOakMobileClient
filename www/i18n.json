@@ -2,5 +2,6 @@
   "en": "locales/en-US.json",
   "en-US": "locales/en-US.json",
   "en-GB": "locales/en-GB.json",
-  "en-AU": "locales/en-GB.json"
+  "en-AU": "locales/en-GB.json",
+  "en-CA": "locales/en-GB.json"
 }

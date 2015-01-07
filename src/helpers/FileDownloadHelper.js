@@ -7,7 +7,7 @@
   console.log = console.log || function(){};
   var Backbone    = window.Backbone,
       _           = window._,
-      qq          = window.qq,
+      qq          = window.qq = window.html10n.get,
       $           = window.$;
 
   var FileDownloadHelper = window.FileDownloadHelper = function() {

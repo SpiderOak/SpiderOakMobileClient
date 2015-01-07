@@ -391,18 +391,29 @@
       "tap a": "descend_tapHandler",
       "longTap a": "a_longTapHandler"
     },
-    actionItems: [
-      {className: "open", description: qq("Open")},
-      {className: "details", description: qq("Details")},
-      {className: "send-link", description: qq("Send link")}
-    ],
     actionItemHandlers: {
       open: function (event) { this.descend_tapHandler(event); },
       details: function (event) { this.viewDetails(event); },
       "send-link": function (event) { this.sendLink(); },
       forgetPassword: function (event) { this.forgetPassword(); }
     },
+    actionItems: [
+      {className: "open", description: qq("Open")},
+      {className: "details", description: qq("Details")},
+      {className: "send-link", description: qq("Send link")}
+    ],
+    initActionItems: function () {
+      this.actionItems = [
+        {className: "open", description: qq("Open")},
+        {className: "details", description: qq("Details")},
+        {className: "send-link", description: qq("Send link")}
+      ];
+      this.actionItemsTranslated = true;
+    },
     initialize: function() {
+      if (! this.actionItemsTranslated) {
+        this.initActionItems();
+      }
       _.bindAll(this, "render");
       this.model.on("change", this.render, this);
     },

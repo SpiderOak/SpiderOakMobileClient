@@ -569,7 +569,7 @@
       });
     },
     onMenuKeyDown: function(event) {
-      // The menu button is flakey in some versions of Android 
+      // The menu button is flakey in some versions of Android
       // and deprecated as of Android 3.0
       if (window.Modernizr.overflowscrolling ||
           (window.device && (window.device.platform === "Android") &&
@@ -603,7 +603,7 @@
      * We use an ajax handler in this order of precedence:
      *
      * 1. Prefer "alternateAjax" function designated in settings, if any.
-     * 2. Otherwise, use cordovaHTTPAjax - it depends on the cordovaHTTP 
+     * 2. Otherwise, use cordovaHTTPAjax - it depends on the cordovaHTTP
      *    plugin.
      * 3. Otherwise, use $.ajax.
      * 4. There is no 4.
@@ -613,7 +613,7 @@
      *
      * 1. The options parameter, in the form of a 'credentials' attribute
      *    having a value of an object with 'username' and 'password' fields, or
-     * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a 
+     * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a
      *
      * @param {object} options like $.ajax(options)
      */

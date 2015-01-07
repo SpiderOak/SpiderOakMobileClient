@@ -787,14 +787,14 @@
         return;
       }
       var items = [
-          {className: "details", description: "Details"},
-          {className: "send-link", description: "Send link"},
-          {className: "share", description: "Share file" +
-                                                (($.os.ios)?" / Open in":"")}
+          {className: "details", description: qq("Details")},
+          {className: "send-link", description: qq("Send link")},
+          {className: "share", description: qq("Share file") +
+           (($.os.ios)? (" / " + qq("Open in")) : "")}
       ];
       if ($.os.android) {
-        items.unshift({className: "open", description: "Open"});
-        items.push({className: "save", description: "Save file"});
+        items.unshift({className: "open", description: qq("Open")});
+        items.push({className: "save", description: qq("Save file")});
       }
       if (this.model.get("isFavorite")) {
         items.push({

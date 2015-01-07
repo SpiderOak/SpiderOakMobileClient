@@ -234,7 +234,7 @@ module.exports = function(grunt) {
       },
       moment: {
         src: [
-          'bower_components/moment/moment.js'
+          'bower_components/moment/min/moment-with-locales.js'
         ],
         dest: 'www/components/moment/moment.js'
       },

@@ -397,7 +397,6 @@
 
   // Wasn't sure where else to put this?
   spiderOakApp.SettingsPasscodeAuthView = spiderOakApp.ViewBase.extend({
-    viewTitle: qq("Enter Passcode"),
     className: "passcode-auth-entry",
     events: {
       "touchstart .pinpad .num": "pinpadNum_tapHandler",

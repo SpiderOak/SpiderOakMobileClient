@@ -227,7 +227,6 @@
   spiderOakApp.SettingsAccountView = spiderOakApp.ViewBase.extend({
     // Derive from this and define your particular rendering.
     templateID: "settingsAccountViewTemplate",
-    viewTitle: qq("Account"),
     destructionPolicy: "never",
     initialize: function() {
       window.bindMine(this);
@@ -253,7 +252,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(this.viewTitle);
+        spiderOakApp.mainView.setTitle(qq("Account"));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -453,7 +452,6 @@
 
   spiderOakApp.SettingsPasscodeEntryView = spiderOakApp.ViewBase.extend({
     templateID: "passcodeEntryViewTemplate",
-    viewTitle: qq("Enter Passcode"),
     destructionPolicy: "never",
     events: {
       "touchstart .pinpad .num": "pinpadNum_tapHandler"
@@ -597,7 +595,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(this.viewTitle);
+        spiderOakApp.mainView.setTitle(qq("Enter Passcode"));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -634,7 +632,6 @@
 
  spiderOakApp.SettingsPasscodeView = spiderOakApp.ViewBase.extend({
     templateID: "settingsPasscodeViewTemplate",
-   viewTitle: qq("Passcode settings"),
     destructionPolicy: "never",
     events: {
       "tap .passcode-settings-change":"passcodeSettingsChange_tapHandler",
@@ -703,7 +700,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(this.viewTitle);
+        spiderOakApp.mainView.setTitle(qq("Passcode settings"));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);
@@ -740,7 +737,6 @@
 
  spiderOakApp.SettingsPasscodeTimeoutView = spiderOakApp.ViewBase.extend({
     templateID: "settingsPasscodeTimeoutViewTemplate",
-   viewTitle: qq("Require passcode"),
     destructionPolicy: "never",
     events: {
       "tap a.timeout": "aTimeout_tapHandler"
@@ -771,7 +767,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(this.viewTitle);
+        spiderOakApp.mainView.setTitle(qq("Require passcode"));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);

@@ -99,8 +99,8 @@
     "Passcode incorrect.": "Passcode incorrect.",
     "Too many attempts.": "Too many attempts.",
     "Try again.": "Try again.",
-    "attempt {{incorrects}} of {{maxIncorrects}}"
-    : "attempt {{incorrects}} of {{maxIncorrects}}",
+    "Attempt {{incorrects}} of {{maxIncorrects}}"
+    : "Attempt {{incorrects}} of {{maxIncorrects}}",
     "Bypass passcode and log out?": "Bypass passcode and log out?",
     "Bypass passcode?": "Bypass passcode?",
 

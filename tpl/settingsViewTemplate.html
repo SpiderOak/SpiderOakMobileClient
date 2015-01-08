@@ -13,14 +13,14 @@
       </a>
     </li>
     <li>
-      <span style="float:left;color:#666;">{{= s("Stay logged in") }}</span>
+      <span style="float:left;color:#666;">{{= qq("Stay logged in") }}</span>
       <div class="checkswitch">
         <input type="checkbox"
                id="settings-rememberme"
                name="settings-rememberme"
           {{?spiderOakApp.accountModel.get("rememberme")}}checked='true'{{?}} />
         <label for="settings-rememberme">
-          <span data-off="No" data-on="Yes"></span>
+          <span data-off="{{= qq('No')}}" data-on="{{= qq('Yes')}}"></span>
         </label>
       </div>
       <div class="clearfix"></div>

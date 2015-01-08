@@ -137,7 +137,7 @@
     : "{{server}} is not the host of a valid {{SpiderOak}} service. The server is unchanged.",
     "Validation error": "Validation error",
     "Enter a new 4 digit passcode": "Enter a new 4 digit passcode",
-    "Enter your current 4 digit passcode": "Re-enter your new 4 digit passcode",
+    "Enter your current 4 digit passcode": "Re-enter your current 4 digit passcode",
     "Re-enter your new 4 digit passcode": "Re-enter your new 4 digit passcode",
     "Passcodes do not match.": "Passcodes do not match.",
     "Passcode settings": "Passcode settings",

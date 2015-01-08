@@ -223,6 +223,14 @@
   };
 
   fileHelper.fileTypeFromExtension = function(fileName) {
+    var got = fileHelper.fileTypeFromExtensionDrone(fileName);
+    if (! got.translated) {
+      got.description = window.qq(got.description) || got.description;
+      got.translated = true;
+    }
+    return got;
+  };
+  fileHelper.fileTypeFromExtensionDrone = function(fileName) {
     var fileExtension = fileName.split('.').pop().toLowerCase();
 
     if (fileExtension === "doc" || fileExtension === "docx") {

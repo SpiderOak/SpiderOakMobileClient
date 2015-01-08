@@ -1,4 +1,4 @@
-{
+  {
     "#START:app.js":"",
     "Learn more about {{SpiderOak}}&raquo;"
     : "Learn more about {{SpiderOak}}&raquo;",
@@ -65,8 +65,6 @@
     : "Do you want to save this file to your device?",
     "{{name}} saved to {{path}}{{name}}": "{{name}} saved to {{path}}{{name}}",
     "Success": "Success",
-    "Share file": "Share file",
-    "Open in": "Open in",
     "Save file": "Save file",
     "Do you want to remove this file from your favorites?"
     : "Do you want to remove this file from your favorites?",
@@ -244,7 +242,6 @@
 
     "#START:tpl/rememberMeWarningViewTemplate.html":"",
     "Please note": "Please note",
-    "Stay logged in": "Stay logged in",
     "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings."
     : "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within {{SpiderOak}} in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings.",
     "OK, I understand": "OK, I understand",
@@ -308,6 +305,52 @@
     "#START:tpl/storageBarTemplate.html": "",
     "devices: [[devices]]": "devices: {{devices}}",
     "[[backupsize]] / [[size]] GB": "{{backupsize}} / {{size}} GB",
+
+    "#Since 2015-01-07 - strings to be added to spanish translation":"",
+
+    "#START:tpl/rememberMeWarningViewTemplate.html":"",
+    "Stay logged in": "Manténgase en sesión",
+    "#START:views/FavoritesView.js":"",
+    "Share file": "Share file",
+    "Open in": "Open in",
+
+    "#START:helpers/FileHelper.js":"",
+    "MS Word": "MS Word",
+    "MS Excel":  "MS Excel",
+    "MS PowerPoint": "MS PowerPoint",
+    "Adobe PDF": "Adobe PDF",
+    "Zip Archive": "Zip Archive",
+    "Archive": "Archive",
+    "RAR Archive": "RAR Archive",
+    "JPEG Image": "JPEG Image",
+    "GIF Image": "GIF Image",
+    "PNG Image": "PNG Image",
+    "In Design": "In Design",
+    "EPS": "EPS",
+    "PSD Image": "PSD Image",
+    "Markdown": "Markdown",
+    "Plain Text": "Plain Text",
+    "HTML": "HTML",
+    "XML": "XML",
+    "CSS": "CSS",
+    "JavaScript": "JavaScript",
+    "PHP": "PHP",
+    "Apple Pages": "Apple Pages",
+    "Apple Numbers": "Apple Numbers",
+    "Apple Keynote": "Apple Keynote",
+    "Rich Text": "Rich Text",
+    "CSV": "CSV",
+    "Vcard": "Vcard",
+    "Android APK": "Android APK",
+    "Header": "Header",
+    "Source": "Source",
+    "Java": "Java",
+    "OpenOffice file": "OpenOffice file",
+    "MP3 File": "MP3 File",
+    "Sound": "Sound",
+    "Video": "Video",
+    "AVI File": "AVI File",
+    "Unknown": "Unknown",
 
     "#END:": "no trailing comma"
   }

@@ -236,7 +236,6 @@
     "Need an account?<br>Find out how &raquo;": "Need an account?<br>Find out how &raquo;",
     "or": "or",
     "Log in &raquo;": "Log in &raquo;",
-
     "#START:tpl/progressDialog.html":"",
     "Cancel": "Cancel",
 
@@ -351,6 +350,13 @@
     "Video": "Video",
     "AVI File": "AVI File",
     "Unknown": "Unknown",
+
+    "#START:BP brand tpl/aboutSpiderOakViewTemplate.html": "",
+    "It does not currently provide upload or sync capability."
+    : "It does not currently provide upload or sync capability.",
+    "#START:BP brand tpl/preliminaryViewTemplate.html": "",
+    "Need an account?<br>Register now &raquo;"
+    : "Need an account?<br>Register now &raquo;",
 
     "#END:": "no trailing comma"
   }

@@ -309,7 +309,7 @@
     "#Since 2015-01-07 - strings to be added to spanish translation":"",
 
     "#START:tpl/rememberMeWarningViewTemplate.html":"",
-    "Stay logged in": "Manténgase en sesión",
+    "Stay logged in": "Stay logged in",
     "#START:views/FavoritesView.js":"",
     "Share file": "Share file",
     "Open in": "Open in",

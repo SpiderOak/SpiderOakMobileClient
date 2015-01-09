@@ -211,6 +211,7 @@
     "Settings": "Settings",
     "About [[SpiderOak]]": "About {{SpiderOak}}",
     "Log In": "Log In",
+    "Log in": "Log in",
 
     "#START:tpl/needAnAccountViewTemplate.html":"",
     "Need an account?": "Need an account?",

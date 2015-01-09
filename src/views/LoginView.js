@@ -26,6 +26,7 @@
       window.bindMine(this);
       $(document).on("focus", "#login input", this.input_focusHandler);
       $(document).on("blur", "#login input", this.input_blurHandler);
+      window.html10n.bind("localized", this.render);
     },
     render: function() {
       this.$(".learn-more").html(
@@ -33,6 +34,15 @@
            {SpiderOak: s("SpiderOak")})
       );
       this.$(".remember-me").html(qq("Stay logged in"));
+      this.$(".log-in").text(qq("Log in"));
+      var unme =  this.$("#unme");
+      if (unme && unme[0] && unme[0].placeholder) {
+        unme[0].placeholder = qq("Username");
+      }
+      var pwrd = this.$("#pwrd");
+      if (pwrd && pwrd[0] && pwrd[0].placeholder) {
+        pwrd[0].placeholder = qq("Password");
+      }
       if (this.$(".switch").hasClass("on")) {
         this.$(".switch input[type=checkbox]").attr("checked",true);
       }

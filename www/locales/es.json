@@ -138,6 +138,7 @@
   "Settings": "Configuración",
   "About [[SpiderOak]]": "Acerca de {{SpiderOak}}",
   "Log In": "Iniciar sesión",
+  "Log in": "Iniciar sesión",
   "Need an account?": "¿Necesita una cuenta?",
   "Please go to <a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Diríjase a <a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> y siga las instrucciones para establecer su cuenta.",
   "Live Privately,": "Viva en forma privada,",

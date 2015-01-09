@@ -1,5 +1,4 @@
   {
-    "#START:app.js":"",
     "Learn more about {{SpiderOak}}&raquo;"
     : "Learn more about {{SpiderOak}}&raquo;",
     "Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change."
@@ -12,26 +11,21 @@
     "No, maybe later": "No, maybe later",
     "Hit back again to exit": "Hit back again to exit",
 
-    "#START:models/AccountModel.js":"",
     "Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."
     : "Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.",
     "Network error": "Network error",
     "OK": "OK",
 
-    "#START:helpers/FileDownloadHelper.js":"",
     "File transfer aborted": "File transfer aborted",
 
-    "#START:views/AboutView.js":"",
     "About {{SpiderOak}}": "About {{SpiderOak}}",
 
-    "#START:views/DialogView.js":"",
     "Error": "Error",
     "Please wait": "Please wait",
     "Network timeout": "Network timeout",
     "status": "status",
     "Done": "Done",
 
-    "#START:views/FavoritesView.js":"",
     "Favorites": "Favorites",
     "Do you want to refresh all of your favorites? This will re-download the latest versions."
     : "Do you want to refresh all of your favorites? This will re-download the latest versions.",
@@ -73,10 +67,8 @@
     "Add to favorites": "Add to favorites",
     "Previous versions": "Previous versions",
 
-    "#START:views/FoldersView.js": "",
     "Too many folders. Displaying first": "Too many folders. Displaying first",
 
-    "#START:views/LoginView.js": "",
     "Missing username or password": "Missing username or password",
     "Authentication error": "Authentication error",
     "Before using the app, you must set your server in the settings"
@@ -104,19 +96,14 @@
     "Bypass passcode and log out?": "Bypass passcode and log out?",
     "Bypass passcode?": "Bypass passcode?",
 
-    "#START:views/MenuSheetView.js": "",
     "About {{SpiderOak}}": "About {{SpiderOak}}",
     "Recents": "Recents",
     "Loading...": "Loading...",
 
-    "#START:views/PreliminaryView.js": "",
-
-    "#START:views/RecentsView.js": "",
     "Are you sure you want to clear your recent history?"
     : "Are you sure you want to clear your recent history?",
     "Clear Recents": "Clear Recents",
 
-    "#START:views/SettingsView.js": "",
     "Feedback on {{SpiderOak}} {{platform}} app version {{appVersion}}"
     : "Feedback on {{SpiderOak}} {{platform}} app version {{appVersion}}",
     "Are you sure you want to sign out?": "Are you sure you want to sign out?",
@@ -147,7 +134,6 @@
     "Immediately": "Immediately",
     "Require passcode": "Require passcode",
 
-    "#START:views/ShareRoomsViews.js": "",
     "ShareRooms": "ShareRooms",
     "Add Public ShareRoom": "Add Public ShareRoom",
     "ShareRoom already present": "ShareRoom already present",
@@ -176,7 +162,6 @@
     "ShareRoom Password": "ShareRoom Password",
     "Invalid password": "Invalid password",
 
-    "#START: tpl/aboutSpiderOakViewTemplate.html": "",
     "About {{SpiderOak}}": "About {{SpiderOak}}",
     "The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients."
     : "The {{SpiderOak}} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.",
@@ -187,23 +172,18 @@
     "Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to"
     : "Thank you for using {{SpiderOak}} and please don’t hesitate to send comments or questions to",
 
-    "#START:tpl/addShareRoomTemplate.html":"",
     "Add ShareRoom": "Add ShareRoom",
     "Remember ShareRoom": "Remember ShareRoom",
 
-    "#START:tpl/contextPopup.html":"",
     "Cancel": "Cancel",
 
-    "#START:tpl/fileItemDetailsViewTemplate.html":"",
     "Size:": "Size:",
     "Created:": "Created:",
     "Last Modified:": "Last Modified:",
 
-    "#START:tpl/getShareRoomPasswordTemplate.html":"",
     "Password": "Password",
     "Submit Password": "Submit Password",
 
-    "#START:tpl/menusheetTemplate.html":"",
     "Sections": "Sections",
     "ShareRooms": "ShareRooms",
     "Favorites": "Favorites",
@@ -213,14 +193,12 @@
     "Log In": "Log In",
     "Log in": "Log in",
 
-    "#START:tpl/needAnAccountViewTemplate.html":"",
     "Need an account?": "Need an account?",
     "Please go to <a href='#spideroak' data-url='https:\/\/[[sourl]] class='site-link' style='white-space: nowrap;'>https:\/\/[[sourl]]</a> and follow the instructions to establish your account."
     : "Please go to <a href='#spideroak' data-url='https:\/\/{{sourl}} class='site-link' style='white-space: nowrap;'>https:\/\/{{sourl}}</a> and follow the instructions to establish your account.",
     "Live Privately,": "Live Privately,",
     "The SpiderOak Team": "The SpiderOak Team",
 
-    "#START:tpl/nonZKWarningViewTemplate.html":"",
     "Not 'Zero-Knowledge'": "Not 'Zero-Knowledge'",
     "If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased."
     : "If you login with this mobile client, or via the website, your password will exist in the {{SpiderOak}} server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.",
@@ -229,25 +207,20 @@
     "Continue logging in": "Continue logging in",
     "Don't login now": "Don't login now",
 
-    "#START:tpl/passcodeEntryViewTemplate.html":"",
     "Passcode unlock": "Passcode unlock",
 
-    "#START:tpl/preliminaryViewTemplate.html":"",
     "Learn more about SpiderOak &raquo;": "Learn more about SpiderOak &raquo;",
     "Need an account?<br>Find out how &raquo;": "Need an account?<br>Find out how &raquo;",
     "or": "or",
     "Log in &raquo;": "Log in &raquo;",
-    "#START:tpl/progressDialog.html":"",
     "Cancel": "Cancel",
 
-    "#START:tpl/rememberMeWarningViewTemplate.html":"",
     "Please note": "Please note",
     "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings."
     : "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within {{SpiderOak}} in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings.",
     "OK, I understand": "OK, I understand",
     "Forget it, forget me": "Forget it, forget me",
 
-    "#START:tpl/settingsAccountViewTemplate.html":"",
     "Login name": "Login name",
     "Username": "Username",
     "Used": "Used",
@@ -255,22 +228,18 @@
     "[[size]] GB": "{{size}} GB",
     "Devices": "Devices",
 
-    "#START:tpl/settingsPasscodeTimeoutViewTemplate.html": "",
     "Shorter times are more secure": "Shorter times are more secure",
 
-    "#START:tpl/settingsPasscodeViewTemplate.html": "",
     "Turn Passcode Off": "Turn Passcode Off",
     "Change Passcode": "Change Passcode",
     "Timeout": "Timeout",
     "Require Passcode": "Require Passcode",
 
-    "#START:tpl/settingsServerViewTemplate.html": "",
     "Server": "Server",
     "Submit": "Submit",
     "Note: changing the server address will log the current session out."
     : "Note: changing the server address will log the current session out.",
 
-    "#START:tpl/settingsViewTemplate.html": "",
     "Send feedback": "Send feedback",
     "Account": "Account",
     "Name": "Name",
@@ -285,7 +254,6 @@
     : "Logging out while <strong>Remember Me</strong> is active will clear your data from this device.",
     "Logout": "Logout",
 
-    "#START:tpl/shareItemDetailsViewTemplate.html": "",
     "Password required": "Password required",
     "Password provided": "Password provided",
     "Details": "Details",
@@ -295,26 +263,20 @@
     "Remembering:": "Remembering:",
     "URL": "URL",
 
-    "#START:tpl/shareRoomItemViewTemplate.html": "",
     "Fetch failed, try later": "Fetch failed, try later",
 
-    "#START:tpl/shareRoomsRootViewTemplate.html": "",
     "My Shares": "My Shares",
     "Public Shares": "Public Shares",
 
-    "#START:tpl/storageBarTemplate.html": "",
     "devices: [[devices]]": "devices: {{devices}}",
     "[[backupsize]] / [[size]] GB": "{{backupsize}} / {{size}} GB",
 
     "#Since 2015-01-07 - strings to be added to spanish translation":"",
 
-    "#START:tpl/rememberMeWarningViewTemplate.html":"",
     "Stay logged in": "Stay logged in",
-    "#START:views/FavoritesView.js":"",
     "Share file": "Share file",
     "Open in": "Open in",
 
-    "#START:helpers/FileHelper.js":"",
     "MS Word": "MS Word",
     "MS Excel":  "MS Excel",
     "MS PowerPoint": "MS PowerPoint",
@@ -352,10 +314,8 @@
     "AVI File": "AVI File",
     "Unknown": "Unknown",
 
-    "#START:BP brand tpl/aboutSpiderOakViewTemplate.html": "",
     "It does not currently provide upload or sync capability."
     : "It does not currently provide upload or sync capability.",
-    "#START:BP brand tpl/preliminaryViewTemplate.html": "",
     "Need an account?<br>Register now &raquo;"
     : "Need an account?<br>Register now &raquo;",
 

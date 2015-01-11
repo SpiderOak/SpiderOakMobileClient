@@ -10,13 +10,35 @@
 
   window.localizer = function () {
     return {
+      /** Prime localization with carefully formed local language codes.
+       *
+       * 1. Standardize to all lower case. (Utilities vary in their casing.)
+       * 2. Follow entries qualified w/country codes with unqualified version.
+       * 3. Omit duplicates.
+       * 4. Omit empty entries.
+       * 5. Include en-us fallback entry as last item, for no empty slots.
+       */
       prepareHtml10n: function () {
         // Adapted from https://github.com/mclear/NFC_Ring_Control/blob/df8db31dd1683b04422c106a1484637629b4c88f/www/js/nfcRing/ui.js#L125-L135
+
+        var candidates = [navigator.language, navigator.userLanguage, "en-us"],
+            prepped = [];
+        // Include in prepped lower case versions of non-empty candidates and,
+        // for country-qualified ones, follow it with the unqualified one.
+        candidates.forEach(function (candidate) {
+          if (! candidate) { return; }
+          candidate = candidate.toLowerCase();
+          if (prepped.indexOf(candidate) !== -1) { return; }
+          prepped.push(candidate);
+          var splat = candidate.split("-");
+          if ((splat.length > 1) &&
+              (candidates.indexOf(splat[0]) === -1)) {
+            prepped.push(splat[0]);
+          }
+        });
+
         html10n.bind('indexed', function() {
-          html10n.localize('en-US');
-          html10n.localize([navigator.language,
-                            navigator.userLanguage,
-                            'en-US']);
+          html10n.localize(prepped);
         });
         html10n.bind('localized', function() {
           console.log("Localized");

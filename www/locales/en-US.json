@@ -319,5 +319,5 @@
     "Need an account?<br>Register now &raquo;"
     : "Need an account?<br>Register now &raquo;",
 
-    "#END:": "no trailing comma"
+    "NO TRAILING COMMA": "NO TRAILING COMMA"
   }

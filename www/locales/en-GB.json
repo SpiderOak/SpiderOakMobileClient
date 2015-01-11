@@ -4,6 +4,7 @@
     "Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."
     : "Sorry! You should still be able to access your favourites, but logging in and access to files or folders requires a network connection.",
     "Favorites": "Favourites",
+    "Do you want to refresh all of your favorites? This will re-download the latest versions."
     : "Do you want to refresh all of your favourites? This will re-download the latest versions.",
     "Do you want to add this file to your favorites? This will download the contents to your device."
     : "Do you want to add this file to your favourites? This will download the contents to your device.",

@@ -327,6 +327,7 @@
     "Passcode Kept": "Passcode Kept",
     "Passcode was bypassed": "Passcode was bypassed",
     "Remove it": "Remove it",
+    "Keep it": "Keep it",
     "Error removing favorite from device (error code: {{code}})"
     : "Error removing favorite from device (error code: {{code}})",
 

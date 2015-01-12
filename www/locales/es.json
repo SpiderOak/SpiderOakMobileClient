@@ -61,7 +61,7 @@
   "Passcode incorrect.": "Contraseña incorrecta.",
   "Too many attempts.": "Demasiados intentos.",
   "Try again.": "Vuelva a intentarlo.",
-  "attempt {{incorrects}} of {{maxIncorrects}}": "intento {{incorrects}} de {{maxIncorrects}}",
+  "Attempt {{incorrects}} of {{maxIncorrects}}": "Intento {{incorrects}} de {{maxIncorrects}}",
   "Bypass passcode and log out?": "¿Desea omitir la contraseña y cerrar sesión?",
   "Bypass passcode?": "¿Desea omitir la contraseña?",
   "About {{SpiderOak}}": "Acerca de {{SpiderOak}}",

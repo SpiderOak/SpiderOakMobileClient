@@ -151,7 +151,8 @@
           navigator.notification.confirm(
             qq("Are you sure you want to clear your recent history?"),
             this.clearRecentsConfirmed,
-            qq("Clear Recents")
+            qq("Clear Recents"),
+            [qq("OK"), qq("Cancel")]
           );
         }.bind(this), 50);
       }

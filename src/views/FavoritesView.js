@@ -162,7 +162,8 @@
             spiderOakApp.dialogView.hide();
           });
         }.bind(this),
-        qq("Favorites")
+        qq("Favorites"),
+        [qq("OK"), qq("Cancel")]
       );
     },
     refresh: function(remaining, callback) {

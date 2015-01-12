@@ -173,7 +173,8 @@
                 "<ul class=\"folderViewLoading loadingFolders loadingFiles\">"+
                   "<li class=\"sep\">" + qq("Loading...") + "</li></ul>");
             }.bind(spiderOakApp),
-            qq("Sign out")
+            qq("Sign out"),
+            [qq("OK"), qq("Cancel")]
           );
         }.bind(this),50);
       }

@@ -182,7 +182,8 @@
         navigator.notification.confirm(
           qq("Do you want to add this file to your favorites? This will download the contents to your device."),
           this.saveFavoriteConfirmed,
-          qq("Favorites")
+          qq("Favorites"),
+          [qq("OK"), qq("Cancel")]
         );
       }
     },
@@ -588,7 +589,8 @@
             );
           }.bind(this));
         }.bind(this),
-        qq("Save file")
+        qq("Save file"),
+        [qq("OK"), qq("Cancel")]
       );
     },
     refreshFavorite: function(callback) {
@@ -680,16 +682,17 @@
                 deletedSuccess,
                 function(error) { // @FIXME: Real error handling...
                   navigator.notification.alert(
-                    "Error removing favorite from device (error code: " +
-                      error.code + ")",
+                    qq("Error removing favorite from device (error code: {{code}})",
+                       {"code": error.code}),
                     null,
-                    "Error",
-                    "OK"
+                    qq("Error"),
+                    qq("OK")
                   );
                 });
             });
         },
-        qq("Favorites")
+        qq("Favorites"),
+        [qq("OK"), qq("Cancel")]
       );
     },
     which: "FileView"

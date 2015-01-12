@@ -319,5 +319,16 @@
     "Need an account?<br>Register now &raquo;"
     : "Need an account?<br>Register now &raquo;",
 
+    "Your account was logged off on bypass of your passcode. Remove your passcode?"
+    : "Your account was logged off on bypass of your passcode. Remove your passcode?",
+    "Passcode removed": "Passcode removed",
+    "Navigate to Settings to establish a new passcode."
+    : "Navigate to Settings to establish a new passcode.",
+    "Passcode Kept": "Passcode Kept",
+    "Passcode was bypassed": "Passcode was bypassed",
+    "Remove it": "Remove it",
+    "Error removing favorite from device (error code: {{code}})"
+    : "Error removing favorite from device (error code: {{code}})",
+
     "NO TRAILING COMMA": "NO TRAILING COMMA"
   }

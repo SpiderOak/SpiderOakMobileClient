@@ -79,7 +79,8 @@
             function() {
               spiderOakApp.loginView.setInitialServer();
             },
-            qq("Important note"));
+            qq("Important note"),
+            qq("OK"));
         }
         return;
       }

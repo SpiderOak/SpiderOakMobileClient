@@ -184,24 +184,23 @@
         return false;
       }
       navigator.notification.confirm(
-        "Your account was logged off on bypass of your passcode. " +
-            " Remove your passcode?",
+        qq("Your account was logged off on bypass of your passcode. Remove your passcode?"),
         function (ok) {
           if (ok === 1) {
             this.unsetPasscode();
             spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-info'></i> Passcode removed",
-              subtitle: "Navigate to Settings to establish a new passcode."
+              title: "<i class='icon-info'></i>" + qq("Passcode removed"),
+              subtitle: qq("Navigate to Settings to establish a new passcode.")
             });
           }
           else {
             spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-info'></i> Passcode Kept"
+              title: "<i class='icon-info'></i>" + qq("Passcode Kept")
             });
           }
         }.bind(this),
-        "Passcode was bypassed",
-        "Remove it,Keep it");
+        qq("Passcode was bypassed"),
+        [qq("Keep it"),qq("Remove it")]);
     },
     /** Return distinct name for persistent setting. */
     getPasscodeSettingId: function (which) {

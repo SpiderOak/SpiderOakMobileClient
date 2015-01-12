@@ -21,13 +21,15 @@
       prepareHtml10n: function () {
         // Adapted from https://github.com/mclear/NFC_Ring_Control/blob/df8db31dd1683b04422c106a1484637629b4c88f/www/js/nfcRing/ui.js#L125-L135
 
-        var candidates = [navigator.language, navigator.userLanguage, "en-us"],
+        var candidates = [navigator.language, navigator.userLanguage, "en-US"],
             prepped = [];
         // Include in prepped lower case versions of non-empty candidates and,
         // for country-qualified ones, follow it with the unqualified one.
         candidates.forEach(function (candidate) {
+          // Empty?
           if (! candidate) { return; }
           candidate = candidate.toLowerCase();
+          // Already included?
           if (prepped.indexOf(candidate) !== -1) { return; }
           prepped.push(candidate);
           var splat = candidate.split("-");

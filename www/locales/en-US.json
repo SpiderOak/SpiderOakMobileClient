@@ -330,6 +330,8 @@
     "Keep it": "Keep it",
     "Error removing favorite from device (error code: {{code}})"
     : "Error removing favorite from device (error code: {{code}})",
+    "Need an account?<br>Register now &raquo;"
+    : "Need an account?<br>Register now &raquo;",
 
     "NO TRAILING COMMA": "NO TRAILING COMMA"
   }

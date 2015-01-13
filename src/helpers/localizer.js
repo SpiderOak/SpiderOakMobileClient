@@ -29,6 +29,13 @@
           // Empty?
           if (! candidate) { return; }
           candidate = candidate.toLowerCase();
+
+          // @XXX Workaround html10n.build() bizarre behavior with arrays
+          // that include "es-es".
+          if (candidate === "es-es") {
+            candidate = "es";
+          }
+
           // Already included?
           if (prepped.indexOf(candidate) !== -1) { return; }
           prepped.push(candidate);

@@ -186,7 +186,7 @@
       navigator.notification.confirm(
         qq("Your account was logged off on bypass of your passcode. Remove your passcode?"),
         function (ok) {
-          if (ok === 1) {
+          if (ok === 2) {
             this.unsetPasscode();
             spiderOakApp.dialogView.showNotify({
               title: "<i class='icon-info'></i>" + qq("Passcode removed"),

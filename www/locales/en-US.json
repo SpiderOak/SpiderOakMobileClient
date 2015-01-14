@@ -333,5 +333,8 @@
     "Need an account?<br>Register now &raquo;"
     : "Need an account?<br>Register now &raquo;",
 
+    "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer."
+    : "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer.",
+
     "NO TRAILING COMMA": "NO TRAILING COMMA"
   }

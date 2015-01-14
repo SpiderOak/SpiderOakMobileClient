@@ -257,5 +257,8 @@
   "Need an account?<br>Register now &raquo;"
   : "¿Necesitas una cuenta?<br>Registrarse ahora &raquo;",
 
+  "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer."
+  : "Para asegurar Privacidad 'Zero-Knowledge', su cuenta debe ser creada en una computadora.",
+
   "#END:": "sin comas colgantes"
 }

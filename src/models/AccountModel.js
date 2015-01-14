@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   // @TODO Arrange so that base_domain can vary by app configuration.
@@ -183,24 +184,23 @@
         return false;
       }
       navigator.notification.confirm(
-        "Your account was logged off on bypass of your passcode. " +
-            " Remove your passcode?",
+        qq("Your account was logged off on bypass of your passcode. Remove your passcode?"),
         function (ok) {
-          if (ok === 1) {
+          if (ok === 2) {
             this.unsetPasscode();
             spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-info'></i> Passcode removed",
-              subtitle: "Navigate to Settings to establish a new passcode."
+              title: "<i class='icon-info'></i>" + qq("Passcode removed"),
+              subtitle: qq("Navigate to Settings to establish a new passcode.")
             });
           }
           else {
             spiderOakApp.dialogView.showNotify({
-              title: "<i class='icon-info'></i> Passcode Kept"
+              title: "<i class='icon-info'></i>" + qq("Passcode Kept")
             });
           }
         }.bind(this),
-        "Passcode was bypassed",
-        "Remove it,Keep it");
+        qq("Passcode was bypassed"),
+        [qq("Keep it"),qq("Remove it")]);
     },
     /** Return distinct name for persistent setting. */
     getPasscodeSettingId: function (which) {
@@ -226,12 +226,10 @@
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
-          "Sorry. You should still be able to access your favorites, but " +
-            "Logging in and access to files or folders requires " +
-            "a network connection.",
+          qq("Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."),
           function(){},
-          'Network error',
-          'OK'
+          qq("Network error"),
+          qq("OK")
         );
         spiderOakApp.dialogView.hide();
         return;

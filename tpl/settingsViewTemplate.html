@@ -1,34 +1,34 @@
 <div>
   <ul>
-    <li><a class="send-feedback">Send feedback</a></li>
+    <li><a class="send-feedback">{{= qq("Send feedback")}}</a></li>
   </ul>
   {{?(spiderOakApp.accountModel.getLoginState() === true)}}
-  <ul><li class="sep">Account</li></ul>
+  <ul><li class="sep">{{= qq("Account")}}</li></ul>
   <ul>
     <li>
       <a class="account-settings">
-        <div class="label">Name</div>
+        <div class="label">{{= qq("Name")}}</div>
         <div class="info">{{![it.firstname, it.lastname].join(" ")}}</div>
         <div class="clearfix"></div>
       </a>
     </li>
     <li>
-      <span style="float:left;color:#666;">{{= s("Stay logged in") }}</span>
+      <span style="float:left;color:#666;">{{= qq("Stay logged in") }}</span>
       <div class="checkswitch">
         <input type="checkbox"
                id="settings-rememberme"
                name="settings-rememberme"
           {{?spiderOakApp.accountModel.get("rememberme")}}checked='true'{{?}} />
         <label for="settings-rememberme">
-          <span data-off="No" data-on="Yes"></span>
+          <span data-off="{{= qq('No')}}" data-on="{{= qq('Yes')}}"></span>
         </label>
       </div>
       <div class="clearfix"></div>
     </li>
     <li>
       <a class="account-passcode-set">
-        <div class="label">Passcode</div>
-        <div class="info">{{= it.passcode ? "On" : "Off" }}</div>
+        <div class="label">{{= qq("Passcode")}}</div>
+        <div class="info">{{= it.passcode ? qq("On") : qq("Off") }}</div>
         <div class="clearfix"></div>
       </a>
     </li>
@@ -42,32 +42,30 @@
   </ul> -->
   {{?}}
   {{? ! spiderOakApp.settings.getValue("inhibitAdvancedLogin")}}
-  <ul><li class="sep">Primary Server</li></ul>
+  <ul><li class="sep">{{= qq("Primary Server")}}</li></ul>
   <ul>
     <li>
       <a class="server">
-        <div class="label">Server</div>
+        <div class="label">{{= qq("Server")}}</div>
         <div class="info">{{!it.server}}</div>
         <div class="clearfix"></div>
       </a>
     </li>
   </ul>
   {{?}}
-  <ul><li class="sep">Version</li></ul>
+  <ul><li class="sep">{{= qq("Version")}}</li></ul>
   <ul>
     <li style="padding: 15px 10px 25px 10px;">
-      <div class="label">Version</div>
+      <div class="label">{{= qq("Version")}}</div>
       <div class="info">{{=spiderOakApp.version}}</div>
       <div class="clearfix"></div>
     </li>
   </ul>
   {{?spiderOakApp.accountModel.getLoginState() === true}}
   <form class="login-form">
-    <div class="logoutText" style="display:none;">
-      Logging out while <strong>Remember Me</strong> is active will clear your data from this device.
-    </div>
+    <div class="logoutText" style="display:none;">{{= qq("Logging out while <strong>Remember Me</strong> is active will clear your data from this device.")}}</div>
     <div>
-      <a class="button logout" tabindex="-1">Logout</a>
+      <a class="button logout" tabindex="-1">{{= qq("Logout")}}</a>
     </div>
   </form>
   {{?}}

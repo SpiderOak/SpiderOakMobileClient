@@ -42,30 +42,51 @@
         return;
       }
       if (action == "pop") {
-        $title.animate({opacity:0,"-webkit-transform":"translate(30%,0)"},125,"linear",function(){
-          $title.css({"-webkit-transform":"translate(-30%,0)"});
-          $title.text(title);
-          window.setTimeout(function(){
-            $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
-          },0);
-        });
+        $title.animate(
+          {opacity:0, "-webkit-transform":"translate(30%,0)"},
+          125,
+          "linear",
+          function() {
+            $title.css({"-webkit-transform":"translate(-30%,0)"});
+            $title.text(title);
+            window.setTimeout(
+              function(){
+                $title.animate(
+                  {opacity:1, "-webkit-transform": "translate(0,0)"},
+                  125,
+                  "ease-out");
+              },
+              0);
+          });
         return;
       }
       if (action == "push") {
-        $title.animate({opacity:0,"-webkit-transform":"translate(-30%,0)"},125,"linear",function(){
-          $title.css({"-webkit-transform":"translate(30%,0)"});
-          $title.text(title);
-          window.setTimeout(function(){
-            $title.animate({opacity:1,"-webkit-transform":"translate(0,0)"},125,"ease-out");
-          },0);
+        $title.animate(
+          {opacity:0, "-webkit-transform": "translate(-30%,0)"},
+          125,
+          "linear",
+          function(){
+            $title.css({"-webkit-transform":"translate(30%,0)"});
+            $title.text(title);
+            window.setTimeout(
+              function(){
+                $title.animate(
+                  {opacity: 1,"-webkit-transform": "translate(0,0)"},
+                  125,
+                  "ease-out"
+                );
+              },
+              0);
         });
         return;
       }
       $title.animate({opacity:0},150,"linear",function(){
         $title.text(title);
-        window.setTimeout(function(){
-          $title.animate({opacity:1},150,"linear");
-        },0);
+        window.setTimeout(
+          function(){
+            $title.animate({opacity: 1}, 150, "linear");
+          },
+          0);
       });
     },
     menuButton_handler: function(event) {

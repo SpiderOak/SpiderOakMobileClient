@@ -1,3 +1,7 @@
+beforeEach(function() {
+  window.html10n.quiet = true;
+});
+
 /*jshint expr:true */
 describe('Application setup', function() {
   describe('components', function() {

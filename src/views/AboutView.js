@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.AboutView = spiderOakApp.ViewBase.extend({
@@ -161,7 +162,8 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("About " + s("SpiderOak"));
+        spiderOakApp.mainView.setTitle(qq("About {{SpiderOak}}",
+                                          {SpiderOak: s("SpiderOak")}));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {
           spiderOakApp.mainView.showBackButton(false);

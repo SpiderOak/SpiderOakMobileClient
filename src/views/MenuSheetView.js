@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.MenuSheetView = spiderOakApp.ViewBase.extend({
@@ -190,7 +191,8 @@
     about_tapHandler: function(event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
-      spiderOakApp.mainView.setTitle("About " + s("SpiderOak"));
+      spiderOakApp.mainView.setTitle(qq("About {{SpiderOak}}",
+                                        {SpiderOak: s("SpiderOak")}));
       $("#menusheet ul li").removeClass("current");
       $(".about").closest("li").addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {
@@ -222,7 +224,7 @@
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
       $(".recents").closest("li").addClass("current");
-      spiderOakApp.mainView.setTitle("Recents");
+      spiderOakApp.mainView.setTitle(qq("Recents"));
       spiderOakApp.mainView.showBackButton(false);
       if (spiderOakApp.navigator.viewsStack.length === 0) {
         spiderOakApp.navigator.pushView(
@@ -245,7 +247,7 @@
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
       $(".favorites").closest("li").addClass("current");
-      spiderOakApp.mainView.setTitle("Favorites");
+      spiderOakApp.mainView.setTitle(qq("Favorites"));
       spiderOakApp.mainView.showBackButton(false);
       if (spiderOakApp.navigator.viewsStack.length === 0) {
         spiderOakApp.navigator.pushView(
@@ -266,7 +268,7 @@
     login_tapHandler: function(event) {
       $("#subviews").html(
         "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
-          "<li class=\"sep\">Loading...</li></ul>");
+          "<li class=\"sep\">" + qq("Loading...") + "</li></ul>");
       $(document).trigger("logoutSuccess");
     },
     offline: function() {

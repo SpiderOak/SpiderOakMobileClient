@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   /** A model-less view of the public ShareRooms and account ShareRooms.
@@ -23,7 +24,7 @@
       // spiderOakApp.addShareRoomView =
       //     new spiderOakApp.AddShareRoomView().render();
       window.bindMine(this);
-      this.name = "ShareRooms";
+      this.name = qq("ShareRooms");
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
@@ -262,7 +263,7 @@
   });
 
   spiderOakApp.AddShareRoomView = spiderOakApp.ViewBase.extend({
-    name: "Add Public ShareRoom",
+    name: qq("Add Public ShareRoom"),
     className: "addShareRoom",
     events: {
       "submit form": "form_submitHandler",
@@ -315,9 +316,10 @@
 
       if (pubShares.hasByAttributes(shareId, roomKey)) {
         spiderOakApp.dialogView.showNotify({
-          title: "<i class='icon-warning'></i> ShareRoom already present",
-          subtitle: ("Public ShareRoom " + shareId + "/" + roomKey +
-                     " is already being visited.")
+          title: "<i class='icon-warning'></i>" +
+            qq("ShareRoom already present"),
+          subtitle: qq("Public ShareRoom {{shareid}}/{{roomkey}} is already being visited.",
+                       {shareid: shareId, roomkey: roomKey})
         });
       }
       else {
@@ -330,9 +332,9 @@
             spiderOakApp.dialogView.showNotifyErrorResponse(
               response,
               {
-                title: "<i class='icon-warning'></i> Not found",
-                subtitle: ("No such ShareRoom " + shareId +
-                           " / " + roomKey)
+                title: "<i class='icon-warning'></i>" + qq("Not found"),
+                subtitle: qq("ShareRoom {{shareid}}/{{roomkey}} not found.",
+                             {shareid: shareId, roomkey: roomKey})
               });
           }
         });
@@ -389,18 +391,29 @@
       "tap a": "descend_tapHandler",
       "longTap a": "a_longTapHandler"
     },
-    actionItems: [
-      {className: "open", description: "Open"},
-      {className: "details", description: "Details"},
-      {className: "send-link", description: "Send link"}
-    ],
     actionItemHandlers: {
       open: function (event) { this.descend_tapHandler(event); },
       details: function (event) { this.viewDetails(event); },
       "send-link": function (event) { this.sendLink(); },
       forgetPassword: function (event) { this.forgetPassword(); }
     },
+    actionItems: [
+      {className: "open", description: qq("Open")},
+      {className: "details", description: qq("Details")},
+      {className: "send-link", description: qq("Send link")}
+    ],
+    initActionItems: function () {
+      this.actionItems = [
+        {className: "open", description: qq("Open")},
+        {className: "details", description: qq("Details")},
+        {className: "send-link", description: qq("Send link")}
+      ];
+      this.actionItemsTranslated = true;
+    },
     initialize: function() {
+      if (! this.actionItemsTranslated) {
+        this.initActionItems();
+      }
       _.bindAll(this, "render");
       this.model.on("change", this.render, this);
     },
@@ -427,7 +440,7 @@
 
       $target = $target.tagName === "A" ? $target : $target.closest("a");
       if ($target.text().trim() === "" ||
-          $target.text().trim() === "Loading...") {
+          $target.text().trim() === qq("Loading...")) {
         return;
       }
 
@@ -441,7 +454,7 @@
       else if (! this.model.get("name")) {
         // Hasn't yet resolved, do a fetch and descend again on success:
         spiderOakApp.dialogView.showWait({
-          title: "Fetching"
+          title: qq("Fetching")
         });
         options = {
           success: function () {
@@ -451,7 +464,7 @@
           error: function () {
             spiderOakApp.dialogView.hide();
             spiderOakApp.dialogView.showNotify({
-              title: "Fetch unsatisfied"
+              title: qq("Fetch unsatisfied")
             });
           }.bind(this)
         };
@@ -486,15 +499,16 @@
     },
     sendLink: function(event) {
       var model = this.model;
-      spiderOakApp.dialogView.showWait({subtitle:"Retrieving link"});
+      spiderOakApp.dialogView.showWait({subtitle:qq("Retrieving link")});
       spiderOakApp.dialogView.hide();
       var name = model.get("name");
       var alternate = model.get("share_id") + "/" + model.get("room_key");
-      var text = ("I want to share this link with you:" +
-                  "\n\nShareRoom: " + (name || alternate) +
-                  "\nLink: " + model.getWebURL());
+      var text = (qq("I want to share this link with you:") +
+                  "\n\n" + qq("ShareRoom: {{name}}",
+                              {name: (name || alternate)}) +
+                  "\n" + qq("Link: {{url}}", {url: model.getWebURL()}));
       if (model.get("password_required") || model.get("password")) {
-        text += "\n\n(Access requires an additional password.)";
+        text += "\n\n" + qq("(Access requires an additional password.)");
       }
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_TEXT] = text;
@@ -520,10 +534,10 @@
         function(error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
-            "Error sending this link. Try again later.",
+            qq("Error sending this link. Please try later."),
             null,
-            "File error",
-            "OK"
+            qq("File error"),
+            qq("OK")
           );
         }
       );
@@ -538,7 +552,7 @@
 
       $target = $target.tagName === "A" ? $target : $target.closest("a");
       if ($target.text().trim() === "" ||
-          $target.text().trim() === "Loading...") {
+          $target.text().trim() === qq("Loading...")) {
         return;
       }
 
@@ -547,7 +561,7 @@
       }
       if (this.model.getPassword()) {
         actionItems = actionItems.concat({className: "forgetPassword",
-                                          description: "Forget password"});
+                                          description: qq("Forget password")});
       }
       event.preventDefault();
       event.stopPropagation();
@@ -584,7 +598,7 @@
       }
     ),
     actionItems: spiderOakApp.ShareRoomItemView.prototype.actionItems.concat(
-      [{className: "remove", description: "Remove"}]
+      [{className: "remove", description: qq("Remove")}]
     ),
     actionItemHandlers: _.extend(
       {},
@@ -610,11 +624,11 @@
       }
       if (this.model.get("remember")) {
         actionItems = actionItems.concat({className: "forget",
-                                          description: "Forget"});
+                                          description: qq("Forget")});
       }
       else {
         actionItems = actionItems.concat({className: "remember",
-                                          description: "Remember"});
+                                          description: qq("Remember")});
       }
       return spiderOakApp.ShareRoomItemView.prototype
           .a_longTapHandler.call(this, event, actionItems);
@@ -639,10 +653,10 @@
         }
       }.bind(this);
       navigator.notification.confirm(
-        "Remove this ShareRoom?",
+        qq("Remove this ShareRoom?"),
         removeShare,
-        "Remove?",
-        "OK,Cancel"
+        qq("Remove?"),
+        [qq("OK"), qq("Cancel")]
       );
     },
     which: "PublicShareRoomItemView"
@@ -667,7 +681,7 @@
       this.$el.html(
         window.tmpl[this.templateID](_.extend(this.model.toJSON()))
       );
-      spiderOakApp.mainView.setTitle("Details");
+      spiderOakApp.mainView.setTitle(qq("Details"));
       this.scroller = new window.iScroll(this.el, {
         bounce: !$.os.android,
         vScrollbar: !$.os.android,
@@ -732,7 +746,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("ShareRoom Password");
+        spiderOakApp.mainView.setTitle(qq("ShareRoom Password"));
         spiderOakApp.mainView.showBackButton(true);
       }
     },
@@ -761,7 +775,7 @@
       this.model.setPassword(password);
 
       spiderOakApp.dialogView.showWait({
-        title: "Validating"
+        title: qq("Validating")
       });
       event.preventDefault();
       this.$("input").blur();
@@ -796,7 +810,7 @@
         passwordField.val("");
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
-          title: "<i class='icon-warning'></i> Invalid password"
+          title: "<i class='icon-warning'></i>" + qq("Invalid password")
         });
         if (spiderOakApp.navigator.viewsStack.length > 0) {
           spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);

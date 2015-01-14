@@ -100,6 +100,7 @@ module.exports = function(grunt) {
           'src/helpers/basicauth.js',
           'src/helpers/bindmine.js',
           'src/helpers/customStrings.js',
+          'src/helpers/localizer.js',
           'src/effects/FastSlideEffect.js',
           'src/models/ModelBase.js',
           'src/models/AccountModel.js',
@@ -233,9 +234,15 @@ module.exports = function(grunt) {
       },
       moment: {
         src: [
-          'bower_components/moment/moment.js'
+          'bower_components/moment/min/moment-with-locales.js'
         ],
         dest: 'www/components/moment/moment.js'
+      },
+      html10n: {
+        src: [
+          'bower_components/html10n/l10n.js'
+        ],
+        dest: 'www/components/html10n/l10n.js'
       },
       defaultcss: {
         options: {

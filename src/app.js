@@ -9,6 +9,7 @@
       _           = window._,
       $           = window.$,
       s           = window.s,
+      qq          = window.qq,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
     timeout: 300000, // five minutes
@@ -36,6 +37,7 @@
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     ready: function() {
       // Start listening for important app-level events
+      window.localizer.prepareHtml10n();
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
@@ -308,7 +310,8 @@
       }
       $(".splash").hide();
       spiderOakApp.loginView.$(".learn-more").html(
-          "Learn more about " + s("SpiderOak") + " &raquo;"
+        qq("Learn more about {{SpiderOak}}&raquo;",
+           {SpiderOak: s("SpiderOak")})
       );
     },
     backDisabled: true,
@@ -381,28 +384,24 @@
           standardServer = settings.getValue("standardServer");
       if (inhibitAdvanced && (server !== standardServer)) {
         navigator.notification.confirm(
-          "Advanced login has moved to the 'SpiderOak Blue' app, and we must" +
-            " switch this app from the alternate, " + server +
-            ", to the standard server, " + standardServer + ". To continue" +
-            " using this functionality, please download the 'SpiderOak Blue' app" +
-            " This dialog will appear at app startup until you authorize the change.",
+          qq("Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change."),
           function (choice) {
             if (choice === 1) {
               spiderOakApp.settings.get("server").set("value", standardServer);
               spiderOakApp.dialogView.showToast({
-                title: "Server changed to spideroak.com",
+                title: qq("Server changed to {{standardServer}}"),
                 duration: 2000
               });
             }
             else {
               spiderOakApp.dialogView.showToast({
-                title: "Alternate server retained",
+                title: qq("Alternate server retained"),
                 duration: 2000
               });
             }
           },
-          'Non-standard server',
-          ['OK, switch now', 'No, maybe later']
+          qq("Non-standard server"),
+          [qq("OK, switch now"), qq("No, maybe later")]
         );
       }
     },
@@ -424,12 +423,10 @@
       };
       window.spiderOakApp.inOfflineConfirm = true;
       navigator.notification.confirm(
-        "Sorry. You should still be able to access your favorites, but " +
-          "Logging in and access to files or folders requires " +
-          "a network connection.",
+        qq("Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."),
         onConfirm,
-        'Network error',
-        'OK'
+        qq("Network error"),
+        qq("OK")
       );
       spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
@@ -562,7 +559,7 @@
         navigator.app.exitApp();
       };
       spiderOakApp.dialogView.showToast({
-        title: "Hit back again to exit",
+        title: qq("Hit back again to exit"),
         onShow: function() {
           $(document).on("backbutton", bindCallback);
         },
@@ -572,7 +569,7 @@
       });
     },
     onMenuKeyDown: function(event) {
-      // The menu button is flakey in some versions of Android 
+      // The menu button is flakey in some versions of Android
       // and deprecated as of Android 3.0
       if (window.Modernizr.overflowscrolling ||
           (window.device && (window.device.platform === "Android") &&
@@ -606,7 +603,7 @@
      * We use an ajax handler in this order of precedence:
      *
      * 1. Prefer "alternateAjax" function designated in settings, if any.
-     * 2. Otherwise, use cordovaHTTPAjax - it depends on the cordovaHTTP 
+     * 2. Otherwise, use cordovaHTTPAjax - it depends on the cordovaHTTP
      *    plugin.
      * 3. Otherwise, use $.ajax.
      * 4. There is no 4.
@@ -616,7 +613,7 @@
      *
      * 1. The options parameter, in the form of a 'credentials' attribute
      *    having a value of an object with 'username' and 'password' fields, or
-     * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a 
+     * 2. accountModel.basicAuthManager.getAccountBasicAuth() having a
      *
      * @param {object} options like $.ajax(options)
      */

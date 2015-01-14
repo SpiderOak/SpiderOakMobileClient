@@ -19,15 +19,13 @@
                {{?it.remembering}} checked {{?}}
                tabindex="-1" />
         <label for="remember">
-          <span data-off="No" data-on="Yes"></span>
+          <span data-off="{{= qq('No')}}" data-on="{{= qq('Yes')}}"></span>
         </label>
       </div>
-      <label style="float:right; padding:0 20px; color:#666; font-size: 90%;">
-        Remember ShareRoom
-      </label>
+      <label style="float:right; padding:0 20px; color:#666; font-size: 90%;">{{= qq("Remember ShareRoom")}}</label>
       <div class="clearfix"></div>
     </div>
-    <a class="button addShareRoomsButton" tabindex="-1">Add ShareRoom</a>
+    <a class="button addShareRoomsButton" tabindex="-1">{{= qq("Add ShareRoom")}}</a>
     <input type="submit" style="visibility:hidden" tabindex="-1" />
   </form>
 </div>

@@ -1,0 +1,22 @@
+{
+    "Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change."
+    : "Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorise the change.",
+    "Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."
+    : "Sorry! You should still be able to access your favourites, but logging in and access to files or folders requires a network connection.",
+    "Favorites": "Favourites",
+    "Do you want to refresh all of your favorites? This will re-download the latest versions."
+    : "Do you want to refresh all of your favourites? This will re-download the latest versions.",
+    "Do you want to add this file to your favorites? This will download the contents to your device."
+    : "Do you want to add this file to your favourites? This will download the contents to your device.",
+    "Do you want to remove this file from your favorites?"
+    : "Do you want to remove this file from your favourites?",
+    "Refresh favorite": "Refresh favourite",
+    "Remove from favorites": "Remove from favourites",
+    "Add to favorites": "Add to favourites",
+    "Authentication failed - Unauthorized."
+    : "Authentication failed - Unauthorised.",
+    "We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team"
+    : "We apologise, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team",
+    "Favorites": "Favourites",
+    "NO TRAILING COMMA": "NO TRAILING COMMA"
+}

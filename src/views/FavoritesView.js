@@ -8,6 +8,7 @@
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
+      qq          = window.qq,
       s           = window.s;
 
   spiderOakApp.FavoritesView = spiderOakApp.ViewBase.extend({
@@ -54,7 +55,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle("Favorites");
+        spiderOakApp.mainView.setTitle(qq("Favorites"));
         spiderOakApp.mainView.showBackButton(false);
       }
     },
@@ -151,8 +152,7 @@
     refreshAllFavorites: function(event) {
       event.stopImmediatePropagation();
       navigator.notification.confirm(
-        "Do you want to refresh all of your favorites? This will re-download" +
-          " the latest versions.",
+        qq("Do you want to refresh all of your favorites? This will re-download the latest versions."),
         function(button) {
           if (button !== 1) {
             return;
@@ -162,7 +162,8 @@
             spiderOakApp.dialogView.hide();
           });
         }.bind(this),
-        "Favorites"
+        qq("Favorites"),
+        [qq("OK"), qq("Cancel")]
       );
     },
     refresh: function(remaining, callback) {

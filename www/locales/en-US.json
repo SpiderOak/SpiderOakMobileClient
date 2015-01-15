@@ -250,8 +250,8 @@
     "Server": "Server",
     "Version": "Version",
     "Version": "Version",
-    "Logging out while <strong>Remember Me</strong> is active will clear your data from this device."
-    : "Logging out while <strong>Remember Me</strong> is active will clear your data from this device.",
+    "Logging out while <strong>Stay logged in</strong> is active will clear your data from this device."
+    : "Logging out while <strong>Stay logged in</strong> is active will clear your data from this device.",
     "Logout": "Logout",
 
     "Password required": "Password required",
@@ -270,8 +270,6 @@
 
     "devices: [[devices]]": "devices: {{devices}}",
     "[[backupsize]] / [[size]] GB": "{{backupsize}} / {{size}} GB",
-
-    "#Since 2015-01-07 - strings to be added to spanish translation":"",
 
     "Stay logged in": "Stay logged in",
     "Share file": "Share file",
@@ -336,5 +334,5 @@
     "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer."
     : "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer.",
 
-    "NO TRAILING COMMA": "NO TRAILING COMMA"
+    "#NO TRAILING COMMA": "NO TRAILING COMMA"
   }

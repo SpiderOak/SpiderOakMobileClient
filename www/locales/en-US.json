@@ -199,11 +199,12 @@
     "Live Privately,": "Live Privately,",
     "The SpiderOak Team": "The SpiderOak Team",
 
-    "Not 'Zero-Knowledge'": "Not 'Zero-Knowledge'",
+    "Zero-Knowledge": "Zero-Knowledge",
+    "Not '[[Zero-Knowledge]]'": "Not 'Zero-Knowledge'",
     "If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased."
     : "If you login with this mobile client, or via the website, your password will exist in the {{SpiderOak}} server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.",
-    "If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the [[SpiderOak]] desktop client."
-    : "If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the {{SpiderOak}} desktop client.",
+    "If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client."
+: "If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the {{SpiderOak}} desktop client.",
     "Continue logging in": "Continue logging in",
     "Don't login now": "Don't login now",
 
@@ -278,7 +279,7 @@
     "Open in": "Open in",
 
     "MS Word": "MS Word",
-    "MS Excel":  "MS Excel",
+    "MS Excel": "MS Excel",
     "MS PowerPoint": "MS PowerPoint",
     "Adobe PDF": "Adobe PDF",
     "Zip Archive": "Zip Archive",
@@ -333,7 +334,7 @@
     "Need an account?<br>Register now &raquo;"
     : "Need an account?<br>Register now &raquo;",
 
-    "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer."
+    "In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer."
     : "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer.",
 
     "NO TRAILING COMMA": "NO TRAILING COMMA"

@@ -143,9 +143,9 @@
   "Please go to <a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Diríjase a <a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> y siga las instrucciones para establecer su cuenta.",
   "Live Privately,": "Viva en forma privada,",
   "The SpiderOak Team": "El equipo de SpiderOak",
-  "Not 'Zero-Knowledge'": "Sin sistema \"cero conocimiento\"",
+  "Not '[[Zero-Knowledge]]'": "Sin sistema \"Zero-Knowledge\"",
   "If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.": "Si inicia sesión con este cliente móvil, o a través del sitio web, su contraseña existirá en la memoria del servidor de {{SpiderOak}} durante su sesión de navegación. Sin embargo, su contraseña se almacenará en memoria cifrada y nunca se guardará en un disco no codificado. Cuando cierre su sesión, la copia de su contraseña en el servidor se borrará completamente.",
-  "If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Si prefiere utilizar solo el acceso \"cero conocimiento\", cancele este inicio de sesión e inicie sesión a través del cliente de escritorio de {{SpiderOak}}.",
+  "If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Si prefiere utilizar solo el acceso \"Zero-Knowledge\", cancele este inicio de sesión e inicie sesión a través del cliente de escritorio de {{SpiderOak}}.",
   "Continue logging in": "Continuar el inicio de sesión",
   "Don't login now": "No iniciar sesión ahora",
   "Passcode unlock": "Desbloqueo de código de acceso",
@@ -257,7 +257,7 @@
   "Need an account?<br>Register now &raquo;"
   : "¿Necesitas una cuenta?<br>Registrarse ahora &raquo;",
 
-  "In order to ensure 'Zero-Knowledge' Privacy, your account must be created on a computer."
+  "In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer."
   : "Para asegurar Privacidad 'Zero-Knowledge', su cuenta debe ser creada en una computadora.",
 
   "#END:": "sin comas colgantes"

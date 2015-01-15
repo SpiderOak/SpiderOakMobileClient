@@ -1,13 +1,13 @@
 <div>
   <div class="nonzk-warning-content">
-    <h3 style="text-align: center;">{{= qq("
-      Not 'Zero-Knowledge'
-    ")}}</h3>
+    <h3 style="text-align: center;">
+      {{= qq("Not '[[Zero-Knowledge]]'", {"Zero-Knowledge": "Zero-Knowledge"})}}
+    </h3>
 
     <p style="padding: 0 10px;">
       <span>{{= qq("If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.", {'SpiderOak': s('SpiderOak')})}}</span>
 <br><br>
-<span>{{= qq("If you prefer to use only 'Zero-Knowledge' access, cancel this login, and only login via the [[SpiderOak]] desktop client.", {'SpiderOak': s('SpiderOak')})}}</span>
+<span>{{= qq("If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.", {'SpiderOak': s('SpiderOak'), "Zero-Knowledge": "Zero-Knowledge"})}}</span>
     </p>
     <div>
       <a class="button continue">{{= qq("Continue logging in")}}</a>

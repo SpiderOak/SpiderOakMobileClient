@@ -32,8 +32,9 @@
 
           // @XXX Workaround html10n.build() bizarre behavior with arrays
           // that include "es-es".
-          if (candidate === "es-es") {
-            candidate = "es";
+          if ((candidate.indexOf("-") !== -1) &&
+              candidate.split("-")[0] !== "en") {
+            candidate = candidate.split("-")[0];
           }
 
           // Already included?

@@ -10,7 +10,7 @@
     "iscroll": "https://github.com/cubiq/iscroll/archive/v4.2.zip",
     "modernizr": "2.6.3",
     "moment": "~2.8.0",
-    "html10n": "https://github.com/SpiderOak/html10n.js.git#fix-for-cordova-locale-imports",
+    "html10n": "https://github.com/SpiderOak/html10n.js.git#spideroak",
     "store.js": "1.3.x"
   }
 }

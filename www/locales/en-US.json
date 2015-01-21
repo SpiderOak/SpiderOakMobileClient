@@ -96,7 +96,6 @@
     "Bypass passcode and log out?": "Bypass passcode and log out?",
     "Bypass passcode?": "Bypass passcode?",
 
-    "About {{SpiderOak}}": "About {{SpiderOak}}",
     "Recents": "Recents",
     "Loading...": "Loading...",
 
@@ -162,7 +161,6 @@
     "ShareRoom Password": "ShareRoom Password",
     "Invalid password": "Invalid password",
 
-    "About {{SpiderOak}}": "About {{SpiderOak}}",
     "The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients."
     : "The {{SpiderOak}} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.",
     "However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link."
@@ -185,10 +183,6 @@
     "Submit Password": "Submit Password",
 
     "Sections": "Sections",
-    "ShareRooms": "ShareRooms",
-    "Favorites": "Favorites",
-    "Recents": "Recents",
-    "Settings": "Settings",
     "About [[SpiderOak]]": "About {{SpiderOak}}",
     "Log In": "Log In",
     "Log in": "Log in",
@@ -214,7 +208,6 @@
     "Need an account?<br>Find out how &raquo;": "Need an account?<br>Find out how &raquo;",
     "or": "or",
     "Log in &raquo;": "Log in &raquo;",
-    "Cancel": "Cancel",
 
     "Please note": "Please note",
     "The &ldquo;Stay logged in&rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.<br><br>Selecting the &ldquo;Stay logged in&rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.<br><br>This option can be changed at any time in your settings."
@@ -242,14 +235,11 @@
     : "Note: changing the server address will log the current session out.",
 
     "Send feedback": "Send feedback",
-    "Account": "Account",
     "Name": "Name",
     "Passcode": "Passcode",
     "On": "On",
     "Off": "Off",
     "Primary Server": "Primary Server",
-    "Server": "Server",
-    "Version": "Version",
     "Version": "Version",
     "Logging out while <strong>Remember Me</strong> is active will clear your data from this device."
     : "Logging out while <strong>Remember Me</strong> is active will clear your data from this device.",
@@ -257,7 +247,6 @@
 
     "Password required": "Password required",
     "Password provided": "Password provided",
-    "Details": "Details",
     "Owner:": "Owner:",
     "Folders:": "Folders:",
     "Files:": "Files:",
@@ -331,8 +320,6 @@
     "Keep it": "Keep it",
     "Error removing favorite from device (error code: {{code}})"
     : "Error removing favorite from device (error code: {{code}})",
-    "Need an account?<br>Register now &raquo;"
-    : "Need an account?<br>Register now &raquo;",
 
     "In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer."
     : "In order to ensure '{{Zero-Knowledge}}' Privacy, your account must be created on a computer.",

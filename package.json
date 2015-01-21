@@ -44,6 +44,7 @@
     "grunt-contrib-concat": "~0.2.0",
     "grunt-contrib-less": "~0.9.0",
     "grunt-shell": "~0.5.x",
+    "grunt-xliff": "git://github.com/alex-seville/grunt-xliff.git#79d632671a",
     "mocha": "~1.8.1",
     "chai": "~1.8.0",
     "sinon": "~1.7.3",

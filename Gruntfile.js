@@ -90,8 +90,7 @@ module.exports = function(grunt) {
     xliff: {
       from_json: {
         options: {
-          exportText:true,
-          languages: ["en","es"]
+          exportText: true
         },
         files: {
           'xliff/': ['www/locales/*.json']
@@ -99,8 +98,7 @@ module.exports = function(grunt) {
       },
       to_json: {
         options: {
-          importText:true,
-          languages: ["en","es"]
+          importText: true
         },
         files: {
           'www/locales/': ['xliff/*.xml']

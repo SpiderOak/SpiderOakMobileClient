@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="en-GB" datatype="plaintext" original="messages" date="2012-03-05T14:54:29Z" product-name="messages">
+  <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change.</source>
+        <target>Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorise the change.</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</source>
+        <target>Sorry! You should still be able to access your favourites, but logging in and access to files or folders requires a network connection.</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Favorites</source>
+        <target>Favourites</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Do you want to refresh all of your favorites? This will re-download the latest versions.</source>
+        <target>Do you want to refresh all of your favourites? This will re-download the latest versions.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Do you want to add this file to your favorites? This will download the contents to your device.</source>
+        <target>Do you want to add this file to your favourites? This will download the contents to your device.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Do you want to remove this file from your favorites?</source>
+        <target>Do you want to remove this file from your favourites?</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Refresh favorite</source>
+        <target>Refresh favourite</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Remove from favorites</source>
+        <target>Remove from favourites</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Add to favorites</source>
+        <target>Add to favourites</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Authentication failed - Unauthorized.</source>
+        <target>Authentication failed - Unauthorised.</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team</source>
+        <target>We apologise, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>NO TRAILING COMMA</source>
+        <target>NO TRAILING COMMA</target>
+      </trans-unit>
+      
+    </body>
+  </file>
+</xliff>

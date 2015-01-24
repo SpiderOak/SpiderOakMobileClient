@@ -37,7 +37,7 @@
         <target>Vuelva a presionar atrás para salir</target>
       </trans-unit>
       <trans-unit id="9">
-        <source>Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</source>
+        <source>Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</source>
         <target>¡Disculpe! Debería poder acceder a sus favoritos, pero se requiere una conexión de red para iniciar sesión y acceder a archivos o carpetas.</target>
       </trans-unit>
       <trans-unit id="10">
@@ -234,7 +234,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>Enter Passcode</source>
-        <target>Ingrese la código de acceso</target>
+        <target>Ingrese el código de acceso</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Enter your 4 digit passcode to unlock</source>
@@ -258,11 +258,11 @@
       </trans-unit>
       <trans-unit id="64">
         <source>Bypass passcode and log out?</source>
-        <target>¿Desea omitir la código de acceso y cerrar sesión?</target>
+        <target>¿Desea omitir el código de acceso y cerrar sesión?</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Bypass passcode?</source>
-        <target>¿Desea omitir la código de acceso?</target>
+        <target>¿Desea omitir el código de acceso?</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Recents</source>
@@ -278,7 +278,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Clear Recents</source>
-        <target>Borrar Recientes</target>
+        <target>Borrar recientes</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Feedback on {{SpiderOak}} {{platform}} app version {{appVersion}}</source>
@@ -560,7 +560,7 @@ ya está actualizada</target>
       </trans-unit>
       <trans-unit id="139">
         <source>Not '[[Zero-Knowledge]]'</source>
-        <target>Sin sistema "{{Zero-Knowledge}}"</target>
+        <target>Sin sistema '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="140">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
@@ -568,7 +568,7 @@ ya está actualizada</target>
       </trans-unit>
       <trans-unit id="141">
         <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Si prefiere utilizar solo el acceso "{{Zero-Knowledge}}", cancele este inicio de sesión e inicie sesión a través del cliente de escritorio de {{SpiderOak}}.</target>
+        <target>Si prefiere utilizar solo el acceso '{{Zero-Knowledge}}', cancele este inicio de sesión e inicie sesión a través del cliente de escritorio de {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Continue logging in</source>
@@ -592,7 +592,7 @@ ya está actualizada</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Need an account?&lt;br&gt;Register now &amp;raquo;</source>
-        <target>¿Necesita una cuenta?&lt;br&gt;Registrarse ahora &amp;raquo;</target>
+        <target>¿Necesitas una cuenta?&lt;br&gt;Registrarse ahora &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="148">
         <source>or</source>
@@ -953,10 +953,6 @@ ya está actualizada</target>
       <trans-unit id="237">
         <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
         <target>Para asegurar Privacidad '{{Zero-Knowledge}}', su cuenta debe ser creada en una computadora.</target>
-      </trans-unit>
-      <trans-unit id="238">
-        <source>NO TRAILING COMMA</source>
-        <target>sin comas colgantes</target>
       </trans-unit>
       
     </body>

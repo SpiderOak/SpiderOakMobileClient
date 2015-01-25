@@ -87,6 +87,24 @@ module.exports = function(grunt) {
         }
       }
     },
+    xliff: {
+      from_json: {
+        options: {
+          exportText: true
+        },
+        files: {
+          'xliff/': ['www/locales/*.json']
+        }
+      },
+      to_json: {
+        options: {
+          importText: true
+        },
+        files: {
+          'www/locales/': ['xliff/*.xml']
+        }
+      }
+    },
     concat: {
       dist: {
         options: {
@@ -355,6 +373,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-xliff');
   grunt.loadNpmTasks('grunt-dot-compiler');
 
   // Default task.

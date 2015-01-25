@@ -30,13 +30,6 @@
           if (! candidate) { return; }
           candidate = candidate.toLowerCase();
 
-          // @XXX Workaround html10n.build() bizarre behavior with arrays
-          // that include "es-es".
-          if ((candidate.indexOf("-") !== -1) &&
-              candidate.split("-")[0] !== "en") {
-            candidate = candidate.split("-")[0];
-          }
-
           // Already included?
           if (prepped.indexOf(candidate) !== -1) { return; }
           prepped.push(candidate);

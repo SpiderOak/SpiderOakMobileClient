@@ -583,8 +583,8 @@ ya está actualizada</target>
         <target>Desbloqueo de código de acceso</target>
       </trans-unit>
       <trans-unit id="145">
-        <source>Learn more about SpiderOak &amp;raquo;</source>
-        <target>Conozca más acerca de SpiderOak &amp;raquo;</target>
+        <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
+        <target>Conozca más acerca de {{SpiderOak}} &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>

@@ -143,7 +143,7 @@
 	"Continue logging in": "Continuar el inicio de sesión",
 	"Don't login now": "No iniciar sesión ahora",
 	"Passcode unlock": "Desbloqueo de código de acceso",
-	"Learn more about SpiderOak &raquo;": "Conozca más acerca de SpiderOak &raquo;",
+	"Learn more about [[SpiderOak]] &raquo;": "Conozca más acerca de {{SpiderOak}} &raquo;",
 	"Need an account?<br>Find out how &raquo;": "¿Necesita una cuenta?<br>Descubra cómo &raquo;",
 	"Need an account?<br>Register now &raquo;": "¿Necesitas una cuenta?<br>Registrarse ahora &raquo;",
 	"or": "o",

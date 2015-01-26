@@ -559,7 +559,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="139">
         <source>Not '{{Zero-Knowledge}}'</source>
-        <target>Pas '{{ Communication d'information zéro }}'</target>
+        <target>Pas '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="140">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
@@ -567,7 +567,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="141">
         <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Si vous préférez utiliser un accès '{{ Communication d'information zéro }}', annulez cette connexion, et ne vous connectez que par l'intermédiaire du client bureau {{SpiderOak}}.</target>
+        <target>Si vous préférez utiliser un accès '{{Zero-Knowledge}}', annulez cette connexion, et ne vous connectez que par l'intermédiaire du client bureau {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Continue logging in</source>
@@ -582,8 +582,8 @@ already current</source>
         <target>Déverrouiller le code d'accès</target>
       </trans-unit>
       <trans-unit id="145">
-        <source>Learn more about SpiderOak &amp;raquo;</source>
-        <target>En savoir plus sur SpiderOak &amp;raquo;</target>
+        <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
+        <target>En savoir plus sur {{SpiderOak}} &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>

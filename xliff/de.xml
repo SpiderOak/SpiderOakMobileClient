@@ -6,7 +6,7 @@
     <body>
       <trans-unit id="1">
         <source>Learn more about {{SpiderOak}}&amp;raquo;</source>
-        <target>Weitere Infos zu {SpiderOak}}&amp;raquo;</target>
+        <target>Weitere Infos zu {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change.</source>
@@ -582,8 +582,8 @@ already current</source>
         <target>Entsperren des Passcodes</target>
       </trans-unit>
       <trans-unit id="145">
-        <source>Learn more about SpiderOak &amp;raquo;</source>
-        <target>Weitere Infos zu {SpiderOak}}&amp;raquo;</target>
+        <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
+        <target>Weitere Infos zu {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>

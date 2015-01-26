@@ -491,7 +491,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="122">
         <source>Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to</source>
-        <target>Благодарим вас за использование {SpiderOak}} и просим присылать свои замечания или вопросы на:</target>
+        <target>Благодарим вас за использование {{SpiderOak}} и просим присылать свои замечания или вопросы на:</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Add ShareRoom</source>
@@ -559,7 +559,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="139">
         <source>Not '{{Zero-Knowledge}}'</source>
-        <target>Не '{{нулевое разглашение}}'</target>
+        <target>Не '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="140">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
@@ -567,7 +567,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="141">
         <source>If you prefer to use only '{{Zero-Knowledge}}' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Если вы предпочитаете использовать только доступ с '{{нулевое разглашение}}', отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
+        <target>Если вы предпочитаете использовать только доступ с '{{Zero-Knowledge}}', отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Continue logging in</source>
@@ -582,7 +582,7 @@ already current</source>
         <target>Отмена блокировки кода допуска</target>
       </trans-unit>
       <trans-unit id="145">
-        <source>Learn more about SpiderOak &amp;raquo;</source>
+        <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
         <target>Дополнительные сведения о {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
       <trans-unit id="146">
@@ -951,7 +951,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="237">
         <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
-        <target>Для обеспечения конфиденциальности  '[[Zero-Knowledge]]' , ваш аккаунт должен быть создан на компьютере.</target>
+        <target>Для обеспечения конфиденциальности  '{{Zero-Knowledge}}' , ваш аккаунт должен быть создан на компьютере.</target>
       </trans-unit>
       
     </body>

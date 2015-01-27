@@ -191,7 +191,7 @@
     about_tapHandler: function(event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
-      spiderOakApp.mainView.setTitle(qq("About {{SpiderOak}}",
+      spiderOakApp.mainView.setTitle(qq("About [[SpiderOak]]",
                                         {SpiderOak: s("SpiderOak")}));
       $("#menusheet ul li").removeClass("current");
       $(".about").closest("li").addClass("current");

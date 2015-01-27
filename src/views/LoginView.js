@@ -30,7 +30,7 @@
     },
     render: function() {
       this.$(".learn-more").html(
-        qq("Learn more about {{SpiderOak}}&raquo;",
+        qq("Learn more about [[SpiderOak]]&raquo;",
            {SpiderOak: s("SpiderOak")})
       );
       this.$(".remember-me").html(qq("Stay logged in"));
@@ -153,11 +153,11 @@
         }
         else if (status === 418) {
           // SpiderOak uses "teapot" to signal incomplete account - no devices.
-          msg = qq("We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team",
+          msg = qq("We apologize, but you must first complete your account setup using the [[SpiderOak]] desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open [[SpiderOak]] on your computer to continue.  Thank you. -- The [[SpiderOak]] Team",
                    {SpiderOak: s("SpiderOak")});
         }
         else {
-          msg = qq("Temporary server failure ({{status}}). Please try again later.",
+          msg = qq("Temporary server failure ([[status]]). Please try again later.",
                    {status: status});
           dontClearPassword = true;
         }
@@ -482,7 +482,7 @@
               ((tooMany) ?
                "<br>" + qq("Too many attempts.") :
                "<br>" + qq("Try again.")) +
-              "<br><br>" + qq("Attempt {{incorrects}} of {{maxIncorrects}}",
+              "<br><br>" + qq("Attempt [[incorrects]] of [[maxIncorrects]]",
                               {incorrects: this.incorrectAttempts,
                                maxIncorrects: this.maxIncorrectAttempts})
           });

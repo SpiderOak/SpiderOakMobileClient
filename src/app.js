@@ -310,7 +310,7 @@
       }
       $(".splash").hide();
       spiderOakApp.loginView.$(".learn-more").html(
-        qq("Learn more about {{SpiderOak}}&raquo;",
+        qq("Learn more about [[SpiderOak]]&raquo;",
            {SpiderOak: s("SpiderOak")})
       );
     },
@@ -384,12 +384,12 @@
           standardServer = settings.getValue("standardServer");
       if (inhibitAdvanced && (server !== standardServer)) {
         navigator.notification.confirm(
-          qq("Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change."),
+          qq("Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change."),
           function (choice) {
             if (choice === 1) {
               spiderOakApp.settings.get("server").set("value", standardServer);
               spiderOakApp.dialogView.showToast({
-                title: qq("Server changed to {{standardServer}}"),
+                title: qq("Server changed to [[standardServer]]"),
                 duration: 2000
               });
             }

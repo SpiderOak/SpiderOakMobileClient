@@ -759,7 +759,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="189">
         <source>Stay logged in</source>
-        <target>Rester connecté€</target>
+        <target>Rester connecté</target>
       </trans-unit>
       <trans-unit id="190">
         <source>Share file</source>

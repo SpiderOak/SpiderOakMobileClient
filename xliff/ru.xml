@@ -558,398 +558,402 @@ already current</source>
         <target>Группа SpiderOak</target>
       </trans-unit>
       <trans-unit id="139">
-        <source>Not '{{Zero-Knowledge}}'</source>
+        <source>Not '[[Zero-Knowledge]]'</source>
         <target>Не '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="140">
+        <source>Not '{{Zero-Knowledge}}'</source>
+        <target>Не '{{Zero-Knowledge}}'</target>
+      </trans-unit>
+      <trans-unit id="141">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
         <target>Если вы заходите с помощью этого мобильного клиента или через веб-сайт, ваш пароль будет оставаться в памяти сервера {{SpiderOak}} в течение сеанса браузинга. Однако ваш пароль будет храниться в зашифрованной памяти и не будет записываться на незашифрованный диск.  После завершения сеанса, копия вашего пароля на сервере полностью стирается.</target>
       </trans-unit>
-      <trans-unit id="141">
+      <trans-unit id="142">
         <source>If you prefer to use only '{{Zero-Knowledge}}' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
         <target>Если вы предпочитаете использовать только доступ с '{{Zero-Knowledge}}', отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
       </trans-unit>
-      <trans-unit id="142">
+      <trans-unit id="143">
         <source>Continue logging in</source>
         <target>Продолжайте осуществлять вход</target>
       </trans-unit>
-      <trans-unit id="143">
+      <trans-unit id="144">
         <source>Don't login now</source>
         <target>На входите сейчас</target>
       </trans-unit>
-      <trans-unit id="144">
+      <trans-unit id="145">
         <source>Passcode unlock</source>
         <target>Отмена блокировки кода допуска</target>
       </trans-unit>
-      <trans-unit id="145">
+      <trans-unit id="146">
         <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
         <target>Дополнительные сведения о {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="146">
+      <trans-unit id="147">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>
         <target>Нужен аккаунт? &lt;br&gt;Find out how &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="147">
+      <trans-unit id="148">
         <source>or</source>
         <target>или</target>
       </trans-unit>
-      <trans-unit id="148">
+      <trans-unit id="149">
         <source>Log in &amp;raquo;</source>
         <target>Зайдите в &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="149">
+      <trans-unit id="150">
         <source>Please note</source>
         <target>Учтите, что</target>
       </trans-unit>
-      <trans-unit id="150">
+      <trans-unit id="151">
         <source>The &amp;ldquo;Stay logged in&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Stay logged in&amp;rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</source>
         <target>Функциональные свойства &amp;ldquo;{{Stay logged in}}&amp;rdquo; являются очень удобными. Однако детали логина являются не более безопасными, чем физический доступ к вашему устройству. Функция &lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Не выходите из системы&amp;rdquo; обеспечивает доступ к данным, которые хранятся в {{SpiderOak}} на тот случай, если ваш телефон был утерян или украден. Мы советуем проявлять осторожность при выборе этой опции. &lt;br&gt;&lt;br&gt; Эта опция может меняться в любое время в ваших установочных параметрах.</target>
       </trans-unit>
-      <trans-unit id="151">
+      <trans-unit id="152">
         <source>OK, I understand</source>
         <target>ОК. Я понимаю</target>
       </trans-unit>
-      <trans-unit id="152">
+      <trans-unit id="153">
         <source>Forget it, forget me</source>
         <target>Оно того не стоит</target>
       </trans-unit>
-      <trans-unit id="153">
+      <trans-unit id="154">
         <source>Login name</source>
         <target>Название логина</target>
       </trans-unit>
-      <trans-unit id="154">
+      <trans-unit id="155">
         <source>Username</source>
         <target>Имя пользователя</target>
       </trans-unit>
-      <trans-unit id="155">
+      <trans-unit id="156">
         <source>Used</source>
         <target>Использовано</target>
       </trans-unit>
-      <trans-unit id="156">
+      <trans-unit id="157">
         <source>Total</source>
         <target>Всего</target>
       </trans-unit>
-      <trans-unit id="157">
+      <trans-unit id="158">
         <source>[[size]] GB</source>
         <target>{{size}} Гбайт</target>
       </trans-unit>
-      <trans-unit id="158">
+      <trans-unit id="159">
         <source>Devices</source>
         <target>Устройства</target>
       </trans-unit>
-      <trans-unit id="159">
+      <trans-unit id="160">
         <source>Shorter times are more secure</source>
         <target>Быстрее и безопаснее</target>
       </trans-unit>
-      <trans-unit id="160">
+      <trans-unit id="161">
         <source>Turn Passcode Off</source>
         <target>Отключите код допуска</target>
       </trans-unit>
-      <trans-unit id="161">
+      <trans-unit id="162">
         <source>Change Passcode</source>
         <target>Измените код допуска</target>
       </trans-unit>
-      <trans-unit id="162">
+      <trans-unit id="163">
         <source>Timeout</source>
         <target>Таймаут</target>
       </trans-unit>
-      <trans-unit id="163">
+      <trans-unit id="164">
         <source>Require Passcode</source>
         <target>Требуется код допуска</target>
       </trans-unit>
-      <trans-unit id="164">
+      <trans-unit id="165">
         <source>Server</source>
         <target>Сервер</target>
       </trans-unit>
-      <trans-unit id="165">
+      <trans-unit id="166">
         <source>Submit</source>
         <target>Подать</target>
       </trans-unit>
-      <trans-unit id="166">
+      <trans-unit id="167">
         <source>Note: changing the server address will log the current session out.</source>
         <target>Примечание: изменение адреса сервера закроет текущий сеанс.</target>
       </trans-unit>
-      <trans-unit id="167">
+      <trans-unit id="168">
         <source>Send feedback</source>
         <target>Присылайте отзывы</target>
       </trans-unit>
-      <trans-unit id="168">
+      <trans-unit id="169">
         <source>Name</source>
         <target>Имя</target>
       </trans-unit>
-      <trans-unit id="169">
+      <trans-unit id="170">
         <source>Passcode</source>
         <target>Код допуска</target>
       </trans-unit>
-      <trans-unit id="170">
+      <trans-unit id="171">
         <source>On</source>
         <target>Вкл</target>
       </trans-unit>
-      <trans-unit id="171">
+      <trans-unit id="172">
         <source>Off</source>
         <target>Выкл</target>
       </trans-unit>
-      <trans-unit id="172">
+      <trans-unit id="173">
         <source>Primary Server</source>
         <target>Основной сервер</target>
       </trans-unit>
-      <trans-unit id="173">
+      <trans-unit id="174">
         <source>Version</source>
         <target>Версия</target>
       </trans-unit>
-      <trans-unit id="174">
+      <trans-unit id="175">
         <source>Logging out while &lt;strong&gt;Remember Me&lt;/strong&gt; is active will clear your data from this device.</source>
         <target>Выход из системы при действующем &lt;strong&gt;Remember Me&lt;/strong&gt; удалит ваши данные из устройства.</target>
       </trans-unit>
-      <trans-unit id="175">
+      <trans-unit id="176">
         <source>Logout</source>
         <target>Выход</target>
       </trans-unit>
-      <trans-unit id="176">
+      <trans-unit id="177">
         <source>Password required</source>
         <target>Требуется пароль</target>
       </trans-unit>
-      <trans-unit id="177">
+      <trans-unit id="178">
         <source>Password provided</source>
         <target>Дается пароль</target>
       </trans-unit>
-      <trans-unit id="178">
+      <trans-unit id="179">
         <source>Owner:</source>
         <target>Владелец</target>
       </trans-unit>
-      <trans-unit id="179">
+      <trans-unit id="180">
         <source>Folders:</source>
         <target>Папки:</target>
       </trans-unit>
-      <trans-unit id="180">
+      <trans-unit id="181">
         <source>Files:</source>
         <target>Файлы:</target>
       </trans-unit>
-      <trans-unit id="181">
+      <trans-unit id="182">
         <source>Remembering:</source>
         <target>Запоминание:</target>
       </trans-unit>
-      <trans-unit id="182">
+      <trans-unit id="183">
         <source>URL</source>
         <target>URL</target>
       </trans-unit>
-      <trans-unit id="183">
+      <trans-unit id="184">
         <source>Fetch failed, try later</source>
         <target>Сбой при выборке, попробуйте позднее</target>
       </trans-unit>
-      <trans-unit id="184">
+      <trans-unit id="185">
         <source>My Shares</source>
         <target>My Shares</target>
       </trans-unit>
-      <trans-unit id="185">
+      <trans-unit id="186">
         <source>Public Shares</source>
         <target>Public Shares</target>
       </trans-unit>
-      <trans-unit id="186">
+      <trans-unit id="187">
         <source>devices: [[devices]]</source>
         <target>устройства: {{devices}}</target>
       </trans-unit>
-      <trans-unit id="187">
+      <trans-unit id="188">
         <source>[[backupsize]] / [[size]] GB</source>
         <target>{{backupsize}} / {{size}} Гбайт</target>
       </trans-unit>
-      <trans-unit id="188">
+      <trans-unit id="189">
         <source>Need an account?&lt;br&gt;Register now &amp;raquo;</source>
         <target>Нужен аккаунт?&lt;br&gt;Зарегистрируйтесь сейчас &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="189">
+      <trans-unit id="190">
         <source>Stay logged in</source>
         <target>Не выходите из системы</target>
       </trans-unit>
-      <trans-unit id="190">
+      <trans-unit id="191">
         <source>Share file</source>
         <target>Обменивайтесь файлом</target>
       </trans-unit>
-      <trans-unit id="191">
+      <trans-unit id="192">
         <source>Open in</source>
         <target>Открыть в</target>
       </trans-unit>
-      <trans-unit id="192">
+      <trans-unit id="193">
         <source>MS Word</source>
         <target>MS Word</target>
       </trans-unit>
-      <trans-unit id="193">
+      <trans-unit id="194">
         <source>MS Excel</source>
         <target>MS Excel</target>
       </trans-unit>
-      <trans-unit id="194">
+      <trans-unit id="195">
         <source>MS PowerPoint</source>
         <target>MS PowerPoint</target>
       </trans-unit>
-      <trans-unit id="195">
+      <trans-unit id="196">
         <source>Adobe PDF</source>
         <target>Adobe PDF</target>
       </trans-unit>
-      <trans-unit id="196">
+      <trans-unit id="197">
         <source>Zip Archive</source>
         <target>Zip Archive</target>
       </trans-unit>
-      <trans-unit id="197">
+      <trans-unit id="198">
         <source>Archive</source>
         <target>Archive</target>
       </trans-unit>
-      <trans-unit id="198">
+      <trans-unit id="199">
         <source>RAR Archive</source>
         <target>RAR Archive</target>
       </trans-unit>
-      <trans-unit id="199">
+      <trans-unit id="200">
         <source>JPEG Image</source>
         <target>JPEG Image</target>
       </trans-unit>
-      <trans-unit id="200">
+      <trans-unit id="201">
         <source>GIF Image</source>
         <target>GIF Image</target>
       </trans-unit>
-      <trans-unit id="201">
+      <trans-unit id="202">
         <source>PNG Image</source>
         <target>PNG Image</target>
       </trans-unit>
-      <trans-unit id="202">
+      <trans-unit id="203">
         <source>In Design</source>
         <target>In Design</target>
       </trans-unit>
-      <trans-unit id="203">
+      <trans-unit id="204">
         <source>EPS</source>
         <target>EPS</target>
       </trans-unit>
-      <trans-unit id="204">
+      <trans-unit id="205">
         <source>PSD Image</source>
         <target>PSD Image</target>
       </trans-unit>
-      <trans-unit id="205">
+      <trans-unit id="206">
         <source>Markdown</source>
         <target>Markdown</target>
       </trans-unit>
-      <trans-unit id="206">
+      <trans-unit id="207">
         <source>Plain Text</source>
         <target>Plain Text</target>
       </trans-unit>
-      <trans-unit id="207">
+      <trans-unit id="208">
         <source>HTML</source>
         <target>HTML</target>
       </trans-unit>
-      <trans-unit id="208">
+      <trans-unit id="209">
         <source>XML</source>
         <target>XML</target>
       </trans-unit>
-      <trans-unit id="209">
+      <trans-unit id="210">
         <source>CSS</source>
         <target>CSS</target>
       </trans-unit>
-      <trans-unit id="210">
+      <trans-unit id="211">
         <source>JavaScript</source>
         <target>JavaScript</target>
       </trans-unit>
-      <trans-unit id="211">
+      <trans-unit id="212">
         <source>PHP</source>
         <target>PHP</target>
       </trans-unit>
-      <trans-unit id="212">
+      <trans-unit id="213">
         <source>Apple Pages</source>
         <target>Apple Pages</target>
       </trans-unit>
-      <trans-unit id="213">
+      <trans-unit id="214">
         <source>Apple Numbers</source>
         <target>Apple Numbers</target>
       </trans-unit>
-      <trans-unit id="214">
+      <trans-unit id="215">
         <source>Apple Keynote</source>
         <target>Apple Keynote</target>
       </trans-unit>
-      <trans-unit id="215">
+      <trans-unit id="216">
         <source>Rich Text</source>
         <target>Rich Text</target>
       </trans-unit>
-      <trans-unit id="216">
+      <trans-unit id="217">
         <source>CSV</source>
         <target>CSV</target>
       </trans-unit>
-      <trans-unit id="217">
+      <trans-unit id="218">
         <source>Vcard</source>
         <target>Vcard</target>
       </trans-unit>
-      <trans-unit id="218">
+      <trans-unit id="219">
         <source>Android APK</source>
         <target>Android APK</target>
       </trans-unit>
-      <trans-unit id="219">
+      <trans-unit id="220">
         <source>Header</source>
         <target>Заголовок</target>
       </trans-unit>
-      <trans-unit id="220">
+      <trans-unit id="221">
         <source>Source</source>
         <target>Источник</target>
       </trans-unit>
-      <trans-unit id="221">
+      <trans-unit id="222">
         <source>Java</source>
         <target>Java</target>
       </trans-unit>
-      <trans-unit id="222">
+      <trans-unit id="223">
         <source>OpenOffice file</source>
         <target>Файл OpenOffice</target>
       </trans-unit>
-      <trans-unit id="223">
+      <trans-unit id="224">
         <source>MP3 File</source>
         <target>Файл MP3</target>
       </trans-unit>
-      <trans-unit id="224">
+      <trans-unit id="225">
         <source>Sound</source>
         <target>Звук</target>
       </trans-unit>
-      <trans-unit id="225">
+      <trans-unit id="226">
         <source>Video</source>
         <target>Видео</target>
       </trans-unit>
-      <trans-unit id="226">
+      <trans-unit id="227">
         <source>AVI File</source>
         <target>Файл AVI</target>
       </trans-unit>
-      <trans-unit id="227">
+      <trans-unit id="228">
         <source>Unknown</source>
         <target>Неизвестный</target>
       </trans-unit>
-      <trans-unit id="228">
+      <trans-unit id="229">
         <source>Your account was logged off on bypass of your passcode. Remove your passcode?</source>
         <target>Ваш аккаунт отключен при обходе кода доступа.  Удалить ваш код доступа?</target>
       </trans-unit>
-      <trans-unit id="229">
+      <trans-unit id="230">
         <source>Passcode removed</source>
         <target>Код доступа удален</target>
       </trans-unit>
-      <trans-unit id="230">
+      <trans-unit id="231">
         <source>Navigate to Settings to establish a new passcode.</source>
         <target>Перейдите к Устаночным параметрам для установки нового кода допуска</target>
       </trans-unit>
-      <trans-unit id="231">
+      <trans-unit id="232">
         <source>Passcode Kept</source>
         <target>Код доступа сохранен</target>
       </trans-unit>
-      <trans-unit id="232">
+      <trans-unit id="233">
         <source>Passcode was bypassed</source>
         <target>Код доступа обойден</target>
       </trans-unit>
-      <trans-unit id="233">
+      <trans-unit id="234">
         <source>Remove it</source>
         <target>Удалить его</target>
       </trans-unit>
-      <trans-unit id="234">
+      <trans-unit id="235">
         <source>Keep it</source>
         <target>Сохранить его</target>
       </trans-unit>
-      <trans-unit id="235">
+      <trans-unit id="236">
         <source>Error removing favorite from device (error code: {{code}})</source>
         <target>Сбой при удалении "Избранное" из устройства (код сбоя: {{code}})</target>
       </trans-unit>
-      <trans-unit id="236">
+      <trans-unit id="237">
         <source>It does not currently provide upload or sync capability.</source>
         <target>Сейчас не обеспечивает возможность загрузки или синхронизации</target>
       </trans-unit>
-      <trans-unit id="237">
+      <trans-unit id="238">
         <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
         <target>Для обеспечения конфиденциальности  '{{Zero-Knowledge}}' , ваш аккаунт должен быть создан на компьютере.</target>
       </trans-unit>

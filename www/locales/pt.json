@@ -138,6 +138,7 @@
 	"Live Privately,": "Viva com Privacidade,",
 	"The SpiderOak Team": "A Equipe SpiderOak",
 	"Not '[[Zero-Knowledge]]'": "Não é '{{Zero-Knowledge}}'",
+	"Not '{{Zero-Knowledge}}'": "Não é '{{Zero-Knowledge}}'",
 	"If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.": "Se você entrar com este cliente móvel, ou através do website, a sua senha estará na memória do servidor {{SpiderOak}} durante a sua sessão de navegação. No entanto, a sua senha será armazenada em memória criptografada e jamais será guardada em um disco não-criptografado. Quando a sua sessão terminar, a cópia da sua senha será completamente eliminada do servidor.",
 	"If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Se você prefere utilizar somente o acesso com '{{Zero-Knowledge}}', cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.",
 	"Continue logging in": "Continuar o login",

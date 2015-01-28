@@ -5,23 +5,10 @@
       <div class="info">{{!it.firstname + " " + it.lastname}}</div>
       <div class="clearfix"></div>
     </li>
-    {{ if (spiderOakApp.b32nibbler.decode(
-               spiderOakApp.accountModel.get("b32username")
-          ) !== it.loginname) { }}
     <li>
-      <div class="label">Login name</div>
+      <div class="label">Email/Username</div>
       <div class="info">
         {{!it.loginname}}
-      </div>
-      <div class="clearfix"></div>
-    </li>
-    {{ } }}
-    <li>
-      <div class="label">Username</div>
-      <div class="info">
-        {{!spiderOakApp.b32nibbler.decode(
-          spiderOakApp.accountModel.get("b32username")
-        )}}
       </div>
       <div class="clearfix"></div>
     </li>

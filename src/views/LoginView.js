@@ -52,7 +52,7 @@
           hasAcceptedId = "hasAcceptedNonZK-" + b32username,
           _this = this;
       if (!username || !password) {
-        navigator.notification.alert("Missing username or password", null,
+        navigator.notification.alert("Missing email/username or password", null,
                                        "Authentication error", "OK");
         return;
       }
@@ -129,7 +129,7 @@
           msg = "Authentication failed - Unauthorized.";
         }
         else if (status === 403) {
-          msg = "Authentication failed - Incorrect username or password.";
+          msg = "Authentication failed - Incorrect email/username or password.";
         }
         else if (status === 404) {
           msg = "Incorrect ShareID or RoomKey.";

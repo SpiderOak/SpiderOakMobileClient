@@ -1,11 +1,7 @@
 {
-  "en": "locales/en-US.json",
-  "es": "locales/es.json",
+  "en": "locales/en-GB.json",
   "en-us": "locales/en-US.json",
-  "en-gb": "locales/en-GB.json",
-  "en-in": "locales/en-GB.json",
-  "en-au": "locales/en-GB.json",
-  "en-ca": "locales/en-GB.json",
+  "es": "locales/es.json",
   "de": "locales/de.json",
   "fr": "locales/fr.json",
   "pt": "locales/pt.json",

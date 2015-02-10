@@ -9,8 +9,8 @@
         <target>Дополнительные сведения о {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
       <trans-unit id="2">
-        <source>Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change.</source>
-        <target>Advanced login (улучшенный логин) перешел на приложение 'SpiderOak Blue', и нам нужно переключить это приложение с альтернативного сервера, {{server}}, на стандартный сервер, {{standardServer}}. Для дольнейшего использования этой функции загрузите приложение 'SpiderOak Blue'. Это диалоговое окно откроется при запуске приложения и будет оставаться, пока вы не авторизуете  изменение.</target>
+        <source>Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.</source>
+        <target>Advanced login (улучшенный логин) перешел на приложение '{{SpiderOak_Blue}}', и нам нужно переключить это приложение с альтернативного сервера, {{server}}, на стандартный сервер, {{standardServer}}. Для дольнейшего использования этой функции загрузите приложение '{{SpiderOak_Blue}}'. Это диалоговое окно откроется при запуске приложения и будет оставаться, пока вы не авторизуете изменение.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Server changed to [[standardServer]]</source>
@@ -89,104 +89,104 @@
         <target>Слшком много файлов. Сначала отображается {{numEntries}}</target>
       </trans-unit>
       <trans-unit id="22">
+        <source>Too many folders. Displaying first [[numEntries]]</source>
+        <target>Слишком много папок. Сначала отображается {{numEntries}}</target>
+      </trans-unit>
+      <trans-unit id="23">
         <source>Downloading</source>
         <target>Загрузка</target>
       </trans-unit>
-      <trans-unit id="23">
+      <trans-unit id="24">
         <source>Do you want to add this file to your favorites? This will download the contents to your device.</source>
         <target>Желаете добавить этот файл к вашему "Избранному? Это произведет загрузку контента на ваше устройство.</target>
       </trans-unit>
-      <trans-unit id="24">
+      <trans-unit id="25">
         <source>Cannot find an app to handle files of this type.</source>
         <target>Не могу найти приложения для работы с файлами этого типа.</target>
       </trans-unit>
-      <trans-unit id="25">
+      <trans-unit id="26">
         <source>Retrieving link</source>
         <target>Вызов ссылки</target>
       </trans-unit>
-      <trans-unit id="26">
+      <trans-unit id="27">
         <source>File error</source>
         <target>Ошибка при работе с файлом</target>
       </trans-unit>
-      <trans-unit id="27">
+      <trans-unit id="28">
         <source>I want to share this link to [[modelName]] with you:</source>
         <target>Я хочу представить вам эту ссылку на {{modelName}}:</target>
       </trans-unit>
-      <trans-unit id="28">
+      <trans-unit id="29">
         <source>Error sending this link. Try again later.</source>
         <target>Ошибка при отправлении этой ссылки. Попробуйте позже.</target>
       </trans-unit>
-      <trans-unit id="29">
+      <trans-unit id="30">
         <source>Link fetch failed</source>
         <target>Сбой при выборке ссылки</target>
       </trans-unit>
-      <trans-unit id="30">
+      <trans-unit id="31">
         <source>Access to link [[url]] failed: [[statusText]] ([[statusCode]])</source>
         <target>Сбой при доступе к ссылке {{url}}: {{statusText}} ({{statusCode}})</target>
       </trans-unit>
-      <trans-unit id="31">
+      <trans-unit id="32">
         <source>Error sharing file. Error code [[code]]</source>
         <target>Сбой при представлении файла.  Код ошибки {{code}}</target>
       </trans-unit>
-      <trans-unit id="32">
+      <trans-unit id="33">
         <source>Cannot find an app to view files of this type. Would you like to try and open it anyway?</source>
         <target>Не могу найти приложение для просмотра файлов этого типа. Все равно желаете попробовать и открыть его?</target>
       </trans-unit>
-      <trans-unit id="33">
+      <trans-unit id="34">
         <source>Yes</source>
         <target>Да</target>
       </trans-unit>
-      <trans-unit id="34">
+      <trans-unit id="35">
         <source>No</source>
         <target>Нет</target>
       </trans-unit>
-      <trans-unit id="35">
+      <trans-unit id="36">
         <source>Cannot find an app to view files of this type.</source>
         <target>Не могу найти приложение для просмотра файлов этого типа.</target>
       </trans-unit>
-      <trans-unit id="36">
+      <trans-unit id="37">
         <source>Error viewing file. Error code [[code]]</source>
         <target>Ошибка при просмотре файла. Код ошибки {{code}}</target>
       </trans-unit>
-      <trans-unit id="37">
+      <trans-unit id="38">
         <source>Do you want to save this file to your device?</source>
         <target>Желаете сохранить этот файл на вашем устройстве?</target>
       </trans-unit>
-      <trans-unit id="38">
+      <trans-unit id="39">
         <source>[[name]] saved to [[path]][[name]]</source>
         <target>{{name}} сохранен на {{path}}{{name}}</target>
       </trans-unit>
-      <trans-unit id="39">
+      <trans-unit id="40">
         <source>Success</source>
         <target>Успешно выполнено</target>
       </trans-unit>
-      <trans-unit id="40">
+      <trans-unit id="41">
         <source>Save file</source>
         <target>Сохранить файл</target>
       </trans-unit>
-      <trans-unit id="41">
+      <trans-unit id="42">
         <source>Do you want to remove this file from your favorites?</source>
         <target>Желаете удалить этот файл из вашего "Избранное"?</target>
       </trans-unit>
-      <trans-unit id="42">
+      <trans-unit id="43">
         <source>Refresh favorite</source>
         <target>Обновить "Избранное"</target>
       </trans-unit>
-      <trans-unit id="43">
+      <trans-unit id="44">
         <source>Remove from favorites</source>
         <target>Удалить из "Избранное"</target>
       </trans-unit>
-      <trans-unit id="44">
+      <trans-unit id="45">
         <source>Add to favorites</source>
         <target>Добавить к "Избранное"</target>
       </trans-unit>
-      <trans-unit id="45">
+      <trans-unit id="46">
         <source>Previous versions</source>
         <target>Предыдущие версии</target>
-      </trans-unit>
-      <trans-unit id="46">
-        <source>Too many folders. Displaying first</source>
-        <target>Слишком много папок. Показ первой</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Missing username or password</source>
@@ -221,8 +221,8 @@
         <target>Сбой при аутентификации - неверное имя пользователя или пароль.</target>
       </trans-unit>
       <trans-unit id="55">
-        <source>Incorrect ShareID or RoomKey.</source>
-        <target>Неверные ShareID или RoomKey.</target>
+        <source>Incorrect [[ShareID]] or [[RoomKey]].</source>
+        <target>Неверные {{ShareID}} или {{RoomKey}}.</target>
       </trans-unit>
       <trans-unit id="56">
         <source>We apologize, but you must first complete your account setup using the [[SpiderOak]] desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open [[SpiderOak]] on your computer to continue.  Thank you. -- The [[SpiderOak]] Team</source>
@@ -382,566 +382,562 @@ already current</source>
         <target>Требуется код допуска</target>
       </trans-unit>
       <trans-unit id="95">
-        <source>ShareRooms</source>
-        <target>ShareRooms</target>
+        <source>Add Public [[ShareRoom]]</source>
+        <target>Добавить Public {{ShareRoom}}</target>
       </trans-unit>
       <trans-unit id="96">
-        <source>Add Public ShareRoom</source>
-        <target>Добавить Public ShareRoom</target>
+        <source>[[ShareRoom]] already present</source>
+        <target>Public {{ShareRoom}} уже имеется</target>
       </trans-unit>
       <trans-unit id="97">
-        <source>ShareRoom already present</source>
-        <target>Public ShareRoom уже имеется</target>
+        <source>Public [[ShareRoom]] [[shareid]]/[[roomkey]] is already being visited.</source>
+        <target>Public {{ShareRoom}} {{shareid}}/{{roomkey}} уже просматриваются.</target>
       </trans-unit>
       <trans-unit id="98">
-        <source>Public ShareRoom [[shareid]]/[[roomkey]] is already being visited.</source>
-        <target>Public ShareRoom {{shareid}}/{{roomkey}} уже просматриваются.</target>
-      </trans-unit>
-      <trans-unit id="99">
         <source>Not found</source>
         <target>Не обнаружен</target>
       </trans-unit>
-      <trans-unit id="100">
-        <source>ShareRoom [[shareid]]/[[roomkey]] not found.</source>
-        <target>ShareRoom {{shareid}}/{{roomkey}} не найден.</target>
+      <trans-unit id="99">
+        <source>[[ShareRoom]] [[shareid]]/[[roomkey]] not found.</source>
+        <target>{{ShareRoom}} {{shareid}}/{{roomkey}} не найден.</target>
       </trans-unit>
-      <trans-unit id="101">
+      <trans-unit id="100">
         <source>Open</source>
         <target>Открыть</target>
       </trans-unit>
-      <trans-unit id="102">
+      <trans-unit id="101">
         <source>Details</source>
         <target>Детали</target>
       </trans-unit>
-      <trans-unit id="103">
+      <trans-unit id="102">
         <source>Send link</source>
         <target>Отправить ссылку</target>
       </trans-unit>
-      <trans-unit id="104">
+      <trans-unit id="103">
         <source>Fetching</source>
         <target>Выборка</target>
       </trans-unit>
-      <trans-unit id="105">
+      <trans-unit id="104">
         <source>Fetch unsatisfied</source>
         <target>Неудовлетворительная выборка</target>
       </trans-unit>
-      <trans-unit id="106">
+      <trans-unit id="105">
         <source>I want to share this link with you:</source>
         <target>Я хочу представить вам эту ссылку:</target>
       </trans-unit>
-      <trans-unit id="107">
-        <source>ShareRoom: [[name]]</source>
-        <target>ShareRoom: {{name}}</target>
+      <trans-unit id="106">
+        <source>[[ShareRoom]]: [[name]]</source>
+        <target>{{ShareRoom}}: {{name}}</target>
       </trans-unit>
-      <trans-unit id="108">
+      <trans-unit id="107">
         <source>Link: [[url]]</source>
         <target>Ссылка: {{url}}</target>
       </trans-unit>
-      <trans-unit id="109">
+      <trans-unit id="108">
         <source>(Access requires an additional password.)</source>
         <target>(Для доступа требуется дополнительный пароль)</target>
       </trans-unit>
-      <trans-unit id="110">
+      <trans-unit id="109">
         <source>Error sending this link. Please try later.</source>
         <target>Сбор при отсылке этой ссылки. Просим попробовать позже.</target>
       </trans-unit>
-      <trans-unit id="111">
+      <trans-unit id="110">
         <source>Forget password</source>
         <target>Забыл пароль</target>
       </trans-unit>
-      <trans-unit id="112">
+      <trans-unit id="111">
         <source>Forget</source>
         <target>Забыл</target>
       </trans-unit>
-      <trans-unit id="113">
+      <trans-unit id="112">
         <source>Remember</source>
         <target>Запомнить</target>
       </trans-unit>
-      <trans-unit id="114">
-        <source>Remove this ShareRoom?</source>
-        <target>Удалить этот ShareRoom?</target>
+      <trans-unit id="113">
+        <source>Remove this [[ShareRoom]]?</source>
+        <target>Удалить этот {{ShareRoom}}?</target>
       </trans-unit>
-      <trans-unit id="115">
+      <trans-unit id="114">
         <source>Remove?</source>
         <target>Удалить?</target>
       </trans-unit>
-      <trans-unit id="116">
-        <source>ShareRoom Password</source>
-        <target>Пароль ShareRoom</target>
+      <trans-unit id="115">
+        <source>[[ShareRoom]] Password</source>
+        <target>Пароль {{ShareRoom}}</target>
       </trans-unit>
-      <trans-unit id="117">
+      <trans-unit id="116">
         <source>Invalid password</source>
         <target>Недействительный пароль</target>
       </trans-unit>
+      <trans-unit id="117">
+        <source>The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open [[ShareRooms]], view historical versions, and quickly email files to friends, colleagues, and/or clients.</source>
+        <target>Приложение {{SpiderOak}} {{platform}} обеспечивает несложный способ получать доступ к вашим данным на ходу, открывать {{ShareRooms}}, просматривать архивные версии и быстро пересылать файлы друзьям, коллегам и (или) клиентам.</target>
+      </trans-unit>
       <trans-unit id="118">
-        <source>The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.</source>
-        <target>Приложение {{SpiderOak}} {{platform}} обеспечивает несложный способ получать доступ к вашим данным на ходу, открывать ShareRooms , просматривать архивные версии и быстро пересылать файлы друзьям, коллегам и (или) клиентам. </target>
+        <source>However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the [[ShareRoom]] of a friend or colleague by entering their [[ShareID]] and a valid [[RoomKey]]. You can also email files through a secure link.</source>
+        <target>Однако, не нужно обязательно быть пользователем {{SpiderOak}} для того, чтобы применять наше {{platform}} приложение. Вы можете открыть {{ShareRoom}} друга или коллеги, введя их {{ShareID}} и действительный {{RoomKey}}. Вы также можете пересылать файлы по электронной почте через безопасный канал.</target>
       </trans-unit>
       <trans-unit id="119">
-        <source>However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.</source>
-        <target>Однако, не нужно обязательно быть пользователем {{SpiderOak}} для того, чтобы применять наше {{platform}} приложение. Вы можете открыть ShareRoom друга или коллеги, введя их ShareID и действительный RoomKey. Вы также можете пересылать файлы по электронной почте через безопасный канал.</target>
-      </trans-unit>
-      <trans-unit id="120">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
         <target>Если вы желаете узнать больше о {{SpiderOak}}, зайдите на &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; и загрузите клиента {{SpiderOak}}  для того, чтобы начать свой БЕСПЛАТНЫЙ аккаунт на 2 Гбайта.</target>
       </trans-unit>
-      <trans-unit id="121">
+      <trans-unit id="120">
         <source>Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to</source>
         <target>Благодарим вас за использование {{SpiderOak}} и просим присылать свои замечания или вопросы на:</target>
       </trans-unit>
+      <trans-unit id="121">
+        <source>Add [[ShareRoom]]</source>
+        <target>Добавить {{ShareRoom}}</target>
+      </trans-unit>
       <trans-unit id="122">
-        <source>Add ShareRoom</source>
-        <target>Добавить ShareRoom</target>
+        <source>Remember [[ShareRoom]]</source>
+        <target>Запомнить {{ShareRoom}}</target>
       </trans-unit>
       <trans-unit id="123">
-        <source>Remember ShareRoom</source>
-        <target>Запомнить ShareRoom</target>
-      </trans-unit>
-      <trans-unit id="124">
         <source>Cancel</source>
         <target>Отмена</target>
       </trans-unit>
-      <trans-unit id="125">
+      <trans-unit id="124">
         <source>Size:</source>
         <target>Размер:</target>
       </trans-unit>
-      <trans-unit id="126">
+      <trans-unit id="125">
         <source>Created:</source>
         <target>Создан:</target>
       </trans-unit>
-      <trans-unit id="127">
+      <trans-unit id="126">
         <source>Last Modified:</source>
         <target>Последнее изменение:</target>
       </trans-unit>
-      <trans-unit id="128">
+      <trans-unit id="127">
         <source>Password</source>
         <target>Пароль</target>
       </trans-unit>
-      <trans-unit id="129">
+      <trans-unit id="128">
         <source>Submit Password</source>
         <target>Подать пароль</target>
       </trans-unit>
-      <trans-unit id="130">
+      <trans-unit id="129">
         <source>Sections</source>
         <target>Разделы</target>
       </trans-unit>
-      <trans-unit id="131">
+      <trans-unit id="130">
         <source>Log In</source>
         <target>Зайти</target>
       </trans-unit>
-      <trans-unit id="132">
+      <trans-unit id="131">
         <source>Log in</source>
         <target>Зайти</target>
       </trans-unit>
-      <trans-unit id="133">
+      <trans-unit id="132">
         <source>Need an account?</source>
         <target>Нужен аккаунт?</target>
       </trans-unit>
-      <trans-unit id="134">
+      <trans-unit id="133">
         <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
         <target>Зайдите на &lt;a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; и следуйте инструкциям для создания своего аккаунта.</target>
       </trans-unit>
-      <trans-unit id="135">
+      <trans-unit id="134">
         <source>Live Privately,</source>
         <target>Сохраняйте конфиденциальность</target>
       </trans-unit>
-      <trans-unit id="136">
+      <trans-unit id="135">
         <source>The SpiderOak Team</source>
         <target>Группа SpiderOak</target>
       </trans-unit>
-      <trans-unit id="137">
+      <trans-unit id="136">
         <source>Not '[[Zero-Knowledge]]'</source>
         <target>Не '{{Zero-Knowledge}}'</target>
       </trans-unit>
-      <trans-unit id="138">
+      <trans-unit id="137">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
         <target>Если вы заходите с помощью этого мобильного клиента или через веб-сайт, ваш пароль будет оставаться в памяти сервера {{SpiderOak}} в течение сеанса браузинга. Однако ваш пароль будет храниться в зашифрованной памяти и не будет записываться на незашифрованный диск.  После завершения сеанса, копия вашего пароля на сервере полностью стирается.</target>
       </trans-unit>
-      <trans-unit id="139">
+      <trans-unit id="138">
         <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
         <target>Если вы предпочитаете использовать только доступ с '{{Zero-Knowledge}}', отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
       </trans-unit>
-      <trans-unit id="140">
+      <trans-unit id="139">
         <source>Continue logging in</source>
         <target>Продолжайте осуществлять вход</target>
       </trans-unit>
-      <trans-unit id="141">
+      <trans-unit id="140">
         <source>Don't login now</source>
         <target>На входите сейчас</target>
       </trans-unit>
-      <trans-unit id="142">
+      <trans-unit id="141">
         <source>Passcode unlock</source>
         <target>Отмена блокировки кода допуска</target>
       </trans-unit>
-      <trans-unit id="143">
+      <trans-unit id="142">
         <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
         <target>Дополнительные сведения о {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="144">
+      <trans-unit id="143">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>
         <target>Нужен аккаунт? &lt;br&gt;Find out how &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="145">
+      <trans-unit id="144">
         <source>or</source>
         <target>или</target>
       </trans-unit>
-      <trans-unit id="146">
+      <trans-unit id="145">
         <source>Log in &amp;raquo;</source>
         <target>Зайдите в &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="147">
+      <trans-unit id="146">
         <source>Please note</source>
         <target>Учтите, что</target>
       </trans-unit>
-      <trans-unit id="148">
+      <trans-unit id="147">
         <source>The &amp;ldquo;Stay logged in&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Stay logged in&amp;rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</source>
         <target>Функциональные свойства &amp;ldquo;Не выходите из системы&amp;rdquo; являются очень удобными. Однако детали логина являются не более безопасными, чем физический доступ к вашему устройству. Функция &lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Не выходите из системы&amp;rdquo; обеспечивает доступ к данным, которые хранятся в {{SpiderOak}} на тот случай, если ваш телефон был утерян или украден. Мы советуем проявлять осторожность при выборе этой опции. &lt;br&gt;&lt;br&gt; Эта опция может меняться в любое время в ваших установочных параметрах.</target>
       </trans-unit>
-      <trans-unit id="149">
+      <trans-unit id="148">
         <source>OK, I understand</source>
         <target>ОК. Я понимаю</target>
       </trans-unit>
-      <trans-unit id="150">
+      <trans-unit id="149">
         <source>Forget it, forget me</source>
         <target>Оно того не стоит</target>
       </trans-unit>
-      <trans-unit id="151">
+      <trans-unit id="150">
         <source>Login name</source>
         <target>Название логина</target>
       </trans-unit>
-      <trans-unit id="152">
+      <trans-unit id="151">
         <source>Username</source>
         <target>Имя пользователя</target>
       </trans-unit>
-      <trans-unit id="153">
+      <trans-unit id="152">
         <source>Used</source>
         <target>Использовано</target>
       </trans-unit>
-      <trans-unit id="154">
+      <trans-unit id="153">
         <source>Total</source>
         <target>Всего</target>
       </trans-unit>
-      <trans-unit id="155">
+      <trans-unit id="154">
         <source>[[size]] GB</source>
         <target>{{size}} Гбайт</target>
       </trans-unit>
-      <trans-unit id="156">
+      <trans-unit id="155">
         <source>Devices</source>
         <target>Устройства</target>
       </trans-unit>
-      <trans-unit id="157">
+      <trans-unit id="156">
         <source>Shorter times are more secure</source>
         <target>Быстрее и безопаснее</target>
       </trans-unit>
-      <trans-unit id="158">
+      <trans-unit id="157">
         <source>Turn Passcode Off</source>
         <target>Отключите код допуска</target>
       </trans-unit>
-      <trans-unit id="159">
+      <trans-unit id="158">
         <source>Change Passcode</source>
         <target>Измените код допуска</target>
       </trans-unit>
-      <trans-unit id="160">
+      <trans-unit id="159">
         <source>Timeout</source>
         <target>Таймаут</target>
       </trans-unit>
-      <trans-unit id="161">
+      <trans-unit id="160">
         <source>Require Passcode</source>
         <target>Требуется код допуска</target>
       </trans-unit>
-      <trans-unit id="162">
+      <trans-unit id="161">
         <source>Server</source>
         <target>Сервер</target>
       </trans-unit>
-      <trans-unit id="163">
+      <trans-unit id="162">
         <source>Submit</source>
         <target>Подать</target>
       </trans-unit>
-      <trans-unit id="164">
+      <trans-unit id="163">
         <source>Note: changing the server address will log the current session out.</source>
         <target>Примечание: изменение адреса сервера закроет текущий сеанс.</target>
       </trans-unit>
-      <trans-unit id="165">
+      <trans-unit id="164">
         <source>Send feedback</source>
         <target>Присылайте отзывы</target>
       </trans-unit>
-      <trans-unit id="166">
+      <trans-unit id="165">
         <source>Name</source>
         <target>Имя</target>
       </trans-unit>
-      <trans-unit id="167">
+      <trans-unit id="166">
         <source>Passcode</source>
         <target>Код допуска</target>
       </trans-unit>
-      <trans-unit id="168">
+      <trans-unit id="167">
         <source>On</source>
         <target>Вкл</target>
       </trans-unit>
-      <trans-unit id="169">
+      <trans-unit id="168">
         <source>Off</source>
         <target>Выкл</target>
       </trans-unit>
-      <trans-unit id="170">
+      <trans-unit id="169">
         <source>Primary Server</source>
         <target>Основной сервер</target>
       </trans-unit>
-      <trans-unit id="171">
+      <trans-unit id="170">
         <source>Version</source>
         <target>Версия</target>
       </trans-unit>
-      <trans-unit id="172">
+      <trans-unit id="171">
         <source>Logging out while &lt;strong&gt;Remember Me&lt;/strong&gt; is active will clear your data from this device.</source>
         <target>Выход из системы при действующем &lt;strong&gt;Remember Me&lt;/strong&gt; удалит ваши данные из устройства.</target>
       </trans-unit>
-      <trans-unit id="173">
+      <trans-unit id="172">
         <source>Logout</source>
         <target>Выход</target>
       </trans-unit>
-      <trans-unit id="174">
+      <trans-unit id="173">
         <source>Password required</source>
         <target>Требуется пароль</target>
       </trans-unit>
-      <trans-unit id="175">
+      <trans-unit id="174">
         <source>Password provided</source>
         <target>Дается пароль</target>
       </trans-unit>
-      <trans-unit id="176">
+      <trans-unit id="175">
         <source>Owner:</source>
         <target>Владелец</target>
       </trans-unit>
-      <trans-unit id="177">
+      <trans-unit id="176">
         <source>Folders:</source>
         <target>Папки:</target>
       </trans-unit>
-      <trans-unit id="178">
+      <trans-unit id="177">
         <source>Files:</source>
         <target>Файлы:</target>
       </trans-unit>
-      <trans-unit id="179">
+      <trans-unit id="178">
         <source>Remembering:</source>
         <target>Запоминание:</target>
       </trans-unit>
-      <trans-unit id="180">
+      <trans-unit id="179">
         <source>URL</source>
         <target>URL</target>
       </trans-unit>
-      <trans-unit id="181">
+      <trans-unit id="180">
         <source>Fetch failed, try later</source>
         <target>Сбой при выборке, попробуйте позднее</target>
       </trans-unit>
+      <trans-unit id="181">
+        <source>My [[ShareRooms]]</source>
+        <target>My {{ShareRooms}}</target>
+      </trans-unit>
       <trans-unit id="182">
-        <source>My Shares</source>
-        <target>My Shares</target>
+        <source>Public [[ShareRooms]]</source>
+        <target>Public {{ShareRooms}}</target>
       </trans-unit>
       <trans-unit id="183">
-        <source>Public Shares</source>
-        <target>Public Shares</target>
-      </trans-unit>
-      <trans-unit id="184">
         <source>devices: [[devices]]</source>
         <target>устройства: {{devices}}</target>
       </trans-unit>
-      <trans-unit id="185">
+      <trans-unit id="184">
         <source>[[backupsize]] / [[size]] GB</source>
         <target>{{backupsize}} / {{size}} Гбайт</target>
       </trans-unit>
-      <trans-unit id="186">
+      <trans-unit id="185">
         <source>Need an account?&lt;br&gt;Register now &amp;raquo;</source>
         <target>Нужен аккаунт?&lt;br&gt;Зарегистрируйтесь сейчас &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="187">
+      <trans-unit id="186">
         <source>Stay logged in</source>
         <target>Не выходите из системы</target>
       </trans-unit>
-      <trans-unit id="188">
+      <trans-unit id="187">
         <source>Share file</source>
         <target>Обменивайтесь файлом</target>
       </trans-unit>
-      <trans-unit id="189">
+      <trans-unit id="188">
         <source>Open in</source>
         <target>Открыть в</target>
       </trans-unit>
-      <trans-unit id="190">
+      <trans-unit id="189">
         <source>MS Word</source>
         <target>MS Word</target>
       </trans-unit>
-      <trans-unit id="191">
+      <trans-unit id="190">
         <source>MS Excel</source>
         <target>MS Excel</target>
       </trans-unit>
-      <trans-unit id="192">
+      <trans-unit id="191">
         <source>MS PowerPoint</source>
         <target>MS PowerPoint</target>
       </trans-unit>
-      <trans-unit id="193">
+      <trans-unit id="192">
         <source>Adobe PDF</source>
         <target>Adobe PDF</target>
       </trans-unit>
-      <trans-unit id="194">
+      <trans-unit id="193">
         <source>Zip Archive</source>
         <target>Zip Archive</target>
       </trans-unit>
-      <trans-unit id="195">
+      <trans-unit id="194">
         <source>Archive</source>
         <target>Archive</target>
       </trans-unit>
-      <trans-unit id="196">
+      <trans-unit id="195">
         <source>RAR Archive</source>
         <target>RAR Archive</target>
       </trans-unit>
-      <trans-unit id="197">
+      <trans-unit id="196">
         <source>JPEG Image</source>
         <target>JPEG Image</target>
       </trans-unit>
-      <trans-unit id="198">
+      <trans-unit id="197">
         <source>GIF Image</source>
         <target>GIF Image</target>
       </trans-unit>
-      <trans-unit id="199">
+      <trans-unit id="198">
         <source>PNG Image</source>
         <target>PNG Image</target>
       </trans-unit>
-      <trans-unit id="200">
+      <trans-unit id="199">
         <source>In Design</source>
         <target>In Design</target>
       </trans-unit>
-      <trans-unit id="201">
+      <trans-unit id="200">
         <source>EPS</source>
         <target>EPS</target>
       </trans-unit>
-      <trans-unit id="202">
+      <trans-unit id="201">
         <source>PSD Image</source>
         <target>PSD Image</target>
       </trans-unit>
-      <trans-unit id="203">
+      <trans-unit id="202">
         <source>Markdown</source>
         <target>Markdown</target>
       </trans-unit>
-      <trans-unit id="204">
+      <trans-unit id="203">
         <source>Plain Text</source>
         <target>Plain Text</target>
       </trans-unit>
-      <trans-unit id="205">
+      <trans-unit id="204">
         <source>HTML</source>
         <target>HTML</target>
       </trans-unit>
-      <trans-unit id="206">
+      <trans-unit id="205">
         <source>XML</source>
         <target>XML</target>
       </trans-unit>
-      <trans-unit id="207">
+      <trans-unit id="206">
         <source>CSS</source>
         <target>CSS</target>
       </trans-unit>
-      <trans-unit id="208">
+      <trans-unit id="207">
         <source>JavaScript</source>
         <target>JavaScript</target>
       </trans-unit>
-      <trans-unit id="209">
+      <trans-unit id="208">
         <source>PHP</source>
         <target>PHP</target>
       </trans-unit>
-      <trans-unit id="210">
+      <trans-unit id="209">
         <source>Apple Pages</source>
         <target>Apple Pages</target>
       </trans-unit>
-      <trans-unit id="211">
+      <trans-unit id="210">
         <source>Apple Numbers</source>
         <target>Apple Numbers</target>
       </trans-unit>
-      <trans-unit id="212">
+      <trans-unit id="211">
         <source>Apple Keynote</source>
         <target>Apple Keynote</target>
       </trans-unit>
-      <trans-unit id="213">
+      <trans-unit id="212">
         <source>Rich Text</source>
         <target>Rich Text</target>
       </trans-unit>
-      <trans-unit id="214">
+      <trans-unit id="213">
         <source>CSV</source>
         <target>CSV</target>
       </trans-unit>
-      <trans-unit id="215">
+      <trans-unit id="214">
         <source>Vcard</source>
         <target>Vcard</target>
       </trans-unit>
-      <trans-unit id="216">
+      <trans-unit id="215">
         <source>Android APK</source>
         <target>Android APK</target>
       </trans-unit>
-      <trans-unit id="217">
+      <trans-unit id="216">
         <source>Header</source>
         <target>Заголовок</target>
       </trans-unit>
-      <trans-unit id="218">
+      <trans-unit id="217">
         <source>Source</source>
         <target>Источник</target>
       </trans-unit>
-      <trans-unit id="219">
+      <trans-unit id="218">
         <source>Java</source>
         <target>Java</target>
       </trans-unit>
-      <trans-unit id="220">
+      <trans-unit id="219">
         <source>OpenOffice file</source>
         <target>Файл OpenOffice</target>
       </trans-unit>
-      <trans-unit id="221">
+      <trans-unit id="220">
         <source>MP3 File</source>
         <target>Файл MP3</target>
       </trans-unit>
-      <trans-unit id="222">
+      <trans-unit id="221">
         <source>Sound</source>
         <target>Звук</target>
       </trans-unit>
-      <trans-unit id="223">
+      <trans-unit id="222">
         <source>Video</source>
         <target>Видео</target>
       </trans-unit>
-      <trans-unit id="224">
+      <trans-unit id="223">
         <source>AVI File</source>
         <target>Файл AVI</target>
       </trans-unit>
-      <trans-unit id="225">
+      <trans-unit id="224">
         <source>Unknown</source>
         <target>Неизвестный</target>
       </trans-unit>
-      <trans-unit id="226">
+      <trans-unit id="225">
         <source>Your account was logged off on bypass of your passcode. Remove your passcode?</source>
         <target>Ваш аккаунт отключен при обходе кода доступа.  Удалить ваш код доступа?</target>
       </trans-unit>
-      <trans-unit id="227">
+      <trans-unit id="226">
         <source>Passcode removed</source>
         <target>Код доступа удален</target>
       </trans-unit>
-      <trans-unit id="228">
+      <trans-unit id="227">
         <source>Navigate to Settings to establish a new passcode.</source>
         <target>Перейдите к Устаночным параметрам для установки нового кода допуска</target>
       </trans-unit>
-      <trans-unit id="229">
+      <trans-unit id="228">
         <source>Passcode Kept</source>
         <target>Код доступа сохранен</target>
       </trans-unit>
-      <trans-unit id="230">
+      <trans-unit id="229">
         <source>Passcode was bypassed</source>
         <target>Код доступа обойден</target>
       </trans-unit>
-      <trans-unit id="231">
+      <trans-unit id="230">
         <source>Remove it</source>
         <target>Удалить его</target>
       </trans-unit>
-      <trans-unit id="232">
+      <trans-unit id="231">
         <source>Keep it</source>
         <target>Сохранить его</target>
       </trans-unit>
-      <trans-unit id="233">
+      <trans-unit id="232">
         <source>Error removing favorite from device (error code: [[code]])</source>
         <target>Сбой при удалении "Избранное" из устройства (код сбоя: {{code}})</target>
       </trans-unit>
-      <trans-unit id="234">
+      <trans-unit id="233">
         <source>It does not currently provide upload or sync capability.</source>
         <target>Сейчас не обеспечивает возможность загрузки или синхронизации</target>
       </trans-unit>
-      <trans-unit id="235">
+      <trans-unit id="234">
         <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
         <target>Для обеспечения конфиденциальности  '{{Zero-Knowledge}}' , ваш аккаунт должен быть создан на компьютере.</target>
       </trans-unit>

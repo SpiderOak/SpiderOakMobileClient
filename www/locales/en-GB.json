@@ -1,6 +1,6 @@
 {
 	"Learn more about [[SpiderOak]]&raquo;": "Learn more about {{SpiderOak}}&raquo;",
-        "SpiderOak_Blue": "SpiderOak Blue",
+	"SpiderOak_Blue": "SpiderOak Blue",
 	"Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.": "Advanced login has moved to the '{{SpiderOak_Blue}}' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the '{{SpiderOak_Blue}}' app. This dialog will appear at app start until you authorise the change.",
 	"Server changed to [[standardServer]]": "Server changed to {{standardServer}}",
 	"Alternate server retained": "Alternate server retained",
@@ -54,8 +54,8 @@
 	"Authentication interrupted": "Authentication interrupted",
 	"Authentication failed - Unauthorized.": "Authentication failed - Unauthorised.",
 	"Authentication failed - Incorrect username or password.": "Authentication failed - Incorrect username or password.",
-        "ShareID": "ShareID",
-        "RoomKey": "RoomKey",
+	"ShareID": "ShareID",
+	"RoomKey": "RoomKey",
 	"Incorrect [[ShareID]] or [[RoomKey]].": "Incorrect {{ShareID}} or {{RoomKey}}.",
 	"We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team": "We apologise, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team",
 	"Temporary server failure ([[status]]). Please try again later.": "Temporary server failure ({{status}}). Please try again later.",

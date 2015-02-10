@@ -1,5 +1,5 @@
 {
-        "SpiderOak_Blue": "SpiderOak Blue",
+	"SpiderOak_Blue": "SpiderOak Blue",
 	"Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.": "Advanced login has moved to the '{{SpiderOak_Blue}}' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the '{{SpiderOak_Blue}}' app. This dialog will appear at app start until you authorize the change.",
 	"Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.": "Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.",
 	"Favorites": "Favorites",

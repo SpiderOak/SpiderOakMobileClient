@@ -37,7 +37,7 @@
       this.$(".log-in").text(qq("Log in"));
       var unme =  this.$("#unme");
       if (unme && unme[0] && unme[0].placeholder) {
-        unme[0].placeholder = qq("Username");
+        unme[0].placeholder = qq("Email/Username");
       }
       var pwrd = this.$("#pwrd");
       if (pwrd && pwrd[0] && pwrd[0].placeholder) {
@@ -66,7 +66,7 @@
           hasAcceptedId = "hasAcceptedNonZK-" + b32username,
           _this = this;
       if (!username || !password) {
-        navigator.notification.alert(qq("Missing username or password"),
+        navigator.notification.alert(qq("Missing email/username or password"),
                                      null,
                                      qq("Authentication error"),
                                      qq("OK"));
@@ -146,7 +146,7 @@
           msg = qq("Authentication failed - Unauthorized.");
         }
         else if (status === 403) {
-          msg = qq("Authentication failed - Incorrect username or password.");
+          msg = qq("Authentication failed - Incorrect email/username or password.");
         }
         else if (status === 404) {
           msg = qq("Incorrect [[ShareID]] or [[RoomKey]].");

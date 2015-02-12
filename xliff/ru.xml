@@ -189,7 +189,7 @@
         <target>Предыдущие версии</target>
       </trans-unit>
       <trans-unit id="47">
-        <source>Missing username or password</source>
+        <source>Missing email/username or password</source>
         <target>Отсутствует имя пользователя или пароль</target>
       </trans-unit>
       <trans-unit id="48">
@@ -217,7 +217,7 @@
         <target>Сбой при аутентификации - не санкционирована.</target>
       </trans-unit>
       <trans-unit id="54">
-        <source>Authentication failed - Incorrect username or password.</source>
+        <source>Authentication failed - Incorrect email/username or password.</source>
         <target>Сбой при аутентификации - неверное имя пользователя или пароль.</target>
       </trans-unit>
       <trans-unit id="55">
@@ -606,7 +606,7 @@ already current</source>
         <target>Название логина</target>
       </trans-unit>
       <trans-unit id="151">
-        <source>Username</source>
+        <source>Email/Username</source>
         <target>Имя пользователя</target>
       </trans-unit>
       <trans-unit id="152">

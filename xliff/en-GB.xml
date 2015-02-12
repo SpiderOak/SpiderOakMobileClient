@@ -193,8 +193,8 @@
         <target>Previous versions</target>
       </trans-unit>
       <trans-unit id="48">
-        <source>Missing username or password</source>
-        <target>Missing username or password</target>
+        <source>Missing email/username or password</source>
+        <target>Missing email/username or password</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Authentication error</source>
@@ -221,8 +221,8 @@
         <target>Authentication failed - Unauthorised.</target>
       </trans-unit>
       <trans-unit id="55">
-        <source>Authentication failed - Incorrect username or password.</source>
-        <target>Authentication failed - Incorrect username or password.</target>
+        <source>Authentication failed - Incorrect email/username or password.</source>
+        <target>Authentication failed - Incorrect email/username or password.</target>
       </trans-unit>
       <trans-unit id="56">
         <source>ShareID</source>
@@ -635,8 +635,8 @@ already current</target>
         <target>Login name</target>
       </trans-unit>
       <trans-unit id="158">
-        <source>Username</source>
-        <target>Username</target>
+        <source>Email/Username</source>
+        <target>Email/Username</target>
       </trans-unit>
       <trans-unit id="159">
         <source>Used</source>

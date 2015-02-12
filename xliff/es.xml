@@ -189,7 +189,7 @@
         <target>Versiones anteriores</target>
       </trans-unit>
       <trans-unit id="47">
-        <source>Missing username or password</source>
+        <source>Missing email/username or password</source>
         <target>Falta el nombre de usuario o la contraseña</target>
       </trans-unit>
       <trans-unit id="48">
@@ -217,7 +217,7 @@
         <target>La autenticación ha fallado - No autorizado.</target>
       </trans-unit>
       <trans-unit id="54">
-        <source>Authentication failed - Incorrect username or password.</source>
+        <source>Authentication failed - Incorrect email/username or password.</source>
         <target>La autenticación ha fallado - Nombre de usuario o contraseña incorrectos.</target>
       </trans-unit>
       <trans-unit id="55">
@@ -611,7 +611,7 @@ ya está actualizada</target>
         <target>Nombre de inicio de sesión</target>
       </trans-unit>
       <trans-unit id="152">
-        <source>Username</source>
+        <source>Email/Username</source>
         <target>Nombre de usuario</target>
       </trans-unit>
       <trans-unit id="153">

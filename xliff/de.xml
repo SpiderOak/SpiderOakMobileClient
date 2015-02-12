@@ -189,7 +189,7 @@
         <target>Vorherige Versionen</target>
       </trans-unit>
       <trans-unit id="47">
-        <source>Missing username or password</source>
+        <source>Missing email/username or password</source>
         <target>Benutzername oder Passwort fehlt</target>
       </trans-unit>
       <trans-unit id="48">
@@ -217,7 +217,7 @@
         <target>Authentifizierung fehlgeschlagen – keine Berechtigung.</target>
       </trans-unit>
       <trans-unit id="54">
-        <source>Authentication failed - Incorrect username or password.</source>
+        <source>Authentication failed - Incorrect email/username or password.</source>
         <target>Authentifizierung fehlgeschlagen – Benutzername oder Passwort falsch.</target>
       </trans-unit>
       <trans-unit id="55">
@@ -606,7 +606,7 @@ already current</source>
         <target>Anmeldename</target>
       </trans-unit>
       <trans-unit id="151">
-        <source>Username</source>
+        <source>Email/Username</source>
         <target>Benutzername</target>
       </trans-unit>
       <trans-unit id="152">

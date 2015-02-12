@@ -162,7 +162,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(qq("About {{SpiderOak}}",
+        spiderOakApp.mainView.setTitle(qq("About [[SpiderOak]]",
                                           {SpiderOak: s("SpiderOak")}));
         if (!!spiderOakApp.navigator.viewsStack[0] &&
               spiderOakApp.navigator.viewsStack[0].instance === this) {

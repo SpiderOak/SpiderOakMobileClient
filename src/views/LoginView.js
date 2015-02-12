@@ -30,14 +30,14 @@
     },
     render: function() {
       this.$(".learn-more").html(
-        qq("Learn more about {{SpiderOak}}&raquo;",
+        qq("Learn more about [[SpiderOak]]&raquo;",
            {SpiderOak: s("SpiderOak")})
       );
       this.$(".remember-me").html(qq("Stay logged in"));
       this.$(".log-in").text(qq("Log in"));
       var unme =  this.$("#unme");
       if (unme && unme[0] && unme[0].placeholder) {
-        unme[0].placeholder = qq("Username");
+        unme[0].placeholder = qq("Email/Username");
       }
       var pwrd = this.$("#pwrd");
       if (pwrd && pwrd[0] && pwrd[0].placeholder) {
@@ -66,7 +66,7 @@
           hasAcceptedId = "hasAcceptedNonZK-" + b32username,
           _this = this;
       if (!username || !password) {
-        navigator.notification.alert(qq("Missing username or password"),
+        navigator.notification.alert(qq("Missing email/username or password"),
                                      null,
                                      qq("Authentication error"),
                                      qq("OK"));
@@ -146,18 +146,18 @@
           msg = qq("Authentication failed - Unauthorized.");
         }
         else if (status === 403) {
-          msg = qq("Authentication failed - Incorrect username or password.");
+          msg = qq("Authentication failed - Incorrect email/username or password.");
         }
         else if (status === 404) {
-          msg = qq("Incorrect ShareID or RoomKey.");
+          msg = qq("Incorrect [[ShareID]] or [[RoomKey]].");
         }
         else if (status === 418) {
           // SpiderOak uses "teapot" to signal incomplete account - no devices.
-          msg = qq("We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team",
+          msg = qq("We apologize, but you must first complete your account setup using the [[SpiderOak]] desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open [[SpiderOak]] on your computer to continue.  Thank you. -- The [[SpiderOak]] Team",
                    {SpiderOak: s("SpiderOak")});
         }
         else {
-          msg = qq("Temporary server failure ({{status}}). Please try again later.",
+          msg = qq("Temporary server failure ([[status]]). Please try again later.",
                    {status: status});
           dontClearPassword = true;
         }
@@ -482,7 +482,7 @@
               ((tooMany) ?
                "<br>" + qq("Too many attempts.") :
                "<br>" + qq("Try again.")) +
-              "<br><br>" + qq("Attempt {{incorrects}} of {{maxIncorrects}}",
+              "<br><br>" + qq("Attempt [[incorrects]] of [[maxIncorrects]]",
                               {incorrects: this.incorrectAttempts,
                                maxIncorrects: this.maxIncorrectAttempts})
           });

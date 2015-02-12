@@ -71,7 +71,7 @@
       if (this.collection.length > spiderOakApp.maxEntries) {
         this.$el.append(
           "<li class='sep'><i class='icon-warning'></i> " +
-            qq("Too many files. Displaying first {{numEntries}}",
+            qq("Too many files. Displaying first [[numEntries]]",
                {numEntries: spiderOakApp.maxEntries}) +
             ".</li>"
         );
@@ -277,7 +277,7 @@
       var doView = function (url) {
         // @FIXME: This is a bit Android-centric
         spiderOakApp.dialogView.hide();
-        var text = (qq("I want to share this link to {{modelName}} with you:",
+        var text = (qq("I want to share this link to [[modelName]] with you:",
                        {modelName: model.get("name")}) +
                     "\n\n  " + url);
         var extras = {};
@@ -335,7 +335,7 @@
           else {
             spiderOakApp.dialogView.showNotify({
               title: qq("Link fetch failed"),
-              subtitle: qq("Access to link {{url}} failed: {{statusText}} ({{statusCode}})",
+              subtitle: qq("Access to link [[url]] failed: [[statusText]] ([[statusCode]])",
                            {url: url, text: xhr.statusText, code: xhr.status})
             });
           }
@@ -363,7 +363,7 @@
           // @FIXME: Real error handling...
           function errorSharingFileByPath(error) {
             navigator.notification.alert(
-              qq("Error sharing file. Error code {{code}}",
+              qq("Error sharing file. Error code [[code]]",
                  {code: error.code}),
               null,
               qq("File error"),
@@ -548,7 +548,7 @@
         },
         function errorViewingFileByPath(error) { // @FIXME: Real error handling...
           navigator.notification.alert(
-            qq("Error viewing file. Error code {{code}}",
+            qq("Error viewing file. Error code [[code]]",
                {code: error.code}),
             null,
             qq("File error"),
@@ -581,7 +581,7 @@
             spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
             navigator.notification.alert(
-              qq("{{name}} saved to {{path}}{{name}}",
+              qq("[[name]] saved to [[path]][[name]]",
                  {name: fileEntry.name, path: path}),
               null,
               qq("Success"),
@@ -682,7 +682,7 @@
                 deletedSuccess,
                 function(error) { // @FIXME: Real error handling...
                   navigator.notification.alert(
-                    qq("Error removing favorite from device (error code: {{code}})",
+                    qq("Error removing favorite from device (error code: [[code]])",
                        {"code": error.code}),
                     null,
                     qq("Error"),

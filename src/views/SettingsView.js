@@ -59,10 +59,8 @@
         return;
       }
       var platform = (($.os.android)?"Android":"iOS");
-      var subject = qq("Feedback on {{SpiderOak}} {{platform}} app version {{version}}",
-                       {SpiderOak: s("SpiderOak"),
-                        platform: platform,
-                        version: spiderOakApp.version});
+      var subject = ("Feedback on " + s("SpiderOak") + " " +
+                     platform + " app version " + spiderOakApp.version);
       var extras = {};
       extras[spiderOakApp.fileViewer.EXTRA_SUBJECT] = subject;
       extras[spiderOakApp.fileViewer.EXTRA_EMAIL] =
@@ -367,7 +365,7 @@
          */
         var concludeServerChangeAttempt = function() {
           spiderOakApp.dialogView.hide();
-          var subtitle = qq("Service host changed to {{server}}",
+          var subtitle = qq("Service host changed to [[server]]",
                             {server: newServer});
           if (wasLoggedIn && wasServer) {
             subtitle += "\n" + qq("and session logged out");
@@ -404,7 +402,7 @@
               spiderOakApp.navigator.popView();
             }
             navigator.notification.alert(
-              qq("{{server}} is not the host of a valid {{SpiderOak}} service. The server is unchanged.",
+              qq("[[server]] is not the host of a valid [[SpiderOak]] service. The server is unchanged.",
                  {server: newServer, SpiderOak: s("SpiderOak")}),
               null,
               qq("Validation error"),
@@ -576,7 +574,7 @@
                 (((tooMany) ?
                   ("<br>" + qq("Too many attempts.")) :
                   "<br>" + qq("Try again.")) +
-                "<br><br>" + qq("Attempt {{incorrects}} of {{maxIncorrects}}",
+                "<br><br>" + qq("Attempt [[incorrects]] of [[maxIncorrects]]",
                               {incorrects: this.incorrectAttempts,
                                maxIncorrects: this.maxIncorrectAttempts}))
             });

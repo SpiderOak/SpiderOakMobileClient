@@ -168,9 +168,9 @@
       if (this.collection.length > spiderOakApp.maxEntries) {
         this.$el.append(
           "<li class='sep'><i class='icon-warning'></i> " +
-            qq("Too many folders. Displaying first") + " " +
-            spiderOakApp.maxEntries +
-          ".</li>"
+            qq("Too many folders. Displaying first [[numEntries]]",
+               {numEntries: spiderOakApp.maxEntries}) +
+            ".</li>"
         );
       }
       this.collection.each(this.addOne, this);

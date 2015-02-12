@@ -158,7 +158,7 @@
       });
     },
     render: function() {
-      this.$el.find(".myShareRoomsSection").show();
+      this.$el.show();
       this.addAll();
       return this;
     },
@@ -263,7 +263,7 @@
   });
 
   spiderOakApp.AddShareRoomView = spiderOakApp.ViewBase.extend({
-    name: qq("Add Public ShareRoom"),
+    name: qq("Add Public [[ShareRoom]]"),
     className: "addShareRoom",
     events: {
       "submit form": "form_submitHandler",
@@ -317,8 +317,8 @@
       if (pubShares.hasByAttributes(shareId, roomKey)) {
         spiderOakApp.dialogView.showNotify({
           title: "<i class='icon-warning'></i>" +
-            qq("ShareRoom already present"),
-          subtitle: qq("Public ShareRoom {{shareid}}/{{roomkey}} is already being visited.",
+            qq("[[ShareRoom]] already present"),
+          subtitle: qq("Public [[ShareRoom]] [[shareid]]/[[roomkey]] is already being visited.",
                        {shareid: shareId, roomkey: roomKey})
         });
       }
@@ -333,7 +333,7 @@
               response,
               {
                 title: "<i class='icon-warning'></i>" + qq("Not found"),
-                subtitle: qq("ShareRoom {{shareid}}/{{roomkey}} not found.",
+                subtitle: qq("[[ShareRoom]] [[shareid]]/[[roomkey]] not found.",
                              {shareid: shareId, roomkey: roomKey})
               });
           }
@@ -504,9 +504,9 @@
       var name = model.get("name");
       var alternate = model.get("share_id") + "/" + model.get("room_key");
       var text = (qq("I want to share this link with you:") +
-                  "\n\n" + qq("ShareRoom: {{name}}",
+                  "\n\n" + qq("[[ShareRoom]]: [[name]]",
                               {name: (name || alternate)}) +
-                  "\n" + qq("Link: {{url}}", {url: model.getWebURL()}));
+                  "\n" + qq("Link: [[url]]", {url: model.getWebURL()}));
       if (model.get("password_required") || model.get("password")) {
         text += "\n\n" + qq("(Access requires an additional password.)");
       }
@@ -653,7 +653,7 @@
         }
       }.bind(this);
       navigator.notification.confirm(
-        qq("Remove this ShareRoom?"),
+        qq("Remove this [[ShareRoom]]?"),
         removeShare,
         qq("Remove?"),
         [qq("OK"), qq("Cancel")]
@@ -746,7 +746,7 @@
         spiderOakApp.backDisabled = true;
       }
       if (event.toView === this) {
-        spiderOakApp.mainView.setTitle(qq("ShareRoom Password"));
+        spiderOakApp.mainView.setTitle(qq("[[ShareRoom]] Password"));
         spiderOakApp.mainView.showBackButton(true);
       }
     },

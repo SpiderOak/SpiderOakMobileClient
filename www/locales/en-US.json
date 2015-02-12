@@ -144,7 +144,7 @@
 	"Continue logging in": "Continue logging in",
 	"Don't login now": "Don't login now",
 	"Passcode unlock": "Passcode unlock",
-	"Learn more about SpiderOak &raquo;": "Learn more about SpiderOak &raquo;",
+	"Learn more about [[SpiderOak]] &raquo;": "Learn more about {{SpiderOak}} &raquo;",
 	"Need an account?<br>Find out how &raquo;": "Need an account?<br>Find out how &raquo;",
 	"or": "or",
 	"Log in &raquo;": "Log in &raquo;",

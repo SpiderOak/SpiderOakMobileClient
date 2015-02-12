@@ -5,5 +5,9 @@
   "en-gb": "locales/en-GB.json",
   "en-in": "locales/en-GB.json",
   "en-au": "locales/en-GB.json",
-  "en-ca": "locales/en-GB.json"
+  "en-ca": "locales/en-GB.json",
+  "de": "locales/de.json",
+  "fr": "locales/fr.json",
+  "pt": "locales/pt.json",
+  "ru": "locales/ru.json"
 }

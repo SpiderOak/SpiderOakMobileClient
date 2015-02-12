@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="en-US" datatype="plaintext" original="messages" date="2012-03-05T14:54:29Z" product-name="messages">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2012-03-05T14:54:29Z" product-name="messages">
   <header/>
     <body>
       <trans-unit id="1">
         <source>Learn more about {{SpiderOak}}&amp;raquo;</source>
-        <target>Learn more about {{SpiderOak}}&amp;raquo;</target>
+        <target>Saiba mais sobre {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change.</source>
-        <target>Advanced login has moved to the 'SpiderOak Blue' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the 'SpiderOak Blue' app. This dialog will appear at app start until you authorize the change.</target>
+        <target>O login avançado foi transferido para o aplicativo 'SpiderOak Blue' e teremos que mudar este aplicativo do servidor alternativo {{server}} para o servidor padrão {{standardServer}}. Para continuar usando esta funcionalidade, baixe o aplicativo 'SpiderOak Blue'. Esta caixa de diálogo aparecerá ao iniciar o aplicativo até você autorizar a mudança.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Server changed to {{standardServer}}</source>
-        <target>Server changed to {{standardServer}}</target>
+        <target>Servidor alterado para {{standardServer}}</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Alternate server retained</source>
-        <target>Alternate server retained</target>
+        <target>Servidor alternativo mantido</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Non-standard server</source>
-        <target>Non-standard server</target>
+        <target>Servidor não-padrão</target>
       </trans-unit>
       <trans-unit id="6">
         <source>OK, switch now</source>
-        <target>OK, switch now</target>
+        <target>Ok, mude agora</target>
       </trans-unit>
       <trans-unit id="7">
         <source>No, maybe later</source>
-        <target>No, maybe later</target>
+        <target>Não, talvez depois</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Hit back again to exit</source>
-        <target>Hit back again to exit</target>
+        <target>Aperte novamente para sair</target>
       </trans-unit>
       <trans-unit id="9">
-        <source>Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</source>
-        <target>Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</target>
+        <source>Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</source>
+        <target>Desculpe! Você ainda deveria ter acesso aos seus favoritos, mas para fazer o login e acessar arquivos ou pastas, é necessário ter uma conexão de rede.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Network error</source>
-        <target>Network error</target>
+        <target>Erro de rede</target>
       </trans-unit>
       <trans-unit id="11">
         <source>OK</source>
@@ -50,341 +50,340 @@
       </trans-unit>
       <trans-unit id="12">
         <source>File transfer aborted</source>
-        <target>File transfer aborted</target>
+        <target>Transferência de arquivo cancelada</target>
       </trans-unit>
       <trans-unit id="13">
         <source>About {{SpiderOak}}</source>
-        <target>About {{SpiderOak}}</target>
+        <target>Sobre {{SpiderOak}}</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Error</source>
-        <target>Error</target>
+        <target>Erro</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Please wait</source>
-        <target>Please wait</target>
+        <target>Por favor, aguarde</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Network timeout</source>
-        <target>Network timeout</target>
+        <target>Tempo limite de rede</target>
       </trans-unit>
       <trans-unit id="17">
         <source>status</source>
-        <target>status</target>
+        <target>estado</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Done</source>
-        <target>Done</target>
+        <target>Pronto</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Favorites</source>
-        <target>Favorites</target>
+        <target>Favoritos</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Do you want to refresh all of your favorites? This will re-download the latest versions.</source>
-        <target>Do you want to refresh all of your favorites? This will re-download the latest versions.</target>
+        <target>Deseja atualizar todos os seus favoritos? Esta opção irá baixar novamente as versões mais recentes.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Too many files. Displaying first {{numEntries}}</source>
-        <target>Too many files. Displaying first {{numEntries}}</target>
+        <target>Há muitos arquivos. Mostrando os primeiros {{numEntries}}</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Downloading</source>
-        <target>Downloading</target>
+        <target>Baixando</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Do you want to add this file to your favorites? This will download the contents to your device.</source>
-        <target>Do you want to add this file to your favorites? This will download the contents to your device.</target>
+        <target>Deseja agregar este arquivo aos seus favoritos? Esta opção irá baixar os conteúdos para o seu dispositivo.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Cannot find an app to handle files of this type.</source>
-        <target>Cannot find an app to handle files of this type.</target>
+        <target>Não foi possível encontrar um aplicativo para abrir este tipo de arquivo.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Retrieving link</source>
-        <target>Retrieving link</target>
+        <target>Recuperando link</target>
       </trans-unit>
       <trans-unit id="26">
         <source>File error</source>
-        <target>File error</target>
+        <target>Erro de arquivo</target>
       </trans-unit>
       <trans-unit id="27">
         <source>I want to share this link to {{modelName}} with you:</source>
-        <target>I want to share this link to {{modelName}} with you:</target>
+        <target>Desejo compartilhar este link a {{modelName}} com você:</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Error sending this link. Try again later.</source>
-        <target>Error sending this link. Try again later.</target>
+        <target>Erro ao enviar este link. Tente novamente mais tarde.</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Link fetch failed</source>
-        <target>Link fetch failed</target>
+        <target>Falha na busca do link</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Access to link {{url}} failed: {{statusText}} ({{statusCode}})</source>
-        <target>Access to link {{url}} failed: {{statusText}} ({{statusCode}})</target>
+        <target>Falha no acesso ao link {{url}} : {{statusText}} ({{statusCode}})</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Error sharing file. Error code {{code}}</source>
-        <target>Error sharing file. Error code {{code}}</target>
+        <target>Erro ao compartilhar o arquivo. Código de erro {{code}}</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Cannot find an app to view files of this type. Would you like to try and open it anyway?</source>
-        <target>Cannot find an app to view files of this type. Would you like to try and open it anyway?</target>
+        <target>Não foi possível encontrar um aplicativo para visualizar este tipo de arquivo. Deseja tentar abri-lo de qualquer maneira?</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Yes</source>
-        <target>Yes</target>
+        <target>Sim</target>
       </trans-unit>
       <trans-unit id="34">
         <source>No</source>
-        <target>No</target>
+        <target>Não</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Cannot find an app to view files of this type.</source>
-        <target>Cannot find an app to view files of this type.</target>
+        <target>Não foi possível encontrar um aplicativo para visualizar este tipo de arquivo.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Error viewing file. Error code {{code}}</source>
-        <target>Error viewing file. Error code {{code}}</target>
+        <target>Erro ao visualizar arquivo. Código de erro {{code}}</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Do you want to save this file to your device?</source>
-        <target>Do you want to save this file to your device?</target>
+        <target>Deseja guardar este arquivo em seu dispositivo?</target>
       </trans-unit>
       <trans-unit id="38">
         <source>{{name}} saved to {{path}}{{name}}</source>
-        <target>{{name}} saved to {{path}}{{name}}</target>
+        <target>{{name}} guardado em {{path}}{{name}}</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Success</source>
-        <target>Success</target>
+        <target>Sucesso</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Save file</source>
-        <target>Save file</target>
+        <target>Guardar arquivo</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Do you want to remove this file from your favorites?</source>
-        <target>Do you want to remove this file from your favorites?</target>
+        <target>Deseja remover este arquivo dos seus favoritos?</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Refresh favorite</source>
-        <target>Refresh favorite</target>
+        <target>Atualizar favorito</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Remove from favorites</source>
-        <target>Remove from favorites</target>
+        <target>Remover dos favoritos</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Add to favorites</source>
-        <target>Add to favorites</target>
+        <target>Adicionar aos favoritos</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Previous versions</source>
-        <target>Previous versions</target>
+        <target>Versões anteriores</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Too many folders. Displaying first</source>
-        <target>Too many folders. Displaying first</target>
+        <target>Há muitas pastas. Mostrando as primeiras</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Missing username or password</source>
-        <target>Missing username or password</target>
+        <target>Falta nome de usuário ou senha</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Authentication error</source>
-        <target>Authentication error</target>
+        <target>Erro de autenticação</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Before using the app, you must set your server in the settings</source>
-        <target>Before using the app, you must set your server in the settings</target>
+        <target>Antes de usar o aplicativo, você deve definir o seu servidor nas configurações</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Important note</source>
-        <target>Important note</target>
+        <target>Aviso importante</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Authenticating</source>
-        <target>Authenticating</target>
+        <target>Autenticando</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Authentication interrupted</source>
-        <target>Authentication interrupted</target>
+        <target>Autenticação interrompida</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Authentication failed - Unauthorized.</source>
-        <target>Authentication failed - Unauthorized.</target>
+        <target>Falha na autenticação - Não autorizado</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Authentication failed - Incorrect username or password.</source>
-        <target>Authentication failed - Incorrect username or password.</target>
+        <target>Falha na autenticação - Nome de usuário ou senha incorreto(a).</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Incorrect ShareID or RoomKey.</source>
-        <target>Incorrect ShareID or RoomKey.</target>
+        <target>ShareID ou RoomKey incorreto.</target>
       </trans-unit>
       <trans-unit id="56">
         <source>We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team</source>
-        <target>We apologize, but you must first complete your account setup using the {{SpiderOak}} desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open {{SpiderOak}} on your computer to continue.  Thank you. -- The {{SpiderOak}} Team</target>
+        <target>Sentimos muito, mas antes você deve completar a configuração da sua conta através do software {{SpiderOak}} em seu computador. Isto é necessário para poder gerar as chaves criptográficas apropriadas para manter a privacidade dos seus dados. Por favor abra {{SpiderOak}} em seu computador para continuar. Obrigado -- A Equipe da {{SpiderOak}}</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Temporary server failure ({{status}}). Please try again later.</source>
-        <target>Temporary server failure ({{status}}). Please try again later.</target>
+        <target>Falha temporária no servidor ({{status}}). Por favor, tente novamente mais tarde.</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Enter Passcode</source>
-        <target>Enter Passcode</target>
+        <target>Digite o código de acesso</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Enter your 4 digit passcode to unlock</source>
-        <target>Enter your 4 digit passcode to unlock</target>
+        <target>Digite a sua senha de 4 dígitos para desbloquear</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Passcode incorrect.</source>
-        <target>Passcode incorrect.</target>
+        <target>Código de acesso incorreto.</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Too many attempts.</source>
-        <target>Too many attempts.</target>
+        <target>Demasiadas tentativas.</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Try again.</source>
-        <target>Try again.</target>
+        <target>Tente novamente.</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Attempt {{incorrects}} of {{maxIncorrects}}</source>
-        <target>Attempt {{incorrects}} of {{maxIncorrects}}</target>
+        <target>Tentativa {{incorrects}} de {{maxIncorrects}}</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Bypass passcode and log out?</source>
-        <target>Bypass passcode and log out?</target>
+        <target>Saltar código de acesso e sair?</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Bypass passcode?</source>
-        <target>Bypass passcode?</target>
+        <target>Saltar código de acesso?</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Recents</source>
-        <target>Recents</target>
+        <target>Recentes</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Loading...</source>
-        <target>Loading...</target>
+        <target>Carregando...</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Are you sure you want to clear your recent history?</source>
-        <target>Are you sure you want to clear your recent history?</target>
+        <target>Tem certeza de que deseja apagar seu histórico recente?</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Clear Recents</source>
-        <target>Clear Recents</target>
+        <target>Apagar Recentes</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Feedback on {{SpiderOak}} {{platform}} app version {{appVersion}}</source>
-        <target>Feedback on {{SpiderOak}} {{platform}} app version {{appVersion}}</target>
+        <target>Comentários sobre {{SpiderOak}} {{platform}} versão do aplicativo {{appVersion}}</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Are you sure you want to sign out?</source>
-        <target>Are you sure you want to sign out?</target>
+        <target>Tem certeza de que deseja sair?</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Sign out</source>
-        <target>Sign out</target>
+        <target>Sair</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Settings</source>
-        <target>Settings</target>
+        <target>Configurações</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Account</source>
-        <target>Account</target>
+        <target>Conta</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Server Address</source>
-        <target>Server Address</target>
+        <target>Endereço do Servidor</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Validating</source>
-        <target>Validating</target>
+        <target>Validando</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Unchanged</source>
-        <target>Unchanged</target>
+        <target>Inalterado</target>
       </trans-unit>
       <trans-unit id="78">
         <source>The specified address is
 already current</source>
-        <target>The specified address is
-already current</target>
+        <target>O endereço especificado é igual ao atual</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Service host changed to {{server}}</source>
-        <target>Service host changed to {{server}}</target>
+        <target>Host de serviço alterado para {{server}}</target>
       </trans-unit>
       <trans-unit id="80">
         <source>and session logged out</source>
-        <target>and session logged out</target>
+        <target>e sessão finalizada</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Server changed</source>
-        <target>Server changed</target>
+        <target>Servidor alterado</target>
       </trans-unit>
       <trans-unit id="82">
         <source>{{server}} is not the host of a valid {{SpiderOak}} service. The server is unchanged.</source>
-        <target>{{server}} is not the host of a valid {{SpiderOak}} service. The server is unchanged.</target>
+        <target>{{server}} não é host de um serviço {{SpiderOak}} válido. O servidor não foi alterado.</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Validation error</source>
-        <target>Validation error</target>
+        <target>Erro de validação</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Enter a new 4 digit passcode</source>
-        <target>Enter a new 4 digit passcode</target>
+        <target>Ingresse um novo código de acesso de 4 dígitos</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Enter your current 4 digit passcode</source>
-        <target>Enter your current 4 digit passcode</target>
+        <target>Ingresse novamente o seu novo código de acesso de 4 dígitos</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Re-enter your new 4 digit passcode</source>
-        <target>Re-enter your new 4 digit passcode</target>
+        <target>Ingresse novamente o seu novo código de acesso de 4 dígitos</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Passcodes do not match.</source>
-        <target>Passcodes do not match.</target>
+        <target>Códigos de acesso não coincidem.</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Passcode settings</source>
-        <target>Passcode settings</target>
+        <target>Configurações de código de acesso</target>
       </trans-unit>
       <trans-unit id="89">
         <source>After 1 minute</source>
-        <target>After 1 minute</target>
+        <target>Após 1 minuto</target>
       </trans-unit>
       <trans-unit id="90">
         <source>After 5 minutes</source>
-        <target>After 5 minutes</target>
+        <target>Após 5 minutos</target>
       </trans-unit>
       <trans-unit id="91">
         <source>After 15 minutes</source>
-        <target>After 15 minutes</target>
+        <target>Após 15 minutos</target>
       </trans-unit>
       <trans-unit id="92">
         <source>After 1 hour</source>
-        <target>After 1 hour</target>
+        <target>Após 1 hora</target>
       </trans-unit>
       <trans-unit id="93">
         <source>After 4 hours</source>
-        <target>After 4 hours</target>
+        <target>Após 4 horas</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Immediately</source>
-        <target>Immediately</target>
+        <target>Imediatamente</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Require passcode</source>
-        <target>Require passcode</target>
+        <target>Requerer código de acesso</target>
       </trans-unit>
       <trans-unit id="96">
         <source>ShareRooms</source>
@@ -392,47 +391,47 @@ already current</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Add Public ShareRoom</source>
-        <target>Add Public ShareRoom</target>
+        <target>Adicionar ShareRoom Público</target>
       </trans-unit>
       <trans-unit id="98">
         <source>ShareRoom already present</source>
-        <target>ShareRoom already present</target>
+        <target>ShareRoom já está presente</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Public ShareRoom {{shareid}}/{{roomkey}} is already being visited.</source>
-        <target>Public ShareRoom {{shareid}}/{{roomkey}} is already being visited.</target>
+        <target>ShareRoom Público {{shareid}}/{{roomkey}} já está sendo visitado.</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Not found</source>
-        <target>Not found</target>
+        <target>Não encontrado</target>
       </trans-unit>
       <trans-unit id="101">
         <source>ShareRoom {{shareid}}/{{roomkey}} not found.</source>
-        <target>ShareRoom {{shareid}}/{{roomkey}} not found.</target>
+        <target>ShareRoom {{shareid}}/{{roomkey}} não encontrado.</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Open</source>
-        <target>Open</target>
+        <target>Abrir</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Details</source>
-        <target>Details</target>
+        <target>Detalhes</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Send link</source>
-        <target>Send link</target>
+        <target>Enviar link</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Fetching</source>
-        <target>Fetching</target>
+        <target>Buscando</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Fetch unsatisfied</source>
-        <target>Fetch unsatisfied</target>
+        <target>A busca não foi satisfeita</target>
       </trans-unit>
       <trans-unit id="107">
         <source>I want to share this link with you:</source>
-        <target>I want to share this link with you:</target>
+        <target>Desejo compartilhar este link com você:</target>
       </trans-unit>
       <trans-unit id="108">
         <source>ShareRoom: {{name}}</source>
@@ -444,191 +443,191 @@ already current</target>
       </trans-unit>
       <trans-unit id="110">
         <source>(Access requires an additional password.)</source>
-        <target>(Access requires an additional password.)</target>
+        <target>(O acesso requer uma senha adicional).</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Error sending this link. Please try later.</source>
-        <target>Error sending this link. Please try later.</target>
+        <target>Erro ao enviar este link. Tente mais tarde.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Forget password</source>
-        <target>Forget password</target>
+        <target>Esquecer senha</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Forget</source>
-        <target>Forget</target>
+        <target>Esquecer</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Remember</source>
-        <target>Remember</target>
+        <target>Recordar</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Remove this ShareRoom?</source>
-        <target>Remove this ShareRoom?</target>
+        <target>Remover este ShareRoom?</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Remove?</source>
-        <target>Remove?</target>
+        <target>Remover?</target>
       </trans-unit>
       <trans-unit id="117">
         <source>ShareRoom Password</source>
-        <target>ShareRoom Password</target>
+        <target>Senha do ShareRoom</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Invalid password</source>
-        <target>Invalid password</target>
+        <target>Senha incorreta</target>
       </trans-unit>
       <trans-unit id="119">
         <source>The [[SpiderOak]] [[platform]] application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.</source>
-        <target>The {{SpiderOak}} {{platform}} application provides an easy way to access your data on the move, open ShareRooms, view historical versions, and quickly email files to friends, colleagues, and/or clients.</target>
+        <target>O aplicativo {{SpiderOak}} {{platform}} fornece uma maneira fácil de acessar seus dados quando em trânsito, abrir ShareRooms, visualizar versões históricas e enviar rapidamente arquivos por e-mail a amigos, colegas e/ou clientes.</target>
       </trans-unit>
       <trans-unit id="120">
         <source>However - you don’t have to be a [[SpiderOak]] user to enjoy the benefits of our [[platform]] application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.</source>
-        <target>However - you don’t have to be a {{SpiderOak}} user to enjoy the benefits of our {{platform}} application. You can open the ShareRoom of a friend or colleague by entering their ShareID and a valid RoomKey. You can also email files through a secure link.</target>
+        <target>No entanto, você não precisa ser um usuário da {{SpiderOak}} para aproveitar os benefícios do nosso aplicativo {{platform}}. Você pode abrir o ShareRoom de um amigo ou colega ingressando o ShareID dele e um RoomKey válido. Você também pode enviar arquivos por e-mail através de um link seguro.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
-        <target>If you would like to learn more about {{SpiderOak}}, please visit &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; and download the {{SpiderOak}} client to get started with your FREE 2 GB account.</target>
+        <target>Se você deseja saber mais sobre a {{SpiderOak}}, visite &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; e baixe o cliente {{SpiderOak}} para começar com a sua conta GRATUITA de 2 GB.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to</source>
-        <target>Thank you for using {{SpiderOak}} and please don’t hesitate to send comments or questions to</target>
+        <target>Obrigado por usar {{SpiderOak}} e por favor não hesite em enviar comentários ou perguntas para</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Add ShareRoom</source>
-        <target>Add ShareRoom</target>
+        <target>Adicionar ShareRoom</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Remember ShareRoom</source>
-        <target>Remember ShareRoom</target>
+        <target>Recordar ShareRoom</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Cancel</source>
-        <target>Cancel</target>
+        <target>Cancelar</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Size:</source>
-        <target>Size:</target>
+        <target>Tamanho:</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Created:</source>
-        <target>Created:</target>
+        <target>Criado em:</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Last Modified:</source>
-        <target>Last Modified:</target>
+        <target>Última Modificação em:</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Password</source>
-        <target>Password</target>
+        <target>Senha</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Submit Password</source>
-        <target>Submit Password</target>
+        <target>Enviar Senha</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Sections</source>
-        <target>Sections</target>
+        <target>Seções</target>
       </trans-unit>
       <trans-unit id="132">
         <source>About [[SpiderOak]]</source>
-        <target>About {{SpiderOak}}</target>
+        <target>Sobre {{SpiderOak}}</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Log In</source>
-        <target>Log In</target>
+        <target>Entrar</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Log in</source>
-        <target>Log in</target>
+        <target>Entrar</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Need an account?</source>
-        <target>Need an account?</target>
+        <target>Precisa de uma conta?</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
-        <target>Please go to &lt;a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; and follow the instructions to establish your account.</target>
+        <target>Por favor, vá para &lt;a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; e siga as instruções para criar a sua conta.</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Live Privately,</source>
-        <target>Live Privately,</target>
+        <target>Viva com Privacidade,</target>
       </trans-unit>
       <trans-unit id="138">
         <source>The SpiderOak Team</source>
-        <target>The SpiderOak Team</target>
+        <target>A Equipe SpiderOak</target>
       </trans-unit>
       <trans-unit id="139">
-        <source>Zero-Knowledge</source>
-        <target>Zero-Knowledge</target>
+        <source>Not '[[Zero-Knowledge]]'</source>
+        <target>Não é '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="140">
-        <source>Not '[[Zero-Knowledge]]'</source>
-        <target>Not '{{Zero-Knowledge}}'</target>
+        <source>Not '{{Zero-Knowledge}}'</source>
+        <target>Não é '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="141">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
-        <target>If you login with this mobile client, or via the website, your password will exist in the {{SpiderOak}} server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</target>
+        <target>Se você entrar com este cliente móvel, ou através do website, a sua senha estará na memória do servidor {{SpiderOak}} durante a sua sessão de navegação. No entanto, a sua senha será armazenada em memória criptografada e jamais será guardada em um disco não-criptografado. Quando a sua sessão terminar, a cópia da sua senha será completamente eliminada do servidor.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>If you prefer to use only '{{Zero-Knowledge}}' access, cancel this login, and only login via the {{SpiderOak}} desktop client.</target>
+        <target>Se você prefere utilizar somente o acesso com '{{Zero-Knowledge}}', cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Continue logging in</source>
-        <target>Continue logging in</target>
+        <target>Continuar o login</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Don't login now</source>
-        <target>Don't login now</target>
+        <target>Não fazer login agora</target>
       </trans-unit>
       <trans-unit id="145">
         <source>Passcode unlock</source>
-        <target>Passcode unlock</target>
+        <target>Desbloquear código de acesso</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
-        <target>Learn more about {{SpiderOak}} &amp;raquo;</target>
+        <target>Saiba mais sobre {{SpiderOak}} &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>
-        <target>Need an account?&lt;br&gt;Find out how &amp;raquo;</target>
+        <target>Precisa de uma conta?&lt;br&gt;Saiba como &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="148">
         <source>or</source>
-        <target>or</target>
+        <target>ou</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Log in &amp;raquo;</source>
-        <target>Log in &amp;raquo;</target>
+        <target>Entre &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="150">
         <source>Please note</source>
-        <target>Please note</target>
+        <target>Favor observar</target>
       </trans-unit>
       <trans-unit id="151">
-        <source>The &amp;ldquo;Stay logged in&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Stay logged in&amp;rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</source>
-        <target>The &amp;ldquo;Stay logged in&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Stay logged in&amp;rdquo; function will enable access to the data stored within {{SpiderOak}} in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</target>
+        <source>The &amp;ldquo;[[Stay logged in]]&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;[[Stay logged in]]&amp;rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</source>
+        <target>A funcionalidade &amp;ldquo;{{Stay logged in}}&amp;rdquo; é muito conveniente. No entanto, a segurança dos detalhes do login dependem da segurança do acesso físico ao seu dispositivo. &lt;br&gt;&lt;br&gt;Ao selecionar a função &amp;ldquo;{{Stay logged in}}&amp;rdquo; , ficará habilitado o acesso aos dados armazenados na {{SpiderOak}} no caso de perda ou roubo do seu telefone. Sugerimos cautela ao selecionar esta opção.&lt;br&gt;&lt;br&gt;Esta opção pode ser alterada a qualquer momento nas suas configurações.</target>
       </trans-unit>
       <trans-unit id="152">
         <source>OK, I understand</source>
-        <target>OK, I understand</target>
+        <target>Ok, entendi.</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Forget it, forget me</source>
-        <target>Forget it, forget me</target>
+        <target>Deixa pra lá, me esqueça</target>
       </trans-unit>
       <trans-unit id="154">
         <source>Login name</source>
-        <target>Login name</target>
+        <target>Nome de login</target>
       </trans-unit>
       <trans-unit id="155">
         <source>Username</source>
-        <target>Username</target>
+        <target>Nome de usuário</target>
       </trans-unit>
       <trans-unit id="156">
         <source>Used</source>
-        <target>Used</target>
+        <target>Usado(s)</target>
       </trans-unit>
       <trans-unit id="157">
         <source>Total</source>
@@ -640,99 +639,99 @@ already current</target>
       </trans-unit>
       <trans-unit id="159">
         <source>Devices</source>
-        <target>Devices</target>
+        <target>Dispositivos</target>
       </trans-unit>
       <trans-unit id="160">
         <source>Shorter times are more secure</source>
-        <target>Shorter times are more secure</target>
+        <target>Tempos menores são mais seguros</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Turn Passcode Off</source>
-        <target>Turn Passcode Off</target>
+        <target>Desativar Código de Acesso</target>
       </trans-unit>
       <trans-unit id="162">
         <source>Change Passcode</source>
-        <target>Change Passcode</target>
+        <target>Alterar Código de Acesso</target>
       </trans-unit>
       <trans-unit id="163">
         <source>Timeout</source>
-        <target>Timeout</target>
+        <target>Tempo esgotado</target>
       </trans-unit>
       <trans-unit id="164">
         <source>Require Passcode</source>
-        <target>Require Passcode</target>
+        <target>Requerer Código de Acesso</target>
       </trans-unit>
       <trans-unit id="165">
         <source>Server</source>
-        <target>Server</target>
+        <target>Servidor</target>
       </trans-unit>
       <trans-unit id="166">
         <source>Submit</source>
-        <target>Submit</target>
+        <target>Enviar</target>
       </trans-unit>
       <trans-unit id="167">
         <source>Note: changing the server address will log the current session out.</source>
-        <target>Note: changing the server address will log the current session out.</target>
+        <target>Obs.: Ao mudar o endereço do servidor, a sessão atual será terminada.</target>
       </trans-unit>
       <trans-unit id="168">
         <source>Send feedback</source>
-        <target>Send feedback</target>
+        <target>Enviar comentário</target>
       </trans-unit>
       <trans-unit id="169">
         <source>Name</source>
-        <target>Name</target>
+        <target>Nome</target>
       </trans-unit>
       <trans-unit id="170">
         <source>Passcode</source>
-        <target>Passcode</target>
+        <target>Código de acesso</target>
       </trans-unit>
       <trans-unit id="171">
         <source>On</source>
-        <target>On</target>
+        <target>Ativo</target>
       </trans-unit>
       <trans-unit id="172">
         <source>Off</source>
-        <target>Off</target>
+        <target>Inativo</target>
       </trans-unit>
       <trans-unit id="173">
         <source>Primary Server</source>
-        <target>Primary Server</target>
+        <target>Servidor Primário</target>
       </trans-unit>
       <trans-unit id="174">
         <source>Version</source>
-        <target>Version</target>
+        <target>Versão</target>
       </trans-unit>
       <trans-unit id="175">
         <source>Logging out while &lt;strong&gt;Remember Me&lt;/strong&gt; is active will clear your data from this device.</source>
-        <target>Logging out while &lt;strong&gt;Remember Me&lt;/strong&gt; is active will clear your data from this device.</target>
+        <target>Ao sair enquanto a função &lt;strong&gt;Remember Me&lt;/strong&gt; estiver ativa, os seus dados serão apagados deste dispositivo.</target>
       </trans-unit>
       <trans-unit id="176">
         <source>Logout</source>
-        <target>Logout</target>
+        <target>Sair</target>
       </trans-unit>
       <trans-unit id="177">
         <source>Password required</source>
-        <target>Password required</target>
+        <target>Senha requerida</target>
       </trans-unit>
       <trans-unit id="178">
         <source>Password provided</source>
-        <target>Password provided</target>
+        <target>Senha fornecida</target>
       </trans-unit>
       <trans-unit id="179">
         <source>Owner:</source>
-        <target>Owner:</target>
+        <target>Proprietário(a):</target>
       </trans-unit>
       <trans-unit id="180">
         <source>Folders:</source>
-        <target>Folders:</target>
+        <target>Pastas:</target>
       </trans-unit>
       <trans-unit id="181">
         <source>Files:</source>
-        <target>Files:</target>
+        <target>Arquivos:</target>
       </trans-unit>
       <trans-unit id="182">
         <source>Remembering:</source>
-        <target>Remembering:</target>
+        <target>Recordando:</target>
       </trans-unit>
       <trans-unit id="183">
         <source>URL</source>
@@ -740,39 +739,39 @@ already current</target>
       </trans-unit>
       <trans-unit id="184">
         <source>Fetch failed, try later</source>
-        <target>Fetch failed, try later</target>
+        <target>Falha na busca, tente mais tarde</target>
       </trans-unit>
       <trans-unit id="185">
         <source>My Shares</source>
-        <target>My Shares</target>
+        <target>Meus Compartilhamentos</target>
       </trans-unit>
       <trans-unit id="186">
         <source>Public Shares</source>
-        <target>Public Shares</target>
+        <target>Compartilhamentos Públicos</target>
       </trans-unit>
       <trans-unit id="187">
         <source>devices: [[devices]]</source>
-        <target>devices: {{devices}}</target>
+        <target>dispositivos: {{devices}}</target>
       </trans-unit>
       <trans-unit id="188">
         <source>[[backupsize]] / [[size]] GB</source>
         <target>{{backupsize}} / {{size}} GB</target>
       </trans-unit>
       <trans-unit id="189">
-        <source>#Since 2015-01-07 - strings to be added to spanish translation</source>
-        <target></target>
+        <source>Need an account?&lt;br&gt;Register now &amp;raquo;</source>
+        <target>Precisa de uma conta?&lt;br&gt;Cadastre-se agora &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="190">
         <source>Stay logged in</source>
-        <target>Stay logged in</target>
+        <target>Permanecer logado</target>
       </trans-unit>
       <trans-unit id="191">
         <source>Share file</source>
-        <target>Share file</target>
+        <target>Compartilhar arquivo</target>
       </trans-unit>
       <trans-unit id="192">
         <source>Open in</source>
-        <target>Open in</target>
+        <target>Abrir com</target>
       </trans-unit>
       <trans-unit id="193">
         <source>MS Word</source>
@@ -792,27 +791,27 @@ already current</target>
       </trans-unit>
       <trans-unit id="197">
         <source>Zip Archive</source>
-        <target>Zip Archive</target>
+        <target>Arquivo Zip</target>
       </trans-unit>
       <trans-unit id="198">
         <source>Archive</source>
-        <target>Archive</target>
+        <target>Arquivo</target>
       </trans-unit>
       <trans-unit id="199">
         <source>RAR Archive</source>
-        <target>RAR Archive</target>
+        <target>Arquivo RAR</target>
       </trans-unit>
       <trans-unit id="200">
         <source>JPEG Image</source>
-        <target>JPEG Image</target>
+        <target>Imagem JPEG</target>
       </trans-unit>
       <trans-unit id="201">
         <source>GIF Image</source>
-        <target>GIF Image</target>
+        <target>Imagem GIF</target>
       </trans-unit>
       <trans-unit id="202">
         <source>PNG Image</source>
-        <target>PNG Image</target>
+        <target>Imagem PNG</target>
       </trans-unit>
       <trans-unit id="203">
         <source>In Design</source>
@@ -824,7 +823,7 @@ already current</target>
       </trans-unit>
       <trans-unit id="205">
         <source>PSD Image</source>
-        <target>PSD Image</target>
+        <target>Imagem PSD</target>
       </trans-unit>
       <trans-unit id="206">
         <source>Markdown</source>
@@ -832,7 +831,7 @@ already current</target>
       </trans-unit>
       <trans-unit id="207">
         <source>Plain Text</source>
-        <target>Plain Text</target>
+        <target>Texto simples</target>
       </trans-unit>
       <trans-unit id="208">
         <source>HTML</source>
@@ -884,11 +883,11 @@ already current</target>
       </trans-unit>
       <trans-unit id="220">
         <source>Header</source>
-        <target>Header</target>
+        <target>Cabeçalho</target>
       </trans-unit>
       <trans-unit id="221">
         <source>Source</source>
-        <target>Source</target>
+        <target>Fonte</target>
       </trans-unit>
       <trans-unit id="222">
         <source>Java</source>
@@ -896,75 +895,67 @@ already current</target>
       </trans-unit>
       <trans-unit id="223">
         <source>OpenOffice file</source>
-        <target>OpenOffice file</target>
+        <target>Arquivo OpenOffice</target>
       </trans-unit>
       <trans-unit id="224">
         <source>MP3 File</source>
-        <target>MP3 File</target>
+        <target>Arquivo MP3</target>
       </trans-unit>
       <trans-unit id="225">
         <source>Sound</source>
-        <target>Sound</target>
+        <target>Áudio</target>
       </trans-unit>
       <trans-unit id="226">
         <source>Video</source>
-        <target>Video</target>
+        <target>Vídeo</target>
       </trans-unit>
       <trans-unit id="227">
         <source>AVI File</source>
-        <target>AVI File</target>
+        <target>Arquivo AVI</target>
       </trans-unit>
       <trans-unit id="228">
         <source>Unknown</source>
-        <target>Unknown</target>
+        <target>Desconhecido</target>
       </trans-unit>
       <trans-unit id="229">
-        <source>It does not currently provide upload or sync capability.</source>
-        <target>It does not currently provide upload or sync capability.</target>
+        <source>Your account was logged off on bypass of your passcode. Remove your passcode?</source>
+        <target>A sua conta foi desconectada ignorando o seu código de acesso. Deseja remover o seu código de acesso?</target>
       </trans-unit>
       <trans-unit id="230">
-        <source>Need an account?&lt;br&gt;Register now &amp;raquo;</source>
-        <target>Need an account?&lt;br&gt;Register now &amp;raquo;</target>
+        <source>Passcode removed</source>
+        <target>O código de acesso foi removido.</target>
       </trans-unit>
       <trans-unit id="231">
-        <source>Your account was logged off on bypass of your passcode. Remove your passcode?</source>
-        <target>Your account was logged off on bypass of your passcode. Remove your passcode?</target>
+        <source>Navigate to Settings to establish a new passcode.</source>
+        <target>Ir a Configurações para estabelecer um novo código de acesso.</target>
       </trans-unit>
       <trans-unit id="232">
-        <source>Passcode removed</source>
-        <target>Passcode removed</target>
+        <source>Passcode Kept</source>
+        <target>O código de acesso foi mantido.</target>
       </trans-unit>
       <trans-unit id="233">
-        <source>Navigate to Settings to establish a new passcode.</source>
-        <target>Navigate to Settings to establish a new passcode.</target>
+        <source>Passcode was bypassed</source>
+        <target>O código de acesso foi ignorado.</target>
       </trans-unit>
       <trans-unit id="234">
-        <source>Passcode Kept</source>
-        <target>Passcode Kept</target>
+        <source>Remove it</source>
+        <target>Remover</target>
       </trans-unit>
       <trans-unit id="235">
-        <source>Passcode was bypassed</source>
-        <target>Passcode was bypassed</target>
+        <source>Keep it</source>
+        <target>Manter</target>
       </trans-unit>
       <trans-unit id="236">
-        <source>Remove it</source>
-        <target>Remove it</target>
+        <source>Error removing favorite from device (error code: {{code}})</source>
+        <target>Erro ao remover favorito do dispositivo (código de erro: {{code}})</target>
       </trans-unit>
       <trans-unit id="237">
-        <source>Keep it</source>
-        <target>Keep it</target>
+        <source>It does not currently provide upload or sync capability.</source>
+        <target>As funções de upload e sincronização não estão disponíveis no momento.</target>
       </trans-unit>
       <trans-unit id="238">
-        <source>Error removing favorite from device (error code: {{code}})</source>
-        <target>Error removing favorite from device (error code: {{code}})</target>
-      </trans-unit>
-      <trans-unit id="239">
         <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
-        <target>In order to ensure '{{Zero-Knowledge}}' Privacy, your account must be created on a computer.</target>
-      </trans-unit>
-      <trans-unit id="240">
-        <source>NO TRAILING COMMA</source>
-        <target>NO TRAILING COMMA</target>
+        <target>Para garantir Privacidade '[[Zero-Knowledge]]', a sua conta deve ser criada em um computador.</target>
       </trans-unit>
       
     </body>

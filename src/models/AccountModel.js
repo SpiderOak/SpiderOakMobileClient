@@ -207,6 +207,11 @@
       return which + "_" + this.get("b32username");
     },
 
+    loginUrl: function(server, username) {
+      return ("https://" + server + "/storage/" +
+              spiderOakApp.b32nibbler.encode(username) +
+              "/login");
+    },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
      *
@@ -245,8 +250,12 @@
       var _self = this,
           server = (probeHost ||
                     spiderOakApp.settings.getValue("server")),
-          login_url_start = "https://" + server + "/browse/login";
-      login_url = login_url || login_url_start;
+          //login_url_start = "https://" + server + "/browse/login";
+          login_url_start = _self.loginUrl(server, username);
+
+      if (! probeHost && ! login_url) {
+        _self.tryingUrlStart = login_url = login_url_start;
+      }                         // ... otherwise use already-set login_url.
 
 
       ajax({
@@ -272,14 +281,16 @@
            * @param {string} locationResponse - the account's web browsing URL
            */
           function loginSuccess(login_url, locationResponse) {
-            var splat = login_url.split('/');
+            var splat = _self.tryingUrlStart.split('/');
+            _self.tryingUrlStart = undefined;
             var b32username = splat[splat.length - 2];
             var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
-            var storageHost = splat.slice(0, splat.length-3).join("/");
+            var storageHost = splat.slice(0,3).join("/");
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
 
             _self.set("login_url_preface", "https://" + server + "/storage/");
-            _self.set("login_url_start", "https://" + server + "/browse/login");
+            //_self.set("login_url_start", "https://" + server + "/browse/login");
+            _self.set("login_url_start", _self.loginUrl(server, gotUsername));
             _self.set("logout_url_preface", "https://" + server + "/storage/");
 
             // The name by which they logged in.  (For Blue/enterprise
@@ -305,7 +316,7 @@
             // Record the web browsing root location:
             _self.set("webRootURL", locationResponse);
             // Return the data center part of the url:
-            var dc = login_url.match(_self.get("data_center_regex"))[1];
+            var dc = storageHost;
             // Trigger the login complete event so other views can react
             _self.loggedIn();
             $(document).trigger('loginSuccess');
@@ -342,6 +353,7 @@
             }
           }
           else {
+            _self.tryingUrlStart = undefined;
             if (username === "") {
               errorCallback(403, "Authentication failed", xhr);
             }
@@ -351,6 +363,7 @@
           }
         },
         error: function(xhr, errorType, error) {
+          _self.tryingUrlStart = undefined;
           if (! probeHost) {
             _self.setLoginState(false);
           }

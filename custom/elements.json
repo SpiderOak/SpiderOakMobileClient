@@ -46,33 +46,35 @@
       "Platforms": ["iOS"]
     },
     {
-      "SourceFileName": "^.*\\.cer$",
+      "SourceFileName": "^.*\\.(cer|p12|json)$",
       "GetCustomElementsFrom": "./certificates",
       "TargetFolder": "assets",
       "Format": "X.509 SSL certificate",
-      "Purpose": "Project-wide server certificates, for cert pinning",
+      "Purpose": "Project-wide server certificates, for cert pinning and auth",
       "Platforms": ["Android"]
     },
     {
-      "SourceFileName": "^.*\\.cer$",
+      "SourceFileName": "^.*\\.(cer|p12|json)$",
       "TargetFolder": "assets",
+      "GetCustomElementsFrom": "./custom/brand/certificates",
       "Format": "X.509 SSL certificate",
-      "Purpose": "Brand-specific server certificates, for cert pinning",
+      "Purpose": "Brand-specific server certificates, for cert pinning and auth",
       "Platforms": ["Android"]
     },
     {
-      "SourceFileName": "^.*\\.cer$",
+      "SourceFileName": "^.*\\.(cer|p12|json)$",
       "GetCustomElementsFrom": "./certificates",
       "TargetAction": "iOSaddCertificate",
       "Format": "X.509 SSL certificate",
-      "Purpose": "Project-wide server certificates, for cert pinning",
+      "Purpose": "Project-wide server certificates, for cert pinning and auth",
       "Platforms": ["iOS"]
     },
     {
-      "SourceFileName": "^.*\\.cer$",
+      "SourceFileName": "^.*\\.(cer|p12|json)$",
       "TargetAction": "iOSaddCertificate",
+      "GetCustomElementsFrom": "./custom/brand/certificates",
       "Format": "X.509 SSL certificate",
-      "Purpose": "Brand-specific server certificates, for cert pinning",
+      "Purpose": "Brand-specific server certificates, for cert pinning and auth",
       "Platforms": ["iOS"]
     },
     {

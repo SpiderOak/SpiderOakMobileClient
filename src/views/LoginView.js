@@ -30,7 +30,7 @@
     },
     render: function() {
       this.$(".learn-more").html(
-        qq("Learn more about [[SpiderOak]]&raquo;",
+        qq("Learn more about [[SpiderOak]] &raquo;",
            {SpiderOak: s("SpiderOak")})
       );
       this.$(".remember-me").html(qq("Stay logged in"));

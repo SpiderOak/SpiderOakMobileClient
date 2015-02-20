@@ -133,7 +133,12 @@
    * @param{string} target name to match a filename in dir
    */
   function matchesInDir(target, dir) {
-    var entries = fs.readdirSync(dir) || [],
+    var safeReaddirSync = function(dir) { try { return(fs.readdirSync(dir)); }
+                                          catch (e) {
+                                            if (e.code === "ENOENT") {
+                                              return [];
+                                            } else { throw e; }}},
+        entries = safeReaddirSync(dir) || [],
         asRegexp = target.charAt(0) === "^",
         got = entries.filter(function (name) {
           return asRegexp ? name.match(target) : (name === target);

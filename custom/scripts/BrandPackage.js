@@ -24,7 +24,7 @@
  *
  * Lastly, an easter-egg for developers of this script:
  *
- * - prefix a brand-name argument with a "," to skip removal+re-creation 
+ * - prefix a brand-name argument with a "," to skip removal+re-creation
  *   of the cordova platforms.
  *
  * @param {string} The name of the brand directory, in <repo>/custom/brands/, or `-' for initializing
@@ -51,7 +51,7 @@ var fs = require('fs'),
     platformsDir = path.join(projectRootDir, "platforms"),
     localCordova = path.join(projectRootDir, "node_modules", ".bin",
                              "cordova");
-    thePlatforms = "ios android";
+    var thePlatforms = "ios android";
 
 /** Driver, for when this module is run as a script.
  *
@@ -72,7 +72,7 @@ function main(executive, scriptName, brandName) {
   }
 
   if (reporting) {
-    report()
+    report();
   }
   else if (priming) {
     prime();
@@ -140,7 +140,7 @@ function prime() {
 function getCurrentBrandName() {
   var got, exc;
   try { got = fs.readlinkSync(brandSymlinkLocation); }
-  catch (exc) { return undefined; };
+  catch (exc) { return undefined; }
   return (fs.existsSync(path.resolve(path.dirname(
     brandSymlinkLocation), got)) &&
           path.basename(got));
@@ -153,7 +153,7 @@ function getCurrentBrandName() {
 function getCurrentBrandProjectConfig() {
   var got, exc;
   try { got = fs.readlinkSync(brandSymlinkLocation); }
-  catch (exc) { return undefined; };
+  catch (exc) { return undefined; }
   return (fs.existsSync(path.resolve(projectConfigFilePath)) &&
           // Use fs.realpathSync() to work around require module cache:
           require(fs.realpathSync(projectConfigFilePath)));
@@ -238,7 +238,7 @@ function removeBrandPluginsByCurrentConfig() {
     var removeCmd = localCordova + " plugins remove " + pluginIds.join(" ");
     blather("Removing prior brand (" + config.projectName +
             ") cordova plugins: " + removeCmd);
-    code = shell.exec(removeCmd).code;
+    var code = shell.exec(removeCmd).code;
     if (code !== 0) {
       blather("Ignoring plugins remove failure (" + code + "): " + removeCmd);
     }
@@ -267,10 +267,10 @@ function addBrandPluginsByCurrentConfig() {
     for (var i in pluginPaths) {
       var addCmd = localCordova + " plugins add " + pluginPaths[i];
       blather(addCmd + "...");
-      code = shell.exec(addCmd).code;
+      var code = shell.exec(addCmd).code;
       if (code !== 0) {
         blather("Plugins add failed (" + code + ") - quitting.");
-        process.exit(1)
+        process.exit(1);
       }
     }
   }
@@ -321,12 +321,12 @@ function adjustManifestsToBrand() {
 function fabricateConfigFromTemplate(resultPath, templatePath,
                                      projectConfig, transforms) {
   var ext = path.extname(resultPath),
-      transformer = ((ext === ".plist") ?
+      Transformer = ((ext === ".plist") ?
                      PlistTemplateTransformer :
                      XMLTemplateTransformer),
-      subject = new transformer(templatePath, resultPath);
+      subject = new Transformer(templatePath, resultPath);
 
-  for (i in transforms) {
+  for (var i in transforms) {
     var curSpec = transforms[i],
         field = curSpec.field,
         tagPath = curSpec.tagPath,
@@ -364,7 +364,7 @@ function createCordovaPlatforms() {
     code = shell.exec(removeCmd).code;
     if (code !== 0) {
       blather("Platforms remove failed (" + code + "): " + addCmd);
-      process.exit(1)
+      process.exit(1);
     }
   }
   addCmd = localCordova + " platform add " + thePlatforms;
@@ -373,7 +373,7 @@ function createCordovaPlatforms() {
   code = shell.exec(addCmd).code;
   if (code !== 0) {
     blather("Platforms add failed (" + code + "): " + addCmd);
-    process.exit(1)
+    process.exit(1);
   }
 }
 
@@ -395,7 +395,11 @@ function XMLTemplateTransformer(templatePath, resultPath) {
 }
 XMLTemplateTransformer.prototype.replace = function(value, tagPath, attr) {
   var tag = this.subject.find(tagPath);
-  attr ? tag.set(attr, value) : tag.text = value;
+  if (attr) {
+    tag.set(attr, value);
+  } else {
+    tag.text = value;
+  }
 };
 XMLTemplateTransformer.prototype.toString = function() {
   return this.subject.write({indent: true});
@@ -412,7 +416,7 @@ function relativeToProjectRoot(thePath) {
   return path.relative(projectRootDir, thePath);
 }
 function blather(message) {
-  console.log("[BrandPackage] %s", message)
+  console.log("[BrandPackage] %s", message);
 }
 
 if (require.main === module) {

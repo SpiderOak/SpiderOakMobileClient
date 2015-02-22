@@ -26,13 +26,6 @@
   // Fix for lack of detach in Zepto...
   $.fn.detach = $.fn.remove;
 
-  // Considering changing the template settings as the ERB defaults are annoying
-  // _.templateSettings = {
-  //   evaluate:    /\{\{#([\s\S]+?)=\}\}/g,      // {{# console.log("blah") }}
-  //   interpolate: /\{\{[^#\{]([\s\S]+?)[^\}]\}\}/g, // {{ title }}
-  //   escape:      /\{\{\{([\s\S]+?)\}\}\}/g     // {{{ title }}}
-  // };
-
   _.extend(spiderOakApp, {
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     ready: function() {

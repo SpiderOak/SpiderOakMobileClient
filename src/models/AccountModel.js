@@ -249,7 +249,7 @@
           login_url_start = _self.loginUrl(server, username);
 
       if (! login_url) {
-        _self.tryingUrlStart = login_url = login_url_start;
+        login_url = login_url_start;
       }                         // ... otherwise use already-set login_url.
 
 
@@ -275,7 +275,6 @@
                                       successCallback);
           }
           else {
-            _self.tryingUrlStart = undefined;
             if (username === "") {
               return errorCallback(403, "Authentication failed", xhr);
             }
@@ -285,7 +284,6 @@
           }
         },
         error: function(xhr, errorType, error) {
-          _self.tryingUrlStart = undefined;
           _self.setLoginState(false);
           return errorCallback(xhr.status, "authentication failed", xhr);
         }
@@ -305,8 +303,7 @@
     loginSuccess: function(login_url, server, username, password,
                            locationResponse,
                            successCallback) {
-      var splat = this.tryingUrlStart.split('/');
-      this.tryingUrlStart = undefined;
+      var splat = login_url.split('/');
       var b32username = splat[splat.length - 2];
       var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
       var storageHost = splat.slice(0,3).join("/");

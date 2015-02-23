@@ -234,7 +234,7 @@
           qq("OK")
         );
         spiderOakApp.dialogView.hide();
-        return;
+        return null;
       }
 
       if (this.getLoginState() === "interrupting") {
@@ -265,77 +265,84 @@
           password: password
         },
 
-        /** Handle server login success. */
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
 
-          /** Register settings according to a successful login.
-           *
-           * @param {string} login_url - the actual login location. Eg:
-           *        https://web-dc2.spideroak.com/storage/EBRG6Z3VOMQA/login
-           * @param {string} locationResponse - the account's web browsing URL
-           */
-          function loginSuccess(login_url, locationResponse) {
-            var splat = _self.tryingUrlStart.split('/');
-            _self.tryingUrlStart = undefined;
-            var b32username = splat[splat.length - 2];
-            var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
-            var storageHost = splat.slice(0,3).join("/");
-            var storageRootURL = storageHost + "/storage/" + b32username + "/";
-
-            _self.set("login_url_preface", "https://" + server + "/storage/");
-            _self.set("login_url_start", _self.loginUrl(server, gotUsername));
-            _self.set("logout_url_preface", "https://" + server + "/storage/");
-
-            // The name by which they logged in.  (For Blue/enterprise
-            // users, it's different than b32decode(b32username.)
-            _self.set("loginname", username);
-            // The base32 encrypted version of the internal username used
-            // on the login and content urls.
-            _self.set("b32username",b32username);
-            // @TODO: Set the keychain credentials
-            // Set the basicauth details:
-            _self.basicAuthManager.setAccountBasicAuth(username, password);
-            // Record the basic auth credentials
-            _self.set("basicAuthCredentials",
-                      _self.basicAuthManager.getAccountBasicAuth());
-            // Record the login url:
-            _self.set("login_url", login_url);
-            // Record the root of the account's storage content:
-            _self.set("storageRootURL", storageRootURL);
-            // Record the location of the account's shares list:
-            _self.set("mySharesListURL", storageRootURL + "shares");
-            // Record the location of the account's shares root:
-            _self.set("mySharesRootURL", storageHost + "/share/");
-            // Record the web browsing root location:
-            _self.set("webRootURL", locationResponse);
-            // Return the data center part of the url:
-            var dc = storageHost;
-            // Trigger the login complete event so other views can react
-            _self.loggedIn();
-            $(document).trigger('loginSuccess');
-            successCallback(dc + "/");
-          }
-
           if (where && where[1] === "location") {
-            loginSuccess(login_url_start, data.slice("location:".length));
+            return _self.loginSuccess(login_url_start,
+                                      server, username, password,
+                                      data.slice("location:".length),
+                                      successCallback);
           }
           else {
             _self.tryingUrlStart = undefined;
             if (username === "") {
-              errorCallback(403, "Authentication failed", xhr);
+              return errorCallback(403, "Authentication failed", xhr);
             }
             else {
-              errorCallback(0, "unexpected server response", xhr);
+              return errorCallback(0, "unexpected server response", xhr);
             }
           }
         },
         error: function(xhr, errorType, error) {
           _self.tryingUrlStart = undefined;
           _self.setLoginState(false);
-          errorCallback(xhr.status, "authentication failed", xhr);
+          return errorCallback(xhr.status, "authentication failed", xhr);
         }
       });
+      return null;
+    },
+
+    /** Register settings according to a successful login.
+     *
+     * @param {string} login_url - the actual login location. Eg:
+     *        https://web-dc2.spideroak.com/storage/EBRG6Z3VOMQA/login
+     * @param {string} username
+     * @param {string} password
+     * @param {string} locationResponse - the account's web browsing URL
+     * @param {string} successCallback
+     */
+    loginSuccess: function(login_url, server, username, password,
+                           locationResponse,
+                           successCallback) {
+      var splat = this.tryingUrlStart.split('/');
+      this.tryingUrlStart = undefined;
+      var b32username = splat[splat.length - 2];
+      var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
+      var storageHost = splat.slice(0,3).join("/");
+      var storageRootURL = storageHost + "/storage/" + b32username + "/";
+
+      this.set("login_url_preface", "https://" + server + "/storage/");
+      this.set("login_url_start", this.loginUrl(server, gotUsername));
+      this.set("logout_url_preface", "https://" + server + "/storage/");
+
+      // The name by which they logged in.  (For Blue/enterprise
+      // users, it's different than b32decode(b32username.)
+      this.set("loginname", username);
+      // The base32 encrypted version of the internal username used
+      // on the login and content urls.
+      this.set("b32username",b32username);
+      // @TODO: Set the keychain credentials
+      // Set the basicauth details:
+      this.basicAuthManager.setAccountBasicAuth(username, password);
+      // Record the basic auth credentials
+      this.set("basicAuthCredentials",
+                this.basicAuthManager.getAccountBasicAuth());
+      // Record the login url:
+      this.set("login_url", login_url);
+      // Record the root of the account's storage content:
+      this.set("storageRootURL", storageRootURL);
+      // Record the location of the account's shares list:
+      this.set("mySharesListURL", storageRootURL + "shares");
+      // Record the location of the account's shares root:
+      this.set("mySharesRootURL", storageHost + "/share/");
+      // Record the web browsing root location:
+      this.set("webRootURL", locationResponse);
+      // Return the data center part of the url:
+      // Trigger the login complete event so other views can react
+      this.loggedIn();
+      $(document).trigger('loginSuccess');
+      successCallback(storageHost + "/");
     },
 
     /** Interrupt in-process login, or logout if logged in.

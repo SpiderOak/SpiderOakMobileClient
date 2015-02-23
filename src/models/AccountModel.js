@@ -15,12 +15,9 @@
   spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
     defaults: {
       rememberme: false,
-      data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
-      storage_web_url: "",      // Irrelevant to mobile client for now.
 
       state: false,
-      interrupting: false,
       loginname: "",
       b32username: "",
       basicAuthCredentials: "",
@@ -52,8 +49,6 @@
      *
      * @returns (boolean) false: not logged in
      * @returns (boolean) true: logged in
-     * @returns (string) "in-process": login dance is happening
-     * @returns (string) "interrupting": login dance is being interrupted
      *
      * @see setState
      */
@@ -72,24 +67,6 @@
       this.setLoginState(true);
       if (this.passcodeWasBypassed()) {
         this.passcodeWasBypassedFollowup();
-      }
-    },
-    doInterruption: function() {
-      var status = this.getLoginState();
-      if (status === true) {
-        // logged in - logout, clearing stuff in the process:
-        this.logout();
-        return "interrupting";
-      }
-      else if ((status === "in-process") || (status === "interrupting")) {
-        // Not actually logged in, just clear stuff:
-        this.loggedOut();
-        return "interrupting";
-      }
-      else {
-        console.log("AccountModel.login(): unexpected interruption state");
-        this.loggedOut();
-        return "interrupting";
       }
     },
 
@@ -237,13 +214,6 @@
         return null;
       }
 
-      if (this.getLoginState() === "interrupting") {
-        return this.doInterruption();
-      }
-      else {
-        this.setLoginState("in-process");
-      }
-
       var _self = this,
           server = spiderOakApp.settings.getValue("server"),
           login_url_start = _self.loginUrl(server, username);
@@ -340,28 +310,6 @@
       this.loggedIn();
       $(document).trigger('loginSuccess');
       successCallback(storageHost + "/");
-    },
-
-    /** Interrupt in-process login, or logout if logged in.
-     *
-     * @return (boolean) true if login is in process, or was logged-in.
-     */
-    interruptLogin: function() {
-      var status = this.getLoginState();
-      if (status === "in-process") {
-        this.setLoginState("interrupting");
-        return true;
-      }
-      else if (status === "interrupting") {
-        return true;
-      }
-      else if (status === true) {
-        this.logout();
-        return true;
-      }
-      else {
-        return false;
-      }
     },
     /** Do server logout and local zeroing of credentials, etc.
      *

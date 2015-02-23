@@ -222,12 +222,9 @@
      * @param {string} successCallback - gets data, status code, xhr
      * @param {string} errorCallback - gets status code, status text, xhr
      * @param {string} login_url Optional explicit login location
-     * @param {string} probeHost Optional explicit login domain, for trial that will not have actual login effect
      */
     login: function(username, password, successCallback, errorCallback,
-                    login_url, probeHost) {
-      var ajax = probeHost ? spiderOakApp.dollarAjax : spiderOakApp.ajax;
-
+                    login_url) {
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
@@ -243,22 +240,20 @@
       if (this.getLoginState() === "interrupting") {
         return this.doInterruption();
       }
-      else if (! probeHost) {
+      else {
         this.setLoginState("in-process");
       }
 
       var _self = this,
-          server = (probeHost ||
-                    spiderOakApp.settings.getValue("server")),
-          //login_url_start = "https://" + server + "/browse/login";
+          server = spiderOakApp.settings.getValue("server"),
           login_url_start = _self.loginUrl(server, username);
 
-      if (! probeHost && ! login_url) {
+      if (! login_url) {
         _self.tryingUrlStart = login_url = login_url_start;
       }                         // ... otherwise use already-set login_url.
 
 
-      ajax({
+      spiderOakApp.ajax({
         type: "POST",
         url: login_url,
         cache: false,
@@ -289,7 +284,6 @@
             var storageRootURL = storageHost + "/storage/" + b32username + "/";
 
             _self.set("login_url_preface", "https://" + server + "/storage/");
-            //_self.set("login_url_start", "https://" + server + "/browse/login");
             _self.set("login_url_start", _self.loginUrl(server, gotUsername));
             _self.set("logout_url_preface", "https://" + server + "/storage/");
 
@@ -323,34 +317,8 @@
             successCallback(dc + "/");
           }
 
-
-          if (where && where[1] === "login") {
-            // Try again at indicated data center and/or path:
-            if (where[2].charAt(0) === "/") {
-              // Revise just the path part of the login url:
-              login_url = login_url.match(
-                _self.get("data_center_regex"))[1] + where[2];
-            }
-            else {
-              // Use the new login url, wholesale:
-              login_url = where[2];
-            }
-            // Recurse, with adjusted login_url:
-            if ((_self.login(username, password,
-                             successCallback, errorCallback,
-                             login_url, probeHost) === "interrupting") &&
-                errorCallback) {
-              errorCallback(0, "interrupted", xhr);
-            }
-          }
-          else if (where && where[1] === "location") {
-            var destination = login_url;
-            if (destination === login_url_start) {
-              destination = where[2];
-            }
-            if (! probeHost) {
-              loginSuccess(destination, data.slice("location:".length));
-            }
+          if (where && where[1] === "location") {
+            loginSuccess(login_url_start, data.slice("location:".length));
           }
           else {
             _self.tryingUrlStart = undefined;
@@ -364,9 +332,7 @@
         },
         error: function(xhr, errorType, error) {
           _self.tryingUrlStart = undefined;
-          if (! probeHost) {
-            _self.setLoginState(false);
-          }
+          _self.setLoginState(false);
           errorCallback(xhr.status, "authentication failed", xhr);
         }
       });

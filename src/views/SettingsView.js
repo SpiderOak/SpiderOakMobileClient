@@ -428,12 +428,21 @@
           }
         };
 
-        // Do the right thing via a login probe of the new server address:
-        spiderOakApp.accountModel.login(" ", "",
-                                        handleLoginProbeResult,
-                                        handleLoginProbeResult,
-                                        null,
-                                        newServer);
+        spiderOakApp.dollarAjax(
+          {
+            type: "POST",
+            url: "https://" + newServer + "/browse/login",
+            cache: false,
+            data: {username: " ", password: ""},
+            headers: {"X-SpiderOak-Mobile-Client": "spideroak.com"},
+            success: function(statusCode, statusText, xhr) {
+              handleLoginProbeResult(statusCode, statusText, xhr);
+            },
+            error: function(xhr, statusCode, statusText) {
+              handleLoginProbeResult(statusCode, statusText, xhr);
+            }
+          }
+        );
       }
     },
     changeServerButton_tapHandler: function(event) {

@@ -15,12 +15,9 @@
   spiderOakApp.AccountModel = spiderOakApp.ModelBase.extend({
     defaults: {
       rememberme: false,
-      data_center_regex: /(https:\/\/[^\/]+)\//m,
       response_parse_regex: /^(login|location):(.+)$/m,
-      storage_web_url: "",      // Irrelevant to mobile client for now.
 
       state: false,
-      interrupting: false,
       loginname: "",
       b32username: "",
       basicAuthCredentials: "",
@@ -52,8 +49,6 @@
      *
      * @returns (boolean) false: not logged in
      * @returns (boolean) true: logged in
-     * @returns (string) "in-process": login dance is happening
-     * @returns (string) "interrupting": login dance is being interrupted
      *
      * @see setState
      */
@@ -72,24 +67,6 @@
       this.setLoginState(true);
       if (this.passcodeWasBypassed()) {
         this.passcodeWasBypassedFollowup();
-      }
-    },
-    doInterruption: function() {
-      var status = this.getLoginState();
-      if (status === true) {
-        // logged in - logout, clearing stuff in the process:
-        this.logout();
-        return "interrupting";
-      }
-      else if ((status === "in-process") || (status === "interrupting")) {
-        // Not actually logged in, just clear stuff:
-        this.loggedOut();
-        return "interrupting";
-      }
-      else {
-        console.log("AccountModel.login(): unexpected interruption state");
-        this.loggedOut();
-        return "interrupting";
       }
     },
 
@@ -207,6 +184,11 @@
       return which + "_" + this.get("b32username");
     },
 
+    loginUrl: function(server, username) {
+      return ("https://" + server + "/storage/" +
+              spiderOakApp.b32nibbler.encode(username) +
+              "/login");
+    },
     /** Storage login.
      * https://spideroak.com/faq/questions/37/how_do_i_use_the_spideroak_web_api
      *
@@ -217,12 +199,9 @@
      * @param {string} successCallback - gets data, status code, xhr
      * @param {string} errorCallback - gets status code, status text, xhr
      * @param {string} login_url Optional explicit login location
-     * @param {string} probeHost Optional explicit login domain, for trial that will not have actual login effect
      */
     login: function(username, password, successCallback, errorCallback,
-                    login_url, probeHost) {
-      var ajax = probeHost ? spiderOakApp.dollarAjax : spiderOakApp.ajax;
-
+                    login_url) {
       /* @TODO: Move the notification to a view element, probably LoginView. */
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
@@ -232,24 +211,19 @@
           qq("OK")
         );
         spiderOakApp.dialogView.hide();
-        return;
-      }
-
-      if (this.getLoginState() === "interrupting") {
-        return this.doInterruption();
-      }
-      else if (! probeHost) {
-        this.setLoginState("in-process");
+        return null;
       }
 
       var _self = this,
-          server = (probeHost ||
-                    spiderOakApp.settings.getValue("server")),
-          login_url_start = "https://" + server + "/browse/login";
-      login_url = login_url || login_url_start;
+          server = spiderOakApp.settings.getValue("server"),
+          login_url_start = _self.loginUrl(server, username);
+
+      if (! login_url) {
+        login_url = login_url_start;
+      }                         // ... otherwise use already-set login_url.
 
 
-      ajax({
+      spiderOakApp.ajax({
         type: "POST",
         url: login_url,
         cache: false,
@@ -261,124 +235,81 @@
           password: password
         },
 
-        /** Handle server login success. */
         success: function(data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
 
-          /** Register settings according to a successful login.
-           *
-           * @param {string} login_url - the actual login location. Eg:
-           *        https://web-dc2.spideroak.com/storage/EBRG6Z3VOMQA/login
-           * @param {string} locationResponse - the account's web browsing URL
-           */
-          function loginSuccess(login_url, locationResponse) {
-            var splat = login_url.split('/');
-            var b32username = splat[splat.length - 2];
-            var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
-            var storageHost = splat.slice(0, splat.length-3).join("/");
-            var storageRootURL = storageHost + "/storage/" + b32username + "/";
-
-            _self.set("login_url_preface", "https://" + server + "/storage/");
-            _self.set("login_url_start", "https://" + server + "/browse/login");
-            _self.set("logout_url_preface", "https://" + server + "/storage/");
-
-            // The name by which they logged in.  (For Blue/enterprise
-            // users, it's different than b32decode(b32username.)
-            _self.set("loginname", username);
-            // The base32 encrypted version of the internal username used
-            // on the login and content urls.
-            _self.set("b32username",b32username);
-            // @TODO: Set the keychain credentials
-            // Set the basicauth details:
-            _self.basicAuthManager.setAccountBasicAuth(username, password);
-            // Record the basic auth credentials
-            _self.set("basicAuthCredentials",
-                      _self.basicAuthManager.getAccountBasicAuth());
-            // Record the login url:
-            _self.set("login_url", login_url);
-            // Record the root of the account's storage content:
-            _self.set("storageRootURL", storageRootURL);
-            // Record the location of the account's shares list:
-            _self.set("mySharesListURL", storageRootURL + "shares");
-            // Record the location of the account's shares root:
-            _self.set("mySharesRootURL", storageHost + "/share/");
-            // Record the web browsing root location:
-            _self.set("webRootURL", locationResponse);
-            // Return the data center part of the url:
-            var dc = login_url.match(_self.get("data_center_regex"))[1];
-            // Trigger the login complete event so other views can react
-            _self.loggedIn();
-            $(document).trigger('loginSuccess');
-            successCallback(dc + "/");
-          }
-
-
-          if (where && where[1] === "login") {
-            // Try again at indicated data center and/or path:
-            if (where[2].charAt(0) === "/") {
-              // Revise just the path part of the login url:
-              login_url = login_url.match(
-                _self.get("data_center_regex"))[1] + where[2];
-            }
-            else {
-              // Use the new login url, wholesale:
-              login_url = where[2];
-            }
-            // Recurse, with adjusted login_url:
-            if ((_self.login(username, password,
-                             successCallback, errorCallback,
-                             login_url, probeHost) === "interrupting") &&
-                errorCallback) {
-              errorCallback(0, "interrupted", xhr);
-            }
-          }
-          else if (where && where[1] === "location") {
-            var destination = login_url;
-            if (destination === login_url_start) {
-              destination = where[2];
-            }
-            if (! probeHost) {
-              loginSuccess(destination, data.slice("location:".length));
-            }
+          if (where && where[1] === "location") {
+            return _self.loginSuccess(login_url_start,
+                                      server, username, password,
+                                      data.slice("location:".length),
+                                      successCallback);
           }
           else {
             if (username === "") {
-              errorCallback(403, "Authentication failed", xhr);
+              return errorCallback(403, "Authentication failed", xhr);
             }
             else {
-              errorCallback(0, "unexpected server response", xhr);
+              return errorCallback(0, "unexpected server response", xhr);
             }
           }
         },
         error: function(xhr, errorType, error) {
-          if (! probeHost) {
-            _self.setLoginState(false);
-          }
-          errorCallback(xhr.status, "authentication failed", xhr);
+          _self.setLoginState(false);
+          return errorCallback(xhr.status, "authentication failed", xhr);
         }
       });
+      return null;
     },
 
-    /** Interrupt in-process login, or logout if logged in.
+    /** Register settings according to a successful login.
      *
-     * @return (boolean) true if login is in process, or was logged-in.
+     * @param {string} login_url - the actual login location. Eg:
+     *        https://web-dc2.spideroak.com/storage/EBRG6Z3VOMQA/login
+     * @param {string} username
+     * @param {string} password
+     * @param {string} locationResponse - the account's web browsing URL
+     * @param {string} successCallback
      */
-    interruptLogin: function() {
-      var status = this.getLoginState();
-      if (status === "in-process") {
-        this.setLoginState("interrupting");
-        return true;
-      }
-      else if (status === "interrupting") {
-        return true;
-      }
-      else if (status === true) {
-        this.logout();
-        return true;
-      }
-      else {
-        return false;
-      }
+    loginSuccess: function(login_url, server, username, password,
+                           locationResponse,
+                           successCallback) {
+      var splat = login_url.split('/');
+      var b32username = splat[splat.length - 2];
+      var gotUsername = spiderOakApp.b32nibbler.decode(b32username);
+      var storageHost = splat.slice(0,3).join("/");
+      var storageRootURL = storageHost + "/storage/" + b32username + "/";
+
+      this.set("login_url_preface", "https://" + server + "/storage/");
+      this.set("login_url_start", this.loginUrl(server, gotUsername));
+      this.set("logout_url_preface", "https://" + server + "/storage/");
+
+      // The name by which they logged in.  (For Blue/enterprise
+      // users, it's different than b32decode(b32username.)
+      this.set("loginname", username);
+      // The base32 encrypted version of the internal username used
+      // on the login and content urls.
+      this.set("b32username",b32username);
+      // @TODO: Set the keychain credentials
+      // Set the basicauth details:
+      this.basicAuthManager.setAccountBasicAuth(username, password);
+      // Record the basic auth credentials
+      this.set("basicAuthCredentials",
+                this.basicAuthManager.getAccountBasicAuth());
+      // Record the login url:
+      this.set("login_url", login_url);
+      // Record the root of the account's storage content:
+      this.set("storageRootURL", storageRootURL);
+      // Record the location of the account's shares list:
+      this.set("mySharesListURL", storageRootURL + "shares");
+      // Record the location of the account's shares root:
+      this.set("mySharesRootURL", storageHost + "/share/");
+      // Record the web browsing root location:
+      this.set("webRootURL", locationResponse);
+      // Return the data center part of the url:
+      // Trigger the login complete event so other views can react
+      this.loggedIn();
+      $(document).trigger('loginSuccess');
+      successCallback(storageHost + "/");
     },
     /** Do server logout and local zeroing of credentials, etc.
      *

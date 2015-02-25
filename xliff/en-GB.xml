@@ -511,8 +511,8 @@ already current</target>
         <target>If you would like to learn more about {{SpiderOak}}, please visit &lt;a href='#spideroak' data-url='https://{{sourl}}/business/' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}/business/&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="127">
-        <source>Thank you for using [[SpiderOak]] and please don't hesitate to send comments or questions to</source>
-        <target>Thank you for using {{SpiderOak}} and please don't hesitate to send comments or questions to</target>
+        <source>Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to</source>
+        <target>Thank you for using {{SpiderOak}} and please don’t hesitate to send comments or questions to</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Add [[ShareRoom]]</source>

@@ -145,11 +145,10 @@
         else if (status === 401) {
           msg = qq("Authentication failed - Unauthorized.");
         }
-        else if (status === 403) {
-          msg = qq("Authentication failed - Incorrect email/username or password.");
-        }
-        else if (status === 404) {
-          msg = qq("Incorrect [[ShareID]] or [[RoomKey]].");
+        else if ([403,404].indexOf(status) != -1) {
+          msg = qq(
+            "Authentication failed - Incorrect email/username or password."
+          );
         }
         else if (status === 418) {
           // SpiderOak uses "teapot" to signal incomplete account - no devices.

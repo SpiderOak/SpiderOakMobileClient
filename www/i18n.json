@@ -1,5 +1,6 @@
 {
   "en": "locales/en-GB.json",
+  "nontranslate": "nontranslate.json",
   "en-us": "locales/en-US.json",
   "es": "locales/es.json",
   "de": "locales/de.json",

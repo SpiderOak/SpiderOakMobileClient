@@ -21,7 +21,8 @@
       prepareHtml10n: function () {
         // Adapted from https://github.com/mclear/NFC_Ring_Control/blob/df8db31dd1683b04422c106a1484637629b4c88f/www/js/nfcRing/ui.js#L125-L135
 
-        var candidates = [navigator.language, navigator.userLanguage, "en-GB"],
+        var candidates = [navigator.language, navigator.userLanguage,
+                          "en-GB", "nontranslate"],
             prepped = [];
         // Include in prepped lower case versions of non-empty candidates and,
         // for country-qualified ones, follow it with the unqualified one.

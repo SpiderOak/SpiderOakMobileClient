@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
   <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2012-03-05T14:54:29Z" product-name="messages">
@@ -9,8 +9,8 @@
         <target>Conoce más sobre {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
       <trans-unit id="2">
-        <source>Advanced login has moved to the &apos;[[SpiderOak_Blue]]&apos; app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the &apos;[[SpiderOak_Blue]]&apos; app. This dialog will appear at app start until you authorize the change.</source>
-        <target>El inicio de sesión avanzado se ha trasladado a la aplicación &apos;{{SpiderOak_Blue}}&apos;, y debemos cambiar esta aplicación del servidor alternativo, {{server}}, al servidor estándar, {{standardServer}}. Para continuar usando esta función, descarga la aplicación &apos;{{SpiderOak_Blue}}&apos;. Este diálogo continuará apareciendo al iniciar la aplicación hasta que autorices el cambio.</target>
+        <source>Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.</source>
+        <target>El inicio de sesión avanzado se ha trasladado a la aplicación '{{SpiderOak_Blue}}', y debemos cambiar esta aplicación del servidor alternativo, {{server}}, al servidor estándar, {{standardServer}}. Para continuar usando esta función, descarga la aplicación '{{SpiderOak_Blue}}'. Este diálogo continuará apareciendo al iniciar la aplicación hasta que autorices el cambio.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Server changed to [[standardServer]]</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>OK</source>
-        <target>Está bien</target>
+        <target>Aceptar</target>
       </trans-unit>
       <trans-unit id="12">
         <source>File transfer aborted</source>
@@ -479,468 +479,472 @@ ya está actualizada</target>
         <target>Sin embargo, no es necesario que seas usuario de {{SpiderOak}} para disfrutar de los beneficios de nuestra aplicación {{platform}}. Puedes abrir el {{ShareRoom}} de un amigo o un colega ingresando su {{ShareID}} y una {{RoomKey}} válida. También puedes enviar mensajes de correo electrónico a través de un enlace seguro.</target>
       </trans-unit>
       <trans-unit id="119">
-        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href=&apos;#spideroak&apos; data-url=&apos;https://[[sourl]]&apos; class=&apos;site-link&apos; style=&apos;white-space: nowrap;&apos;&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
-        <target>Si deseas conocer más acerca de {{SpiderOak}}, visita &lt;a href=&apos;#spideroak&apos; data-url=&apos;https://{{sourl}}&apos; class=&apos;site-link&apos; style=&apos;white-space: nowrap;&apos;&gt;https://{{sourl}}&lt;/a&gt; y descarga el cliente {{SpiderOak}} para comenzar a usar tu cuenta GRATUITA de 2 GB.</target>
+        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
+        <target>Si deseas conocer más acerca de {{SpiderOak}}, visita &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; y descarga el cliente {{SpiderOak}} para comenzar a usar tu cuenta GRATUITA de 2 GB.</target>
       </trans-unit>
       <trans-unit id="120">
+        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]/business/' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]/business/&lt;/a&gt;.</source>
+        <target>Si deseas conocer más acerca de {{SpiderOak}}, visita &lt;a href='#spideroak' data-url='https://{{sourl}}/business/' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}/business/&lt;/a&gt;.</target>
+      </trans-unit>
+      <trans-unit id="121">
         <source>Thank you for using [[SpiderOak]] and please don’t hesitate to send comments or questions to</source>
         <target>Gracias por usar {{SpiderOak}} y no dudes en enviarnos tus comentarios o preguntas a</target>
       </trans-unit>
-      <trans-unit id="121">
+      <trans-unit id="122">
         <source>Add [[ShareRoom]]</source>
         <target>Agregar {{ShareRoom}}</target>
       </trans-unit>
-      <trans-unit id="122">
+      <trans-unit id="123">
         <source>Remember [[ShareRoom]]</source>
         <target>Recordar {{ShareRoom}}</target>
       </trans-unit>
-      <trans-unit id="123">
+      <trans-unit id="124">
         <source>Cancel</source>
         <target>Cancelar</target>
       </trans-unit>
-      <trans-unit id="124">
+      <trans-unit id="125">
         <source>Size:</source>
         <target>Tamaño:</target>
       </trans-unit>
-      <trans-unit id="125">
+      <trans-unit id="126">
         <source>Created:</source>
         <target>Creado:</target>
       </trans-unit>
-      <trans-unit id="126">
+      <trans-unit id="127">
         <source>Last Modified:</source>
         <target>Última modificación:</target>
       </trans-unit>
-      <trans-unit id="127">
+      <trans-unit id="128">
         <source>Password</source>
         <target>Contraseña</target>
       </trans-unit>
-      <trans-unit id="128">
+      <trans-unit id="129">
         <source>Submit Password</source>
         <target>Enviar contraseña</target>
       </trans-unit>
-      <trans-unit id="129">
+      <trans-unit id="130">
         <source>Sections</source>
         <target>Secciones</target>
       </trans-unit>
-      <trans-unit id="130">
+      <trans-unit id="131">
         <source>Log In</source>
         <target>Iniciar sesión</target>
       </trans-unit>
-      <trans-unit id="131">
+      <trans-unit id="132">
         <source>Log in</source>
         <target>Iniciar sesión</target>
       </trans-unit>
-      <trans-unit id="132">
+      <trans-unit id="133">
         <source>Need an account?</source>
         <target>¿Necesitas una cuenta?</target>
       </trans-unit>
-      <trans-unit id="133">
-        <source>Please go to &lt;a href=&apos;#spideroak&apos; data-url=&apos;https://[[sourl]] class=&apos;site-link&apos; style=&apos;white-space: nowrap;&apos;&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
-        <target>Dirígete a &lt;a href=&apos;#spideroak&apos; data-url=&apos;https://{{sourl}} class=&apos;site-link&apos; style=&apos;white-space: nowrap;&apos;&gt;https://{{sourl}}&lt;/a&gt; y sigue las instrucciones para establecer tu cuenta.</target>
-      </trans-unit>
       <trans-unit id="134">
+        <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
+        <target>Dirígete a &lt;a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; y sigue las instrucciones para establecer tu cuenta.</target>
+      </trans-unit>
+      <trans-unit id="135">
         <source>Live Privately,</source>
         <target>Con nuestros deseos para una vida privada,</target>
       </trans-unit>
-      <trans-unit id="135">
+      <trans-unit id="136">
         <source>The SpiderOak Team</source>
         <target>El equipo de SpiderOak</target>
       </trans-unit>
-      <trans-unit id="136">
-        <source>Not &apos;[[Zero-Knowledge]]&apos;</source>
-        <target>Sin sistema &apos;{{Zero-Knowledge}}&apos;</target>
-      </trans-unit>
       <trans-unit id="137">
-        <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server&apos;s copy of your password is completely erased.</source>
-        <target>Si inicias sesión con este cliente móvil, o a través del sitio web, tu contraseña existirá en la memoria del servidor de {{SpiderOak}} durante tu sesión de navegación. Sin embargo, tu contraseña se almacenará en memoria cifrada y nunca se guardará en un disco no codificado. Cuando cierres tu sesión, la copia de tu contraseña en el servidor se borrará completamente.</target>
+        <source>Not '[[Zero-Knowledge]]'</source>
+        <target>Sin sistema '{{Zero-Knowledge}}'</target>
       </trans-unit>
       <trans-unit id="138">
-        <source>If you prefer to use only &apos;[[Zero-Knowledge]]&apos; access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Si prefieres utilizar solo el acceso &apos;{{Zero-Knowledge}}&apos;, cancela este inicio de sesión e inicia sesión a través del cliente de escritorio de {{SpiderOak}}.</target>
+        <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
+        <target>Si inicias sesión con este cliente móvil, o a través del sitio web, tu contraseña existirá en la memoria del servidor de {{SpiderOak}} durante tu sesión de navegación. Sin embargo, tu contraseña se almacenará en memoria cifrada y nunca se guardará en un disco no codificado. Cuando cierres tu sesión, la copia de tu contraseña en el servidor se borrará completamente.</target>
       </trans-unit>
       <trans-unit id="139">
+        <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <target>Si prefieres utilizar solo el acceso '{{Zero-Knowledge}}', cancela este inicio de sesión e inicia sesión a través del cliente de escritorio de {{SpiderOak}}.</target>
+      </trans-unit>
+      <trans-unit id="140">
         <source>Continue logging in</source>
         <target>Continuar el inicio de sesión</target>
       </trans-unit>
-      <trans-unit id="140">
-        <source>Don&apos;t login now</source>
+      <trans-unit id="141">
+        <source>Don't login now</source>
         <target>No iniciar sesión ahora</target>
       </trans-unit>
-      <trans-unit id="141">
+      <trans-unit id="142">
         <source>Passcode unlock</source>
         <target>Desbloqueo de código de acceso</target>
       </trans-unit>
-      <trans-unit id="142">
+      <trans-unit id="143">
         <source>Learn more about [[SpiderOak]] &amp;raquo;</source>
         <target>Conoce más acerca de {{SpiderOak}}&amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="143">
+      <trans-unit id="144">
         <source>Need an account?&lt;br&gt;Find out how &amp;raquo;</source>
         <target>¿Necesitas una cuenta?&lt;br&gt;Descubre cómo &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="144">
+      <trans-unit id="145">
         <source>Need an account?&lt;br&gt;Register now &amp;raquo;</source>
         <target>¿Necesitas una cuenta?&lt;br&gt;Regístrate ahora &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="145">
+      <trans-unit id="146">
         <source>or</source>
         <target>o</target>
       </trans-unit>
-      <trans-unit id="146">
+      <trans-unit id="147">
         <source>Log in &amp;raquo;</source>
         <target>Inicia sesión &amp;raquo;</target>
       </trans-unit>
-      <trans-unit id="147">
+      <trans-unit id="148">
         <source>Please note</source>
         <target>Ten en cuenta</target>
       </trans-unit>
-      <trans-unit id="148">
+      <trans-unit id="149">
         <source>The &amp;ldquo;Stay logged in&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Stay logged in&amp;rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</source>
         <target>La función &amp;ldquo;Mantenerse en sesión&amp;rdquo; es muy conveniente. Sin embargo, los detalles de inicio de sesión solo son seguros si el acceso físico a tu dispositivo es seguro.&lt;br&gt;&lt;br&gt;Seleccionar la función &amp;ldquo;Mantenerse en sesión&amp;rdquo; permitirá el acceso a los datos almacenados dentro de {{SpiderOak}} en el caso de que tu teléfono se pierda o sea robado. Recomendamos tener precaución al seleccionar esta opción.&lt;br&gt;&lt;br&gt;Esta opción se puede modificar en cualquier momento en la configuración.</target>
       </trans-unit>
-      <trans-unit id="149">
+      <trans-unit id="150">
         <source>OK, I understand</source>
         <target>Está bien, entiendo</target>
       </trans-unit>
-      <trans-unit id="150">
+      <trans-unit id="151">
         <source>Forget it, forget me</source>
         <target>No importa, olvidarme</target>
       </trans-unit>
-      <trans-unit id="151">
+      <trans-unit id="152">
         <source>Login name</source>
         <target>Nombre de inicio de sesión</target>
       </trans-unit>
-      <trans-unit id="152">
+      <trans-unit id="153">
         <source>Email/Username</source>
         <target>Nombre de usuario</target>
       </trans-unit>
-      <trans-unit id="153">
+      <trans-unit id="154">
         <source>Used</source>
         <target>Usado</target>
       </trans-unit>
-      <trans-unit id="154">
+      <trans-unit id="155">
         <source>Total</source>
         <target>Total</target>
       </trans-unit>
-      <trans-unit id="155">
+      <trans-unit id="156">
         <source>[[size]] GB</source>
         <target>{{size}} GB</target>
       </trans-unit>
-      <trans-unit id="156">
+      <trans-unit id="157">
         <source>Devices</source>
         <target>Dispositivos</target>
       </trans-unit>
-      <trans-unit id="157">
+      <trans-unit id="158">
         <source>Shorter times are more secure</source>
         <target>Los períodos más cortos son más seguros</target>
       </trans-unit>
-      <trans-unit id="158">
+      <trans-unit id="159">
         <source>Turn Passcode Off</source>
         <target>Desactivar código de acceso</target>
       </trans-unit>
-      <trans-unit id="159">
+      <trans-unit id="160">
         <source>Change Passcode</source>
         <target>Cambiar código de acceso</target>
       </trans-unit>
-      <trans-unit id="160">
+      <trans-unit id="161">
         <source>Timeout</source>
         <target>Límite de tiempo</target>
       </trans-unit>
-      <trans-unit id="161">
+      <trans-unit id="162">
         <source>Require Passcode</source>
         <target>Solicitar código de acceso</target>
       </trans-unit>
-      <trans-unit id="162">
+      <trans-unit id="163">
         <source>Server</source>
         <target>Servidor</target>
       </trans-unit>
-      <trans-unit id="163">
+      <trans-unit id="164">
         <source>Submit</source>
         <target>Enviar</target>
       </trans-unit>
-      <trans-unit id="164">
+      <trans-unit id="165">
         <source>Note: changing the server address will log the current session out.</source>
         <target>Nota: cambiar la dirección del servidor cerrará la sesión actual.</target>
       </trans-unit>
-      <trans-unit id="165">
+      <trans-unit id="166">
         <source>Send feedback</source>
         <target>Enviar comentario</target>
       </trans-unit>
-      <trans-unit id="166">
+      <trans-unit id="167">
         <source>Name</source>
         <target>Nombre</target>
       </trans-unit>
-      <trans-unit id="167">
+      <trans-unit id="168">
         <source>Passcode</source>
         <target>Código de acceso</target>
       </trans-unit>
-      <trans-unit id="168">
+      <trans-unit id="169">
         <source>On</source>
         <target>Activado</target>
       </trans-unit>
-      <trans-unit id="169">
+      <trans-unit id="170">
         <source>Off</source>
         <target>Desactivado</target>
       </trans-unit>
-      <trans-unit id="170">
+      <trans-unit id="171">
         <source>Primary Server</source>
         <target>Servidor primario</target>
       </trans-unit>
-      <trans-unit id="171">
+      <trans-unit id="172">
         <source>Version</source>
         <target>Versión</target>
       </trans-unit>
-      <trans-unit id="172">
+      <trans-unit id="173">
         <source>Logging out while &lt;strong&gt;Remember Me&lt;/strong&gt; is active will clear your data from this device.</source>
         <target>Cerrar sesión mientras se encuentra activa la opción &lt;strong&gt;Recordarme&lt;/strong&gt; borrará tus datos de este dispositivo.</target>
       </trans-unit>
-      <trans-unit id="173">
+      <trans-unit id="174">
         <source>Logout</source>
         <target>Cerrar sesión</target>
       </trans-unit>
-      <trans-unit id="174">
+      <trans-unit id="175">
         <source>Password required</source>
         <target>Contraseña requerida</target>
       </trans-unit>
-      <trans-unit id="175">
+      <trans-unit id="176">
         <source>Password provided</source>
         <target>Contraseña suministrada</target>
       </trans-unit>
-      <trans-unit id="176">
+      <trans-unit id="177">
         <source>Owner:</source>
         <target>Dueño:</target>
       </trans-unit>
-      <trans-unit id="177">
+      <trans-unit id="178">
         <source>Folders:</source>
         <target>Carpetas:</target>
       </trans-unit>
-      <trans-unit id="178">
+      <trans-unit id="179">
         <source>Files:</source>
         <target>Archivos:</target>
       </trans-unit>
-      <trans-unit id="179">
+      <trans-unit id="180">
         <source>Remembering:</source>
         <target>Recordando:</target>
       </trans-unit>
-      <trans-unit id="180">
+      <trans-unit id="181">
         <source>URL</source>
         <target>URL</target>
       </trans-unit>
-      <trans-unit id="181">
+      <trans-unit id="182">
         <source>Fetch failed, try later</source>
         <target>Ha fallado la búsqueda, vuelve a intentarlo más tarde</target>
       </trans-unit>
-      <trans-unit id="182">
+      <trans-unit id="183">
         <source>My [[ShareRooms]]</source>
         <target>Mis {{ShareRooms}}</target>
       </trans-unit>
-      <trans-unit id="183">
+      <trans-unit id="184">
         <source>Public [[ShareRooms]]</source>
         <target>{{ShareRooms}} públicos</target>
       </trans-unit>
-      <trans-unit id="184">
+      <trans-unit id="185">
         <source>devices: [[devices]]</source>
         <target>dispositivos: {{devices}}</target>
       </trans-unit>
-      <trans-unit id="185">
+      <trans-unit id="186">
         <source>[[backupsize]] / [[size]] GB</source>
         <target>{{backupsize}} / {{size}} GB</target>
       </trans-unit>
-      <trans-unit id="186">
+      <trans-unit id="187">
         <source>Stay logged in</source>
         <target>Mantenerse en sesión</target>
       </trans-unit>
-      <trans-unit id="187">
+      <trans-unit id="188">
         <source>Share file</source>
         <target>Compartir archivo</target>
       </trans-unit>
-      <trans-unit id="188">
+      <trans-unit id="189">
         <source>Open in</source>
         <target>Abrir en</target>
       </trans-unit>
-      <trans-unit id="189">
+      <trans-unit id="190">
         <source>MS Word</source>
         <target>MS Word</target>
       </trans-unit>
-      <trans-unit id="190">
+      <trans-unit id="191">
         <source>MS Excel</source>
         <target>MS Excel</target>
       </trans-unit>
-      <trans-unit id="191">
+      <trans-unit id="192">
         <source>MS PowerPoint</source>
         <target>MS PowerPoint</target>
       </trans-unit>
-      <trans-unit id="192">
+      <trans-unit id="193">
         <source>Adobe PDF</source>
         <target>Adobe PDF</target>
       </trans-unit>
-      <trans-unit id="193">
+      <trans-unit id="194">
         <source>Zip Archive</source>
         <target>Archivo zip</target>
       </trans-unit>
-      <trans-unit id="194">
+      <trans-unit id="195">
         <source>Archive</source>
         <target>Archivo</target>
       </trans-unit>
-      <trans-unit id="195">
+      <trans-unit id="196">
         <source>RAR Archive</source>
         <target>Archivo RAR</target>
       </trans-unit>
-      <trans-unit id="196">
+      <trans-unit id="197">
         <source>JPEG Image</source>
         <target>Imagen JPEG</target>
       </trans-unit>
-      <trans-unit id="197">
+      <trans-unit id="198">
         <source>GIF Image</source>
         <target>Imagen GIF</target>
       </trans-unit>
-      <trans-unit id="198">
+      <trans-unit id="199">
         <source>PNG Image</source>
         <target>Imagen PNG</target>
       </trans-unit>
-      <trans-unit id="199">
+      <trans-unit id="200">
         <source>In Design</source>
         <target>In Design</target>
       </trans-unit>
-      <trans-unit id="200">
+      <trans-unit id="201">
         <source>EPS</source>
         <target>EPS</target>
       </trans-unit>
-      <trans-unit id="201">
+      <trans-unit id="202">
         <source>PSD Image</source>
         <target>Imagen PSD</target>
       </trans-unit>
-      <trans-unit id="202">
+      <trans-unit id="203">
         <source>Markdown</source>
         <target>Markdown</target>
       </trans-unit>
-      <trans-unit id="203">
+      <trans-unit id="204">
         <source>Plain Text</source>
         <target>Texto plano</target>
       </trans-unit>
-      <trans-unit id="204">
+      <trans-unit id="205">
         <source>HTML</source>
         <target>HTML</target>
       </trans-unit>
-      <trans-unit id="205">
+      <trans-unit id="206">
         <source>XML</source>
         <target>XML</target>
       </trans-unit>
-      <trans-unit id="206">
+      <trans-unit id="207">
         <source>CSS</source>
         <target>CSS</target>
       </trans-unit>
-      <trans-unit id="207">
+      <trans-unit id="208">
         <source>JavaScript</source>
         <target>JavaScript</target>
       </trans-unit>
-      <trans-unit id="208">
+      <trans-unit id="209">
         <source>PHP</source>
         <target>PHP</target>
       </trans-unit>
-      <trans-unit id="209">
+      <trans-unit id="210">
         <source>Apple Pages</source>
         <target>Apple Pages</target>
       </trans-unit>
-      <trans-unit id="210">
+      <trans-unit id="211">
         <source>Apple Numbers</source>
         <target>Apple Numbers</target>
       </trans-unit>
-      <trans-unit id="211">
+      <trans-unit id="212">
         <source>Apple Keynote</source>
         <target>Apple Keynote</target>
       </trans-unit>
-      <trans-unit id="212">
+      <trans-unit id="213">
         <source>Rich Text</source>
         <target>Texto enriquecido (RTF)</target>
       </trans-unit>
-      <trans-unit id="213">
+      <trans-unit id="214">
         <source>CSV</source>
         <target>CSV</target>
       </trans-unit>
-      <trans-unit id="214">
+      <trans-unit id="215">
         <source>Vcard</source>
         <target>Vcard</target>
       </trans-unit>
-      <trans-unit id="215">
+      <trans-unit id="216">
         <source>Android APK</source>
         <target>Aplicación Android APK</target>
       </trans-unit>
-      <trans-unit id="216">
+      <trans-unit id="217">
         <source>Header</source>
         <target>Título</target>
       </trans-unit>
-      <trans-unit id="217">
+      <trans-unit id="218">
         <source>Source</source>
         <target>Fuente</target>
       </trans-unit>
-      <trans-unit id="218">
+      <trans-unit id="219">
         <source>Java</source>
         <target>Java</target>
       </trans-unit>
-      <trans-unit id="219">
+      <trans-unit id="220">
         <source>OpenOffice file</source>
         <target>Archivo OpenOffice</target>
       </trans-unit>
-      <trans-unit id="220">
+      <trans-unit id="221">
         <source>MP3 File</source>
         <target>Archivo MP3</target>
       </trans-unit>
-      <trans-unit id="221">
+      <trans-unit id="222">
         <source>Sound</source>
         <target>Sonido</target>
       </trans-unit>
-      <trans-unit id="222">
+      <trans-unit id="223">
         <source>Video</source>
         <target>Video</target>
       </trans-unit>
-      <trans-unit id="223">
+      <trans-unit id="224">
         <source>AVI File</source>
         <target>Archivo AVI</target>
       </trans-unit>
-      <trans-unit id="224">
+      <trans-unit id="225">
         <source>Unknown</source>
         <target>Desconocido</target>
       </trans-unit>
-      <trans-unit id="225">
+      <trans-unit id="226">
         <source>Your account was logged off on bypass of your passcode. Remove your passcode?</source>
         <target>Se ha cerrado la sesión de tu cuenta por no haber ingresado el código de acceso. ¿Remover el código de acceso?</target>
       </trans-unit>
-      <trans-unit id="226">
+      <trans-unit id="227">
         <source>Passcode removed</source>
         <target>Código de acceso removido</target>
       </trans-unit>
-      <trans-unit id="227">
+      <trans-unit id="228">
         <source>Navigate to Settings to establish a new passcode.</source>
         <target>Accede a Configuración para establecer un nuevo código de acceso.</target>
       </trans-unit>
-      <trans-unit id="228">
+      <trans-unit id="229">
         <source>Passcode Kept</source>
         <target>Código de acceso mantenido</target>
       </trans-unit>
-      <trans-unit id="229">
+      <trans-unit id="230">
         <source>Passcode was bypassed</source>
         <target>Código de acceso evitado</target>
       </trans-unit>
-      <trans-unit id="230">
+      <trans-unit id="231">
         <source>Remove it</source>
         <target>Removerlo</target>
       </trans-unit>
-      <trans-unit id="231">
+      <trans-unit id="232">
         <source>Keep it</source>
         <target>Mantenerlo</target>
       </trans-unit>
-      <trans-unit id="232">
+      <trans-unit id="233">
         <source>Error removing favorite from device (error code: [[code]])</source>
         <target>Error al remover el favorito del dispositivo (código de error: {{code}})</target>
       </trans-unit>
-      <trans-unit id="233">
+      <trans-unit id="234">
         <source>It does not currently provide upload or sync capability.</source>
         <target>Actualmente no provee la capacidad de subir o sincronizar archivos.</target>
       </trans-unit>
-      <trans-unit id="234">
-        <source>In order to ensure &apos;[[Zero-Knowledge]]&apos; Privacy, your account must be created on a computer.</source>
-        <target>Para asegurar Privacidad &apos;{{Zero-Knowledge}}&apos;, tu cuenta debe ser creada en una computadora.</target>
+      <trans-unit id="235">
+        <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
+        <target>Para asegurar Privacidad '{{Zero-Knowledge}}', tu cuenta debe ser creada en una computadora.</target>
       </trans-unit>
       
     </body>

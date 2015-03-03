@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.</source>
-        <target>Advanced login (улучшенный логин) перешел на приложение '{{SpiderOak_Blue}}', и нам нужно переключить это приложение с альтернативного сервера, {{server}}, на стандартный сервер, {{standardServer}}. Для дольнейшего использования этой функции загрузите приложение '{{SpiderOak_Blue}}'. Это диалоговое окно откроется при запуске приложения и будет оставаться, пока вы не авторизуете изменение.</target>
+        <target>Advanced login (улучшенный логин) перешел на приложение '{{SpiderOak_Blue}}', и нам нужно переключить это приложение с альтернативного сервера, {{server}}, на стандартный сервер, {{standardServer}}. Для дальнейшего использования этой функции загрузите приложение '{{SpiderOak_Blue}}'. Это диалоговое окно откроется при запуске приложения и будет оставаться, пока вы не авторизуете изменение.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Server changed to [[standardServer]]</source>
@@ -230,7 +230,7 @@
       </trans-unit>
       <trans-unit id="57">
         <source>Temporary server failure ([[status]]). Please try again later.</source>
-        <target>Временный отказ сервера ({{status}}). Просим попоробовать позже.</target>
+        <target>Временный отказ сервера ({{status}}). Просим попробовать.</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Enter Passcode</source>
@@ -479,7 +479,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="119">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
-        <target>Если вы желаете узнать больше о {{SpiderOak}}, зайдите на &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; и загрузите клиента {{SpiderOak}}  для того, чтобы начать свой БЕСПЛАТНЫЙ аккаунт на 2 Гбайта.</target>
+        <target>Если вы желаете узнать больше о {{SpiderOak}}, зайдите на &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; и загрузите {{SpiderOak}} клиента для того, чтобы начать свой БЕСПЛАТНЫЙ аккаунт на 2 Гбайта.</target>
       </trans-unit>
       <trans-unit id="120">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]/business/' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]/business/&lt;/a&gt;.</source>
@@ -595,7 +595,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="148">
         <source>The &amp;ldquo;Stay logged in&amp;rdquo; functionality is very convenient. However, the login details are only as safe as physical access to your device.&lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Stay logged in&amp;rdquo; function will enable access to the data stored within [[SpiderOak]] in the event that your phone is lost or stolen. We suggest using caution when selecting this option.&lt;br&gt;&lt;br&gt;This option can be changed at any time in your settings.</source>
-        <target>Функциональные свойства &amp;ldquo;Не выходите из системы&amp;rdquo; являются очень удобными. Однако детали логина являются не более безопасными, чем физический доступ к вашему устройству. Функция &lt;br&gt;&lt;br&gt;Selecting the &amp;ldquo;Не выходите из системы&amp;rdquo; обеспечивает доступ к данным, которые хранятся в {{SpiderOak}} на тот случай, если ваш телефон был утерян или украден. Мы советуем проявлять осторожность при выборе этой опции. &lt;br&gt;&lt;br&gt; Эта опция может меняться в любое время в ваших установочных параметрах.</target>
+        <target>&amp;ldquo;Не выходите из системы&amp;rdquo;Функциональные свойства являются очень удобными. Однако детали логина являются не более безопасными, чем физический доступ к вашему устройству. Функция &lt;br&gt;&lt;br&gt;Выбор &amp;ldquo;Не выходите из системы&amp;rdquo; обеспечивает доступ к данным, которые хранятся в {{SpiderOak}} на тот случай, если ваш телефон был утерян или украден. Мы советуем проявлять осторожность при выборе этой опции. &lt;br&gt;&lt;br&gt; Эта опция может меняться в любое время в ваших установочных параметрах.</target>
       </trans-unit>
       <trans-unit id="149">
         <source>OK, I understand</source>
@@ -731,11 +731,11 @@ already current</source>
       </trans-unit>
       <trans-unit id="182">
         <source>My [[ShareRooms]]</source>
-        <target>My {{ShareRooms}}</target>
+        <target>Мой {{ShareRooms}}</target>
       </trans-unit>
       <trans-unit id="183">
         <source>Public [[ShareRooms]]</source>
-        <target>Public {{ShareRooms}}</target>
+        <target>Общедоступный {{ShareRooms}}</target>
       </trans-unit>
       <trans-unit id="184">
         <source>devices: [[devices]]</source>
@@ -779,15 +779,15 @@ already current</source>
       </trans-unit>
       <trans-unit id="194">
         <source>Zip Archive</source>
-        <target>Zip Archive</target>
+        <target>Zip Архив</target>
       </trans-unit>
       <trans-unit id="195">
         <source>Archive</source>
-        <target>Archive</target>
+        <target>Архив</target>
       </trans-unit>
       <trans-unit id="196">
         <source>RAR Archive</source>
-        <target>RAR Archive</target>
+        <target>RAR Архив</target>
       </trans-unit>
       <trans-unit id="197">
         <source>JPEG Image</source>
@@ -815,11 +815,11 @@ already current</source>
       </trans-unit>
       <trans-unit id="203">
         <source>Markdown</source>
-        <target>Markdown</target>
+        <target>Запись</target>
       </trans-unit>
       <trans-unit id="204">
         <source>Plain Text</source>
-        <target>Plain Text</target>
+        <target>Читаемый текст</target>
       </trans-unit>
       <trans-unit id="205">
         <source>HTML</source>

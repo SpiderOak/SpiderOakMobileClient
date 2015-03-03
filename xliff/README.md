@@ -4,7 +4,7 @@ interchange with translation providers.
 
 Usage:
 
-* `grunt xliff:from_json`: overwrite XLIFF files with conversions of JSON source files. The XLIFF files are in the same dir as this README.md.
+* `grunt xliff:from_json`: overwrite XLIFF files with conversions of the JSON source files in `www/locales`. The resulting XLIFF files are in the same dir as this README.md.
 * `grunt xliff:to_json`: conversely, overwrite JSON source files with conversions of XLIFF files. The JSON files are the app l10n sources, in `www/locales`.
 
 Essential notes:

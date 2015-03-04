@@ -1,6 +1,7 @@
 {
 	"Learn more about [[SpiderOak]]&raquo;": "En savoir plus sur  {{SpiderOak}}&raquo;",
 	"Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.": "L'option Login Avancée est passée dans l'appli {{SpiderOak_Blue}}, et nous devons faire muter cette appli de l'autre, {{server}}, au serveur standard, {{standardServer}}. Pour continuer à utiliser cette fonctionnalité, nous vous invitons à télécharger l'appli {{SpiderOak_Blue}}. Cette boîte de dialogue apparaîtra au lancement de l'appli jusqu'à ce que vous autorisiez cette modification.",
+        "Advanced login settings &raquo;": "Paramètres de connexion avancée &raquo;",
 	"Server changed to [[standardServer]]": "Serveur modifié : nouveau serveur {{standardServer}}",
 	"Alternate server retained": "Autre serveur conservé",
 	"Non-standard server": "Serveur non standard",
@@ -75,7 +76,7 @@
 	"Server Address": "Adresse du serveur",
 	"Validating": "En cours de validation",
 	"Unchanged": "Non modifié",
-	"The specified address is\nalready current": "L'adresse indiquée est l'adresse actuelle",
+	"That address is already current": "L'adresse indiquée est l'adresse actuelle",
 	"Service host changed to [[server]]": "L'hébergeur du service a muté vers {{server}}",
 	"and session logged out": "et session expirée",
 	"Server changed": "Serveur modifié",

@@ -306,6 +306,9 @@
         qq("Learn more about [[SpiderOak]]&raquo;",
            {SpiderOak: s("SpiderOak")})
       );
+      spiderOakApp.loginView.$(".advanced-login-settings").html(
+        qq("Advanced login settings &raquo;")
+      );
     },
     backDisabled: true,
     finishDeviceReady: function() {

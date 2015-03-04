@@ -1,6 +1,7 @@
 {
 	"Learn more about [[SpiderOak]]&raquo;": "Learn more about {{SpiderOak}}&raquo;",
 	"Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.": "Advanced login has moved to the '{{SpiderOak_Blue}}' app, and we must switch this app from the alternate, {{server}}, to the standard server, {{standardServer}}. To continue using this functionality, please download the '{{SpiderOak_Blue}}' app. This dialog will appear at app start until you authorise the change.",
+        "Advanced login settings &raquo;": "Advanced login settings &raquo;",
 	"Server changed to [[standardServer]]": "Server changed to {{standardServer}}",
 	"Alternate server retained": "Alternate server retained",
 	"Non-standard server": "Non-standard server",
@@ -76,7 +77,7 @@
 	"Server Address": "Server Address",
 	"Validating": "Validating",
 	"Unchanged": "Unchanged",
-	"The specified address is\nalready current": "The specified address is\nalready current",
+	"That address is already current": "That address is already current",
 	"Service host changed to [[server]]": "Service host changed to {{server}}",
 	"and session logged out": "and session logged out",
 	"Server changed": "Server changed",

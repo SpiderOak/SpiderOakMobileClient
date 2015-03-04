@@ -1,5 +1,5 @@
 {
-	"Learn more about [[SpiderOak]]&raquo;": "En savoir plus sur  {{SpiderOak}}&raquo;",
+	"Learn more about [[SpiderOak]] &raquo;": "En savoir plus sur  {{SpiderOak}} &raquo;",
 	"Advanced login has moved to the '[[SpiderOak_Blue]]' app, and we must switch this app from the alternate, [[server]], to the standard server, [[standardServer]]. To continue using this functionality, please download the '[[SpiderOak_Blue]]' app. This dialog will appear at app start until you authorize the change.": "L'option Login Avancée est passée dans l'appli {{SpiderOak_Blue}}, et nous devons faire muter cette appli de l'autre, {{server}}, au serveur standard, {{standardServer}}. Pour continuer à utiliser cette fonctionnalité, nous vous invitons à télécharger l'appli {{SpiderOak_Blue}}. Cette boîte de dialogue apparaîtra au lancement de l'appli jusqu'à ce que vous autorisiez cette modification.",
         "Advanced login settings &raquo;": "Paramètres de connexion avancée &raquo;",
 	"Server changed to [[standardServer]]": "Serveur modifié : nouveau serveur {{standardServer}}",
@@ -142,7 +142,6 @@
 	"Continue logging in": "Poursuivre la connexion",
 	"Don't login now": "Ne pas me connecter maintenant",
 	"Passcode unlock": "Déverrouiller le code d'accès",
-	"Learn more about [[SpiderOak]] &raquo;": "En savoir plus sur {{SpiderOak}} &raquo;",
 	"Need an account?<br>Find out how &raquo;": "Vous avez besoin d'un compte ?<br> Découvrez comment &raquo;",
 	"or": "ou",
 	"Log in &raquo;": "Connexion &raquo;",

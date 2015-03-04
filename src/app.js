@@ -303,7 +303,7 @@
       }
       $(".splash").hide();
       spiderOakApp.loginView.$(".learn-more").html(
-        qq("Learn more about [[SpiderOak]]&raquo;",
+        qq("Learn more about [[SpiderOak]] &raquo;",
            {SpiderOak: s("SpiderOak")})
       );
       spiderOakApp.loginView.$(".advanced-login-settings").html(

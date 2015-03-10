@@ -190,7 +190,7 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Missing email/username or password</source>
-        <target>Falta nome de usuário ou senha</target>
+        <target>Falta e-mail/nome de usuário ou senha</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Authentication error</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Authentication failed - Incorrect email/username or password.</source>
-        <target>Falha na autenticação - Nome de usuário ou senha incorreto(a).</target>
+        <target>Falha na autenticação - E-mail/Nome de usuário ou senha incorreto(a).</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Incorrect [[ShareID]] or [[RoomKey]].</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Enter your 4 digit passcode to unlock</source>
-        <target>Digite a sua senha de 4 dígitos para desbloquear</target>
+        <target>Digite seu código de acesso de 4 dígitos para desbloquear</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Passcode incorrect.</source>
@@ -309,8 +309,7 @@
         <target>Inalterado</target>
       </trans-unit>
       <trans-unit id="77">
-        <source>The specified address is
-already current</source>
+        <source>The specified address is already current</source>
         <target>O endereço especificado é igual ao atual</target>
       </trans-unit>
       <trans-unit id="78">
@@ -339,7 +338,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="84">
         <source>Enter your current 4 digit passcode</source>
-        <target>Ingresse novamente o seu novo código de acesso de 4 dígitos</target>
+        <target>Ingresse seu código de acesso de 4 dígitos atual</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Re-enter your new 4 digit passcode</source>
@@ -611,7 +610,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="152">
         <source>Email/Username</source>
-        <target>Nome de usuário</target>
+        <target>E-mail/Nome de usuário</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Used</source>
@@ -735,7 +734,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="183">
         <source>Public [[ShareRooms]]</source>
-        <target> {{ShareRooms}} Públicos</target>
+        <target>{{ShareRooms}} Públicos</target>
       </trans-unit>
       <trans-unit id="184">
         <source>devices: [[devices]]</source>

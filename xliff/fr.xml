@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection.</source>
-        <target>Désolés ! Vous devriez toujours pouvoir avoir accès à vos favoris, mais vous connecter ou accéder à vos dossiers et fichiers demande à présent que vous soyez connecté(e) au réseau.</target>
+        <target>Désolés ! Vous devriez toujours pouvoir avoir accès à vos favoris, mais vous connecter ou accéder à vos dossiers et fichiers exige à présent que vous soyez connecté(e) au réseau.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Network error</source>
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Please wait</source>
-        <target>Veuillez attendre</target>
+        <target>Un moment svp</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Network timeout</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Error sending this link. Try again later.</source>
-        <target>Erreur d'envoir de ce lien. Veuillez réessayer ultérieurement.</target>
+        <target>Erreur d'envoi de ce lien. Veuillez réessayer ultérieurement.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Link fetch failed</source>
@@ -222,11 +222,11 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Incorrect [[ShareID]] or [[RoomKey]].</source>
-        <target>{{ShareID}} ou {{RoomKey}} incorrecte.</target>
+        <target>{{ShareID}} ou {{RoomKey}} Incorrecte.</target>
       </trans-unit>
       <trans-unit id="56">
         <source>We apologize, but you must first complete your account setup using the [[SpiderOak]] desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open [[SpiderOak]] on your computer to continue.  Thank you. -- The [[SpiderOak]] Team</source>
-        <target>Nous sommes désolés, mais vous devez tout d'abord terminer la configuration de votre compte au moyen du logiciel de bureau {{SpiderOak}}. Ceci afin de permettre la création des clés de chiffrement appropriées pour garantir la confidentialité de vos données. Veuillez ouvrir {{SpiderOak}} sur votre ordinateur pour continuer. Merci. --L'équipe {{SpiderOak}} </target>
+        <target>Nous sommes désolés, mais vous devez tout d'abord terminer la configuration de votre compte au moyen du logiciel de bureau {{SpiderOak}}. Ceci afin de permettre la création des clés de chiffrement appropriées pour garantir la confidentialité de vos données. Veuillez ouvrir {{SpiderOak}} sur votre ordinateur pour continuer. Merci. -- L'équipe {{SpiderOak}} </target>
       </trans-unit>
       <trans-unit id="57">
         <source>Temporary server failure ([[status]]). Please try again later.</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Loading...</source>
-        <target>Chargement en cours ...</target>
+        <target>Chargement en cours...</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Are you sure you want to clear your recent history?</source>
@@ -327,7 +327,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="81">
         <source>[[server]] is not the host of a valid [[SpiderOak]] service. The server is unchanged.</source>
-        <target>{{server}} nest pas l'hébergeur d'un service {{SpiderOak}} valide. Le serveur n'a pas changé.</target>
+        <target>{{server}} n'est pas l'hébergeur d'un service {{SpiderOak}} valide. Le serveur n'a pas changé.</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Validation error</source>
@@ -527,11 +527,11 @@ already current</source>
       </trans-unit>
       <trans-unit id="131">
         <source>Log In</source>
-        <target>Connection</target>
+        <target>Connexion</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Log in</source>
-        <target>Connection</target>
+        <target>Connexion</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Need an account?</source>
@@ -559,7 +559,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="139">
         <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Si vous préférez utiliser un accès '{{Zero-Knowledge}}', annulez cette connexion, et ne vous connectez que par l'intermédiaire du client bureau {{SpiderOak}}.</target>
+        <target>Si vous préférez utiliser un accès '{{Zero-Knowledge}}', annulez cette connexion, et connectez-vous uniquement par l'intermédiaire du client bureau {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Continue logging in</source>
@@ -587,7 +587,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="146">
         <source>Log in &amp;raquo;</source>
-        <target></target>
+        <target>Connexion &amp;raquo;</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Please note</source>
@@ -611,7 +611,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="152">
         <source>Email/Username</source>
-        <target>Nom d'utilisateur</target>
+        <target>Courriel/Nom d'utilisateur</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Used</source>
@@ -663,7 +663,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="165">
         <source>Send feedback</source>
-        <target>Envoyer retour/ remarques</target>
+        <target>Envoyer commentaires</target>
       </trans-unit>
       <trans-unit id="166">
         <source>Name</source>
@@ -675,11 +675,11 @@ already current</source>
       </trans-unit>
       <trans-unit id="168">
         <source>On</source>
-        <target>On</target>
+        <target>Activé</target>
       </trans-unit>
       <trans-unit id="169">
         <source>Off</source>
-        <target>Off</target>
+        <target>Désactivé</target>
       </trans-unit>
       <trans-unit id="170">
         <source>Primary Server</source>
@@ -735,7 +735,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="183">
         <source>Public [[ShareRooms]]</source>
-        <target>{{ShareRooms}} publics</target>
+        <target>{{ShareRooms}} publiques</target>
       </trans-unit>
       <trans-unit id="184">
         <source>devices: [[devices]]</source>
@@ -819,7 +819,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="204">
         <source>Plain Text</source>
-        <target>Texte en clair</target>
+        <target>Texte brut</target>
       </trans-unit>
       <trans-unit id="205">
         <source>HTML</source>
@@ -855,11 +855,11 @@ already current</source>
       </trans-unit>
       <trans-unit id="213">
         <source>Rich Text</source>
-        <target>Rich Text Format</target>
+        <target>Texte enrichi</target>
       </trans-unit>
       <trans-unit id="214">
         <source>CSV</source>
-        <target>CSS</target>
+        <target>CSV</target>
       </trans-unit>
       <trans-unit id="215">
         <source>Vcard</source>
@@ -939,7 +939,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="234">
         <source>It does not currently provide upload or sync capability.</source>
-        <target>Actuellement, pas de capacité de téléchargement ni de syncrhonisation.</target>
+        <target>Actuellement, pas de capacité de téléchargement ni de synchronisation.</target>
       </trans-unit>
       <trans-unit id="235">
         <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>

@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Too many folders. Displaying first [[numEntries]]</source>
-        <target>Zu viele Ordner. Erster wird Die ersten {{numEntries}} werden angezeigt</target>
+        <target>Zu viele Ordner. Die ersten {{numEntries}} werden angezeigt</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Downloading</source>
@@ -190,7 +190,7 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Missing email/username or password</source>
-        <target>Benutzername oder Passwort fehlt</target>
+        <target>E-Mail/Benutzername oder Passwort fehlt</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Authentication error</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Authentication failed - Incorrect email/username or password.</source>
-        <target>Authentifizierung fehlgeschlagen – Benutzername oder Passwort falsch.</target>
+        <target>Authentifizierung fehlgeschlagen – E-Mail/Benutzername oder Passwort falsch.</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Incorrect [[ShareID]] or [[RoomKey]].</source>
@@ -226,7 +226,7 @@
       </trans-unit>
       <trans-unit id="56">
         <source>We apologize, but you must first complete your account setup using the [[SpiderOak]] desktop software.  This is necessary so that proper cryptographic keys can be generated to keep your data private.  Please open [[SpiderOak]] on your computer to continue.  Thank you. -- The [[SpiderOak]] Team</source>
-        <target>Sie müssen bitte erst Ihr Konto fertig einrichten. Verwenden Sie hierzu die {{SpiderOak}} Desktop-Software  Dies ist erforderlich, damit die richtigen Verschlüsselungs-Keys generiert werden können, um Ihre Daten zu schützen. Öffnen Sie zum Fortfahren bitte {{SpiderOak}} auf Ihrem Computer. Vielen Dank. -- Das {{SpiderOak}} Team</target>
+        <target>Sie müssen bitte erst Ihr Konto fertig einrichten. Verwenden Sie hierzu die {{SpiderOak}} Desktop-Software. Dies ist erforderlich, damit die richtigen Verschlüsselungs-Keys generiert werden können, um Ihre Daten zu schützen. Öffnen Sie zum Fortfahren bitte {{SpiderOak}} auf Ihrem Computer. Vielen Dank. -- Das {{SpiderOak}} Team</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Temporary server failure ([[status]]). Please try again later.</source>
@@ -339,7 +339,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="84">
         <source>Enter your current 4 digit passcode</source>
-        <target>Geben Sie Ihren neuen vierstelligen Passcode erneut ein</target>
+        <target>Geben Sie Ihren aktuellen vierstelligen Passcode ein</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Re-enter your new 4 digit passcode</source>
@@ -347,7 +347,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="86">
         <source>Passcodes do not match.</source>
-        <target>Passcodes stimmen nicht überein</target>
+        <target>Passcodes stimmen nicht überein.</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Passcode settings</source>
@@ -559,7 +559,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="139">
         <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Wenn Sie ausnahmslos den Zugang nach dem Prinzip  ‚{{Zero-Knowledge}}' verwenden möchten, brechen Sie diese Anmeldung ab und melden Sie sich nur über den {{SpiderOak}}-Desktop-Client an.</target>
+        <target>Wenn Sie ausnahmslos den Zugang nach dem Prinzip ‚{{Zero-Knowledge}}' verwenden möchten, brechen Sie diese Anmeldung ab und melden Sie sich nur über den {{SpiderOak}}-Desktop-Client an.</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Continue logging in</source>
@@ -611,7 +611,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="152">
         <source>Email/Username</source>
-        <target>Benutzername</target>
+        <target>E-Mail/Benutzername</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Used</source>
@@ -691,7 +691,7 @@ already current</source>
       </trans-unit>
       <trans-unit id="172">
         <source>Logging out while &lt;strong&gt;Remember Me&lt;/strong&gt; is active will clear your data from this device.</source>
-        <target>Das Abmelden bei aktiver Einstellung &lt;strong&gt;Stay logged in&lt;/strong&gt; führt zum Löschen Ihrer Daten von diesem Gerät.</target>
+        <target>Das Abmelden bei aktiver Einstellung &lt;strong&gt;Angemeldet bleiben&lt;/strong&gt; führt zum Löschen Ihrer Daten von diesem Gerät.</target>
       </trans-unit>
       <trans-unit id="173">
         <source>Logout</source>

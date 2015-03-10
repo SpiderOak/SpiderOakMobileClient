@@ -351,7 +351,7 @@
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
           title: "<i class='icon-info'></i>" + qq("Unchanged"),
-          subtitle: (qq("The specified address is\nalready current"))
+          subtitle: (qq("That address is already current"))
         });
         spiderOakApp.navigator.popView();
       }

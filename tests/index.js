@@ -265,13 +265,13 @@ describe('Application setup', function() {
         this.finishedSpy.should.have.been.called.once;
       });
       it('should log a warning when contingencies are repeated', function() {
-        this.consoleStub = sinon.stub(console, "log");
         //this.consoleMock.expects("log");
         this.hardBoiledEggs("eggs");
+        this.consoleStub = sinon.stub(console, "log");
         this.hardBoiledEggs("eggs");
-        this.finishedSpy.should.not.have.been.called;
         this.consoleStub.should.have.been.called.once;
         this.consoleStub.restore();
+        this.finishedSpy.should.not.have.been.called;
       });
       it('should throw an error on unspecified contingencies', function() {
         this.hardBoiledEggs("eggs");

@@ -27,7 +27,7 @@
         window.tmpl['preliminaryViewTemplate']({})
       );
       $(".learn-more").html(
-        qq("Learn more about [[SpiderOak]]&raquo;",
+        qq("Learn more about [[SpiderOak]] &raquo;",
            {SpiderOak: s("SpiderOak")})
       );
       return this;

@@ -29,19 +29,20 @@
 
   _.extend(spiderOakApp, {
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
-    readyFinish: new Promise(function (resolve, reject) {
-      window.readyFinishResolver = resolve;
-    }),
-    localizeFinish: new Promise(function (resolve, reject) {
-      window.localizeFinishResolver = resolve;
-    }),
     ready: function() {
       // Start listening for important app-level events
       var soApp = window.spiderOakApp,
+          readyFinish = new Promise(function (resolve, reject) {
+            soApp.readyFinishResolver = resolve;
+          }),
+          localizeFinishResolver,
+          localizeFinish = new Promise(function (resolve, reject) {
+            localizeFinishResolver = resolve;
+          }),
           allFinishResolver,
-          allFinish = Promise.all([soApp.readyFinish, soApp.localizeFinish]);
+          allFinish = Promise.all([readyFinish, localizeFinish]);
       allFinish.then(soApp.finishDeviceReady);
-      window.localizer.prepareHtml10n(window.localizeFinishResolver);
+      window.localizer.prepareHtml10n(localizeFinishResolver);
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
@@ -336,13 +337,13 @@
       if (window.cordovaHTTP) {
         window.cordovaHTTP.enableSSLPinning(true, function() {
           //window.spiderOakApp.finishDeviceReady();
-          window.readyFinishResolver();
+          window.spiderOakApp.readyFinishResolver();
         }, function() {
           console.log('Error. Enabling cert pinning failed');
         });
       } else {
         //window.spiderOakApp.finishDeviceReady();
-        window.readyFinishResolver();
+        window.spiderOakApp.readyFinishResolver();
       }
     },
     onVersionReady: function () {

@@ -116,6 +116,7 @@ module.exports = function(grunt) {
           'src/helpers/Migrator.js',
           'src/helpers/multilingualchars.js',
           'src/helpers/basicauth.js',
+          'src/helpers/readyFinisher.js',
           'src/helpers/bindmine.js',
           'src/helpers/customStrings.js',
           'src/helpers/localizer.js',

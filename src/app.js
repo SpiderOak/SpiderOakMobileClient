@@ -30,7 +30,7 @@
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     ready: function() {
       // Start listening for important app-level events
-      window.localizer.prepareHtml10n();
+      window.localizer.prepareHtml10n(window.spiderOakApp.readyFinisher);
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
@@ -311,11 +311,20 @@
       );
     },
     backDisabled: true,
-    finishDeviceReady: function() {
-      window.spiderOakApp.brandSpecificInitialization();
-      window.spiderOakApp.initialize();
-      spiderOakApp.fileViewer = window.FileViewerPlugin;
-    },
+    /** readyFinisher does actual work when called enough times: twice. */
+    readyFinisher: function() {
+      var numCalled = 0,
+          enoughCalled = 2;
+      function oneReady() {
+        numCalled += 1;
+        if (numCalled >= enoughCalled) {
+          window.spiderOakApp.brandSpecificInitialization();
+          window.spiderOakApp.initialize();
+          spiderOakApp.fileViewer = window.FileViewerPlugin;
+        }
+      }
+      return oneReady;
+    }(),
     onDeviceReady: function() {
       $(document).on("backbutton", spiderOakApp.onBackKeyDown);
       $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
@@ -324,12 +333,12 @@
       }
       if (window.cordovaHTTP) {
         window.cordovaHTTP.enableSSLPinning(true, function() {
-          window.spiderOakApp.finishDeviceReady();
+          window.spiderOakApp.readyFinisher();
         }, function() {
           console.log('Error. Enabling cert pinning failed');
         });
       } else {
-        window.spiderOakApp.finishDeviceReady();
+        window.spiderOakApp.readyFinisher();
       }
     },
     onVersionReady: function () {

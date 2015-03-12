@@ -18,7 +18,7 @@
        * 4. Omit empty entries.
        * 5. Include en-us fallback entry as last item, for no empty slots.
        */
-      prepareHtml10n: function () {
+      prepareHtml10n: function (success) {
         // Adapted from https://github.com/mclear/NFC_Ring_Control/blob/df8db31dd1683b04422c106a1484637629b4c88f/www/js/nfcRing/ui.js#L125-L135
 
         var candidates = [navigator.language, navigator.userLanguage,
@@ -52,6 +52,9 @@
           moment.locale([html10n.language]);
           document.documentElement.lang = html10n.getLanguage();
           document.documentElement.dir = html10n.getDirection();
+          if (success) {
+            success();
+          }
         });
       }
     };

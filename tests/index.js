@@ -240,6 +240,50 @@ describe('Application setup', function() {
            );
          });
     });
+    describe('readyFinisher', function() {
+      beforeEach(function(){
+        this.finishedSpy = sinon.spy();
+        this.contingencies = ["eggs", "water", "heat"];
+        this.hardBoiledEggs = window.readyFinisher(this.contingencies,
+                                                   this.finishedSpy);
+      });
+      it('should not run finishFunc before contingencies are satisfied',
+         function() {
+           this.finishedSpy.should.not.have.been.called;
+           this.hardBoiledEggs("eggs");
+           this.finishedSpy.should.not.have.been.called;
+           this.hardBoiledEggs("water");
+           this.finishedSpy.should.not.have.been.called;
+         }
+        );
+      it('should run finishFunc when contingencies are satisfied', function() {
+        this.finishedSpy.should.not.have.been.called;
+        var _this = this;
+        this.contingencies.forEach(function (which) {
+          _this.hardBoiledEggs(which);
+        });
+        this.finishedSpy.should.have.been.called.once;
+      });
+      it('should log a warning when contingencies are repeated', function() {
+        //this.consoleMock.expects("log");
+        this.hardBoiledEggs("eggs");
+        this.consoleStub = sinon.stub(console, "log");
+        this.hardBoiledEggs("eggs");
+        this.consoleStub.should.have.been.called.once;
+        this.consoleStub.restore();
+        this.finishedSpy.should.not.have.been.called;
+      });
+      it('should throw an error on unspecified contingencies', function() {
+        this.hardBoiledEggs("eggs");
+        var gotError;
+        try {
+          this.hardBoiledEggs("spam");
+        } catch (e) {
+          gotError = e;
+        }
+        chai.expect(gotError).is.instanceof(Error);
+      });
+    });
   });
 
 });

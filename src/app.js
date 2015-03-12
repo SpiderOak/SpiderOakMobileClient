@@ -39,7 +39,6 @@
           localizeFinish = new Promise(function (resolve, reject) {
             localizeFinishResolver = resolve;
           }),
-          allFinishResolver,
           allFinish = Promise.all([readyFinish, localizeFinish]);
       allFinish.then(soApp.finishDeviceReady);
       window.localizer.prepareHtml10n(localizeFinishResolver);

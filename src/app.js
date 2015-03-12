@@ -10,6 +10,7 @@
       $           = window.$,
       s           = window.s,
       qq          = window.qq,
+      Promise     = window.Promise,
       store       = window.store;
   $.ajaxSettings = _.extend($.ajaxSettings, {
     timeout: 300000, // five minutes
@@ -28,9 +29,19 @@
 
   _.extend(spiderOakApp, {
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
+    readyFinish: new Promise(function (resolve, reject) {
+      window.readyFinishResolver = resolve;
+    }),
+    localizeFinish: new Promise(function (resolve, reject) {
+      window.localizeFinishResolver = resolve;
+    }),
     ready: function() {
       // Start listening for important app-level events
-      window.localizer.prepareHtml10n();
+      var soApp = window.spiderOakApp,
+          allFinishResolver,
+          allFinish = Promise.all([soApp.readyFinish, soApp.localizeFinish]);
+      allFinish.then(soApp.finishDeviceReady);
+      window.localizer.prepareHtml10n(window.localizeFinishResolver);
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);
@@ -324,12 +335,14 @@
       }
       if (window.cordovaHTTP) {
         window.cordovaHTTP.enableSSLPinning(true, function() {
-          window.spiderOakApp.finishDeviceReady();
+          //window.spiderOakApp.finishDeviceReady();
+          window.readyFinishResolver();
         }, function() {
           console.log('Error. Enabling cert pinning failed');
         });
       } else {
-        window.spiderOakApp.finishDeviceReady();
+        //window.spiderOakApp.finishDeviceReady();
+        window.readyFinishResolver();
       }
     },
     onVersionReady: function () {

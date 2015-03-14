@@ -47,6 +47,7 @@
     "grunt-xliff": "git://github.com/alex-seville/grunt-xliff.git#79d632671a",
     "mocha": "~1.8.1",
     "chai": "~1.8.0",
+    "chai-as-promised": "~4.3.0",
     "sinon": "~1.7.3",
     "sinon-chai": "~2.4.0",
     "chai-jquery": "~1.1.2",

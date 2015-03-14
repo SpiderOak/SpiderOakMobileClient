@@ -30,18 +30,18 @@
   _.extend(spiderOakApp, {
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
     ready: function() {
-      // Start listening for important app-level events
       var soApp = window.spiderOakApp,
           readyFinish = new Promise(function (resolve, reject) {
-            soApp.readyFinishResolver = resolve;
+            // Resolve with explicit value for tests and debugging clarity.
+            soApp.readyFinishResolver = function() {resolve("readyFinish");};
           }),
-          localizeFinishResolver,
           localizeFinish = new Promise(function (resolve, reject) {
-            localizeFinishResolver = resolve;
-          }),
-          allFinish = Promise.all([readyFinish, localizeFinish]);
-      allFinish.then(soApp.finishDeviceReady);
-      window.localizer.prepareHtml10n(localizeFinishResolver);
+            soApp.localizeFinishResolver = function() {resolve("localized");};
+          });
+      soApp.allFinish = Promise.all([readyFinish, localizeFinish]);
+      soApp.allFinish.then(function () {soApp.finishDeviceReady();});
+      window.localizer.prepareHtml10n(soApp.localizeFinishResolver);
+      // Start listening for important app-level events
       document.addEventListener("deviceready", this.onDeviceReady, false);
       document.addEventListener("versionready", this.onVersionReady, false);
       document.addEventListener("loginSuccess", this.onLoginSuccess, false);

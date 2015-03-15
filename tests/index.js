@@ -86,43 +86,26 @@ describe('Application setup', function() {
       /* This is actually two tests, combined because i haven't unraveled
        * how to re-initialize the app.
        *
-       * The prominent contrary cases fail in distinct, illuminating ways:
+       * Contrary cases failure modes are illuminating:
+       *
+       * - if window.spiderOakApp.localizeFinishResolver() is not fired, the
+       *   test fails with a timeout.
        * - "...should.not.eventually.be.fulfilled..." error report shows
        *   the actual resolution values of allFinish' sub-promises.
-       * - not firing soApp.localizeFinishResolver() fails on a timeout.
        */
-      var soApp = window.spiderOakApp,
-          allFinish = soApp.allFinish,
-          fDRStub = sinon.stub(soApp, "finishDeviceReady");
-      soApp.allFinish.then(function() {
+      var fDRStub = sinon.stub(window.spiderOakApp, "finishDeviceReady");
+      window.spiderOakApp.allFinish.then(function() {
         fDRStub.should.have.been.called.once;
         fDRStub.restore();
       });
-      if (! soApp.localizeFinishResolver) {
+      if (! window.spiderOakApp.localizeFinishResolver) {
         // Reduce unfortunate sensitivity to whether or not done elsewhere.
-        soApp.ready();
+        window.spiderOakApp.ready();
       }
-      // (soApp.readyFinishResolver() already done in app init.)
-      soApp.localizeFinishResolver();
-      allFinish.should.eventually.be.fulfilled.and.notify(done);
-      // '...and.notify(done)' because our version of mocha apparently
-      // isn't promise-friently.
-    });
-    it('resolving subfinishers should fulfill allFinish', function(done) {
-      /* The prominent contrary cases fail in distinct, illuminating ways:
-       * - "...should.not.eventually.be.fulfilled..." error report shows
-       *   the actual resolution values of allFinish' sub-promises.
-       * - not firing soApp.localizeFinishResolver() fails on a timeout.
-       */
-      var soApp = window.spiderOakApp,
-          allFinish = soApp.allFinish;
-      if (! soApp.localizeFinishResolver) {
-        // Reduce unfortunate sensitivity to whether or not done elsewhere.
-        soApp.ready();
-      }
-      // (soApp.readyFinishResolver() already done in app init.)
-      soApp.localizeFinishResolver();
-      allFinish.should.eventually.be.fulfilled.and.notify(done);
+      // (window.spiderOakApp.readyFinishResolver() already done in app init.)
+      window.spiderOakApp.localizeFinishResolver();
+      window.spiderOakApp.allFinish.should.eventually.be.fulfilled
+        .and.notify(done);
       // '...and.notify(done)' because our version of mocha apparently
       // isn't promise-friently.
     });

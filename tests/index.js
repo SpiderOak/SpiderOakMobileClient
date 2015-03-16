@@ -82,6 +82,33 @@ describe('Application setup', function() {
       helper.trigger(window.document,'deviceready');
       window.spiderOakApp.onDeviceReady.called.should.equal(true);
     });
+    it('resolving subfinishers should fulfill allFinish', function(done) {
+      /* This is actually two tests, combined because i haven't unraveled
+       * how to re-initialize the app.
+       *
+       * Contrary cases failure modes are illuminating:
+       *
+       * - if window.spiderOakApp.localizeFinishResolver() is not fired, the
+       *   test fails with a timeout.
+       * - "...should.not.eventually.be.fulfilled..." error report shows
+       *   the actual resolution values of allFinish' sub-promises.
+       */
+      var fDRStub = sinon.stub(window.spiderOakApp, "finishDeviceReady");
+      window.spiderOakApp.allFinish.then(function() {
+        fDRStub.should.have.been.called.once;
+        fDRStub.restore();
+      });
+      if (! window.spiderOakApp.localizeFinishResolver) {
+        // Reduce unfortunate sensitivity to whether or not done elsewhere.
+        window.spiderOakApp.ready();
+      }
+      // (window.spiderOakApp.readyFinishResolver() already done in app init.)
+      window.spiderOakApp.localizeFinishResolver();
+      window.spiderOakApp.allFinish.should.eventually.be.fulfilled
+        .and.notify(done);
+      // '...and.notify(done)' because our version of mocha apparently
+      // isn't promise-friently.
+    });
   });
 
   describe('spiderOakApp.ajax', function() {

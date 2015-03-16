@@ -245,6 +245,12 @@ module.exports = function(grunt) {
         ],
         dest: 'www/components/store.js/store.min.js'
       },
+      promise: {
+        src: [
+          'bower_components/bluebird/js/browser/bluebird.js'
+        ],
+        dest: 'www/components/bluebird/bluebird.js'
+      },
       semver: {
         src: [
           'node_modules/semver/semver.browser.js'

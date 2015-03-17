@@ -39,6 +39,8 @@
             soApp.localizeFinishResolver = function() {resolve("localized");};
           });
       soApp.allFinish = Promise.all([readyFinish, localizeFinish]);
+      // Invoke .finishDeviceReady() via an intermediate function, so
+      // stubbing of .finishDeviceReady() in tests can be effective:
       soApp.allFinish.then(function () {soApp.finishDeviceReady();});
       window.localizer.prepareHtml10n(soApp.localizeFinishResolver);
       // Start listening for important app-level events

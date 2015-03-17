@@ -553,16 +553,16 @@
         <target>Das SpiderOak Team</target>
       </trans-unit>
       <trans-unit id="138">
-        <source>Not '[[Zero-Knowledge]]'</source>
-        <target>Nicht ‚{{Zero-Knowledge}}'</target>
+        <source>Not [[Zero-Knowledge]]</source>
+        <target>Nicht {{Zero-Knowledge}}</target>
       </trans-unit>
       <trans-unit id="139">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
         <target>Wenn Sie sich über diesen mobilen Client oder über die Website anmelden, wird Ihr Passwort während Ihrer Browser-Sitzung im {{SpiderOak}}-Server gespeichert. Der Speicher ist allerdings verschlüsselt und Ihr Passwort wird unter keinen Umständen auf ein unverschlüsseltes Speichermedium geschrieben. Nach Abschluss Ihrer Sitzung wird das Exemplar Ihres Passworts auf dem Server vollständig gelöscht.</target>
       </trans-unit>
       <trans-unit id="140">
-        <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Wenn Sie ausnahmslos den Zugang nach dem Prinzip ‚{{Zero-Knowledge}}' verwenden möchten, brechen Sie diese Anmeldung ab und melden Sie sich nur über den {{SpiderOak}}-Desktop-Client an.</target>
+        <source>If you prefer to use only [[Zero-Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <target>Wenn Sie ausnahmslos den Zugang nach dem Prinzip {{Zero-Knowledge}} verwenden möchten, brechen Sie diese Anmeldung ab und melden Sie sich nur über den {{SpiderOak}}-Desktop-Client an.</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Continue logging in</source>
@@ -941,8 +941,8 @@
         <target>Gegenwärtig wird keine Upload- oder Sync-Funktion bereitgestellt.</target>
       </trans-unit>
       <trans-unit id="235">
-        <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
-        <target>Um den Datenschutz nach dem ‚{{Zero-Knowledge}}‘-Prinzip sicherzustellen, muss Ihr Konto auf einem Computer eingerichtet werden.</target>
+        <source>In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.</source>
+        <target>Um den Datenschutz nach dem {{Zero-Knowledge}}-Prinzip sicherzustellen, muss Ihr Konto auf einem Computer eingerichtet werden.</target>
       </trans-unit>
       
     </body>

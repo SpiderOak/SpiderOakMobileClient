@@ -553,16 +553,16 @@
         <target>A Equipe SpiderOak</target>
       </trans-unit>
       <trans-unit id="138">
-        <source>Not '[[Zero-Knowledge]]'</source>
-        <target>Não é '{{Zero-Knowledge}}'</target>
+        <source>Not [[Zero-Knowledge]]</source>
+        <target>Não é {{Zero-Knowledge}}</target>
       </trans-unit>
       <trans-unit id="139">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
         <target>Se você entrar com este cliente móvel, ou através do website, a sua senha estará na memória do servidor {{SpiderOak}} durante a sua sessão de navegação. No entanto, a sua senha será armazenada em memória criptografada e jamais será guardada em um disco não-criptografado. Quando a sua sessão terminar, a cópia da sua senha será completamente eliminada do servidor.</target>
       </trans-unit>
       <trans-unit id="140">
-        <source>If you prefer to use only '[[Zero-Knowledge]]' access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Se você prefere utilizar somente o acesso com '{{Zero-Knowledge}}', cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.</target>
+        <source>If you prefer to use only [[Zero-Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <target>Se você prefere utilizar somente o acesso com {{Zero-Knowledge}}, cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Continue logging in</source>
@@ -941,8 +941,8 @@
         <target>As funções de upload e sincronização não estão disponíveis no momento.</target>
       </trans-unit>
       <trans-unit id="235">
-        <source>In order to ensure '[[Zero-Knowledge]]' Privacy, your account must be created on a computer.</source>
-        <target>Para garantir Privacidade '{{Zero-Knowledge}}', a sua conta deve ser criada em um computador.</target>
+        <source>In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.</source>
+        <target>Para garantir Privacidade {{Zero-Knowledge}}, a sua conta deve ser criada em um computador.</target>
       </trans-unit>
       
     </body>

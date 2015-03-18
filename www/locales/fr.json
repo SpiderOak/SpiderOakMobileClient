@@ -233,5 +233,5 @@
 	"Keep it": "Le conserver",
 	"Error removing favorite from device (error code: [[code]])": "Erreur lors de la suppression d'un favori sur l'appareil (code d'erreur : {{code}})",
 	"It does not currently provide upload or sync capability.": "Actuellement, pas de capacité de téléchargement ni de synchronisation.",
-	"In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.": "Afin de garantir un niveau de confidentialité [[Zero-Knowledge]], vous devez créer votre compte sur un ordinateur."
+	"In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.": "Afin de garantir un niveau de confidentialité {{Zero-Knowledge}}, vous devez créer votre compte sur un ordinateur."
 }

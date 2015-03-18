@@ -97,6 +97,9 @@
         $(".app").append(_this.nonZKWarningView.el);
         _this.nonZKWarningView.render().show();
       } else {
+        if(document.activeElement) {
+          document.activeElement.blur();
+        }
         _this.authenticate(event);
       }
     },
@@ -222,6 +225,9 @@
     },
     learnMore_tapHandler: function(event) {
       var learnMoreView = new spiderOakApp.LearnAboutView();
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
       $(".app").append(learnMoreView.$el);
       learnMoreView.render().show();
     },
@@ -230,12 +236,18 @@
     },
     cancelBtn_tapHandler: function(event) {
       window.store.set("showPreliminary", true);
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
       spiderOakApp.preliminaryView = new spiderOakApp.PreliminaryView();
       $(".app").append(spiderOakApp.preliminaryView.$el);
       spiderOakApp.preliminaryView.render().show();
     },
     setInitialServer: function() {
       $("#subviews > .folderViewLoading").remove();
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
       $(".menu ul li").removeClass("current");
       $(".settings").closest("li").addClass("current");
       if (spiderOakApp.navigator.viewsStack.length === 0) {

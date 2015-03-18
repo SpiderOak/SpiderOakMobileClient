@@ -192,8 +192,7 @@ module.exports = function(grunt) {
           'bower_components/zepto/src/polyfill.js',
           'bower_components/zepto/src/selector.js',
           'bower_components/zepto/src/stack.js',
-          'bower_components/zepto/src/touch.js',
-          'bower_components/zepto/src/ie.js'
+          'bower_components/zepto/src/touch.js'
         ],
         dest: 'www/components/zepto/zepto.js'
       },

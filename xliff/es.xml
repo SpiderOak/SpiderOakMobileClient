@@ -222,7 +222,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Authentication failed - Incorrect email/username or password.</source>
-        <target>La autenticación ha fallado - Nombre de usuario o contraseña incorrectos.</target>
+        <target>La autenticación ha fallado – Correo electrónico/nombre de usuario o contraseña incorrectos</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Incorrect [[ShareID]] or [[RoomKey]].</source>
@@ -615,7 +615,7 @@ ya está actualizada</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Email/Username</source>
-        <target>Nombre de usuario</target>
+        <target>Correo electrónico/Usuario</target>
       </trans-unit>
       <trans-unit id="154">
         <source>Used</source>

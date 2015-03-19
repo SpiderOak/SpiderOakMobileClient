@@ -610,7 +610,7 @@
       </trans-unit>
       <trans-unit id="152">
         <source>Email/Username</source>
-        <target>Имя пользователя</target>
+        <target>имя пользователя или пароль</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Used</source>

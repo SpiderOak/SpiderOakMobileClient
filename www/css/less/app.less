@@ -370,6 +370,17 @@ ul {
   padding: 0;
   border-width: 0 0 0 1px;
 
+  &.myShareRoomsList,
+  &.publicShareRoomsList,
+  &.foldersList,
+  &.filesList {
+    li {
+      a {
+        line-height: 120%;
+      }
+    }
+  }
+
   li {
     .ellipsis;
     border-top: 1px solid @liBorderColor;
@@ -404,6 +415,7 @@ ul {
       padding: 10px;
       margin: -10px;
       height: 30px;
+      line-height: 30px;
 
       &.active {
         background-image: none;

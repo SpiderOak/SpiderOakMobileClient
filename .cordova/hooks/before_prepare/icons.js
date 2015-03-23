@@ -24,7 +24,8 @@
     { file: 'cordova_ios_114.png', dest: 'icon@2x.png' },
     { file: 'cordova_ios_72.png', dest: 'icon-72.png' },
     { file: 'cordova_ios_76.png', dest: 'icon-76.png' },
-    { file: 'cordova_ios_120.png', dest: 'icon-120.png' },
+    { file: 'cordova_ios_120.png', dest: 'icon-60@2x.png' },
+    { file: 'cordova_ios_180.png', dest: 'icon-60@3x.png' },
     { file: 'cordova_ios_144.png', dest: 'icon-72@2x.png' },
     { file: 'cordova_ios_152.png', dest: 'icon-76@2x.png' }
   ];
@@ -41,22 +42,22 @@
     // Android
     if (fs.existsSync(androidDest)) {
       console.log("[hooks] copying android icons...");
-      var idx;
-      for (idx in androidIcons) {
+      var idxa;
+      for (idxa in androidIcons) {
         copyFile(
-          path.join(res, androidIcons[idx].file),
-          path.join(androidDest, androidIcons[idx].dest, 'icon.png')
+          path.join(res, androidIcons[idxa].file),
+          path.join(androidDest, androidIcons[idxa].dest, 'icon.png')
         );
       }
     }
     if (fs.existsSync(iOSDest)) {
       console.log("[hooks] copying ios icons...");
       // iOS
-      var idx;
-      for (idx in iOSIcons) {
+      var idxi;
+      for (idxi in iOSIcons) {
         copyFile(
-          path.join(res, iOSIcons[idx].file),
-          path.join(iOSDest, iOSIcons[idx].dest)
+          path.join(res, iOSIcons[idxi].file),
+          path.join(iOSDest, iOSIcons[idxi].dest)
         );
       }
     }

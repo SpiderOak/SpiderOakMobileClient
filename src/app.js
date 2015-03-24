@@ -209,12 +209,12 @@
       var pxMultiplier = 1;
       var threshold = 80;
       $(document).on("touchstart", "#main", function(event){
-        event.preventDefault();
+        // event.preventDefault();
         touch.x1 = event.touches[0].pageX;
         touch.y1 = event.touches[0].pageY;
       });
       $(document).on("touchmove", "#main", function(event) {
-        event.preventDefault();
+        // event.preventDefault();
         window.inAction = true;
         if (event.touches.length == 1 ) {
           touch.dx = event.touches[0].pageX - touch.x1; // right, left

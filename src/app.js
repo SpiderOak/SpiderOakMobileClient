@@ -214,12 +214,20 @@
         touch.y1 = event.touches[0].pageY;
       });
       $(document).on("touchmove", "#main", function(event) {
-        // event.preventDefault();
+        touch.dx = event.touches[0].pageX - touch.x1; // right, left
+        touch.dy = event.touches[0].pageY - touch.y1; // up, down
+        if (!$("#main").hasClass("open") &&
+            !window.isScrolling &&
+            !window.inAction &&
+            touch.dy !== 0) {
+          window.isScrolling = true;
+        }
+        if (window.isScrolling) {
+          return;
+        }
+        event.preventDefault();
         window.inAction = true;
         if (event.touches.length == 1 ) {
-          touch.dx = event.touches[0].pageX - touch.x1; // right, left
-          // touch.dy = event.touches[0].pageY - touch.y1; // up, down
-
           var d = touch.dx * pxMultiplier;
           var pos;
           if (!$("#main").hasClass("open") && touch.dx > 0) {
@@ -258,6 +266,7 @@
           touch.dx = 0;
           window.inAction = false;
         }
+        if (window.isScrolling) window.isScrolling = false;
       });
 
       spiderOakApp.checkAlternateServerAllowed();

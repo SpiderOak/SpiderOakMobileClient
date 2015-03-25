@@ -211,13 +211,7 @@
       }, 130);
     },
     switch_tapHandler: function(event) {
-      var $this = null;
-      if ($(event.target).hasClass("switch")) {
-        $this = $(event.target);
-      }
-      else {
-        $this = $(event.target).closest(".switch");
-      }
+      var $this = $(event.target).closest(".stayloggedin").find(".switch.circle");
       var $checkbox = this.$("input[type=checkbox]");
       var checked = ($checkbox.attr("checked") === "true");
       $checkbox.attr("checked",!checked);

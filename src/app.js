@@ -164,6 +164,9 @@
         spiderOakApp.loginView.$(".learn-more").show();
         spiderOakApp.loginView.$(".advanced-login-settings").show();
       }
+      if (spiderOakApp.settings.getOrDefault("inhibitAdvancedLogin")) {
+        spiderOakApp.loginView.$(".advanced-login-settings").hide();
+      }
       // Determine if we should be showing the preliminary screen at all
       spiderOakApp.showPreliminary = false;
       if (spiderOakApp.settings.getOrDefault("showPreliminary")) {

@@ -603,10 +603,10 @@
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
     defaultEffect: (($.os.android) ?
-                    new window.BackStack.NoEffect() :
+                    new spiderOakApp.PopFadeEffect() :
                     new spiderOakApp.FastSlideEffect()),
     defaultPopEffect: (($.os.android) ?
-                       new window.BackStack.NoEffect() :
+                       new spiderOakApp.PopFadeEffect() :
                        new spiderOakApp.FastSlideEffect({direction:'right'})),
     b32nibbler: new window.Nibbler({dataBits: 8,
                                     codeBits: 5,

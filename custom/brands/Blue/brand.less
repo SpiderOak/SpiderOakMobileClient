@@ -1,1 +1,45 @@
-@highlightColor: #1f89ca;
+.login {
+  background-color: #ffffff;
+  background: #ffffff;
+
+  .cancel-btn, .menu-btn {
+    color: #e77c24;
+
+    &.active {
+      color: fade(#e77c24, 60%);
+    }
+  }
+
+  .login-form {
+
+    .button {
+      color: #e77c24;
+
+      &.active {
+        color: fade(#e77c24, 60%);
+      }
+    }
+
+    .stayloggedin {
+      color: #e77c24;
+
+      .circle {
+        background-color: #e77c24;
+        color: fade(#ffffff, 40%);
+
+        &.on {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .advanced-login-settings,
+  .learn-more {
+    color: fade(#e77c24, 60%);
+
+    &:active {
+      color: #e77c24;
+    }
+  }
+}

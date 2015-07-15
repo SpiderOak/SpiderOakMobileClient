@@ -42,6 +42,16 @@
         'config.xml'
     ),
     version = shell.exec('git describe --tags', {silent:true}).output.trim();
+  var etSubElement = et.SubElement;
+
+  var displayName = projectName;
+  if (require(projectConfigFilePath).displayName) {
+    displayName = require(projectConfigFilePath).displayName;
+  }
+  var shortDisplayName = projectName;
+  if (require(projectConfigFilePath).shortDisplayName) {
+    shortDisplayName = require(projectConfigFilePath).shortDisplayName;
+  }
 
   if (fs.existsSync(iOSConfigFilePath)) {
     var plistFile = path.join(iOSConfigFilePath, projectName + '-Info.plist');
@@ -57,6 +67,7 @@
     infoPlist['CFBundleIdentifier'] = package.join(".");
     infoPlist['CFBundleVersion'] = version;
     infoPlist['CFBundleShortVersionString'] = version;
+    infoPlist['CFBundleDisplayName'] = shortDisplayName;
     var info_contents = plist.build(infoPlist);
     info_contents = info_contents.replace(/<string>[\s\r\n]*<\/string>/g,'<string></string>');
     fs.writeFileSync(plistFile, info_contents, 'utf-8');
@@ -78,6 +89,16 @@
       )
     );
     doc.getroot().attrib['android:versionName'] = version;
+    doc.getroot()._children.forEach(function(child, index) {
+      if (child.tag === 'application') {
+        child.attrib['android:label'] = displayName;
+        child._children.forEach(function(subchild, index) {
+          if (subchild.tag === 'activity') {
+            subchild.attrib['android:label'] = shortDisplayName;
+          }
+        });
+      }
+    });
     fs.writeFileSync(
       path.join(androidConfigFilePath, 'AndroidManifest.xml'), doc.write({indent: 4}), 'utf-8'
     );

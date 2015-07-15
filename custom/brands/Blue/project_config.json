@@ -2,6 +2,8 @@
   "whatsthis": "/* SpiderOak Blue-label project configuration. */",
 
   "projectName": "SpiderOakBlue",
+  "displayName": "SpiderOak Groups",
+  "shortDisplayName": "Groups",
   "brandName": "SpiderOak Blue",
   "identifier": "com.spideroakblue.mobile",
   "androidIdentifier": "com.spideroakblue.android",

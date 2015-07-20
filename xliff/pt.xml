@@ -541,8 +541,8 @@
         <target>Precisa de uma conta?</target>
       </trans-unit>
       <trans-unit id="135">
-        <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
-        <target>Por favor, vá para &lt;a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; e siga as instruções para criar a sua conta.</target>
+        <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
+        <target>Por favor, vá para &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; e siga as instruções para criar a sua conta.</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Live Privately,</source>

@@ -133,7 +133,7 @@
 	"Log In": "Зайти",
 	"Log in": "Зайти",
 	"Need an account?": "Нужен аккаунт?",
-	"Please go to <a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Зайдите на <a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> и следуйте инструкциям для создания своего аккаунта.",
+	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Зайдите на <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> и следуйте инструкциям для создания своего аккаунта.",
 	"Live Privately,": "Сохраняйте конфиденциальность",
 	"The SpiderOak Team": "Группа SpiderOak",
 	"Not [[Zero-Knowledge]]": "Не {{Zero-Knowledge}}",

@@ -481,7 +481,7 @@
         <target>No entanto, você não precisa ser um usuário da {{SpiderOak}} para aproveitar os benefícios do nosso aplicativo {{platform}}. Você pode abrir o {{ShareRoom}} de um amigo ou colega ingressando o {{ShareID}} dele e um {{RoomKey}} válido. Você também pode enviar arquivos por e-mail através de um link seguro.</target>
       </trans-unit>
       <trans-unit id="120">
-        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
+        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started.</source>
         <target>Se você deseja saber mais sobre a {{SpiderOak}}, visite &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; e baixe o cliente {{SpiderOak}} para começar com a sua conta GRATUITA de 2 GB.</target>
       </trans-unit>
       <trans-unit id="121">

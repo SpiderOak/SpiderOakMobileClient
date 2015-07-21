@@ -134,7 +134,7 @@
 	"Log In": "Log In",
 	"Log in": "Log in",
 	"Need an account?": "Need an account?",
-	"Please go to <a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Please go to <a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> and follow the instructions to establish your account.",
+	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Please go to <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> and follow the instructions to establish your account.",
 	"Live Privately,": "Live Privately,",
 	"The SpiderOak Team": "The SpiderOak Team",
 	"Not [[Zero-Knowledge]]": "Not {{Zero-Knowledge}}",

@@ -133,7 +133,7 @@
 	"Log In": "Iniciar sesión",
 	"Log in": "Iniciar sesión",
 	"Need an account?": "¿Necesitas una cuenta?",
-	"Please go to <a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Dirígete a <a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> y sigue las instrucciones para establecer tu cuenta.",
+	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Dirígete a <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> y sigue las instrucciones para establecer tu cuenta.",
 	"Live Privately,": "Con nuestros deseos para una vida privada,",
 	"The SpiderOak Team": "El equipo de SpiderOak",
 	"Not [[Zero-Knowledge]]": "Sin sistema {{Zero-Knowledge}}",

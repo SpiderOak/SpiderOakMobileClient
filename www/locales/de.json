@@ -133,7 +133,7 @@
 	"Log In": "Anmelden",
 	"Log in": "Anmelden",
 	"Need an account?": "Sie möchten ein Konto eröffnen?",
-	"Please go to <a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Hierzu rufen Sie bitte <a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> auf und folgen den Anweisungen zum Einrichten Ihres Kontos.",
+	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Hierzu rufen Sie bitte <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> auf und folgen den Anweisungen zum Einrichten Ihres Kontos.",
 	"Live Privately,": "Wir schützen Ihre Privatsphäre",
 	"The SpiderOak Team": "Das SpiderOak Team",
 	"Not [[Zero-Knowledge]]": "Nicht {{Zero-Knowledge}}",

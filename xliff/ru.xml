@@ -482,7 +482,7 @@
       </trans-unit>
       <trans-unit id="120">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started.</source>
-        <target>Если вы желаете узнать больше о {{SpiderOak}}, зайдите на &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; и загрузите {{SpiderOak}} клиента для того, чтобы начать свой БЕСПЛАТНЫЙ аккаунт на 2 Гбайта.</target>
+        <target>Если вы желаете узнать больше о {{SpiderOak}}, зайдите на &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; и загрузите приложение {{SpiderOak}}, чтобы начать.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]/business/' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]/business/&lt;/a&gt;.</source>

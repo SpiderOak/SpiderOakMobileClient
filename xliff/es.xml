@@ -314,8 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>That address is already current</source>
-        <target>La dirección especificada
-ya está actualizada</target>
+        <target>La dirección especificada ya está actualizada</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Service host changed to [[server]]</source>
@@ -483,7 +482,7 @@ ya está actualizada</target>
       </trans-unit>
       <trans-unit id="120">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started.</source>
-        <target>Si deseas conocer más acerca de {{SpiderOak}}, visita &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; y descarga el cliente {{SpiderOak}} para comenzar a usar tu cuenta GRATUITA de 2 GB.</target>
+        <target>Si deseas conocer más acerca de {{SpiderOak}}, visita &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; y descarga el cliente {{SpiderOak}} para empezar.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]/business/' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]/business/&lt;/a&gt;.</source>

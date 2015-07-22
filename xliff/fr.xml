@@ -481,8 +481,8 @@
         <target>Et vous n'avez pas à être utilisateur {{SpiderOak}} pour profiter des fonctionnalités de notre application {{platform}}. Vous pouvez ouvrir la {{ShareRoom}} d'un ami ou d'un collègue en saisissant son {{ShareID}} et une {{RoomKey}} valide. Vous pouvez également envoyer des fichiers par courriel en mode sécurisé.</target>
       </trans-unit>
       <trans-unit id="120">
-        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
-        <target>Si vous souhaitez en savoir plus sur {{SpiderOak}}, rendez-vous sur &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; et téléchargez le client {{SpiderOak}} pour profiter de votre compte de 2 Go GRATUIT.</target>
+        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started.</source>
+        <target>Si vous souhaitez en savoir plus sur {{SpiderOak}}, rendez-vous sur &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; et téléchargez la {{SpiderOak}}client pour commencer.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]/business/' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]/business/&lt;/a&gt;.</source>
@@ -942,7 +942,7 @@
       </trans-unit>
       <trans-unit id="235">
         <source>In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.</source>
-        <target>Afin de garantir un niveau de confidentialité [[Zero-Knowledge]], vous devez créer votre compte sur un ordinateur.</target>
+        <target>Afin de garantir un niveau de confidentialité {{Zero-Knowledge}}, vous devez créer votre compte sur un ordinateur.</target>
       </trans-unit>
       
     </body>

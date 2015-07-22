@@ -485,8 +485,8 @@
         <target>However - you don’t have to be a {{SpiderOak}} user to enjoy the benefits of our {{platform}} application. You can open the {{ShareRoom}} of a friend or colleague by entering their {{ShareID}} and a valid {{RoomKey}}. You can also email files through a secure link.</target>
       </trans-unit>
       <trans-unit id="121">
-        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started with your FREE 2 GB account.</source>
-        <target>If you would like to learn more about {{SpiderOak}}, please visit &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; and download the {{SpiderOak}} client to get started with your FREE 2 GB account.</target>
+        <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and download the [[SpiderOak]] client to get started.</source>
+        <target>If you would like to learn more about {{SpiderOak}}, please visit &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; and download the {{SpiderOak}} client to get started.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>If you would like to learn more about [[SpiderOak]], please visit &lt;a href='#spideroak' data-url='https://[[sourl]]/business/' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]/business/&lt;/a&gt;.</source>
@@ -545,8 +545,8 @@
         <target>Need an account?</target>
       </trans-unit>
       <trans-unit id="136">
-        <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]] class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
-        <target>Please go to &lt;a href='#spideroak' data-url='https://{{sourl}} class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; and follow the instructions to establish your account.</target>
+        <source>Please go to &lt;a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'&gt;https://[[sourl]]&lt;/a&gt; and follow the instructions to establish your account.</source>
+        <target>Please go to &lt;a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'&gt;https://{{sourl}}&lt;/a&gt; and follow the instructions to establish your account.</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Live Privately,</source>

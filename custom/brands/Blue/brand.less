@@ -2,6 +2,17 @@
   background-color: #ffffff;
   background: #ffffff;
 
+
+  #unme,
+  #pwrd {
+    color: #e77c24;
+
+    &::-webkit-input-placeholder {
+      color: fade(#e77c24, 60%);
+      text-shadow: none;
+    }
+  }
+
   .cancel-btn, .menu-btn {
     color: #e77c24;
 
@@ -12,11 +23,22 @@
 
   .login-form {
 
+    .login-input {
+      border-color: fade(#e77c24, 20%);
+
+      &.focused {
+        border-color: fade(#e77c24, 60%);
+      }
+    }
+
     .button {
       color: #e77c24;
+      border-color: fade(#e77c24, 20%);
+      border-bottom-color: fade(#e77c24, 40%);
 
       &.active {
         color: fade(#e77c24, 60%);
+        background: fade(#e77c24, 20%);
       }
     }
 
@@ -36,7 +58,7 @@
 
   .advanced-login-settings,
   .learn-more {
-    color: fade(#e77c24, 60%);
+    color: fade(#e77c24, 80%);
 
     &:active {
       color: #e77c24;

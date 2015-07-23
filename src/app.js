@@ -336,7 +336,8 @@
       $(document).on("backbutton", spiderOakApp.onBackKeyDown);
       $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
       // Colored status bar for Lollipop+
-      if ($.os.android && parseFloat(window.device.version) >= 5.0) {
+      if (window.device &&
+          ($.os.android && parseFloat(window.device.version) >= 5.0)) {
         window.StatusBar.backgroundColorByHexString(s("#da6225"));
       }
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {

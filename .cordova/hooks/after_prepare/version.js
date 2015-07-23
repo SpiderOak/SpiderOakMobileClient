@@ -9,7 +9,7 @@
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
     projectConfigFilePath = path.join(projectRootDir,
                                       'custom', 'brand', 'project_config.json'),
-    projectName = require(projectConfigFilePath).projectName,
+    projectConfig = require(projectConfigFilePath),
     genericConfigFile = path.join(
       projectRootDir,
       'www',
@@ -19,7 +19,7 @@
         projectRootDir,
         'platforms',
         'ios',
-        projectName
+        projectConfig.projectName
     ),
     iOSConfigXMLFilePath = path.join(
         projectRootDir,
@@ -44,17 +44,17 @@
     version = shell.exec('git describe --tags', {silent:true}).output.trim();
   var etSubElement = et.SubElement;
 
-  var displayName = projectName;
-  if (require(projectConfigFilePath).displayName) {
-    displayName = require(projectConfigFilePath).displayName;
+  var displayName = projectConfig.projectName;
+  if (projectConfig.displayName) {
+    displayName = projectConfig.displayName;
   }
-  var shortDisplayName = projectName;
-  if (require(projectConfigFilePath).shortDisplayName) {
-    shortDisplayName = require(projectConfigFilePath).shortDisplayName;
+  var shortDisplayName = projectConfig.projectName;
+  if (projectConfig.shortDisplayName) {
+    shortDisplayName = projectConfig.shortDisplayName;
   }
 
   if (fs.existsSync(iOSConfigFilePath)) {
-    var plistFile = path.join(iOSConfigFilePath, projectName + '-Info.plist');
+    var plistFile = path.join(iOSConfigFilePath, projectConfig.projectName + '-Info.plist');
     var infoPlist = plist.parseFileSync(plistFile);
     var config = new et.ElementTree(
       et.XML(
@@ -63,7 +63,7 @@
     );
     var package = config.getroot().attrib.id.split(".");
     package.pop();
-    package.push(projectName);
+    package.push(projectConfig.projectName);
     infoPlist['CFBundleIdentifier'] = package.join(".");
     infoPlist['CFBundleVersion'] = version;
     infoPlist['CFBundleShortVersionString'] = version;

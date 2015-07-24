@@ -335,6 +335,11 @@
     onDeviceReady: function() {
       $(document).on("backbutton", spiderOakApp.onBackKeyDown);
       $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
+      // Colored status bar for Lollipop+
+      if (window.device &&
+          ($.os.android && parseFloat(window.device.version) >= 5.0)) {
+        window.StatusBar.backgroundColorByHexString(s("#da6225"));
+      }
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
         $(".app").css({"top":"20px"}); // status bar hax
       }
@@ -603,10 +608,10 @@
     noEffect: new window.BackStack.NoEffect(),
     fadeEffect: new window.BackStack.FadeEffect(),
     defaultEffect: (($.os.android) ?
-                    new window.BackStack.NoEffect() :
+                    new spiderOakApp.PopFadeEffect() :
                     new spiderOakApp.FastSlideEffect()),
     defaultPopEffect: (($.os.android) ?
-                       new window.BackStack.NoEffect() :
+                       new spiderOakApp.PopFadeEffect() :
                        new spiderOakApp.FastSlideEffect({direction:'right'})),
     b32nibbler: new window.Nibbler({dataBits: 8,
                                     codeBits: 5,

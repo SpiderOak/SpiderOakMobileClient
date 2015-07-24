@@ -120,6 +120,7 @@ module.exports = function(grunt) {
           'src/helpers/customStrings.js',
           'src/helpers/localizer.js',
           'src/effects/FastSlideEffect.js',
+          'src/effects/PopFadeEffect.js',
           'src/models/ModelBase.js',
           'src/models/AccountModel.js',
           'src/models/StorageBarModel.js',

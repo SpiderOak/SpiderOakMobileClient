@@ -7,15 +7,15 @@
 @navTitleTextColor: #999;
 @pageBackground: #e4e4e4;
 @liActiveBackgroundColor: #ccc;
-@liBorderColor: #333;
-@menuLiBackgroundColor: #333;
+@liBorderColor: #252525;
+@menuLiBackgroundColor: #252525;
 @menuLiBorderColor: #666;
 @menuLiActiveBackgroundColor: #ccc;
 @menuLiActiveTextColor: #000;
-@menuSepBackgroundColor: #333;
+@menuSepBackgroundColor: #252525;
 @menuSepTextColor: #ccc;
 @buttonBackgroundColor: #ccc;
-@buttonTextColor: #333;
+@buttonTextColor: #252525;
 @shadowColor: fadeOut(#000, 60);
 
 // Mixins
@@ -35,47 +35,44 @@ body {
 }
 
 .nav {
+  position: relative;
   height: 48px !important;
-  background-color: #111;
+  background-color: @highlightColor;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  box-shadow: 0 0 5px fadeOut(#000, 60);
 
-  .menu-btn,
-  .back-btn {
+  .title {
+    .positionAbsolute(auto, 48px, auto, 48px);
+    .ellipsis;
+    width: auto;
+    line-height: 48px;
+    padding: 0;
+    font-size: 130%;
+    color: @navTextColor;
+  }
+
+  .back-btn,
+  .menu-btn {
     .positionAbsolute(auto, auto, auto, 0);
-    color: #000;
+    color: @navTextColor;
     display: block;
-    padding: 0 3px;
-    background: url('../img/ic_ab_back_holo_dark.png') no-repeat,
-      url('../img/icon.png') no-repeat;
     width: 48px;
-    height:48px;
-    background-size: 16px, 35px;
-    background-position: 0 17.5px, 13px 7.5px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    font-size: 150%;
+    font-family: 'SpiderOakIcons';
+
+    &:before {
+      content: '\e02f';
+    }
   }
 
   .menu-btn {
-    .positionAbsolute(auto, auto, auto, 0);
-    color: #000;
-    display: block;
-    padding: 0 3px;
-    background: url('../img/ic_drawer.png') no-repeat,
-      url('../img/icon.png') no-repeat;
-    width: 48px;
-    height:48px;
-    background-size: 16px, 35px;
-    background-position: 0 17.5px, 13px 7.5px;
-    transition: background-position .2s ease-out;
-  }
 
-  .icon-btn {
-    .positionAbsolute(auto, auto, auto, 0);
-    color: #000;
-    display: block;
-    padding: 0 3px;
-    background: url('../img/icon.png') no-repeat;
-    width: 48px;
-    height:48px;
-    background-size: 35px;
-    background-position: 13px 7.5px;
+    &:before {
+      content:'\f0c9';
+    }
   }
 
   .menu-btn.active,
@@ -83,8 +80,12 @@ body {
   .passcode-cancel-btn.active,
   .clear-recents-btn.active,
   .add-sharerooms-btn.active,
-  .refresh-favorites-btn.active {
-    background-color: #333;
+  .refresh-favorites-btn.active  {
+    color: fadeOut(@navTextColor, 50);
+  }
+
+  .icon-btn {
+    .hidden;
   }
 
   .passcode-cancel-btn,
@@ -92,47 +93,15 @@ body {
   .add-sharerooms-btn,
   .refresh-favorites-btn {
     .positionAbsolute(0, 0, auto, auto);
-    font-size: 22px;
-    margin: 0;
-    color: #ccc;
+    color: @navTextColor;
+    font-size: 110%;
     text-align: center;
-    padding: 13px 13px 8px 13px;
+    padding: 13px 13px 12px 13px;
     display: block;
-    color: @navTitleTextColor;
   }
 
-  .title {
-    .ellipsis;
-    display: block;
-    width: 250px;
-    padding: 10px;
-    position: absolute;
-    left: 45px;
-    font-size: 130%;
-    color: @navTitleTextColor;
-  }
-}
-
-.main {
-  
-  &.open {
-    
-    .nav {
-      
-      .menu-btn {
-        .positionAbsolute(auto, auto, auto, 0);
-        color: #000;
-        display: block;
-        padding: 0 3px;
-        background: url('../img/ic_drawer.png') no-repeat,
-        url('../img/icon.png') no-repeat;
-        width: 48px;
-        height:48px;
-        background-size: 16px, 35px;
-        background-position: -6.5px 17.5px, 13px 7.5px;
-        transition: background-position .2s ease-out;
-      }
-    }
+  .clear-recents-btn {
+    font-size: 100%;
   }
 }
 
@@ -255,7 +224,7 @@ ul {
 
   input {
     -webkit-user-modify: read-write-plaintext-only;
-    -webkit-tap-highlight-color: rgba(0,0,0,0); 
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     width: 100%;
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     outline: 0 none !important;
@@ -266,7 +235,7 @@ ul {
     bottom: 20px;
     margin: -5px 5px;
     font-size: 110%;
-    color: #333;
+    color: #252525;
   }
 
   @media all and (orientation:landscape) {
@@ -319,7 +288,7 @@ input[type="password"]:focus {
 
   input {
     -webkit-user-modify: read-write-plaintext-only;
-    -webkit-tap-highlight-color: rgba(0,0,0,0); 
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     width: 100%;
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     outline: 0 none !important;
@@ -389,9 +358,9 @@ input[type="password"]:focus {
     input {
       position: relative;
       width: 80px;
-      height: 20px; 
-      display: block; 
-      -webkit-appearance: none; 
+      height: 20px;
+      display: block;
+      -webkit-appearance: none;
       padding: 0px;
       margin: 0px;
       border-radius: 0;
@@ -400,10 +369,10 @@ input[type="password"]:focus {
       &:checked + label {
 
         span {
-          background-color: orange;  
+          background-color: orange;
           left:40px;
 
-          &:before {   
+          &:before {
             .positionAbsolute;
             content:attr(data-on);
           }
@@ -413,28 +382,28 @@ input[type="password"]:focus {
 
     input + label {
 
-      span {   
-        background-color: rgb(153,153,153); 
+      span {
+        background-color: rgb(153,153,153);
         left: -1px;
 
         &:before {
           .positionAbsolute;
           display: block;
-          content: attr(data-off); 
+          content: attr(data-off);
         }
       }
     }
 
     label {
       padding: 0px;
-      margin: 0px; 
-      width: 80px;  
-      display: block; 
+      margin: 0px;
+      width: 80px;
+      display: block;
       border: 1px solid #ddd;
       height: 20px;
       margin-top: -20px;
-      margin-left: 0px; 
-      position: relative; 
+      margin-left: 0px;
+      position: relative;
       text-transform: uppercase;
       overflow: hidden;
       font-size: 70%;
@@ -443,12 +412,12 @@ input[type="password"]:focus {
 
       span {
         .positionAbsolute(0, auto, auto, auto);
-        height: 20px; 
+        height: 20px;
         width: 40px;
-        display: block; 
-        line-height: 20px; 
-        text-align: center; 
-        -webkit-box-sizing: border-box; 
+        display: block;
+        line-height: 20px;
+        text-align: center;
+        -webkit-box-sizing: border-box;
         color: white;
       }
     }
@@ -476,9 +445,9 @@ input[type="password"]:focus {
   input {
     position: relative;
     width: 80px;
-    height: 20px; 
-    display: block; 
-    -webkit-appearance: none; 
+    height: 20px;
+    display: block;
+    -webkit-appearance: none;
     padding: 0;
     margin: 0;
     border-radius: 0;
@@ -487,14 +456,14 @@ input[type="password"]:focus {
 
   label {
     padding: 0px;
-    margin: 0px; 
-    width: 80px;  
-    display: block; 
+    margin: 0px;
+    width: 80px;
+    display: block;
     border: 1px solid #ddd;
     height: 20px;
     margin-top: -20px;
-    margin-left: 0; 
-    position: relative; 
+    margin-left: 0;
+    position: relative;
     text-transform: uppercase;
     overflow: hidden;
     font-size: 70%;
@@ -502,43 +471,43 @@ input[type="password"]:focus {
     z-index: 0;
 
     span {
-      height: 20px; 
+      height: 20px;
       width: 40px;
-      display: block; 
-      line-height: 20px; 
-      text-align: center; 
-      -webkit-box-sizing: border-box; 
-      color: white; 
+      display: block;
+      line-height: 20px;
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      color: white;
       position: absolute;
       top: 0;
     }
   }
 
-  input + label span {   
-    background-color: rgb(153, 153, 153); 
+  input + label span {
+    background-color: rgb(153, 153, 153);
     left: -1px;
   }
 
   input:checked + label span {
-    background-color: @highlightColor;  
+    background-color: @highlightColor;
     left: 40px;
   }
 
   input + label span:before {
-    display: block; 
-    content: attr(data-off); 
-    left: 0; 
-    right: 0; 
-    top: 0; 
+    display: block;
+    content: attr(data-off);
+    left: 0;
+    right: 0;
+    top: 0;
     bottom: 0;
-    position: absolute; 
+    position: absolute;
   }
 
-  input:checked + label span:before {   
-    content: attr(data-on); 
-    right: 0; 
-    left: 0; 
-    top: 0; 
+  input:checked + label span:before {
+    content: attr(data-on);
+    right: 0;
+    left: 0;
+    top: 0;
     bottom: 0;
   }
 }

@@ -9,7 +9,7 @@
     projectRootDir = path.resolve(__dirname, '..', '..', '..'),
     projectConfigFilePath = path.join(projectRootDir,
                                       'custom', 'brand', 'project_config.json'),
-    projectName = require(projectConfigFilePath).projectName,
+    projectConfig = require(projectConfigFilePath),
     genericConfigFile = path.join(
       projectRootDir,
       'www',
@@ -19,7 +19,7 @@
         projectRootDir,
         'platforms',
         'ios',
-        projectName
+        projectConfig.projectName
     ),
     iOSConfigXMLFilePath = path.join(
         projectRootDir,
@@ -42,9 +42,19 @@
         'config.xml'
     ),
     version = shell.exec('git describe --tags', {silent:true}).output.trim();
+  var etSubElement = et.SubElement;
+
+  var displayName = projectConfig.projectName;
+  if (projectConfig.displayName) {
+    displayName = projectConfig.displayName;
+  }
+  var shortDisplayName = projectConfig.projectName;
+  if (projectConfig.shortDisplayName) {
+    shortDisplayName = projectConfig.shortDisplayName;
+  }
 
   if (fs.existsSync(iOSConfigFilePath)) {
-    var plistFile = path.join(iOSConfigFilePath, projectName + '-Info.plist');
+    var plistFile = path.join(iOSConfigFilePath, projectConfig.projectName + '-Info.plist');
     var infoPlist = plist.parseFileSync(plistFile);
     var config = new et.ElementTree(
       et.XML(
@@ -53,10 +63,11 @@
     );
     var package = config.getroot().attrib.id.split(".");
     package.pop();
-    package.push(projectName);
+    package.push(projectConfig.projectName);
     infoPlist['CFBundleIdentifier'] = package.join(".");
     infoPlist['CFBundleVersion'] = version;
     infoPlist['CFBundleShortVersionString'] = version;
+    infoPlist['CFBundleDisplayName'] = shortDisplayName;
     var info_contents = plist.build(infoPlist);
     info_contents = info_contents.replace(/<string>[\s\r\n]*<\/string>/g,'<string></string>');
     fs.writeFileSync(plistFile, info_contents, 'utf-8');
@@ -78,6 +89,16 @@
       )
     );
     doc.getroot().attrib['android:versionName'] = version;
+    doc.getroot()._children.forEach(function(child, index) {
+      if (child.tag === 'application') {
+        child.attrib['android:label'] = displayName;
+        child._children.forEach(function(subchild, index) {
+          if (subchild.tag === 'activity') {
+            subchild.attrib['android:label'] = shortDisplayName;
+          }
+        });
+      }
+    });
     fs.writeFileSync(
       path.join(androidConfigFilePath, 'AndroidManifest.xml'), doc.write({indent: 4}), 'utf-8'
     );

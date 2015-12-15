@@ -17,7 +17,10 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - Grunt - [http://gruntjs.com/](http://gruntjs.com/)
 	- Build tool for minimising, running and tests
 - Node and npm - [http://nodejs.org/](http://nodejs.org/)
-	- Node package manager for Grunt Add-ons
+    - Node package manager for Grunt Add-ons
+    - We require Node 4 and not Node 5 due to Cordova
+      incompatibilities. We recommend using
+      [nvm](https://github.com/creationix/nvm) to manage multiple Node installations.
 - PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
 - FileViewerPlugin - [https://github.com/SpiderOak/FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin)

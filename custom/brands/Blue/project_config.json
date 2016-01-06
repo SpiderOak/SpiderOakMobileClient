@@ -1,13 +1,13 @@
 {
   "whatsthis": "/* SpiderOak Blue-label project configuration. */",
 
-  "projectName": "SpiderOakBlue",
+  "projectName": "SpiderOakGroups",
   "displayName": "SpiderOak Groups",
   "shortDisplayName": "Groups",
-  "brandName": "SpiderOak Blue",
+  "brandName": "SpiderOak Groups",
   "identifier": "com.spideroakblue.mobile",
   "androidIdentifier": "com.spideroakblue.android",
   "iosIdentifier": "com.spideroakblue.SpiderOak",
-  "description": "SpiderOak Blue Mobile Client.",
+  "description": "SpiderOak Groups Mobile Client.",
   "customPlugins": []
 }

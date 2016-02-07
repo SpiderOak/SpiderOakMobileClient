@@ -21,4 +21,18 @@
     <preference name="BackupWebStorage" value="none" />
     <access origin="*" />
     <content src="index.html" />
+    <plugin name="cordova-plugin-device" spec="~1.1.1" />
+    <plugin name="cordova-plugin-console" spec="~1.0.2" />
+    <plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
+    <plugin name="cordova-plugin-file" spec="~4.1.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.2.0" />
+    <plugin name="cordova-plugin-network-information" spec="~1.2.0" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.1.0" />
+    <plugin name="com.spideroak.fileviewerplugin" spec="https://github.com/SpiderOak/FileViewerPlugin.git" />
+    <plugin name="com.synconset.cordovaHTTP" spec="https://github.com/SpiderOak/cordova-HTTP.git" />
+    <plugin name="cordova-plugin-privacyscreen" spec="~0.1.2" />
+    <plugin name="cordova-plugin-file-transfer" />
+    <plugin name="org.apache.cordova.file-transfer" spec="https://github.com/SpiderOak/cordova-plugin-file-transfer.git" />
+    <engine name="android" spec="~5.1.0" />
+    <engine name="ios" spec="~3.9.2" />
 </widget>

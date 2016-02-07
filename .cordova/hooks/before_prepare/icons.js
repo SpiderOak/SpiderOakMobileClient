@@ -13,7 +13,6 @@
       projectRootDir, 'platforms', 'ios', projectName, 'Resources', 'icons');
 
   var androidIcons = [
-    { file: 'cordova_android_96.png', dest: 'drawable' },
     { file: 'cordova_android_72.png', dest: 'drawable-hdpi' },
     { file: 'cordova_android_36.png', dest: 'drawable-ldpi' },
     { file: 'cordova_android_48.png', dest: 'drawable-mdpi' },

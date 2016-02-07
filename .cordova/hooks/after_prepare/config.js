@@ -23,10 +23,10 @@
     // Android
     if (fs.existsSync(androidDest)) {
       console.log("[hooks] copying android AndroidManifest.xml...");
-      copyFile(
-        path.join(res, androidConfigFile),
-        path.join(androidDest, androidConfigFile)
-      );
+      //copyFile(
+        //path.join(res, androidConfigFile),
+        //path.join(androidDest, androidConfigFile)
+      //);
     }
     if (fs.existsSync(iOSDest)) {
       console.log("[hooks] copying ios SpiderOak-Info.plist...");

@@ -176,22 +176,8 @@
         }
       }
 
-      // Until this.version gets proper setting from config.xml - if it does:
-      this.version = "0.0.1";
-      // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
-      this.dollarAjax({
-        url: "./config.xml",
-        dataType: "xml",
-        success: function(config){
-          var version = $(config).find("widget").attr("version") || "";
-          // config.xml is bogus findable during testing:
-          if (version) {
-            this.version = version;
-          }
-          $(document).trigger("versionready");
-        }.bind(this)
-      });
-
+      // Since this is now set at build time, fire now...
+      $(document).trigger("versionready");
 
       // Hax for Android 2.x not groking :active
       $(document).on("touchstart", "a", function(event) {

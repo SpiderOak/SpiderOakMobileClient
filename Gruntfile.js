@@ -108,7 +108,8 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         options: {
-          banner: '<%= meta.banner %>'
+          banner:  '<%= meta.banner %>' + '// GENERATED FILE - DO NOT EDIT\n\n' +
+          'window.spiderOakApp = { version: "<%= pkg.version %>" };\n\n'
         },
         src: [
           'src/helpers/FileHelper.js',

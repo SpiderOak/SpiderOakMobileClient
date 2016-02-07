@@ -4,6 +4,7 @@ bower_components/**/*
 !www/components/.gitignore
 !bower_components/.gitignore
 node_modules
+platforms/*
 platforms/ios
 platforms/android
 www/css/platform.css
@@ -19,3 +20,4 @@ www/js/SpiderOak-templates.js
 plugins/android.json
 www/css/*.css
 www/css/themes/*.css
+config.xml

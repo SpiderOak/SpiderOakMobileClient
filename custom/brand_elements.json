@@ -1,6 +1,6 @@
 [
   {
-    "subject": "www/config.xml",
+    "subject": "config.xml",
     "transforms": [
       {
         "field": "androidIdentifier",

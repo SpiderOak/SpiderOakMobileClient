@@ -35,4 +35,5 @@
     <plugin name="org.apache.cordova.file-transfer" spec="https://github.com/SpiderOak/cordova-plugin-file-transfer.git" />
     <engine name="android" spec="~5.1.0" />
     <engine name="ios" spec="~3.9.2" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 </widget>

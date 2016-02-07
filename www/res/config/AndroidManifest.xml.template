@@ -5,12 +5,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="SpiderOakONE" android:allowBackup="false">
-        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="SpiderOakONE" android:name="SpiderOakONE" android:windowSoftInputMode="adjustPan" >
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="SpiderOakONE" android:name="MainActivity" android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="22" />
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="23" />
 </manifest>

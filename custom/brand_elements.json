@@ -26,11 +26,6 @@
         "attribute": "package"
       },
       {
-        "field": "projectName",
-        "tagPath": "./application/activity",
-        "attribute": "android:name"
-      },
-      {
         "field": "brandName",
         "tagPath": "./application/activity",
         "attribute": "android:label"

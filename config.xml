@@ -5,7 +5,6 @@
  <author email="tommy@devgeeks.org" href="http://www.spideroak.com">
         SpiderOak
     </author>
- <icon height="512" src="res/icon/cordova_512.png" width="512" />
  <feature name="http://api.phonegap.com/1.0/device" />
  <preference name="loglevel" value="DEBUG" />
  <preference name="phonegap-version" value="2.6.0" />

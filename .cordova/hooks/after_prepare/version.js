@@ -84,7 +84,9 @@
   if (fs.existsSync(androidConfigFilePath)) {
     var doc = new et.ElementTree(
       et.XML(
-        fs.readFileSync(path.join(androidConfigFilePath, 'AndroidManifest.xml'), 'utf-8')
+        fs.readFileSync(
+          path.join(androidConfigFilePath, 'AndroidManifest.xml'), 'utf-8'
+        )
       )
     );
     doc.getroot().attrib['android:versionName'] = version;
@@ -99,7 +101,8 @@
       }
     });
     fs.writeFileSync(
-      path.join(androidConfigFilePath, 'AndroidManifest.xml'), doc.write({indent: 4}), 'utf-8'
+      path.join(androidConfigFilePath, 'AndroidManifest.xml'),
+      doc.write({indent: 4}), 'utf-8'
     );
     var configXML = new et.ElementTree(
       et.XML(

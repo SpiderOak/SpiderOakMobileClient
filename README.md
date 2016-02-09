@@ -23,8 +23,6 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
       [nvm](https://github.com/creationix/nvm) to manage multiple Node installations.
 - PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
-- FileViewerPlugin - [https://github.com/SpiderOak/FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin)
-	- Cordova plugin for viewing files on Android via Intents
 
 ## Getting started
 
@@ -35,7 +33,6 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
   - runs `bower install`, which installs some other stuff,
   - configures the project for the default brand ("SpiderOak"),
   - adds the default cordova platforms - android and ios.
-- `npm run pluginstall` to install any plugins needed
 
 ## First test
 

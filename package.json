@@ -32,11 +32,11 @@
     "semver": "2.2.1"
   },
   "devDependencies": {
-    "cordova": "^6.0.0",
     "bower": "1.3.x",
     "chai": "~2.1.2",
     "chai-as-promised": "~4.3.0",
     "chai-jquery": "~1.1.2",
+    "cordova": "^6.0.0",
     "elementtree": "~0.1.5",
     "errno-codes": "~1.0.2",
     "grunt": "~0.4.x",
@@ -52,6 +52,7 @@
     "mocha": "~1.8.1",
     "mocha-phantomjs": "~2.0.0",
     "node-xcode": "git://github.com/alunny/node-xcode.git#ff9f67",
+    "phantomjs": "^1.9.19",
     "plist": "0.4.x",
     "shelljs": "~0.1.4",
     "sinon": "~1.7.3",

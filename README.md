@@ -112,14 +112,14 @@ The SpiderOak mobile client Android production release is available, via:
 
 | Platform |    Venue        | Version |    For users...                    |
 |:--------:|:---------------:|:-------:|:--------------------------------- |
-| iOS      | Apple App Store | [Orange](https://itunes.apple.com/app/spideroak/id360584371) | Regular users |
-| iOS      | Apple App Store | [Blue](https://itunes.apple.com/app/spideroakblue/id843640437) | Users with enterprise-specific servers |
-| Android  | Google Play     | [Orange](https://play.google.com/store/apps/details?id=com.spideroak.android) | Regular users |
-| Android  | Google Play     | [Blue](https://play.google.com/store/apps/details?id=com.spideroakblue.android) | Users with enterprise-specific servers |
-| Android  | Amazon App Store | [Orange](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I) | Regular users |
-| Android  | Amazon App Store | [Blue](http://www.amazon.com/SpiderOak-Inc-Blue/dp/B00JQJ8KE4) | Users with enterprise-specific servers |
-| Android  | SpiderOak ShareRoom | [Orange](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ a recent release - see notes below |
-| Android  | SpiderOak ShareRoom | [Blue](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ Enterprise version - see notes below |
+| iOS      | Apple App Store | [ONE](https://itunes.apple.com/app/spideroak/id360584371) | Regular users |
+| iOS      | Apple App Store | [Groups](https://itunes.apple.com/app/spideroakblue/id843640437) | Users with enterprise-specific servers |
+| Android  | Google Play     | [ONE](https://play.google.com/store/apps/details?id=com.spideroak.android) | Regular users |
+| Android  | Google Play     | [Groups](https://play.google.com/store/apps/details?id=com.spideroakblue.android) | Users with enterprise-specific servers |
+| Android  | Amazon App Store | [ONE](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I) | Regular users |
+| Android  | Amazon App Store | [Groups](http://www.amazon.com/SpiderOak-Inc-Blue/dp/B00JQJ8KE4) | Users with enterprise-specific servers |
+| Android  | SpiderOak ShareRoom | [ONE](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ a recent release - see notes below |
+| Android  | SpiderOak ShareRoom | [Blue / Groups](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ Enterprise version - see notes below |
 | All  | _This repository_ | All | Build and install it yourself - see notes below |
 
 * Regarding Android side-loadable .apk files, from our [recent Android builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent)

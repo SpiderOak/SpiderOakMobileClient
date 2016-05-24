@@ -119,7 +119,7 @@ The SpiderOak mobile client Android production release is available, via:
 | Android  | Amazon App Store | [ONE](http://www.amazon.com/SpiderOak-Inc/dp/B00DJBSD8I) | Regular users |
 | Android  | Amazon App Store | [Groups](http://www.amazon.com/SpiderOak-Inc-Blue/dp/B00JQJ8KE4) | Users with enterprise-specific servers |
 | Android  | SpiderOak ShareRoom | [ONE](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ a recent release - see notes below |
-| Android  | SpiderOak ShareRoom | [Blue / Groups](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ Enterprise version - see notes below |
+| Android  | SpiderOak ShareRoom | [Groups](https://spideroak.com/browse/share/spideroak-html5/Recent) | __Sideload__ Enterprise version - see notes below |
 | All  | _This repository_ | All | Build and install it yourself - see notes below |
 
 * Regarding Android side-loadable .apk files, from our [recent Android builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent)

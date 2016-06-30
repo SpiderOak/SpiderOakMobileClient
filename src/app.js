@@ -211,18 +211,26 @@
       var touch = {};
       var pxMultiplier = 1;
       var threshold = 80;
-      $(document).on("touchstart", "#nav", function(event){
-        event.preventDefault();
+      $(document).on("touchstart", "#main", function(event){
+        // event.preventDefault();
         touch.x1 = event.touches[0].pageX;
         touch.y1 = event.touches[0].pageY;
       });
-      $(document).on("touchmove", "#nav", function(event) {
+      $(document).on("touchmove", "#main", function(event) {
+        touch.dx = event.touches[0].pageX - touch.x1; // right, left
+        touch.dy = event.touches[0].pageY - touch.y1; // up, down
+        if (!$("#main").hasClass("open") &&
+            !window.isScrolling &&
+            !window.inAction &&
+            touch.dy !== 0) {
+          window.isScrolling = true;
+        }
+        if (window.isScrolling) {
+          return;
+        }
         event.preventDefault();
         window.inAction = true;
         if (event.touches.length == 1 ) {
-          touch.dx = event.touches[0].pageX - touch.x1; // right, left
-          // touch.dy = event.touches[0].pageY - touch.y1; // up, down
-
           var d = touch.dx * pxMultiplier;
           var pos;
           if (!$("#main").hasClass("open") && touch.dx > 0) {
@@ -239,7 +247,7 @@
           }
         }
       });
-      $(document).on("touchend touchcancel", "#nav", function(event) {
+      $(document).on("touchend touchcancel", "#main", function(event) {
         if (window.inAction) {
           var d = touch.dx * pxMultiplier;
           if (touch.dx > 0 && !$("#main").hasClass("open")) {
@@ -261,6 +269,7 @@
           touch.dx = 0;
           window.inAction = false;
         }
+        if (window.isScrolling) window.isScrolling = false;
       });
 
       spiderOakApp.checkAlternateServerAllowed();

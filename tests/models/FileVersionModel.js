@@ -9,6 +9,10 @@ describe('FileVersionModel', function() {
         ctime: 1359167989,
         mtime: 1359167946
       });
+      this.collection = new spiderOakApp.FileItemVersionsCollection({});
+      this.collection.url = "https://wherever.com/a/b/c/filename.pdf";
+      this.collection.add(this.model);
+      this.model.collection = this.collection;
     });
     it('should have a name', function() {
       this.model.get("name").should.be.a("string");
@@ -39,6 +43,10 @@ describe('FileVersionModel', function() {
     it('should have a size', function() {
       this.model.get("size").should.be.a("number");
       this.model.get("size").should.equal(255434);
+    });
+    it('should have a bare composedUrl with version query string', function() {
+      this.model.composedUrl(true).should.equal(
+        "https://wherever.com/a/b/c/filename.pdf?version=1");
     });
   });
 });

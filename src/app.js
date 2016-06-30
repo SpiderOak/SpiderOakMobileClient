@@ -211,12 +211,12 @@
       var touch = {};
       var pxMultiplier = 1;
       var threshold = 80;
-      $(document).on("touchstart", "#nav", function(event){
+      $(document).on("touchstart", "#main", function(event){
         event.preventDefault();
         touch.x1 = event.touches[0].pageX;
         touch.y1 = event.touches[0].pageY;
       });
-      $(document).on("touchmove", "#nav", function(event) {
+      $(document).on("touchmove", "#main", function(event) {
         event.preventDefault();
         window.inAction = true;
         if (event.touches.length == 1 ) {
@@ -239,7 +239,7 @@
           }
         }
       });
-      $(document).on("touchend touchcancel", "#nav", function(event) {
+      $(document).on("touchend touchcancel", "#main", function(event) {
         if (window.inAction) {
           var d = touch.dx * pxMultiplier;
           if (touch.dx > 0 && !$("#main").hasClass("open")) {

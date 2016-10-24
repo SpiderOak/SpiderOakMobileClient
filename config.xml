@@ -39,4 +39,5 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="none" />
+    <plugin name="cordova-plugin-privacyscreen" spec="~0.3.1" />
 </widget>

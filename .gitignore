@@ -19,3 +19,5 @@ www/js/SpiderOak-templates.js
 plugins/android.json
 www/css/*.css
 www/css/themes/*.css
+.DS_Store
+**/*/.DS_Store

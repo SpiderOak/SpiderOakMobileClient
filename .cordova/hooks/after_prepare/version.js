@@ -12,7 +12,6 @@
     projectConfig = require(projectConfigFilePath),
     genericConfigFile = path.join(
       projectRootDir,
-      'www',
       'config.xml'
     ),
     iOSConfigFilePath = path.join(
@@ -25,7 +24,7 @@
         projectRootDir,
         'platforms',
         'ios',
-        'www',
+        projectConfig.projectName,
         'config.xml'
     ),
     androidConfigFilePath = path.join(
@@ -37,8 +36,8 @@
         projectRootDir,
         'platforms',
         'android',
-        'assets',
-        'www',
+        'res',
+        'xml',
         'config.xml'
     ),
     version = shell.exec('git describe --tags', {silent:true}).output.trim();

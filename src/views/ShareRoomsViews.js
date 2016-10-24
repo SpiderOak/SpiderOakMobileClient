@@ -31,11 +31,6 @@
     },
     render: function() {
       this.$el.html(window.tmpl["shareRoomsRootViewTemplate"]());
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       // Load the public and "my" ShareRooms simultaneously (quasi-async)
       window.setTimeout(function(){
@@ -49,16 +44,11 @@
       this.publicShareRoomsListView =
         new spiderOakApp.PublicShareRoomsListView({
           collection: spiderOakApp.publicShareRoomsCollection,
-          el: this.$(".publicShareRoomsSection"),
-          scroller: this.scroller
+          el: this.$(".publicShareRoomsSection")
         });
       // When we've finished fetching the folders, help hide the spinner:
       this.publicShareRoomsListView.$el.one("complete", function(event) {
         this.publicShareRoomsListView.settle();
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
-        // @TODO: Refresh subviews scroller
       }.bind(this));
     },
     loadMyShareRooms: function() {
@@ -80,10 +70,6 @@
         // When we have finished fetching the folders, help hide the spinner
         this.myShareRoomsListView.$el.one("complete", function(event) {
           this.myShareRoomsListView.settle();
-          window.setTimeout(function(){
-            this.scroller.refresh();
-          }.bind(this),0);
-          // @TODO: Refresh subviews scroller
         }.bind(this));
       }
       else {
@@ -130,7 +116,6 @@
     },
     close: function() {
       // Clean up our subviews
-      this.scroller.destroy();
       this.publicShareRoomsListView.close();
       this.myShareRoomsListView.close();
     },
@@ -197,9 +182,6 @@
   spiderOakApp.PublicShareRoomsListView = spiderOakApp.ViewBase.extend({
     initialize: function() {
       this.subViews = [];
-      if (this.options.scroller) {
-        this.scroller = this.options.scroller;
-      }
 
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".publicShareRoomsList");
@@ -236,7 +218,6 @@
       this.$elList.empty(); // needed still?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
-      this.scroller.refresh();
     },
     triggerComplete: function() {
       this.$el.trigger("complete");
@@ -682,11 +663,6 @@
         window.tmpl[this.templateID](_.extend(this.model.toJSON()))
       );
       spiderOakApp.mainView.setTitle(qq("Details"));
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
       return this;
     },
     viewChanging: function(event) {
@@ -711,7 +687,6 @@
       // this.close();
     },
     close: function() {
-      this.scroller.destroy();
       this.remove();
       this.unbind();
     },

@@ -305,11 +305,6 @@
     render: function() {
       this.$el.html(window.tmpl["rememberMeWarningViewTemplate"]());
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       return this;
     },
@@ -346,14 +341,9 @@
       });
     },
     remove: function() {
-      this.close();
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 
@@ -371,11 +361,6 @@
     render: function() {
       this.$el.html(window.tmpl["nonZKWarningViewTemplate"]());
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       return this;
     },
@@ -400,14 +385,9 @@
       });
     },
     remove: function() {
-      this.close();
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 

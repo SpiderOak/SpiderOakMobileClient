@@ -635,7 +635,7 @@
             spiderOakApp.favoritesCollection.store();
           },
           error: function(xhr, errorType, error) {
-            // This error is not super important since it only stops updating 
+            // This error is not super important since it only stops updating
             // of the UI
             console.log(error);
           }
@@ -900,11 +900,6 @@
       this.toolbarView.$el.on("sendLink", this.sendLink, event);
       this.toolbarView.$el.on("favorite", this.favorite_tapHandler, event);
 
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
       // Insert list of previous versions here... if there are any
       if (this.model.get("versions") > 1) {
         this.$(".versions").show();
@@ -919,14 +914,9 @@
         this.$(".versions").prepend(
           "<ul><li class='sep'>" + qq("Previous versions") + "</li></ul>"
         );
-        var scroller = this.scroller;
         this.versionsView.$el.one("complete", function(event) {
           this.$(".versionsViewLoading")
             .removeClass("loadingVersions");
-          window.setTimeout(function(){
-            this.scroller.refresh();
-          }.bind(this),0);
-          // @TODO: Refresh subviews scroller
         }.bind(this));
         this.versionsCollection.fetch({
           error: function(collection, response, options) {
@@ -963,7 +953,6 @@
       // this.close();
     },
     close: function() {
-      this.scroller.destroy();
       if (this.versionsView) {
         this.versionsView.close();
       }

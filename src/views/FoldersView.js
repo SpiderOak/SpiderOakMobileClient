@@ -21,11 +21,6 @@
     },
     render: function() {
       this.$el.html(window.tmpl["folderViewTemplate"](this.model.toJSON()));
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       // Just in case... avoid race condition on start-up
       if (!this.model.get("url")) {
@@ -56,10 +51,6 @@
       // When we have finished fetching the folders, help hide the spinner
       this.$(".foldersList").one("complete", function(event) {
         this.$(".folderViewLoading").removeClass("loadingFolders");
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
-        // @TODO: Refresh subviews scroller
       }.bind(this));
     },
     loadFiles: function() {
@@ -73,11 +64,7 @@
       }).render();
       // When we have finished fetching the files, help hide the spinner
       this.$(".filesList").one("complete", function(event) {
-        // @TODO: Refresh subviews scroller
         this.$(".folderViewLoading").removeClass("loadingFiles");
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
       }.bind(this));
     },
     viewChanging: function(event) {
@@ -116,7 +103,6 @@
     },
     close: function() {
       // Clean up our subviews
-      this.scroller.destroy();
       this.foldersListView.close();
       this.filesListView.close();
     },

@@ -39,11 +39,6 @@
                {server: spiderOakApp.settings.getValue("server")});
       this.settingsInfo.passcode = spiderOakApp.accountModel.getPasscode();
       this.$el.html(window.tmpl["settingsViewTemplate"](this.settingsInfo));
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       return this;
     },
@@ -212,14 +207,9 @@
       this.remove();
     },
     remove: function() {
-      this.close();
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 
@@ -239,11 +229,6 @@
     },
     render: function() {
       this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
       return this;
     },
     viewChanging: function(event) {
@@ -275,14 +260,9 @@
       this.remove();
     },
     remove: function() {
-      this.close();
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 

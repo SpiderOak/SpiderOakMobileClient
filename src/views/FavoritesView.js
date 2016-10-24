@@ -21,11 +21,6 @@
     },
     render: function() {
       this.$el.html(window.tmpl["favoritesViewTemplate"]());
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       this.loadFavorites();
 
@@ -38,11 +33,7 @@
       }
       // When we have finished fetching the files, help hide the spinner
       this.$(".filesList").one("complete", function(event) {
-        // @TODO: Refresh subviews scroller
         this.$(".folderViewLoading").removeClass("loadingFiles");
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
       }.bind(this));
 
       this.favoritesListView = new spiderOakApp.FavoritesListView({
@@ -79,7 +70,6 @@
     },
     close: function() {
       // Clean up our subviews
-      this.scroller.destroy();
       this.refreshAllFavoritesButtonView.close();
       if (this.favoritesListView) {
         this.favoritesListView.close();

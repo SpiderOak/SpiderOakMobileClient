@@ -1,6 +1,6 @@
 {
   "name": "SpiderOakMobile",
-  "version": "3.0.0",
+  "version": "3.5.0",
   "dependencies": {
     "backbone": "~1.1.0",
     "underscore": "latest",

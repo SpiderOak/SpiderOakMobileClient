@@ -67,13 +67,6 @@
         }).render();
       }
 
-      spiderOakApp.menuScroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
-      this.on("complete", spiderOakApp.menuScroller.refresh, this);
-
       return this;
     },
     devicesReady: function(event, refresh) {
@@ -212,9 +205,7 @@
       }
     },
     menuOpening: function(event) {
-      // @FIXME: Rectify whatever logout or other activity is causing loss
-      //         of the event bindings, and remove this.
-      spiderOakApp.menuScroller.refresh();
+      // ...
     },
     menuClosing: function(event) {
       // ...

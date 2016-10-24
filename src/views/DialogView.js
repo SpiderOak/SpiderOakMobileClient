@@ -109,24 +109,15 @@
         // alert("The rotation is " + window.orientation + " and the resolution is " + screen.width + " x " + screen.height);
         if (window.orientation === -90 || window.orientation === 90) {
           view.$el.css({"margin-top":"0", "max-height":"300px"});
-          window.setTimeout(function(){
-            view.scroller.refresh();
-          },10);
         }
         else {
           view.$el.css({"margin-top":"10%", "max-height":"94%"});
-          window.setTimeout(function(){
-            view.scroller.refresh();
-          },10);
         }
       }, false);
       this.$el.html(view.render().el);
       if (window.orientation === -90 || window.orientation === 90) {
         view.$el.css({"margin-top":"0", "max-height":"300px"});
       }
-      window.setTimeout(function(){
-        view.scroller.refresh();
-      },10);
       if ($.os.ios) {
         // the stupid -50% is to keep it centered on iPad
         var _this = this;
@@ -167,24 +158,15 @@
           items: this.options.items
         })
       );
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: false,
-        hScrollbar: false
-      });
       return this;
     },
     a_tapHandler: function(event) {
       this.trigger("item:tapped", event);
     },
     remove: function() {
-      this.close();
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      this.scroller.destroy();
     }
   });
 

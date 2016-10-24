@@ -7,7 +7,6 @@
     "backstack": "https://github.com/pwalczyszyn/backstack.git",
     "Nibbler.min": "http://www.tumuski.com/library/Nibbler/Nibbler.js",
     "zepto": "https://github.com/madrobby/zepto/archive/v1.1.0.zip",
-    "iscroll": "https://github.com/cubiq/iscroll/archive/v4.2.zip",
     "bluebird": "2.9.14",
     "modernizr": "2.6.3",
     "moment": "~2.8.0",

@@ -112,31 +112,6 @@
 
       $.ajax = this.ajax;
 
-      // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
-      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does*
-      // have css scrolling
-      if (window.Modernizr.overflowscrolling ||
-          (window.device && (window.device.platform === "Android") &&
-            (parseFloat(window.device.version) >= 4.4))) {
-        window.iScroll = function(options) {
-          // ...
-        };
-
-        window.iScroll.prototype.refresh = function() {
-          // ...
-        };
-
-        window.iScroll.prototype.destroy = function() {
-          // ...
-        };
-      }
-      else {
-        // Set some limits for Android 2.x
-        spiderOakApp.maxEntries = 100;
-      }
-
-      window.iconType = (window.Modernizr.svg) ? "svg" : "png";
-
       spiderOakApp.settings = new spiderOakApp.SettingsCollection();
       spiderOakApp.accountModel = new spiderOakApp.AccountModel();
       spiderOakApp.menuSheetView = new spiderOakApp.MenuSheetView({
@@ -592,16 +567,7 @@
     onMenuKeyDown: function(event) {
       // The menu button is flakey in some versions of Android
       // and deprecated as of Android 3.0
-      if (window.Modernizr.overflowscrolling ||
-          (window.device && (window.device.platform === "Android") &&
-            (parseFloat(window.device.version) >= 3.0))) {
-        return;
-      }
-      if ($("#main").hasClass("open")) {
-        spiderOakApp.mainView.closeMenu();
-      } else {
-        spiderOakApp.mainView.openMenu();
-      }
+      return;
     },
     downloader: new window.FileDownloadHelper(),
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),

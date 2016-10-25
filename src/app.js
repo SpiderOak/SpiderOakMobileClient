@@ -154,7 +154,7 @@
       }
 
       // Until this.version gets proper setting from config.xml - if it does:
-      this.version = "0.0.1";
+      this.version = window.spiderOakAppVersion || "0.0.1";
       // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
       this.dollarAjax({
         url: "./config.xml",

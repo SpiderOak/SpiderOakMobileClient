@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -17,7 +17,7 @@
       "tap .site-link": "siteLink_tapHandler",
       "tap .email-link": "emailLink_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.settings = {
         actionBar: false,
@@ -25,12 +25,12 @@
         platform: (($.os.android) ? "Android" : "iOS")
       };
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl['aboutSpiderOakViewTemplate'](this.settings));
 
       return this;
     },
-    siteLink_tapHandler: function(event) {
+    siteLink_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
@@ -39,7 +39,7 @@
       window.open($(event.target).data("url"), "_system");
 
     },
-    emailLink_tapHandler: function(event) {
+    emailLink_tapHandler: function (event) {
       // @FIXME: This is a bit Android-centric
       if ($("#main").hasClass("open")) {
         event.preventDefault();
@@ -66,15 +66,15 @@
       }
       spiderOakApp.fileViewer.share(
         params,
-        function(){
+        function () {
           // ...
         },
-        function(error) { // @FIXME: Real error handling...
+        function (error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
         }
       );
     },
-    remove: function() {
+    remove: function () {
       this.$el.remove();
       this.stopListening();
       return this;
@@ -88,7 +88,7 @@
       "tap .site-link": "siteLink_tapHandler",
       "tap .email-link": "emailLink_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.settings = {
         actionBar: true,
@@ -97,7 +97,7 @@
       };
       $(document).one("backbutton", this.dismiss);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         window.tmpl['aboutSpiderOakViewTemplate'](this.settings)
       );
@@ -105,10 +105,10 @@
 
       return this;
     },
-    show: function() {
+    show: function () {
       this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           if (window.StatusBar && $.os.ios) {
             window.StatusBar.styleDefault();
             $("body").css("background-color",s("#e4e4e4"));
@@ -116,14 +116,14 @@
         }
       });
     },
-    dismiss: function(event) {
+    dismiss: function (event) {
       if (window.StatusBar && $.os.ios) {
         window.StatusBar.styleLightContent();
         $("body").css("background-color",s("#e77c24"));
       }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           this.remove();
         }.bind(this)
       });
@@ -131,7 +131,7 @@
   });
 
   spiderOakApp.SettingsAboutView = spiderOakApp.AboutView.extend({
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.settings = {
         actionBar: false,
@@ -142,7 +142,7 @@
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -162,13 +162,13 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.remove();
     }
   });
@@ -180,7 +180,7 @@
       "tap .site-link": "siteLink_tapHandler",
       "tap .email-link": "emailLink_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.settings = {
         actionBar: true,
@@ -189,7 +189,7 @@
       };
       $(document).one("backbutton", this.dismiss);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         window.tmpl['needAnAccountViewTemplate'](this.settings)
       );
@@ -197,10 +197,10 @@
 
       return this;
     },
-    show: function() {
+    show: function () {
       this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           if (window.StatusBar && $.os.ios) {
             window.StatusBar.styleDefault();
             $("body").css("background-color",s("#e4e4e4"));
@@ -208,14 +208,14 @@
         }
       });
     },
-    dismiss: function(event) {
+    dismiss: function (event) {
       if (window.StatusBar && $.os.ios) {
         window.StatusBar.styleLightContent();
         $("body").css("background-color",s("#e77c24"));
       }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           this.remove();
         }.bind(this)
       });

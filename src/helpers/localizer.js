@@ -1,7 +1,7 @@
 (function (window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       html10n     = window.html10n,
@@ -41,10 +41,10 @@
           }
         });
 
-        html10n.bind('indexed', function() {
+        html10n.bind('indexed', function () {
           html10n.localize(prepped);
         });
-        html10n.bind('localized', function() {
+        html10n.bind('localized', function () {
           console.log("Localized");
           // We use html10n.language instead of navigator.language
           //   so that it doesn't translate moment if we don't have

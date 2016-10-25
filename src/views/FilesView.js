@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -13,7 +13,7 @@
       store       = window.store;
 
   spiderOakApp.FilesListView = spiderOakApp.ViewBase.extend({
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
@@ -23,18 +23,18 @@
       this.subViews = [];
 
       this.collection.fetch({
-        error: function(collection, response, options) {
+        error: function (collection, response, options) {
           this.render().addAll();
           console.log(JSON.stringify(response.statusText));
           spiderOakApp.dialogView.showNotifyErrorResponse(response);
         }.bind(this)
       });
     },
-    render: function() {
+    render: function () {
       // this.addAll();
       return this;
     },
-    addOne: function(model) {
+    addOne: function (model) {
       if (spiderOakApp.maxEntries &&
           this.fileCounter > spiderOakApp.maxEntries) {
         return;
@@ -48,7 +48,7 @@
                   spiderOakApp.favoritesCollection.models &&
                   spiderOakApp.favoritesCollection.models.length > 0) {
         var isFavorite = _.find(
-          spiderOakApp.favoritesCollection.models, function(favorite){
+          spiderOakApp.favoritesCollection.models, function (favorite) {
             var faveURL = favorite.get("url");
             var modelURL = model.composedUrl(true);
             return faveURL === modelURL;
@@ -65,7 +65,7 @@
       this.$el.append(view.render().el);
       this.subViews.push(view);
     },
-    addAll: function() {
+    addAll: function () {
       this.$el.empty();
       this.fileCounter = 1;
       if (this.collection.length > spiderOakApp.maxEntries) {
@@ -79,15 +79,15 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    close: function() {
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -96,7 +96,7 @@
   });
 
   spiderOakApp.FileView = spiderOakApp.ViewBase.extend({
-    downloadFile: function(model, path, successCallback) {
+    downloadFile: function (model, path, successCallback) {
       // Download the file to the PERSISTENT file system
       // @FIXME: This might be better moved to a method in the model
       spiderOakApp.dialogView.showProgress({
@@ -173,7 +173,7 @@
         }
       );
     },
-    saveFavorite: function() {
+    saveFavorite: function () {
       if (spiderOakApp.accountModel.get("favoritesConfirmationAccepted")) {
         // Skip confirmation
         this.saveFavoriteConfirmed(1);
@@ -187,7 +187,7 @@
         );
       }
     },
-    saveFavoriteConfirmed: function(button) {
+    saveFavoriteConfirmed: function (button) {
       if (button !== 1) {
         return;
       }
@@ -208,7 +208,7 @@
         store.set("favoritesConfirmationAccepted", true);
       }
       spiderOakApp.accountModel.set("favoritesConfirmationAccepted", true);
-      this.downloadFile(model, path, function(fileEntry) {
+      this.downloadFile(model, path, function (fileEntry) {
         console.log(fileEntry.toURL());
         spiderOakApp.dialogView.hide();
         // Add file model (with added local path) to the Favorites Collection
@@ -224,7 +224,7 @@
         model.set("favoriteModel", favoriteModel);
         // Add the file to the recents collection (view or fave)
         var recentModels = spiderOakApp.recentsCollection.models;
-        var matchingModels = _.filter(recentModels, function(recent){
+        var matchingModels = _.filter(recentModels, function (recent) {
           return recent.composedUrl(true) === model.composedUrl(true);
         });
         if (matchingModels.length > 1) {
@@ -234,7 +234,7 @@
         spiderOakApp.recentsCollection.add(model);
       }.bind(this));
     },
-    shareViaIntent: function(path) {
+    shareViaIntent: function (path) {
       // @FIXME: This is a bit Android-centric
       var model = this.model;
       var extras = {};
@@ -246,10 +246,10 @@
       };
       spiderOakApp.fileViewer.share(
         params,
-        function() {
+        function () {
           // Add the file to the recents collection (view or fave)
           var recentModels = spiderOakApp.recentsCollection.models;
-          var matchingModels = _.filter(recentModels, function(recent){
+          var matchingModels = _.filter(recentModels, function (recent) {
             return recent.composedUrl(true) === model.composedUrl(true);
           });
           if (matchingModels.length > 1) {
@@ -259,7 +259,7 @@
           spiderOakApp.recentsCollection.add(model);
           // @FIXME: Should we be cleaning up the file here?
         },
-        function(error) { // @FIXME: Real error handling...
+        function (error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
             qq("Cannot find an app to handle files of this type."),
@@ -270,7 +270,7 @@
         }
       );
     },
-    sendLink: function() {
+    sendLink: function () {
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:qq("Retrieving link")});
 
@@ -289,10 +289,10 @@
         };
         spiderOakApp.fileViewer.share(
           params,
-          function(){
+          function () {
             // Add the file to the recents collection (view or fave)
             var recentModels = spiderOakApp.recentsCollection.models;
-            var matchingModels = _.filter(recentModels, function(recent){
+            var matchingModels = _.filter(recentModels, function (recent) {
               return recent.composedUrl(true) === model.composedUrl(true);
             });
             if (matchingModels.length > 1) {
@@ -301,7 +301,7 @@
             spiderOakApp.recentsCollection.remove(matchingModels[0]);
             spiderOakApp.recentsCollection.add(model);
           },
-          function(error) { // @FIXME: Real error handling...
+          function (error) { // @FIXME: Real error handling...
             navigator.notification.alert(
               qq("Error sending this link. Try again later."),
               null,
@@ -324,7 +324,7 @@
             model.getBasicAuth() ||
                 spiderOakApp.accountModel.get("basicAuthCredentials"))
         },
-        success: function(result) {
+        success: function (result) {
           doView(protohost + result);
         },
         error: function (xhr, errorType, error) {
@@ -342,7 +342,7 @@
         }
       });
     },
-    shareFile: function() {
+    shareFile: function () {
       var model = this.model;
       var path;
       // Start by getting the folder path
@@ -377,12 +377,12 @@
       // @TODO: Clean this up periodically?
       path = "Download/" + s("SpiderOak") + "/.shared/" +
         (spiderOakApp.accountModel.get("b32username") || "anonymous") + "/";
-      this.downloadFile(model, path, function(fileEntry) {
+      this.downloadFile(model, path, function (fileEntry) {
         spiderOakApp.dialogView.hide();
         this.shareViaIntent(fileEntry.toURL());
       }.bind(this));
     },
-    view: function() {
+    view: function () {
       var model = this.model;
       var downloadOptions = {
         fileName: this.model.get("name"),
@@ -426,10 +426,10 @@
                 url: fileEntry.toURL(),
                 type: model.get("type")
               },
-              function() {
+              function () {
                 // Add the file to the recents collection (view or fave)
                 var recentModels = spiderOakApp.recentsCollection.models;
-                var matchingModels = _.filter(recentModels, function(recent){
+                var matchingModels = _.filter(recentModels, function (recent) {
                   return recent.composedUrl(true) === model.composedUrl(true);
                 });
                 if (matchingModels.length > 1) {
@@ -439,11 +439,11 @@
                 spiderOakApp.recentsCollection.add(model);
                 // @FIXME: Should we be cleaning up the file here?
               },
-              function(error) { // @FIXME: Real error handling...
+              function (error) { // @FIXME: Real error handling...
                 console.log(JSON.stringify(error));
                 navigator.notification.confirm(
                   qq("Cannot find an app to view files of this type. Would you like to try and open it anyway?"),
-                  function(button) {
+                  function (button) {
                     if (button !== 1) {
                       return;
                     }
@@ -457,7 +457,7 @@
             );
           }
         },
-        function(error) { // @FIXME: Real error handling...
+        function (error) { // @FIXME: Real error handling...
           spiderOakApp.dialogView.hide();
           if (error.code) {
             if (error.code === window.FileTransferError.ABORT_ERR) {
@@ -489,7 +489,7 @@
         }
       );
     },
-    viewFavorite: function(path) {
+    viewFavorite: function (path) {
       var _this = this;
       var model = this.model;
       window.requestFileSystem(
@@ -509,12 +509,12 @@
                     url: fileEntry.toURL(), // encodeURI(fileEntry.fullPath),
                     type: model.get("type")
                   },
-                  function() {
+                  function () {
                     // Add the file to the recents collection (view or fave)
                     var recentModels = spiderOakApp.recentsCollection.models;
                     var matchingModels = _.filter(
                       recentModels,
-                      function(recent){
+                      function (recent) {
                         return recent.composedUrl(true) ===
                           model.composedUrl(true);
                       });
@@ -524,7 +524,7 @@
                     spiderOakApp.recentsCollection.remove(matchingModels[0]);
                     spiderOakApp.recentsCollection.add(model);
                   },
-                  function(error) { // @FIXME: Real error handling...
+                  function (error) { // @FIXME: Real error handling...
                     navigator.notification.alert(
                       qq("Cannot find an app to view files of this type."),
                       null,
@@ -535,7 +535,7 @@
                 );
               }
             },
-            function(error) {
+            function (error) {
               console.log(JSON.stringify(error));
               navigator.notification.alert(
                 qq("Error viewing file."),
@@ -557,22 +557,22 @@
         }
       );
     },
-    saveFile: function() {
+    saveFile: function () {
       // Confirmation dialog
       var model = this.model;
       // Start by getting the folder path
       var path = "Download/";
       navigator.notification.confirm(
         qq("Do you want to save this file to your device?"),
-        function(button) {
+        function (button) {
           if (button !== 1) {
             return;
           }
-          this.downloadFile(model, path, function(fileEntry) {
+          this.downloadFile(model, path, function (fileEntry) {
             spiderOakApp.dialogView.hide();
             // Add the file to the recents collection (view or fave)
             var recentModels = spiderOakApp.recentsCollection.models;
-            var matchingModels = _.filter(recentModels, function(recent){
+            var matchingModels = _.filter(recentModels, function (recent) {
               return recent.composedUrl(true) === model.composedUrl(true);
             });
             if (matchingModels.length > 1) {
@@ -593,7 +593,7 @@
         [qq("OK"), qq("Cancel")]
       );
     },
-    refreshFavorite: function(callback) {
+    refreshFavorite: function (callback) {
       var model = this.model;
       // @FIXME: This should be in a function and be based on platform
       var path = (spiderOakApp.favoritesCollection.basePath() +
@@ -602,8 +602,8 @@
                            "/$1/$2/")
                   .replace(new RegExp(model.get("encodedUrl") ||
                                       model.get("url")), ""));
-      var _callback = function(fileEntry) {
-        callback = callback || function(fileEntry) {
+      var _callback = function (fileEntry) {
+        callback = callback || function (fileEntry) {
           if (model.get("path") !== path) {
             model.set("path", path);
             spiderOakApp.favoritesCollection.store();
@@ -621,10 +621,10 @@
               model.getBasicAuth() ||
               spiderOakApp.accountModel.get("basicAuthCredentials"))
           },
-          success: function(data, status, xhr) {
+          success: function (data, status, xhr) {
             // Since we are fetching the version info, the most recent version
             // is what we are after
-            var updatedModelData = _.find(data.files, function(file) {
+            var updatedModelData = _.find(data.files, function (file) {
               return file.url == model.get("encodedUrl");
             });
             model.set({
@@ -634,7 +634,7 @@
             });
             spiderOakApp.favoritesCollection.store();
           },
-          error: function(xhr, errorType, error) {
+          error: function (xhr, errorType, error) {
             // This error is not super important since it only stops updating
             // of the UI
             console.log(error);
@@ -644,12 +644,12 @@
       };
       this.downloadFile(model, path, _callback);
     },
-    removeFavorite: function() {
+    removeFavorite: function () {
       var _this = this;
       // Confirmation dialog
       navigator.notification.confirm(
         qq("Do you want to remove this file from your favorites?"),
-        function(button) {
+        function (button) {
           if (button !== 1) {
             return;
           }
@@ -672,7 +672,7 @@
           spiderOakApp.downloader.deleteFile(
             options,
             deletedSuccess,
-            function(error) {
+            function (error) {
               // Until 3.1.1, favorites created in Recents were created as
               // directories containing the identically named file, so if
               // file deletion fails, we try deleting as a directory, and
@@ -680,7 +680,7 @@
               spiderOakApp.downloader.deleteDirectoryRecursively(
                 options,
                 deletedSuccess,
-                function(error) { // @FIXME: Real error handling...
+                function (error) { // @FIXME: Real error handling...
                   navigator.notification.alert(
                     qq("Error removing favorite from device (error code: [[code]])",
                        {"code": error.code}),
@@ -705,11 +705,11 @@
       "longTap a": "a_longTapHandler",
       "tap .rightButton": "favorite_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.model.on("change",this.render);
     },
-    render: function() {
+    render: function () {
       var model = this.model;
       // if (window.Modernizr.overflowscrolling) {
         this.$el.html(
@@ -738,29 +738,29 @@
         };
         spiderOakApp.downloader.downloadFile(
           downloadOptions,
-          function(fileEntry) {
+          function (fileEntry) {
             if (fileEntry.file) {
-              fileEntry.file(function(file){
+              fileEntry.file(function (file) {
                 if (file.size > 0) {
                   $icon.html("<img src='"+fileEntry.toURL()+"' style='" +
                              "width:100%;position:absolute;top:0;left:0;'"+
                              "/><div style='clear:both'></div>");
                   $icon.css("background","none");
                 }
-              },function(){});
+              },function () {});
             }
             // If there's no fileEntry.file, then we're in a situation
             // (like desktop browser) that lacks our Cordova FileDownloader
             // plugin.
           },
-          function(err) {
+          function (err) {
             // well, that's cool... do nothing then.
           }
         );
       }
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       event.preventDefault();
       event.stopPropagation();
       if ($("#main").hasClass("open")) {
@@ -772,7 +772,7 @@
         return;
       }
       // View it otherwise
-      window.setTimeout(function(){
+      window.setTimeout(function () {
         if (this.model.get("isFavorite")) {
           this.viewFavorite(
             this.model.get("path") + this.model.get("name")
@@ -783,7 +783,7 @@
         }
       }.bind(this), 50);
     },
-    a_longTapHandler: function(event) {
+    a_longTapHandler: function (event) {
       event.preventDefault();
       event.stopPropagation();
       if ($("#main").hasClass("open")) {
@@ -815,11 +815,11 @@
       var menuView = new spiderOakApp.ContextPopup({
         items: items
       });
-      $(document).one("backbutton", function(event) {
+      $(document).one("backbutton", function (event) {
         spiderOakApp.dialogView.hide();
         menuView.remove();
       });
-      menuView.once("item:tapped", function menu_tapHandler(event){
+      menuView.once("item:tapped", function menu_tapHandler(event) {
         var command = $(event.target).data("command");
         spiderOakApp.dialogView.hide();
         menuView.remove();
@@ -856,7 +856,7 @@
       }.bind(this));
       spiderOakApp.dialogView.showDialogView(menuView);
     },
-    favorite_tapHandler: function(event) {
+    favorite_tapHandler: function (event) {
       event.preventDefault();
       event.stopPropagation();
       if (this.model.get("isFavorite")) {
@@ -866,7 +866,7 @@
         this.saveFavorite();
       }
     },
-    close: function() {
+    close: function () {
       this.remove();
       this.unbind();
     },
@@ -875,14 +875,14 @@
 
   spiderOakApp.FileItemDetailsView = spiderOakApp.FileView.extend({
     destructionPolicy: "never",
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.model.on("change",this.render);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         window.tmpl["fileItemDetailsViewTemplate"](this.model.toJSON())
       );
@@ -914,26 +914,26 @@
         this.$(".versions").prepend(
           "<ul><li class='sep'>" + qq("Previous versions") + "</li></ul>"
         );
-        this.versionsView.$el.one("complete", function(event) {
+        this.versionsView.$el.one("complete", function (event) {
           this.$(".versionsViewLoading")
             .removeClass("loadingVersions");
         }.bind(this));
         this.versionsCollection.fetch({
-          error: function(collection, response, options) {
+          error: function (collection, response, options) {
             spiderOakApp.dialogView.showNotifyErrorResponse(response);
           }
         });
       }
       return this;
     },
-    favorite_tapHandler: function(event) {
+    favorite_tapHandler: function (event) {
       if (this.model.get("isFavorite")) {
         this.removeFavorite();
         return;
       }
       this.saveFavorite();
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -942,17 +942,17 @@
         spiderOakApp.toolbarView.hide();
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       spiderOakApp.backDisabled = false;
       spiderOakApp.mainView.showBackButton(true);
       if (this.toolbarView) {
         spiderOakApp.toolbarView.addButtonsView(this.toolbarView).show();
       }
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       // this.close();
     },
-    close: function() {
+    close: function () {
       if (this.versionsView) {
         this.versionsView.close();
       }
@@ -972,11 +972,11 @@
       "tap .file-send-button.enabled": "sendLink_tapHandler",
       "tap .file-favorite-button.enabled": "favorite_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.model.on("change", this.render);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         window.tmpl["fileItemDetailsToolbarViewTemplate"]({
           isFavorite: this.model.get("isFavorite"),
@@ -985,19 +985,19 @@
       );
       return this;
     },
-    shareFile_tapHandler: function(event) {
+    shareFile_tapHandler: function (event) {
       this.$el.trigger("shareFile", event);
     },
-    saveFile_tapHandler: function(event) {
+    saveFile_tapHandler: function (event) {
       this.$el.trigger("saveFile", event);
     },
-    sendLink_tapHandler: function(event) {
+    sendLink_tapHandler: function (event) {
       this.$el.trigger("sendLink", event);
     },
-    favorite_tapHandler: function(event) {
+    favorite_tapHandler: function (event) {
       this.$el.trigger("favorite", event);
     },
-    close: function() {
+    close: function () {
       spiderOakApp.toolbarView.hide();
       this.remove();
       this.unbind();
@@ -1007,7 +1007,7 @@
 
   spiderOakApp.FileItemVersionsListView = spiderOakApp.FilesListView.extend({
     tagName: "ul",
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.collection.on( "add", this.addOne, this );
       this.collection.on( "complete", this.triggerComplete, this );
@@ -1015,22 +1015,22 @@
 
       this.subViews = [];
     },
-    addOne: function(model) {
+    addOne: function (model) {
       var view = new spiderOakApp.FilesVersionsItemView({
         model: model
       });
       this.$el.append(view.render().el);
       this.subViews.push(view);
     },
-    addAll: function() {
+    addAll: function () {
       this.$el.empty();
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    close: function() {
+    close: function () {
       this.remove();
       this.unbind();
     },
@@ -1038,7 +1038,7 @@
   });
 
   spiderOakApp.FilesVersionsItemView = spiderOakApp.FilesListItemView.extend({
-    render: function() {
+    render: function () {
       // fileVersionsItemViewMinTemplate
       // if (window.Modernizr.overflowscrolling) {
         this.$el.html(window.tmpl["fileVersionsItemViewTemplate"](

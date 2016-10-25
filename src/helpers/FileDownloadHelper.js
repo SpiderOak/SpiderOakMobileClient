@@ -4,13 +4,13 @@
 (function (window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       qq          = window.qq = window.html10n.get,
       $           = window.$;
 
-  var FileDownloadHelper = window.FileDownloadHelper = function() {
+  var FileDownloadHelper = window.FileDownloadHelper = function () {
     // ...
   };
 
@@ -41,7 +41,7 @@
     };
 
   FileDownloadHelper.prototype.createPath =
-    function(path, successCallback, errorCallback, fsType) {
+    function (path, successCallback, errorCallback, fsType) {
       fsType = fsType || window.LocalFileSystem.TEMPORARY;
       window.requestFileSystem(
         fsType,
@@ -55,7 +55,7 @@
     };
 
   FileDownloadHelper.prototype.downloadFile =
-    function(options, successCallback, errorCallback) {
+    function (options, successCallback, errorCallback) {
       var _this = this,
           path;
 
@@ -75,8 +75,8 @@
             {create: true, exclusive: false},
             function gotFile(fileEntry) {
               var fileTransfer = new window.FileTransfer();
-              fileTransfer.onprogress = options.onprogress || function(){};
-              $(document).one("backbutton", function(event) {
+              fileTransfer.onprogress = options.onprogress || function () {};
+              $(document).one("backbutton", function (event) {
                 fileTransfer.abort();
                 errorCallback(qq("File transfer aborted"));
               });
@@ -104,7 +104,7 @@
     };
 
   FileDownloadHelper.prototype.openInternally =
-    function(path) {
+    function (path) {
       var options1 = {
         src: path,
         top: 64,
@@ -124,27 +124,27 @@
         duration: 100
       }};
 
-      var fail = function() { console.log("fail"); };
+      var fail = function () { console.log("fail"); };
 
-      window.wizViewManager.create("view1", options1, function() {
-        window.wizViewManager.show("view1", slideInFromRight, function(arg) {
-          $(".back-btn").one("tap", function(){
-            window.wizViewManager.hide("view1", slideOutToRight, function(){
+      window.wizViewManager.create("view1", options1, function () {
+        window.wizViewManager.show("view1", slideInFromRight, function (arg) {
+          $(".back-btn").one("tap", function () {
+            window.wizViewManager.hide("view1", slideOutToRight, function () {
               // ...
-            }, function() { console.log("fail hide"); });
+            }, function () { console.log("fail hide"); });
           });
-        }, function() { console.log("fail show"); });
-      }, function() { console.log("fail create"); });
+        }, function () { console.log("fail show"); });
+      }, function () { console.log("fail create"); });
     };
 
   FileDownloadHelper.prototype.fileExists =
-    function(options, successCallback, errorCallback) {
+    function (options, successCallback, errorCallback) {
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
       return true;
     };
 
   FileDownloadHelper.prototype.deleteFile =
-    function(options, successCallback, errorCallback) {
+    function (options, successCallback, errorCallback) {
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
       options.path = this.pathForFS(options.path);
       window.requestFileSystem(
@@ -168,7 +168,7 @@
     };
 
   /** Massage file names to escape the filesystem-incompible character ':'. */
-  FileDownloadHelper.prototype.nameForFS = function(name) {
+  FileDownloadHelper.prototype.nameForFS = function (name) {
     if (/:/.test(name)) {
       return name.replace(/:/g, "%3A");
     } else {
@@ -177,7 +177,7 @@
   };
 
   /** Filter bad fs char from path, while preserving protocol portion. */
-  FileDownloadHelper.prototype.pathForFS = function(path) {
+  FileDownloadHelper.prototype.pathForFS = function (path) {
     if (! path) {
       return path;
     } else {
@@ -195,7 +195,7 @@
   };
 
   FileDownloadHelper.prototype.deleteDirectoryRecursively =
-    function(options, successCallback, errorCallback) {
+    function (options, successCallback, errorCallback) {
       options.fsType = options.fsType || window.LocalFileSystem.TEMPORARY;
       window.requestFileSystem(
         options.fsType,

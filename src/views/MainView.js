@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -17,15 +17,15 @@
       "tap .menu-btn": "menuButton_handler",
       "tap .back-btn": "backButton_handler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       $('.page').on('tap',this.closeMenu);
     },
-    render: function() {
+    render: function () {
       this.showBackButton(false);
       return this;
     },
-    showBackButton: function(show) {
+    showBackButton: function (show) {
       if (show) {
         this.$('.menu-btn').hide();
         this.$('.back-btn').show();
@@ -35,7 +35,7 @@
         this.$('.back-btn').hide();
       }
     },
-    setTitle: function(title,action) {
+    setTitle: function (title,action) {
       var $title = this.$('.nav .title');
       if ($.os.android) {
         $title.text(title);
@@ -46,11 +46,11 @@
           {opacity:0, "-webkit-transform":"translate(30%,0)"},
           125,
           "linear",
-          function() {
+          function () {
             $title.css({"-webkit-transform":"translate(-30%,0)"});
             $title.text(title);
             window.setTimeout(
-              function(){
+              function () {
                 $title.animate(
                   {opacity:1, "-webkit-transform": "translate(0,0)"},
                   125,
@@ -65,11 +65,11 @@
           {opacity:0, "-webkit-transform": "translate(-30%,0)"},
           125,
           "linear",
-          function(){
+          function () {
             $title.css({"-webkit-transform":"translate(30%,0)"});
             $title.text(title);
             window.setTimeout(
-              function(){
+              function () {
                 $title.animate(
                   {opacity: 1,"-webkit-transform": "translate(0,0)"},
                   125,
@@ -80,16 +80,16 @@
         });
         return;
       }
-      $title.animate({opacity:0},150,"linear",function(){
+      $title.animate({opacity:0},150,"linear",function () {
         $title.text(title);
         window.setTimeout(
-          function(){
+          function () {
             $title.animate({opacity: 1}, 150, "linear");
           },
           0);
       });
     },
-    menuButton_handler: function(event) {
+    menuButton_handler: function (event) {
       if (!$("#main").hasClass("open")) {
         this.openMenu();
       }
@@ -98,7 +98,7 @@
       }
       return false;
     },
-    backButton_handler: function(event) {
+    backButton_handler: function (event) {
       if ($("#main").hasClass("open")) {
         this.closeMenu();
         return;
@@ -107,7 +107,7 @@
         spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
       }
     },
-    openMenu: function(event) {
+    openMenu: function (event) {
       $(document).trigger("menuOpening");
       var duration = 200;
       $('#main').animate({
@@ -115,7 +115,7 @@
       },duration,'ease-in-out');
       $("#main").addClass("open");
     },
-    closeMenu: function(event) {
+    closeMenu: function (event) {
       $(document).trigger("menuClosing");
       var duration = 200;
       if ($("#main").hasClass("open") || window.inAction) {

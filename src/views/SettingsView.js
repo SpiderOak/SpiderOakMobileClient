@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -21,7 +21,7 @@
       "tap .logout": "logout_tapHandler",
       "change #settings-rememberme": "rememberMe_changeHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate", this.viewActivate);
       this.on("viewDeactivate", this.viewDeactivate);
@@ -29,7 +29,7 @@
       $(document).on("logoutSuccess", this.render);
       spiderOakApp.navigator.on("viewChanging", this.viewChanging);
     },
-    render: function() {
+    render: function () {
       this.settingsInfo = spiderOakApp.storageBarModel &&
                           spiderOakApp.storageBarModel.toJSON() ||
                           {};
@@ -42,12 +42,12 @@
 
       return this;
     },
-    noop: function(event) {
+    noop: function (event) {
       event.stopPropagation();
       event.preventDefault();
       return false;
     },
-    feedback_tapHandler: function() {
+    feedback_tapHandler: function () {
       // @FIXME: This is a bit Android-centric
       if ($("#main").hasClass("open")) {
         event.preventDefault();
@@ -75,15 +75,15 @@
       }
       spiderOakApp.fileViewer.share(
         params,
-        function(){
+        function () {
           // ...
         },
-        function(error) { // @FIXME: Real error handling...
+        function (error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
         }
       );
     },
-    accountSettings_tapHandler: function(event) {
+    accountSettings_tapHandler: function (event) {
       if ($("#main").hasClass("open")) {
         event.preventDefault();
         return;
@@ -94,7 +94,7 @@
         spiderOakApp.defaultEffect
       );
     },
-    accountPasscodeSet_tapHandler: function(event) {
+    accountPasscodeSet_tapHandler: function (event) {
       event.preventDefault();
       var action =
         (spiderOakApp.accountModel.getPasscode()) ? "auth" : "set";
@@ -104,7 +104,7 @@
         spiderOakApp.defaultEffect
       );
     },
-    rememberMe_changeHandler: function(event) {
+    rememberMe_changeHandler: function (event) {
       event.preventDefault();
       var rememberme = $(event.target).is(":checked");
       var b32username = spiderOakApp.accountModel.get("b32username");
@@ -134,7 +134,7 @@
         spiderOakApp.settings.saveRetainedSettings();
       }
     },
-    server_tapHandler: function(event) {
+    server_tapHandler: function (event) {
       if ($("#main").hasClass("open")) {
         event.preventDefault();
         return;
@@ -148,13 +148,13 @@
         spiderOakApp.defaultEffect
       );
     },
-    logout_tapHandler: function(event) {
+    logout_tapHandler: function (event) {
       if ($("#main").hasClass("open")) {
         event.preventDefault();
         return;
       }
       if (spiderOakApp.accountModel.getLoginState() === true) {
-        window.setTimeout(function(){
+        window.setTimeout(function () {
           navigator.notification.confirm(
             qq("Are you sure you want to sign out?"),
             function (button) {
@@ -178,7 +178,7 @@
         $(document).trigger("logoutSuccess");
       }
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -197,16 +197,16 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.remove();
     },
-    remove: function() {
+    remove: function () {
       this.$el.remove();
       this.stopListening();
       return this;
@@ -217,21 +217,21 @@
     // Derive from this and define your particular rendering.
     templateID: "settingsAccountViewTemplate",
     destructionPolicy: "never",
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    getTemplateValues: function() {
+    getTemplateValues: function () {
       return _.extend({loginname: spiderOakApp.accountModel.get("loginname")},
                       spiderOakApp.storageBarModel.toJSON());
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -250,16 +250,16 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.remove();
     },
-    remove: function() {
+    remove: function () {
       this.$el.remove();
       this.stopListening();
       return this;
@@ -273,7 +273,7 @@
       "submit form": "form_submitHandler",
       "tap .changeServerButton": "changeServerButton_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
@@ -282,17 +282,17 @@
         $(document).trigger("settingChanged");
       });
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
-    getTemplateValues: function() {
+    getTemplateValues: function () {
       return {
         server: this.model.get("value"),
         isLoggedIn: (spiderOakApp.accountModel.getLoginState() === true)
       };
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -301,10 +301,10 @@
         spiderOakApp.mainView.showBackButton(true);
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.$("input").val("");
       this.$("input").blur();
     },
@@ -318,7 +318,7 @@
      * - We use a further callback, for employment via logout in the case
      *   that server change is valid and the current session is authenticated.
      */
-    form_submitHandler: function(event) {
+    form_submitHandler: function (event) {
       spiderOakApp.dialogView.showWait({
         title: qq("Validating")
       });
@@ -343,7 +343,7 @@
          * This may be run as a logout callback, if logout is necessary,
          * else, run directly.
          */
-        var concludeServerChangeAttempt = function() {
+        var concludeServerChangeAttempt = function () {
           spiderOakApp.dialogView.hide();
           var subtitle = qq("Service host changed to [[server]]",
                             {server: newServer});
@@ -368,7 +368,7 @@
          * do the right thing, though, if called as a success callback for an
          * unexpectedly login success.
          */
-        var handleLoginProbeResult = function(statusCode, statusText, xhr) {
+        var handleLoginProbeResult = function (statusCode, statusText, xhr) {
 
           // We use xhr.status because xhr is a consistent parameter for both
           // success and failure callbacks:
@@ -416,14 +416,14 @@
                                         newServer);
       }
     },
-    changeServerButton_tapHandler: function(event) {
+    changeServerButton_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
       }
       this.form_submitHandler(event);
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
     }
@@ -435,7 +435,7 @@
     events: {
       "touchstart .pinpad .num": "pinpadNum_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
@@ -444,7 +444,7 @@
       this.incorrectAttempts = 0;
       this.maxIncorrectAttempts = 5;
     },
-    render: function() {
+    render: function () {
       var title = qq("Enter a new 4 digit passcode");
       if (this.action === "auth" || this.action === "remove") {
         title = qq("Enter your current 4 digit passcode");
@@ -459,14 +459,14 @@
       $(document).one("pause",this.popView);
       return this;
     },
-    popView: function(event) {
+    popView: function (event) {
       if (_.last(spiderOakApp.navigator.viewsStack).instance === this) {
         spiderOakApp.navigator.replaceAll(spiderOakApp.SettingsView,
                                           {},
                                           spiderOakApp.noEffect);
       }
     },
-    pinpadNum_tapHandler: function(event) {
+    pinpadNum_tapHandler: function (event) {
       event.preventDefault();
       var $passcodeInput = this.$(".passcode");
       var $target = $(event.target);
@@ -569,7 +569,7 @@
         }
       }
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -588,23 +588,23 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.remove();
     },
-    remove: function() {
+    remove: function () {
       $(document).off("pause", this.popView);
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
     }
   });
@@ -617,13 +617,13 @@
       "tap .passcode-settings-off":"passcodeSettingsRemove_tapHandler",
       "tap .passcode-settings-timeout":"passcodeSettingsTimeout_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       var timeout = spiderOakApp.accountModel.getPasscodeTimeout();
       var timeoutLabel = qq("Immediately");
       switch (timeout) {
@@ -650,7 +650,7 @@
       }));
       return this;
     },
-    passcodeSettingsChange_tapHandler: function(event) {
+    passcodeSettingsChange_tapHandler: function (event) {
       event.preventDefault();
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsPasscodeEntryView,
@@ -658,7 +658,7 @@
         spiderOakApp.defaultEffect
       );
     },
-    passcodeSettingsRemove_tapHandler: function(event) {
+    passcodeSettingsRemove_tapHandler: function (event) {
       event.preventDefault();
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsPasscodeEntryView,
@@ -666,7 +666,7 @@
         spiderOakApp.defaultEffect
       );
     },
-    passcodeSettingsTimeout_tapHandler: function(event) {
+    passcodeSettingsTimeout_tapHandler: function (event) {
       event.preventDefault();
       spiderOakApp.navigator.pushView(
         spiderOakApp.SettingsPasscodeTimeoutView,
@@ -674,7 +674,7 @@
         spiderOakApp.defaultEffect
       );
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -693,23 +693,23 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
       this.render();
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.remove();
     },
-    remove: function() {
+    remove: function () {
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
     }
   });
@@ -720,20 +720,20 @@
     events: {
       "tap a.timeout": "aTimeout_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       var timeout = spiderOakApp.accountModel.getPasscodeTimeout();
       this.$el.html(window.tmpl[this.templateID]({}));
       this.$("a[data-timeout='"+timeout+"'] .info")
         .addClass("icon-checkmark");
       return this;
     },
-    aTimeout_tapHandler: function(event) {
+    aTimeout_tapHandler: function (event) {
       var $target = $(event.target);
       $target = $target.tagName === "A" ? $target : $target.closest("a");
       var timeout = $target.data("timeout");
@@ -741,7 +741,7 @@
       $target.find(".info").addClass("icon-checkmark");
       spiderOakApp.accountModel.setPasscodeTimeout(timeout);
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -760,22 +760,22 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.remove();
     },
-    remove: function() {
+    remove: function () {
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
     }
   });

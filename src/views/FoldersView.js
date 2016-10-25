@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -13,19 +13,19 @@
 
   spiderOakApp.FolderView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["folderViewTemplate"](this.model.toJSON()));
 
       // Just in case... avoid race condition on start-up
       if (!this.model.get("url")) {
         this.model.fetch({
-          success: function(model) {
+          success: function (model) {
             spiderOakApp.mainView.setTitle(this.model.get("name"));
             this.loadFolders();
             this.loadFiles();
@@ -39,7 +39,7 @@
 
       return this;
     },
-    loadFolders: function() {
+    loadFolders: function () {
       // The folders...
       this.folders = new spiderOakApp.FoldersCollection();
       this.folders.url = this.model.composedUrl(true);
@@ -49,11 +49,11 @@
         el: this.$(".foldersList")
       }).render();
       // When we have finished fetching the folders, help hide the spinner
-      this.$(".foldersList").one("complete", function(event) {
+      this.$(".foldersList").one("complete", function (event) {
         this.$(".folderViewLoading").removeClass("loadingFolders");
       }.bind(this));
     },
-    loadFiles: function() {
+    loadFiles: function () {
       // The files...
       this.files = new spiderOakApp.FilesCollection();
       this.files.url = this.model.composedUrl(true);
@@ -63,11 +63,11 @@
         el: this.$(".filesList")
       }).render();
       // When we have finished fetching the files, help hide the spinner
-      this.$(".filesList").one("complete", function(event) {
+      this.$(".filesList").one("complete", function (event) {
         this.$(".folderViewLoading").removeClass("loadingFiles");
       }.bind(this));
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -86,22 +86,22 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       //this.close();
     },
-    remove: function() {
+    remove: function () {
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
       this.foldersListView.close();
       this.filesListView.close();
@@ -110,7 +110,7 @@
   });
 
   spiderOakApp.FoldersListView = spiderOakApp.ViewBase.extend({
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
@@ -121,19 +121,19 @@
 
       // @TODO: Errors should either be thrown, or at least a blank state added
       this.collection.fetch({
-        error: function(collection, response, options) {
+        error: function (collection, response, options) {
           this.render().addAll();
           console.log(JSON.stringify(response.statusText));
           spiderOakApp.dialogView.showNotifyErrorResponse(response);
         }.bind(this)
       });
     },
-    render: function() {
+    render: function () {
       // this.addAll();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
-    addOne: function(model) {
+    addOne: function (model) {
       if (spiderOakApp.maxEntries &&
           this.folderCounter > spiderOakApp.maxEntries) {
         return;
@@ -148,7 +148,7 @@
       this.$el.append(view.render().el);
       this.subViews.push(view);
     },
-    addAll: function() {
+    addAll: function () {
       this.$el.empty(); // needed still ?
       this.folderCounter = 1;
       if (this.collection.length > spiderOakApp.maxEntries) {
@@ -162,15 +162,15 @@
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -183,10 +183,10 @@
     events: {
       "tap a": "a_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["folderItemViewTemplate"](
           this.model.toJSON()
       ));
@@ -197,7 +197,7 @@
       this.folderView = new spiderOakApp.FolderView(options);
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
@@ -214,7 +214,7 @@
                                         spiderOakApp.defaultEffect);
       }
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
     },

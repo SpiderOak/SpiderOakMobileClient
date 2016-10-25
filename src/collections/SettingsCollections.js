@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$;
@@ -79,7 +79,7 @@
       this.addRetainedSettings();
       this.includeConfigSettings();
     },
-    addHandler: function(model, collection, options) {
+    addHandler: function (model, collection, options) {
       this.saveRetainedSettings();
     },
     removeHandler: function (model, collection, options) {
@@ -88,7 +88,7 @@
         this.saveRetainedSettings();
       }
     },
-    addRetainedSettings: function() {
+    addRetainedSettings: function () {
       var fromStorage = window.store.get(this.retentionName()),
           parsed,
           _self = this;      // @Note: circumvent apparent ghostjs .bind() bug.
@@ -132,7 +132,7 @@
     hasSetting: function (id) {
       return (typeof this.get(id)) !== "undefined";
     },
-    saveRetainedSettings: function() {
+    saveRetainedSettings: function () {
       var retain = {};
       _.each(this.models, function (model, key) {
         if (model.get("retain")) {
@@ -142,7 +142,7 @@
       window.store.set(this.retentionName(), JSON.stringify(retain));
     },
     /** Debugging convenience. */
-    matchingSettings: function(matchExpr) {
+    matchingSettings: function (matchExpr) {
       return _.filter(
         this.models,
         function (model) {
@@ -150,10 +150,10 @@
         }
       );
     },
-    removeRetainedSettings: function() {
+    removeRetainedSettings: function () {
       window.store.remove(this.retentionName());
     },
-    retentionName: function() {
+    retentionName: function () {
       // "all" should never collide with all-upper-case base32 account names.
       var name = "plain";
       return this.retentionPrefix + name;

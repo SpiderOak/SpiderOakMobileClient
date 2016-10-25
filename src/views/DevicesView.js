@@ -4,14 +4,14 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
       s           = window.s;
 
   spiderOakApp.DevicesListView = spiderOakApp.ViewBase.extend({
-    initialize: function() {
+    initialize: function () {
       this.views = [];
       window.bindMine(this);
       // "add" might not be in use in read-only version
@@ -23,18 +23,18 @@
 
       this.collection.urlBase = spiderOakApp.accountModel.get("storageRootURL");
       this.collection.fetch({
-        error: function(collection, response, options) {
+        error: function (collection, response, options) {
           spiderOakApp.dialogView.showNotifyErrorResponse(response);
         }
       });
     },
-    render: function() {
+    render: function () {
       // @TODO: Add a "loading spinner" row at the top
       // this.addAll();
       // @TODO: Then when we are done, clear the "loading spinner"
       return this;
     },
-    addOne: function(model) {
+    addOne: function (model) {
       var view = new spiderOakApp.DeviceItemView({
         model: model
       });
@@ -42,19 +42,19 @@
       this.subViews.push(view);
       this.$el.trigger("complete");
     },
-    addAll: function() {
+    addAll: function () {
       this.$el.empty(); // needed still?
       this.collection.each(this.addOne, this);
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -67,15 +67,15 @@
     events: {
       "tap a": "a_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       _.bindAll(this, "render");
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["deviceViewTemplate"](this.model.toJSON()));
       this.$("a").data("model", this.model);
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       spiderOakApp.mainView.closeMenu(event);
       var options = {
         id: this.model.cid,
@@ -102,7 +102,7 @@
         spiderOakApp.noEffect
       );
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
     }

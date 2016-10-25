@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -14,24 +14,24 @@
     events: {
       "tap a": "a_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.model.on("change", this.render, this );
       this.model.fetch({
-        error: function(model, response, options) {
+        error: function (model, response, options) {
           spiderOakApp.dialogView.showNotifyErrorResponse(response,
                                                           {duration: 3000});
         }
       });
     },
-    render: function() {
+    render: function () {
       this.$el.empty();
       this.$el.html(window.tmpl["hiveViewTemplate"](this.model.toJSON()));
       this.$("a").data("model", this.model);
       this.$el.trigger("complete");
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       spiderOakApp.mainView.closeMenu(event);
       var options = {
         id: this.model.cid,
@@ -58,7 +58,7 @@
         spiderOakApp.noEffect
       );
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
     }

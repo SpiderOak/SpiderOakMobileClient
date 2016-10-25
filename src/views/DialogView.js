@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -16,18 +16,18 @@
     events: {
       "tap .cancel-btn a": "cancel_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       var supportsOrientationChange = "onorientationchange" in window;
       this.orientationEvent = supportsOrientationChange ?
                                 "orientationchange" :
                                 "resize";
     },
-    render: function() {
+    render:  function () {
       $("body").append(this.el);
       return this;
     },
-    showWait: function(options) {
+    showWait: function (options) {
       options = options || {};
       options.title = options.title || qq("Please wait");
       options.subtitle = options.subtitle || "";
@@ -35,7 +35,7 @@
       if (options.showCancel && $.os.ios) this.$(".cancel-btn").show();
       this.$el.show();
     },
-    showNotifyErrorResponse: function(response, options) {
+    showNotifyErrorResponse: function (response, options) {
       options = options ? _.clone(options) : {};
       options.title = options.title || ("<i class='icon-warning'></i>" +
                                         qq("Error"));
@@ -47,7 +47,7 @@
                            (response.status || 0) + ")");
       return this.showNotify(options);
     },
-    showNotify: function(options) {
+    showNotify: function (options) {
       options = options || {};
       options.title = options.title || qq("Done"); // terrible default ;)
       options.subtitle = options.subtitle || "";
@@ -55,23 +55,23 @@
       this.$el.html(window.tmpl["waitDialog"](options));
       this.$(".fadingBarsG").hide();
       this.$el.show();
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         this.hide();
       }.bind(this), options.duration);
     },
-    showToast: function(options) {
+    showToast: function (options) {
       options = options || {};
       options.title = options.title || qq("Done"); // terrible default ;)
       options.duration = options.duration || 1000; // in ms
-      options.onShow = options.onShow || function(){};
-      options.onHide = options.onHide || function(){};
+      options.onShow = options.onShow || function () {};
+      options.onHide = options.onHide || function () {};
       this.$el.html(window.tmpl["toastDialog"](options));
       this.$el.css({
         backgroundColor: "rgba(0,0,0,0)"
       });
       this.$el.show();
       options.onShow();
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         this.hide();
         options.onHide();
         this.$el.css({
@@ -79,16 +79,16 @@
         });
       }.bind(this), options.duration);
     },
-    cancel_tapHandler: function(event) {
+    cancel_tapHandler: function (event) {
       event.preventDefault();
       $(document).trigger("backbutton");
     },
-    hide: function() {
+    hide: function () {
       $(window).off(this.orientationEvent);
       this.$el.hide();
       this.$el.empty();
     },
-    showProgress: function(options) {
+    showProgress: function (options) {
       options = options || {};
       options.title = options.title || qq("Please wait");
       options.subtitle = options.subtitle || "";
@@ -97,15 +97,15 @@
       if (options.showCancel && $.os.ios) this.$(".cancel-btn").show();
       this.$el.show();
     },
-    updateProgress: function(progressPercent) {
+    updateProgress: function (progressPercent) {
       if ($.os.ios) progressPercent = progressPercent * 2; // WHY?! GAH!!
       if (progressPercent > 100) {
         progressPercent = 100;
       }
       this.$(".meter .progress").animate({"width":progressPercent+"%"});
     },
-    showDialogView: function(view) {
-      $(window).on(this.orientationEvent, function() {
+    showDialogView: function (view) {
+      $(window).on(this.orientationEvent, function () {
         // alert("The rotation is " + window.orientation + " and the resolution is " + screen.width + " x " + screen.height);
         if (window.orientation === -90 || window.orientation === 90) {
           view.$el.css({"margin-top":"0", "max-height":"300px"});
@@ -123,7 +123,7 @@
         var _this = this;
         view.$el.css({"-webkit-transform":"translate3d(-50%,100%,0)"});
         this.$el.show();
-        window.setTimeout(function(){
+        window.setTimeout(function () {
           view.$el.animate(
             {"-webkit-transform":"translate3d(-50%,0,0)"}, 150, 'ease-in-out');
         },50);
@@ -131,12 +131,12 @@
         this.$el.show();
       }
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -149,10 +149,10 @@
     events: {
       "tap a": "a_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         window.tmpl["contextPopup"]({
           items: this.options.items
@@ -160,10 +160,10 @@
       );
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       this.trigger("item:tapped", event);
     },
-    remove: function() {
+    remove: function () {
       this.$el.remove();
       this.stopListening();
       return this;

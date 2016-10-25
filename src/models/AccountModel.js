@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -31,7 +31,7 @@
       webRootURL: "",
       favoritesConfirmationAccepted: false
     },
-    initialize: function() {
+    initialize: function () {
       _.bindAll(this, "login");
       this.basicAuthManager = new spiderOakApp.BasicAuthManager();
       this.pubSharesPassManager = new spiderOakApp.PubSharesPassManager(this);
@@ -57,7 +57,7 @@
      *
      * @see setState
      */
-    getLoginState: function() {
+    getLoginState: function () {
       return this.get("state");
     },
     /** Set status of login process. Intended for internal use only.
@@ -65,16 +65,16 @@
      * In addition to setting the state, we notice start and finish trigger the 
      * @see getState
      */
-    setLoginState: function(state) {
+    setLoginState: function (state) {
       this.set("state", state);
     },
-    loggedIn: function() {
+    loggedIn: function () {
       this.setLoginState(true);
       if (this.passcodeWasBypassed()) {
         this.passcodeWasBypassedFollowup();
       }
     },
-    doInterruption: function() {
+    doInterruption: function () {
       var status = this.getLoginState();
       if (status === true) {
         // logged in - logout, clearing stuff in the process:
@@ -219,7 +219,7 @@
      * @param {string} login_url Optional explicit login location
      * @param {string} probeHost Optional explicit login domain, for trial that will not have actual login effect
      */
-    login: function(username, password, successCallback, errorCallback,
+    login: function (username, password, successCallback, errorCallback,
                     login_url, probeHost) {
       var ajax = probeHost ? spiderOakApp.dollarAjax : spiderOakApp.ajax;
 
@@ -227,7 +227,7 @@
       if (!spiderOakApp.networkAvailable && navigator.notification) {
         navigator.notification.confirm(
           qq("Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."),
-          function(){},
+          function () {},
           qq("Network error"),
           qq("OK")
         );
@@ -262,7 +262,7 @@
         },
 
         /** Handle server login success. */
-        success: function(data, status, xhr) {
+        success: function (data, status, xhr) {
           var where = data.match(_self.get("response_parse_regex"));
 
           /** Register settings according to a successful login.
@@ -350,7 +350,7 @@
             }
           }
         },
-        error: function(xhr, errorType, error) {
+        error: function (xhr, errorType, error) {
           if (! probeHost) {
             _self.setLoginState(false);
           }
@@ -363,7 +363,7 @@
      *
      * @return (boolean) true if login is in process, or was logged-in.
      */
-    interruptLogin: function() {
+    interruptLogin: function () {
       var status = this.getLoginState();
       if (status === "in-process") {
         this.setLoginState("interrupting");
@@ -385,7 +385,7 @@
      * We always do local zeroing and call successCallback, regardless of
      * server response.
      */
-    logout: function(successCallback) {
+    logout: function (successCallback) {
       // Clear basic auth details:
       this.basicAuthManager.clear();
       spiderOakApp.settings.remove("rememberedAccount");
@@ -401,7 +401,7 @@
             type: "POST",
             url: logout_url,
             cache: false,
-            error: function(xhr, errorType, error) {
+            error: function (xhr, errorType, error) {
               console.log("Account logout returned error, status: " +
                           xhr.status);
             }
@@ -415,7 +415,7 @@
       }
     },
     /** Clear account resources. */
-    loggedOut: function() {
+    loggedOut: function () {
       this.pubSharesPassManager.loggedOut();
       if (spiderOakApp.recentsCollection) {
           spiderOakApp.recentsCollection.reset([]);

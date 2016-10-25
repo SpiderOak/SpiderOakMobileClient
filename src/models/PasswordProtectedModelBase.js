@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$;
@@ -34,7 +34,7 @@
                 this.get("room_key")));
       }
     },
-    composedUrl: function(bare) {
+    composedUrl: function (bare) {
       var base = spiderOakApp.ModelBase.prototype.composedUrl.call(this);
       var query = "auth_required_format=json";
       var delim = base.match(/\?/) ? "&" : "?";
@@ -59,7 +59,7 @@
         return spiderOakApp.ModelBase.prototype.sync.apply(this, arguments);
       }
     },
-    parse: function(resp, xhr) {
+    parse: function (resp, xhr) {
       if (resp.password_required) {
         this.removePassword();
         return {password_required: true,
@@ -74,10 +74,10 @@
       }
     },
     /** Default content-specific parse is default backbone parse. */
-    parseSpecific: function(resp, xhr) {
+    parseSpecific: function (resp, xhr) {
       return spiderOakApp.ModelBase.prototype.parse.call(this, resp, xhr);
     },
-    setPassword: function(password) {
+    setPassword: function (password) {
       if (this.getPassword() !== password) {
         this.set("password", password);
         var shareId = this.get("share_id");
@@ -97,10 +97,10 @@
         }
       }
     },
-    getPassword: function() {
+    getPassword: function () {
       return this.get("password");
     },
-    removePassword: function() {
+    removePassword: function () {
       if (this.getPassword()) {
         this.setPassword("");
         this.unfetch();

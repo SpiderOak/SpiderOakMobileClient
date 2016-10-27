@@ -15,33 +15,24 @@ module.exports = function(grunt) {
         ' */\n\n'
     },
     shell: {
-      install_ios: {
-        command: './node_modules/.bin/cordova -d platform add ios',
-        options: {
-          failOnError: true,
-          stdout: true
-        }
-      },
-      install_android: {
-        command:
-          './node_modules/.bin/cordova -d platform add android@3.5.1 --usenpm',
-        options: {
-          failOnError: true,
-          stdout: true
-        }
-      },
       debug_ios: {
         command: './node_modules/.bin/cordova -d emulate ios',
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       },
       debug_android: {
         command: './node_modules/.bin/cordova -d run android',
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       },
       brand: {
@@ -50,7 +41,10 @@ module.exports = function(grunt) {
         },
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       },
       // Some different reporters...
@@ -59,7 +53,10 @@ module.exports = function(grunt) {
           './node_modules/.bin/mocha-phantomjs www/tests/index.html',
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       },
       mochamin: {
@@ -67,7 +64,10 @@ module.exports = function(grunt) {
           './node_modules/.bin/mocha-phantomjs -R min www/tests/index.html',
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       },
       mochadot: {
@@ -75,7 +75,10 @@ module.exports = function(grunt) {
           './node_modules/.bin/mocha-phantomjs -R dot www/tests/index.html',
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       },
       mochatap: {
@@ -83,7 +86,10 @@ module.exports = function(grunt) {
           './node_modules/.bin/mocha-phantomjs -R tap www/tests/index.html',
         options: {
           failOnError: true,
-          stdout: true
+          stdout: true,
+          execOptions: {
+            maxBuffer: 1024 * 1024 * 64
+          }
         }
       }
     },

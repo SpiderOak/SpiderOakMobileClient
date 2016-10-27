@@ -22,3 +22,4 @@ www/css/themes/*.css
 .DS_Store
 **/*/.DS_Store
 config.xml
+yarn.lock

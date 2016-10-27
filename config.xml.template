@@ -41,4 +41,6 @@
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <plugin name="cordova-plugin-privacyscreen" spec="~0.3.1" />
+    <plugin name="com.spideroak.fileviewerplugin" spec="https://github.com/SpiderOak/FileViewerPlugin#v0.5.0" />
+    <plugin name="org.apache.cordova.file-transfer" spec="https://github.com/SpiderOak/cordova-plugin-file-transfer#v0.6.0" />
 </widget>

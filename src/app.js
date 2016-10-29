@@ -101,7 +101,7 @@
           };
 
           var fail = function (response) {
-            window.console.log(response);
+            window.console.log(JSON.stringify(response));
             options.error(response, response.status, response.error);
           };
 

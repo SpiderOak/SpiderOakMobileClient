@@ -15,7 +15,7 @@
  * There are two special brand-name arguments:
  *
  * -  "dash" for priming brand configuration. Establishes the default
- *    value (`SpiderOak`) if no brand setting is established, but otherwise
+ *    value (`ONE`) if no brand setting is established, but otherwise
  *    doing nothing. Thus we can use it as part of 'npm install' actions, to
  *    establish an initial setting.
  *
@@ -31,7 +31,7 @@
  */
 
 /* App defaults configuration: */
-var defaultBrandName = 'SpiderOak',
+var defaultBrandName = 'ONE',
     defaultBrandIdentifier = "com.spideroak.spideroak",
     shell = require('shelljs');
 

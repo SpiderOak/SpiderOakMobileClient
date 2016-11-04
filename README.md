@@ -18,7 +18,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
       [nvm](https://github.com/creationix/nvm) to manage multiple Node installations.
 - Grunt - [http://gruntjs.com/](http://gruntjs.com/)
 	- Build tool for minimising, running and tests
-	- `npm install runt-cli -g`
+	- `npm install grunt-cli -g`
 - PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
 	- `npm install phantomjs@1 -g`

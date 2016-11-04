@@ -19,7 +19,7 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - Grunt - [http://gruntjs.com/](http://gruntjs.com/)
 	- Build tool for minimising, running and tests
 	- `npm install grunt-cli -g`
-- PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
+- PhantomJS version 1.x - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
 	- `npm install phantomjs@1 -g`
 

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "grunt test",
     "icons": "cordova-icon --icon=custom/brand/icon.png",
+    "splashes": "cordova-splash --splash=custom/brand/icon.png",
     "postinstall": "bower install && grunt brand:-"
   },
   "repository": {

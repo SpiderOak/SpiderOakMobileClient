@@ -10,21 +10,18 @@ Therefore, the code is officially available as free/open source software, under 
 
 It's worth mentioning that this mobile client is extremely important to SpiderOak as a business. We are opening the source in order to make the development effort more immediately useful, in ways described above, as well as to leverage various collaboration opportunities that such openness affords. We will continue to devote core internal development resources to this effort.
 
-## Requirements
+## Dependencies
 
-- Cordova CLI - [https://github.com/apache/cordova-cli/](https://github.com/apache/cordova-cli/)
-	- Cordova / PhoneGap command line interface
-- Grunt - [http://gruntjs.com/](http://gruntjs.com/)
-	- Build tool for minimising, running and tests
 - Node and npm - [http://nodejs.org/](http://nodejs.org/)
     - Node package manager for Grunt Add-ons
-    - We require Node 0.12.9 and not Node 5 due to our version of Cordova's
-      incompatibilities. We recommend using
+    - We require Node 6.x. We recommend using
       [nvm](https://github.com/creationix/nvm) to manage multiple Node installations.
+- Grunt - [http://gruntjs.com/](http://gruntjs.com/)
+	- Build tool for minimising, running and tests
+	- `npm install runt-cli -g`
 - PhantomJS - [http://phantomjs.org/](http://phantomjs.org/)
 	- Headless webkit for running tests
-- FileViewerPlugin - [https://github.com/SpiderOak/FileViewerPlugin](https://github.com/SpiderOak/FileViewerPlugin)
-	- Cordova plugin for viewing files on Android via Intents
+	- `npm install phantomjs@1 -g`
 
 ## Getting started
 
@@ -32,10 +29,10 @@ It's worth mentioning that this mobile client is extremely important to SpiderOa
 - cd into the project folder
 - `npm install`, which
   - installs node_modules and js/css components,
-  - runs `bower install`, which installs some other stuff,
-  - configures the project for the default brand ("SpiderOak"),
-  - adds the default cordova platforms - android and ios.
-- `npm run pluginstall` to install any plugins needed
+  - runs `bower install`, which installs some other stuff
+- `grunt brand:ONE`
+  - configures the project for the default brand ("SpiderOakONE")
+  - adds the default cordova platforms — Android and iOS.
 
 ## First test
 

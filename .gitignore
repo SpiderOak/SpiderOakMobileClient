@@ -24,3 +24,4 @@ www/css/themes/*.css
 **/*/.DS_Store
 config.xml
 yarn.lock
+*.keystore

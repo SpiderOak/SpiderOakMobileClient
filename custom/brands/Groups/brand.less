@@ -1,6 +1,5 @@
-body {
-  background-color: #1477e0;
-}
+@highlightColor: #1477e0;
+@darkLoginOrange: darken(@highlightColor, 10%);
 .login {
   background-color: #ffffff;
   background: #ffffff;
@@ -66,5 +65,19 @@ body {
     &:active {
       color: #1477e0;
     }
+  }
+}
+.splash {
+  background: #ffffff;
+}
+
+.button {
+  color: #1477e0;
+  border-color: fade(#1477e0, 20%);
+  border-bottom-color: fade(#1477e0, 40%);
+
+  &.active {
+    color: fade(#1477e0, 60%);
+    background: fade(#1477e0, 20%);
   }
 }

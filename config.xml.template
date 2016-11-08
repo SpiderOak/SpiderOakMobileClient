@@ -51,9 +51,9 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <!-- Custom plugins -->
     <plugin name="cordova-plugin-privacyscreen" spec="~0.3.1" />
-    <plugin name="com.spideroak.fileviewerplugin" spec="https://github.com/SpiderOak/FileViewerPlugin#v0.5.0" />
-    <plugin name="org.apache.cordova.file-transfer" spec="https://github.com/SpiderOak/cordova-plugin-file-transfer#v0.6.0" />
-    <plugin name="com.synconset.cordovaHTTP" spec="https://github.com/SpiderOak/cordova-HTTP#v0.2.0" />
+    <plugin name="com.spideroak.fileviewerplugin" spec="https://github.com/SpiderOak/FileViewerPlugin" />
+    <plugin name="org.apache.cordova.file-transfer" spec="https://github.com/SpiderOak/cordova-plugin-file-transfer" />
+    <plugin name="com.synconset.cordovaHTTP" spec="https://github.com/SpiderOak/cordova-HTTP" />
     <!-- Icons and splash screens -->
     <platform name="android">
         <icon   src="custom/brand/res/icon/android/drawable-ldpi-icon.png" density="ldpi" />

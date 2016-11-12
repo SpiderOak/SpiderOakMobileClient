@@ -1,5 +1,7 @@
 brand
 brands
-!brands/SpiderOak
-!brands/Blue
+!brands/ONE
+!brands/ONE/*
+!brands/Groups
+!brands/Groups/*
 

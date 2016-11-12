@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var _           = window._,
       $           = window.$;
 
@@ -15,29 +15,29 @@
   function copyFile(from, to, name) {
     window.resolveLocalFileSystemURI(
       "file://" + from,
-      function(fromFileEntry) {
+      function (fromFileEntry) {
         spiderOakApp.downloader.createPath(
           to,
-          function(toDirEntry) {
+          function (toDirEntry) {
             fromFileEntry.copyTo(
               toDirEntry,
               name,
-              function() {
+              function () {
                 // yay?
                 console.log("Migrated " + from + " to " + to);
               },
-              function(err) {
+              function (err) {
                 console.log(JSON.stringify(err));
               }
             );
           },
-          function(err) {
+          function (err) {
             console.log(JSON.stringify(err));
           },
           window.LocalFileSystem.PERSISTENT
         );
       },
-      function(err){
+      function (err) {
         console.log(JSON.stringify(err));
       }
     );
@@ -46,7 +46,7 @@
   function querySuccess(tx, results) {
     var len = results.rows.length;
     var faves = {};
-    for (var i=0; i<len; i++){
+    for (var i=0; i<len; i++) {
       var row = results.rows.item(i);
       var fileInfo = window.fileHelper.fileTypeFromExtension(row.name);
 //      var path = row.localpath.replace(
@@ -100,36 +100,36 @@
   }
 
   // This will create the db to be copied over below
-  spiderOakApp.migrateFavorites = function() {
+  spiderOakApp.migrateFavorites = function () {
     console.log("Running one-time favorites migration");
     window.store.set("favoritesMigrationHasRun", true);
     var db = window.openDatabase("favorites", "", "Favorites DB", 1000000);
     window.resolveLocalFileSystemURI(
       "file:///data/data/com.spideroak.android/databases/favoritesDb",
-      function(fileEntry) {
+      function (fileEntry) {
         window.resolveLocalFileSystemURI(
           "file:///data/data/com.spideroak.android/app_database/file__0/",
-          function(parentEntry) {
+          function (parentEntry) {
             fileEntry.moveTo(
               parentEntry,
               "0000000000000001.db",
-              function() {
+              function () {
                 var db = window.openDatabase(
                   "favorites", "", "Favorites DB", 1000000
                 );
                 db.transaction(queryDB, errorCB);
               },
-              function(error) {
+              function (error) {
                 console.log(JSON.stringify(error));
               }
             );
           },
-          function(error) {
+          function (error) {
             console.log(JSON.stringify(error));
           }
         );
       },
-      function(error) {
+      function (error) {
         console.log(JSON.stringify(error));
       }
     );

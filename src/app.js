@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -15,7 +15,7 @@
   $.ajaxSettings = _.extend($.ajaxSettings, {
     timeout: 300000, // five minutes
     // timeout: 3000, // three seconds
-    error: function(collection, response, options) {
+    error: function (collection, response, options) {
       console.log("Default error handler thrown:");
       // might leave us in a strange state, but better then an endless hang...
       spiderOakApp.dialogView.hide();
@@ -29,14 +29,14 @@
 
   _.extend(spiderOakApp, {
     config: window.spiderOakMobile_config,     // Supplemented in initialize.
-    ready: function() {
+    ready: function () {
       var soApp = window.spiderOakApp,
           readyFinish = new Promise(function (resolve, reject) {
             // Resolve with explicit value for tests and debugging clarity.
-            soApp.readyFinishResolver = function() {resolve("readyFinish");};
+            soApp.readyFinishResolver = function () {resolve("readyFinish");};
           }),
           localizeFinish = new Promise(function (resolve, reject) {
-            soApp.localizeFinishResolver = function() {resolve("localized");};
+            soApp.localizeFinishResolver = function () {resolve("localized");};
           });
       soApp.allFinish = Promise.all([readyFinish, localizeFinish]);
       // Invoke .finishDeviceReady() via an intermediate function, so
@@ -58,7 +58,7 @@
       document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
     },
-    initialize: function() {
+    initialize: function () {
       var _this = this;
       _.extend(this.config, window.spiderOakMobile_custom_config);
 
@@ -80,8 +80,8 @@
               dataType = options.dataType || 'json',
               timeout = options.timeout || 0,
               data = options.data || {},
-              success = options.success || function(){},
-              error = options.error || function(){};
+              success = options.success || function () {},
+              error = options.error || function () {};
 
           if (!url) options.error(null, 'fail', 'No URL provided');
           // window.console.log('using cordovaHTTPAjax');
@@ -100,8 +100,8 @@
             }
           };
 
-          var fail = function(response) {
-            window.console.log(response);
+          var fail = function (response) {
+            window.console.log(JSON.stringify(response));
             options.error(response, response.status, response.error);
           };
 
@@ -111,29 +111,6 @@
       }
 
       $.ajax = this.ajax;
-
-      // Stub out iScroll where -webkit-overflow-scrolling:touch is supported
-      // Android 4.4 doesn't have -webkit-overflow-scrolling:touch, but *does*
-      // have css scrolling
-      if (window.Modernizr.overflowscrolling ||
-          (window.device && (window.device.platform === "Android") &&
-            (parseFloat(window.device.version) >= 4.4))) {
-        window.iScroll = function(options) {
-          // ...
-        };
-
-        window.iScroll.prototype.refresh = function() {
-          // ...
-        };
-
-        window.iScroll.prototype.destroy = function() {
-          // ...
-        };
-      }
-      else {
-        // Set some limits for Android 2.x
-        spiderOakApp.maxEntries = 100;
-      }
 
       window.iconType = (window.Modernizr.svg) ? "svg" : "png";
 
@@ -177,12 +154,12 @@
       }
 
       // Until this.version gets proper setting from config.xml - if it does:
-      this.version = "0.0.1";
+      this.version = window.spiderOakAppVersion || "0.0.1";
       // Don't use spiderOakApp.ajax for this, it's just to get some .xml:
       this.dollarAjax({
         url: "./config.xml",
         dataType: "xml",
-        success: function(config){
+        success: function (config) {
           var version = $(config).find("widget").attr("version") || "";
           // config.xml is bogus findable during testing:
           if (version) {
@@ -194,15 +171,15 @@
 
 
       // Hax for Android 2.x not groking :active
-      $(document).on("touchstart", "a", function(event) {
+      $(document).on("touchstart", "a", function (event) {
         var $this = $(this);
         $this.addClass("active");
       });
-      $(document).on("touchend", "a", function(event) {
+      $(document).on("touchend", "a", function (event) {
         var $this = $(this);
         $this.removeClass("active");
       });
-      $(document).on("touchmove", "a", function(event) {
+      $(document).on("touchmove", "a", function (event) {
         var $this = $(this);
         $this.removeClass("active");
       });
@@ -211,12 +188,12 @@
       var touch = {};
       var pxMultiplier = 1;
       var threshold = 80;
-      $(document).on("touchstart", "#nav", function(event){
+      $(document).on("touchstart", "#nav", function (event) {
         event.preventDefault();
         touch.x1 = event.touches[0].pageX;
         touch.y1 = event.touches[0].pageY;
       });
-      $(document).on("touchmove", "#nav", function(event) {
+      $(document).on("touchmove", "#nav", function (event) {
         event.preventDefault();
         window.inAction = true;
         if (event.touches.length == 1 ) {
@@ -239,7 +216,7 @@
           }
         }
       });
-      $(document).on("touchend touchcancel", "#nav", function(event) {
+      $(document).on("touchend touchcancel", "#nav", function (event) {
         if (window.inAction) {
           var d = touch.dx * pxMultiplier;
           if (touch.dx > 0 && !$("#main").hasClass("open")) {
@@ -327,12 +304,12 @@
       );
     },
     backDisabled: true,
-    finishDeviceReady: function() {
+    finishDeviceReady: function () {
       window.spiderOakApp.brandSpecificInitialization();
       window.spiderOakApp.initialize();
       spiderOakApp.fileViewer = window.FileViewerPlugin;
     },
-    onDeviceReady: function() {
+    onDeviceReady: function () {
       $(document).on("backbutton", spiderOakApp.onBackKeyDown);
       $(document).on("menubutton", spiderOakApp.onMenuKeyDown);
       // Colored status bar for Lollipop+
@@ -344,10 +321,10 @@
         $(".app").css({"top":"20px"}); // status bar hax
       }
       if (window.cordovaHTTP) {
-        window.cordovaHTTP.enableSSLPinning(true, function() {
+        window.cordovaHTTP.enableSSLPinning(true, function () {
           //window.spiderOakApp.finishDeviceReady();
           window.spiderOakApp.readyFinishResolver();
-        }, function() {
+        }, function () {
           console.log('Error. Enabling cert pinning failed');
         });
       } else {
@@ -396,7 +373,7 @@
         }
       }
     },
-    checkAlternateServerAllowed: function() {
+    checkAlternateServerAllowed: function () {
       var settings = spiderOakApp.settings,
           inhibitAdvanced = settings.getValue("inhibitAdvancedLogin"),
           server = settings.getValue("server"),
@@ -426,7 +403,7 @@
         );
       }
     },
-    setOnline: function(event) {
+    setOnline: function (event) {
       if (!this.networkAvailable) {
         if (spiderOakApp.menuSheetView) {
           spiderOakApp.menuSheetView.render(true);
@@ -434,12 +411,12 @@
       }
       this.networkAvailable = true;
     },
-    setOffline: function(event) {
+    setOffline: function (event) {
       if (!this.networkAvailable || window.spiderOakApp.inOfflineConfirm) {
         return;
       }
       this.networkAvailable = false;
-      var onConfirm = function() {
+      var onConfirm = function () {
         window.spiderOakApp.inOfflineConfirm = false;
       };
       window.spiderOakApp.inOfflineConfirm = true;
@@ -451,14 +428,14 @@
       );
       spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
-    onPause: function(event) {
+    onPause: function (event) {
       spiderOakApp.lastPaused = Date.now();
       if ($(".modal").is(":visible")) {
         // cancel pending doesnloads, etc
         window.cordova.fireDocumentEvent("backbutton");
       }
     },
-    onResume: function(event) {
+    onResume: function (event) {
       // This isn't quick enough on iOS as it saves a shot of what was on the
       //    screen when pausing and uses that as a splash screen of sorts.
       //    We might need to use the splash screen plugin...
@@ -480,7 +457,7 @@
         this.passcodeAuthEntryView.render().show();
       }
     },
-    onLoginSuccess: function() {
+    onLoginSuccess: function () {
       spiderOakApp.menuSheetView.render();
       spiderOakApp.storageBarModel = new spiderOakApp.StorageBarModel();
       spiderOakApp.storageBarModel.url =
@@ -503,7 +480,7 @@
 
       // THIS IS A MIGRATION FOR PRE-3.0.0 FAVOURITES
       var processed = false;
-      _.forEach(spiderOakApp.favoritesCollection.models, function(model) {
+      _.forEach(spiderOakApp.favoritesCollection.models, function (model) {
         if (model.get("faveVersion")) {
           return;
         }
@@ -530,7 +507,7 @@
       spiderOakApp.recentsCollection = new spiderOakApp.RecentsCollection();
       spiderOakApp.dialogView.hide();
     },
-    onLogoutSuccess: function() {
+    onLogoutSuccess: function () {
       if (spiderOakApp.navigator.viewsStack.length > 0) {
         spiderOakApp.navigator.popAll(spiderOakApp.noEffect);
         spiderOakApp.mainView.showBackButton(false);
@@ -556,7 +533,7 @@
       spiderOakApp.mainView.closeMenu();
       spiderOakApp.loginView.show();
     },
-    onBackKeyDown: function(event) {
+    onBackKeyDown: function (event) {
       event.preventDefault();
       if (spiderOakApp.accountModel.getLoginState() === "in-process") {
         spiderOakApp.accountModel.interruptLogin();
@@ -576,32 +553,23 @@
         return;
       }
       // navigator.app.exitApp();
-      var bindCallback = function(event) {
+      var bindCallback = function (event) {
         navigator.app.exitApp();
       };
       spiderOakApp.dialogView.showToast({
         title: qq("Hit back again to exit"),
-        onShow: function() {
+        onShow: function () {
           $(document).on("backbutton", bindCallback);
         },
-        onHide: function() {
+        onHide: function () {
           $(document).off("backbutton", bindCallback);
         }
       });
     },
-    onMenuKeyDown: function(event) {
+    onMenuKeyDown: function (event) {
       // The menu button is flakey in some versions of Android
       // and deprecated as of Android 3.0
-      if (window.Modernizr.overflowscrolling ||
-          (window.device && (window.device.platform === "Android") &&
-            (parseFloat(window.device.version) >= 3.0))) {
-        return;
-      }
-      if ($("#main").hasClass("open")) {
-        spiderOakApp.mainView.closeMenu();
-      } else {
-        spiderOakApp.mainView.openMenu();
-      }
+      return;
     },
     downloader: new window.FileDownloadHelper(),
     navigator: new window.BackStack.StackNavigator({el:'#subviews'}),
@@ -694,7 +662,7 @@
         console.log("fake downloadFile");
         var dummyFileEntry = {fullPath: "/sdcard" + downloadOptions.to,
                               name: downloadOptions.fileName,
-                              toURL: function() {
+                              toURL: function () {
                                 return downloadOptions.from; }
                              };
         return successCallback(dummyFileEntry);

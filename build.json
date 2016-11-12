@@ -1,0 +1,16 @@
+{
+  "android": {
+    "release": {
+      "keystore": "./spideroak.keystore",
+      "alias": "",
+      "keystoreType": ""
+    }
+  },
+  "ios": {
+    "release": {
+      "codeSignIdentity": "iPhone Distribution",
+      "developmentTeam": "FG35JLLMXX4A",
+      "packageType": "ad-hoc"
+    }
+  }
+}

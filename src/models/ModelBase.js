@@ -7,7 +7,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -32,7 +32,7 @@
      * @this{model}
      # @param {boolen} bare - when set, strip any query string
      */
-    composedUrl: function(bare) {
+    composedUrl: function (bare) {
       var urlTail = this.get("url");
       var collection = this.collection;
       var urlHead = this.get("urlBase") || this.urlBase;

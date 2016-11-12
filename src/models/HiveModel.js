@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -14,7 +14,7 @@
     defaults: {
       hasHive: true
     },
-    parse: function(resp, xhr) {
+    parse: function (resp, xhr) {
       if (resp.syncfolder) {
         resp.syncfolder.name = s("SpiderOak Hive");
         return resp.syncfolder;
@@ -24,7 +24,7 @@
         return this.attributes;
       }
     },
-    composedUrl: function(bare) {
+    composedUrl: function (bare) {
       var urlTail = this.get("url");
       var urlHead = this.url;
       if (bare) {

@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$;
@@ -18,7 +18,7 @@
                         }
 
                       ),
-    initialize: function() {
+    initialize: function () {
       spiderOakApp.FolderModel.prototype.initialize.call(this);
       var id = (spiderOakApp.b32nibbler.encode(this.get("share_id")) +
                        "/" + this.get("room_key") + "/");
@@ -56,13 +56,13 @@
       this.collection.saveRetainedRecords();
     },
     /** Prevent security leakage by unsetting attributes with fetched values. */
-    unfetch: function() {
+    unfetch: function () {
       for (var attr in this.fetchedAttributes) {
         this.unset(attr);
       }
       this.fetchedAttributes = null;
     },
-    parseSpecific: function(resp, xhr) {
+    parseSpecific: function (resp, xhr) {
       var stats = resp.stats;
       var got = {
         password_required: false,

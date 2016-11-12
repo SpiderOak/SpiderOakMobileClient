@@ -1,7 +1,7 @@
 (function (window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$;
@@ -36,17 +36,17 @@
           $.map(tables.app, populate);
           $.map(tables.custom, populate);
         };
-        var loadStringsJSON = function(fileURL, tableName) {
+        var loadStringsJSON = function (fileURL, tableName) {
           return $.ajax({dataType: "json",
                          url: fileURL,
                          data: null,
-                         success: function(data) {
+                         success: function (data) {
                            if (data) {
                              tables[tableName] = data;
                              consolidate();
                            }
                          },
-                         error: function(xhr, status, err) {
+                         error: function (xhr, status, err) {
                            console.log("*** customizeStrings: '" +
                                        fileURL +
                                        "' - " +

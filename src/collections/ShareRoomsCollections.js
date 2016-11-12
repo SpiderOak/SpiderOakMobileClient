@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$;
@@ -12,12 +12,12 @@
   var ppcb = spiderOakApp.PasswordProtectedCollectionBase;
   spiderOakApp.ShareRoomsCollection = ppcb.extend({
     model: spiderOakApp.ShareRoomModel,
-    initialize: function() {
+    initialize: function () {
       this.url = ("https://" +
                   spiderOakApp.settings.getValue("server") +
                   "/share/");
     },
-    hasByAttributes: function(share_id, room_key) {
+    hasByAttributes: function (share_id, room_key) {
       return this.get(this.attributesToId(share_id, room_key));
     },
     attributesToId: function (share_id, room_key) {
@@ -74,7 +74,7 @@
       }.bind(this));
       // addHandler does the fetch for each model.
     },
-    addHandler: function(model, collection, options) {
+    addHandler: function (model, collection, options) {
       var surroundingSuccess = options && options.success,
           surroundingError = options && options.error;
       var preserve = function (model) {
@@ -84,13 +84,13 @@
         this.saveRetainedRecords();
       }.bind(this);
       _.extend(options, {
-        success: function(model, response, options) {
+        success: function (model, response, options) {
           preserve(model);
           if (surroundingSuccess) {
             surroundingSuccess(model, response, options);
           }
         }.bind(this),
-        error: function(model, response, options) {
+        error: function (model, response, options) {
           if (model.get("beenSituated")) {
             preserve(model);
           }
@@ -104,7 +104,7 @@
       });
       model.fetch(options);
     },
-    removeHandler: function(model, collection, options) {
+    removeHandler: function (model, collection, options) {
       /* Do both current account and anonymous, independently.
          This may mean removing an item from both - proper. */
       if (spiderOakApp.visitingPubShares.hasOwnProperty(model.id)) {
@@ -116,7 +116,7 @@
         this.saveRetainedRecords(true);
       }
     },
-    getRetainedRecords: function(anonymous) {
+    getRetainedRecords: function (anonymous) {
       var setting = spiderOakApp.settings.get(this.settingName(anonymous));
       if (! setting) {
         return {};
@@ -135,7 +135,7 @@
     },
     /** Update app ledger that tracks retaineds, and record in local storage.
      */
-    saveRetainedRecords: function(anonymous) {
+    saveRetainedRecords: function (anonymous) {
       var retain = {},
           model,
           they = (anonymous ?
@@ -153,14 +153,14 @@
                                         JSON.stringify(retain),
                                         1);
     },
-    removeRetainedRecords: function(anonymous) {
+    removeRetainedRecords: function (anonymous) {
       spiderOakApp.settings.remove(this.settingName(anonymous));
     },
     /** Get the name of our setting object, per authenticated account.
      *
      * @param {object} anonymous true to force the name for non-authenticated
      */
-    settingName: function(anonymous) {
+    settingName: function (anonymous) {
       // "anonymous" should never collide with all-upper-case base32 names.
       var name = "anonymous";
       if (! anonymous) {
@@ -180,17 +180,17 @@
         this.on("complete", this.completeHandler, this);
       }
     },
-    completeHandler: function(options) {
+    completeHandler: function (options) {
       this.each(function (model) {
         // Don't pass the options we get - they're for the collection.
         model.fetch();
       });
     },
-    parse: function(resp, options) {
+    parse: function (resp, options) {
       var sharerooms = [],
           share_id_b32 = resp.share_id_b32,
           share_id = resp.share_id;
-      _.each(resp.share_rooms, function(shareroom){
+      _.each(resp.share_rooms, function (shareroom) {
         sharerooms.push({
           preliminary: true,
           url: share_id_b32 + "/" + shareroom.room_key + "/",

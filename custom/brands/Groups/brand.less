@@ -1,0 +1,83 @@
+@highlightColor: #1477e0;
+@darkLoginOrange: darken(@highlightColor, 10%);
+.login {
+  background-color: #ffffff;
+  background: #ffffff;
+
+
+  #unme,
+  #pwrd {
+    color: #1477e0;
+
+    &::-webkit-input-placeholder {
+      color: fade(#1477e0, 60%);
+      text-shadow: none;
+    }
+  }
+
+  .cancel-btn, .menu-btn {
+    color: #1477e0;
+
+    &.active {
+      color: fade(#1477e0, 60%);
+    }
+  }
+
+  .login-form {
+
+    .login-input {
+      border-color: fade(#1477e0, 20%);
+
+      &.focused {
+        border-color: fade(#1477e0, 60%);
+      }
+    }
+
+    .button {
+      color: #1477e0;
+      border-color: fade(#1477e0, 20%);
+      border-bottom-color: fade(#1477e0, 40%);
+
+      &.active {
+        color: fade(#1477e0, 60%);
+        background: fade(#1477e0, 20%);
+      }
+    }
+
+    .stayloggedin {
+      color: #1477e0;
+
+      .circle {
+        background-color: #1477e0;
+        color: fade(#ffffff, 40%);
+
+        &.on {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .advanced-login-settings,
+  .learn-more {
+    color: fade(#1477e0, 80%);
+
+    &:active {
+      color: #1477e0;
+    }
+  }
+}
+.splash {
+  background: #ffffff;
+}
+
+.button {
+  color: #1477e0;
+  border-color: fade(#1477e0, 20%);
+  border-bottom-color: fade(#1477e0, 40%);
+
+  &.active {
+    color: fade(#1477e0, 60%);
+    background: fade(#1477e0, 20%);
+  }
+}

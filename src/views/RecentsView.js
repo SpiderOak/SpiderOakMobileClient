@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -13,37 +13,28 @@
 
   spiderOakApp.RecentsView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["recentsViewTemplate"]());
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       this.loadRecents();
 
       return this;
     },
-    loadRecents: function() {
+    loadRecents: function () {
       if (spiderOakApp.recentsCollection.models.length === 0) {
         this.$(".folderViewLoading").removeClass("loadingFiles");
         return;
       }
 
       // When we have finished fetching the files, help hide the spinner
-      this.$(".filesList").one("complete", function(event) {
-        // @TODO: Refresh subviews scroller
+      this.$(".filesList").one("complete", function (event) {
         this.$(".folderViewLoading").removeClass("loadingFiles");
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
       }.bind(this));
 
       this.recentsListView = new spiderOakApp.RecentsListView({
@@ -51,7 +42,7 @@
         el: this.$(".filesList")
       }).render();
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -60,7 +51,7 @@
         spiderOakApp.mainView.showBackButton(false);
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
@@ -69,18 +60,17 @@
       $("#main .nav").append(this.clearRecentsButtonView.render().el);
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.clearRecentsButtonView.remove();
     },
-    remove: function() {
+    remove: function () {
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
-      this.scroller.destroy();
       if (this.recentsListView) {
         this.recentsListView.close();
       }
@@ -88,7 +78,7 @@
   });
 
  spiderOakApp.RecentsListView = spiderOakApp.ViewBase.extend({
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       // "add" might not be in use in read-only version
       this.collection.on( "add", this.addOne, this );
@@ -97,31 +87,31 @@
 
       this.subViews = [];
     },
-    render: function() {
+    render: function () {
       this.addAll();
       return this;
     },
-    addOne: function(model) {
+    addOne: function (model) {
       var view = new spiderOakApp.FilesListItemView({
         model: model
       });
       this.$el.append(view.render().el);
       this.subViews.push(view);
     },
-    addAll: function() {
+    addAll: function () {
       this.$el.empty();
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -133,21 +123,21 @@
     events: {
       "tap a": "a_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         "<a class='clear-recents-btn'><i class='icon-close'></i></a>"
       );
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       event.preventDefault();
       if (spiderOakApp.recentsCollection.models &&
               spiderOakApp.recentsCollection.length > 0) {
         // Get confirmation
-        window.setTimeout(function(){
+        window.setTimeout(function () {
           navigator.notification.confirm(
             qq("Are you sure you want to clear your recent history?"),
             this.clearRecentsConfirmed,
@@ -157,7 +147,7 @@
         }.bind(this), 50);
       }
     },
-    clearRecentsConfirmed: function(button) {
+    clearRecentsConfirmed: function (button) {
       $(document).one("clearRecents", this.clearRecentsBtn_handler);
       if (button === 2 || button === 0) return false;
       // Otherwise...

@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -24,7 +24,7 @@
       // "keyup #menu-search": "menuSearch_changeHandler",
       // "tap .clear-icon": "clearIcon_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       $(document).on("menuOpening", this.menuOpening);
       $(document).on("menuClosing", this.menuClosing);
@@ -32,7 +32,7 @@
       $(document).on("offline", this.offline);
       $(document).on("online", this.online);
     },
-    render: function(refresh) {
+    render: function (refresh) {
       this.$el.html(window.tmpl["menusheetTemplate"]());
       this.$("input[type=search]").attr("disabled",true);
       // Add subviews for menu items
@@ -41,7 +41,7 @@
         this.hiveModel = new spiderOakApp.HiveModel();
         this.hiveModel.url =
           spiderOakApp.accountModel.get("storageRootURL");
-        this.$(".hive").one("complete", function(event) {
+        this.$(".hive").one("complete", function (event) {
           if (this.hiveModel.attributes.device) {
             this.$(".hive-sep").show();
           }
@@ -55,7 +55,7 @@
         this.devicesCollection = new spiderOakApp.DevicesCollection();
         this.devicesCollection.url =
           spiderOakApp.accountModel.get("storageRootURL") + "?device_info=yes";
-        this.$(".devices").one("complete", function(event) {
+        this.$(".devices").one("complete", function (event) {
           if (this.devicesCollection.length) {
             this.$(".devices-sep").show();
           }
@@ -67,16 +67,9 @@
         }).render();
       }
 
-      spiderOakApp.menuScroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
-      this.on("complete", spiderOakApp.menuScroller.refresh, this);
-
       return this;
     },
-    devicesReady: function(event, refresh) {
+    devicesReady: function (event, refresh) {
       $("#subviews > .folderViewLoading").remove();
       this.devicesAreComplete = true;
       $(".devices-sep").show();
@@ -85,7 +78,7 @@
         if (!refresh) this.pushFirstDevice();
       }
     },
-    hiveReady: function(event, refresh) {
+    hiveReady: function (event, refresh) {
       $("#subviews > .folderViewLoading").remove();
       this.hiveIsComplete = true;
       if (this.hiveModel.get("hasHive")) {
@@ -125,7 +118,7 @@
         $(".hive").hide();
       }
     },
-    pushFirstDevice: function() {
+    pushFirstDevice: function () {
       $("#subviews > .folderViewLoading").remove();
       var $firstDevice = this.$(".devices").find("li a").first();
       var firstDeviceModel = _.first(this.devicesCollection.models);
@@ -144,7 +137,7 @@
         );
       }
     },
-    sharerooms_tapHandler: function(event) {
+    sharerooms_tapHandler: function (event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle("ShareRooms");
@@ -166,7 +159,7 @@
         );
       }
     },
-    settings_tapHandler: function(event) {
+    settings_tapHandler: function  (event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle("Settings");
@@ -188,7 +181,7 @@
         );
       }
     },
-    about_tapHandler: function(event) {
+    about_tapHandler: function (event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       spiderOakApp.mainView.setTitle(qq("About [[SpiderOak]]",
@@ -211,15 +204,13 @@
         );
       }
     },
-    menuOpening: function(event) {
-      // @FIXME: Rectify whatever logout or other activity is causing loss
-      //         of the event bindings, and remove this.
-      spiderOakApp.menuScroller.refresh();
-    },
-    menuClosing: function(event) {
+    menuOpening: function (event) {
       // ...
     },
-    recents_tapHandler: function(event) {
+    menuClosing: function (event) {
+      // ...
+    },
+    recents_tapHandler: function (event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
@@ -242,7 +233,7 @@
         );
       }
     },
-    favorites_tapHandler: function(event) {
+    favorites_tapHandler: function (event) {
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.closeMenu(event);
       $("#menusheet ul li").removeClass("current");
@@ -265,20 +256,20 @@
         );
       }
     },
-    login_tapHandler: function(event) {
+    login_tapHandler: function (event) {
       $("#subviews").html(
         "<ul class=\"folderViewLoading loadingFolders loadingFiles\">" +
           "<li class=\"sep\">" + qq("Loading...") + "</li></ul>");
       $(document).trigger("logoutSuccess");
     },
-    offline: function() {
+    offline: function () {
       this.$(".hive").hide();
       this.$(".hive-sep").hide();
       this.$(".devices").hide();
       this.$(".sharerooms").closest("li").hide();
       this.$(".devices-sep").hide();
     },
-    online: function() {
+    online: function () {
       this.$(".hive").show();
       this.$(".devices").show();
       this.$(".sharerooms").closest("li").show();

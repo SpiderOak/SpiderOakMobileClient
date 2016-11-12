@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -16,7 +16,7 @@
    */
   spiderOakApp.ShareRoomsRootView = spiderOakApp.ViewBase.extend({
     destructionPolicy: "never",
-    initialize: function() {
+    initialize: function () {
       spiderOakApp.shareRoomsCollection =
           new spiderOakApp.ShareRoomsCollection();
       spiderOakApp.publicShareRoomsCollection =
@@ -29,39 +29,29 @@
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["shareRoomsRootViewTemplate"]());
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       // Load the public and "my" ShareRooms simultaneously (quasi-async)
-      window.setTimeout(function(){
+      window.setTimeout(function () {
         this.loadMyShareRooms();
       }.bind(this), 10);
       this.loadPublicShareRooms();
 
       return this;
     },
-    loadPublicShareRooms: function() {
+    loadPublicShareRooms: function () {
       this.publicShareRoomsListView =
         new spiderOakApp.PublicShareRoomsListView({
           collection: spiderOakApp.publicShareRoomsCollection,
-          el: this.$(".publicShareRoomsSection"),
-          scroller: this.scroller
+          el: this.$(".publicShareRoomsSection")
         });
       // When we've finished fetching the folders, help hide the spinner:
-      this.publicShareRoomsListView.$el.one("complete", function(event) {
+      this.publicShareRoomsListView.$el.one("complete", function (event) {
         this.publicShareRoomsListView.settle();
-        window.setTimeout(function(){
-          this.scroller.refresh();
-        }.bind(this),0);
-        // @TODO: Refresh subviews scroller
       }.bind(this));
     },
-    loadMyShareRooms: function() {
+    loadMyShareRooms: function () {
       if (! spiderOakApp.accountModel) {
         return;
       }
@@ -78,19 +68,15 @@
         });
 
         // When we have finished fetching the folders, help hide the spinner
-        this.myShareRoomsListView.$el.one("complete", function(event) {
+        this.myShareRoomsListView.$el.one("complete", function (event) {
           this.myShareRoomsListView.settle();
-          window.setTimeout(function(){
-            this.scroller.refresh();
-          }.bind(this),0);
-          // @TODO: Refresh subviews scroller
         }.bind(this));
       }
       else {
         this.$el.find(".myShareRoomsSection").hide();
       }
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -110,7 +96,7 @@
         }
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       if (spiderOakApp.navigator.viewsStack[0].instance === this) {
         spiderOakApp.mainView.showBackButton(false);
       }
@@ -119,18 +105,17 @@
         new spiderOakApp.PublicShareRoomsAddButton();
       $("#main .nav").append(this.addPublicShareRoomButtonView.render().el);
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.addPublicShareRoomButtonView.remove();
     },
-    remove: function() {
+    remove: function () {
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
-      this.scroller.destroy();
       this.publicShareRoomsListView.close();
       this.myShareRoomsListView.close();
     },
@@ -138,7 +123,7 @@
   });
 
   spiderOakApp.MyShareRoomsListView = spiderOakApp.ViewBase.extend({
-    initialize: function() {
+    initialize: function () {
       this.subViews = [];
 
       /** A handle on our section's content list. */
@@ -151,42 +136,42 @@
       this.collection.on( "remove", this.render, this );
 
       this.collection.fetch({
-        error: function(collection, response, options) {
+        error: function (collection, response, options) {
           spiderOakApp.dialogView.showNotifyErrorResponse(response);
           this.render().addAll();
         }.bind(this)
       });
     },
-    render: function() {
+    render: function () {
       this.$el.show();
       this.addAll();
       return this;
     },
-    settle: function() {
+    settle: function () {
       this.$el.find(".mySharesViewLoading")
           .removeClass("loadingMyShares");
     },
-    addOne: function(model) {
+    addOne: function (model) {
       var view = new spiderOakApp.ShareRoomItemView({
         model: model
       });
       this.$elList.append(view.render().el);
       this.subViews.push(view);
     },
-    addAll: function() {
+    addAll: function () {
       this.$elList.empty(); // needed still?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -195,11 +180,8 @@
   });
 
   spiderOakApp.PublicShareRoomsListView = spiderOakApp.ViewBase.extend({
-    initialize: function() {
+    initialize: function () {
       this.subViews = [];
-      if (this.options.scroller) {
-        this.scroller = this.options.scroller;
-      }
 
       /** A handle on our section's content list. */
       this.$elList = this.$el.find(".publicShareRoomsList");
@@ -217,31 +199,30 @@
         this.settle();
       }
     },
-    render: function() {
+    render: function () {
       this.addAll();
       return this;
     },
-    settle: function() {
+    settle: function () {
       this.$el.find(".publicSharesViewLoading")
           .removeClass("loadingPublicShares");
     },
-    addOne: function(model) {
+    addOne: function (model) {
       var view = new spiderOakApp.PublicShareRoomItemView({
         model: model
       });
       this.$elList.append(view.render().el);
       this.subViews.push(view);
     },
-    addAll: function() {
+    addAll: function () {
       this.$elList.empty(); // needed still?
       this.collection.each(this.addOne, this);
       this.$el.trigger("complete");
-      this.scroller.refresh();
     },
-    triggerComplete: function() {
+    triggerComplete: function () {
       this.$el.trigger("complete");
     },
-    addPublicShare: function(event) {
+    addPublicShare: function (event) {
       // spiderOakApp.addShareRoomView.show();
       spiderOakApp.navigator.pushView(
         spiderOakApp.PublicShareRoomItemView,
@@ -249,12 +230,12 @@
         spiderOakApp.defaultEffect
       );
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
       // handle other unbinding needs, here
-      _.each(this.subViews, function(subViews){
-        if (subViews.close){
+      _.each(this.subViews, function (subViews) {
+        if (subViews.close) {
           subViews.close();
         }
       });
@@ -269,13 +250,13 @@
       "submit form": "form_submitHandler",
       "tap .addShareRoomsButton": "addShareRoomsButton_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       var remembering = spiderOakApp.settings
                           .getOrDefault("shareroomsRemembering", 0);
       this.$el.html(
@@ -283,7 +264,7 @@
       );
       return this;
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -291,14 +272,14 @@
         spiderOakApp.mainView.showBackButton(true);
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.$("input").val("");
       this.$("input").blur();
     },
-    form_submitHandler: function(event) {
+    form_submitHandler: function (event) {
       var remember = this.$("[name=remember]").is(":checked") ? 1 : 0,
           shareId = this.$("[name=shareid]").val().trim(),
           roomKey = this.$("[name=roomkey]").val().trim(),
@@ -341,14 +322,14 @@
       }
       spiderOakApp.navigator.popView(spiderOakApp.defaultPopEffect);
     },
-    addShareRoomsButton_tapHandler: function(event) {
+    addShareRoomsButton_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
       }
       this.form_submitHandler(event);
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
     },
@@ -359,16 +340,16 @@
     events: {
       "tap a": "a_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(
         "<a class='add-sharerooms-btn'><i class='icon-plus'></i></a>"
       );
       return this;
     },
-    a_tapHandler: function(event) {
+    a_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
@@ -410,18 +391,18 @@
       ];
       this.actionItemsTranslated = true;
     },
-    initialize: function() {
+    initialize: function () {
       if (! this.actionItemsTranslated) {
         this.initActionItems();
       }
       _.bindAll(this, "render");
       this.model.on("change", this.render, this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl[this.templateID](this.model.toJSON()));
       return this;
     },
-    descend_tapHandler: function(event) {
+    descend_tapHandler: function (event) {
       var options;
       var $target = $(event.target);
 
@@ -484,7 +465,7 @@
         );
       }
     },
-    forgetPassword: function(event) {
+    forgetPassword: function (event) {
       this.model.removePassword();
       this.model.fetch();
     },
@@ -497,7 +478,7 @@
         spiderOakApp.defaultEffect
       );
     },
-    sendLink: function(event) {
+    sendLink: function (event) {
       var model = this.model;
       spiderOakApp.dialogView.showWait({subtitle:qq("Retrieving link")});
       spiderOakApp.dialogView.hide();
@@ -519,10 +500,10 @@
       };
       spiderOakApp.fileViewer.share(
         params,
-        function(){
+        function () {
           // Add the file to the recents collection (view or fave)
           var recentModels = spiderOakApp.recentsCollection.models;
-          var matchingModels = _.filter(recentModels, function(recent){
+          var matchingModels = _.filter(recentModels, function (recent) {
             return recent.composedUrl(true) === model.composedUrl(true);
           });
           if (matchingModels.length > 1) {
@@ -531,7 +512,7 @@
           spiderOakApp.recentsCollection.remove(matchingModels[0]);
           spiderOakApp.recentsCollection.add(model);
         },
-        function(error) { // @FIXME: Real error handling...
+        function (error) { // @FIXME: Real error handling...
           console.log(JSON.stringify(error));
           navigator.notification.alert(
             qq("Error sending this link. Please try later."),
@@ -542,7 +523,7 @@
         }
       );
     },
-    a_longTapHandler: function(event, actionItems) {
+    a_longTapHandler: function (event, actionItems) {
       var $target = $(event.target);
 
       if ($("#main").hasClass("open")) {
@@ -568,7 +549,7 @@
       var menuView = new spiderOakApp.ContextPopup({
         items: actionItems
       });
-      $(document).one("backbutton", function(event) {
+      $(document).one("backbutton", function (event) {
         spiderOakApp.dialogView.hide();
         menuView.remove();
       });
@@ -580,7 +561,7 @@
       }.bind(this));
       spiderOakApp.dialogView.showDialogView(menuView);
     },
-    close: function(){
+    close: function () {
       this.remove();
       this.unbind();
     },
@@ -610,10 +591,10 @@
         forget: function (event) { this.forget(); }
       }
     ),
-    initialize: function() {
+    initialize: function () {
       return spiderOakApp.ShareRoomItemView.prototype.initialize.call(this);
     },
-    a_longTapHandler: function(event, actionItems) {
+    a_longTapHandler: function (event, actionItems) {
       if ($("#main").hasClass("open")) {
         event.preventDefault();
         return;
@@ -633,20 +614,20 @@
       return spiderOakApp.ShareRoomItemView.prototype
           .a_longTapHandler.call(this, event, actionItems);
     },
-    remember: function(event) {
+    remember: function (event) {
       this.model.set("remember", 1);
     },
-    forget: function(event) {
+    forget: function (event) {
       this.model.set("remember", 0);
     },
-    removePublicShare_tapHandler: function(event) {
+    removePublicShare_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         // Unlikely, but we may change geometries or something.
         return;
       }
       event.stopPropagation();
-      var removeShare = function(button) {
+      var removeShare = function (button) {
         if (button === 1) {
           this.model.removePassword();
           this.model.collection.remove(this.model);
@@ -668,7 +649,7 @@
       "tap .file-send-button": "sendLink",
       "tap .site-link": "siteLink_tapHandler"
     },
-    initialize: function(options) {
+    initialize: function (options) {
       window.bindMine(this);
       this.model.on("change",this.render);
       this.on("viewActivate",this.viewActivate);
@@ -676,29 +657,24 @@
       this.templateID = options.templateID;
       spiderOakApp.navigator.on("viewChanging",this.viewChanging);
     },
-    render: function() {
+    render: function () {
       // Why is this.model.toJSON() being extended with nothing?
       this.$el.html(
         window.tmpl[this.templateID](_.extend(this.model.toJSON()))
       );
       spiderOakApp.mainView.setTitle(qq("Details"));
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
       return this;
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       spiderOakApp.backDisabled = false;
       spiderOakApp.mainView.showBackButton(true);
     },
-    siteLink_tapHandler: function(event) {
+    siteLink_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
@@ -707,11 +683,10 @@
       window.open($(event.target).data("url"), "_system");
 
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       // this.close();
     },
-    close: function() {
-      this.scroller.destroy();
+    close: function () {
       this.remove();
       this.unbind();
     },
@@ -725,7 +700,7 @@
       "submit form": "form_submitHandler",
       "tap .submitPasswordButton": "submitPasswordButton_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.on("viewActivate",this.viewActivate);
       this.on("viewDeactivate",this.viewDeactivate);
@@ -734,14 +709,14 @@
         $(document).trigger("settingChanged");
       });
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl[this.templateID](this.getTemplateValues()));
       return this;
     },
-    getTemplateValues: function() {
+    getTemplateValues: function () {
       return this.model.toJSON();
     },
-    viewChanging: function(event) {
+    viewChanging: function (event) {
       if (!event.toView || event.toView === this) {
         spiderOakApp.backDisabled = true;
       }
@@ -750,10 +725,10 @@
         spiderOakApp.mainView.showBackButton(true);
       }
     },
-    viewActivate: function(event) {
+    viewActivate: function (event) {
       spiderOakApp.backDisabled = false;
     },
-    viewDeactivate: function(event) {
+    viewDeactivate: function (event) {
       this.$("input").val("");
       this.$("input").blur();
     },
@@ -769,7 +744,7 @@
      * - Ensure the model's password is zeroed
      * - Return to the ShareRooms views - the share will remain
      */
-    form_submitHandler: function(event) {
+    form_submitHandler: function (event) {
       var passwordField = this.$("[name=pwrd]"),
           password = passwordField.val();
       this.model.setPassword(password);
@@ -780,7 +755,7 @@
       event.preventDefault();
       this.$("input").blur();
 
-      var handleValidPassword = function() {
+      var handleValidPassword = function () {
         // Using '?auth_required_format=json' means always apparent
         // success; but parsing will have zeroed the password if the json
         // result indicated:
@@ -806,7 +781,7 @@
         );
       }.bind(this);
 
-      var handleInvalidPassword = function() {
+      var handleInvalidPassword = function () {
         passwordField.val("");
         spiderOakApp.dialogView.hide();
         spiderOakApp.dialogView.showNotify({
@@ -823,14 +798,14 @@
       };
       this.model.fetch(options);
     },
-    submitPasswordButton_tapHandler: function(event) {
+    submitPasswordButton_tapHandler: function (event) {
       event.preventDefault();
       if ($("#main").hasClass("open")) {
         return;
       }
       this.form_submitHandler(event);
     },
-    close: function() {
+    close: function () {
       this.remove();
       this.unbind();
     },

@@ -1,7 +1,7 @@
 (function (spiderOakApp, fileHelper, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$;
@@ -212,7 +212,7 @@
     };
 
 
-  fileHelper.readableFileSize = function(size) {
+  fileHelper.readableFileSize = function (size) {
     var units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     var i = 0;
     while(size >= 1024) {
@@ -222,7 +222,7 @@
     return size.toFixed(1) + ' ' + units[i];
   };
 
-  fileHelper.fileTypeFromExtension = function(fileName) {
+  fileHelper.fileTypeFromExtension = function (fileName) {
     var got = fileHelper.fileTypeFromExtensionDrone(fileName);
     if (! got.translated) {
       got.description = window.qq(got.description) || got.description;
@@ -230,7 +230,7 @@
     }
     return got;
   };
-  fileHelper.fileTypeFromExtensionDrone = function(fileName) {
+  fileHelper.fileTypeFromExtensionDrone = function (fileName) {
     var fileExtension = fileName.split('.').pop().toLowerCase();
 
     if (fileExtension === "doc" || fileExtension === "docx") {

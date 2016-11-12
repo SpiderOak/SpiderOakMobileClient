@@ -31,6 +31,10 @@ body {
     -webkit-tap-highlight-color: #fff;
     background-color: #fff;
     color: #333;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 
@@ -323,6 +327,10 @@ input[type="password"]:focus {
     outline:0;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   @media all and (orientation:landscape) {
     width: 260px;
     margin: 10px auto;
@@ -452,6 +460,11 @@ input[type="password"]:focus {
     margin: 0;
     border-radius: 0;
     z-index: 1;
+    outline: 1px solid #ccc;
+
+    &:focus {
+      outline: 1px solid #ccc;
+    }
   }
 
   label {

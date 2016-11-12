@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -22,13 +22,13 @@
       "tap .advanced-login-settings": "advancedLoginSettings_tapHandler",
       "tap .cancel-btn": "cancelBtn_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       $(document).on("focus", "#login input", this.input_focusHandler);
       $(document).on("blur", "#login input", this.input_blurHandler);
       window.html10n.bind("localized", this.render);
     },
-    render: function() {
+    render: function () {
       this.$(".learn-more").html(
         qq("Learn more about [[SpiderOak]] &raquo;",
            {SpiderOak: s("SpiderOak")})
@@ -48,17 +48,17 @@
       }
       return this;
     },
-    input_focusHandler: function(event) {
+    input_focusHandler: function (event) {
       // this.$(".login-logo").hide();
       // $(".login-logo").css({"height":"10px", "opacity":"0"});
       $(event.target).closest("div.login-input").addClass("focused");
     },
-    input_blurHandler: function(event) {
+    input_blurHandler: function (event) {
       // this.$(".login-logo").show();
       // $(".login-logo").css({"height":"auto", "opacity":"1"});
       $(event.target).closest("div.login-input").removeClass("focused");
     },
-    form_submitHandler: function(event) {
+    form_submitHandler: function (event) {
       event.preventDefault();
       var username = $("#unme").val().trim(),
           password = $("#pwrd").val(),
@@ -76,7 +76,7 @@
         if (window.navigator.notification.alert) {
           window.navigator.notification.alert(
             qq("Before using the app, you must set your server in the settings"),
-            function() {
+            function () {
               spiderOakApp.loginView.setInitialServer();
             },
             qq("Important note"),
@@ -89,7 +89,7 @@
           document.activeElement.blur();
         }
         _this.nonZKWarningView = new spiderOakApp.NonZKWarningView({
-          proceed: function() {
+          proceed: function () {
             window.store.set(hasAcceptedId, true);
             _this.authenticate(event);
           }
@@ -103,12 +103,12 @@
         _this.authenticate(event);
       }
     },
-    authenticate: function(event) {
+    authenticate: function (event) {
       var username = $("#unme").val().trim();
       var password = $("#pwrd").val();
       var rememberme = $("#rememberme").attr("checked") === "true";
       spiderOakApp.dialogView.showWait({subtitle:qq("Authenticating")});
-      var success = function(apiRoot) {
+      var success = function (apiRoot) {
         // @TODO: Do something with the apiRoot
         // Navigate away...
         this.dismiss();
@@ -133,7 +133,7 @@
           }
         }
       }.bind(this);
-      var error = function(status, error) {
+      var error = function (status, error) {
         // Clear it out, and zero the password:
         account.loggedOut();
         var msg,
@@ -182,11 +182,11 @@
       var account = spiderOakApp.accountModel;
       account.login(username, password, success, error);
     },
-    loginButton_tapHandler: function(event) {
+    loginButton_tapHandler: function (event) {
       event.preventDefault();
       this.form_submitHandler(event);
     },
-    menuBtn_tapHandler: function(event) {
+    menuBtn_tapHandler: function (event) {
       event.preventDefault();
       $("#subviews > .folderViewLoading").remove();
       spiderOakApp.mainView.setTitle("ShareRooms");
@@ -206,18 +206,18 @@
         );
       }
       this.dismiss();
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         window.spiderOakApp.mainView.openMenu();
       }, 130);
     },
-    switch_tapHandler: function(event) {
+    switch_tapHandler: function (event) {
       var $this = $(event.target).closest(".stayloggedin").find(".switch.circle");
       var $checkbox = this.$("input[type=checkbox]");
       var checked = ($checkbox.attr("checked") === "true");
       $checkbox.attr("checked",!checked);
       $this.toggleClass("on");
     },
-    learnMore_tapHandler: function(event) {
+    learnMore_tapHandler: function (event) {
       var learnMoreView = new spiderOakApp.LearnAboutView();
       if (document.activeElement) {
         document.activeElement.blur();
@@ -225,10 +225,10 @@
       $(".app").append(learnMoreView.$el);
       learnMoreView.render().show();
     },
-    advancedLoginSettings_tapHandler: function(event) {
+    advancedLoginSettings_tapHandler: function (event) {
       this.setInitialServer();
     },
-    cancelBtn_tapHandler: function(event) {
+    cancelBtn_tapHandler: function (event) {
       window.store.set("showPreliminary", true);
       if (document.activeElement) {
         document.activeElement.blur();
@@ -237,7 +237,7 @@
       $(".app").append(spiderOakApp.preliminaryView.$el);
       spiderOakApp.preliminaryView.render().show();
     },
-    setInitialServer: function() {
+    setInitialServer: function () {
       $("#subviews > .folderViewLoading").remove();
       if (document.activeElement) {
         document.activeElement.blur();
@@ -259,11 +259,11 @@
         );
       }
       this.dismiss();
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         $("a.server").trigger("tap");
       }, 200);
     },
-    dismiss: function() {
+    dismiss: function () {
       if (!this.$el.hasClass("dismissed")) {
         if (window.StatusBar && $.os.ios) {
           window.StatusBar.styleDefault();
@@ -276,10 +276,10 @@
         this.$("input").val("");
       }
     },
-    show: function() {
+    show: function () {
       if (this.$el.hasClass("dismissed")) {
         if (window.StatusBar && $.os.ios) {
-          window.setTimeout(function() {
+          window.setTimeout(function () {
             window.StatusBar.styleLightContent();
             $("body").css("background-color",s("#e77c24"));
           }, 100);
@@ -299,21 +299,16 @@
       "tap .remember-me": "rememberMe_tapHandler",
       "tap .forget-me": "forgetMe_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["rememberMeWarningViewTemplate"]());
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       return this;
     },
-    rememberMe_tapHandler: function(event) {
+    rememberMe_tapHandler: function (event) {
       var b32username = spiderOakApp.accountModel.get("b32username");
       spiderOakApp.accountModel.set("rememberme", true);
       window.store.set(
@@ -327,33 +322,28 @@
       );
       this.dismiss();
     },
-    forgetMe_tapHandler: function(event) {
+    forgetMe_tapHandler: function (event) {
       spiderOakApp.accountModel.set("rememberme", false);
       if (this.options && this.options.checkBox) {
         this.options.checkBox.prop("checked",false);
       }
       this.dismiss();
     },
-    show: function() {
+    show: function () {
       this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
     },
-    dismiss: function(event) {
+    dismiss: function (event) {
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           this.remove();
         }.bind(this)
       });
     },
-    remove: function() {
-      this.close();
+    remove: function () {
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 
@@ -364,50 +354,40 @@
       "tap .continue": "continue_tapHandler",
       "tap .never-mind": "nevermind_tapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       this.proceed = this.options["proceed"];
       window.bindMine(this);
     },
-    render: function() {
+    render: function () {
       this.$el.html(window.tmpl["nonZKWarningViewTemplate"]());
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
-      this.scroller = new window.iScroll(this.el, {
-        bounce: !$.os.android,
-        vScrollbar: !$.os.android,
-        hScrollbar: false
-      });
 
       return this;
     },
-    continue_tapHandler: function(event) {
+    continue_tapHandler: function (event) {
       this.dismiss();
       this.proceed();
     },
-    nevermind_tapHandler: function(event) {
+    nevermind_tapHandler: function (event) {
       // Clear the password and return to the login screen.
       $("#pwrd").val("");
       this.dismiss();
     },
-    show: function() {
+    show: function () {
       this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
     },
-    dismiss: function(event) {
+    dismiss: function (event) {
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           this.remove();
         }.bind(this)
       });
     },
-    remove: function() {
-      this.close();
+    remove: function () {
       this.$el.remove();
       this.stopListening();
       return this;
-    },
-    close: function() {
-      // Clean up our subviews
-      this.scroller.destroy();
     }
   });
 
@@ -418,13 +398,13 @@
       "touchstart .pinpad .num": "pinpadNum_tapHandler",
       "tap .passcode-cancel-btn": "a_bypassTapHandler"
     },
-    initialize: function() {
+    initialize: function () {
       window.bindMine(this);
       this.action = "auth";
       this.incorrectAttempts = 0;
       this.maxIncorrectAttempts = 5;
     },
-    render: function() {
+    render: function () {
       var title = qq("Enter your 4 digit passcode to unlock");
       this.$el.html(window.tmpl["passcodeEntryViewTemplate"]({
         title: title,
@@ -433,7 +413,7 @@
       this.$el.css("-webkit-transform","translate3d(0,100%,0)");
       return this;
     },
-    show: function() {
+    show: function () {
       // THERE CAN BE ONLY ONE!!
       if ($(".main").hasClass("passcodeActive")) {
         return;
@@ -441,17 +421,17 @@
       $(".main").addClass("passcodeActive");
       this.$el.animate({"-webkit-transform":"translate3d(0,0,0)"}, 100);
     },
-    dismiss: function(event) {
+    dismiss: function (event) {
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
-        complete: function() {
+        complete: function () {
           $(".main").removeClass("passcodeActive");
           this.remove();
         }.bind(this)
       });
     },
     // This is WET-ter than it could be
-    pinpadNum_tapHandler: function(event) {
+    pinpadNum_tapHandler: function (event) {
       event.preventDefault();
       var $passcodeInput = this.$(".passcode");
       var $target = $(event.target);
@@ -501,7 +481,7 @@
         }
       }
     },
-    a_bypassTapHandler: function(event) {
+    a_bypassTapHandler: function (event) {
       event.preventDefault();
       navigator.notification.confirm(
         qq("Bypass passcode and log out?"),
@@ -515,13 +495,13 @@
         qq("Bypass passcode?"),
         [qq("Yes"), qq("No")]);
     },
-    remove: function() {
+    remove: function () {
       this.close();
       this.$el.remove();
       this.stopListening();
       return this;
     },
-    close: function() {
+    close: function () {
       // Clean up our subviews
     }
   });

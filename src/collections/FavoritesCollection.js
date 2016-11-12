@@ -4,7 +4,7 @@
 (function (spiderOakApp, window, undefined) {
   "use strict";
   var console = window.console || {};
-  console.log = console.log || function(){};
+  console.log = console.log || function () {};
   var Backbone    = window.Backbone,
       _           = window._,
       $           = window.$,
@@ -13,23 +13,23 @@
   spiderOakApp.FavoritesCollection = spiderOakApp.CollectionBase.extend({
     model: spiderOakApp.FavoriteModel,
     /** Get root of favorites path for current user */
-    basePath: function() {
+    basePath: function () {
       return ("Download/" +
               s("SpiderOak") +
               "/.favorites/" +
               (spiderOakApp.accountModel.get("b32username") || "anonymous"));
     },
-    comparator: function(object) {
+    comparator: function (object) {
       return object.get("name");
     },
     /** Persist locally. */
-    store: function() {
+    store: function () {
       window.store.set(
         "favorites-" + spiderOakApp.accountModel.get("b32username"),
         this.toJSON()
       );
     },
-    removeFavoriteness: function(model) {
+    removeFavoriteness: function (model) {
       var theFav;
       theFav = model.get("favoriteModel") || model;
       this.remove(theFav);
@@ -42,7 +42,7 @@
       spiderOakApp.recentsCollection.replace(model);
       console.log("Favorite removed.");
     },
-    favPathForModel: function(model) {
+    favPathForModel: function (model) {
       var base = "Download/" + window.s("SpiderOak") + "/.favorites/" +
             (spiderOakApp.accountModel.get("b32username") || "anonymous"),
           modelUrl = (model.composedUrl(true)

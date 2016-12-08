@@ -92,6 +92,7 @@
         <icon   src="custom/brand/res/icon/ios/icon-small.png" platform="ios" width="29" height="29" />
         <icon   src="custom/brand/res/icon/ios/icon-small@2x.png" platform="ios" width="58" height="58" />
         <icon   src="custom/brand/res/icon/ios/icon-small@3x.png" platform="ios" width="87" height="87" />
+        <icon   src="custom/brand/res/icon/ios/icon-83.5@2x.png" platform="ios" width="167" height="167" />
         <splash src="custom/brand/res/screen/ios/Default-568h@2x~iphone.png" platform="ios" width="640" height="1136" />
         <splash src="custom/brand/res/screen/ios/Default-667h.png" platform="ios" width="750" height="1334" />
         <splash src="custom/brand/res/screen/ios/Default-736h.png" platform="ios" width="1242" height="2208" />

@@ -2,6 +2,7 @@
 (function(require, console) {
   var
     fs = require('fs'),
+    moment = require('moment'),
     path = require('path'),
     et = require('elementtree'),
     plist = require('plist'),
@@ -64,7 +65,7 @@
     package.pop();
     package.push(projectConfig.projectName);
     infoPlist['CFBundleIdentifier'] = package.join(".");
-    infoPlist['CFBundleVersion'] = version;
+    infoPlist['CFBundleVersion'] = moment().format('YYYYMMDDhhmm');
     infoPlist['CFBundleShortVersionString'] = version;
     infoPlist['CFBundleDisplayName'] = shortDisplayName;
     var info_contents = plist.build(infoPlist);

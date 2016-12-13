@@ -50,6 +50,7 @@
     "grunt-xliff": "git://github.com/alex-seville/grunt-xliff.git#79d632671a",
     "mocha": "~1.8.1",
     "mocha-phantomjs": "^2.0.3",
+    "moment": "^2.17.1",
     "node-xcode": "git://github.com/alunny/node-xcode.git#ff9f67",
     "phantomjs": "^1.9.0",
     "plist": "0.4.x",

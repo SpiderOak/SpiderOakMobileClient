@@ -1,12 +1,20 @@
 <a>
-  <div class="icon bg-icon bg-pos-zero" style="background-image:url('img/spideroak-icons/{{=iconType}}/{{=it.icon}}.{{=iconType}}');"></div>
+  <span class="icon bg-icon bg-pos-center fa-stack fa-lg filesicon-theme-background">
+    <i class="fa fa-stack-2x circle-icon icon-theme-background"></i>
+    <div class="fa fa-stack-1x bg-icon pg-pos-center" style="height: 40px;background-image:url('img/spideroak-icons/png/{{=it.icon}}.png');"></div>
+  </span>
   <div class="filename">{{!it.name}}</div>
   <div class="subtext darkgray">
     <div class="file-info">
-      {{!it.description}}, {{=window.fileHelper.readableFileSize(it.size)}}
-    </div>
-    <div class="file-modified">
-      {{=window.moment(it.mtime+"", "X").fromNow()}}
+      <div style="display: inline;
+                  padding: 2px 5px;
+                  background: #c7c7c7;
+                  text-transform: uppercase;
+                  font-weight: bold;
+                  width: 30px;
+                  border-radius: 15px;
+                  text-align: center;
+                  color: #fff;">{{!it.icon}}</div> {{=window.fileHelper.readableFileSize(it.size)}} - {{=moment(it.mtime).format("MM/DD/YYYY")}}
     </div>
     <div class="clearfix"></div>
   </div>

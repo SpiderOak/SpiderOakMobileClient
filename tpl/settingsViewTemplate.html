@@ -16,7 +16,7 @@
       </a>
     </li>
     <li>
-      <span style="float:left;color:#666;line-height:40px;">{{= qq("Stay logged in") }}</span>
+      <span class='stay-logged'>{{= qq("Stay logged in") }}</span>
       <div class="checkswitch">
         <input type="checkbox"
                id="settings-rememberme"
@@ -50,7 +50,7 @@
       <div class="info">{{=spiderOakApp.version}}</div>
       <div class="clearfix"></div>
     </li>
-    <li><a class="send-feedback">{{= qq("Send feedback")}}<div style="float:right;"><i class="fa fa-angle-right fa-2x" aria-hidden="true" style="color: gray;"></i><div class="clear"></div></div></a></li>
+    <li><a class="send-feedback">{{= qq("Send feedback")}}<div style="float:right;"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i><div class="clear"></div></div></a></li>
   </ul>
   {{?spiderOakApp.accountModel.getLoginState() === true}}
   <form class="login-form">

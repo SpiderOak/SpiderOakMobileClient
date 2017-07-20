@@ -1,12 +1,12 @@
 <a href='#share' {{?it.preliminary}} class="preliminary" {{?}}>
-  <div class="icon bg-icon bg-pos-zero" style="padding: 0px;top: 5px;">
-    <span class="bg-icon pg-pos-center menu-icon fa-stack fa-fw" style="line-height: 40px;height: 40px;width: 40px;">
-      <i class="fa fa-circle fa-stack-2x circle-icon" style="font-size: 40px;"></i>
-      <div class="fa fa-stack-1x bg-icon pg-pos-center" style="height: 40px;background-image:url('img/spideroak-icons/menu/menu_{{= s("sharerooms") }}.png');"></div>
+  <div class="icon bg-icon bg-pos-zero share-icon">
+    <span class="bg-icon pg-pos-center menu-icon fa-stack fa-fw share-icon">
+      <i class="fa fa-circle fa-stack-2x circle-icon share-icon"></i>
+      <div class="fa fa-stack-1x bg-icon pg-pos-center" style="background-image:url('img/spideroak-icons/menu/menu_{{= s("sharerooms") }}.png');"></div>
     </span>
   </div>
   {{? it.password_required}}
-    <div class="foldername" style="top: 15px;">
+    <div class="foldername share-icon">
       <em>
         {{!it.share_id}} / {{!it.room_key}}
       </em>

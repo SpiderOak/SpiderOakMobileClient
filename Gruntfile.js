@@ -114,8 +114,8 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {expand: true, flatten: true, src: ['components/font-awesome/css/*'], dest: 'www/components/font-awesome/css/'},
-          {expand: true, flatten: true, src: ['components/font-awesome/fonts/*'], dest: 'www/components/font-awesome/fonts/'}
+          {expand: true, flatten: true, src: ['bower_components/font-awesome/css/*'], dest: 'www/components/font-awesome/css/'},
+          {expand: true, flatten: true, src: ['bower_components/font-awesome/fonts/*'], dest: 'www/components/font-awesome/fonts/'}
         ]
       }
     },
@@ -394,6 +394,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-xliff');

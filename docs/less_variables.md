@@ -4,12 +4,10 @@
 
 | Variable Name                      | Default                  | Color                                                                       |
 | ---------------------------------- |:------------------------:|:---------------------------------------------------------------------------:|
-| @highlightColor                    | #e77c24                  | ![#e77c24](https://placehold.it/30/e77c24/000000?text=+)                    |
+| @highlightColor                    | @themeColor              | ![#336699](https://placehold.it/30/336699/000000?text=+)                    |
 | @appBackground                     | #fff                     | ![#fff](https://placehold.it/30/fff/000000?text=+)                          |
 | @iconColor                         | rgb(200, 199, 204)       | ![#C8C7CC](https://placehold.it/30/C8C7CC/000000?text=+)                    |
 | @mainBackground                    | #fff                     | ![#fff](https://placehold.it/30/fff/000000?text=+)                          |
-| @loginOrange                       | @highlightColor          | ![#e77c24](https://placehold.it/30/e77c24/000000?text=+)                    |
-| @darkLoginOrange                   | #da6225                  | ![#da6225](https://placehold.it/30/da6225/000000?text=+)                    |
 | @themeColor                        | #336699                  | ![#336699](https://placehold.it/30/336699/000000?text=+)                    |
 | @darkThemeColor                    | #336699                  | ![#336699](https://placehold.it/30/336699/000000?text=+)                    |
 | @loginTextColor                    | rgb(200, 199, 204)       | ![#C8C7CC](https://placehold.it/30/C8C7CC/000000?text=+)                    |

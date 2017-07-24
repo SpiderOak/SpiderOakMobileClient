@@ -119,7 +119,7 @@
     dismiss: function (event) {
       if (window.StatusBar && $.os.ios) {
         window.StatusBar.styleLightContent();
-        $("body").css("background-color",s("#e77c24"));
+        $("body").css("background-color",s("#336699"));
       }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,
@@ -211,7 +211,7 @@
     dismiss: function (event) {
       if (window.StatusBar && $.os.ios) {
         window.StatusBar.styleLightContent();
-        $("body").css("background-color",s("#e77c24"));
+        $("body").css("background-color",s("#336699"));
       }
       this.$el.animate({"-webkit-transform":"translate3d(0,100%,0)"}, {
         duration: 100,

@@ -281,7 +281,7 @@
         if (window.StatusBar && $.os.ios) {
           window.setTimeout(function () {
             window.StatusBar.styleLightContent();
-            $("body").css("background-color",s("#e77c24"));
+            $("body").css("background-color",s("#336699"));
           }, 100);
         }
         this.$("input").removeAttr("disabled");

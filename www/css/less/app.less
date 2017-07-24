@@ -30,7 +30,7 @@ a {
 }
 
 .preliminary {
-  .twoStepLinearGradient(#ffffff; #ffffff);
+  .twoStepLinearGradient(@mainBackground; @mainBackground);
   .positionAbsolute;
   .scrollable;
   -webkit-transform: translate3d(0,-100%,0);
@@ -45,7 +45,7 @@ a {
   }
 
   .need-cta {
-    color: @iconColor;
+    color: @loginTextColor;
     font-size: 180%;
     text-align: center;
     width: 100%;
@@ -64,18 +64,18 @@ a {
   }
 
   .button {
-    color: #ffffff;
+    color: @loginButtonTextColor;
   }
 
   .learn-more {
     display: block;
-    color: @iconColor;
+    color: @loginTextColor;
   }
 }
 
 .splash {
   .positionAbsolute;
-  .twoStepLinearGradient(#ffffff; #ffffff);
+  .twoStepLinearGradient(@mainBackground; @mainBackground);
   z-index: 101;
 
   .login-logo {
@@ -256,21 +256,21 @@ a {
 
   .menu-btn {
     .positionAbsolute(15px, auto, auto, 15px);
-    color: @iconColor;
+    color: @loginTextColor;
     font-size: 150%;
 
     &.active {
-      color: @iconColor;
+      color: @loginTextColor;
     }
   }
 
   .cancel-btn {
     .positionAbsolute(15px, 15px, auto, auto);
-    color: @iconColor;
+    color: @loginTextColor;
     font-size: 120%;
 
     &.active {
-      color: @iconColor;
+      color: @loginTextColor;
     }
   }
 
@@ -291,7 +291,7 @@ a {
     }
 
     .button {
-      color: #ffffff;
+      color: @loginButtonTextColor;
 
       &.logout {
         margin-bottom: 20px;
@@ -304,7 +304,7 @@ a {
 
     .stayloggedin {
       text-align: center;
-      color: @iconColor;
+      color: @loginTextColor;
       font-weight: bold;
       height: 44px;
       line-height: 44px;
@@ -319,7 +319,7 @@ a {
       }
 
       .circle {
-        color: @iconColor;
+        color: @loginTextColor;
         display: inline-block;
         background-color: @themeColor;
         .uniformBorderRadius(50%);
@@ -942,3 +942,22 @@ ul {
   top: 15px;
 }
 
+.file-type-tag {
+  display: inline;
+  padding: 2px 5px;
+  background: @fileTagBackgroundColor;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 30px;
+  border-radius: 15px;
+  text-align: center;
+  color: @fileTagTextColor;
+}
+
+sep-share {
+  border-bottom: unset;
+  color: @shareSepTextColor;
+  background-color: @shareSepBackgroundColor;
+  padding: 10px;
+  font-size: 85%;
+}

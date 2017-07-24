@@ -6,15 +6,7 @@
   <div class="filename">{{!it.name}}</div>
   <div class="subtext darkgray">
     <div class="file-info">
-      <div style="display: inline;
-                  padding: 2px 5px;
-                  background: #c7c7c7;
-                  text-transform: uppercase;
-                  font-weight: bold;
-                  width: 30px;
-                  border-radius: 15px;
-                  text-align: center;
-                  color: #fff;">{{!it.icon}}</div> {{=window.fileHelper.readableFileSize(it.size)}} - {{=moment(it.mtime).format("MM/DD/YYYY")}}
+      <div class="file-type-tag">{{!it.icon}}</div> {{=window.fileHelper.readableFileSize(it.size)}} - {{=moment(it.mtime).format("MM/DD/YYYY")}}
     </div>
     <div class="clearfix"></div>
   </div>

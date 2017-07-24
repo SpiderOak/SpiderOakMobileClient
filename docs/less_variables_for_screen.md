@@ -3,6 +3,8 @@
 #### Base application variables
 ![base](./img/less_variables/base.jpg "base")
 
+**Notes**: Status bar color change in this file **[/src/app.js](/src/app.js#L318)**.
+
 #### About variables
 ![about](./img/less_variables/about.jpg "about")
 

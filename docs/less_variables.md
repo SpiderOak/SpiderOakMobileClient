@@ -1,6 +1,6 @@
 ## Less Variables
 
-### Default (lib.less)
+### Default (**www/css/less/lib.less**)
 
 | Variable Name                      | Default                  | Color                                                                       |
 | ---------------------------------- |:------------------------:|:---------------------------------------------------------------------------:|
@@ -12,7 +12,8 @@
 | @darkLoginOrange                   | #da6225                  | <div style= 'background-color:#da6225'>#da6225</div>                        |
 | @themeColor                        | #336699                  | <div style= 'background-color:#336699'>#336699</div>                        |
 | @darkThemeColor                    | #336699                  | <div style= 'background-color:#336699'>#336699</div>                        |
-| @loginTextColor                    | #fff                     | <div style= 'background-color:#fff'>#fff</div>                              |
+| @loginTextColor                    | rgb(200, 199, 204)       | <div style= 'background-color:rgb(200, 199, 204)'>rgb(200, 199, 204)</div>  |
+| @loginButtonTextColor              | #fff                     | <div style= 'background-color:#fff'>#fff</div>                              |
 | @pageBackground                    | #fff                     | <div style= 'background-color:#fff'>#fff</div>                              |
 | @storageBarBorderColor             | #d8d8d8                  | <div style= 'background-color:#d8d8d8'>#d8d8d8</div>                        |
 | @storageBarBackgroundColor         | @mainBackground          | <div style= 'background-color:#fff'>@mainBackground</div>                   |
@@ -42,8 +43,13 @@
 | @passcodeSetColor                  | #666                     | <div style= 'background-color:#666'>#666</div>                              |
 | @clearColor                        | rgba(0,0,0,0)            | <div style= 'background-color:rgba(0,0,0,0)'>rgba(0,0,0,0)</div>            |
 | @toolbarBackgroundColor            | #ccc                     | <div style= 'background-color:#ccc'>#ccc</div>                              |
+| @shareSepTextColor                 | gray                     | <div style= 'background-color:gray'>gray</div>                              |
+| @shareSepBackgroundColor           | #ffffff                  | <div style= 'background-color:#ffffff'>#ffffff</div>                        |
+| @fileTagBackgroundColor            | #c7c7c7                  | <div style= 'background-color:#c7c7c7'>#c7c7c7</div>                        |
+| @fileTagTextColor                  | #fff                     | <div style= 'background-color:#fff'>#fff</div>                              |
 
-### IOS (themes/ios.less)
+
+### IOS (**www/css/less/themes/ios.less**)
 
 | Variable Name                 | Default             | Color                                                                     |
 | ----------------------------- |:-------------------:|:-------------------------------------------------------------------------:|
@@ -70,7 +76,7 @@
 | @meterSpanBackgroundColor     | #000                | <div style='background-color:#000'>#000</div>                             |
 | @passcodeSetColor             | @iosBlue            | <div style='background-color:rgb(21, 125, 251)'>@iosBlue</div>            |
 
-### Android (themes/android.less)
+### Android (**www/css/less/themes/android.less**)
 
 | Variable Name                 | Default             | Color                                                                     |
 | ----------------------------- |:-------------------:|:-------------------------------------------------------------------------:|

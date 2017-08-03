@@ -3,69 +3,158 @@
 @import "brand.less";
 
 // Variables
-@textColor: #222;
-@navTitleTextColor: #999;
-@pageBackground: #e4e4e4;
-@liActiveBackgroundColor: #ccc;
-@liBorderColor: #252525;
-@menuLiBackgroundColor: #252525;
-@menuLiBorderColor: #666;
-@menuLiActiveBackgroundColor: #ccc;
-@menuLiActiveTextColor: #000;
-@menuSepBackgroundColor: #252525;
-@menuSepTextColor: #ccc;
-@buttonBackgroundColor: #ccc;
-@buttonTextColor: #252525;
-@shadowColor: fadeOut(#000, 60);
+@androidBlue: rgb(21, 125, 251);
+@androidGray: rgb(200, 199, 204);
+@iconColor: @androidGray;
+@loginTextColor: @androidGray;
+@androidNearWhite: #f8f8f8;
+@appBackground: @androidNearWhite;
+@mainBackground: #fff;
+@pageBackground: #fff;
+@modalBackgroundColor: fadeout(#000, 60);
+@dialogBackgroundColor: @androidNearWhite;
+@dialogTextColor: #000;
+@cancelButtonBorderColor: #e4e4e4;
+@navTextColor: #e4e4e4;
+@navTitleTextColor: #000;
+@textColor: #000;
+@menuLiBackgroundColor: #fff;
+@menuLiBorderColor: #d8d8d8;
+@menuLiActiveBackgroundColor: #efefef;
+@menuLiActiveTextColor: #252525;
+@menuSepTextColor: #000;
+@toolbarBackgroundColor: #e4e4e4;
+@meterBackgroundColor: #e4e4e4;
+@meterSpanBackgroundColor: #000;
+@passcodeSetColor: @androidBlue;
 
 // Mixins
+.scroll {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.inputs() {
+  position: relative;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  display: block;
+  width: 100%;
+  font: normal 100% -apple-system-font, "HelveticaNueue", "Helvetica";
+  outline: 0 none;
+}
 
 // Styles
 body {
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
 }
 
-.preliminary {
+.app {
+  background-color: rgb(248, 248, 248);
+}
+
+.login {
+  background-color: #fff;
+  z-index: 101;
+
+  .login-form {
+
+    .button {
+      background-color: fadeOut(@themeColor, 20);
+      border-color: @darkThemeColor;
+    }
+
+
+    input[type="password"] {
+      border-top: 0;
+    }
+  }
+}
+
+.login-form {
 
   .button {
-    -webkit-tap-highlight-color: #fff;
-    background-color: #fff;
-    color: #333;
 
-    &:focus {
-      outline: none;
+    &.logout {
+      color: @loginButtonTextColor;
+      background-color: @themeColor;
+    }
+  }
+
+  input[name=roomkey] {
+    border-top: 0;
+  }
+
+  .spacer5 {
+    height: 0;
+  }
+}
+
+.modal {
+
+  .wait-dialog,
+  .progress-dialog {
+    .uniformBorderRadius(8px);
+    top: 35%;
+    color: @dialogTextColor;
+    background-color: @dialogBackgroundColor;
+  }
+}
+
+.meter {
+  background: @meterBackgroundColor;
+
+  > span {
+    background-color: @meterSpanBackgroundColor;
+  }
+}
+
+.cancel-btn {
+
+  a {
+    color: @androidBlue;
+    font-weight: bold;
+    border-top: 1px solid @androidGray;
+
+    &.active {
+      .borderRadius(0, 0, 10px, 10px);
+      background-color: @cancelButtonActiveBackgroundColor;
     }
   }
 }
 
 .nav {
   position: relative;
-  height: 48px !important;
-  background-color: @highlightColor;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  height: 44px;
+  background-color: @navTextColor;
+  font-family: -apple-system-font, "HelveticaNueue", "Helvetica";
   box-shadow: 0 0 5px fadeOut(#000, 60);
+  z-index: 100;
 
   .title {
-    .positionAbsolute(auto, 48px, auto, 48px);
+    .positionAbsolute(auto, 40px, auto, 40px);
     .ellipsis;
     width: auto;
-    line-height: 48px;
+    text-align: center;
+    line-height: 44px;
     padding: 0;
-    font-size: 130%;
-    color: @navTextColor;
+    color: @navTitleTextColor;
   }
 
   .back-btn,
   .menu-btn {
     .positionAbsolute(auto, auto, auto, 0);
-    color: @navTextColor;
+    color: @androidGray;
     display: block;
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
-    text-align: center;
-    font-size: 150%;
+    width: 44px;
+    height:43px;
+    line-height: 44px;
+    padding: 0 10px;
+    font-size: 130%;
     font-family: 'SpiderOakIcons';
+    z-index: 3;
 
     &:before {
       content: '\e02f';
@@ -85,7 +174,7 @@ body {
   .clear-recents-btn.active,
   .add-sharerooms-btn.active,
   .refresh-favorites-btn.active  {
-    color: fadeOut(@navTextColor, 50);
+    color: fadeOut(@androidGray, 70);
   }
 
   .icon-btn {
@@ -97,10 +186,10 @@ body {
   .add-sharerooms-btn,
   .refresh-favorites-btn {
     .positionAbsolute(0, 0, auto, auto);
-    color: @navTextColor;
     font-size: 110%;
+    color: @androidGray;
     text-align: center;
-    padding: 13px 13px 12px 13px;
+    padding: 13px 13px 8px 13px;
     display: block;
   }
 
@@ -109,419 +198,361 @@ body {
   }
 }
 
-.page {
-  .positionAbsolute(48px, 0, 0, 0);
-}
-
-.addShareRoom {
-  padding: 30px 0;
+#subviews:after,
+.menu:after {
+  .positionAbsolute(auto, auto, -1px, auto);
+  content: '';
+  height: 1px;
+  width: 1px;
 }
 
 ul {
 
   li {
-    font-size: 120%;
-    padding: 13px 10px;
+    background-color: @pageBackground;
 
     a {
-      padding: 13px 10px;
-      margin: -13px -10px;
+
+      .folder {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAaCAYAAADbhS54AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEMTg5RUQwMzI4RDExMUUzOTc0MUMxOTNDQTVCQUU5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpEMTg5RUQwNDI4RDExMUUzOTc0MUMxOTNDQTVCQUU5NCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQxODlFRDAxMjhEMTExRTM5NzQxQzE5M0NBNUJBRTk0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQxODlFRDAyMjhEMTExRTM5NzQxQzE5M0NBNUJBRTk0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Ut1dfAAAASdJREFUeNrM1z2KhTAQAOBJ1iN4BEG0FQtvIIitP+DxLKK9IGgrFvbaeAMvoI3u6pLFt+vC27eYzFQJCfIxyQyRbNsGPOq6ZsuygOd5EUgOhQ+qqmJN0/Apk42jFyjoug6KomAyYaQsS9a27eWibdvSjpVO0/TroszM0SRJIk3T0OGOO4YRR/kAG46eJ5hw5NxgeaRpysZx/NxACHzfY5omBEEQCcvYVeau4H3fQ57nTDjsmWPdcVmWMeGwZ3DDMNyGo//9wLqu4jN2LoKr0HUd4ji+pQiUV1GGYUAYhrdVpvIKSkS7UP6KsiwLfN+//cVBMaIeYJhQXzBsqD3ePhooOtSRMVVV0aEOmOu6keM4qFAPz57zn5Js1I/32I6b51k6ao93AQYAz7O+p3RyBmQAAAAASUVORK5CYII=');
+        background-position: 98% center;
+        background-repeat: no-repeat;
+        background-size: 19px 13px;
+      }
     }
 
-    .small {
-      font-size: 80%;
+    &.sep {
+      margin-left: 0px;
+      background-color: @pageBackground;
+      color: @textColor;
+      font-weight: bold;
+      border-bottom: 1px solid @liBorderColor;
     }
   }
 }
 
 .menu {
-  padding: 0 10px;
-  width: 250px;
+  background-color: @mainBackground;
 
   ul {
 
     li {
-      padding-top: 20px;
-      background-color: @menuLiBackgroundColor;
-      border: none;
-      color: #fff;
-
-      &.current {
-        border-left: 5px solid @highlightColor;
-        margin-left: -5px;
-      }
-
-      &.sep {
-        padding: 2px 10px;
-        background-color: @menuSepBackgroundColor;
-        border-bottom: 2px solid @menuLiBorderColor;
-        color: @menuSepTextColor;
-      }
+      color: (@textColor + #333);
+      border-color: @menuLiBorderColor;
 
       a {
+        background-color: @menuLiBackgroundColor;
+        border-color: @menuLiBorderColor;
         color: inherit;
 
         &.active {
+          color: (@textColor + #333);
           background-color: @menuLiActiveBackgroundColor;
-          color: @menuLiActiveTextColor;
         }
       }
-    }
-  }
-}
 
-.login {
-
-  ::-webkit-input-placeholder {
-    color: #fff;
-    text-shadow: #e8ebee 0 1px 0;
-  }
-
-  .button {
-    -webkit-tap-highlight-color: #fff;
-    background-color: #fff;
-    color: #333;
-
-    &.active {
-      background-color: #e4e4e4;
-      color: #111;
-    }
-  }
-
-  .login-input {
-    border-bottom: solid 1px #fff;
-    border-left: solid 1px #fff;
-    border-right: solid 1px #fff;
-
-    &.focused {
-      border-bottom: solid 1px darken(@darkLoginOrange, 10%);
-      border-left: solid 1px darken(@darkLoginOrange, 10%);
-      border-right: solid 1px darken(@darkLoginOrange, 10%);
-    }
-
-    input {
-      color: #fff;
-    }
-  }
-}
-
-.login-title {
-  padding-bottom: 20px;
-}
-
-.login-input {
-  position: relative;
-  margin: 20px;
-  border-bottom: solid 1px #ccc;
-  border-left: solid 1px #ccc;
-  border-right: solid 1px #ccc;
-  overflow: visible;
-  max-height: 0.1em;
-  display: block;
-  padding: 2px 17px 2px 2px;
-
-  &.focused {
-    border-bottom: solid 1px @highlightColor;
-    border-left: solid 1px @highlightColor;
-    border-right: solid 1px @highlightColor;
-  }
-
-  input {
-    -webkit-user-modify: read-write-plaintext-only;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    width: 100%;
-    font-family: "Roboto", Helvetica, Arial, sans-serif;
-    outline: 0 none !important;
-    border: none;
-    background: transparent;
-    display: block;
-    position: relative;
-    bottom: 20px;
-    margin: -5px 5px;
-    font-size: 110%;
-    color: #252525;
-  }
-
-  @media all and (orientation:landscape) {
-    width: 320px;
-    margin: 20px auto;
-  }
-}
-
-#pwrd:focus,
-input[type="text"]:focus,
-input[type="password"]:focus {
-  -webkit-user-modify: read-write-plaintext-only;
-  -webkit-user-select: auto;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  width: 100%;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  outline: 0 none !important;
-  border: none;
-  background: transparent;
-  display: block;
-  position: relative;
-  bottom: 20px;
-  margin: -5px 5px;
-  font-size: 110%;
-}
-
-.right-input {
-  position: relative;
-  border-bottom: solid 1px #ccc;
-  border-left: solid 1px #ccc;
-  border-right: solid 1px #ccc;
-  float: right;
-  margin: 20px;
-  overflow: visible;
-  max-height: 0.1em;
-  display: block;
-  padding: 2px 17px 2px 2px;
-
-  &.focused {
-    position: relative;
-    border-bottom: solid 1px @highlightColor;
-    border-left: solid 1px @highlightColor;
-    margin: 20px;
-    border-right: solid 1px @highlightColor;
-    overflow: visible;
-    max-height: 0.1em;
-    display: block;
-    padding: 2px 17px 2px 2px;
-  }
-
-  input {
-    -webkit-user-modify: read-write-plaintext-only;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    width: 100%;
-    font-family: "Roboto", Helvetica, Arial, sans-serif;
-    outline: 0 none !important;
-    border: none;
-    background: transparent;
-    display: block;
-    position: relative;
-    bottom: 20px;
-    margin: -5px 5px;
-    font-size: 110%;
-  }
-}
-
-.button {
-  -webkit-tap-highlight-color: @highlightColor;
-  display: block;
-  margin: 10px 20px;
-  padding: 8px 40px;
-  border-top: 1px solid fadeOut(#fff, 66);
-  border-right: 1px solid fadeOut(#000, 99.6);
-  border-bottom: 1px solid fadeOut(#000, 57);
-  border-left: 1px solid fadeOut(#000, 99.6);
-  border-radius: 1px;
-  text-decoration: none;
-  text-align: center;
-  background-color: @buttonBackgroundColor;
-  color: @buttonTextColor;
-
-  &.active {
-    background-color: @highlightColor;
-    box-shadow: 0 0 2px 4px @highlightColor;
-    outline:0;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  @media all and (orientation:landscape) {
-    width: 260px;
-    margin: 10px auto;
-  }
-}
-
-.modal {
-
-  .context-popup {
-    background-color: #eee;
-    width: 275px;
-    margin: 10% auto 0 auto;
-    max-height: 90%;
-    box-shadow: 3px 3px 10px @shadowColor;
-    .scrollable;
-
-    a {
-
-      .cancel-btn {
-        display: none;
+      &.sep {
+        background-color: @menuSepBackgroundColor;
+        color: @menuSepTextColor;
+        font-weight: bold;
       }
-    }
-  }
-}
 
-/*
-.checkswitch-wrapper {
-  padding: 0 20px 10px 20px;
+      &.current {
 
-  .checkswitch {
-    float: right;
-
-    input {
-      position: relative;
-      width: 80px;
-      height: 20px;
-      display: block;
-      -webkit-appearance: none;
-      padding: 0px;
-      margin: 0px;
-      border-radius: 0;
-      z-index: 1;
-
-      &:checked + label {
-
-        span {
-          background-color: orange;
-          left:40px;
-
-          &:before {
-            .positionAbsolute;
-            content:attr(data-on);
+        a {
+          &.active {
+            color: (@textColor + #222);
           }
         }
       }
     }
+  }
+}
 
-    input + label {
+.toolbar {
+  border-top: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 
-      span {
-        background-color: rgb(153,153,153);
-        left: -1px;
+  .toolbar-button {
+    color: #ccc; // overriding @toolbarBackgroundColor
 
-        &:before {
-          .positionAbsolute;
-          display: block;
-          content: attr(data-off);
+    .enabled {
+      color: #000;
+    }
+
+    .favorite {
+      color: @highlightColor;
+    }
+
+    a {
+
+      &.active {
+
+        &.enabled {
+          color: #666;
         }
       }
     }
+  }
+}
 
-    label {
-      padding: 0px;
-      margin: 0px;
-      width: 80px;
-      display: block;
-      border: 1px solid #ddd;
-      height: 20px;
-      margin-top: -20px;
-      margin-left: 0px;
-      position: relative;
-      text-transform: uppercase;
-      overflow: hidden;
-      font-size: 70%;
-      text-shadow: 0 1px 2px @shadowColor;
-      z-index: 0;
+.storagebar {
+  border-top: 1px solid @androidGray;
+  background-color: @storageBarBackgroundColor;
+  width: 270px;
+  padding: 15px 0px 15px 0px;
+  height: 40px;
+  font-size: 110%;
+}
 
-      span {
-        .positionAbsolute(0, auto, auto, auto);
-        height: 20px;
-        width: 40px;
+.modal {
+
+  .title {
+    padding: 0 10px;
+    margin: 15px 0 0 0;
+  }
+
+  .subtitle {
+    padding: 0 10px;
+    margin: 10px 0;
+  }
+
+  .context-popup {
+    .positionAbsolute(auto, auto, 0, 50%);
+    background-color: @androidNearWhite;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto 0 auto;
+    max-height: 94%;
+    border-radius: 0;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+    overflow-y: hidden;
+    text-align: center;
+    -webkit-transform: translate(-50%,0%);
+
+    .cancel-btn {
+      color: red;
+    }
+
+    li {
+      line-height: 26px;
+
+      &:last-child {
         display: block;
-        line-height: 20px;
-        text-align: center;
-        -webkit-box-sizing: border-box;
-        color: white;
       }
     }
   }
+}
 
-  @media all and (orientation:landscape) {
-    width: 320px;
-    margin: 0 auto;
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+textarea, select {
+  .inputs;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 13px 10px;
+  border: none;
+  border-top: 1px solid @androidGray;
+  border-bottom: 1px solid @androidGray;
+  background-color: @androidNearWhite;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+input[type=checkbox] {
+  border: none;
+  outline: 0 none;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: inset 0px 0px 0px 1px #e6e6e6;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 1px;
+  display: inline-block;
+  width: 52px;
+  height: 31px;
+  position: relative;
+  cursor: pointer;
+  transition: all .2s ease-out;
+  margin: 0px;
+  transform: scale(1);
+  -webkit-transform: scale(1);  // Adjust size here 
+
+  &:checked {
+    box-shadow: inset 0px 0px 0px 20px @themeColor;
+
+    &:after {
+      left: 22px;
+    }
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0px 1px 2px 1px fadeOut(#000, 70);
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.1s ease-in;
   }
 }
-*/
 
 .checkswitch-wrapper {
-  padding: 0 20px 10px 20px;
+  margin: 10px 0;
+  padding: 0 10px 10px 20px;
 
-  @media all and (orientation:landscape) {
-    width: 320px;
-    margin: 0 auto;
+  > label {
+    padding: 7px 20px !important;
   }
 }
 
 .checkswitch {
   float: right;
+}
 
-  input {
-    position: relative;
-    width: 80px;
-    height: 20px;
-    display: block;
-    -webkit-appearance: none;
-    padding: 0;
-    margin: 0;
-    border-radius: 0;
-    z-index: 1;
-    outline: 1px solid #ccc;
+.button {
+  display: block;
+  margin: 5px 0;
+  padding: 12px 40px;
+  border-top: 1px solid @darkThemeColor;
+  border-bottom: 1px solid @darkThemeColor;
+  border-radius: 1px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  background-color: @themeColor;
+  font-size: 100%;
+  font-weight: bold;
 
-    &:focus {
-      outline: 1px solid #ccc;
-    }
+  .secondary {
+    font-weight: normal;
   }
 
-  label {
-    padding: 0px;
-    margin: 0px;
-    width: 80px;
-    display: block;
-    border: 1px solid #ddd;
-    height: 20px;
-    margin-top: -20px;
-    margin-left: 0;
-    position: relative;
-    text-transform: uppercase;
-    overflow: hidden;
-    font-size: 70%;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-    z-index: 0;
-
-    span {
-      height: 20px;
-      width: 40px;
-      display: block;
-      line-height: 20px;
-      text-align: center;
-      -webkit-box-sizing: border-box;
-      color: white;
-      position: absolute;
-      top: 0;
-    }
-  }
-
-  input + label span {
-    background-color: rgb(153, 153, 153);
-    left: -1px;
-  }
-
-  input:checked + label span {
-    background-color: @highlightColor;
-    left: 40px;
-  }
-
-  input + label span:before {
-    display: block;
-    content: attr(data-off);
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-  }
-
-  input:checked + label span:before {
-    content: attr(data-on);
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
+  .active {
+    outline: 0;
+    color: fadeOut(@themeColor, 70);
   }
 }
+
+.advanced-login-settings,
+.learn-more {
+  font-size: 80%;
+  font-weight: bold;
+  margin: 5 auto -10px auto;
+
+  &:active {
+    color: fadeOut(#fff, 30%);
+  }
+}
+
+.learn-about-spideroak,
+.rememberme-warning {
+  background-color: @androidNearWhite;
+}
+
+.passcode-set {
+  background-color: @androidNearWhite;
+  color: @androidBlue;
+  height: 100%;
+
+  .abc {
+
+    @media all and (min-width:700px) {
+      font-size: 90%;
+    }
+  }
+
+  .num {
+
+    .active {
+      color: fadeOut(@androidBlue, 70);
+    }
+
+    @media all and (min-width:700px) {
+      height: 60px;
+    }
+  }
+
+  .number {
+
+
+
+    @media all and (min-width:700px) {
+      line-height: 25px;
+    }
+  }
+
+  .title {
+    top: 49px;
+
+    &.settings {
+      top: 5px;
+
+      @media all and (orientation:landscape) {
+        top: 5px;
+      }
+    }
+  }
+
+  .passcode {
+    top: 40px;
+
+    &.settings {
+      top: 0;
+
+      @media all and (orientation:landscape) {
+        top: 20px;
+      }
+
+      @media all and (max-width:800px) {
+        top: -10px;
+      }
+    }
+
+    @media all and (orientation:landscape) {
+      top: 59px;
+    }
+
+    @media all and (max-width:800px) {
+      top: 30px;
+    }
+  }
+
+  .pinpad {
+    color: @passcodeSetColor;
+
+    @media all and (orientation:landscape) {
+      left: 20%;
+      width: 60%;
+      right: 0;
+      bottom: 0;
+      bottom: -10px;
+    }
+
+    @media all and (min-width:700px) {
+      width: 60%;
+      left: 20%;
+    }
+  }
+}
+
+.timeout .label {
+  color: inherit;
+}
+
+.timeout .info {
+  color: @androidBlue;
+}
+
+
 

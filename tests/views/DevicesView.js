@@ -68,14 +68,14 @@ describe('DevicesView', function() {
           .should.equal(this.view.collection.models.length);
       });
       it('should display the correct icon for the model', function() {
-        this.view.$("li a div").first().hasClass("menu-icon").should.be.ok;
-        var isCorrectBgImage = this.view.$("li a div").first()
+        this.view.$("li a span").first().hasClass("menu-icon").should.be.ok;
+        var isCorrectBgImage = this.view.$("li a span div").first()
             .css("background-image").match(/menu_finder.png/);
         isCorrectBgImage.should.be.ok;
       });
       it('should display the correct icon for the label', function() {
-        this.view.$("li a div").last().hasClass("menu-label").should.be.ok;
-        var label = this.view.$("li a").text();
+        this.view.$("li a div")['1'].className.should.equal("menu-label").should.be.ok;
+        var label = this.view.$("li a div")['1'].textContent;
         label.should.equal("Test device");
       });
       it('should display the name of the model', function() {

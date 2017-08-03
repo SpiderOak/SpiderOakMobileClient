@@ -315,7 +315,7 @@
       // Colored status bar for Lollipop+
       if (window.device &&
           ($.os.android && parseFloat(window.device.version) >= 5.0)) {
-        window.StatusBar.backgroundColorByHexString(s("#da6225"));
+        window.StatusBar.backgroundColorByHexString(s("#336699"));
       }
       if ($.os.ios && parseFloat(window.device.version) >= 7.0) {
         $(".app").css({"top":"20px"}); // status bar hax

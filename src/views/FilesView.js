@@ -743,7 +743,7 @@
               fileEntry.file(function (file) {
                 if (file.size > 0) {
                   $icon.html("<img src='"+fileEntry.toURL()+"' style='" +
-                             "width:100%;position:absolute;top:0;left:0;'"+
+                             "border-radius:15px;height:40px;width:100%;position:absolute;top:0;left:0;'"+
                              "/><div style='clear:both'></div>");
                   $icon.css("background","none");
                 }

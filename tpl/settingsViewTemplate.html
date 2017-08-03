@@ -1,10 +1,6 @@
 <div>
   <ul>
-    <li><a class="send-feedback">{{= qq("Send feedback")}}</a></li>
-  </ul>
   {{?(spiderOakApp.accountModel.getLoginState() === true)}}
-  <ul><li class="sep">{{= qq("Account")}}</li></ul>
-  <ul>
     <li>
       <a class="account-settings">
         <div class="label">{{= qq("Name")}}</div>
@@ -13,7 +9,14 @@
       </a>
     </li>
     <li>
-      <span style="float:left;color:#666;line-height:30px;">{{= qq("Stay logged in") }}</span>
+      <a class="account-passcode-set">
+        <div class="label">{{= qq("Passcode")}}</div>
+        <div class="info">{{= it.passcode ? qq("On") : qq("Off") }}</div>
+        <div class="clearfix"></div>
+      </a>
+    </li>
+    <li>
+      <span class='stay-logged'>{{= qq("Stay logged in") }}</span>
       <div class="checkswitch">
         <input type="checkbox"
                id="settings-rememberme"
@@ -25,14 +28,6 @@
       </div>
       <div class="clearfix"></div>
     </li>
-    <li>
-      <a class="account-passcode-set">
-        <div class="label">{{= qq("Passcode")}}</div>
-        <div class="info">{{= it.passcode ? qq("On") : qq("Off") }}</div>
-        <div class="clearfix"></div>
-      </a>
-    </li>
-  </ul>
   <!-- <ul>
     <li><a class="logout">Log Out</a></li>
     <li class="logout-warning">
@@ -42,8 +37,6 @@
   </ul> -->
   {{?}}
   {{? ! spiderOakApp.settings.getValue("inhibitAdvancedLogin")}}
-  <ul><li class="sep">{{= qq("Primary Server")}}</li></ul>
-  <ul>
     <li>
       <a class="server">
         <div class="label">{{= qq("Server")}}</div>
@@ -51,15 +44,13 @@
         <div class="clearfix"></div>
       </a>
     </li>
-  </ul>
   {{?}}
-  <ul><li class="sep">{{= qq("Version")}}</li></ul>
-  <ul>
     <li style="padding: 15px 10px;">
       <div class="label">{{= qq("Version")}}</div>
       <div class="info">{{=spiderOakApp.version}}</div>
       <div class="clearfix"></div>
     </li>
+    <li><a class="send-feedback">{{= qq("Send feedback")}}<div style="float:right;"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i><div class="clear"></div></div></a></li>
   </ul>
   {{?spiderOakApp.accountModel.getLoginState() === true}}
   <form class="login-form">

@@ -111,6 +111,14 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      main: {
+        files: [
+          {expand: true, flatten: true, src: ['bower_components/font-awesome/css/*'], dest: 'www/components/font-awesome/css/'},
+          {expand: true, flatten: true, src: ['bower_components/font-awesome/fonts/*'], dest: 'www/components/font-awesome/fonts/'}
+        ]
+      }
+    },
     concat: {
       dist: {
         options: {
@@ -327,7 +335,7 @@ module.exports = function(grunt) {
         'www/css/**/*.scss',
         'tpl/**/*.html'
       ],
-      tasks: ['jshint', 'dot', 'concat', 'shell:mochadot']
+      tasks: ['jshint', 'dot', 'copy', 'concat', 'shell:mochadot']
     },
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js'],
@@ -386,16 +394,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-xliff');
   grunt.loadNpmTasks('grunt-dot-compiler');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'dot', 'less', 'concat', 'shell:mochadot']);
+  grunt.registerTask('default', ['jshint', 'dot', 'less', 'copy', 'concat', 'shell:mochadot']);
   // Custom tasks
   grunt.registerTask('test', 'Do mocha test; default = spec', function(which) {
-    grunt.task.run('jshint', 'dot', 'concat');
+    grunt.task.run('jshint', 'dot', 'copy', 'concat');
     grunt.task.run('shell:mocha' + (which || 'spec'));
   });
   grunt.registerTask('min', ['uglify']); // polyfil
@@ -407,11 +416,11 @@ module.exports = function(grunt) {
   });
   grunt.registerTask('debug','Create a debug build', function(platform, test) {
     test = test || 'dot';
-    grunt.task.run('jshint', 'dot', 'less', 'concat', 'shell:mocha'+test);
+    grunt.task.run('jshint', 'dot', 'less', 'copy', 'concat', 'shell:mocha'+test);
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('yolo','Create a debug build, but no tests', function(platform) {
-    grunt.task.run('jshint', 'dot', 'less', 'concat');
+    grunt.task.run('jshint', 'dot', 'less', 'copy', 'concat');
     grunt.task.run('shell:debug_' + platform);
   });
   grunt.registerTask('beta','Create a beta build', function(platform) {
@@ -422,9 +431,9 @@ module.exports = function(grunt) {
   });
 
   // deprecated
-  grunt.registerTask('debug_ios', ['jshint', 'dot', 'less', 'concat',
+  grunt.registerTask('debug_ios', ['jshint', 'dot', 'less', 'copy', 'concat',
         'shell:mochadot', 'shell:debug_ios']);
   grunt.registerTask('debug_android', ['jshint', 'dot', 'less',
-        'concat', 'shell:mochadot', 'shell:debug_android']);
+        'copy', 'concat', 'shell:mochadot', 'shell:debug_android']);
 
 };

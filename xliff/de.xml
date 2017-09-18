@@ -554,7 +554,7 @@
       </trans-unit>
       <trans-unit id="138">
         <source>Security Disclaimer</source>
-        <target>Haftunsausschluss</target>
+        <target>Haftungsausschluss</target>
       </trans-unit>
       <trans-unit id="139">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>

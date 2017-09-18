@@ -137,9 +137,9 @@
 	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Please go to <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> and follow the instructions to establish your account.",
 	"Live Privately,": "Live Privately,",
 	"The SpiderOak Team": "The SpiderOak Team",
-	"Not [[Zero-Knowledge]]": "Not {{Zero-Knowledge}}",
+	"Security Disclaimer": "Security Disclaimer",
 	"If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.": "If you login with this mobile client, or via the website, your password will exist in the {{SpiderOak}} server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.",
-	"If you prefer to use only [[Zero-Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "If you prefer to use only {{Zero-Knowledge}} access, cancel this login, and only login via the {{SpiderOak}} desktop client.",
+	"If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "If you prefer to use only {{No Knowledge}} access, cancel this login, and only login via the {{SpiderOak}} desktop client.",
 	"Continue logging in": "Continue logging in",
 	"Don't login now": "Don't login now",
 	"Passcode unlock": "Passcode unlock",
@@ -234,6 +234,6 @@
 	"Remove it": "Remove it",
 	"Keep it": "Keep it",
 	"Error removing favorite from device (error code: [[code]])": "Error removing favorite from device (error code: {{code}})",
-	"In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.": "In order to ensure {{Zero-Knowledge}} Privacy, your account must be created on a computer.",
+	"In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.": "In order to ensure {{No Knowledge}} Privacy, your account must be created on a computer.",
 	"NO TRAILING COMMA": "NO TRAILING COMMA"
 }

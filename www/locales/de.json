@@ -136,9 +136,9 @@
 	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Hierzu rufen Sie bitte <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> auf und folgen den Anweisungen zum Einrichten Ihres Kontos.",
 	"Live Privately,": "Wir schützen Ihre Privatsphäre",
 	"The SpiderOak Team": "Das SpiderOak Team",
-	"Not [[Zero-Knowledge]]": "Nicht {{Zero-Knowledge}}",
+	"Security Disclaimer": "Haftungsausschluss",
 	"If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.": "Wenn Sie sich über diesen mobilen Client oder über die Website anmelden, wird Ihr Passwort während Ihrer Browser-Sitzung im {{SpiderOak}}-Server gespeichert. Der Speicher ist allerdings verschlüsselt und Ihr Passwort wird unter keinen Umständen auf ein unverschlüsseltes Speichermedium geschrieben. Nach Abschluss Ihrer Sitzung wird das Exemplar Ihres Passworts auf dem Server vollständig gelöscht.",
-	"If you prefer to use only [[Zero-Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Wenn Sie ausnahmslos den Zugang nach dem Prinzip {{Zero-Knowledge}} verwenden möchten, brechen Sie diese Anmeldung ab und melden Sie sich nur über den {{SpiderOak}}-Desktop-Client an.",
+	"If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Wenn Sie ausnahmslos den Zugang nach dem Prinzip {{No Knowledge}} verwenden möchten, brechen Sie diese Anmeldung ab und melden Sie sich nur über den {{SpiderOak}}-Desktop-Client an.",
 	"Continue logging in": "Anmeldung fortsetzen",
 	"Don't login now": "Jetzt nicht anmelden",
 	"Passcode unlock": "Entsperren des Passcodes",
@@ -233,5 +233,5 @@
 	"Keep it": "Behalten",
 	"Error removing favorite from device (error code: [[code]])": "Fehler beim Entfernen eines Favoriten aus dem Gerät (Fehlercode: {{code}})",
 	"It does not currently provide upload or sync capability.": "Gegenwärtig wird keine Upload- oder Sync-Funktion bereitgestellt.",
-	"In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.": "Um den Datenschutz nach dem {{Zero-Knowledge}}-Prinzip sicherzustellen, muss Ihr Konto auf einem Computer eingerichtet werden."
+	"In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.": "Um den Datenschutz nach dem {{No Knowledge}}-Prinzip sicherzustellen, muss Ihr Konto auf einem Computer eingerichtet werden."
 }

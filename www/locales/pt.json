@@ -136,9 +136,9 @@
 	"Please go to <a href='#spideroak' data-url='https://[[sourl]]' class='site-link' style='white-space: nowrap;'>https://[[sourl]]</a> and follow the instructions to establish your account.": "Por favor, vá para <a href='#spideroak' data-url='https://{{sourl}}' class='site-link' style='white-space: nowrap;'>https://{{sourl}}</a> e siga as instruções para criar a sua conta.",
 	"Live Privately,": "Viva com Privacidade,",
 	"The SpiderOak Team": "A Equipe SpiderOak",
-	"Not [[Zero-Knowledge]]": "Não é {{Zero-Knowledge}}",
+	"Security Disclaimer": "Aviso de segurança",
 	"If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.": "Se você entrar com este cliente móvel, ou através do website, a sua senha estará na memória do servidor {{SpiderOak}} durante a sua sessão de navegação. No entanto, a sua senha será armazenada em memória criptografada e jamais será guardada em um disco não-criptografado. Quando a sua sessão terminar, a cópia da sua senha será completamente eliminada do servidor.",
-	"If you prefer to use only [[Zero-Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Se você prefere utilizar somente o acesso com {{Zero-Knowledge}}, cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.",
+	"If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Se você prefere utilizar somente o acesso com {{No Knowledge}}, cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.",
 	"Continue logging in": "Continuar o login",
 	"Don't login now": "Não fazer login agora",
 	"Passcode unlock": "Desbloquear código de acesso",
@@ -233,5 +233,5 @@
 	"Keep it": "Manter",
 	"Error removing favorite from device (error code: [[code]])": "Erro ao remover favorito do dispositivo (código de erro: {{code}})",
 	"It does not currently provide upload or sync capability.": "As funções de upload e sincronização não estão disponíveis no momento.",
-	"In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.": "Para garantir Privacidade {{Zero-Knowledge}}, a sua conta deve ser criada em um computador."
+	"In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.": "Para garantir Privacidade {{No Knowledge}}, a sua conta deve ser criada em um computador."
 }

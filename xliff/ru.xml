@@ -553,16 +553,16 @@
         <target>Группа SpiderOak</target>
       </trans-unit>
       <trans-unit id="138">
-        <source>Not [[Zero-Knowledge]]</source>
-        <target>Не {{Zero-Knowledge}}</target>
+        <source>Security Disclaimer</source>
+        <target>отказ от ответственности</target>
       </trans-unit>
       <trans-unit id="139">
         <source>If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</source>
         <target>Если вы заходите с помощью этого мобильного клиента или через веб-сайт, ваш пароль будет оставаться в памяти сервера {{SpiderOak}} в течение сеанса браузинга. Однако ваш пароль будет храниться в зашифрованной памяти и не будет записываться на незашифрованный диск.  После завершения сеанса, копия вашего пароля на сервере полностью стирается.</target>
       </trans-unit>
       <trans-unit id="140">
-        <source>If you prefer to use only [[Zero-Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Если вы предпочитаете использовать только доступ с {{Zero-Knowledge}}, отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
+        <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <target>Если вы предпочитаете использовать только доступ с {{No Knowledge}}, отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Continue logging in</source>
@@ -941,8 +941,8 @@
         <target>Сейчас не обеспечивает возможность загрузки или синхронизации</target>
       </trans-unit>
       <trans-unit id="235">
-        <source>In order to ensure [[Zero-Knowledge]] Privacy, your account must be created on a computer.</source>
-        <target>Для обеспечения конфиденциальности  {{Zero-Knowledge}} , ваш аккаунт должен быть создан на компьютере.</target>
+        <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
+        <target>Для обеспечения конфиденциальности  {{No Knowledge}} , ваш аккаунт должен быть создан на компьютере.</target>
       </trans-unit>
       
     </body>

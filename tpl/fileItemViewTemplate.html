@@ -6,7 +6,7 @@
   <div class="filename">{{!it.name}}</div>
   <div class="subtext darkgray">
     <div class="file-info">
-      <div class="file-type-tag">{{!it.icon}}</div> {{=window.fileHelper.readableFileSize(it.size)}} - {{=moment(it.mtime).format("MM/DD/YYYY")}}
+      <div class="file-type-tag">{{!it.icon}}</div> {{=window.fileHelper.readableFileSize(it.size)}} - {{=window.moment(it.mtime+"", "X").fromNow()}}
     </div>
     <div class="clearfix"></div>
   </div>

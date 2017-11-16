@@ -55,7 +55,6 @@
       document.addEventListener("resume", this.onResume, false);
       document.addEventListener("pause", this.onPause, false);
       document.addEventListener("resign", this.onResign, false);
-      document.addEventListener("offline", this.setOffline, false);
       document.addEventListener("online", this.setOnline, false);
     },
     initialize: function () {
@@ -410,23 +409,6 @@
         }
       }
       this.networkAvailable = true;
-    },
-    setOffline: function (event) {
-      if (!this.networkAvailable || window.spiderOakApp.inOfflineConfirm) {
-        return;
-      }
-      this.networkAvailable = false;
-      var onConfirm = function () {
-        window.spiderOakApp.inOfflineConfirm = false;
-      };
-      window.spiderOakApp.inOfflineConfirm = true;
-      navigator.notification.confirm(
-        qq("Sorry. You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."),
-        onConfirm,
-        qq("Network error"),
-        qq("OK")
-      );
-      spiderOakApp.dialogView.hide(); // In case one is up, say login..
     },
     onPause: function (event) {
       spiderOakApp.lastPaused = Date.now();

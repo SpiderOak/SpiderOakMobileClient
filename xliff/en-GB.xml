@@ -565,7 +565,7 @@
         <target>If you login with this mobile client, or via the website, your password will exist in the {{SpiderOak}} server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.</target>
       </trans-unit>
       <trans-unit id="141">
-        <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <source>If you prefer to use only No Knowledge access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
         <target>If you prefer to use only No Knowledge access, cancel this login, and only login via the {{SpiderOak}} desktop client.</target>
       </trans-unit>
       <trans-unit id="142">
@@ -945,7 +945,7 @@
         <target>Error removing favorite from device (error code: {{code}})</target>
       </trans-unit>
       <trans-unit id="236">
-        <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
+        <source>In order to ensure No Knowledge Privacy, your account must be created on a computer.</source>
         <target>In order to ensure No Knowledge Privacy, your account must be created on a computer.</target>
       </trans-unit>
       <trans-unit id="237">

@@ -561,7 +561,7 @@
         <target>Si vous vous connectez avec ce client mobile, ou par l'intermédiaire de ce site Internet, votre mot de passe existera dans la mémoire du serveur {{SpiderOak}} durant votre session de navigation. Toutefois, il sera conservé dans une mémoire chiffrée, et ne sera jamais reproduit sur un disque non chiffré. Une fois votre session terminée, la copie de votre mot de passe conservée dans le serveur sera complètement effacée.</target>
       </trans-unit>
       <trans-unit id="140">
-        <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <source>If you prefer to use only No Knowledge access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
         <target>Si vous préférez utiliser un accès No Knowledge, annulez cette connexion, et connectez-vous uniquement par l'intermédiaire du client bureau {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="141">
@@ -941,7 +941,7 @@
         <target>Actuellement, pas de capacité de téléchargement ni de synchronisation.</target>
       </trans-unit>
       <trans-unit id="235">
-        <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
+        <source>In order to ensure No Knowledge Privacy, your account must be created on a computer.</source>
         <target>Afin de garantir un niveau de confidentialité No Knowledge, vous devez créer votre compte sur un ordinateur.</target>
       </trans-unit>
       

@@ -223,18 +223,6 @@
                     login_url, probeHost) {
       var ajax = probeHost ? spiderOakApp.dollarAjax : spiderOakApp.ajax;
 
-      /* @TODO: Move the notification to a view element, probably LoginView. */
-      if (!spiderOakApp.networkAvailable && navigator.notification) {
-        navigator.notification.confirm(
-          qq("Sorry! You should still be able to access your favorites, but logging in and access to files or folders requires a network connection."),
-          function () {},
-          qq("Network error"),
-          qq("OK")
-        );
-        spiderOakApp.dialogView.hide();
-        return;
-      }
-
       if (this.getLoginState() === "interrupting") {
         return this.doInterruption();
       }

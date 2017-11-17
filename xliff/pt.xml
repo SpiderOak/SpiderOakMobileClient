@@ -562,7 +562,7 @@
       </trans-unit>
       <trans-unit id="140">
         <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Se você prefere utilizar somente o acesso com {{No Knowledge}}, cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.</target>
+        <target>Se você prefere utilizar somente o acesso com No Knowledge, cancele este login e entre apenas através do cliente {{SpiderOak}} no seu computador.</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Continue logging in</source>
@@ -942,7 +942,7 @@
       </trans-unit>
       <trans-unit id="235">
         <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
-        <target>Para garantir Privacidade {{No Knowledge}}, a sua conta deve ser criada em um computador.</target>
+        <target>Para garantir Privacidade No Knowledge, a sua conta deve ser criada em um computador.</target>
       </trans-unit>
       
     </body>

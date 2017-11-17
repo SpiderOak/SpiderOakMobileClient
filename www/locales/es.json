@@ -138,7 +138,7 @@
 	"The SpiderOak Team": "El equipo de SpiderOak",
 	"Security Disclaimer": "Aviso de Seguridad",
 	"If you login with this mobile client, or via the website, your password will exist in the [[SpiderOak]] server memory during your browsing session. However, your password will be stored in encrypted memory and never written to an unencrypted disk. When your session is done the server's copy of your password is completely erased.": "Si inicias sesión con este cliente móvil, o a través del sitio web, tu contraseña existirá en la memoria del servidor de {{SpiderOak}} durante tu sesión de navegación. Sin embargo, tu contraseña se almacenará en memoria cifrada y nunca se guardará en un disco no codificado. Cuando cierres tu sesión, la copia de tu contraseña en el servidor se borrará completamente.",
-	"If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Si prefieres utilizar solo el acceso {{No Knowledge}}, cancela este inicio de sesión e inicia sesión a través del cliente de escritorio de {{SpiderOak}}.",
+	"If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.": "Si prefieres utilizar solo el acceso No Knowledge, cancela este inicio de sesión e inicia sesión a través del cliente de escritorio de {{SpiderOak}}.",
 	"Continue logging in": "Continuar el inicio de sesión",
 	"Don't login now": "No iniciar sesión ahora",
 	"Passcode unlock": "Desbloqueo de código de acceso",
@@ -233,5 +233,5 @@
 	"Keep it": "Mantenerlo",
 	"Error removing favorite from device (error code: [[code]])": "Error al remover el favorito del dispositivo (código de error: {{code}})",
 	"It does not currently provide upload or sync capability.": "Actualmente no provee la capacidad de subir o sincronizar archivos.",
-	"In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.": "Para asegurar Privacidad {{No Knowledge}}, tu cuenta debe ser creada en una computadora."
+	"In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.": "Para asegurar Privacidad No Knowledge, tu cuenta debe ser creada en una computadora."
 }

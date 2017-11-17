@@ -566,7 +566,7 @@
       </trans-unit>
       <trans-unit id="141">
         <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>If you prefer to use only {{No Knowledge}} access, cancel this login, and only login via the {{SpiderOak}} desktop client.</target>
+        <target>If you prefer to use only No Knowledge access, cancel this login, and only login via the {{SpiderOak}} desktop client.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Continue logging in</source>
@@ -946,7 +946,7 @@
       </trans-unit>
       <trans-unit id="236">
         <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
-        <target>In order to ensure {{No Knowledge}} Privacy, your account must be created on a computer.</target>
+        <target>In order to ensure No Knowledge Privacy, your account must be created on a computer.</target>
       </trans-unit>
       <trans-unit id="237">
         <source>NO TRAILING COMMA</source>

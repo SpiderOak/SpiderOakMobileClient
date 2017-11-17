@@ -562,7 +562,7 @@
       </trans-unit>
       <trans-unit id="140">
         <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
-        <target>Если вы предпочитаете использовать только доступ с {{No Knowledge}}, отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
+        <target>Если вы предпочитаете использовать только доступ с No Knowledge, отмените этот логин и заходите в систему только через клиента для настольных ПК {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Continue logging in</source>
@@ -942,7 +942,7 @@
       </trans-unit>
       <trans-unit id="235">
         <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
-        <target>Для обеспечения конфиденциальности  {{No Knowledge}} , ваш аккаунт должен быть создан на компьютере.</target>
+        <target>Для обеспечения конфиденциальности  No Knowledge , ваш аккаунт должен быть создан на компьютере.</target>
       </trans-unit>
       
     </body>

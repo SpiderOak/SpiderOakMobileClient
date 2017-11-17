@@ -561,7 +561,7 @@
         <target>Si inicias sesión con este cliente móvil, o a través del sitio web, tu contraseña existirá en la memoria del servidor de {{SpiderOak}} durante tu sesión de navegación. Sin embargo, tu contraseña se almacenará en memoria cifrada y nunca se guardará en un disco no codificado. Cuando cierres tu sesión, la copia de tu contraseña en el servidor se borrará completamente.</target>
       </trans-unit>
       <trans-unit id="140">
-        <source>If you prefer to use only No Knowledge access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
+        <source>If you prefer to use only [[No Knowledge]] access, cancel this login, and only login via the [[SpiderOak]] desktop client.</source>
         <target>Si prefieres utilizar solo el acceso No Knowledge, cancela este inicio de sesión e inicia sesión a través del cliente de escritorio de {{SpiderOak}}.</target>
       </trans-unit>
       <trans-unit id="141">
@@ -941,7 +941,7 @@
         <target>Actualmente no provee la capacidad de subir o sincronizar archivos.</target>
       </trans-unit>
       <trans-unit id="235">
-        <source>In order to ensure No Knowledge Privacy, your account must be created on a computer.</source>
+        <source>In order to ensure [[No Knowledge]] Privacy, your account must be created on a computer.</source>
         <target>Para asegurar Privacidad No Knowledge, tu cuenta debe ser creada en una computadora.</target>
       </trans-unit>
       

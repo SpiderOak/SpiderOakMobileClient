@@ -65,7 +65,7 @@
     package.pop();
     package.push(projectConfig.projectName);
     infoPlist['CFBundleIdentifier'] = package.join(".");
-    infoPlist['CFBundleVersion'] = moment().format('YYYYMMDDhhmm');
+    infoPlist['CFBundleVersion'] = moment().format('YYYYMMDDkkmm');
     infoPlist['CFBundleShortVersionString'] = version;
     infoPlist['CFBundleDisplayName'] = shortDisplayName;
     var info_contents = plist.build(infoPlist);

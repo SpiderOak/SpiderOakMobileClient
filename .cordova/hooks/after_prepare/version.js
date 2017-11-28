@@ -64,7 +64,7 @@
     var package = config.getroot().attrib.id.split(".");
     package.pop();
     package.push(projectConfig.projectName);
-    infoPlist['CFBundleIdentifier'] = package.join(".");
+    infoPlist['CFBundleIdentifier'] = projectConfig.iosIdentifier;
     infoPlist['CFBundleVersion'] = moment().format('YYYYMMDDkkmm');
     infoPlist['CFBundleShortVersionString'] = version;
     infoPlist['CFBundleDisplayName'] = shortDisplayName;

@@ -115,10 +115,6 @@ The SpiderOak mobile client Android production release is available, via:
 | Android  | Google Play     | [Groups](https://play.google.com/store/apps/details?id=com.spideroakblue.android) | Users with enterprise-specific servers |
 | All  | _This repository_ | All | Build and install it yourself - see notes below |
 
-* Regarding Android side-loadable .apk files, from our [recent Android builds ShareRoom](https://spideroak.com/browse/share/spideroak-html5/Recent)
-  * You need to understand how to do sideloading in order to use this option.
-  * If you do sideload one of these apks, subsequent use of the above online stores will recognize and present you with updates, when newer versions are available.
-  * In the absence of any app stores, once you have the app installed, add the Recent releases ShareRoom, so you can fetch new copies easily, when they're available!
 * Regarding building your own:
   * Apple doesn't provide for alternative stores or side loading, but you can clone this project project onto a Mac and, provided you have Apple's (free) developer environment installed, install your own, ad hoc builds onto iOS devices.
   * For Android, on various Unix-like platforms you can build and install with Googles Android developer SDK installed
